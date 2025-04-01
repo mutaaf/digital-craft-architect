@@ -1,11 +1,10 @@
-
 {
   "hero": {
     "headline": "Scaling enterprise-level AI systems for real-world businesses.",
     "subheadline": "From blue-collar workflows to intelligent automation. I help overlooked industries harness AI that actually matters.",
     "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1400&q=80",
     "cta": "Book a Discovery Call",
-    "ctaLink": "https://calendly.com/yourname"
+    "ctaLink": "https://calendly.com/mutaaf"
   },
   "services": [
     {
@@ -91,7 +90,7 @@
     "headline": "Start with a Free AI Opportunity Assessment",
     "fields": ["Name", "Email", "What business challenges are you looking to solve with AI?"],
     "submitText": "Request My Assessment",
-    "submitUrl": "https://formspree.io/f/xqkrlbqz",
+    "submitUrl": "https://formspree.io/f/xovekqqk",
     "aiFormalization": {
       "enabled": true,
       "buttonText": "Formalize with AI",
@@ -107,8 +106,8 @@
   "footer": {
     "tagline": "AI-powered solutions. Designed for impact.",
     "socialLinks": {
-      "LinkedIn": "https://linkedin.com/in/yourprofile",
-      "Calendly": "https://calendly.com/yourname"
+      "LinkedIn": "https://linkedin.com/in/mutaaf",
+      "Calendly": "https://calendly.com/mutaaf"
     }
   }
 }
