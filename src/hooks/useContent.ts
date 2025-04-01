@@ -75,6 +75,14 @@ export interface AffiliateItem {
   image: string;
 }
 
+export interface SEOData {
+  title: string;
+  description: string;
+  keywords: string;
+  author: string;
+  socialImage: string;
+}
+
 export interface ContentData {
   hero: HeroSection;
   services: ServiceItem[];
@@ -84,6 +92,7 @@ export interface ContentData {
   form: FormSection;
   footer: FooterSection;
   affiliates?: AffiliateItem[];
+  seo?: SEOData;
 }
 
 export const useContent = () => {

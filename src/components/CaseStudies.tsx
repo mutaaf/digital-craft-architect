@@ -10,7 +10,7 @@ interface CaseStudiesProps {
 
 const CaseStudies: React.FC<CaseStudiesProps> = ({ data }) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const itemsToShow = 2;
+  const itemsToShow = 3; // Increased from 2 to 3 to show more case studies at once
   const maxIndex = Math.ceil(data.length / itemsToShow) - 1;
 
   const nextCase = () => {
@@ -26,7 +26,7 @@ const CaseStudies: React.FC<CaseStudiesProps> = ({ data }) => {
       <div className="text-center mb-16 animate-fade-in">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">Success Stories</h2>
         <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-          Real problems solved with elegant tech solutions. See the transformation in action.
+          Real problems solved with elegant tech solutions. See the transformation in action across industries.
         </p>
       </div>
       
@@ -63,10 +63,10 @@ const CaseStudies: React.FC<CaseStudiesProps> = ({ data }) => {
             <div className="flex">
               {Array.from({ length: Math.ceil(data.length / itemsToShow) }).map((_, groupIndex) => (
                 <div key={groupIndex} className="w-full flex-shrink-0 px-4">
-                  <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+                  <div className="grid md:grid-cols-3 gap-6 md:gap-6">
                     {data.slice(groupIndex * itemsToShow, (groupIndex * itemsToShow) + itemsToShow).map((caseStudy, index) => (
                       <Card key={index} className="bg-white dark:bg-gray-800 overflow-hidden h-full">
-                        <div className="h-56 overflow-hidden">
+                        <div className="h-48 overflow-hidden">
                           <img 
                             src={caseStudy.image} 
                             alt={caseStudy.title}
@@ -74,19 +74,19 @@ const CaseStudies: React.FC<CaseStudiesProps> = ({ data }) => {
                           />
                         </div>
                         
-                        <CardContent className="p-6">
-                          <h3 className="text-xl font-bold mb-1">{caseStudy.title}</h3>
-                          <p className="text-gray-500 dark:text-gray-400 mb-4 text-sm">{caseStudy.subtitle}</p>
+                        <CardContent className="p-4">
+                          <h3 className="text-lg font-bold mb-1">{caseStudy.title}</h3>
+                          <p className="text-gray-500 dark:text-gray-400 mb-3 text-sm">{caseStudy.subtitle}</p>
                           
-                          <div className="grid grid-cols-2 gap-4">
-                            <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg">
-                              <h4 className="text-sm font-semibold mb-2 text-red-500 dark:text-red-400">BEFORE</h4>
-                              <p className="text-sm text-gray-700 dark:text-gray-300">{caseStudy.before}</p>
+                          <div className="grid grid-cols-2 gap-3">
+                            <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg">
+                              <h4 className="text-xs font-semibold mb-1 text-red-500 dark:text-red-400">BEFORE</h4>
+                              <p className="text-xs text-gray-700 dark:text-gray-300">{caseStudy.before}</p>
                             </div>
                             
-                            <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
-                              <h4 className="text-sm font-semibold mb-2 text-green-600 dark:text-green-400">AFTER</h4>
-                              <p className="text-sm text-gray-700 dark:text-gray-300">{caseStudy.after}</p>
+                            <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
+                              <h4 className="text-xs font-semibold mb-1 text-green-600 dark:text-green-400">AFTER</h4>
+                              <p className="text-xs text-gray-700 dark:text-gray-300">{caseStudy.after}</p>
                             </div>
                           </div>
                         </CardContent>

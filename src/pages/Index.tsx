@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { useContent } from '@/hooks/useContent';
 import Navbar from '@/components/Navbar';
@@ -11,6 +12,7 @@ import Footer from '@/components/Footer';
 import AffiliateSection from '@/components/AffiliateSection';
 import { Loader2 } from 'lucide-react';
 import { useAnalytics } from '@/utils/analytics';
+import { Helmet } from 'react-helmet-async';
 
 const Index = () => {
   const { content, isLoading, error } = useContent();
@@ -55,6 +57,31 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      {content.seo && (
+        <Helmet>
+          <title>{content.seo.title}</title>
+          <meta name="description" content={content.seo.description} />
+          <meta name="keywords" content={content.seo.keywords} />
+          <meta name="author" content={content.seo.author} />
+          
+          {/* Open Graph / Facebook */}
+          <meta property="og:type" content="website" />
+          <meta property="og:url" content={window.location.href} />
+          <meta property="og:title" content={content.seo.title} />
+          <meta property="og:description" content={content.seo.description} />
+          <meta property="og:image" content={content.seo.socialImage} />
+          
+          {/* Twitter */}
+          <meta property="twitter:card" content="summary_large_image" />
+          <meta property="twitter:url" content={window.location.href} />
+          <meta property="twitter:title" content={content.seo.title} />
+          <meta property="twitter:description" content={content.seo.description} />
+          <meta property="twitter:image" content={content.seo.socialImage} />
+          
+          {/* Canonical URL */}
+          <link rel="canonical" href={window.location.href} />
+        </Helmet>
+      )}
       <Navbar />
       <Hero data={content.hero} />
       <Services data={content.services} />

@@ -37,6 +37,24 @@
       "title": "Real Estate Investment Intelligence",
       "desc": "Connect developers with ideal investors through AI matching.",
       "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "icon": "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/heart.svg",
+      "title": "Nonprofit Resource Optimization",
+      "desc": "Help charities allocate resources efficiently to maximize impact.",
+      "image": "https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "icon": "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/users.svg",
+      "title": "Youth Sports Management",
+      "desc": "Automate scheduling, team management, and performance tracking.",
+      "image": "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "icon": "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/book.svg",
+      "title": "Religious Institution Management",
+      "desc": "Streamline community engagement, donations, and event coordination.",
+      "image": "https://images.unsplash.com/photo-1466442929976-97f336a657be?auto=format&fit=crop&w=900&q=80"
     }
   ],
   "founder": {
@@ -77,6 +95,48 @@
       "image": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1000&q=80",
       "before": "Delayed reporting and disconnected planning",
       "after": "AI-generated progress reports and predictive timeline adjustments"
+    },
+    {
+      "title": "Youth Sports Revolution",
+      "subtitle": "Transforming league management for youth basketball",
+      "image": "https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=1000&q=80",
+      "before": "Manual scheduling and chaotic tournament organization",
+      "after": "AI-optimized game schedules and automated skill development tracking"
+    },
+    {
+      "title": "Masjid Modernization",
+      "subtitle": "Helping an Islamic Center streamline operations",
+      "image": "https://images.unsplash.com/photo-1542385151-96bb0e60849c?auto=format&fit=crop&w=1000&q=80",
+      "before": "Paper-based donation tracking and manual event scheduling",
+      "after": "Integrated member management and automated charitable contribution analytics"
+    },
+    {
+      "title": "Nonprofit Resource Allocation",
+      "subtitle": "Optimizing a food bank's distribution network",
+      "image": "https://images.unsplash.com/photo-1593113598332-cd59a0c3d5fa?auto=format&fit=crop&w=1000&q=80",
+      "before": "Inconsistent food distribution and manual inventory tracking",
+      "after": "AI-driven demand forecasting and optimized volunteer scheduling"
+    },
+    {
+      "title": "Church Community Engagement",
+      "subtitle": "Revitalizing member participation through technology",
+      "image": "https://images.unsplash.com/photo-1492321936769-b49830bc1d1e?auto=format&fit=crop&w=1000&q=80",
+      "before": "Declining attendance and disconnected member communications",
+      "after": "Personalized engagement platform with AI-recommended community activities"
+    },
+    {
+      "title": "School District Transformation",
+      "subtitle": "Modernizing administrative processes for K-12 education",
+      "image": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1000&q=80",
+      "before": "Overwhelmed staff and paper-based record keeping",
+      "after": "Streamlined enrollment, predictive resource allocation, and personalized learning plans"
+    },
+    {
+      "title": "Healthcare Provider Efficiency",
+      "subtitle": "Optimizing patient care workflows for a rural clinic",
+      "image": "https://images.unsplash.com/photo-1504439468489-c8920d796a29?auto=format&fit=crop&w=1000&q=80",
+      "before": "Long wait times and inefficient scheduling",
+      "after": "AI-powered triage and personalized care pathway recommendations"
     }
   ],
   "testimonials": [
@@ -109,6 +169,24 @@
       "author": "Sophia Patel",
       "position": "Director, Urban Heights Properties",
       "image": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=300&q=80"
+    },
+    {
+      "quote": "Our youth basketball league went from chaos to clockwork. Registration, team balancing, and tournament scheduling now happen automatically, giving our coaches more time to focus on the kids.",
+      "author": "Marcus Thompson",
+      "position": "Director, Metro Youth Sports Association",
+      "image": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=300&q=80"
+    },
+    {
+      "quote": "The donation management system has been transformative for our masjid. We've increased charitable giving by 45% while cutting administrative costs. Now we can focus on serving our community.",
+      "author": "Imam Khalid Rahman",
+      "position": "Director, Al-Hidaya Islamic Center",
+      "image": "https://images.unsplash.com/photo-1566492031773-4f4e44671857?auto=format&fit=crop&w=300&q=80"
+    },
+    {
+      "quote": "As a food bank serving 12 counties, coordinating volunteers and donations was overwhelming. Their AI solution has helped us serve 30% more families with the same resources.",
+      "author": "Rebecca Torres",
+      "position": "Executive Director, Regional Food Network",
+      "image": "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=300&q=80"
     }
   ],
   "form": {
@@ -151,5 +229,12 @@
       "link": "https://anthropic.com/?ref=digitalcraft",
       "image": "https://anthropic.com/images/logos/anthropic-logo.svg"
     }
-  ]
+  ],
+  "seo": {
+    "title": "AI Solutions for Traditional Industries | Practical Business Automation",
+    "description": "Custom AI systems that transform manual workflows into efficient digital operations. Helping overlooked industries like HVAC, restaurants, construction, nonprofits, and religious institutions.",
+    "keywords": "business automation, AI integration, workflow optimization, predictive analytics, legacy business modernization, nonprofit technology, religious institution management, youth sports software, custom AI solutions",
+    "author": "Mutaaf",
+    "socialImage": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80"
+  }
 }
