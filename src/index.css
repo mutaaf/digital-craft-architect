@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,14 +7,14 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 220 25% 98%;
+    --foreground: 240 10% 3.9%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 240 10% 3.9%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 240 10% 3.9%;
 
     --primary: 196 80% 57%;
     --primary-foreground: 210 40% 98%;
@@ -35,18 +35,22 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 196 80% 57%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+    
+    --gradient-start: #4158D0;
+    --gradient-mid: #C850C0;
+    --gradient-end: #FFCC70;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 230 25% 6%;
     --foreground: 210 40% 98%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
 
     --primary: 196 80% 57%;
     --primary-foreground: 222.2 47.4% 11.2%;
@@ -66,6 +70,10 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
+    
+    --gradient-start: #0E0B16;
+    --gradient-mid: #4B0082;
+    --gradient-end: #332B3A;
   }
 }
 
@@ -76,10 +84,11 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
+    background-image: var(--bg-mesh);
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-semibold tracking-tight;
+    @apply font-display tracking-tight;
   }
   
   h1 {
@@ -113,10 +122,48 @@
   }
   
   .btn-primary {
-    @apply bg-primary hover:bg-primary/90 text-white rounded-md px-6 py-3 transition-all;
+    @apply bg-primary hover:bg-primary/90 text-white rounded-xl px-6 py-3 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-1 duration-300;
   }
   
   .text-balance {
     text-wrap: balance;
+  }
+  
+  .bg-glass {
+    @apply bg-white/10 backdrop-blur-lg border border-white/20 shadow-glass;
+  }
+  
+  .bg-glass-dark {
+    @apply bg-black/30 backdrop-blur-lg border border-white/10 shadow-glass-dark;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-gradient-start via-gradient-mid to-gradient-end bg-clip-text text-transparent;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-2;
+  }
+  
+  .blob {
+    @apply animate-morph;
+  }
+  
+  .neon-border {
+    @apply border border-neon-blue shadow-neon-blue;
+  }
+  
+  .mesh-bg {
+    @apply bg-gradient-mesh bg-fixed;
+  }
+}
+
+@layer utilities {
+  .mask-fade-bottom {
+    mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+  }
+  
+  .mask-fade-right {
+    mask-image: linear-gradient(to right, black 80%, transparent 100%);
   }
 }
