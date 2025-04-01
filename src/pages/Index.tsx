@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { useContent } from '@/hooks/useContent';
 import Navbar from '@/components/Navbar';
@@ -16,8 +15,8 @@ import { useAnalytics } from '@/utils/analytics';
 const Index = () => {
   const { content, isLoading, error } = useContent();
   
-  // Initialize Google Analytics (replace with your actual GA ID)
-  useAnalytics('G-XXXXXXXXXX'); // Replace with your Google Analytics ID when you have one
+  // Initialize Google Analytics with your specific GA ID
+  useAnalytics('G-JQ53W917HT');
 
   // Scroll to top on page load
   useEffect(() => {
