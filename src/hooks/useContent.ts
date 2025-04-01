@@ -35,6 +35,13 @@ export interface CaseStudyItem {
   after: string;
 }
 
+export interface TestimonialItem {
+  quote: string;
+  author: string;
+  position: string;
+  image: string;
+}
+
 export interface FormSection {
   headline: string;
   fields: string[];
@@ -54,6 +61,7 @@ export interface ContentData {
   services: ServiceItem[];
   founder: FounderSection;
   caseStudies: CaseStudyItem[];
+  testimonials: TestimonialItem[];
   form: FormSection;
   footer: FooterSection;
 }
