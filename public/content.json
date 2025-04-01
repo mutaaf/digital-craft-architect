@@ -89,9 +89,20 @@
   ],
   "form": {
     "headline": "Start with a Free AI Opportunity Assessment",
-    "fields": ["Name", "Email", "Your Biggest Operational Challenge"],
+    "fields": ["Name", "Email", "What business challenges are you looking to solve with AI?"],
     "submitText": "Request My Assessment",
-    "submitUrl": "https://formspree.io/f/xqkrlbqz"
+    "submitUrl": "https://formspree.io/f/xqkrlbqz",
+    "aiFormalization": {
+      "enabled": true,
+      "buttonText": "Formalize with AI",
+      "apiConfig": {
+        "model": "gpt-4o-mini",
+        "temperature": 0.7,
+        "maxTokens": 1000,
+        "systemPrompt": "You are an expert consultant who transforms rough ideas into professional Request for Proposal (RFP) documents. Format the response professionally with sections for Background, Objectives, Requirements, and Expected Outcomes. Use the person's name in the greeting and their email for contact information. Keep it concise but comprehensive.",
+        "fallbackMessage": "We couldn't formalize your request at this time. Your message will still be submitted as written."
+      }
+    }
   },
   "footer": {
     "tagline": "AI-powered solutions. Designed for impact.",

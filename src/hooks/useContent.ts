@@ -42,11 +42,24 @@ export interface TestimonialItem {
   image: string;
 }
 
+export interface AIFormalizationConfig {
+  enabled: boolean;
+  buttonText: string;
+  apiConfig: {
+    model: string;
+    temperature: number;
+    maxTokens: number;
+    systemPrompt: string;
+    fallbackMessage: string;
+  };
+}
+
 export interface FormSection {
   headline: string;
   fields: string[];
   submitText: string;
   submitUrl: string;
+  aiFormalization?: AIFormalizationConfig;
 }
 
 export interface FooterSection {
