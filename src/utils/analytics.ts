@@ -1,4 +1,6 @@
 
+import React from 'react';
+
 // Add window.gtag type definition
 declare global {
   interface Window {
