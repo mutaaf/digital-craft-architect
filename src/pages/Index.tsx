@@ -9,10 +9,15 @@ import CaseStudies from '@/components/CaseStudies';
 import Testimonials from '@/components/Testimonials';
 import ContactForm from '@/components/ContactForm';
 import Footer from '@/components/Footer';
+import AffiliateSection from '@/components/AffiliateSection';
 import { Loader2 } from 'lucide-react';
+import { useAnalytics } from '@/utils/analytics';
 
 const Index = () => {
   const { content, isLoading, error } = useContent();
+  
+  // Initialize Google Analytics (replace with your actual GA ID)
+  useAnalytics('G-XXXXXXXXXX'); // Replace with your Google Analytics ID when you have one
 
   // Scroll to top on page load
   useEffect(() => {
@@ -57,6 +62,7 @@ const Index = () => {
       <Founder data={content.founder} />
       <CaseStudies data={content.caseStudies} />
       <Testimonials data={content.testimonials} />
+      {content.affiliates && <AffiliateSection data={content.affiliates} />}
       <ContactForm data={content.form} />
       <Footer data={content.footer} />
     </div>

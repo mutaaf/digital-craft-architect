@@ -1,7 +1,8 @@
+
 {
   "hero": {
-    "headline": "Scaling enterprise-level AI systems for real-world businesses.",
-    "subheadline": "From blue-collar workflows to intelligent automation. I help overlooked industries harness AI that actually matters.",
+    "headline": "Building enterprise-level AI systems for real-world businesses.",
+    "subheadline": "From blue-collar workflows to intelligent automation. We help overlooked industries harness AI that actually matters.",
     "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1400&q=80",
     "cta": "Book a Discovery Call",
     "ctaLink": "https://calendly.com/mutaaf"
@@ -24,11 +25,23 @@
       "title": "LLM-Enhanced Solutions",
       "desc": "Natural language interfaces for your operations.",
       "image": "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "icon": "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/music.svg",
+      "title": "Event Planning AI",
+      "desc": "Streamline event planning and execution for entertainment professionals.",
+      "image": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "icon": "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/building.svg",
+      "title": "Real Estate Investment Intelligence",
+      "desc": "Connect developers with ideal investors through AI matching.",
+      "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=900&q=80"
     }
   ],
   "founder": {
     "photo": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=80",
-    "bio": "Former enterprise engineering leader turned AI implementation specialist for traditional businesses. I help family-run, blue-collar, and legacy industries leapfrog into the AI era with practical, impactful solutions.",
+    "bio": "Former enterprise engineering leaders turned AI implementation specialist for traditional businesses. We help family-run, blue-collar, and legacy industries leapfrog into the AI era with practical, impactful solutions.",
     "timeline": [
       { "year": "2018", "event": "Engineering Leader at Motorola Solutions, modernizing legacy CCTV solutions" },
       { "year": "2021", "event": "Led team at Amazon, modernizing driver communications technology" },
@@ -84,6 +97,18 @@
       "author": "David Rodriguez",
       "position": "CEO, BuildRight Construction",
       "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=300&q=80"
+    },
+    {
+      "quote": "Their AI system revolutionized how we plan events. What used to take days of scheduling and coordination now happens automatically, and our DJs arrive prepared with exactly what each venue needs.",
+      "author": "Jason Maxwell",
+      "position": "Founder, Beats Entertainment",
+      "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80"
+    },
+    {
+      "quote": "The investor matching algorithm they built has completely transformed our funding process. We're now connecting with investors who truly align with our development vision and values.",
+      "author": "Sophia Patel",
+      "position": "Director, Urban Heights Properties",
+      "image": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=300&q=80"
     }
   ],
   "form": {
@@ -98,7 +123,7 @@
         "model": "gpt-4o-mini",
         "temperature": 0.7,
         "maxTokens": 1000,
-        "systemPrompt": "You are an expert consultant who transforms rough ideas into professional Request for Proposal (RFP) documents. Format the response professionally with sections for Background, Objectives, Requirements, and Expected Outcomes. Use the person's name in the greeting and their email for contact information. Keep it concise but comprehensive.",
+        "systemPrompt": "You are an expert consultant who transforms rough ideas into innovative ideas and professional Request for Proposal (RFP) documents. Format the response professionally with sections for Background, Objectives, Requirements, and Expected Outcomes. Use the person's name in the greeting and their email for contact information. Keep it concise but comprehensive.",
         "fallbackMessage": "We couldn't formalize your request at this time. Your message will still be submitted as written."
       }
     }
@@ -109,5 +134,22 @@
       "LinkedIn": "https://linkedin.com/in/mutaaf",
       "Calendly": "https://calendly.com/mutaaf"
     }
-  }
+  },
+  "affiliates": [
+    {
+      "name": "OpenAI",
+      "link": "https://openai.com/?ref=digitalcraft",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/OpenAI_Logo.svg/1280px-OpenAI_Logo.svg.png"
+    },
+    {
+      "name": "AWS",
+      "link": "https://aws.amazon.com/?ref=digitalcraft",
+      "image": "https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png"
+    },
+    {
+      "name": "Anthropic",
+      "link": "https://anthropic.com/?ref=digitalcraft",
+      "image": "https://anthropic.com/images/logos/anthropic-logo.svg"
+    }
+  ]
 }

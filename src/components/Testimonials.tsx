@@ -13,11 +13,11 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
       <div className="text-center mb-16 animate-fade-in">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">What Clients Say</h2>
         <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-          Don't take my word for it. Hear from the leaders who've transformed their operations.
+          Don't take our word for it. Hear from the leaders who've transformed their operations.
         </p>
       </div>
       
-      <div className="grid md:grid-cols-3 gap-8">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {data.map((testimonial, index) => (
           <div 
             key={index} 

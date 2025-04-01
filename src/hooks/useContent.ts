@@ -69,6 +69,12 @@ export interface FooterSection {
   };
 }
 
+export interface AffiliateItem {
+  name: string;
+  link: string;
+  image: string;
+}
+
 export interface ContentData {
   hero: HeroSection;
   services: ServiceItem[];
@@ -77,6 +83,7 @@ export interface ContentData {
   testimonials: TestimonialItem[];
   form: FormSection;
   footer: FooterSection;
+  affiliates?: AffiliateItem[];
 }
 
 export const useContent = () => {
