@@ -32,7 +32,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
               <div className="absolute inset-0 bg-skyblue/10 rounded-3xl transform rotate-3"></div>
               <img
                 src={data.image}
-                alt="Modern Digital Services"
+                alt="AI-powered business automation"
                 className="rounded-2xl shadow-lg object-cover h-[500px] relative z-10 transform -rotate-2 transition-transform duration-500 hover:rotate-0"
               />
             </div>

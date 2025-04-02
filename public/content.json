@@ -3,10 +3,20 @@
   "hero": {
     "headline": "Building enterprise-level AI systems for real-world businesses.",
     "subheadline": "From blue-collar workflows to intelligent automation. We help overlooked industries harness AI that actually matters.",
-    "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1400&q=80",
+    "image": "lovable-uploads/212984be-3ef0-4281-8979-68dc1c6ff2fc.png",
     "cta": "Book a Discovery Call",
     "ctaLink": "https://calendly.com/mutaaf"
   },
+  "uiConfig": {
+    "carouselItemsPerView": {
+      "mobile": 1,
+      "tablet": 2,
+      "desktop": 3
+    },
+    "parallaxEnabled": true,
+    "parallaxStrength": 0.3
+  },
+  
   "services": [
     {
       "icon": "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/cog.svg",

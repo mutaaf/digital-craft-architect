@@ -10,6 +10,7 @@ import Testimonials from '@/components/Testimonials';
 import ContactForm from '@/components/ContactForm';
 import Footer from '@/components/Footer';
 import AffiliateSection from '@/components/AffiliateSection';
+import ParallaxBackground from '@/components/ParallaxBackground';
 import { Loader2 } from 'lucide-react';
 import { useAnalytics } from '@/utils/analytics';
 import { Helmet } from 'react-helmet-async';
@@ -55,8 +56,13 @@ const Index = () => {
     );
   }
 
+  const uiConfig = content.uiConfig;
+  
   return (
-    <div className="min-h-screen bg-white">
+    <ParallaxBackground 
+      enabled={uiConfig?.parallaxEnabled ?? true} 
+      strength={uiConfig?.parallaxStrength ?? 0.3}
+    >
       {content.seo && (
         <Helmet>
           <title>{content.seo.title}</title>
@@ -84,14 +90,20 @@ const Index = () => {
       )}
       <Navbar />
       <Hero data={content.hero} />
-      <Services data={content.services} />
+      <Services 
+        data={content.services} 
+        carouselConfig={uiConfig?.carouselItemsPerView}
+      />
       <Founder data={content.founder} />
       <CaseStudies data={content.caseStudies} />
-      <Testimonials data={content.testimonials} />
+      <Testimonials 
+        data={content.testimonials} 
+        carouselConfig={uiConfig?.carouselItemsPerView}
+      />
       {content.affiliates && <AffiliateSection data={content.affiliates} />}
       <ContactForm data={content.form} />
       <Footer data={content.footer} />
-    </div>
+    </ParallaxBackground>
   );
 };
 

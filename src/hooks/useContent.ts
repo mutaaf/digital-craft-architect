@@ -83,6 +83,16 @@ export interface SEOData {
   socialImage: string;
 }
 
+export interface UIConfig {
+  carouselItemsPerView: {
+    mobile: number;
+    tablet: number;
+    desktop: number;
+  };
+  parallaxEnabled: boolean;
+  parallaxStrength: number;
+}
+
 export interface ContentData {
   hero: HeroSection;
   services: ServiceItem[];
@@ -93,7 +103,18 @@ export interface ContentData {
   footer: FooterSection;
   affiliates?: AffiliateItem[];
   seo?: SEOData;
+  uiConfig?: UIConfig;
 }
+
+const DEFAULT_UI_CONFIG: UIConfig = {
+  carouselItemsPerView: {
+    mobile: 1,
+    tablet: 2,
+    desktop: 3
+  },
+  parallaxEnabled: true,
+  parallaxStrength: 0.3
+};
 
 export const useContent = () => {
   const [content, setContent] = useState<ContentData | null>(null);
@@ -114,6 +135,21 @@ export const useContent = () => {
           // Fallback to local content file
           const response = await fetch('/content.json');
           data = await response.json();
+        }
+        
+        // Apply default UI config if not provided
+        if (!data.uiConfig) {
+          data.uiConfig = DEFAULT_UI_CONFIG;
+        } else {
+          // Merge with defaults for any missing properties
+          data.uiConfig = {
+            ...DEFAULT_UI_CONFIG,
+            ...data.uiConfig,
+            carouselItemsPerView: {
+              ...DEFAULT_UI_CONFIG.carouselItemsPerView,
+              ...(data.uiConfig.carouselItemsPerView || {})
+            }
+          };
         }
         
         setContent(data);
