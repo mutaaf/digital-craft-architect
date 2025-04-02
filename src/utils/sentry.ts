@@ -1,7 +1,7 @@
 
 import * as Sentry from '@sentry/react';
 import { BrowserTracing } from '@sentry/tracing';
-import React from 'react';
+import * as React from 'react';
 
 /**
  * Initialize Sentry for error tracking and monitoring

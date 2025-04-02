@@ -7,9 +7,15 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import { ErrorBoundary, FallbackProps } from "@sentry/react";
+import { ErrorBoundary } from "@sentry/react";
 
 const queryClient = new QueryClient();
+
+// Define FallbackProps interface for our error boundary
+interface FallbackProps {
+  error: Error;
+  resetError: () => void;
+}
 
 // Error fallback component to show when errors are caught by Sentry
 const ErrorFallback = ({ error, resetError }: FallbackProps) => (
