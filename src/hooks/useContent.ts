@@ -108,9 +108,9 @@ export interface ContentData {
 
 const DEFAULT_UI_CONFIG: UIConfig = {
   carouselItemsPerView: {
-    mobile: 1,
-    tablet: 2,
-    desktop: 3
+    mobile: 3,  // Changed from 1 to 3
+    tablet: 3,  // Changed from 2 to 3
+    desktop: 3  // Kept at 3
   },
   parallaxEnabled: true,
   parallaxStrength: 0.3

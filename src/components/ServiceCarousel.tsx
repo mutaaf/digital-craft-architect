@@ -40,7 +40,7 @@ const ServiceCarousel: React.FC<ServiceCarouselProps> = ({ data, itemsToShow }) 
               key={index} 
               className={`
                 pl-4 
-                sm:basis-full 
+                basis-1/${itemsToShow.mobile} 
                 md:basis-1/${itemsToShow.tablet} 
                 lg:basis-1/${itemsToShow.desktop}
               `}
