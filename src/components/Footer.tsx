@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FooterSection } from '@/hooks/useContent';
 import { Linkedin, Calendar, Github, Twitter } from 'lucide-react';
 
@@ -8,6 +8,18 @@ interface FooterProps {
 }
 
 const Footer: React.FC<FooterProps> = ({ data }) => {
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const buildDate = new Date(import.meta.env.VITE_BUILD_TIMESTAMP || Date.now());
+  
+  // Update the current time every second
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    
+    return () => clearInterval(timer);
+  }, []);
+  
   const getSocialIcon = (key: string) => {
     switch (key.toLowerCase()) {
       case 'linkedin':
@@ -21,6 +33,18 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
       default:
         return null;
     }
+  };
+
+  // Format the deployment time
+  const formatDeployTime = () => {
+    const diff = Math.floor((currentTime.getTime() - buildDate.getTime()) / 1000);
+    
+    const seconds = diff % 60;
+    const minutes = Math.floor(diff / 60) % 60;
+    const hours = Math.floor(diff / (60 * 60)) % 24;
+    const days = Math.floor(diff / (60 * 60 * 24));
+    
+    return `${days}d ${hours}h ${minutes}m ${seconds}s ago`;
   };
 
   return (
@@ -52,9 +76,12 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
               <p className="text-gray-400 text-sm mb-4 md:mb-0">
                 &copy; {new Date().getFullYear()} DigitalCraft. All rights reserved.
               </p>
-              <div className="flex space-x-6">
-                <a href="#" className="text-gray-400 hover:text-skyblue text-sm">Privacy Policy</a>
-                <a href="#" className="text-gray-400 hover:text-skyblue text-sm">Terms of Service</a>
+              <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 items-center">
+                <p className="text-gray-500 text-xs">Last deployed: {formatDeployTime()}</p>
+                <div className="flex space-x-6">
+                  <a href="#" className="text-gray-400 hover:text-skyblue text-sm">Privacy Policy</a>
+                  <a href="#" className="text-gray-400 hover:text-skyblue text-sm">Terms of Service</a>
+                </div>
               </div>
             </div>
           </div>
