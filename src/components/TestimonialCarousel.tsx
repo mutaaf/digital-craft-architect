@@ -47,7 +47,8 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({ data, itemsTo
               key={index} 
               className={`
                 pl-4 
-                basis-1/${itemsToShow.mobile} 
+                basis-full
+                sm:basis-1/${itemsToShow.mobile} 
                 md:basis-1/${itemsToShow.tablet} 
                 lg:basis-1/${itemsToShow.desktop}
               `}

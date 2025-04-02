@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { X } from 'lucide-react';
 import { Direction, Position, SnakeSegment, GRID_SIZE, CELL_SIZE, GAME_SPEED, CANVAS_SIZE, COLORS } from './types';
 import { TouchControls } from './TouchControls';
+import SwipeHandler from './SwipeHandler';
 
 interface SnakeGameProps {
   onClose: () => void;
@@ -291,8 +292,14 @@ const SnakeGame: React.FC<SnakeGameProps> = ({ onClose }) => {
           onStart={!gameStarted || gameOver ? startGame : undefined}
         />
         
+        {/* Add swipe handler */}
+        <SwipeHandler 
+          onSwipe={handleDirectionChange}
+          disabled={!gameStarted || gameOver}
+        />
+        
         <div className="mt-2 text-sm text-gray-600">
-          <p>Use arrow keys or swipe controls to play. Press SPACE to restart.</p>
+          <p>Use arrow keys, touch controls, or swipe gestures to play. Press SPACE to restart.</p>
           <p>Press ESC to close the game.</p>
         </div>
       </div>
