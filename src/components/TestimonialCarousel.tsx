@@ -10,6 +10,12 @@ import {
   CarouselPrevious 
 } from '@/components/ui/carousel';
 import useEmblaCarousel from 'embla-carousel-react';
+import { 
+  Card, 
+  CardHeader, 
+  CardContent, 
+  CardFooter 
+} from '@/components/ui/card';
 
 interface TestimonialCarouselProps {
   data: TestimonialItem[];
@@ -46,25 +52,29 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({ data, itemsTo
                 lg:basis-1/${itemsToShow.desktop}
               `}
             >
-              <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md border border-gray-100 dark:border-gray-700 relative h-full">
-                <div className="absolute -top-4 -left-4 w-10 h-10 bg-skyblue rounded-full flex items-center justify-center">
-                  <Quote size={20} className="text-white" />
-                </div>
-                
-                <p className="text-gray-700 dark:text-gray-300 mb-6 italic">"{testimonial.quote}"</p>
-                
-                <div className="flex items-center mt-auto">
-                  <img 
-                    src={testimonial.image} 
-                    alt={testimonial.author} 
-                    className="w-12 h-12 rounded-full object-cover mr-4"
-                  />
-                  <div>
-                    <h4 className="font-semibold">{testimonial.author}</h4>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">{testimonial.position}</p>
+              <Card className="h-full">
+                <CardHeader className="pb-2 relative">
+                  <div className="absolute -top-4 -left-4 w-10 h-10 bg-skyblue rounded-full flex items-center justify-center">
+                    <Quote size={20} className="text-white" />
                   </div>
-                </div>
-              </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-700 dark:text-gray-300 mb-6 italic">"{testimonial.quote}"</p>
+                </CardContent>
+                <CardFooter className="pt-2 border-t">
+                  <div className="flex items-center">
+                    <img 
+                      src={testimonial.image} 
+                      alt={testimonial.author} 
+                      className="w-12 h-12 rounded-full object-cover mr-4"
+                    />
+                    <div>
+                      <h4 className="font-semibold">{testimonial.author}</h4>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{testimonial.position}</p>
+                    </div>
+                  </div>
+                </CardFooter>
+              </Card>
             </CarouselItem>
           ))}
         </CarouselContent>
