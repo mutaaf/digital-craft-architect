@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { X } from 'lucide-react';
 
@@ -63,11 +62,9 @@ const SnakeGame: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Clear canvas
     ctx.fillStyle = COLORS.background;
     ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
 
-    // Draw grid lines
     ctx.strokeStyle = COLORS.gridLine;
     ctx.lineWidth = 0.5;
     for (let i = 0; i <= GRID_SIZE; i++) {
@@ -82,7 +79,6 @@ const SnakeGame: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       ctx.stroke();
     }
 
-    // Draw food
     ctx.fillStyle = COLORS.food;
     ctx.fillRect(
       food.x * CELL_SIZE, 
@@ -91,9 +87,7 @@ const SnakeGame: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       CELL_SIZE
     );
     
-    // Draw snake
     snake.forEach((segment, index) => {
-      // Different color for the head
       ctx.fillStyle = index === 0 ? COLORS.snakeHead : COLORS.snake;
       ctx.fillRect(
         segment.x * CELL_SIZE,
@@ -103,13 +97,11 @@ const SnakeGame: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       );
     });
 
-    // Draw score
     ctx.fillStyle = COLORS.score;
     ctx.font = '24px Arial';
     ctx.textAlign = 'left';
     ctx.fillText(`Score: ${score}`, 10, 30);
 
-    // Draw game over message
     if (gameOverRef.current) {
       ctx.fillStyle = COLORS.gameOver;
       ctx.font = 'bold 36px Arial';
@@ -150,7 +142,6 @@ const SnakeGame: React.FC<{ onClose: () => void }> = ({ onClose }) => {
           break;
       }
       
-      // Check if snake collides with itself
       if (prevSnake.some(segment => segment.x === head.x && segment.y === head.y)) {
         setGameOver(true);
         gameOverRef.current = true;
@@ -159,12 +150,11 @@ const SnakeGame: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       
       const newSnake = [head, ...prevSnake];
       
-      // Check if snake eats food
       if (head.x === food.x && head.y === food.y) {
         setFood(generateFood());
         setScore(prevScore => prevScore + 10);
       } else {
-        newSnake.pop(); // Remove tail if no food eaten
+        newSnake.pop();
       }
       
       return newSnake;
@@ -173,6 +163,11 @@ const SnakeGame: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key) && 
+          (gameStartedRef.current && !gameOverRef.current)) {
+        e.preventDefault();
+      }
+      
       if (e.code === 'Space') {
         if (gameOverRef.current || !gameStartedRef.current) {
           startGame();
@@ -186,10 +181,8 @@ const SnakeGame: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         return;
       }
       
-      // Skip if game is over or not started
       if (gameOverRef.current || !gameStartedRef.current) return;
       
-      // Prevent direction reversal
       switch (e.key) {
         case 'ArrowUp':
           if (directionRef.current !== 'DOWN') {
@@ -265,17 +258,14 @@ const EasterEgg: React.FC = () => {
   
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Add the key to the sequence
       const updatedCode = [...secretCode, e.key];
       
-      // Keep only the last N keys where N is the length of the konami code
       if (updatedCode.length > konami.length) {
         updatedCode.shift();
       }
       
       setSecretCode(updatedCode);
       
-      // Check if the secret code matches the konami code
       const isKonami = konami.every((key, index) => updatedCode[index] === key);
       
       if (isKonami) {
