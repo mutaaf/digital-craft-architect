@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -42,7 +41,6 @@ const queryClient = new QueryClient({
   },
 });
 
-// Define FallbackProps interface for our error boundary
 interface FallbackProps {
   error: Error;
   resetError: () => void;
@@ -50,9 +48,7 @@ interface FallbackProps {
   eventId?: string;
 }
 
-// Error fallback component to show when errors are caught by Sentry
 const ErrorFallback = ({ error, resetError, componentStack, eventId }: FallbackProps) => {
-  // Log error details to console in development
   if (import.meta.env.DEV) {
     console.error('Error caught by ErrorBoundary:', error);
     console.info('Component stack:', componentStack);
@@ -78,7 +74,6 @@ const ErrorFallback = ({ error, resetError, componentStack, eventId }: FallbackP
   );
 };
 
-// Global error handler for uncaught exceptions
 window.onerror = (message, source, lineno, colno, error) => {
   if (error) {
     captureException(error, {
@@ -90,7 +85,6 @@ window.onerror = (message, source, lineno, colno, error) => {
   return false;
 };
 
-// Global promise rejection handler
 window.addEventListener('unhandledrejection', (event) => {
   const error = event.reason instanceof Error 
     ? event.reason 
@@ -106,7 +100,6 @@ const App = () => (
   <ErrorBoundary
     fallback={ErrorFallback}
     onError={(error, componentStack, eventId) => {
-      // Additional error handling logic if needed
       console.error('Error caught by Sentry ErrorBoundary:', error);
       console.info('Component stack:', componentStack);
       console.info('Sentry event ID:', eventId);
@@ -121,7 +114,6 @@ const App = () => (
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
