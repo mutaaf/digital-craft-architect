@@ -1,8 +1,7 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SnakeGame from './easter-egg/SnakeGame';
 import KonamiCodeDetector from './easter-egg/KonamiCodeDetector';
-import SwipeDetector from './easter-egg/SwipeDetector';
 
 const EasterEgg: React.FC = () => {
   const [isActive, setIsActive] = useState(false);
@@ -11,10 +10,22 @@ const EasterEgg: React.FC = () => {
     setIsActive(true);
   };
   
+  // Listen for hero image taps
+  useEffect(() => {
+    const handleHeroTaps = () => {
+      handleActivate();
+    };
+    
+    window.addEventListener('hero-easter-egg-activated', handleHeroTaps);
+    
+    return () => {
+      window.removeEventListener('hero-easter-egg-activated', handleHeroTaps);
+    };
+  }, []);
+  
   return (
     <>
       <KonamiCodeDetector onCodeEntered={handleActivate} />
-      <SwipeDetector onSwipeDetected={handleActivate} />
       {isActive && <SnakeGame onClose={() => setIsActive(false)} />}
     </>
   );
