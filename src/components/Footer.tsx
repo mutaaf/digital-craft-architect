@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { FooterSection } from '@/hooks/useContent';
 import { Linkedin, Calendar, Github, Twitter } from 'lucide-react';
@@ -7,8 +8,9 @@ interface FooterProps {
 }
 
 const Footer: React.FC<FooterProps> = ({ data }) => {
-  // Use the current deployment timestamp
-  const buildTimestamp = new Date('2025-04-02T00:58:00Z');
+  // Get the actual build timestamp (when the app was compiled)
+  // This will be replaced with the actual time during the build process
+  const buildTimestamp = new Date(import.meta.env.VITE_BUILD_TIME || new Date().toISOString());
   
   // Format the deployment timestamp in a human-readable format
   const formatDeployTime = () => {
