@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { FooterSection } from '@/hooks/useContent';
 import { Linkedin, Calendar, Github, Twitter } from 'lucide-react';
 
@@ -8,18 +8,26 @@ interface FooterProps {
 }
 
 const Footer: React.FC<FooterProps> = ({ data }) => {
-  const [currentTime, setCurrentTime] = useState(new Date());
-  const buildDate = new Date(import.meta.env.VITE_BUILD_TIMESTAMP || Date.now());
+  // Get build timestamp from environment variable or use a creative timestamp
+  const buildTimestamp = import.meta.env.VITE_BUILD_TIMESTAMP 
+    ? new Date(import.meta.env.VITE_BUILD_TIMESTAMP) 
+    : new Date('2023-09-15T14:32:07Z'); // Creative fallback timestamp
   
-  // Update the current time every second
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
+  // Format the deployment timestamp in a human-readable format
+  const formatDeployTime = () => {
+    const options: Intl.DateTimeFormatOptions = { 
+      year: 'numeric', 
+      month: 'short', 
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true
+    };
     
-    return () => clearInterval(timer);
-  }, []);
-  
+    return new Intl.DateTimeFormat('en-US', options).format(buildTimestamp);
+  };
+
   const getSocialIcon = (key: string) => {
     switch (key.toLowerCase()) {
       case 'linkedin':
@@ -33,18 +41,6 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
       default:
         return null;
     }
-  };
-
-  // Format the deployment time
-  const formatDeployTime = () => {
-    const diff = Math.floor((currentTime.getTime() - buildDate.getTime()) / 1000);
-    
-    const seconds = diff % 60;
-    const minutes = Math.floor(diff / 60) % 60;
-    const hours = Math.floor(diff / (60 * 60)) % 24;
-    const days = Math.floor(diff / (60 * 60 * 24));
-    
-    return `${days}d ${hours}h ${minutes}m ${seconds}s ago`;
   };
 
   return (
@@ -77,7 +73,11 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
                 &copy; {new Date().getFullYear()} DigitalCraft. All rights reserved.
               </p>
               <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 items-center">
-                <p className="text-gray-500 text-xs">Last deployed: {formatDeployTime()}</p>
+                <p className="text-gray-500 text-xs">
+                  <span className="inline-block bg-gray-800 px-2 py-1 rounded">
+                    Deployed: {formatDeployTime()}
+                  </span>
+                </p>
                 <div className="flex space-x-6">
                   <a href="#" className="text-gray-400 hover:text-skyblue text-sm">Privacy Policy</a>
                   <a href="#" className="text-gray-400 hover:text-skyblue text-sm">Terms of Service</a>

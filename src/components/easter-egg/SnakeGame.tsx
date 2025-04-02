@@ -20,6 +20,9 @@ const SnakeGame: React.FC<SnakeGameProps> = ({ onClose }) => {
   const directionRef = useRef(direction);
   const gameOverRef = useRef(gameOver);
   const gameStartedRef = useRef(gameStarted);
+  const snakeRef = useRef(snake);
+  const foodRef = useRef(food);
+  const scoreRef = useRef(score);
 
   // Prevent default scroll behavior for arrow keys when the game is active
   useEffect(() => {
@@ -30,7 +33,6 @@ const SnakeGame: React.FC<SnakeGameProps> = ({ onClose }) => {
       }
     };
 
-    // Add the listener to window with capture option to ensure it runs before other handlers
     window.addEventListener('keydown', preventScroll, { capture: true });
     return () => {
       window.removeEventListener('keydown', preventScroll, { capture: true });
@@ -38,19 +40,33 @@ const SnakeGame: React.FC<SnakeGameProps> = ({ onClose }) => {
   }, []);
 
   const generateFood = useCallback((): Position => {
-    const x = Math.floor(Math.random() * GRID_SIZE);
-    const y = Math.floor(Math.random() * GRID_SIZE);
-    return { x, y };
+    let newFood: Position;
+    do {
+      newFood = {
+        x: Math.floor(Math.random() * GRID_SIZE),
+        y: Math.floor(Math.random() * GRID_SIZE)
+      };
+      // Make sure food doesn't spawn on snake
+    } while (snakeRef.current.some(segment => segment.x === newFood.x && segment.y === newFood.y));
+    
+    return newFood;
   }, []);
 
   const resetGame = useCallback(() => {
-    setSnake([{ x: 5, y: 5 }]);
-    setFood(generateFood());
+    const initialSnake = [{ x: 5, y: 5 }];
+    const initialFood = generateFood();
+    
+    setSnake(initialSnake);
+    setFood(initialFood);
     setDirection('RIGHT');
-    directionRef.current = 'RIGHT';
     setGameOver(false);
-    gameOverRef.current = false;
     setScore(0);
+    
+    snakeRef.current = initialSnake;
+    foodRef.current = initialFood;
+    directionRef.current = 'RIGHT';
+    gameOverRef.current = false;
+    scoreRef.current = 0;
   }, [generateFood]);
 
   const startGame = () => {
@@ -96,15 +112,17 @@ const SnakeGame: React.FC<SnakeGameProps> = ({ onClose }) => {
       ctx.stroke();
     }
 
+    // Draw food
     ctx.fillStyle = COLORS.food;
     ctx.fillRect(
-      food.x * CELL_SIZE, 
-      food.y * CELL_SIZE, 
+      foodRef.current.x * CELL_SIZE, 
+      foodRef.current.y * CELL_SIZE, 
       CELL_SIZE, 
       CELL_SIZE
     );
     
-    snake.forEach((segment, index) => {
+    // Draw snake
+    snakeRef.current.forEach((segment, index) => {
       ctx.fillStyle = index === 0 ? COLORS.snakeHead : COLORS.snake;
       ctx.fillRect(
         segment.x * CELL_SIZE,
@@ -114,11 +132,13 @@ const SnakeGame: React.FC<SnakeGameProps> = ({ onClose }) => {
       );
     });
 
+    // Draw score
     ctx.fillStyle = COLORS.score;
     ctx.font = '24px Arial';
     ctx.textAlign = 'left';
-    ctx.fillText(`Score: ${score}`, 10, 30);
+    ctx.fillText(`Score: ${scoreRef.current}`, 10, 30);
 
+    // Draw game over or start message
     if (gameOverRef.current) {
       ctx.fillStyle = COLORS.gameOver;
       ctx.font = 'bold 36px Arial';
@@ -136,46 +156,56 @@ const SnakeGame: React.FC<SnakeGameProps> = ({ onClose }) => {
       ctx.font = '16px Arial';
       ctx.fillText('Use arrow keys to move', CANVAS_SIZE / 2, CANVAS_SIZE / 2 + 40);
     }
-  }, [snake, food, score]);
+  }, []);
 
   const moveSnake = useCallback(() => {
     if (gameOverRef.current || !gameStartedRef.current) return;
     
-    setSnake(prevSnake => {
-      const head = { ...prevSnake[0] };
+    const head = { ...snakeRef.current[0] };
+    
+    switch (directionRef.current) {
+      case 'UP':
+        head.y = (head.y - 1 + GRID_SIZE) % GRID_SIZE;
+        break;
+      case 'DOWN':
+        head.y = (head.y + 1) % GRID_SIZE;
+        break;
+      case 'LEFT':
+        head.x = (head.x - 1 + GRID_SIZE) % GRID_SIZE;
+        break;
+      case 'RIGHT':
+        head.x = (head.x + 1) % GRID_SIZE;
+        break;
+    }
+    
+    // Check for collision with self (except when just starting)
+    if (snakeRef.current.length > 1 && 
+        snakeRef.current.some(segment => segment.x === head.x && segment.y === head.y)) {
+      setGameOver(true);
+      gameOverRef.current = true;
+      return;
+    }
+    
+    const newSnake = [head, ...snakeRef.current];
+    
+    // Check if snake ate food
+    if (head.x === foodRef.current.x && head.y === foodRef.current.y) {
+      // Update score
+      const newScore = scoreRef.current + 10;
+      setScore(newScore);
+      scoreRef.current = newScore;
       
-      switch (directionRef.current) {
-        case 'UP':
-          head.y = (head.y - 1 + GRID_SIZE) % GRID_SIZE;
-          break;
-        case 'DOWN':
-          head.y = (head.y + 1) % GRID_SIZE;
-          break;
-        case 'LEFT':
-          head.x = (head.x - 1 + GRID_SIZE) % GRID_SIZE;
-          break;
-        case 'RIGHT':
-          head.x = (head.x + 1) % GRID_SIZE;
-          break;
-      }
-      
-      if (prevSnake.some(segment => segment.x === head.x && segment.y === head.y)) {
-        setGameOver(true);
-        gameOverRef.current = true;
-        return prevSnake;
-      }
-      
-      const newSnake = [head, ...prevSnake];
-      
-      if (head.x === food.x && head.y === food.y) {
-        setFood(generateFood());
-        setScore(prevScore => prevScore + 10);
-      } else {
-        newSnake.pop();
-      }
-      
-      return newSnake;
-    });
+      // Generate new food
+      const newFood = generateFood();
+      setFood(newFood);
+      foodRef.current = newFood;
+    } else {
+      // Remove tail if no food was eaten
+      newSnake.pop();
+    }
+    
+    setSnake(newSnake);
+    snakeRef.current = newSnake;
   }, [generateFood]);
 
   useEffect(() => {
