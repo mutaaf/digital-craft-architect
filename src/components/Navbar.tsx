@@ -23,6 +23,16 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  };
+
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -38,12 +48,29 @@ const Navbar: React.FC = () => {
           <a href="#services" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors">Services</a>
           <a href="#about" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors">About</a>
           <a href="#case-studies" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors">Case Studies</a>
-          <a href="#contact" className="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-md transition-colors">Contact</a>
+          <a 
+            href="#contact" 
+            className="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-md transition-colors"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToContact();
+            }}
+          >
+            Contact
+          </a>
         </nav>
         
-        <button className="md:hidden" onClick={toggleMenu}>
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="md:hidden flex items-center">
+          <button 
+            onClick={scrollToContact}
+            className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md transition-colors mr-3"
+          >
+            Contact
+          </button>
+          <button onClick={toggleMenu}>
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
       
       {/* Mobile menu */}
@@ -54,7 +81,6 @@ const Navbar: React.FC = () => {
           <a href="#services" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors" onClick={toggleMenu}>Services</a>
           <a href="#about" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors" onClick={toggleMenu}>About</a>
           <a href="#case-studies" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors" onClick={toggleMenu}>Case Studies</a>
-          <a href="#contact" className="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-md transition-colors inline-block" onClick={toggleMenu}>Contact</a>
         </div>
       </div>
     </header>

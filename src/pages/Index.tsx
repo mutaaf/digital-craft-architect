@@ -75,14 +75,14 @@ const Index = () => {
           <meta property="og:url" content={window.location.href} />
           <meta property="og:title" content={content.seo.title} />
           <meta property="og:description" content={content.seo.description} />
-          <meta property="og:image" content={content.seo.socialImage} />
+          <meta property="og:image" content="/lovable-uploads/c148eb9a-a8da-4557-8a7a-7001477fa8d0.png" />
           
           {/* Twitter */}
           <meta property="twitter:card" content="summary_large_image" />
           <meta property="twitter:url" content={window.location.href} />
           <meta property="twitter:title" content={content.seo.title} />
           <meta property="twitter:description" content={content.seo.description} />
-          <meta property="twitter:image" content={content.seo.socialImage} />
+          <meta property="twitter:image" content="/lovable-uploads/c148eb9a-a8da-4557-8a7a-7001477fa8d0.png" />
           
           {/* Canonical URL */}
           <link rel="canonical" href={window.location.href} />
