@@ -269,6 +269,6 @@ export const useSentry = (
     setContext,
     startPerformanceSpan,
     measureFunction,
-    ErrorBoundary,
+    ErrorBoundary: Sentry.ErrorBoundary, // Explicitly import from Sentry
   };
 };
