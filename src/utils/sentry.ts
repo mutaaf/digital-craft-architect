@@ -1,6 +1,7 @@
 
 import * as Sentry from '@sentry/react';
 import { BrowserTracing } from '@sentry/tracing';
+import React from 'react';
 
 /**
  * Initialize Sentry for error tracking and monitoring
@@ -106,7 +107,7 @@ export const setContext = (contextName: string, contextData: Record<string, any>
 export const captureException = (
   error: Error,
   context?: Record<string, any>,
-  level: Sentry.Severity = Sentry.Severity.Error
+  level: Sentry.SeverityLevel = 'error'
 ): void => {
   Sentry.withScope((scope) => {
     scope.setLevel(level);
@@ -139,7 +140,7 @@ export const captureException = (
 export const captureMessage = (
   message: string,
   context?: Record<string, any>,
-  level: Sentry.Severity = Sentry.Severity.Info
+  level: Sentry.SeverityLevel = 'info'
 ): void => {
   Sentry.withScope((scope) => {
     scope.setLevel(level);
@@ -162,7 +163,7 @@ export const captureMessage = (
 export const addBreadcrumb = (
   message: string,
   category?: string,
-  level: Sentry.Severity = Sentry.Severity.Info,
+  level: Sentry.SeverityLevel = 'info',
   data?: Record<string, any>
 ): void => {
   Sentry.addBreadcrumb({
@@ -237,10 +238,10 @@ export const measureFunction = async <T>(
 };
 
 // Export common Sentry utilities for direct usage
-export { Sentry, ErrorBoundary } from '@sentry/react';
+export { ErrorBoundary } from '@sentry/react';
 
 // Export severity levels for easier usage
-export const SeverityLevel = Sentry.Severity;
+export type SeverityLevel = Sentry.SeverityLevel;
 
 /**
  * Hook for Sentry monitoring
@@ -268,7 +269,6 @@ export const useSentry = (
     setContext,
     startPerformanceSpan,
     measureFunction,
-    ErrorBoundary: Sentry.ErrorBoundary,
-    SeverityLevel: Sentry.Severity,
+    ErrorBoundary,
   };
 };

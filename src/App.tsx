@@ -17,21 +17,25 @@ const queryClient = new QueryClient({
       staleTime: 5 * 60 * 1000,
       gcTime: 10 * 60 * 1000,
       refetchOnWindowFocus: import.meta.env.PROD,
-      onError: (error) => {
-        if (error instanceof Error) {
-          captureException(error, { source: 'react-query' });
-        } else {
-          captureException(new Error(String(error)), { source: 'react-query' });
-        }
+      meta: {
+        onError: (error: unknown) => {
+          if (error instanceof Error) {
+            captureException(error, { source: 'react-query' });
+          } else {
+            captureException(new Error(String(error)), { source: 'react-query' });
+          }
+        },
       },
     },
     mutations: {
-      onError: (error) => {
-        if (error instanceof Error) {
-          captureException(error, { source: 'react-query-mutation' });
-        } else {
-          captureException(new Error(String(error)), { source: 'react-query-mutation' });
-        }
+      meta: {
+        onError: (error: unknown) => {
+          if (error instanceof Error) {
+            captureException(error, { source: 'react-query-mutation' });
+          } else {
+            captureException(new Error(String(error)), { source: 'react-query-mutation' });
+          }
+        },
       },
     },
   },
