@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { X } from 'lucide-react';
 import { Direction, Position, SnakeSegment, GRID_SIZE, CELL_SIZE, GAME_SPEED, CANVAS_SIZE, COLORS } from './types';
+import { TouchControls } from './TouchControls';
 
 interface SnakeGameProps {
   onClose: () => void;
@@ -56,6 +57,19 @@ const SnakeGame: React.FC<SnakeGameProps> = ({ onClose }) => {
     resetGame();
     setGameStarted(true);
     gameStartedRef.current = true;
+  };
+
+  // Handle direction change from touch controls
+  const handleDirectionChange = (newDirection: Direction) => {
+    if (
+      (newDirection === 'UP' && directionRef.current !== 'DOWN') ||
+      (newDirection === 'DOWN' && directionRef.current !== 'UP') ||
+      (newDirection === 'LEFT' && directionRef.current !== 'RIGHT') ||
+      (newDirection === 'RIGHT' && directionRef.current !== 'LEFT')
+    ) {
+      setDirection(newDirection);
+      directionRef.current = newDirection;
+    }
   };
 
   const drawGame = useCallback(() => {
@@ -240,8 +254,15 @@ const SnakeGame: React.FC<SnakeGameProps> = ({ onClose }) => {
           height={CANVAS_SIZE}
           className="border border-gray-300"
         />
+        
+        {/* Add touch controls for mobile devices */}
+        <TouchControls 
+          onDirectionChange={handleDirectionChange}
+          onStart={!gameStarted || gameOver ? startGame : undefined}
+        />
+        
         <div className="mt-2 text-sm text-gray-600">
-          <p>Use arrow keys to control the snake. Press SPACE to restart.</p>
+          <p>Use arrow keys or swipe controls to play. Press SPACE to restart.</p>
           <p>Press ESC to close the game.</p>
         </div>
       </div>
