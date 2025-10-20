@@ -19,7 +19,7 @@
     "enabled": true,
     "headline": "BUILD YOUR MVP WITH AI",
     "subheadline": "In 2 Weeks",
-    "price": "$4,000",
+    "price": "$4,999",
     "priceLabel": "FIXED PRICE",
     "description": "We can build anything for any small and medium-sized business. Custom AI-powered solutions delivered fast.",
     "ctaText": "Schedule a Free Consultation",
@@ -28,9 +28,10 @@
       "Custom AI-powered solution tailored to your business",
       "2-week delivery guarantee",
       "Full source code ownership",
-      "Post-launch support included",
+      "Post-launch support included for 1 month ($499 value)",
       "Mobile-responsive design",
-      "Unlimited revisions during development"
+      "Near Unlimited revisions during development",
+      "Bring your own AI or pay us!"
     ],
     "backgroundImage": "lovable-uploads/c148eb9a-a8da-4557-8a7a-7001477fa8d0.png"
   },
@@ -44,12 +45,11 @@
         "period": "monthly",
         "description": "Essential support for small teams",
         "features": [
-          "Bug fixes within 48 hours",
+          "Bug fixes within 1 week",
           "Monthly performance reports",
           "Email support",
           "Up to 5 hours of updates/month",
-          "Security patches",
-          "System monitoring"
+          "Security patches"
         ],
         "highlighted": false,
         "ctaText": "Get Started",
@@ -61,14 +61,14 @@
         "period": "monthly",
         "description": "Perfect for growing businesses",
         "features": [
-          "Bug fixes within 24 hours",
-          "Bi-weekly performance reports",
+          "Bug fixes within 72 hours",
+          "Monthly performance reports",
           "Priority email & phone support",
           "Up to 15 hours of updates/month",
           "Feature enhancements",
           "Security updates",
           "Performance optimization",
-          "Quarterly strategy sessions"
+          "Bi-Annual strategy sessions"
         ],
         "highlighted": true,
         "badge": "Most Popular",
@@ -81,14 +81,13 @@
         "period": "monthly",
         "description": "Enterprise-level support",
         "features": [
-          "Bug fixes within 4 hours",
-          "Weekly performance reports & optimization",
-          "Dedicated support line (24/7)",
-          "Up to 40 hours of updates/month",
+          "Bug fixes within 24 hours",
+          "Monlthly performance reports & optimization",
+          "Up to 25 hours of updates/month",
           "Priority feature development",
-          "Advanced AI integrations",
+          "Advanced AI integrations (AI Usage not included)",
           "Custom dashboards & analytics",
-          "Monthly strategy sessions",
+          "Quarterly strategy sessions",
           "SLA guarantees"
         ],
         "highlighted": false,
