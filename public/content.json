@@ -15,7 +15,88 @@
     "parallaxEnabled": true,
     "parallaxStrength": 0.3
   },
-  
+  "mvpPromotion": {
+    "enabled": true,
+    "headline": "BUILD YOUR MVP WITH AI",
+    "subheadline": "In 2 Weeks",
+    "price": "$4,000",
+    "priceLabel": "FIXED PRICE",
+    "description": "We can build anything for any small and medium-sized business. Custom AI-powered solutions delivered fast.",
+    "ctaText": "Schedule a Free Consultation",
+    "ctaLink": "https://calendly.com/mutaaf",
+    "features": [
+      "Custom AI-powered solution tailored to your business",
+      "2-week delivery guarantee",
+      "Full source code ownership",
+      "Post-launch support included",
+      "Mobile-responsive design",
+      "Unlimited revisions during development"
+    ],
+    "backgroundImage": "lovable-uploads/c148eb9a-a8da-4557-8a7a-7001477fa8d0.png"
+  },
+  "pricingTiers": {
+    "headline": "Support & Maintenance Retainers",
+    "subheadline": "Keep your AI systems running smoothly with ongoing support",
+    "tiers": [
+      {
+        "name": "Basic",
+        "price": 199,
+        "period": "monthly",
+        "description": "Essential support for small teams",
+        "features": [
+          "Bug fixes within 48 hours",
+          "Monthly performance reports",
+          "Email support",
+          "Up to 5 hours of updates/month",
+          "Security patches",
+          "System monitoring"
+        ],
+        "highlighted": false,
+        "ctaText": "Get Started",
+        "ctaLink": "https://calendly.com/mutaaf"
+      },
+      {
+        "name": "Plus",
+        "price": 499,
+        "period": "monthly",
+        "description": "Perfect for growing businesses",
+        "features": [
+          "Bug fixes within 24 hours",
+          "Bi-weekly performance reports",
+          "Priority email & phone support",
+          "Up to 15 hours of updates/month",
+          "Feature enhancements",
+          "Security updates",
+          "Performance optimization",
+          "Quarterly strategy sessions"
+        ],
+        "highlighted": true,
+        "badge": "Most Popular",
+        "ctaText": "Get Started",
+        "ctaLink": "https://calendly.com/mutaaf"
+      },
+      {
+        "name": "Premium",
+        "price": 999,
+        "period": "monthly",
+        "description": "Enterprise-level support",
+        "features": [
+          "Bug fixes within 4 hours",
+          "Weekly performance reports & optimization",
+          "Dedicated support line (24/7)",
+          "Up to 40 hours of updates/month",
+          "Priority feature development",
+          "Advanced AI integrations",
+          "Custom dashboards & analytics",
+          "Monthly strategy sessions",
+          "SLA guarantees"
+        ],
+        "highlighted": false,
+        "ctaText": "Get Started",
+        "ctaLink": "https://calendly.com/mutaaf"
+      }
+    ]
+  },
   "services": [
     {
       "icon": "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/cog.svg",

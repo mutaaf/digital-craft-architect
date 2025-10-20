@@ -83,6 +83,37 @@ export interface SEOData {
   socialImage: string;
 }
 
+export interface MVPPromotionConfig {
+  enabled: boolean;
+  headline: string;
+  subheadline: string;
+  price: string;
+  priceLabel: string;
+  description: string;
+  ctaText: string;
+  ctaLink: string;
+  features: string[];
+  backgroundImage?: string;
+}
+
+export interface PricingTier {
+  name: string;
+  price: number;
+  period: string;
+  description: string;
+  features: string[];
+  highlighted: boolean;
+  badge?: string;
+  ctaText: string;
+  ctaLink: string;
+}
+
+export interface PricingTiersConfig {
+  headline: string;
+  subheadline: string;
+  tiers: PricingTier[];
+}
+
 export interface UIConfig {
   carouselItemsPerView: {
     mobile: number;
@@ -104,6 +135,8 @@ export interface ContentData {
   affiliates?: AffiliateItem[];
   seo?: SEOData;
   uiConfig?: UIConfig;
+  mvpPromotion?: MVPPromotionConfig;
+  pricingTiers?: PricingTiersConfig;
 }
 
 const DEFAULT_UI_CONFIG: UIConfig = {

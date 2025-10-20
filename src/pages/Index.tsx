@@ -3,7 +3,9 @@ import React, { useEffect } from 'react';
 import { useContent } from '@/hooks/useContent';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
+import MVPPromotion from '@/components/MVPPromotion';
 import Services from '@/components/Services';
+import PricingTiers from '@/components/PricingTiers';
 import Founder from '@/components/Founder';
 import CaseStudies from '@/components/CaseStudies';
 import Testimonials from '@/components/Testimonials';
@@ -90,10 +92,12 @@ const Index = () => {
       )}
       <Navbar />
       <Hero data={content.hero} />
+      {content.mvpPromotion?.enabled && <MVPPromotion data={content.mvpPromotion} />}
       <Services 
         data={content.services} 
         carouselConfig={uiConfig?.carouselItemsPerView}
       />
+      {content.pricingTiers && <PricingTiers data={content.pricingTiers} />}
       <Founder data={content.founder} />
       <CaseStudies data={content.caseStudies} />
       <Testimonials 

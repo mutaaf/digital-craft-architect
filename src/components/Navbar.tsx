@@ -46,6 +46,7 @@ const Navbar: React.FC = () => {
         
         <nav className="hidden md:flex space-x-8">
           <a href="#services" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors">Services</a>
+          <a href="#pricing" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors">Pricing</a>
           <a href="#about" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors">About</a>
           <a href="#case-studies" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors">Case Studies</a>
           <a 
@@ -79,6 +80,7 @@ const Navbar: React.FC = () => {
       }`}>
         <div className="container mx-auto px-4 py-4 bg-white dark:bg-gray-900 flex flex-col space-y-4">
           <a href="#services" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors" onClick={toggleMenu}>Services</a>
+          <a href="#pricing" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors" onClick={toggleMenu}>Pricing</a>
           <a href="#about" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors" onClick={toggleMenu}>About</a>
           <a href="#case-studies" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors" onClick={toggleMenu}>Case Studies</a>
         </div>
