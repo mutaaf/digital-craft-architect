@@ -11,14 +11,6 @@ const MVPPromotion: React.FC<MVPPromotionProps> = ({ data }) => {
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 text-white py-20">
-      {/* Background Image Overlay */}
-      {data.backgroundImage && (
-        <div 
-          className="absolute inset-0 opacity-10 bg-cover bg-center"
-          style={{ backgroundImage: `url(${data.backgroundImage})` }}
-        />
-      )}
-      
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
           {/* Left Column - Content */}
