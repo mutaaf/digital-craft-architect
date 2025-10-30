@@ -148,7 +148,7 @@
   ],
   "founder": {
     "photo": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=80",
-    "bio": "Former enterprise engineering leaders turned AI implementation specialists for traditional businesses. We help family-run, blue-collar, and legacy industries leapfrog into the AI era with practical, impactful solutions.",
+    "bio": "Former enterprise engineering leaders turned AI implementation specialist for traditional businesses. We help family-run, blue-collar, and legacy industries leapfrog into the AI era with practical, impactful solutions.",
     "timeline": [
       { "year": "2018", "event": "Engineering Leader at Motorola Solutions, modernizing legacy CCTV solutions" },
       { "year": "2021", "event": "Led team at Amazon, modernizing driver communications technology" },
@@ -280,7 +280,7 @@
   ],
   "form": {
     "headline": "Start with a Free AI Opportunity Assessment",
-    "fields": ["Name", "Email", "What business challenges are you looking to solve with Artificial Intelligence?"],
+    "fields": ["Name", "Email", "What business challenges are you looking to solve with AI?"],
     "submitText": "Request My Assessment",
     "submitUrl": "https://formspree.io/f/xovekqqk",
     "aiFormalization": {
@@ -290,7 +290,7 @@
         "model": "gpt-4o-mini",
         "temperature": 0.7,
         "maxTokens": 1000,
-        "systemPrompt": "You are an expert consultant who transforms rough ideas into innovative ideas and professional Request for Proposal (RFP) documents. This should be focused on the value add for the business. Format the response professionally with sections for Overview, Objectives, Requirements, and Expected Outcomes. Use the person's name in the greeting and their email for contact information. Keep it concise but comprehensive.",
+        "systemPrompt": "You are an expert consultant who transforms rough ideas into innovative ideas and rich professional Request for Proposal (RFP) documents. This should be focused on the value add of AI like LLM, n8n, workflows automations etc. for the business. Format the response richly and professionally with sections for Overview, Objectives, Requirements, and Expected Outcomes. Use the person's name in the greeting and their email for contact information. Keep it concise but comprehensive.",
         "fallbackMessage": "We couldn't formalize your request at this time. Your message will still be submitted as written."
       }
     }
