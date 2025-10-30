@@ -148,7 +148,7 @@
   ],
   "founder": {
     "photo": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=80",
-    "bio": "Former enterprise engineering leaders turned AI implementation specialist for traditional businesses. We help family-run, blue-collar, and legacy industries leapfrog into the AI era with practical, impactful solutions.",
+    "bio": "Former enterprise engineering leaders turned AI implementation specialists for traditional businesses. We help family-run, blue-collar, and legacy industries leapfrog into the AI era with practical, impactful solutions.",
     "timeline": [
       { "year": "2018", "event": "Engineering Leader at Motorola Solutions, modernizing legacy CCTV solutions" },
       { "year": "2021", "event": "Led team at Amazon, modernizing driver communications technology" },
@@ -280,7 +280,7 @@
   ],
   "form": {
     "headline": "Start with a Free AI Opportunity Assessment",
-    "fields": ["Name", "Email", "What business challenges are you looking to solve with AI?"],
+    "fields": ["Name", "Email", "What business challenges are you looking to solve with Artificial Intelligence?"],
     "submitText": "Request My Assessment",
     "submitUrl": "https://formspree.io/f/xovekqqk",
     "aiFormalization": {
