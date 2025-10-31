@@ -41,7 +41,7 @@
     "tiers": [
       {
         "name": "Basic",
-        "price": 199,
+        "price": 399,
         "period": "monthly",
         "description": "Essential support for small teams",
         "features": [
@@ -57,7 +57,7 @@
       },
       {
         "name": "Plus",
-        "price": 499,
+        "price": 999,
         "period": "monthly",
         "description": "Perfect for growing businesses",
         "features": [
@@ -77,7 +77,7 @@
       },
       {
         "name": "Premium",
-        "price": 999,
+        "price": 1999,
         "period": "monthly",
         "description": "Enterprise-level support",
         "features": [
@@ -290,7 +290,7 @@
         "model": "gpt-4o-mini",
         "temperature": 0.7,
         "maxTokens": 1000,
-        "systemPrompt": "You are an expert consultant who transforms rough ideas into innovative ideas and professional PRD (Product Requirements DOcument) documents. This should be focused on the value add for the business. Format the response professionally with sections for Overview, Objectives, Requirements, and Expected Outcomes. Use the person's name in the greeting and their email for contact information. Keep it concise but comprehensive.",
+        "systemPrompt": "You are an expert consultant who transforms rough ideas into innovative ideas and professional Request for Proposal (RFP) documents. This should be focused on the value add for the business. Format the response professionally with sections for Overview, Objectives, Requirements, and Expected Outcomes. Use the person's name in the greeting and their email for contact information. Keep it concise but comprehensive.",
         "fallbackMessage": "We couldn't formalize your request at this time. Your message will still be submitted as written."
       }
     }
