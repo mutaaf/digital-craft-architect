@@ -6,9 +6,10 @@ interface ChatInputProps {
   onSend: (message: string) => void;
   disabled?: boolean;
   placeholder?: string;
+  companyName?: string;
 }
 
-const ChatInput = ({ onSend, disabled, placeholder = 'Type a message...' }: ChatInputProps) => {
+const ChatInput = ({ onSend, disabled, placeholder = 'Type a message...', companyName }: ChatInputProps) => {
   const [value, setValue] = useState('');
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -27,6 +28,10 @@ const ChatInput = ({ onSend, disabled, placeholder = 'Type a message...' }: Chat
     }
   };
 
+  const disabledPlaceholder = companyName
+    ? `${companyName} AI is responding...`
+    : '448 AI is responding...';
+
   return (
     <div className="flex items-end gap-2 p-3 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
       <textarea
@@ -34,7 +39,7 @@ const ChatInput = ({ onSend, disabled, placeholder = 'Type a message...' }: Chat
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={handleKeyDown}
-        placeholder={disabled ? '448 AI is responding...' : placeholder}
+        placeholder={disabled ? disabledPlaceholder : placeholder}
         disabled={disabled}
         rows={1}
         className="flex-1 resize-none bg-gray-100 dark:bg-gray-800 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 disabled:opacity-50 placeholder:text-gray-400"

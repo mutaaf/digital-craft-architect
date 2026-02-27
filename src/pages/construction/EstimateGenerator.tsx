@@ -3,6 +3,7 @@ import DemoNavbar from '@/components/construction/DemoNavbar';
 import StepIndicator from '@/components/construction/estimate/StepIndicator';
 import ProjectTypeSelector from '@/components/construction/estimate/ProjectTypeSelector';
 import EstimateCard from '@/components/construction/estimate/EstimateCard';
+import { useDemoContext } from '@/contexts/DemoContext';
 import {
   PROJECT_TYPES,
   FINISH_LEVELS,
@@ -20,6 +21,8 @@ import { ArrowLeft, ArrowRight, RotateCcw, Sparkles } from 'lucide-react';
 const STEP_LABELS = ['Project', 'Size', 'Finish', 'Extras'];
 
 const EstimateGenerator = () => {
+  const { company } = useDemoContext();
+  const possessive = company?.companyName ? `${company.companyName}'s` : "448's";
   const [step, setStep] = useState(1);
   const [selectedTypeId, setSelectedTypeId] = useState<string | null>(null);
   const [sqft, setSqft] = useState<number>(0);
@@ -92,7 +95,7 @@ const EstimateGenerator = () => {
           </Badge>
           <h1 className="text-2xl sm:text-3xl font-bold mb-2">Smart Estimate Generator</h1>
           <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base">
-            Get a ballpark estimate in 60 seconds using 448's real pricing.
+            Get a ballpark estimate in 60 seconds using {possessive} real pricing.
           </p>
         </div>
 

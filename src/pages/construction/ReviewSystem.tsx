@@ -1,9 +1,10 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import DemoNavbar from '@/components/construction/DemoNavbar';
 import PhoneMockup from '@/components/construction/reviews/PhoneMockup';
 import SMSBubble from '@/components/construction/reviews/SMSBubble';
 import TimelineBar from '@/components/construction/reviews/TimelineBar';
 import ReviewDashboard from '@/components/construction/reviews/ReviewDashboard';
+import { useDemoContext } from '@/contexts/DemoContext';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -22,17 +23,28 @@ import {
   ArrowRight,
 } from 'lucide-react';
 
-const RECENT_REVIEWS = [
-  { name: 'Mike R.', rating: 5, text: 'Amazing kitchen remodel. On time, on budget. Highly recommend!', date: '2 days ago' },
-  { name: 'Lisa T.', rating: 5, text: 'Ro and his team transformed our bathroom. Professional from start to finish.', date: '4 days ago' },
-  { name: 'James K.', rating: 4, text: 'Great work on the patio. Minor delay but end result was perfect.', date: '1 week ago' },
-  { name: 'Anna M.', rating: 5, text: 'Best contractor experience we\'ve ever had. Already recommending to friends.', date: '1 week ago' },
-  { name: 'David P.', rating: 5, text: 'Full home renovation done right. Communication was excellent throughout.', date: '2 weeks ago' },
-];
+function buildReviews(ownerName: string) {
+  return [
+    { name: 'Mike R.', rating: 5, text: 'Amazing kitchen remodel. On time, on budget. Highly recommend!', date: '2 days ago' },
+    { name: 'Lisa T.', rating: 5, text: `${ownerName} and the team transformed our bathroom. Professional from start to finish.`, date: '4 days ago' },
+    { name: 'James K.', rating: 4, text: 'Great work on the patio. Minor delay but end result was perfect.', date: '1 week ago' },
+    { name: 'Anna M.', rating: 5, text: "Best contractor experience we've ever had. Already recommending to friends.", date: '1 week ago' },
+    { name: 'David P.', rating: 5, text: 'Full home renovation done right. Communication was excellent throughout.', date: '2 weeks ago' },
+  ];
+}
 
 type Phase = 'initial' | 'rating' | 'positive' | 'negative' | 'feedback_sent' | 'day3' | 'day7';
 
 const ReviewSystem = () => {
+  const { company } = useDemoContext();
+  const companyName = company?.companyName || '448 Developments';
+  const ownerName = company?.ownerName || 'Ro';
+  const location = company?.location || 'DFW';
+  const firstService = company?.services?.[0]?.toLowerCase() || 'kitchen remodel';
+  const avgJobValue = company?.avgJobValue || 35000;
+
+  const recentReviews = useMemo(() => buildReviews(ownerName), [ownerName]);
+
   const [phase, setPhase] = useState<Phase>('initial');
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
@@ -100,7 +112,7 @@ const ReviewSystem = () => {
           </h1>
           <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base max-w-xl mx-auto">
             Automated SMS sequences turn every completed project into a 5-star Google review —
-            without Ro or his team lifting a finger.
+            without {ownerName} or the team lifting a finger.
           </p>
         </div>
 
@@ -121,7 +133,7 @@ const ReviewSystem = () => {
             </div>
             <p className="text-sm font-semibold mb-1">Smart Routing</p>
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              Happy customers → Google. Unhappy → private feedback to Ro. Protects your rating.
+              Happy customers → Google. Unhappy → private feedback to {ownerName}. Protects your rating.
             </p>
           </Card>
           <Card className="p-4 text-center animate-fade-in" style={{ animationDelay: '300ms', animationFillMode: 'both' }}>
@@ -151,9 +163,9 @@ const ReviewSystem = () => {
             <PhoneMockup>
               {/* Day 0 initial message */}
               <SMSBubble from="business" time="Just now">
-                <p className="font-medium mb-1">448 Developments</p>
+                <p className="font-medium mb-1">{companyName}</p>
                 <p>
-                  Hi Sarah! 👋 Your kitchen remodel is complete. We'd love to know how we did!
+                  Hi Sarah! 👋 Your {firstService} is complete. We'd love to know how we did!
                 </p>
                 <p className="mt-2">How would you rate your experience? Tap a star below:</p>
               </SMSBubble>
@@ -198,7 +210,7 @@ const ReviewSystem = () => {
                   </SMSBubble>
                   <SMSBubble from="business" time="Just now">
                     <p>
-                      Wow, thank you Sarah! 🎉 We're thrilled you love your new kitchen!
+                      Wow, thank you Sarah! 🎉 We're thrilled you love your new {firstService.includes('remodel') || firstService.includes('renovation') ? firstService : 'project'}!
                     </p>
                     <p className="mt-2">
                       Would you mind sharing your experience on Google? It really helps other
@@ -226,7 +238,7 @@ const ReviewSystem = () => {
                       We're sorry to hear that, Sarah. Your feedback is important to us.
                     </p>
                     <p className="mt-2">
-                      Could you share what we could have done better? We'll have Ro reach out
+                      Could you share what we could have done better? We'll have {ownerName} reach out
                       personally.
                     </p>
                   </SMSBubble>
@@ -247,10 +259,10 @@ const ReviewSystem = () => {
                   <SMSBubble from="business" time="Just now">
                     <div className="flex items-center gap-2 text-yellow-600 dark:text-yellow-500">
                       <AlertTriangle size={14} />
-                      <span className="text-xs font-medium">Ro has been notified</span>
+                      <span className="text-xs font-medium">{ownerName} has been notified</span>
                     </div>
                     <p className="mt-1">
-                      Thank you for sharing, Sarah. Ro will reach out to you directly within 24
+                      Thank you for sharing, Sarah. {ownerName} will reach out to you directly within 24
                       hours to make this right.
                     </p>
                   </SMSBubble>
@@ -269,10 +281,10 @@ const ReviewSystem = () => {
                     — 3 days later —
                   </div>
                   <SMSBubble from="business" time="Day 3">
-                    <p className="font-medium mb-1">448 Developments</p>
+                    <p className="font-medium mb-1">{companyName}</p>
                     <p>
                       Hi Sarah! Just checking in — how's everything holding up with the new
-                      kitchen? Any questions or concerns?
+                      {firstService.includes('remodel') || firstService.includes('renovation') ? ` ${firstService}` : ' project'}? Any questions or concerns?
                     </p>
                   </SMSBubble>
                 </>
@@ -290,10 +302,10 @@ const ReviewSystem = () => {
                     — 7 days later —
                   </div>
                   <SMSBubble from="business" time="Day 7">
-                    <p className="font-medium mb-1">448 Developments</p>
+                    <p className="font-medium mb-1">{companyName}</p>
                     <p>
                       Hi Sarah! Quick reminder — if you enjoyed your remodel, a Google review
-                      would mean the world to us and help other DFW homeowners find quality
+                      would mean the world to us and help other {location} homeowners find quality
                       contractors. 🙏
                     </p>
                     <a
@@ -330,7 +342,10 @@ const ReviewSystem = () => {
               responseRate={dashStats.responseRate}
               avgRating={dashStats.avgRating}
               newReviews={dashStats.newReviews}
-              recentReviews={RECENT_REVIEWS}
+              recentReviews={recentReviews}
+              companyName={companyName}
+              location={location}
+              avgJobValue={avgJobValue}
             />
           </div>
         </div>
@@ -343,7 +358,7 @@ const ReviewSystem = () => {
             <DialogTitle>Share Your Feedback</DialogTitle>
           </DialogHeader>
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            Your feedback stays private — it goes directly to Ro, not to a public review.
+            Your feedback stays private — it goes directly to {ownerName}, not to a public review.
           </p>
           <Textarea
             placeholder="What could we have done better?"

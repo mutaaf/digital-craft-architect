@@ -3,6 +3,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { Printer, Calendar, DollarSign } from 'lucide-react';
+import { useDemoContext } from '@/contexts/DemoContext';
 import type { EstimateBreakdown, ProjectType, FinishLevel } from '@/data/estimatePricing';
 
 interface EstimateCardProps {
@@ -24,6 +25,13 @@ const LineItem = ({ label, low, high }: { label: string; low: number; high: numb
 );
 
 const EstimateCard = ({ breakdown, projectType, finish, sqft }: EstimateCardProps) => {
+  const { company } = useDemoContext();
+  const companyName = company?.companyName || '448 Developments';
+  const tagline = company?.tagline || 'DFW Construction & Remodeling';
+  const phone = company?.phone || '(214) 555-0448';
+  const email = company?.email || 'info@448developments.com';
+  const bookingUrl = company?.bookingUrl || 'https://calendly.com/mutaaf';
+
   const handlePrint = () => window.print();
 
   return (
@@ -33,12 +41,12 @@ const EstimateCard = ({ breakdown, projectType, finish, sqft }: EstimateCardProp
         <div className="bg-primary text-white px-5 sm:px-8 py-5 sm:py-6">
           <div className="flex items-center justify-between gap-4">
             <div>
-              <h2 className="text-xl sm:text-2xl font-bold">448 Developments</h2>
-              <p className="text-white/70 text-sm mt-1">DFW Construction & Remodeling</p>
+              <h2 className="text-xl sm:text-2xl font-bold">{companyName}</h2>
+              <p className="text-white/70 text-sm mt-1">{tagline}</p>
             </div>
             <div className="text-right text-sm text-white/70 hidden sm:block">
-              <p>(214) 555-0448</p>
-              <p>info@448developments.com</p>
+              <p>{phone}</p>
+              <p>{email}</p>
             </div>
           </div>
         </div>
@@ -109,7 +117,7 @@ const EstimateCard = ({ breakdown, projectType, finish, sqft }: EstimateCardProp
 
           {/* Disclaimer */}
           <p className="text-xs text-gray-400 italic mb-6">
-            This is a ballpark estimate based on average DFW pricing. Final pricing will be
+            This is a ballpark estimate based on average pricing. Final pricing will be
             determined after an in-home consultation and detailed scope review. Actual costs may
             vary based on site conditions, material selections, and permit requirements.
           </p>
@@ -119,11 +127,13 @@ const EstimateCard = ({ breakdown, projectType, finish, sqft }: EstimateCardProp
             <Button onClick={handlePrint} variant="outline" className="flex-1 gap-2">
               <Printer size={16} /> Print Estimate
             </Button>
-            <Button asChild className="flex-1 gap-2">
-              <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">
-                Book Free Consultation
-              </a>
-            </Button>
+            {bookingUrl && (
+              <Button asChild className="flex-1 gap-2">
+                <a href={bookingUrl} target="_blank" rel="noopener noreferrer">
+                  Book Free Consultation
+                </a>
+              </Button>
+            )}
           </div>
         </div>
       </div>

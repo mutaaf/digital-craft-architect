@@ -1,14 +1,22 @@
 import { Link, useLocation } from 'react-router-dom';
 import { HardHat, ArrowLeft } from 'lucide-react';
+import { useDemoContext } from '@/contexts/DemoContext';
 
 const links = [
   { to: '/construction/demo/lead-responder', label: 'Leads', fullLabel: 'Lead Responder' },
   { to: '/construction/demo/estimate', label: 'Estimate', fullLabel: 'Estimate' },
   { to: '/construction/demo/reviews', label: 'Reviews', fullLabel: 'Reviews' },
+  { to: '/construction/demo/property-negotiator', label: 'Deals', fullLabel: 'Deal Analyzer' },
 ];
 
 const DemoNavbar = () => {
   const { pathname } = useLocation();
+  const { company } = useDemoContext();
+  const brandLabel = company?.companyName
+    ? company.companyName.length > 16
+      ? company.companyName.slice(0, 16) + '…'
+      : company.companyName
+    : '448';
 
   return (
     <nav className="sticky top-0 z-50 bg-white/90 dark:bg-gray-950/90 backdrop-blur border-b border-gray-200 dark:border-gray-800">
@@ -19,7 +27,7 @@ const DemoNavbar = () => {
             className="flex items-center gap-1.5 text-sm font-semibold text-gray-700 dark:text-gray-200 hover:text-primary transition-colors"
           >
             <HardHat size={20} className="text-primary" />
-            <span className="font-bold">448</span>
+            <span className="font-bold">{brandLabel}</span>
             <span className="hidden sm:inline">Demos</span>
           </Link>
           <div className="h-5 w-px bg-gray-300 dark:bg-gray-700" />
