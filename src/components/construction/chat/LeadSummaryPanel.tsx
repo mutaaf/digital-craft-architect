@@ -4,6 +4,7 @@ import { Progress } from '@/components/ui/progress';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { User, Home, Ruler, DollarSign, Clock, MapPin, Phone, CalendarCheck, CheckCircle2 } from 'lucide-react';
+import { useDemoContext } from '@/contexts/DemoContext';
 
 export interface LeadData {
   name?: string;
@@ -30,6 +31,9 @@ const fields: { key: keyof LeadData; label: string; icon: React.ReactNode }[] = 
 ];
 
 const LeadSummaryPanel = ({ data }: LeadSummaryPanelProps) => {
+  const { company } = useDemoContext();
+  const bookingUrl = company?.bookingUrl || 'https://calendly.com/mutaaf';
+
   const filled = fields.filter((f) => data[f.key]);
   const percent = Math.round((filled.length / fields.length) * 100);
   const qualified = percent >= 70;
@@ -92,11 +96,13 @@ const LeadSummaryPanel = ({ data }: LeadSummaryPanelProps) => {
               Lead qualified! Ready to book.
             </p>
           </div>
-          <Button asChild className="w-full gap-2">
-            <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">
-              <CalendarCheck size={16} /> Book Consultation
-            </a>
-          </Button>
+          {bookingUrl && (
+            <Button asChild className="w-full gap-2">
+              <a href={bookingUrl} target="_blank" rel="noopener noreferrer">
+                <CalendarCheck size={16} /> Book Consultation
+              </a>
+            </Button>
+          )}
         </div>
       ) : (
         <p className="text-xs text-gray-400 text-center">

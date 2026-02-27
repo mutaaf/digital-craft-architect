@@ -10,10 +10,12 @@ import DemoHub from "./pages/construction/DemoHub";
 import LeadResponder from "./pages/construction/LeadResponder";
 import EstimateGenerator from "./pages/construction/EstimateGenerator";
 import ReviewSystem from "./pages/construction/ReviewSystem";
+import PropertyNegotiator from "./pages/construction/PropertyNegotiator";
 import NotFound from "./pages/NotFound";
 import { ErrorBoundary } from "@sentry/react";
 import { captureException } from "./utils/sentry";
 import EasterEgg from "./components/EasterEgg";
+import { DemoContextProvider } from "./contexts/DemoContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -120,10 +122,11 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/construction" element={<Construction />} />
-              <Route path="/construction/demo" element={<DemoHub />} />
-              <Route path="/construction/demo/lead-responder" element={<LeadResponder />} />
-              <Route path="/construction/demo/estimate" element={<EstimateGenerator />} />
-              <Route path="/construction/demo/reviews" element={<ReviewSystem />} />
+              <Route path="/construction/demo" element={<DemoContextProvider><DemoHub /></DemoContextProvider>} />
+              <Route path="/construction/demo/lead-responder" element={<DemoContextProvider><LeadResponder /></DemoContextProvider>} />
+              <Route path="/construction/demo/estimate" element={<DemoContextProvider><EstimateGenerator /></DemoContextProvider>} />
+              <Route path="/construction/demo/reviews" element={<DemoContextProvider><ReviewSystem /></DemoContextProvider>} />
+              <Route path="/construction/demo/property-negotiator" element={<DemoContextProvider><PropertyNegotiator /></DemoContextProvider>} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

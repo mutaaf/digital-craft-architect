@@ -1,9 +1,10 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import DemoNavbar from '@/components/construction/DemoNavbar';
 import ChatBubble from '@/components/construction/chat/ChatBubble';
 import ChatInput from '@/components/construction/chat/ChatInput';
 import LeadSummaryPanel from '@/components/construction/chat/LeadSummaryPanel';
 import type { LeadData } from '@/components/construction/chat/LeadSummaryPanel';
+import { useDemoContext } from '@/contexts/DemoContext';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
@@ -12,9 +13,17 @@ import { Sparkles, ClipboardList } from 'lucide-react';
 import { streamChat } from '@/utils/openaiChat';
 import type { ChatMessage } from '@/utils/openaiChat';
 
-const SYSTEM_PROMPT = `You are the AI assistant for 448 Developments, a DFW (Dallas-Fort Worth) construction and remodeling company led by Ro. Your job is to qualify incoming leads by having a natural, friendly conversation.
+function buildSystemPrompt(companyName: string, ownerName: string, services: string[]): string {
+  const serviceLines = services
+    .map((s) => `- ${s}`)
+    .join('\n');
 
-SERVICES & PRICING:
+  return `You are the AI assistant for ${companyName}, a construction and remodeling company led by ${ownerName}. Your job is to qualify incoming leads by having a natural, friendly conversation.
+
+SERVICES OFFERED:
+${serviceLines}
+
+PRICING GUIDANCE:
 - Kitchen Remodel: $120-250/sqft
 - Bathroom Remodel: $150-300/sqft
 - Full Home Renovation: $80-180/sqft
@@ -33,32 +42,53 @@ QUALIFICATION FLOW — gather these naturally through conversation (don't ask al
 RULES:
 - Be warm, professional, and conversational — like a friendly project manager
 - Give helpful ballpark ranges when asked about pricing
-- If someone seems ready, suggest booking a free in-home consultation with Ro
+- If someone seems ready, suggest booking a free in-home consultation with ${ownerName}
 - Keep responses concise (2-4 sentences)
-- Always represent 448 Developments positively
+- Always represent ${companyName} positively
 
 LEAD DATA EXTRACTION:
 Whenever you learn new info about the lead, append this EXACTLY at the end of your message (the user won't see it):
 |||LEAD_DATA|||{"name":"...","projectType":"...","sqft":"...","budget":"...","timeline":"...","address":"...","phone":"..."}
 Only include fields you've confirmed. Use null for unknown fields. This must be valid JSON.`;
+}
+
+function buildGreeting(companyName: string): string {
+  return `Hey there! 👋 Welcome to ${companyName} — your go-to team for quality remodeling and construction.
+
+I'm here to help you figure out if we're the right fit for your project. What are you thinking about — a kitchen remodel, bathroom, something bigger?`;
+}
 
 interface Message {
   role: 'user' | 'assistant';
   content: string;
 }
 
-const GREETING = `Hey there! 👋 Welcome to 448 Developments — DFW's go-to team for quality remodeling and construction.
-
-I'm here to help you figure out if we're the right fit for your project. What are you thinking about — a kitchen remodel, bathroom, something bigger?`;
-
 const LeadResponder = () => {
+  const { company } = useDemoContext();
+  const companyName = company?.companyName || '448 Developments';
+  const ownerName = company?.ownerName || 'Ro';
+  const services = company?.services || ['Kitchen Remodeling', 'Bathroom Renovation', 'Full Home Renovation', 'Outdoor/Patio', 'General Construction'];
+
+  const systemPrompt = useMemo(
+    () => buildSystemPrompt(companyName, ownerName, services),
+    [companyName, ownerName, services],
+  );
+
+  const greeting = useMemo(() => buildGreeting(companyName), [companyName]);
+
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: GREETING },
+    { role: 'assistant', content: greeting },
   ]);
   const [isStreaming, setIsStreaming] = useState(false);
   const [leadData, setLeadData] = useState<LeadData>({});
   const scrollRef = useRef<HTMLDivElement>(null);
   const abortRef = useRef<AbortController | null>(null);
+
+  // Reset messages when company changes
+  useEffect(() => {
+    setMessages([{ role: 'assistant', content: greeting }]);
+    setLeadData({});
+  }, [greeting]);
 
   const scrollToBottom = useCallback(() => {
     setTimeout(() => {
@@ -94,9 +124,8 @@ const LeadResponder = () => {
     setMessages((prev) => [...prev, userMsg]);
     setIsStreaming(true);
 
-    // Build OpenAI messages
     const chatMessages: ChatMessage[] = [
-      { role: 'system', content: SYSTEM_PROMPT },
+      { role: 'system', content: systemPrompt },
       ...messages.map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content })),
       { role: 'user' as const, content: text },
     ];
@@ -120,12 +149,10 @@ const LeadResponder = () => {
         abortRef.current.signal
       );
 
-      // Parse lead data from final response
       const { clean, data } = parseLeadData(full);
       if (data) {
         setLeadData((prev) => ({ ...prev, ...data }));
       }
-      // Update message with clean text
       setMessages((prev) => {
         const next = [...prev];
         next[next.length - 1] = { role: 'assistant', content: clean };
@@ -159,7 +186,7 @@ const LeadResponder = () => {
           </Badge>
           <h1 className="text-2xl sm:text-3xl font-bold mb-2">AI Lead Responder</h1>
           <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base">
-            Play the homeowner — chat with 448's AI and watch it qualify leads in real time.
+            Play the homeowner — chat with {companyName}'s AI and watch it qualify leads in real time.
           </p>
         </div>
 
@@ -168,10 +195,9 @@ const LeadResponder = () => {
           <div className="flex-1 lg:flex-[3] flex flex-col bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden min-h-[60vh] lg:min-h-0">
             <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
               <div>
-                <p className="text-sm font-semibold">448 Developments</p>
+                <p className="text-sm font-semibold">{companyName}</p>
                 <p className="text-xs text-green-500">Online — typically replies instantly</p>
               </div>
-              {/* Mobile: sheet trigger for lead panel */}
               <Sheet>
                 <SheetTrigger asChild>
                   <Button variant="outline" size="sm" className="lg:hidden gap-1">
@@ -207,7 +233,7 @@ const LeadResponder = () => {
               </div>
             </ScrollArea>
 
-            <ChatInput onSend={handleSend} disabled={isStreaming} />
+            <ChatInput onSend={handleSend} disabled={isStreaming} companyName={companyName} />
           </div>
 
           {/* Lead panel — desktop only */}
