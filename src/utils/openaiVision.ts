@@ -7,7 +7,7 @@ export interface VisionMessage {
   content: string | VisionContentPart[];
 }
 
-interface VisionOptions {
+export interface VisionOptions {
   temperature?: number;
   maxTokens?: number;
   jsonSchema?: { name: string; strict: boolean; schema: object };
@@ -15,20 +15,16 @@ interface VisionOptions {
 
 /**
  * Non-streaming GPT-4o call that supports image content parts.
- * Returns the raw text content from the model response.
+ * Routes through /api/chat serverless proxy to avoid CORS.
  */
 export async function chatWithVision(
   messages: VisionMessage[],
   opts?: VisionOptions,
 ): Promise<string> {
-  const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
-  if (!apiKey) throw new Error('Missing VITE_OPENAI_API_KEY');
-
   const body: Record<string, unknown> = {
-    model: 'gpt-4o',
+    messages,
     temperature: opts?.temperature ?? 0.4,
     max_tokens: opts?.maxTokens ?? 4096,
-    messages,
   };
 
   if (opts?.jsonSchema) {
@@ -38,12 +34,9 @@ export async function chatWithVision(
     };
   }
 
-  const resp = await fetch('https://api.openai.com/v1/chat/completions', {
+  const resp = await fetch('/api/chat', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`,
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   });
 

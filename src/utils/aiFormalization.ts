@@ -15,27 +15,21 @@ export const formalizeWithAI = async (
 ): Promise<string> => {
   try {
     const { name, email, ...otherFields } = formData;
-    
+
     // Get the challenge text from the other fields
     const challengeField = Object.keys(otherFields)[0];
     const challengeText = otherFields[challengeField] || '';
-    
+
     if (!challengeText || challengeText.length < 10) {
       return challengeText; // Return original if too short
     }
 
     console.log('Formalizing input with AI...');
-    
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+
+    const response = await fetch('/api/chat', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: config.model,
-        temperature: config.temperature,
-        max_tokens: config.maxTokens,
         messages: [
           {
             role: 'system',
@@ -46,6 +40,8 @@ export const formalizeWithAI = async (
             content: `Name: ${name || 'Client'}\nEmail: ${email || 'Not provided'}\n\nBusiness Challenge: ${challengeText}`,
           },
         ],
+        temperature: config.temperature,
+        max_tokens: config.maxTokens,
       }),
     });
 

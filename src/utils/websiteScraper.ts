@@ -112,16 +112,11 @@ async function fetchWithJina(url: string): Promise<string | null> {
 async function extractWithOpenAI(
   content: string,
   url: string,
-  apiKey: string,
 ): Promise<Partial<CompanyProfile>> {
-  const resp = await fetch('https://api.openai.com/v1/chat/completions', {
+  const resp = await fetch('/api/chat', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`,
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      model: 'gpt-4o-mini',
       messages: [
         {
           role: 'system',
@@ -151,9 +146,6 @@ async function extractWithOpenAI(
 }
 
 export async function scrapeWebsite(input: string): Promise<CompanyProfile> {
-  const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
-  if (!apiKey) throw new Error('Missing VITE_OPENAI_API_KEY');
-
   // Normalize input into a URL
   const isUrl = input.includes('.') && !input.includes(' ');
   const url = isUrl
@@ -174,7 +166,7 @@ export async function scrapeWebsite(input: string): Promise<CompanyProfile> {
   }
 
   // Step 2: Extract structured data with OpenAI
-  const extracted = await extractWithOpenAI(content, fullUrl || input, apiKey);
+  const extracted = await extractWithOpenAI(content, fullUrl || input);
 
   // Merge with defaults
   return {

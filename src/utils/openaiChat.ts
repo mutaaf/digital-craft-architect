@@ -4,7 +4,7 @@ export interface ChatMessage {
 }
 
 /**
- * Streams a chat completion from OpenAI GPT-4o.
+ * Streams a chat completion via /api/stream serverless proxy.
  * Calls `onChunk` for each text delta and returns the full response.
  */
 export async function streamChat(
@@ -12,21 +12,13 @@ export async function streamChat(
   onChunk: (text: string) => void,
   signal?: AbortSignal
 ): Promise<string> {
-  const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
-  if (!apiKey) throw new Error('Missing VITE_OPENAI_API_KEY');
-
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
+  const response = await fetch('/api/stream', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`,
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      model: 'gpt-4o',
+      messages,
       temperature: 0.7,
       max_tokens: 1024,
-      stream: true,
-      messages,
     }),
     signal,
   });
