@@ -37,7 +37,7 @@ const StepIndicator = ({ currentStep, totalSteps, labels }: StepIndicatorProps) 
           </div>
           {step < totalSteps && (
             <div
-              className={`w-8 sm:w-16 h-0.5 mb-4 sm:mb-0 ${
+              className={`w-6 sm:w-16 h-0.5 ${
                 isComplete ? 'bg-green-500' : 'bg-gray-200 dark:bg-gray-700'
               }`}
             />

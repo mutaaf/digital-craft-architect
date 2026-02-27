@@ -32,7 +32,7 @@ const ProjectTypeSelector = ({ types, selected, onSelect }: ProjectTypeSelectorP
           className={`w-14 h-14 rounded-xl flex items-center justify-center ${
             selected === t.id
               ? 'bg-primary text-white'
-              : 'bg-gray-100 dark:bg-gray-800 text-gray-500'
+              : 'bg-gray-100 dark:bg-gray-800 text-primary/50'
           }`}
         >
           {iconMap[t.icon]}

@@ -1,13 +1,21 @@
 
 import React from 'react';
 import { TestimonialItem } from '@/hooks/useContent';
-import { Quote } from 'lucide-react';
+import TestimonialCarousel from './TestimonialCarousel';
 
 interface TestimonialsProps {
   data: TestimonialItem[];
+  carouselConfig?: {
+    mobile: number;
+    tablet: number;
+    desktop: number;
+  };
 }
 
-const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
+const Testimonials: React.FC<TestimonialsProps> = ({ 
+  data,
+  carouselConfig = { mobile: 1, tablet: 2, desktop: 3 }
+}) => {
   return (
     <section className="container-section">
       <div className="text-center mb-16 animate-fade-in">
@@ -17,33 +25,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
         </p>
       </div>
       
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {data.map((testimonial, index) => (
-          <div 
-            key={index} 
-            className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md border border-gray-100 dark:border-gray-700 relative animate-slide-up" 
-            style={{ animationDelay: `${index * 150}ms` }}
-          >
-            <div className="absolute -top-4 -left-4 w-10 h-10 bg-skyblue rounded-full flex items-center justify-center">
-              <Quote size={20} className="text-white" />
-            </div>
-            
-            <p className="text-gray-700 dark:text-gray-300 mb-6 italic">"{testimonial.quote}"</p>
-            
-            <div className="flex items-center">
-              <img 
-                src={testimonial.image} 
-                alt={testimonial.author} 
-                className="w-12 h-12 rounded-full object-cover mr-4"
-              />
-              <div>
-                <h4 className="font-semibold">{testimonial.author}</h4>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{testimonial.position}</p>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+      <TestimonialCarousel data={data} itemsToShow={carouselConfig} />
     </section>
   );
 };

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import DemoNavbar from '@/components/construction/DemoNavbar';
 import StepIndicator from '@/components/construction/estimate/StepIndicator';
 import ProjectTypeSelector from '@/components/construction/estimate/ProjectTypeSelector';
@@ -9,7 +9,6 @@ import {
   EXTRAS,
   calculateEstimate,
 } from '@/data/estimatePricing';
-import type { ProjectType, FinishLevel, Extra } from '@/data/estimatePricing';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
@@ -61,23 +60,38 @@ const EstimateGenerator = () => {
   const selectedExtras = EXTRAS.filter((e) => selectedExtraIds.has(e.id));
   const showEstimate = step === 5;
 
+  const extrasTotal = useMemo(
+    () =>
+      selectedExtras.reduce(
+        (sum, e) => sum + (e.flatCost ?? e.perSqftCost! * sqft),
+        0
+      ),
+    [selectedExtras, sqft]
+  );
+
   const breakdown =
     showEstimate && projectType
       ? calculateEstimate(projectType, sqft, finish, selectedExtras)
       : null;
 
+  const validationHint = () => {
+    if (step === 1 && !selectedTypeId) return 'Select a project type to continue';
+    if (step === 2 && sqft === 0) return 'Enter the square footage';
+    return null;
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       <DemoNavbar />
 
-      <div className="max-w-3xl mx-auto px-4 py-10">
+      <div className="max-w-3xl mx-auto px-4 py-8 sm:py-10">
         {/* Header */}
         <div className="text-center mb-8">
           <Badge variant="secondary" className="mb-3">
             <Sparkles size={14} className="mr-1" /> POC Demo
           </Badge>
-          <h1 className="text-3xl font-bold mb-2">Smart Estimate Generator</h1>
-          <p className="text-gray-500 dark:text-gray-400">
+          <h1 className="text-2xl sm:text-3xl font-bold mb-2">Smart Estimate Generator</h1>
+          <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base">
             Get a ballpark estimate in 60 seconds using 448's real pricing.
           </p>
         </div>
@@ -89,7 +103,7 @@ const EstimateGenerator = () => {
         {/* Step 1: Project Type */}
         {step === 1 && (
           <div className="animate-fade-in">
-            <h2 className="text-xl font-semibold mb-4 text-center">What type of project?</h2>
+            <h2 className="text-lg sm:text-xl font-semibold mb-4 text-center">What type of project?</h2>
             <ProjectTypeSelector
               types={PROJECT_TYPES}
               selected={selectedTypeId}
@@ -101,11 +115,11 @@ const EstimateGenerator = () => {
         {/* Step 2: Square Footage */}
         {step === 2 && projectType && (
           <div className="animate-fade-in">
-            <h2 className="text-xl font-semibold mb-6 text-center">
+            <h2 className="text-lg sm:text-xl font-semibold mb-6 text-center">
               How big is the {projectType.label.toLowerCase()} area?
             </h2>
-            <Card className="p-8">
-              <div className="flex items-center justify-center gap-4 mb-8">
+            <Card className="p-6 sm:p-8">
+              <div className="flex items-center justify-center gap-3 mb-8">
                 <Input
                   type="number"
                   value={sqft}
@@ -113,11 +127,11 @@ const EstimateGenerator = () => {
                     const v = parseInt(e.target.value) || 0;
                     setSqft(Math.min(v, projectType.maxSqft));
                   }}
-                  className="w-32 text-center text-2xl font-bold h-14"
+                  className="w-24 sm:w-32 text-center text-xl sm:text-2xl font-bold h-12 sm:h-14"
                   min={projectType.minSqft}
                   max={projectType.maxSqft}
                 />
-                <span className="text-lg text-gray-500">sq ft</span>
+                <span className="text-base sm:text-lg text-gray-500">sq ft</span>
               </div>
               <Slider
                 value={[sqft]}
@@ -138,20 +152,20 @@ const EstimateGenerator = () => {
         {/* Step 3: Finish Level */}
         {step === 3 && (
           <div className="animate-fade-in">
-            <h2 className="text-xl font-semibold mb-6 text-center">Select finish level</h2>
+            <h2 className="text-lg sm:text-xl font-semibold mb-6 text-center">Select finish level</h2>
             <div className="grid gap-4">
               {FINISH_LEVELS.map((f) => (
                 <Card
                   key={f.id}
                   onClick={() => setSelectedFinishId(f.id)}
-                  className={`cursor-pointer p-5 flex items-center gap-4 transition-all ${
+                  className={`cursor-pointer p-4 sm:p-5 flex items-center gap-4 transition-all hover:shadow-md ${
                     selectedFinishId === f.id
                       ? 'ring-2 ring-primary bg-primary/5 border-primary'
                       : 'hover:border-gray-300 dark:hover:border-gray-600'
                   }`}
                 >
                   <div
-                    className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                    className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
                       selectedFinishId === f.id ? 'border-primary' : 'border-gray-300'
                     }`}
                   >
@@ -159,7 +173,7 @@ const EstimateGenerator = () => {
                       <div className="w-2.5 h-2.5 rounded-full bg-primary" />
                     )}
                   </div>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
                       <span className="font-semibold">{f.label}</span>
                       <Badge variant="outline" className="text-xs">
@@ -177,8 +191,12 @@ const EstimateGenerator = () => {
         {/* Step 4: Extras */}
         {step === 4 && (
           <div className="animate-fade-in">
-            <h2 className="text-xl font-semibold mb-2 text-center">Any add-ons?</h2>
-            <p className="text-gray-400 text-center text-sm mb-6">Optional — skip if none apply</p>
+            <h2 className="text-lg sm:text-xl font-semibold mb-2 text-center">Any add-ons?</h2>
+            <p className="text-gray-400 text-center text-sm mb-6">
+              {selectedExtraIds.size > 0
+                ? `${selectedExtraIds.size} add-on${selectedExtraIds.size > 1 ? 's' : ''} selected — $${extrasTotal.toLocaleString()}`
+                : 'Optional — skip if none apply'}
+            </p>
             <div className="grid gap-4">
               {EXTRAS.map((e) => {
                 const checked = selectedExtraIds.has(e.id);
@@ -189,18 +207,18 @@ const EstimateGenerator = () => {
                   <Card
                     key={e.id}
                     onClick={() => toggleExtra(e.id)}
-                    className={`cursor-pointer p-5 flex items-center gap-4 transition-all ${
+                    className={`cursor-pointer p-4 sm:p-5 flex items-center gap-3 sm:gap-4 transition-all hover:shadow-md ${
                       checked
                         ? 'ring-2 ring-primary bg-primary/5 border-primary'
                         : 'hover:border-gray-300 dark:hover:border-gray-600'
                     }`}
                   >
                     <Checkbox checked={checked} onCheckedChange={() => toggleExtra(e.id)} />
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                       <span className="font-semibold">{e.label}</span>
                       <p className="text-sm text-gray-500 mt-0.5">{e.description}</p>
                     </div>
-                    <Badge variant="outline">{cost}</Badge>
+                    <Badge variant="outline" className="shrink-0">{cost}</Badge>
                   </Card>
                 );
               })}
@@ -227,22 +245,27 @@ const EstimateGenerator = () => {
 
         {/* Navigation */}
         {!showEstimate && (
-          <div className="flex justify-between mt-10">
-            <Button
-              variant="outline"
-              onClick={() => setStep((s) => s - 1)}
-              disabled={step === 1}
-              className="gap-2"
-            >
-              <ArrowLeft size={16} /> Back
-            </Button>
-            <Button
-              onClick={() => setStep((s) => s + 1)}
-              disabled={!canNext()}
-              className="gap-2"
-            >
-              {step === 4 ? 'Generate Estimate' : 'Next'} <ArrowRight size={16} />
-            </Button>
+          <div className="mt-10">
+            <div className="flex justify-between">
+              <Button
+                variant="outline"
+                onClick={() => setStep((s) => s - 1)}
+                disabled={step === 1}
+                className="gap-2"
+              >
+                <ArrowLeft size={16} /> Back
+              </Button>
+              <Button
+                onClick={() => setStep((s) => s + 1)}
+                disabled={!canNext()}
+                className="gap-2"
+              >
+                {step === 4 ? 'Generate Estimate' : 'Next'} <ArrowRight size={16} />
+              </Button>
+            </div>
+            {!canNext() && validationHint() && (
+              <p className="text-center text-sm text-gray-400 mt-3">{validationHint()}</p>
+            )}
           </div>
         )}
       </div>

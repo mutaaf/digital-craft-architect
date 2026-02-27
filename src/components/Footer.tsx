@@ -8,6 +8,25 @@ interface FooterProps {
 }
 
 const Footer: React.FC<FooterProps> = ({ data }) => {
+  // Get the actual build timestamp (when the app was compiled)
+  // This will be replaced with the actual time during the build process
+  const buildTimestamp = new Date(import.meta.env.VITE_BUILD_TIME || new Date().toISOString());
+  
+  // Format the deployment timestamp in a human-readable format
+  const formatDeployTime = () => {
+    const options: Intl.DateTimeFormatOptions = { 
+      year: 'numeric', 
+      month: 'short', 
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true
+    };
+    
+    return new Intl.DateTimeFormat('en-US', options).format(buildTimestamp);
+  };
+
   const getSocialIcon = (key: string) => {
     switch (key.toLowerCase()) {
       case 'linkedin':
@@ -52,9 +71,16 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
               <p className="text-gray-400 text-sm mb-4 md:mb-0">
                 &copy; {new Date().getFullYear()} DigitalCraft. All rights reserved.
               </p>
-              <div className="flex space-x-6">
-                <a href="#" className="text-gray-400 hover:text-skyblue text-sm">Privacy Policy</a>
-                <a href="#" className="text-gray-400 hover:text-skyblue text-sm">Terms of Service</a>
+              <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 items-center">
+                <p className="text-gray-500 text-xs">
+                  <span className="inline-block bg-gray-800 px-2 py-1 rounded">
+                    Deployed: {formatDeployTime()}
+                  </span>
+                </p>
+                <div className="flex space-x-6">
+                  <a href="#" className="text-gray-400 hover:text-skyblue text-sm">Privacy Policy</a>
+                  <a href="#" className="text-gray-400 hover:text-skyblue text-sm">Terms of Service</a>
+                </div>
               </div>
             </div>
           </div>

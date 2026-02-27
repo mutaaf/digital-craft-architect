@@ -9,9 +9,9 @@ const SMSBubble = ({ from, children, time }: SMSBubbleProps) => {
   return (
     <div className={`flex ${isBusiness ? 'justify-start' : 'justify-end'}`}>
       <div
-        className={`max-w-[85%] rounded-2xl px-3.5 py-2 text-sm ${
+        className={`max-w-[85%] rounded-2xl px-3.5 py-2 text-sm break-words ${
           isBusiness
-            ? 'bg-gray-200 dark:bg-gray-600 text-gray-900 dark:text-white rounded-bl-sm'
+            ? 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-bl-sm'
             : 'bg-blue-500 text-white rounded-br-sm'
         }`}
       >

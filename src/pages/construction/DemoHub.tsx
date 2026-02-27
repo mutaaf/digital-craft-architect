@@ -45,22 +45,22 @@ const DemoHub = () => (
   <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
     <DemoNavbar />
 
-    <div className="max-w-4xl mx-auto px-4 py-16">
-      <div className="text-center mb-12">
+    <div className="max-w-4xl mx-auto px-4 py-10 sm:py-16">
+      <div className="text-center mb-10 sm:mb-12 animate-fade-in">
         <Badge variant="secondary" className="mb-4">
           <Sparkles size={14} className="mr-1" /> Built for 448 Developments
         </Badge>
-        <h1 className="text-4xl font-bold mb-3">Interactive POC Demos</h1>
-        <p className="text-lg text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
+        <h1 className="text-3xl sm:text-4xl font-bold mb-3">Interactive POC Demos</h1>
+        <p className="text-base sm:text-lg text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
           Three working proof-of-concepts showing exactly how AI will transform 448's
           lead capture, estimating, and reputation management.
         </p>
       </div>
 
       <div className="grid gap-6">
-        {demos.map((d) => (
-          <Link key={d.to} to={d.to} className="group">
-            <Card className="p-6 flex flex-col sm:flex-row items-start gap-5 transition-all hover:shadow-lg hover:border-primary/30">
+        {demos.map((d, i) => (
+          <Link key={d.to} to={d.to} className="group animate-slide-up" style={{ animationDelay: `${i * 150}ms`, animationFillMode: 'both' }}>
+            <Card className="p-5 sm:p-6 flex flex-col sm:flex-row items-start gap-4 sm:gap-5 transition-all hover:shadow-lg hover:border-primary/30">
               <div className={`w-14 h-14 rounded-xl flex items-center justify-center shrink-0 ${d.color}`}>
                 {d.icon}
               </div>
