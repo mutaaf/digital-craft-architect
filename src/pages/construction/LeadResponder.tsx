@@ -153,19 +153,19 @@ const LeadResponder = () => {
 
       <div className="flex-1 max-w-6xl mx-auto w-full px-4 py-6 flex flex-col">
         {/* Header */}
-        <div className="text-center mb-6">
+        <div className="text-center mb-6 sm:mb-8">
           <Badge variant="secondary" className="mb-3">
             <Sparkles size={14} className="mr-1" /> POC Demo
           </Badge>
-          <h1 className="text-3xl font-bold mb-2">AI Lead Responder</h1>
-          <p className="text-gray-500 dark:text-gray-400">
+          <h1 className="text-2xl sm:text-3xl font-bold mb-2">AI Lead Responder</h1>
+          <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base">
             Play the homeowner — chat with 448's AI and watch it qualify leads in real time.
           </p>
         </div>
 
-        <div className="flex-1 flex gap-6 min-h-0">
+        <div className="flex-1 flex flex-col lg:flex-row gap-4 lg:gap-6 min-h-0">
           {/* Chat column */}
-          <div className="flex-[3] flex flex-col bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+          <div className="flex-1 lg:flex-[3] flex flex-col bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden min-h-[60vh] lg:min-h-0">
             <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
               <div>
                 <p className="text-sm font-semibold">448 Developments</p>
@@ -194,6 +194,16 @@ const LeadResponder = () => {
                     isStreaming={isStreaming && i === messages.length - 1 && m.role === 'assistant'}
                   />
                 ))}
+                {isStreaming && messages[messages.length - 1]?.content === '' && (
+                  <div className="flex items-center gap-2 pl-11">
+                    <div className="flex gap-1">
+                      <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                      <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                      <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                    </div>
+                    <span className="text-xs text-gray-400">Typing...</span>
+                  </div>
+                )}
               </div>
             </ScrollArea>
 
@@ -201,7 +211,7 @@ const LeadResponder = () => {
           </div>
 
           {/* Lead panel — desktop only */}
-          <div className="hidden lg:block flex-[2]">
+          <div className="hidden lg:flex lg:flex-[2]">
             <LeadSummaryPanel data={leadData} />
           </div>
         </div>

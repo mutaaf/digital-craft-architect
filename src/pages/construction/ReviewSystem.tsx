@@ -69,19 +69,19 @@ const ReviewSystem = () => {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       <DemoNavbar />
 
-      <div className="max-w-6xl mx-auto px-4 py-10">
+      <div className="max-w-6xl mx-auto px-4 py-8 sm:py-10">
         {/* Header */}
         <div className="text-center mb-8">
           <Badge variant="secondary" className="mb-3">
             <Sparkles size={14} className="mr-1" /> POC Demo
           </Badge>
-          <h1 className="text-3xl font-bold mb-2">Automated Review Request System</h1>
-          <p className="text-gray-500 dark:text-gray-400">
+          <h1 className="text-2xl sm:text-3xl font-bold mb-2">Automated Review Request System</h1>
+          <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base">
             See how 448 turns completed projects into 5-star Google reviews — automatically.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-10">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-10">
           {/* Left: Phone + Timeline */}
           <div className="flex flex-col items-center">
             <PhoneMockup>

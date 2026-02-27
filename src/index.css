@@ -120,3 +120,12 @@
     text-wrap: balance;
   }
 }
+
+/* Print styles for estimate card */
+@media print {
+  body { background: white !important; margin: 0; padding: 0; }
+  nav, .print\:hidden { display: none !important; }
+  .print\:max-w-none { max-width: none !important; }
+  .print\:shadow-none { box-shadow: none !important; }
+  .print\:border { border: 1px solid #e5e7eb !important; }
+}

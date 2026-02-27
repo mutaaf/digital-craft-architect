@@ -75,6 +75,55 @@ export interface AffiliateItem {
   image: string;
 }
 
+export interface SEOData {
+  title: string;
+  description: string;
+  keywords: string;
+  author: string;
+  socialImage: string;
+}
+
+export interface MVPPromotionConfig {
+  enabled: boolean;
+  headline: string;
+  subheadline: string;
+  price: string;
+  priceLabel: string;
+  description: string;
+  ctaText: string;
+  ctaLink: string;
+  features: string[];
+  backgroundImage?: string;
+}
+
+export interface PricingTier {
+  name: string;
+  price: number;
+  period: string;
+  description: string;
+  features: string[];
+  highlighted: boolean;
+  badge?: string;
+  ctaText: string;
+  ctaLink: string;
+}
+
+export interface PricingTiersConfig {
+  headline: string;
+  subheadline: string;
+  tiers: PricingTier[];
+}
+
+export interface UIConfig {
+  carouselItemsPerView: {
+    mobile: number;
+    tablet: number;
+    desktop: number;
+  };
+  parallaxEnabled: boolean;
+  parallaxStrength: number;
+}
+
 export interface ContentData {
   hero: HeroSection;
   services: ServiceItem[];
@@ -84,7 +133,21 @@ export interface ContentData {
   form: FormSection;
   footer: FooterSection;
   affiliates?: AffiliateItem[];
+  seo?: SEOData;
+  uiConfig?: UIConfig;
+  mvpPromotion?: MVPPromotionConfig;
+  pricingTiers?: PricingTiersConfig;
 }
+
+const DEFAULT_UI_CONFIG: UIConfig = {
+  carouselItemsPerView: {
+    mobile: 1,  // Changed back to 1
+    tablet: 2,  // Changed back to 2
+    desktop: 3  // Kept at 3
+  },
+  parallaxEnabled: true,
+  parallaxStrength: 0.3
+};
 
 export const useContent = () => {
   const [content, setContent] = useState<ContentData | null>(null);
@@ -105,6 +168,21 @@ export const useContent = () => {
           // Fallback to local content file
           const response = await fetch('/content.json');
           data = await response.json();
+        }
+        
+        // Apply default UI config if not provided
+        if (!data.uiConfig) {
+          data.uiConfig = DEFAULT_UI_CONFIG;
+        } else {
+          // Merge with defaults for any missing properties
+          data.uiConfig = {
+            ...DEFAULT_UI_CONFIG,
+            ...data.uiConfig,
+            carouselItemsPerView: {
+              ...DEFAULT_UI_CONFIG.carouselItemsPerView,
+              ...(data.uiConfig.carouselItemsPerView || {})
+            }
+          };
         }
         
         setContent(data);
