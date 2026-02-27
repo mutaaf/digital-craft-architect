@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Star, Sparkles, AlertTriangle, ExternalLink } from 'lucide-react';
+import { Star, Sparkles, AlertTriangle, ExternalLink, RotateCcw } from 'lucide-react';
 
 const RECENT_REVIEWS = [
   { name: 'Mike R.', rating: 5, text: 'Amazing kitchen remodel. On time, on budget. Highly recommend!', date: '2 days ago' },
@@ -50,7 +50,7 @@ const ReviewSystem = () => {
     setCurrentDay(day);
     if (day === 0) {
       if (rating > 0) {
-        setPhase(rating >= 4 ? 'positive' : rating > 0 ? (phase === 'feedback_sent' ? 'feedback_sent' : 'negative') : 'rating');
+        setPhase(rating >= 4 ? 'positive' : (phase === 'feedback_sent' ? 'feedback_sent' : 'negative'));
       } else {
         setPhase('initial');
       }
@@ -62,7 +62,15 @@ const ReviewSystem = () => {
     }
   };
 
-  // Auto-advance from initial to rating after mount
+  const resetDemo = () => {
+    setPhase('initial');
+    setRating(0);
+    setHoverRating(0);
+    setCurrentDay(0);
+    setFeedback('');
+    setDashStats({ sent: 47, responseRate: 72, avgRating: 4.8, newReviews: 12 });
+  };
+
   const startFlow = () => setPhase('rating');
 
   return (
@@ -96,30 +104,30 @@ const ReviewSystem = () => {
 
               {/* Rating selector */}
               {phase === 'initial' && (
-                <div className="flex justify-center py-3">
-                  <Button size="sm" onClick={startFlow} className="gap-2">
+                <div className="flex justify-center py-3 animate-fade-in">
+                  <Button size="sm" onClick={startFlow} className="gap-2 shadow-sm">
                     <Star size={14} /> Tap to Rate
                   </Button>
                 </div>
               )}
 
               {phase === 'rating' && (
-                <div className="flex justify-center gap-2 py-3">
+                <div className="flex justify-center gap-2 py-3 animate-fade-in">
                   {[1, 2, 3, 4, 5].map((s) => (
                     <button
                       key={s}
                       onClick={() => handleRate(s)}
                       onMouseEnter={() => setHoverRating(s)}
                       onMouseLeave={() => setHoverRating(0)}
-                      className="transition-transform hover:scale-125"
+                      className="transition-transform hover:scale-125 active:scale-95"
                     >
                       <Star
                         size={28}
-                        className={
+                        className={`transition-colors ${
                           s <= (hoverRating || rating)
                             ? 'fill-yellow-400 text-yellow-400'
                             : 'text-gray-300'
-                        }
+                        }`}
                       />
                     </button>
                   ))}
@@ -143,7 +151,7 @@ const ReviewSystem = () => {
                     <a
                       href="#"
                       onClick={(e) => e.preventDefault()}
-                      className="inline-flex items-center gap-1 mt-2 text-blue-600 dark:text-blue-400 underline text-xs"
+                      className="inline-flex items-center gap-1 mt-2 text-blue-600 dark:text-blue-400 underline text-xs font-medium"
                     >
                       <ExternalLink size={10} /> Leave a Google Review
                     </a>
@@ -181,7 +189,7 @@ const ReviewSystem = () => {
                     <p>{feedback || 'The timeline was longer than expected.'}</p>
                   </SMSBubble>
                   <SMSBubble from="business" time="Just now">
-                    <div className="flex items-center gap-2 text-yellow-600">
+                    <div className="flex items-center gap-2 text-yellow-600 dark:text-yellow-500">
                       <AlertTriangle size={14} />
                       <span className="text-xs font-medium">Ro has been notified</span>
                     </div>
@@ -235,7 +243,7 @@ const ReviewSystem = () => {
                     <a
                       href="#"
                       onClick={(e) => e.preventDefault()}
-                      className="inline-flex items-center gap-1 mt-2 text-blue-600 dark:text-blue-400 underline text-xs"
+                      className="inline-flex items-center gap-1 mt-2 text-blue-600 dark:text-blue-400 underline text-xs font-medium"
                     >
                       <ExternalLink size={10} /> Leave a Google Review
                     </a>
@@ -245,6 +253,18 @@ const ReviewSystem = () => {
             </PhoneMockup>
 
             <TimelineBar currentDay={currentDay} onJump={handleDayJump} />
+
+            {/* Reset */}
+            {rating > 0 && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={resetDemo}
+                className="mt-3 text-gray-400 hover:text-gray-600 gap-1.5"
+              >
+                <RotateCcw size={12} /> Reset Demo
+              </Button>
+            )}
           </div>
 
           {/* Right: Dashboard */}
@@ -266,7 +286,7 @@ const ReviewSystem = () => {
           <DialogHeader>
             <DialogTitle>Share Your Feedback</DialogTitle>
           </DialogHeader>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-500 dark:text-gray-400">
             Your feedback stays private — it goes directly to Ro, not to a public review.
           </p>
           <Textarea
@@ -279,7 +299,9 @@ const ReviewSystem = () => {
             <Button variant="outline" onClick={() => setFeedbackOpen(false)}>
               Cancel
             </Button>
-            <Button onClick={handleFeedbackSubmit}>Send Feedback</Button>
+            <Button onClick={handleFeedbackSubmit} disabled={!feedback.trim()}>
+              Send Feedback
+            </Button>
           </div>
         </DialogContent>
       </Dialog>
