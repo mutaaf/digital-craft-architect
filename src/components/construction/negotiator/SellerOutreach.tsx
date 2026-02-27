@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Copy, Check, MessageSquare, Mail } from 'lucide-react';
+import { Copy, Check, MessageSquare, Mail, ExternalLink } from 'lucide-react';
 import { toast } from 'sonner';
 import type { SellerMessage } from '@/data/propertyNegotiation';
 
@@ -35,6 +35,16 @@ function MessageCard({ message }: { message: SellerMessage }) {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleOpen = () => {
+    if (message.format === 'email') {
+      window.open(
+        `mailto:?subject=${encodeURIComponent(message.subject || '')}&body=${encodeURIComponent(message.body)}`
+      );
+    } else {
+      window.open(`sms:?&body=${encodeURIComponent(message.body)}`);
+    }
+  };
+
   const isSms = message.format === 'sms';
 
   return (
@@ -61,15 +71,24 @@ function MessageCard({ message }: { message: SellerMessage }) {
         <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.body}</p>
       </div>
 
-      <div className="p-3 border-t border-gray-200 dark:border-gray-800">
+      <div className="p-3 border-t border-gray-200 dark:border-gray-800 flex gap-2">
         <Button
           variant="outline"
           size="sm"
-          className="w-full gap-1.5 text-xs"
+          className="flex-1 gap-1.5 text-xs"
           onClick={handleCopy}
         >
           {copied ? <Check size={12} /> : <Copy size={12} />}
           {copied ? 'Copied!' : 'Copy Message'}
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          className="flex-1 gap-1.5 text-xs"
+          onClick={handleOpen}
+        >
+          <ExternalLink size={12} />
+          {isSms ? 'Open in Messages' : 'Open in Email'}
         </Button>
       </div>
     </Card>
