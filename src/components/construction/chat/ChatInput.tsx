@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { SendHorizonal } from 'lucide-react';
+import { SendHorizonal, Loader2 } from 'lucide-react';
 
 interface ChatInputProps {
   onSend: (message: string) => void;
@@ -34,10 +34,10 @@ const ChatInput = ({ onSend, disabled, placeholder = 'Type a message...' }: Chat
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={handleKeyDown}
-        placeholder={placeholder}
+        placeholder={disabled ? '448 AI is responding...' : placeholder}
         disabled={disabled}
         rows={1}
-        className="flex-1 resize-none bg-gray-100 dark:bg-gray-800 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 disabled:opacity-50"
+        className="flex-1 resize-none bg-gray-100 dark:bg-gray-800 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 disabled:opacity-50 placeholder:text-gray-400"
       />
       <Button
         size="icon"
@@ -45,7 +45,11 @@ const ChatInput = ({ onSend, disabled, placeholder = 'Type a message...' }: Chat
         disabled={disabled || !value.trim()}
         className="shrink-0 rounded-xl h-10 w-10"
       >
-        <SendHorizonal size={18} />
+        {disabled ? (
+          <Loader2 size={18} className="animate-spin" />
+        ) : (
+          <SendHorizonal size={18} />
+        )}
       </Button>
     </div>
   );
