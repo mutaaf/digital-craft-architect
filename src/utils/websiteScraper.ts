@@ -96,14 +96,16 @@ const EXTRACTION_SCHEMA = {
   },
 };
 
-async function fetchWithJina(url: string): Promise<string | null> {
+async function scrapeUrl(url: string): Promise<string | null> {
   try {
-    const resp = await fetch(`https://r.jina.ai/${url}`, {
-      headers: { Accept: 'text/markdown' },
+    const resp = await fetch('/api/scrape', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url }),
     });
     if (!resp.ok) return null;
-    const text = await resp.text();
-    return text.length > 100 ? text.slice(0, 12000) : null;
+    const data = await resp.json();
+    return data.content ? data.content.slice(0, 12000) : null;
   } catch {
     return null;
   }
@@ -159,7 +161,7 @@ export async function scrapeWebsite(input: string): Promise<CompanyProfile> {
   // Step 1: Scrape content with Jina
   let content: string;
   if (fullUrl) {
-    const scraped = await fetchWithJina(fullUrl);
+    const scraped = await scrapeUrl(fullUrl);
     content = scraped || `(Scraping failed — only the URL is available: ${fullUrl})`;
   } else {
     content = `(No URL provided — company name only: "${input}". Infer reasonable data for a construction company with this name.)`;
