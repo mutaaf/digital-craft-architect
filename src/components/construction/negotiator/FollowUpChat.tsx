@@ -54,7 +54,7 @@ Guidelines:
 const GREETING = "I've completed the full analysis — comps, strategy, and seller messages are ready. What would you like to dig into?";
 
 const FollowUpChat = ({ agentResult, companyName, defaultExpanded = true }: FollowUpChatProps) => {
-  const brand = companyName || '448 Developments';
+  const brand = companyName || 'DigitalCraft AI';
   const [expanded, setExpanded] = useState(defaultExpanded);
   const [messages, setMessages] = useState<UIMessage[]>([
     { role: 'assistant', content: GREETING },

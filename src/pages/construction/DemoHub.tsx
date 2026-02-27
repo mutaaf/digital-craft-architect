@@ -38,8 +38,8 @@ const DemoHub = () => {
     }
   }, [isCustomized, company, searchParams, setSearchParams]);
 
-  const name = company?.companyName || '448 Developments';
-  const possessive = company?.companyName ? `${company.companyName}'s` : "448's";
+  const name = company?.companyName || 'DigitalCraft AI';
+  const possessive = company?.companyName ? `${company.companyName}'s` : "DigitalCraft AI's";
 
   const demos = [
     {
