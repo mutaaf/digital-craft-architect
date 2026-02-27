@@ -1,0 +1,213 @@
+import { useState, useRef, useEffect, useCallback } from 'react';
+import DemoNavbar from '@/components/construction/DemoNavbar';
+import ChatBubble from '@/components/construction/chat/ChatBubble';
+import ChatInput from '@/components/construction/chat/ChatInput';
+import LeadSummaryPanel from '@/components/construction/chat/LeadSummaryPanel';
+import type { LeadData } from '@/components/construction/chat/LeadSummaryPanel';
+import { Badge } from '@/components/ui/badge';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Button } from '@/components/ui/button';
+import { Sparkles, ClipboardList } from 'lucide-react';
+import { streamChat } from '@/utils/openaiChat';
+import type { ChatMessage } from '@/utils/openaiChat';
+
+const SYSTEM_PROMPT = `You are the AI assistant for 448 Developments, a DFW (Dallas-Fort Worth) construction and remodeling company led by Ro. Your job is to qualify incoming leads by having a natural, friendly conversation.
+
+SERVICES & PRICING:
+- Kitchen Remodel: $120-250/sqft
+- Bathroom Remodel: $150-300/sqft
+- Full Home Renovation: $80-180/sqft
+- Outdoor/Patio: $60-120/sqft
+- General Construction: $80-200/sqft
+
+QUALIFICATION FLOW — gather these naturally through conversation (don't ask all at once):
+1. Name
+2. Project type (kitchen, bathroom, full home, outdoor, other)
+3. Approximate square footage
+4. Budget range
+5. Timeline (when they want to start)
+6. Property address (city/area is fine)
+7. Phone number (ask last, once rapport is built)
+
+RULES:
+- Be warm, professional, and conversational — like a friendly project manager
+- Give helpful ballpark ranges when asked about pricing
+- If someone seems ready, suggest booking a free in-home consultation with Ro
+- Keep responses concise (2-4 sentences)
+- Always represent 448 Developments positively
+
+LEAD DATA EXTRACTION:
+Whenever you learn new info about the lead, append this EXACTLY at the end of your message (the user won't see it):
+|||LEAD_DATA|||{"name":"...","projectType":"...","sqft":"...","budget":"...","timeline":"...","address":"...","phone":"..."}
+Only include fields you've confirmed. Use null for unknown fields. This must be valid JSON.`;
+
+interface Message {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
+const GREETING = `Hey there! 👋 Welcome to 448 Developments — DFW's go-to team for quality remodeling and construction.
+
+I'm here to help you figure out if we're the right fit for your project. What are you thinking about — a kitchen remodel, bathroom, something bigger?`;
+
+const LeadResponder = () => {
+  const [messages, setMessages] = useState<Message[]>([
+    { role: 'assistant', content: GREETING },
+  ]);
+  const [isStreaming, setIsStreaming] = useState(false);
+  const [leadData, setLeadData] = useState<LeadData>({});
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const abortRef = useRef<AbortController | null>(null);
+
+  const scrollToBottom = useCallback(() => {
+    setTimeout(() => {
+      scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' });
+    }, 50);
+  }, []);
+
+  useEffect(scrollToBottom, [messages, scrollToBottom]);
+
+  const parseLeadData = (text: string): { clean: string; data: Partial<LeadData> | null } => {
+    const marker = '|||LEAD_DATA|||';
+    const idx = text.indexOf(marker);
+    if (idx === -1) return { clean: text, data: null };
+    const clean = text.slice(0, idx).trim();
+    try {
+      const json = JSON.parse(text.slice(idx + marker.length));
+      const data: Partial<LeadData> = {};
+      if (json.name) data.name = json.name;
+      if (json.projectType) data.projectType = json.projectType;
+      if (json.sqft) data.sqft = json.sqft;
+      if (json.budget) data.budget = json.budget;
+      if (json.timeline) data.timeline = json.timeline;
+      if (json.address) data.address = json.address;
+      if (json.phone) data.phone = json.phone;
+      return { clean, data };
+    } catch {
+      return { clean, data: null };
+    }
+  };
+
+  const handleSend = async (text: string) => {
+    const userMsg: Message = { role: 'user', content: text };
+    setMessages((prev) => [...prev, userMsg]);
+    setIsStreaming(true);
+
+    // Build OpenAI messages
+    const chatMessages: ChatMessage[] = [
+      { role: 'system', content: SYSTEM_PROMPT },
+      ...messages.map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content })),
+      { role: 'user' as const, content: text },
+    ];
+
+    const assistantMsg: Message = { role: 'assistant', content: '' };
+    setMessages((prev) => [...prev, assistantMsg]);
+
+    try {
+      abortRef.current = new AbortController();
+      const full = await streamChat(
+        chatMessages,
+        (chunk) => {
+          assistantMsg.content += chunk;
+          setMessages((prev) => {
+            const next = [...prev];
+            next[next.length - 1] = { ...assistantMsg };
+            return next;
+          });
+          scrollToBottom();
+        },
+        abortRef.current.signal
+      );
+
+      // Parse lead data from final response
+      const { clean, data } = parseLeadData(full);
+      if (data) {
+        setLeadData((prev) => ({ ...prev, ...data }));
+      }
+      // Update message with clean text
+      setMessages((prev) => {
+        const next = [...prev];
+        next[next.length - 1] = { role: 'assistant', content: clean };
+        return next;
+      });
+    } catch (err: unknown) {
+      if (err instanceof Error && err.name !== 'AbortError') {
+        setMessages((prev) => {
+          const next = [...prev];
+          next[next.length - 1] = {
+            role: 'assistant',
+            content: "Sorry, I'm having a connection issue. Could you try again?",
+          };
+          return next;
+        });
+      }
+    } finally {
+      setIsStreaming(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col">
+      <DemoNavbar />
+
+      <div className="flex-1 max-w-6xl mx-auto w-full px-4 py-6 flex flex-col">
+        {/* Header */}
+        <div className="text-center mb-6">
+          <Badge variant="secondary" className="mb-3">
+            <Sparkles size={14} className="mr-1" /> POC Demo
+          </Badge>
+          <h1 className="text-3xl font-bold mb-2">AI Lead Responder</h1>
+          <p className="text-gray-500 dark:text-gray-400">
+            Play the homeowner — chat with 448's AI and watch it qualify leads in real time.
+          </p>
+        </div>
+
+        <div className="flex-1 flex gap-6 min-h-0">
+          {/* Chat column */}
+          <div className="flex-[3] flex flex-col bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+            <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+              <div>
+                <p className="text-sm font-semibold">448 Developments</p>
+                <p className="text-xs text-green-500">Online — typically replies instantly</p>
+              </div>
+              {/* Mobile: sheet trigger for lead panel */}
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="outline" size="sm" className="lg:hidden gap-1">
+                    <ClipboardList size={14} /> Lead Info
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="bottom" className="h-[70vh]">
+                  <LeadSummaryPanel data={leadData} />
+                </SheetContent>
+              </Sheet>
+            </div>
+
+            <ScrollArea className="flex-1 p-4" ref={scrollRef}>
+              <div className="space-y-4">
+                {messages.map((m, i) => (
+                  <ChatBubble
+                    key={i}
+                    role={m.role}
+                    content={m.content}
+                    isStreaming={isStreaming && i === messages.length - 1 && m.role === 'assistant'}
+                  />
+                ))}
+              </div>
+            </ScrollArea>
+
+            <ChatInput onSend={handleSend} disabled={isStreaming} />
+          </div>
+
+          {/* Lead panel — desktop only */}
+          <div className="hidden lg:block flex-[2]">
+            <LeadSummaryPanel data={leadData} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default LeadResponder;
