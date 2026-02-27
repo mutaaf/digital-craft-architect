@@ -37,7 +37,7 @@ type Phase = 'initial' | 'rating' | 'positive' | 'negative' | 'feedback_sent' | 
 
 const ReviewSystem = () => {
   const { company } = useDemoContext();
-  const companyName = company?.companyName || '448 Developments';
+  const companyName = company?.companyName || 'DigitalCraft AI';
   const ownerName = company?.ownerName || 'Ro';
   const location = company?.location || 'DFW';
   const firstService = company?.services?.[0]?.toLowerCase() || 'kitchen remodel';

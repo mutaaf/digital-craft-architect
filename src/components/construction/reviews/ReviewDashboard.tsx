@@ -85,7 +85,7 @@ const ReviewDashboard = ({
   avgRating,
   newReviews,
   recentReviews,
-  companyName = '448',
+  companyName = 'DigitalCraft AI',
   location = 'DFW',
   avgJobValue = 35000,
 }: ReviewDashboardProps) => {

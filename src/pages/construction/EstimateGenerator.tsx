@@ -22,7 +22,7 @@ const STEP_LABELS = ['Project', 'Size', 'Finish', 'Extras'];
 
 const EstimateGenerator = () => {
   const { company } = useDemoContext();
-  const possessive = company?.companyName ? `${company.companyName}'s` : "448's";
+  const possessive = company?.companyName ? `${company.companyName}'s` : "DigitalCraft AI's";
   const [step, setStep] = useState(1);
   const [selectedTypeId, setSelectedTypeId] = useState<string | null>(null);
   const [sqft, setSqft] = useState<number>(0);

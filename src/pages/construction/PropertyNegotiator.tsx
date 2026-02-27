@@ -57,7 +57,7 @@ const HOW_IT_WORKS = [
 
 const PropertyNegotiator = () => {
   const { company } = useDemoContext();
-  const name = company?.companyName || '448 Developments';
+  const name = company?.companyName || 'DigitalCraft AI';
 
   const [phase, setPhase] = useState<Phase>('input');
   const [steps, setSteps] = useState<AgentStep[]>([]);

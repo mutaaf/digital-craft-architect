@@ -26,10 +26,10 @@ const LineItem = ({ label, low, high }: { label: string; low: number; high: numb
 
 const EstimateCard = ({ breakdown, projectType, finish, sqft }: EstimateCardProps) => {
   const { company } = useDemoContext();
-  const companyName = company?.companyName || '448 Developments';
+  const companyName = company?.companyName || 'DigitalCraft AI';
   const tagline = company?.tagline || 'DFW Construction & Remodeling';
-  const phone = company?.phone || '(214) 555-0448';
-  const email = company?.email || 'info@448developments.com';
+  const phone = company?.phone || '(972) 352-3293';
+  const email = company?.email || 'mutaaf@digitalcraftai.com';
   const bookingUrl = company?.bookingUrl || 'https://calendly.com/mutaaf';
 
   const handlePrint = () => window.print();

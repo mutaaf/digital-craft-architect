@@ -34,7 +34,7 @@ function confidenceColor(score: number): string {
 }
 
 const DealReportCard = ({ property, report, companyName, onReset }: DealReportCardProps) => {
-  const brand = companyName || '448 Developments';
+  const brand = companyName || 'DigitalCraft AI';
 
   return (
     <Card className="overflow-hidden animate-fade-in print:shadow-none print:border">

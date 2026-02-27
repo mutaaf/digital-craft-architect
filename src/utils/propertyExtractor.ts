@@ -305,7 +305,7 @@ export async function generateNegotiationReport(
   companyName?: string,
   comps?: ComparableProperty[],
 ): Promise<NegotiationReport> {
-  const company = companyName || '448 Developments';
+  const company = companyName || 'DigitalCraft AI';
 
   const compsContext = comps && comps.length > 0
     ? `\n\nCOMPARABLE SALES DATA:\n${comps.map((c, i) =>

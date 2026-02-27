@@ -65,7 +65,7 @@ interface Message {
 
 const LeadResponder = () => {
   const { company } = useDemoContext();
-  const companyName = company?.companyName || '448 Developments';
+  const companyName = company?.companyName || 'DigitalCraft AI';
   const ownerName = company?.ownerName || 'Ro';
   const services = company?.services || ['Kitchen Remodeling', 'Bathroom Renovation', 'Full Home Renovation', 'Outdoor/Patio', 'General Construction'];
 

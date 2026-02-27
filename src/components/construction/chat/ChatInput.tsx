@@ -30,7 +30,7 @@ const ChatInput = ({ onSend, disabled, placeholder = 'Type a message...', compan
 
   const disabledPlaceholder = companyName
     ? `${companyName} AI is responding...`
-    : '448 AI is responding...';
+    : 'DigitalCraft AI is responding...';
 
   return (
     <div className="flex items-end gap-2 p-3 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
