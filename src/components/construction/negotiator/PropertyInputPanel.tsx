@@ -69,7 +69,7 @@ const PropertyInputPanel = ({
             </Button>
           </div>
           <p className="text-xs text-gray-400 mt-1.5">
-            Works best with Realtor.com, Redfin, and wholesaler sites. Zillow may block scraping.
+            Works with Zillow, Realtor.com, Redfin, and wholesaler sites.
           </p>
           {scrapeError && (
             <p className="text-xs text-red-500 mt-2 bg-red-50 dark:bg-red-950/30 rounded-md p-2">

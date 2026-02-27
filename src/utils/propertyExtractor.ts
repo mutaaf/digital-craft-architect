@@ -6,16 +6,18 @@ import type {
   SellerMessage,
 } from '@/data/propertyNegotiation';
 
-// ── Jina scraping (reuses pattern from websiteScraper.ts) ──────────────
+// ── Server-side scraping via /api/scrape ──────────────────────────────
 
-async function fetchWithJina(url: string): Promise<string | null> {
+async function scrapeUrl(url: string): Promise<string | null> {
   try {
-    const resp = await fetch(`https://r.jina.ai/${url}`, {
-      headers: { Accept: 'text/markdown' },
+    const resp = await fetch('/api/scrape', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url }),
     });
     if (!resp.ok) return null;
-    const text = await resp.text();
-    return text.length > 100 ? text.slice(0, 15000) : null;
+    const data = await resp.json();
+    return data.content ? data.content.slice(0, 15000) : null;
   } catch {
     return null;
   }
@@ -194,7 +196,7 @@ Return accurate data found in the content. For missing fields use reasonable def
 - sellerMotivation: detect from listing language (e.g. "motivated seller", "price reduced", "must sell"), null if none detected`;
 
 export async function extractFromUrl(url: string): Promise<PropertyData> {
-  const scraped = await fetchWithJina(url);
+  const scraped = await scrapeUrl(url);
   if (!scraped) {
     throw new Error('SCRAPE_FAILED');
   }
