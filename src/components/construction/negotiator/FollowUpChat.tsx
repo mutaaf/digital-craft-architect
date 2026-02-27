@@ -6,12 +6,12 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import ChatBubble from '@/components/construction/chat/ChatBubble';
 import ChatInput from '@/components/construction/chat/ChatInput';
 import { streamChat, type ChatMessage } from '@/utils/openaiChat';
-import type { PropertyData, NegotiationReport } from '@/data/propertyNegotiation';
+import type { AgentResult } from '@/data/propertyNegotiation';
 
 interface FollowUpChatProps {
-  property: PropertyData;
-  report: NegotiationReport;
+  agentResult: AgentResult;
   companyName?: string;
+  defaultExpanded?: boolean;
 }
 
 interface UIMessage {
@@ -19,32 +19,43 @@ interface UIMessage {
   content: string;
 }
 
-function buildSystemPrompt(
-  property: PropertyData,
-  report: NegotiationReport,
-  companyName: string,
-): string {
-  return `You are a real estate investment analyst for ${companyName}. You have just analyzed this property and generated a negotiation report. Answer follow-up questions about the deal.
+function buildSystemPrompt(result: AgentResult, companyName: string): string {
+  const { property, report, comps, sellerMessages } = result;
+
+  const compsSummary = comps.length > 0
+    ? `\n\nCOMPARABLE SALES (${comps.length} comps):\n${comps.map((c, i) =>
+        `${i + 1}. ${c.address} — $${c.salePrice.toLocaleString()}${c.pricePerSqft ? ` ($${c.pricePerSqft}/sqft)` : ''}${c.pricePerAcre ? ` ($${c.pricePerAcre?.toLocaleString()}/acre)` : ''} — ${c.distanceMiles}mi — ${c.notes}`
+      ).join('\n')}`
+    : '';
+
+  const msgsSummary = sellerMessages.length > 0
+    ? `\n\nGENERATED SELLER MESSAGES:\n${sellerMessages.map((m) =>
+        `[${m.format.toUpperCase()} - ${m.type}] ${m.body.slice(0, 100)}...`
+      ).join('\n')}`
+    : '';
+
+  return `You are a real estate investment analyst for ${companyName}. You have just completed a full deal analysis including comparable sales and seller outreach messages. Answer follow-up questions about any aspect of the deal.
 
 PROPERTY DATA:
 ${JSON.stringify(property, null, 2)}
 
 NEGOTIATION REPORT:
-${JSON.stringify(report, null, 2)}
+${JSON.stringify(report, null, 2)}${compsSummary}${msgsSummary}
 
 Guidelines:
 - Be concise and specific with dollar amounts
-- Reference the data above when answering
+- Reference the comps data when discussing pricing
 - If asked about counter-offers, adjust the strategy accordingly
+- You can help refine seller messages or draft new ones
 - Stay focused on this specific deal
 - Use a professional but conversational tone`;
 }
 
-const GREETING = "I've analyzed this property. What questions do you have about the deal?";
+const GREETING = "I've completed the full analysis — comps, strategy, and seller messages are ready. What would you like to dig into?";
 
-const FollowUpChat = ({ property, report, companyName }: FollowUpChatProps) => {
+const FollowUpChat = ({ agentResult, companyName, defaultExpanded = true }: FollowUpChatProps) => {
   const brand = companyName || '448 Developments';
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(defaultExpanded);
   const [messages, setMessages] = useState<UIMessage[]>([
     { role: 'assistant', content: GREETING },
   ]);
@@ -63,7 +74,7 @@ const FollowUpChat = ({ property, report, companyName }: FollowUpChatProps) => {
 
     const systemMsg: ChatMessage = {
       role: 'system',
-      content: buildSystemPrompt(property, report, brand),
+      content: buildSystemPrompt(agentResult, brand),
     };
 
     const history: ChatMessage[] = [
@@ -138,7 +149,7 @@ const FollowUpChat = ({ property, report, companyName }: FollowUpChatProps) => {
             <ChatInput
               onSend={handleSend}
               disabled={streaming}
-              placeholder="Ask about the deal..."
+              placeholder="Ask about comps, strategy, messages..."
             />
           </div>
         </div>

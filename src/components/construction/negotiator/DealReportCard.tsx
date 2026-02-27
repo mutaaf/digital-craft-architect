@@ -12,6 +12,7 @@ import {
   TrendingUp,
   AlertTriangle,
   ChevronRight,
+  Gauge,
 } from 'lucide-react';
 import type { PropertyData, NegotiationReport } from '@/data/propertyNegotiation';
 
@@ -24,6 +25,12 @@ interface DealReportCardProps {
 
 function fmt(n: number) {
   return '$' + n.toLocaleString();
+}
+
+function confidenceColor(score: number): string {
+  if (score >= 8) return 'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300';
+  if (score >= 5) return 'bg-amber-100 text-amber-800 dark:bg-amber-900/50 dark:text-amber-300';
+  return 'bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300';
 }
 
 const DealReportCard = ({ property, report, companyName, onReset }: DealReportCardProps) => {
@@ -46,18 +53,38 @@ const DealReportCard = ({ property, report, companyName, onReset }: DealReportCa
       </div>
 
       <div className="p-5 sm:p-6 space-y-6">
-        {/* Property Summary */}
+        {/* Property Summary + Deal Type + Confidence */}
         <div className="flex flex-wrap gap-2">
           <Badge variant="outline">{fmt(property.askingPrice)} asking</Badge>
-          <Badge variant="outline">{property.bedrooms} bed / {property.bathrooms} bath</Badge>
-          <Badge variant="outline">{property.sqft.toLocaleString()} sqft</Badge>
-          <Badge variant="outline">Built {property.yearBuilt}</Badge>
+          {property.bedrooms != null && property.bathrooms != null && (
+            <Badge variant="outline">{property.bedrooms} bed / {property.bathrooms} bath</Badge>
+          )}
+          {property.sqft != null && (
+            <Badge variant="outline">{property.sqft.toLocaleString()} sqft</Badge>
+          )}
+          {property.acreage != null && (
+            <Badge variant="outline">{property.acreage} acres</Badge>
+          )}
+          {property.yearBuilt != null && (
+            <Badge variant="outline">Built {property.yearBuilt}</Badge>
+          )}
           {property.daysOnMarket !== null && (
             <Badge variant="outline">{property.daysOnMarket} DOM</Badge>
           )}
           <Badge variant="outline" className="capitalize">
             {property.condition}
           </Badge>
+          {report.dealType && (
+            <Badge className="bg-primary/10 text-primary border-primary/20">
+              {report.dealType}
+            </Badge>
+          )}
+          {report.confidenceScore > 0 && (
+            <Badge className={`gap-1 ${confidenceColor(report.confidenceScore)}`}>
+              <Gauge size={10} />
+              {report.confidenceScore}/10
+            </Badge>
+          )}
         </div>
 
         <Separator />

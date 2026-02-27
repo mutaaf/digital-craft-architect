@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { Upload, X, Image as ImageIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -25,6 +25,23 @@ const ImageDropZone = ({ onImage, disabled }: ImageDropZoneProps) => {
     },
     [onImage],
   );
+
+  // Document-level clipboard paste
+  useEffect(() => {
+    if (disabled) return;
+    const handlePaste = (e: ClipboardEvent) => {
+      for (const item of e.clipboardData?.items || []) {
+        if (item.type.startsWith('image/')) {
+          e.preventDefault();
+          const file = item.getAsFile();
+          if (file) handleFile(file);
+          return;
+        }
+      }
+    };
+    document.addEventListener('paste', handlePaste);
+    return () => document.removeEventListener('paste', handlePaste);
+  }, [disabled, handleFile]);
 
   const handleDrop = useCallback(
     (e: React.DragEvent) => {
@@ -100,7 +117,7 @@ const ImageDropZone = ({ onImage, disabled }: ImageDropZoneProps) => {
       />
       <Upload size={32} className="mx-auto mb-3 text-gray-400" />
       <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
-        Drop a screenshot here or click to upload
+        <strong>Paste (&#8984;V)</strong>, drop, or click to upload
       </p>
       <p className="text-xs text-gray-400 mt-1">
         Zillow, Realtor.com, wholesaler deal sheets, etc.

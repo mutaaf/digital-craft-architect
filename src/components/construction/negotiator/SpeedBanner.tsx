@@ -18,17 +18,17 @@ const SpeedBanner = ({ elapsedSeconds }: SpeedBannerProps) => {
           </div>
           <div>
             <p className="font-semibold text-green-800 dark:text-green-200">
-              Analyzed in {elapsedSeconds}s — That's {displayPerDay}+ properties/day
+              Full analysis in {elapsedSeconds}s — comps, strategy, and seller messages
             </p>
             <p className="text-sm text-green-600 dark:text-green-400">
-              vs ~5 manually → {'>'}10x throughput
+              4-step AI pipeline: extract → comps → analyze → draft messages
             </p>
           </div>
         </div>
         <div className="flex items-center gap-2 text-sm bg-green-100 dark:bg-green-900/50 rounded-lg px-3 py-2">
           <TrendingUp size={16} className="text-green-600 shrink-0" />
           <span className="text-green-700 dark:text-green-300">
-            At 1/15 close rate: <strong>~{closesPerDay} deals/day</strong> vs ~0.3 manually
+            {displayPerDay}+ deals/day capacity → <strong>~{closesPerDay} closes/day</strong>
           </span>
         </div>
       </div>
