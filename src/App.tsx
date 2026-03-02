@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import Index from "./pages/Index";
 import Construction from "./pages/Construction";
+import RealEstate from "./pages/RealEstate";
+import RealEstateDemoHub from "./pages/realestate/RealEstateDemoHub";
 import DemoHub from "./pages/construction/DemoHub";
 import LeadResponder from "./pages/construction/LeadResponder";
 import EstimateGenerator from "./pages/construction/EstimateGenerator";
@@ -129,6 +131,8 @@ const App = () => (
               <Route path="/construction/demo/reviews" element={<DemoContextProvider><ReviewSystem /></DemoContextProvider>} />
               <Route path="/construction/demo/property-negotiator" element={<DemoContextProvider><PropertyNegotiator /></DemoContextProvider>} />
               <Route path="/construction/demo/voice-negotiator" element={<DemoContextProvider><VoiceNegotiator /></DemoContextProvider>} />
+              <Route path="/realestate" element={<RealEstate />} />
+              <Route path="/realestate/demo" element={<DemoContextProvider><RealEstateDemoHub /></DemoContextProvider>} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

@@ -158,6 +158,9 @@ const VoiceCallSetup = ({
                   onChange={(e) => setSellerPhone(e.target.value)}
                   className="text-sm"
                 />
+                <p className="text-[10px] text-gray-400 mt-1">
+                  Enter a number to call the seller directly, or leave blank for browser demo
+                </p>
               </div>
             )}
           </div>

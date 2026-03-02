@@ -10,63 +10,63 @@ interface DemoTurn {
 const DEMO_CONVERSATION: DemoTurn[] = [
   {
     role: 'assistant',
-    text: "Hi there! This is Sarah from DigitalCraft AI. I hope I'm not catching you at a bad time — I saw your property listing and I'm really interested in learning more about it.",
+    text: "Hey! Hope I'm not interrupting dinner or anything — this is Sarah over at DigitalCraft AI. I came across your listing and honestly, I got a little excited about it. Do you have a sec?",
   },
   {
     role: 'user',
-    text: "Oh hi, no you're fine. Which property are you calling about?",
+    text: "Oh hey, no you're good! Which listing are you calling about?",
   },
   {
     role: 'assistant',
-    text: "Great! I'm calling about your property on Elm Street. I've been looking in that area for a while and honestly, your place really caught my eye. How long have you had it on the market?",
+    text: "The one on Elm Street! I've been looking in that neighborhood for a while and — okay don't judge me — but I actually drove by it last weekend and was like, yep, I need to call about this one. How long's it been on the market?",
   },
   {
     role: 'user',
-    text: "It's been about two months now. We've had some interest but nothing serious yet.",
+    text: "Ha, well glad you liked it. It's been about two months now. We've had some interest but nothing's stuck.",
   },
   {
     role: 'assistant',
-    text: "I hear you — the market can be tricky right now. If you don't mind me asking, what's prompting the sale? Sometimes knowing the situation helps me figure out if we can make something work for both of us.",
+    text: "Yeah, I totally hear you on that. The market's been weird lately — everyone's looking but nobody wants to commit. So if you don't mind me asking, what's the story? Are you guys looking to move on to something else or...?",
   },
   {
     role: 'user',
-    text: "We're relocating for work. My wife got a new position in Texas, so we need to move within the next couple months ideally.",
+    text: "We're actually relocating. My wife just got a new position out in Texas, so we kinda need to get this done in the next couple months.",
   },
   {
     role: 'assistant',
-    text: "Oh congratulations to her! That's exciting. I totally understand the time pressure though. So, I've been doing my homework — I looked at some comparable sales in the area, and I want to be straightforward with you. Properties similar to yours have been going for around $285,000 to $310,000 recently. Would you be open to discussing an offer?",
+    text: "Oh no way, congrats to her! Texas is great — I've got family down in Austin. But yeah, I get it, that timeline adds some pressure. Look, I'm gonna be straight with you — I did my homework on comps in the area, and similar places have been closing between about $285K and $310K lately. I know that's probably not what you were hoping to hear, but I wanted to be upfront rather than waste your time.",
   },
   {
     role: 'user',
-    text: "Sure, I mean we listed at $340,000 for a reason though. We put a lot of work into the place.",
+    text: "I appreciate the honesty, but we listed at $340K for a reason. We put a lot of work into this place.",
   },
   {
     role: 'assistant',
-    text: "Absolutely, and I can tell you've taken great care of it. One thing that works in your favor with me is that I can do an as-is purchase, no inspection contingencies dragging things out. Given the comps and the current market, I'd like to start at $295,000. And since you need to move quickly, I can close in as little as three weeks.",
+    text: "Oh I can tell, honestly. The place shows really well — my team actually just closed on a property a few blocks from you so I know the area. Here's the thing though — what I can offer that most buyers can't is speed and certainty. No inspection contingency, no financing drama. I could start around $295K and close in three weeks flat. I know that number stings a little, but hear me out on the whole package.",
   },
   {
     role: 'user',
-    text: "That's quite a bit below our asking. I don't think we could go below $320,000.",
+    text: "That's a pretty big gap from what we're asking. I don't think we could go below $320K.",
   },
   {
     role: 'assistant',
-    text: "I completely understand where you're coming from. Let me see what I can do — if I come up to $310,000 with a guaranteed close in three weeks and I cover all closing costs, does that start to feel more workable? That way you have certainty and you're not paying any additional fees.",
+    text: "I get it, I really do — and look, I'm not trying to lowball you here. Let me see what I can do... What if I come up to $310K, close in three weeks guaranteed, AND I cover all closing costs? So that $310K is truly what you walk away with. No nickels and dimes at the end. Does that start to feel like something we could work with?",
   },
   {
     role: 'user',
-    text: "Hmm, if you cover closing costs and can really close that fast... I'd need to talk it over with my wife but $310,000 could work.",
+    text: "Hmm... I mean if you're covering closing costs and can actually close that fast... I'd need to talk it over with my wife but $310K might work.",
   },
   {
     role: 'assistant',
-    text: "That sounds great! Why don't you two discuss it tonight and I'll follow up tomorrow? I'll have our team get the paperwork ready on our end so we can move fast if you're on board. Does that work for you?",
+    text: "Hey, that's all I can ask! Talk it over tonight, no rush — well, okay a little rush since you've got Texas calling. But seriously, take your time. I'll have our team prep the paperwork on our end so if you're in, we can move right away. Sound good?",
   },
   {
     role: 'user',
-    text: "Yeah that works. I'll give you a call back tomorrow afternoon.",
+    text: "Yeah that works. I'll call you back tomorrow afternoon.",
   },
   {
     role: 'assistant',
-    text: "Perfect, I really appreciate your time today. I'm genuinely excited about this property and I think we can make this work for everyone. Talk to you tomorrow!",
+    text: "Awesome, I'll be here! And hey — genuinely, thanks for taking the time. I think we can make this a win for everybody. Talk tomorrow!",
   },
 ];
 

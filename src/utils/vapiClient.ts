@@ -3,6 +3,7 @@ import type { TranscriptEntry, CallStatus } from '@/data/voiceNegotiation';
 type VapiInstance = {
   start(assistantId: string): Promise<void>;
   stop(): void;
+  send(message: Record<string, unknown>): void;
   on(event: string, callback: (...args: unknown[]) => void): void;
   removeAllListeners(): void;
 };
@@ -40,6 +41,42 @@ export function endCall(vapi: VapiInstance): void {
 
 export function cleanup(vapi: VapiInstance): void {
   vapi.removeAllListeners();
+}
+
+export async function startPhoneCall(
+  assistantId: string,
+  phoneNumber: string,
+): Promise<{ callId: string }> {
+  const resp = await fetch('/api/vapi-call', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ assistantId, phoneNumber }),
+  });
+  if (!resp.ok) {
+    const err = await resp.json().catch(() => ({ error: 'Failed to start phone call' }));
+    throw new Error(err.error?.message || err.error || 'Failed to start phone call');
+  }
+  return resp.json();
+}
+
+export async function pollCallStatus(
+  callId: string,
+): Promise<{ status: string; transcript: string; messages: unknown[] }> {
+  const resp = await fetch(`/api/vapi-call-status?callId=${encodeURIComponent(callId)}`);
+  if (!resp.ok) {
+    throw new Error('Failed to poll call status');
+  }
+  return resp.json();
+}
+
+export function sendCoachingMessage(
+  vapi: VapiInstance,
+  text: string,
+): void {
+  vapi.send({
+    type: 'add-message',
+    message: { role: 'system', content: text },
+  });
 }
 
 export function setupVapiListeners(

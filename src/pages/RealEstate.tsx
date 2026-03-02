@@ -6,10 +6,9 @@ import { useContent } from '@/hooks/useContent';
 import { useAnalytics } from '@/utils/analytics';
 import {
   MessageSquare,
-  Calculator,
+  Home,
   Star,
-  Camera,
-  Bell,
+  Phone,
   PhoneOff,
   Clock,
   Search,
@@ -20,8 +19,9 @@ import {
   Check,
   ChevronRight,
   ArrowRight,
-  HardHat,
+  Building2,
   Sparkles,
+  TrendingUp,
 } from 'lucide-react';
 import {
   Accordion,
@@ -161,9 +161,9 @@ const PricingTier: React.FC<{
 );
 
 /* ═══════════════════════════════════════════════════════════
-   MAIN CONSTRUCTION PAGE
+   MAIN REAL ESTATE PAGE
    ═══════════════════════════════════════════════════════════ */
-const Construction: React.FC = () => {
+const RealEstate: React.FC = () => {
   const { content } = useContent();
   const [formData, setFormData] = useState({
     name: '',
@@ -189,7 +189,7 @@ const Construction: React.FC = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
-          _subject: `[Construction Lead] ${formData.company}`,
+          _subject: `[Real Estate Lead] ${formData.company}`,
         }),
       });
       if (response.ok) {
@@ -197,7 +197,7 @@ const Construction: React.FC = () => {
         setFormData({ name: '', company: '', phone: '', challenge: '' });
       }
     } catch {
-      // silent fail — form still works via Formspree redirect
+      // silent fail
     } finally {
       setIsSubmitting(false);
     }
@@ -208,21 +208,21 @@ const Construction: React.FC = () => {
       <Navbar />
 
       {/* ─── HERO ─── */}
-      <section className="pt-24 md:pt-32 pb-16 md:pb-24 bg-gradient-to-br from-gray-50 to-sky-50 dark:from-gray-900 dark:to-gray-800">
+      <section className="pt-24 md:pt-32 pb-16 md:pb-24 bg-gradient-to-br from-gray-50 to-emerald-50 dark:from-gray-900 dark:to-gray-800">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center gap-12">
             <div className="w-full md:w-1/2 animate-fade-in">
               <div className="inline-flex items-center gap-2 bg-primary/10 text-primary text-sm font-medium px-4 py-1.5 rounded-full mb-6">
-                <HardHat size={16} />
-                Built for Construction
+                <Building2 size={16} />
+                Built for Real Estate
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
                 AI Systems Built for{' '}
-                <span className="text-primary">Construction Companies</span>
+                <span className="text-primary">Real Estate Professionals</span>
               </h1>
               <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-lg">
-                Automate estimates, capture every lead, and manage projects smarter — without
-                changing how your crew works.
+                Close more deals, qualify leads instantly, and automate follow-ups — without changing
+                how your team works.
               </p>
               <div className="flex flex-col sm:flex-row flex-wrap gap-4">
                 <a href="#contact" className="btn-primary inline-flex items-center justify-center gap-2 text-lg">
@@ -237,7 +237,7 @@ const Construction: React.FC = () => {
                   Book a Call <ChevronRight size={20} />
                 </a>
                 <Link
-                  to="/construction/demo"
+                  to="/realestate/demo"
                   className="inline-flex items-center justify-center gap-2 text-lg px-6 py-3 rounded-md bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-700 hover:to-indigo-700 transition-all shadow-md"
                 >
                   Try Live Demos <Sparkles size={18} />
@@ -248,8 +248,8 @@ const Construction: React.FC = () => {
               <div className="relative">
                 <div className="absolute inset-0 bg-primary/10 rounded-3xl transform rotate-3" />
                 <img
-                  src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1000&q=80"
-                  alt="Construction site with modern equipment"
+                  src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1000&q=80"
+                  alt="Modern home with real estate agent"
                   className="rounded-2xl shadow-lg object-cover h-[400px] w-full relative z-10 transform -rotate-2 transition-transform duration-500 hover:rotate-0"
                 />
               </div>
@@ -263,32 +263,32 @@ const Construction: React.FC = () => {
         <div className="text-center mb-12 animate-fade-in">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Sound Familiar?</h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Most construction companies lose time and money to the same problems every day.
+            Most agents lose deals to the same problems every day.
           </p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <PainCard
             icon={<PhoneOff size={24} />}
-            title="Losing Leads After Hours"
-            description="A homeowner visits your site at 9pm. No one answers. They call your competitor instead. You never even know they existed."
+            title="Missing Hot Leads"
+            description="A motivated seller fills out your form at 10pm. By morning, they've already called another agent. You never even knew."
             delay={0}
           />
           <PainCard
             icon={<Clock size={24} />}
-            title="Hours Wasted on Estimates"
-            description="Every quote means pulling up spreadsheets, doing math, formatting a PDF. It takes hours when it should take minutes."
+            title="Hours on Market Analysis"
+            description="Pulling comps, running CMAs, formatting presentations — it eats hours that could be spent closing deals."
             delay={150}
           />
           <PainCard
             icon={<Search size={24} />}
-            title="Invisible on Google"
-            description="You have 3 reviews while competitors have 50+. Homeowners don't even find you. The ones who do aren't sure they can trust you."
+            title="Low Review Count"
+            description="You've closed 50 deals but only have 8 reviews. Buyers search Google first, and your competitor with 100+ reviews wins."
             delay={300}
           />
           <PainCard
             icon={<UserX size={24} />}
-            title="Homeowners Left in the Dark"
-            description="Clients call asking for updates. Your PM is on-site. Nobody responds for hours. The client thinks you forgot about them."
+            title="Manual Follow-Up Fatigue"
+            description="Drip campaigns feel robotic. Personal follow-ups take forever. Leads go cold because you can't keep up with everyone."
             delay={450}
           />
         </div>
@@ -299,67 +299,67 @@ const Construction: React.FC = () => {
         <div className="text-center mb-12 animate-fade-in">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">What We Build for You</h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Custom AI systems designed for how construction companies actually work.
+            Custom AI systems designed for how real estate professionals actually work.
           </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <SolutionCard
             icon={<MessageSquare size={24} />}
-            title="AI Lead Responder"
-            description="Never miss another lead. Your AI assistant responds instantly — 24/7, 365."
+            title="AI Lead Qualifier"
+            description="Respond to every inquiry in under 60 seconds — 24/7, 365 days a year."
             features={[
-              'Website chatbot that qualifies leads automatically',
-              'SMS follow-up within 60 seconds of inquiry',
-              'Auto-books consultations on your calendar',
-              'Captures budget, sqft, timeline, project type',
+              'Website chatbot that qualifies buyers & sellers',
+              'Captures budget, timeline, neighborhoods, preferences',
+              'Auto-books showings on your calendar',
+              'Scores leads by urgency and likelihood to close',
             ]}
             delay={0}
           />
           <SolutionCard
-            icon={<Calculator size={24} />}
-            title="Smart Estimate Generator"
-            description="Turn hours of quoting into a 2-minute process."
+            icon={<Home size={24} />}
+            title="Automated CMA"
+            description="Turn hours of comp analysis into a 2-minute process."
             features={[
-              'Input sqft + project type → branded PDF estimate',
-              'Uses your actual pricing tiers and materials',
-              'Professional layout your clients will love',
-              'Tracks which estimates convert to jobs',
+              'Paste a listing → get full comparable market analysis',
+              'AI-generated negotiation strategy with offer range',
+              'Professional branded report for client presentations',
+              'ROI projections for investment properties',
             ]}
             delay={150}
           />
           <SolutionCard
             icon={<Star size={24} />}
             title="Review & Reputation Engine"
-            description="Go from 3 reviews to 50+ in months, automatically."
+            description="Go from 8 reviews to 100+ in months, automatically."
             features={[
-              'Auto-sends review requests after project completion',
+              'Auto-sends review requests after closing',
               'AI generates professional responses to all reviews',
-              'Monitors Google, Yelp, and Birdeye in one place',
+              'Monitors Google, Zillow, and Realtor.com',
               'Alerts you to negative reviews instantly',
             ]}
             delay={300}
           />
           <SolutionCard
-            icon={<Camera size={24} />}
-            title="AI Content Pipeline"
-            description="Turn job site photos into social media content that wins new clients."
+            icon={<TrendingUp size={24} />}
+            title="Seller Outreach AI"
+            description="Find and contact motivated sellers before your competition."
             features={[
-              'Upload photos → get captions, hashtags, before/after posts',
-              'Optimized for Instagram, Facebook, and Google Business',
-              'Consistent posting schedule without you lifting a finger',
-              'Showcases your craftsmanship to potential clients',
+              'Scrapes public records for distressed properties',
+              'AI-personalized outreach letters and emails',
+              'Tracks response rates and follow-up sequences',
+              'Integrates with your CRM for seamless pipeline',
             ]}
             delay={450}
           />
           <SolutionCard
-            icon={<Bell size={24} />}
-            title="Project Update Bot"
-            description="Keep homeowners happy with zero extra work from your team."
+            icon={<Phone size={24} />}
+            title="AI Voice Negotiator"
+            description="Let AI handle the initial seller conversation while you focus on closings."
             features={[
-              'Automated weekly progress updates via text',
-              'AI summarizes work completed from simple crew inputs',
-              'Photo attachments from the job site',
-              'Reduces "where are we at?" calls by 80%',
+              'AI calls sellers with your negotiation strategy',
+              'Live transcript you can monitor in real time',
+              'Full call summary with insights & next steps',
+              'Coaching panel to guide the AI mid-call',
             ]}
             delay={600}
           />
@@ -379,21 +379,21 @@ const Construction: React.FC = () => {
             number="1"
             icon={<ClipboardCheck size={28} />}
             title="Free AI Audit"
-            description="We analyze your current operations — lead flow, estimating, reviews, communication — and show you exactly where AI saves you time and money."
+            description="We analyze your current operations — lead flow, follow-ups, reviews, CMA process — and show you exactly where AI saves you time and closes more deals."
             delay={0}
           />
           <StepCard
             number="2"
             icon={<Wrench size={28} />}
             title="Custom Build"
-            description="We build your AI systems in 2 weeks, tailored to your pricing, your workflow, and your brand. No disruption to your crew."
+            description="We build your AI systems in 2 weeks, tailored to your market, your brand, and your workflow. No disruption to your current process."
             delay={200}
           />
           <StepCard
             number="3"
             icon={<Rocket size={28} />}
             title="Launch & Grow"
-            description="Go live with ongoing optimization. We monitor performance, make improvements, and scale the system as your business grows."
+            description="Go live with ongoing optimization. We monitor performance, make improvements, and scale as your team grows."
             delay={400}
           />
         </div>
@@ -404,18 +404,18 @@ const Construction: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-12">
             <StatCard
-              value="78%"
-              label="of leads go to the first company that responds"
+              value="74%"
+              label="of sellers list with the first agent who contacts them"
               delay={0}
             />
             <StatCard
-              value="266%"
-              label="more leads for businesses with 50+ reviews"
+              value="3.5x"
+              label="more closings with AI-powered lead qualification"
               delay={200}
             />
             <StatCard
-              value="15hrs"
-              label="saved per week on estimates and admin work"
+              value="12hrs"
+              label="saved per week on admin, follow-ups, and market analysis"
               delay={400}
             />
           </div>
@@ -434,7 +434,7 @@ const Construction: React.FC = () => {
             Try our AI tools live — no signup, no credit card required.
           </p>
           <Link
-            to="/construction/demo"
+            to="/realestate/demo"
             className="inline-flex items-center justify-center gap-2 text-lg px-8 py-4 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-700 hover:to-indigo-700 transition-all shadow-lg hover:shadow-xl font-medium"
           >
             Explore Interactive Demos <ArrowRight size={20} />
@@ -452,43 +452,43 @@ const Construction: React.FC = () => {
         </div>
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           <PricingTier
-            name="Starter"
-            price="$2,000"
-            description="For solo contractors and small crews"
+            name="Solo Agent"
+            price="$1,500"
+            description="For individual agents building their brand"
             features={[
-              'AI Lead Responder chatbot',
+              'AI Lead Qualifier chatbot',
               'Review & reputation automation',
-              'AI social media content (8 posts/mo)',
+              'Automated CMA reports',
               'Monthly performance report',
               'Email support',
             ]}
             delay={0}
           />
           <PricingTier
-            name="Growth"
-            price="$5,000"
-            description="For growing firms with 5-20 employees"
+            name="Team"
+            price="$4,000"
+            description="For teams with 3-10 agents"
             features={[
-              'Everything in Starter',
-              'Smart Estimate Generator',
-              'CRM integration & lead scoring',
-              'Lead qualification & routing',
-              'AI content pipeline (20 posts/mo)',
+              'Everything in Solo Agent',
+              'Seller Outreach AI',
+              'CRM integration & lead routing',
+              'AI Voice Negotiator',
               'Weekly strategy call',
+              'Priority support',
             ]}
             highlight
             delay={150}
           />
           <PricingTier
-            name="Scale"
-            price="$10,000"
-            description="For established builders and GCs"
+            name="Brokerage"
+            price="$8,000"
+            description="For brokerages and large teams"
             features={[
-              'Everything in Growth',
-              'Project Update Bot',
-              'Custom AI workflows',
-              'Multi-location support',
-              'Priority support & dedicated PM',
+              'Everything in Team',
+              'Custom AI workflows per agent',
+              'Multi-office support',
+              'Dedicated account manager',
+              'White-label branding',
               'Quarterly business review',
             ]}
             delay={300}
@@ -506,46 +506,47 @@ const Construction: React.FC = () => {
         </div>
         <div className="max-w-3xl mx-auto">
           <Accordion type="single" collapsible className="space-y-4">
-            <AccordionItem value="crew" className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 px-6">
+            <AccordionItem value="mls" className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 px-6">
               <AccordionTrigger className="text-left font-medium">
-                Will my crew need to learn new software?
+                Does it work with my MLS?
               </AccordionTrigger>
               <AccordionContent className="text-gray-600 dark:text-gray-400">
-                No. The AI systems work behind the scenes. Your crew keeps doing what they do — the AI
-                handles the admin, lead capture, and communication automatically. If a foreman needs
-                to submit a project update, it's as simple as sending a text message.
+                Yes. Our AI systems pull data from public listing sources and can integrate with most
+                MLS feeds via IDX/RETS. We'll configure the connection during setup so your CMA reports
+                and lead qualifier have access to real-time market data.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="team" className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 px-6">
+              <AccordionTrigger className="text-left font-medium">
+                Can my whole team use it?
+              </AccordionTrigger>
+              <AccordionContent className="text-gray-600 dark:text-gray-400">
+                Absolutely. The Team and Brokerage plans include multi-agent support with individual
+                lead routing, separate branded outputs, and performance tracking per agent. Each agent
+                gets their own AI assistant configured to their style.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="idx" className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 px-6">
+              <AccordionTrigger className="text-left font-medium">
+                Does it integrate with my IDX website?
+              </AccordionTrigger>
+              <AccordionContent className="text-gray-600 dark:text-gray-400">
+                Yes. The AI chatbot is a lightweight widget that installs on any website — WordPress,
+                Squarespace, custom IDX sites, or KVCore. It works alongside your existing site
+                without any redesign needed.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="results" className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 px-6">
               <AccordionTrigger className="text-left font-medium">
-                How long until I see results?
+                How fast will I see results?
               </AccordionTrigger>
               <AccordionContent className="text-gray-600 dark:text-gray-400">
-                Most clients see measurable improvements within the first month. Lead response time
-                drops to under 60 seconds from day one. Review counts typically double within 60-90
-                days. Estimate generation time drops immediately.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="website" className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 px-6">
-              <AccordionTrigger className="text-left font-medium">
-                What if I already have a website?
-              </AccordionTrigger>
-              <AccordionContent className="text-gray-600 dark:text-gray-400">
-                Perfect — we integrate with your existing website. The AI chatbot is a simple widget
-                that gets added to your current site. We don't rebuild what's already working.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="subs" className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 px-6">
-              <AccordionTrigger className="text-left font-medium">
-                Do you work with subcontractors too?
-              </AccordionTrigger>
-              <AccordionContent className="text-gray-600 dark:text-gray-400">
-                Yes. Whether you're a GC, a specialty sub, or a remodeling company, the AI tools
-                adapt to your business. The lead responder and estimate tools are especially valuable
-                for subs who need to quote fast and win jobs.
+                Lead response time drops to under 60 seconds from day one. Most agents see a
+                measurable increase in qualified appointments within the first month. Review counts
+                typically double within 60-90 days.
               </AccordionContent>
             </AccordionItem>
 
@@ -561,13 +562,12 @@ const Construction: React.FC = () => {
 
             <AccordionItem value="different" className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 px-6">
               <AccordionTrigger className="text-left font-medium">
-                What makes you different from a marketing agency?
+                How is this different from a marketing agency?
               </AccordionTrigger>
               <AccordionContent className="text-gray-600 dark:text-gray-400">
-                We're engineers, not marketers. We build actual AI systems — custom software that
-                automates your operations. A marketing agency runs your ads. We build the systems
-                that capture, qualify, and convert those leads automatically, plus streamline your
-                back-office operations.
+                We build actual AI systems — custom software that automates your operations. A marketing
+                agency runs your ads. We build the systems that capture, qualify, and convert those leads
+                automatically, plus streamline your CMA process, follow-ups, and reputation management.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -582,8 +582,8 @@ const Construction: React.FC = () => {
               Get Your Free AI Audit
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300">
-              We'll analyze your operations and show you exactly where AI can save you time and
-              win you more jobs.
+              We'll analyze your operations and show you exactly where AI can help you close more
+              deals and save time.
             </p>
           </div>
 
@@ -616,20 +616,20 @@ const Construction: React.FC = () => {
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="John Smith"
+                    placeholder="Jane Doe"
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Company Name
+                    Brokerage / Team Name
                   </label>
                   <input
                     type="text"
                     required
                     value={formData.company}
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                    placeholder="ABC Construction"
+                    placeholder="Keller Williams Metro"
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
                   />
                 </div>
@@ -648,13 +648,13 @@ const Construction: React.FC = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    What's your biggest operational challenge?
+                    What's your biggest challenge right now?
                   </label>
                   <textarea
                     required
                     value={formData.challenge}
                     onChange={(e) => setFormData({ ...formData, challenge: e.target.value })}
-                    placeholder="e.g., I'm losing leads because I can't respond fast enough..."
+                    placeholder="e.g., I'm spending too much time on CMAs and not enough time with clients..."
                     rows={4}
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
                   />
@@ -681,4 +681,4 @@ const Construction: React.FC = () => {
   );
 };
 
-export default Construction;
+export default RealEstate;
