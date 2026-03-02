@@ -15,6 +15,7 @@ import {
   RotateCcw,
   FileText,
   Search,
+  Phone,
 } from 'lucide-react';
 import PropertyInputPanel from '@/components/construction/negotiator/PropertyInputPanel';
 import SpeedBanner from '@/components/construction/negotiator/SpeedBanner';
@@ -23,8 +24,13 @@ import FollowUpChat from '@/components/construction/negotiator/FollowUpChat';
 import AgentTimeline from '@/components/construction/negotiator/AgentTimeline';
 import CompsTable from '@/components/construction/negotiator/CompsTable';
 import SellerOutreach from '@/components/construction/negotiator/SellerOutreach';
+import VoiceCallSetup from '@/components/construction/negotiator/VoiceCallSetup';
+import VoiceCallLive from '@/components/construction/negotiator/VoiceCallLive';
+import VoiceCallSummary from '@/components/construction/negotiator/VoiceCallSummary';
+import { useVoiceCall } from '@/hooks/useVoiceCall';
 import { runAgentPipeline } from '@/utils/agentPipeline';
 import type { PropertyData, AgentStep, AgentResult } from '@/data/propertyNegotiation';
+import type { BidRange } from '@/data/voiceNegotiation';
 
 type Phase = 'input' | 'agent' | 'dashboard';
 
@@ -53,6 +59,12 @@ const HOW_IT_WORKS = [
     desc: 'Ready-to-send SMS + email',
     color: 'bg-green-50 dark:bg-green-900/20 text-green-600',
   },
+  {
+    icon: <Phone size={22} />,
+    title: 'AI Voice Call',
+    desc: 'Negotiate by phone',
+    color: 'bg-red-50 dark:bg-red-900/20 text-red-600',
+  },
 ];
 
 const PropertyNegotiator = () => {
@@ -66,9 +78,13 @@ const PropertyNegotiator = () => {
   const [error, setError] = useState<string | null>(null);
   const [scrapeError, setScrapeError] = useState<string | null>(null);
 
+  const [voiceBidRange, setVoiceBidRange] = useState<BidRange | null>(null);
+
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const startRef = useRef(0);
   const abortRef = useRef<AbortController | null>(null);
+
+  const voice = useVoiceCall();
 
   // Elapsed timer during agent phase
   useEffect(() => {
@@ -160,7 +176,7 @@ const PropertyNegotiator = () => {
         {phase === 'input' && (
           <>
             {/* How It Works cards */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8 animate-slide-up">
+            <div className="grid grid-cols-3 sm:grid-cols-5 gap-3 mb-8 animate-slide-up">
               {HOW_IT_WORKS.map((step, i) => (
                 <Card
                   key={step.title}
@@ -232,7 +248,7 @@ const PropertyNegotiator = () => {
 
             {/* Tabbed dashboard */}
             <Tabs defaultValue="overview">
-              <TabsList className="grid w-full grid-cols-4">
+              <TabsList className="grid w-full grid-cols-5">
                 <TabsTrigger value="overview" className="gap-1 text-xs sm:text-sm">
                   <FileText size={14} /> Overview
                 </TabsTrigger>
@@ -244,6 +260,9 @@ const PropertyNegotiator = () => {
                 </TabsTrigger>
                 <TabsTrigger value="chat" className="gap-1 text-xs sm:text-sm">
                   <Brain size={14} /> Chat
+                </TabsTrigger>
+                <TabsTrigger value="voice" className="gap-1 text-xs sm:text-sm">
+                  <Phone size={14} /> Voice
                 </TabsTrigger>
               </TabsList>
 
@@ -273,6 +292,44 @@ const PropertyNegotiator = () => {
                   companyName={company?.companyName}
                   defaultExpanded={true}
                 />
+              </TabsContent>
+
+              <TabsContent value="voice" className="mt-4">
+                {voice.state.status === 'idle' && (
+                  <VoiceCallSetup
+                    property={agentResult.property}
+                    report={agentResult.report}
+                    comps={agentResult.comps}
+                    companyName={name}
+                    isVapiAvailable={voice.isVapiAvailable}
+                    onStartCall={(config) => {
+                      setVoiceBidRange(config.bidRange);
+                      voice.startCall(config);
+                    }}
+                  />
+                )}
+                {voice.state.status !== 'idle' && voice.state.status !== 'ended' && voiceBidRange && (
+                  <VoiceCallLive
+                    state={voice.state}
+                    property={agentResult.property}
+                    bidRange={voiceBidRange}
+                    onEndCall={voice.endCall}
+                  />
+                )}
+                {voice.state.status === 'ended' && voice.state.summary && (
+                  <VoiceCallSummary
+                    summary={voice.state.summary}
+                    transcript={voice.state.transcript}
+                    property={agentResult.property}
+                    onNewCall={voice.reset}
+                  />
+                )}
+                {voice.state.status === 'ended' && !voice.state.summary && (
+                  <div className="flex flex-col items-center justify-center py-12">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mb-3" />
+                    <p className="text-sm text-gray-500">Analyzing conversation...</p>
+                  </div>
+                )}
               </TabsContent>
             </Tabs>
           </div>

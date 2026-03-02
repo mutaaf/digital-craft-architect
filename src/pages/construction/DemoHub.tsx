@@ -14,6 +14,7 @@ import {
   ArrowRight,
   Sparkles,
   Home,
+  Phone,
 } from 'lucide-react';
 
 const DemoHub = () => {
@@ -76,14 +77,23 @@ const DemoHub = () => {
       tags: ['GPT-4o Vision', 'Negotiation Playbook'],
       color: 'bg-orange-50 dark:bg-orange-900/20 text-orange-600',
     },
+    {
+      to: '/construction/demo/voice-negotiator',
+      icon: <Phone size={28} />,
+      title: 'AI Voice Negotiator',
+      description:
+        'Analyze a property, set your bid range, and let the AI negotiate with the seller by phone. Watch the live transcript and get a full call summary with insights and next steps.',
+      tags: ['Vapi Voice AI', 'Live Transcription', 'GPT-4o'],
+      color: 'bg-red-50 dark:bg-red-900/20 text-red-600',
+    },
   ];
 
   const ogTitle = isCustomized
     ? `See How AI Would Work for ${name} | DigitalCraft AI`
     : 'Interactive AI Demos for Construction | DigitalCraft AI';
   const ogDescription = isCustomized
-    ? `Live AI demos customized for ${name}: Lead Responder, Smart Estimates, Review Automation, and Deal Analyzer. See the future of your business.`
-    : 'Four working AI proof-of-concepts for construction businesses: Lead Responder, Smart Estimate Generator, Review Request System, and AI Deal Analyzer.';
+    ? `Live AI demos customized for ${name}: Lead Responder, Smart Estimates, Review Automation, Deal Analyzer, and Voice Negotiator. See the future of your business.`
+    : 'Five working AI proof-of-concepts for construction businesses: Lead Responder, Smart Estimate Generator, Review Request System, AI Deal Analyzer, and Voice Negotiator.';
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
@@ -109,8 +119,8 @@ const DemoHub = () => {
           </Badge>
           <h1 className="text-3xl sm:text-4xl font-bold mb-3">Interactive POC Demos</h1>
           <p className="text-base sm:text-lg text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
-            Four working proof-of-concepts showing exactly how AI will transform {possessive}{' '}
-            lead capture, estimating, reputation management, and deal analysis.
+            Five working proof-of-concepts showing exactly how AI will transform {possessive}{' '}
+            lead capture, estimating, reputation management, deal analysis, and voice negotiation.
           </p>
         </div>
 

@@ -11,6 +11,7 @@ import LeadResponder from "./pages/construction/LeadResponder";
 import EstimateGenerator from "./pages/construction/EstimateGenerator";
 import ReviewSystem from "./pages/construction/ReviewSystem";
 import PropertyNegotiator from "./pages/construction/PropertyNegotiator";
+import VoiceNegotiator from "./pages/construction/VoiceNegotiator";
 import NotFound from "./pages/NotFound";
 import { ErrorBoundary } from "@sentry/react";
 import { captureException } from "./utils/sentry";
@@ -127,6 +128,7 @@ const App = () => (
               <Route path="/construction/demo/estimate" element={<DemoContextProvider><EstimateGenerator /></DemoContextProvider>} />
               <Route path="/construction/demo/reviews" element={<DemoContextProvider><ReviewSystem /></DemoContextProvider>} />
               <Route path="/construction/demo/property-negotiator" element={<DemoContextProvider><PropertyNegotiator /></DemoContextProvider>} />
+              <Route path="/construction/demo/voice-negotiator" element={<DemoContextProvider><VoiceNegotiator /></DemoContextProvider>} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
