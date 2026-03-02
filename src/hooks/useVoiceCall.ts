@@ -11,10 +11,14 @@ import { runDemoConversation } from '@/utils/voiceDemoSimulator';
 import {
   createVapiInstance,
   startBrowserCall,
+  startPhoneCall,
+  pollCallStatus,
   endCall,
   cleanup,
   setupVapiListeners,
+  sendCoachingMessage,
 } from '@/utils/vapiClient';
+import { saveConversation } from '@/utils/conversationStore';
 
 const INITIAL_STATE: VoiceCallState = {
   status: 'idle',
@@ -39,11 +43,15 @@ export function useVoiceCall() {
   const [state, setState] = useState<VoiceCallState>(INITIAL_STATE);
   const [vapiStatus, setVapiStatus] = useState<VapiStatus | null>(null);
 
+  const [coachingMessages, setCoachingMessages] = useState<{ text: string; timestamp: number }[]>([]);
+
   const vapiRef = useRef<Awaited<ReturnType<typeof createVapiInstance>>>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const abortRef = useRef<AbortController | null>(null);
   const configRef = useRef<VoiceCallConfig | null>(null);
   const transcriptRef = useRef<TranscriptEntry[]>([]);
+  const phoneCallIdRef = useRef<string | null>(null);
 
   // Check Vapi availability on mount
   useEffect(() => {
@@ -182,9 +190,39 @@ export function useVoiceCall() {
     }
   }, []);
 
+  const sendCoaching = useCallback((text: string) => {
+    const msg = { text, timestamp: Date.now() };
+    setCoachingMessages((prev) => [...prev, msg]);
+    // Only send to Vapi if we have a live connection (not demo)
+    if (vapiRef.current) {
+      sendCoachingMessage(vapiRef.current, text);
+    }
+  }, []);
+
+  const autoSaveConversation = useCallback((config: VoiceCallConfig, summary: CallSummary, isDemo: boolean) => {
+    const finalTranscript = transcriptRef.current.filter((e) => e.isFinal);
+    if (finalTranscript.length === 0) return;
+    saveConversation({
+      id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      timestamp: Date.now(),
+      propertyAddress: config.property.address,
+      askingPrice: config.property.askingPrice,
+      bidRange: {
+        min: config.bidRange.minOffer,
+        target: config.bidRange.targetOffer,
+        max: config.bidRange.maxOffer,
+      },
+      transcript: finalTranscript,
+      summary,
+      isDemo,
+      companyName: config.companyName,
+    });
+  }, []);
+
   const startCall = useCallback(async (config: VoiceCallConfig) => {
     configRef.current = config;
     transcriptRef.current = [];
+    setCoachingMessages([]);
 
     const isVapiMode = vapiStatus?.available && vapiStatus.hasPublicKey;
 
@@ -212,22 +250,89 @@ export function useVoiceCall() {
         if (!assistantResp.ok) throw new Error('Failed to create assistant');
         const { assistantId } = await assistantResp.json();
 
-        // Create Vapi instance
-        const vapi = await createVapiInstance(vapiStatus.publicKey);
-        if (!vapi) throw new Error('Failed to initialize Vapi SDK');
+        const usePhoneCall = config.sellerPhone && vapiStatus.hasPhoneNumber;
 
-        vapiRef.current = vapi;
+        if (usePhoneCall) {
+          // ─── PHONE CALL PATH ───
+          setState((prev) => ({ ...prev, status: 'connecting' }));
+          const { callId } = await startPhoneCall(assistantId, config.sellerPhone!);
+          phoneCallIdRef.current = callId;
+          setState((prev) => ({ ...prev, callId, status: 'ringing' }));
 
-        setupVapiListeners(vapi, {
-          onStatusChange: handleStatusChange,
-          onTranscript: handleTranscript,
-          onError: (error) => {
-            setState((prev) => ({ ...prev, error, status: 'error' }));
-          },
-        });
+          // Poll for transcript updates every 3s
+          pollRef.current = setInterval(async () => {
+            try {
+              const data = await pollCallStatus(callId);
 
-        setState((prev) => ({ ...prev, status: 'connecting' }));
-        await startBrowserCall(vapi, assistantId);
+              // Update status
+              if (data.status === 'in_progress') {
+                handleStatusChange('in_progress');
+              } else if (data.status === 'ringing' || data.status === 'queued') {
+                handleStatusChange('ringing');
+              }
+
+              // Parse messages into transcript entries
+              if (Array.isArray(data.messages) && data.messages.length > 0) {
+                const newEntries: TranscriptEntry[] = [];
+                for (const msg of data.messages as Array<Record<string, unknown>>) {
+                  if (msg.role === 'assistant' || msg.role === 'user') {
+                    const text = (msg.message || msg.content || '') as string;
+                    if (text) {
+                      newEntries.push({
+                        role: msg.role as 'assistant' | 'user',
+                        text,
+                        timestamp: Date.now(),
+                        isFinal: true,
+                      });
+                    }
+                  }
+                }
+                if (newEntries.length > 0) {
+                  // Replace entire transcript from poll data (server is source of truth)
+                  transcriptRef.current = newEntries;
+                  setState((prev) => ({ ...prev, transcript: newEntries }));
+                }
+              }
+
+              // Stop polling when call ends
+              if (data.status === 'ended') {
+                if (pollRef.current) {
+                  clearInterval(pollRef.current);
+                  pollRef.current = null;
+                }
+                handleStatusChange('ended');
+                setState((prev) => ({ ...prev, endTime: Date.now() }));
+                // Generate summary
+                if (configRef.current) {
+                  const summary = await generateSummary(configRef.current);
+                  if (summary) {
+                    setState((prev) => ({ ...prev, summary }));
+                    autoSaveConversation(configRef.current, summary, false);
+                  }
+                }
+              }
+            } catch {
+              // Silently continue polling on transient errors
+            }
+          }, 3000);
+        } else {
+          // ─── BROWSER CALL PATH (existing) ───
+          const vapi = await createVapiInstance(vapiStatus.publicKey);
+          if (!vapi) throw new Error('Failed to initialize Vapi SDK');
+
+          vapiRef.current = vapi;
+
+          setupVapiListeners(vapi, {
+            onStatusChange: handleStatusChange,
+            onTranscript: handleTranscript,
+            onError: (error) => {
+              setState((prev) => ({ ...prev, error, status: 'error' }));
+            },
+          });
+
+          setState((prev) => ({ ...prev, status: 'connecting' }));
+          await startBrowserCall(vapi, assistantId);
+        }
       } catch (err) {
         setState((prev) => ({
           ...prev,
@@ -253,6 +358,7 @@ export function useVoiceCall() {
         const summary = await generateSummary(config);
         if (summary) {
           setState((prev) => ({ ...prev, summary }));
+          autoSaveConversation(config, summary, true);
         }
       } catch (err) {
         if (!(err instanceof Error && err.name === 'AbortError')) {
@@ -264,7 +370,7 @@ export function useVoiceCall() {
         }
       }
     }
-  }, [vapiStatus, handleTranscript, handleStatusChange, generateSummary]);
+  }, [vapiStatus, handleTranscript, handleStatusChange, generateSummary, autoSaveConversation]);
 
   const stopCall = useCallback(() => {
     if (vapiRef.current) {
@@ -273,6 +379,11 @@ export function useVoiceCall() {
     if (abortRef.current) {
       abortRef.current.abort();
     }
+    if (pollRef.current) {
+      clearInterval(pollRef.current);
+      pollRef.current = null;
+    }
+    phoneCallIdRef.current = null;
     setState((prev) => ({
       ...prev,
       status: 'ended',
@@ -281,13 +392,16 @@ export function useVoiceCall() {
 
     // Generate summary
     if (configRef.current) {
-      generateSummary(configRef.current).then((summary) => {
+      const config = configRef.current;
+      const isDemo = !vapiRef.current && !phoneCallIdRef.current;
+      generateSummary(config).then((summary) => {
         if (summary) {
           setState((prev) => ({ ...prev, summary }));
+          autoSaveConversation(config, summary, isDemo);
         }
       });
     }
-  }, [generateSummary]);
+  }, [generateSummary, autoSaveConversation]);
 
   const reset = useCallback(() => {
     if (vapiRef.current) {
@@ -298,8 +412,14 @@ export function useVoiceCall() {
       abortRef.current.abort();
       abortRef.current = null;
     }
+    if (pollRef.current) {
+      clearInterval(pollRef.current);
+      pollRef.current = null;
+    }
+    phoneCallIdRef.current = null;
     transcriptRef.current = [];
     configRef.current = null;
+    setCoachingMessages([]);
     setState(INITIAL_STATE);
   }, []);
 
@@ -315,6 +435,9 @@ export function useVoiceCall() {
       if (timerRef.current) {
         clearInterval(timerRef.current);
       }
+      if (pollRef.current) {
+        clearInterval(pollRef.current);
+      }
     };
   }, []);
 
@@ -323,6 +446,8 @@ export function useVoiceCall() {
     startCall,
     endCall: stopCall,
     reset,
+    sendCoaching,
+    coachingMessages,
     isVapiAvailable: vapiStatus?.available ?? false,
   };
 }

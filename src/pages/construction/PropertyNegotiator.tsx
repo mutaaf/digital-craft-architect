@@ -27,6 +27,7 @@ import SellerOutreach from '@/components/construction/negotiator/SellerOutreach'
 import VoiceCallSetup from '@/components/construction/negotiator/VoiceCallSetup';
 import VoiceCallLive from '@/components/construction/negotiator/VoiceCallLive';
 import VoiceCallSummary from '@/components/construction/negotiator/VoiceCallSummary';
+import ConversationHistory from '@/components/construction/negotiator/ConversationHistory';
 import { useVoiceCall } from '@/hooks/useVoiceCall';
 import { runAgentPipeline } from '@/utils/agentPipeline';
 import type { PropertyData, AgentStep, AgentResult } from '@/data/propertyNegotiation';
@@ -314,6 +315,8 @@ const PropertyNegotiator = () => {
                     property={agentResult.property}
                     bidRange={voiceBidRange}
                     onEndCall={voice.endCall}
+                    onSendCoaching={voice.sendCoaching}
+                    coachingMessages={voice.coachingMessages}
                   />
                 )}
                 {voice.state.status === 'ended' && voice.state.summary && (
@@ -330,6 +333,9 @@ const PropertyNegotiator = () => {
                     <p className="text-sm text-gray-500">Analyzing conversation...</p>
                   </div>
                 )}
+                <div className="mt-6">
+                  <ConversationHistory />
+                </div>
               </TabsContent>
             </Tabs>
           </div>

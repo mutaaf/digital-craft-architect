@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { PhoneOff, Wifi, Clock } from 'lucide-react';
 import AudioWaveform from './AudioWaveform';
 import VoiceTranscript from './VoiceTranscript';
+import CoachingPanel from './CoachingPanel';
 import type { VoiceCallState, BidRange } from '@/data/voiceNegotiation';
 import type { PropertyData } from '@/data/propertyNegotiation';
 
@@ -12,6 +13,8 @@ interface VoiceCallLiveProps {
   property: PropertyData;
   bidRange: BidRange;
   onEndCall: () => void;
+  onSendCoaching?: (text: string) => void;
+  coachingMessages?: { text: string; timestamp: number }[];
 }
 
 function formatTime(seconds: number): string {
@@ -28,7 +31,7 @@ const STATUS_CONFIG: Record<string, { label: string; color: string; pulse: boole
   error: { label: 'Error', color: 'bg-red-500', pulse: false },
 };
 
-const VoiceCallLive = ({ state, property, bidRange, onEndCall }: VoiceCallLiveProps) => {
+const VoiceCallLive = ({ state, property, bidRange, onEndCall, onSendCoaching, coachingMessages = [] }: VoiceCallLiveProps) => {
   const statusConfig = STATUS_CONFIG[state.status] || STATUS_CONFIG.connecting;
   const isActive = state.status === 'in_progress';
 
@@ -90,6 +93,16 @@ const VoiceCallLive = ({ state, property, bidRange, onEndCall }: VoiceCallLivePr
           <VoiceTranscript entries={state.transcript} autoScroll={true} />
         </div>
       </Card>
+
+      {/* Coaching Panel */}
+      {onSendCoaching && state.status !== 'ended' && state.status !== 'error' && (
+        <CoachingPanel
+          onSend={onSendCoaching}
+          disabled={state.status !== 'in_progress'}
+          isDemo={state.isDemo}
+          messages={coachingMessages}
+        />
+      )}
 
       {/* Side info: bid range */}
       <Card className="p-3 bg-gray-50 dark:bg-gray-900/50">
