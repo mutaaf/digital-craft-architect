@@ -222,6 +222,7 @@ const VoiceNegotiator = () => {
             onEndCall={voice.endCall}
             onSendCoaching={voice.sendCoaching}
             coachingMessages={voice.coachingMessages}
+            isPhoneCall={voice.isPhoneCall}
           />
         )}
 

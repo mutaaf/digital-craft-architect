@@ -52,6 +52,7 @@ export function useVoiceCall() {
   const configRef = useRef<VoiceCallConfig | null>(null);
   const transcriptRef = useRef<TranscriptEntry[]>([]);
   const phoneCallIdRef = useRef<string | null>(null);
+  const [isPhoneCall, setIsPhoneCall] = useState(false);
 
   // Check Vapi availability on mount
   useEffect(() => {
@@ -199,6 +200,41 @@ export function useVoiceCall() {
     }
   }, []);
 
+  /** Parse poll response messages into TranscriptEntry[] */
+  const parsePollMessages = useCallback((messages: unknown[]): TranscriptEntry[] => {
+    const entries: TranscriptEntry[] = [];
+    for (const msg of messages as Array<Record<string, unknown>>) {
+      const role = msg.role as string;
+      if (role === 'assistant' || role === 'user') {
+        const text = (msg.message || msg.content || '') as string;
+        if (text) {
+          entries.push({
+            role: role as 'assistant' | 'user',
+            text,
+            timestamp: typeof msg.time === 'number' ? msg.time : Date.now(),
+            isFinal: true,
+          });
+        }
+      }
+    }
+    return entries;
+  }, []);
+
+  /** Do a final poll to grab the complete transcript after call ends */
+  const fetchFinalTranscript = useCallback(async (callId: string): Promise<TranscriptEntry[]> => {
+    try {
+      const data = await pollCallStatus(callId);
+      const entries = parsePollMessages(data.messages);
+      if (entries.length > 0) {
+        transcriptRef.current = entries;
+        setState((prev) => ({ ...prev, transcript: entries }));
+      }
+      return entries;
+    } catch {
+      return transcriptRef.current;
+    }
+  }, [parsePollMessages]);
+
   const autoSaveConversation = useCallback((config: VoiceCallConfig, summary: CallSummary, isDemo: boolean) => {
     const finalTranscript = transcriptRef.current.filter((e) => e.isFinal);
     if (finalTranscript.length === 0) return;
@@ -254,55 +290,44 @@ export function useVoiceCall() {
 
         if (usePhoneCall) {
           // ─── PHONE CALL PATH ───
+          setIsPhoneCall(true);
           setState((prev) => ({ ...prev, status: 'connecting' }));
           const { callId } = await startPhoneCall(assistantId, config.sellerPhone!);
           phoneCallIdRef.current = callId;
           setState((prev) => ({ ...prev, callId, status: 'ringing' }));
 
-          // Poll for transcript updates every 3s
+          // Poll for status and transcript every 3s
           pollRef.current = setInterval(async () => {
             try {
               const data = await pollCallStatus(callId);
 
-              // Update status
+              // Update call status
               if (data.status === 'in_progress') {
                 handleStatusChange('in_progress');
               } else if (data.status === 'ringing' || data.status === 'queued') {
                 handleStatusChange('ringing');
               }
 
-              // Parse messages into transcript entries
+              // Parse any available messages (role already normalized by API)
               if (Array.isArray(data.messages) && data.messages.length > 0) {
-                const newEntries: TranscriptEntry[] = [];
-                for (const msg of data.messages as Array<Record<string, unknown>>) {
-                  if (msg.role === 'assistant' || msg.role === 'user') {
-                    const text = (msg.message || msg.content || '') as string;
-                    if (text) {
-                      newEntries.push({
-                        role: msg.role as 'assistant' | 'user',
-                        text,
-                        timestamp: Date.now(),
-                        isFinal: true,
-                      });
-                    }
-                  }
-                }
-                if (newEntries.length > 0) {
-                  // Replace entire transcript from poll data (server is source of truth)
-                  transcriptRef.current = newEntries;
-                  setState((prev) => ({ ...prev, transcript: newEntries }));
+                const entries = parsePollMessages(data.messages);
+                if (entries.length > 0) {
+                  transcriptRef.current = entries;
+                  setState((prev) => ({ ...prev, transcript: entries }));
                 }
               }
 
-              // Stop polling when call ends
+              // Call ended on the other side — stop polling, fetch final transcript, summarize
               if (data.status === 'ended') {
                 if (pollRef.current) {
                   clearInterval(pollRef.current);
                   pollRef.current = null;
                 }
+                // Final fetch to get complete transcript
+                await fetchFinalTranscript(callId);
                 handleStatusChange('ended');
                 setState((prev) => ({ ...prev, endTime: Date.now() }));
-                // Generate summary
+                // Generate summary from final transcript
                 if (configRef.current) {
                   const summary = await generateSummary(configRef.current);
                   if (summary) {
@@ -373,6 +398,10 @@ export function useVoiceCall() {
   }, [vapiStatus, handleTranscript, handleStatusChange, generateSummary, autoSaveConversation]);
 
   const stopCall = useCallback(() => {
+    // Capture refs before clearing
+    const callId = phoneCallIdRef.current;
+    const wasPhoneCall = !!callId;
+
     if (vapiRef.current) {
       endCall(vapiRef.current);
     }
@@ -383,17 +412,29 @@ export function useVoiceCall() {
       clearInterval(pollRef.current);
       pollRef.current = null;
     }
-    phoneCallIdRef.current = null;
+
     setState((prev) => ({
       ...prev,
       status: 'ended',
       endTime: Date.now(),
     }));
 
-    // Generate summary
-    if (configRef.current) {
+    // For phone calls, do a final poll to grab transcript, then summarize
+    if (wasPhoneCall && configRef.current) {
       const config = configRef.current;
-      const isDemo = !vapiRef.current && !phoneCallIdRef.current;
+      // Small delay to let Vapi finalize, then fetch transcript
+      setTimeout(async () => {
+        await fetchFinalTranscript(callId);
+        const summary = await generateSummary(config);
+        if (summary) {
+          setState((prev) => ({ ...prev, summary }));
+          autoSaveConversation(config, summary, false);
+        }
+      }, 2000);
+    } else if (configRef.current) {
+      // Browser or demo call — generate summary immediately
+      const config = configRef.current;
+      const isDemo = !vapiRef.current;
       generateSummary(config).then((summary) => {
         if (summary) {
           setState((prev) => ({ ...prev, summary }));
@@ -401,7 +442,9 @@ export function useVoiceCall() {
         }
       });
     }
-  }, [generateSummary, autoSaveConversation]);
+
+    phoneCallIdRef.current = null;
+  }, [generateSummary, autoSaveConversation, fetchFinalTranscript]);
 
   const reset = useCallback(() => {
     if (vapiRef.current) {
@@ -420,6 +463,7 @@ export function useVoiceCall() {
     transcriptRef.current = [];
     configRef.current = null;
     setCoachingMessages([]);
+    setIsPhoneCall(false);
     setState(INITIAL_STATE);
   }, []);
 
@@ -449,5 +493,6 @@ export function useVoiceCall() {
     sendCoaching,
     coachingMessages,
     isVapiAvailable: vapiStatus?.available ?? false,
+    isPhoneCall,
   };
 }

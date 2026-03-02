@@ -1,7 +1,7 @@
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { PhoneOff, Wifi, Clock } from 'lucide-react';
+import { Phone, PhoneOff, Wifi, Clock } from 'lucide-react';
 import AudioWaveform from './AudioWaveform';
 import VoiceTranscript from './VoiceTranscript';
 import CoachingPanel from './CoachingPanel';
@@ -15,6 +15,7 @@ interface VoiceCallLiveProps {
   onEndCall: () => void;
   onSendCoaching?: (text: string) => void;
   coachingMessages?: { text: string; timestamp: number }[];
+  isPhoneCall?: boolean;
 }
 
 function formatTime(seconds: number): string {
@@ -31,7 +32,7 @@ const STATUS_CONFIG: Record<string, { label: string; color: string; pulse: boole
   error: { label: 'Error', color: 'bg-red-500', pulse: false },
 };
 
-const VoiceCallLive = ({ state, property, bidRange, onEndCall, onSendCoaching, coachingMessages = [] }: VoiceCallLiveProps) => {
+const VoiceCallLive = ({ state, property, bidRange, onEndCall, onSendCoaching, coachingMessages = [], isPhoneCall = false }: VoiceCallLiveProps) => {
   const statusConfig = STATUS_CONFIG[state.status] || STATUS_CONFIG.connecting;
   const isActive = state.status === 'in_progress';
 
@@ -90,7 +91,16 @@ const VoiceCallLive = ({ state, property, bidRange, onEndCall, onSendCoaching, c
         </div>
 
         <div className="border-t border-gray-200 dark:border-gray-800 pt-3">
-          <VoiceTranscript entries={state.transcript} autoScroll={true} />
+          {isPhoneCall && state.transcript.length === 0 && isActive && (
+            <div className="flex flex-col items-center justify-center h-48 text-sm text-gray-400 gap-2">
+              <Phone size={20} className="animate-pulse" />
+              <span>Phone call in progress</span>
+              <span className="text-xs">Transcript will appear as the conversation progresses</span>
+            </div>
+          )}
+          {!(isPhoneCall && state.transcript.length === 0 && isActive) && (
+            <VoiceTranscript entries={state.transcript} autoScroll={true} />
+          )}
         </div>
       </Card>
 

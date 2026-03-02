@@ -36,14 +36,25 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     let status = data.status;
     if (status === 'in-progress') status = 'in_progress';
 
-    // Build transcript from messages array
-    const messages: unknown[] = data.messages || [];
-    const transcript = messages
-      .filter((m: Record<string, unknown>) =>
-        m.role === 'assistant' || m.role === 'user'
-      )
-      .map((m: Record<string, unknown>) => `${m.role === 'assistant' ? 'AGENT' : 'SELLER'}: ${m.message || m.content || ''}`)
-      .join('\n');
+    // Vapi stores messages in artifact.messages (post-call) or messages (during/after)
+    // Vapi uses role "bot" for assistant and "user" for the caller
+    const rawMessages: Array<Record<string, unknown>> =
+      data.artifact?.messages || data.messages || [];
+
+    const messages = rawMessages
+      .filter((m) => m.role === 'bot' || m.role === 'assistant' || m.role === 'user')
+      .map((m) => ({
+        role: (m.role === 'bot' || m.role === 'assistant') ? 'assistant' : 'user',
+        message: m.message || m.content || '',
+        time: m.time || m.startTime || 0,
+        secondsFromStart: m.secondsFromStart || 0,
+      }));
+
+    // Also grab the plain-text transcript if Vapi provides one
+    const transcript = data.artifact?.transcript
+      || messages
+        .map((m) => `${m.role === 'assistant' ? 'AGENT' : 'SELLER'}: ${m.message}`)
+        .join('\n');
 
     return res.status(200).json({
       status,
