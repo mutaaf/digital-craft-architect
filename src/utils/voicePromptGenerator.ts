@@ -1,14 +1,78 @@
 import type { VoiceCallConfig } from '@/data/voiceNegotiation';
 
+/** Expand common address abbreviations so TTS reads them naturally */
+function expandAddress(addr: string): string {
+  return addr
+    // Directions (word-boundary sensitive, case-insensitive)
+    .replace(/\bN\b\.?/g, 'North')
+    .replace(/\bS\b\.?/g, 'South')
+    .replace(/\bE\b\.?/g, 'East')
+    .replace(/\bW\b\.?/g, 'West')
+    .replace(/\bNE\b\.?/g, 'Northeast')
+    .replace(/\bNW\b\.?/g, 'Northwest')
+    .replace(/\bSE\b\.?/g, 'Southeast')
+    .replace(/\bSW\b\.?/g, 'Southwest')
+    // Street types
+    .replace(/\bSt\b\.?/g, 'Street')
+    .replace(/\bAve\b\.?/g, 'Avenue')
+    .replace(/\bBlvd\b\.?/g, 'Boulevard')
+    .replace(/\bDr\b\.?/g, 'Drive')
+    .replace(/\bLn\b\.?/g, 'Lane')
+    .replace(/\bRd\b\.?/g, 'Road')
+    .replace(/\bCt\b\.?/g, 'Court')
+    .replace(/\bPl\b\.?/g, 'Place')
+    .replace(/\bPkwy\b\.?/g, 'Parkway')
+    .replace(/\bCir\b\.?/g, 'Circle')
+    .replace(/\bHwy\b\.?/g, 'Highway')
+    // Unit
+    .replace(/\b#(\d)/g, 'unit $1')
+    .replace(/\bApt\b\.?/g, 'Apartment')
+    .replace(/\bSte\b\.?/g, 'Suite')
+    // US states (common ones)
+    .replace(/,\s*TX\b/gi, ', Texas')
+    .replace(/,\s*CA\b/gi, ', California')
+    .replace(/,\s*FL\b/gi, ', Florida')
+    .replace(/,\s*NY\b/gi, ', New York')
+    .replace(/,\s*NJ\b/gi, ', New Jersey')
+    .replace(/,\s*PA\b/gi, ', Pennsylvania')
+    .replace(/,\s*IL\b/gi, ', Illinois')
+    .replace(/,\s*OH\b/gi, ', Ohio')
+    .replace(/,\s*GA\b/gi, ', Georgia')
+    .replace(/,\s*NC\b/gi, ', North Carolina')
+    .replace(/,\s*MI\b/gi, ', Michigan')
+    .replace(/,\s*AZ\b/gi, ', Arizona')
+    .replace(/,\s*WA\b/gi, ', Washington')
+    .replace(/,\s*CO\b/gi, ', Colorado')
+    .replace(/,\s*TN\b/gi, ', Tennessee')
+    .replace(/,\s*VA\b/gi, ', Virginia')
+    .replace(/,\s*MA\b/gi, ', Massachusetts')
+    .replace(/,\s*MD\b/gi, ', Maryland')
+    .replace(/,\s*OR\b/gi, ', Oregon')
+    .replace(/,\s*NV\b/gi, ', Nevada')
+    .replace(/,\s*SC\b/gi, ', South Carolina')
+    .replace(/,\s*AL\b/gi, ', Alabama')
+    .replace(/,\s*LA\b/gi, ', Louisiana')
+    .replace(/,\s*MO\b/gi, ', Missouri')
+    .replace(/,\s*MN\b/gi, ', Minnesota')
+    .replace(/,\s*IN\b/gi, ', Indiana')
+    .replace(/,\s*WI\b/gi, ', Wisconsin')
+    .replace(/,\s*CT\b/gi, ', Connecticut')
+    .replace(/,\s*UT\b/gi, ', Utah');
+}
+
 export function generateVoiceSystemPrompt(config: VoiceCallConfig): string {
   const { property, report, comps, bidRange, sellerName, companyName } = config;
+
+  // Expand abbreviations so TTS reads addresses naturally
+  const spokenAddress = expandAddress(property.address);
+  const shortAddress = expandAddress(property.address.split(',')[0]);
 
   const compsSummary = comps.length > 0
     ? comps
         .slice(0, 4)
         .map(
           (c) =>
-            `- ${c.address}: $${c.salePrice.toLocaleString()}${c.pricePerSqft ? ` ($${c.pricePerSqft}/sqft)` : ''}${c.pricePerAcre ? ` ($${c.pricePerAcre?.toLocaleString()}/acre)` : ''}, sold ${c.saleDate}`,
+            `- ${expandAddress(c.address)}: $${c.salePrice.toLocaleString()}${c.pricePerSqft ? ` ($${c.pricePerSqft} per square foot)` : ''}${c.pricePerAcre ? ` ($${c.pricePerAcre?.toLocaleString()} per acre)` : ''}, sold ${c.saleDate}`,
         )
         .join('\n')
     : 'No comparable sales available — rely on asking price and market context.';
@@ -17,23 +81,36 @@ export function generateVoiceSystemPrompt(config: VoiceCallConfig): string {
     ? report.leveragePoints.map((p) => `- ${p}`).join('\n')
     : 'No specific leverage points identified.';
 
-  return `You are a warm, friendly, and professional real estate acquisition specialist calling on behalf of ${companyName}. You are speaking with ${sellerName || 'the property owner'} about their property at ${property.address}.
+  return `You are a warm, friendly, and professional real estate acquisition specialist calling on behalf of ${companyName}. You are speaking with ${sellerName || 'the property owner'} about their property at ${spokenAddress}.
+
+CRITICAL CALL BEHAVIOR:
+- When the seller picks up and says hello, respond naturally: "Hey! Hi, is this ${sellerName || 'the owner of the property on ' + shortAddress}?"
+- Wait for them to confirm before launching into anything — don't dump your pitch right away
+- Let the conversation breathe. Real people pause, think, and respond. You should too.
+- If they sound confused about who's calling, re-introduce yourself casually
 
 PERSONA & TONE:
-- Talk like you're catching up with an old neighbor — warm, real, unhurried
+- You sound like a real person, NOT an AI, NOT a call center agent, NOT a telemarketer
+- Talk like a friendly neighbor who happens to be in real estate — relaxed, genuine, warm
 - Use contractions always ("I'm", "you're", "that's", "wouldn't", "couldn't")
-- Laugh lightly when appropriate — you're a human having a conversation, not closing a deal
-- React with genuine emotion: "Oh no way, that's great!", "Yeah, I totally get that"
-- Use phrases like: "Here's the thing...", "Look...", "Honestly...", "I gotta be straight with you..."
-- Crack a light joke early to break the ice and put them at ease
-- Pause to actively listen — acknowledge what they said before moving on ("That makes total sense", "I hear you")
+- Use filler words occasionally and naturally: "um", "so yeah", "you know", "I mean"
+- React with genuine emotion: "Oh no way, that's great!", "Yeah, I totally get that", "Oh interesting"
+- Use casual phrases: "Here's the thing...", "Look...", "Honestly...", "I gotta be straight with you..."
+- Laugh lightly when appropriate — you're having a real conversation
+- Acknowledge what they say before responding: "That makes total sense", "I hear you", "Right, right"
 - Soften negotiation language: "I know that's probably not what you were hoping to hear" instead of clinical phrasing
-- Mirror their energy and pace — if they're relaxed, you're relaxed
-- Use the seller's name naturally when you know it
-- Never sound scripted or robotic — skip a beat, double back on a thought, be human
+- Mirror their energy and pace — if they're relaxed, you're relaxed; if they're in a hurry, get to the point
+- Use the seller's name naturally but don't overdo it
+- Keep responses SHORT — 1-3 sentences max. This is a phone call, not a speech. Let them talk.
+- Never list things out loud like you're reading bullet points
+
+SPEECH RULES:
+- When saying addresses, say the full word: "North" not "N", "Street" not "St", "Texas" not "TX"
+- Say "per square foot" not "per sqft", "square feet" not "sqft"
+- Say dollar amounts naturally: "a hundred and fifty thousand" not "one five zero comma zero zero zero"
 
 PROPERTY CONTEXT:
-- Address: ${property.address}
+- Address: ${spokenAddress}
 - Asking Price: $${property.askingPrice.toLocaleString()}
 - Type: ${property.propertyType}
 - Condition: ${property.condition}
