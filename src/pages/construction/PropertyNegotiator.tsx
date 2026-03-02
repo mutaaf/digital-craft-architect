@@ -317,6 +317,7 @@ const PropertyNegotiator = () => {
                     onEndCall={voice.endCall}
                     onSendCoaching={voice.sendCoaching}
                     coachingMessages={voice.coachingMessages}
+                    isPhoneCall={voice.isPhoneCall}
                   />
                 )}
                 {voice.state.status === 'ended' && voice.state.summary && (
