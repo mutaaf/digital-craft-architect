@@ -42,7 +42,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     if (!resp.ok) {
       const err = await resp.json().catch(() => ({}));
-      return res.status(resp.status).json(err);
+      console.error('Vapi phone call failed:', JSON.stringify(err));
+      // Preserve Vapi's message field so the client can show the real error
+      return res.status(resp.status).json({
+        message: err.message || err.error || 'Vapi phone call failed',
+        error: err.error,
+        statusCode: err.statusCode,
+      });
     }
 
     const data = await resp.json();
