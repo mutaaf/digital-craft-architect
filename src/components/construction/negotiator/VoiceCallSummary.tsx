@@ -1,0 +1,188 @@
+import { useState } from 'react';
+import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible';
+import {
+  CheckCircle2,
+  Clock,
+  DollarSign,
+  ChevronDown,
+  ChevronUp,
+  RotateCcw,
+  Printer,
+  TrendingUp,
+  Target,
+  Lightbulb,
+  ArrowRight,
+} from 'lucide-react';
+import VoiceTranscript from './VoiceTranscript';
+import type { CallSummary, TranscriptEntry } from '@/data/voiceNegotiation';
+import type { PropertyData } from '@/data/propertyNegotiation';
+
+interface VoiceCallSummaryProps {
+  summary: CallSummary;
+  transcript: TranscriptEntry[];
+  property: PropertyData;
+  onNewCall: () => void;
+}
+
+function formatDuration(seconds: number): string {
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  return `${m}m ${s}s`;
+}
+
+const SENTIMENT_CONFIG = {
+  positive: { label: 'Positive', color: 'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300' },
+  neutral: { label: 'Neutral', color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-300' },
+  negative: { label: 'Negative', color: 'bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300' },
+};
+
+const VoiceCallSummary = ({
+  summary,
+  transcript,
+  property,
+  onNewCall,
+}: VoiceCallSummaryProps) => {
+  const [transcriptOpen, setTranscriptOpen] = useState(false);
+  const sentiment = SENTIMENT_CONFIG[summary.overallSentiment] || SENTIMENT_CONFIG.neutral;
+
+  return (
+    <div className="space-y-5 animate-fade-in">
+      {/* Header Card */}
+      <Card className="overflow-hidden">
+        <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-5 text-white">
+          <div className="flex items-center gap-2 mb-1">
+            <CheckCircle2 size={20} />
+            <h3 className="font-bold text-lg">Call Complete</h3>
+          </div>
+          <p className="text-sm text-white/80 truncate">{property.address}</p>
+        </div>
+
+        {/* Key Metrics */}
+        <div className="grid grid-cols-3 divide-x divide-gray-200 dark:divide-gray-800">
+          <div className="p-4 text-center">
+            <Clock size={16} className="mx-auto mb-1 text-gray-400" />
+            <p className="text-sm font-semibold">{formatDuration(summary.callDurationSeconds)}</p>
+            <p className="text-[10px] text-gray-500">Duration</p>
+          </div>
+          <div className="p-4 text-center">
+            <TrendingUp size={16} className="mx-auto mb-1 text-gray-400" />
+            <Badge className={`${sentiment.color} text-xs`}>{sentiment.label}</Badge>
+            <p className="text-[10px] text-gray-500 mt-1">Sentiment</p>
+          </div>
+          <div className="p-4 text-center">
+            <DollarSign size={16} className="mx-auto mb-1 text-gray-400" />
+            <p className="text-sm font-semibold">
+              {summary.agreedPrice
+                ? `$${summary.agreedPrice.toLocaleString()}`
+                : 'Pending'}
+            </p>
+            <p className="text-[10px] text-gray-500">
+              {summary.agreedPrice ? 'Agreed Price' : 'No Agreement Yet'}
+            </p>
+          </div>
+        </div>
+      </Card>
+
+      {/* Seller Position */}
+      <Card className="p-4">
+        <div className="flex items-center gap-2 mb-2">
+          <Target size={14} className="text-primary" />
+          <h4 className="text-sm font-semibold">Seller Position</h4>
+        </div>
+        <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+          {summary.sellerPosition}
+        </p>
+        <div className="grid grid-cols-2 gap-3 mt-3">
+          {summary.lowestAcceptable && (
+            <div className="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-2.5">
+              <p className="text-[10px] text-gray-500 uppercase">Lowest Acceptable</p>
+              <p className="text-sm font-semibold">${summary.lowestAcceptable.toLocaleString()}</p>
+            </div>
+          )}
+          <div className="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-2.5">
+            <p className="text-[10px] text-gray-500 uppercase">Timeline</p>
+            <p className="text-sm font-semibold">{summary.sellerTimeline}</p>
+          </div>
+          <div className="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-2.5 col-span-2">
+            <p className="text-[10px] text-gray-500 uppercase">Motivation</p>
+            <p className="text-sm">{summary.sellerMotivation}</p>
+          </div>
+        </div>
+      </Card>
+
+      {/* Key Insights */}
+      <Card className="p-4">
+        <div className="flex items-center gap-2 mb-3">
+          <Lightbulb size={14} className="text-yellow-500" />
+          <h4 className="text-sm font-semibold">Key Insights</h4>
+        </div>
+        <ul className="space-y-2">
+          {summary.keyInsights.map((insight, i) => (
+            <li key={i} className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
+              <span className="text-primary mt-0.5 shrink-0">&#8226;</span>
+              {insight}
+            </li>
+          ))}
+        </ul>
+      </Card>
+
+      {/* Recommended Next Steps */}
+      <Card className="p-4">
+        <div className="flex items-center gap-2 mb-3">
+          <ArrowRight size={14} className="text-green-500" />
+          <h4 className="text-sm font-semibold">Recommended Next Steps</h4>
+        </div>
+        <ul className="space-y-2">
+          {summary.recommendedNextSteps.map((step, i) => (
+            <li key={i} className="flex items-start gap-2 text-sm">
+              <div className="w-5 h-5 rounded border border-gray-300 dark:border-gray-700 flex items-center justify-center shrink-0 mt-0.5">
+                <span className="text-[10px] text-gray-400">{i + 1}</span>
+              </div>
+              <span className="text-gray-600 dark:text-gray-400">{step}</span>
+            </li>
+          ))}
+        </ul>
+      </Card>
+
+      {/* Full Transcript */}
+      <Collapsible open={transcriptOpen} onOpenChange={setTranscriptOpen}>
+        <Card className="overflow-hidden">
+          <CollapsibleTrigger className="w-full flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors">
+            <span className="text-sm font-medium">Full Transcript</span>
+            {transcriptOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+          </CollapsibleTrigger>
+          <CollapsibleContent>
+            <div className="border-t border-gray-200 dark:border-gray-800 p-4">
+              <VoiceTranscript entries={transcript} autoScroll={false} />
+            </div>
+          </CollapsibleContent>
+        </Card>
+      </Collapsible>
+
+      {/* Action Buttons */}
+      <div className="flex gap-3">
+        <Button onClick={onNewCall} className="flex-1 gap-2">
+          <RotateCcw size={16} />
+          New Call
+        </Button>
+        <Button
+          variant="outline"
+          className="gap-2"
+          onClick={() => window.print()}
+        >
+          <Printer size={16} />
+          Print
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default VoiceCallSummary;

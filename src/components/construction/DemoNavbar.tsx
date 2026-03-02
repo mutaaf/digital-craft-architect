@@ -7,6 +7,7 @@ const links = [
   { to: '/construction/demo/estimate', label: 'Estimate', fullLabel: 'Estimate' },
   { to: '/construction/demo/reviews', label: 'Reviews', fullLabel: 'Reviews' },
   { to: '/construction/demo/property-negotiator', label: 'Deals', fullLabel: 'Deal Analyzer' },
+  { to: '/construction/demo/voice-negotiator', label: 'Voice', fullLabel: 'Voice Negotiator' },
 ];
 
 const DemoNavbar = () => {
