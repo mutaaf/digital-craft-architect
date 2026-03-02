@@ -30,17 +30,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         model: {
           provider: 'openai',
           model: 'gpt-4o',
-          systemMessage: systemPrompt,
+          systemPrompt,
           temperature: 0.7,
         },
         voice: {
-          provider: 'eleven-labs',
+          provider: '11labs',
           voiceId: voiceId || 'sarah',
         },
         transcriber: {
           provider: 'deepgram',
           model: 'nova-2',
-          language: 'en-US',
+          language: 'en',
         },
         firstMessage,
         endCallFunctionEnabled: true,
@@ -51,7 +51,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     if (!resp.ok) {
       const err = await resp.json().catch(() => ({}));
-      return res.status(resp.status).json(err);
+      console.error('Vapi assistant creation failed:', JSON.stringify(err));
+      return res.status(resp.status).json({ error: err.message || err.error || JSON.stringify(err) });
     }
 
     const data = await resp.json();
