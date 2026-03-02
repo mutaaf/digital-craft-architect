@@ -274,13 +274,20 @@ export function useVoiceCall() {
       try {
         const systemPrompt = generateVoiceSystemPrompt(config);
         const firstName = config.sellerName?.split(' ')[0] || '';
-        const firstMessage = `Hi${firstName ? ` ${firstName}` : ' there'}! This is calling from ${config.companyName}. I saw your property listing at ${config.property.address} and I'm really interested — do you have a minute to chat?`;
+        const willBePhoneCall = !!(config.sellerPhone && vapiStatus.hasPhoneNumber);
+
+        // For phone calls: no firstMessage — wait for the seller to say hello
+        // For browser calls: agent speaks first since it's a demo
+        const shortAddr = config.property.address.split(',')[0];
+        const firstMessage = willBePhoneCall
+          ? undefined
+          : `Hi${firstName ? ` ${firstName}` : ' there'}! This is calling from ${config.companyName}. I saw your property listing on ${shortAddr} and I'm really interested — do you have a minute to chat?`;
 
         // Create assistant server-side
         const assistantResp = await fetch('/api/vapi-assistant', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ systemPrompt, firstMessage }),
+          body: JSON.stringify({ systemPrompt, firstMessage, isPhoneCall: willBePhoneCall }),
         });
 
         if (!assistantResp.ok) throw new Error('Failed to create assistant');

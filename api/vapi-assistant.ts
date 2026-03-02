@@ -13,10 +13,52 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const { systemPrompt, firstMessage, voiceId } = req.body;
+    const { systemPrompt, firstMessage, voiceId, isPhoneCall } = req.body;
 
-    if (!systemPrompt || !firstMessage) {
-      return res.status(400).json({ error: 'systemPrompt and firstMessage are required' });
+    if (!systemPrompt) {
+      return res.status(400).json({ error: 'systemPrompt is required' });
+    }
+
+    // For phone calls: no firstMessage — the agent waits for the seller to speak
+    // For browser calls: firstMessage kicks off the conversation
+    const assistantConfig: Record<string, unknown> = {
+      name: 'Property Negotiator',
+      model: {
+        provider: 'openai',
+        model: 'gpt-4o',
+        systemPrompt,
+        temperature: 0.8,
+      },
+      voice: {
+        provider: '11labs',
+        voiceId: voiceId || 'paula',
+        stability: 0.3,
+        similarityBoost: 0.75,
+        speed: 0.92,
+        style: 0.4,
+        useSpeakerBoost: true,
+      },
+      transcriber: {
+        provider: 'deepgram',
+        model: 'nova-2',
+        language: 'en',
+      },
+      endCallFunctionEnabled: true,
+      maxDurationSeconds: 600,
+      silenceTimeoutSeconds: 30,
+      responseDelaySeconds: 0.5,
+      backchannelingEnabled: true,
+      backgroundDenoisingEnabled: true,
+    };
+
+    // Only set firstMessage if provided (browser calls)
+    if (firstMessage) {
+      assistantConfig.firstMessage = firstMessage;
+    }
+
+    // For phone calls: add a short delay before responding so it sounds natural
+    if (isPhoneCall) {
+      assistantConfig.responseDelaySeconds = 0.8;
     }
 
     const resp = await fetch('https://api.vapi.ai/assistant', {
@@ -25,28 +67,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apiKey}`,
       },
-      body: JSON.stringify({
-        name: 'Property Negotiator',
-        model: {
-          provider: 'openai',
-          model: 'gpt-4o',
-          systemPrompt,
-          temperature: 0.7,
-        },
-        voice: {
-          provider: '11labs',
-          voiceId: voiceId || 'sarah',
-        },
-        transcriber: {
-          provider: 'deepgram',
-          model: 'nova-2',
-          language: 'en',
-        },
-        firstMessage,
-        endCallFunctionEnabled: true,
-        maxDurationSeconds: 600,
-        silenceTimeoutSeconds: 30,
-      }),
+      body: JSON.stringify(assistantConfig),
     });
 
     if (!resp.ok) {
