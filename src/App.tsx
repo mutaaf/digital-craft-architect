@@ -130,22 +130,22 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/construction" element={<Construction />} />
-              <Route path="/construction/demo" element={<DemoContextProvider><DemoHub /></DemoContextProvider>} />
-              <Route path="/construction/demo/lead-responder" element={<DemoContextProvider><LeadResponder /></DemoContextProvider>} />
-              <Route path="/construction/demo/estimate" element={<DemoContextProvider><EstimateGenerator /></DemoContextProvider>} />
-              <Route path="/construction/demo/reviews" element={<DemoContextProvider><ReviewSystem /></DemoContextProvider>} />
-              <Route path="/construction/demo/property-negotiator" element={<DemoContextProvider><PropertyNegotiator /></DemoContextProvider>} />
-              <Route path="/construction/demo/voice-negotiator" element={<DemoContextProvider><VoiceNegotiator /></DemoContextProvider>} />
+              <Route path="/construction/demo" element={<DemoContextProvider vertical="construction"><DemoHub /></DemoContextProvider>} />
+              <Route path="/construction/demo/lead-responder" element={<DemoContextProvider vertical="construction"><LeadResponder /></DemoContextProvider>} />
+              <Route path="/construction/demo/estimate" element={<DemoContextProvider vertical="construction"><EstimateGenerator /></DemoContextProvider>} />
+              <Route path="/construction/demo/reviews" element={<DemoContextProvider vertical="construction"><ReviewSystem /></DemoContextProvider>} />
+              <Route path="/construction/demo/property-negotiator" element={<DemoContextProvider vertical="construction"><PropertyNegotiator /></DemoContextProvider>} />
+              <Route path="/construction/demo/voice-negotiator" element={<DemoContextProvider vertical="construction"><VoiceNegotiator /></DemoContextProvider>} />
               <Route path="/realestate" element={<RealEstate />} />
-              <Route path="/realestate/demo" element={<DemoContextProvider><RealEstateDemoHub /></DemoContextProvider>} />
-              <Route path="/realestate/demo/lead-responder" element={<DemoContextProvider><LeadResponder /></DemoContextProvider>} />
-              <Route path="/realestate/demo/property-negotiator" element={<DemoContextProvider><PropertyNegotiator /></DemoContextProvider>} />
-              <Route path="/realestate/demo/voice-negotiator" element={<DemoContextProvider><VoiceNegotiator /></DemoContextProvider>} />
+              <Route path="/realestate/demo" element={<DemoContextProvider vertical="realestate"><RealEstateDemoHub /></DemoContextProvider>} />
+              <Route path="/realestate/demo/lead-responder" element={<DemoContextProvider vertical="realestate"><LeadResponder /></DemoContextProvider>} />
+              <Route path="/realestate/demo/property-negotiator" element={<DemoContextProvider vertical="realestate"><PropertyNegotiator /></DemoContextProvider>} />
+              <Route path="/realestate/demo/voice-negotiator" element={<DemoContextProvider vertical="realestate"><VoiceNegotiator /></DemoContextProvider>} />
               <Route path="/events" element={<Events />} />
-              <Route path="/events/demo" element={<DemoContextProvider><EventsDemoHub /></DemoContextProvider>} />
-              <Route path="/events/demo/inquiry" element={<DemoContextProvider><InquiryQualifier /></DemoContextProvider>} />
-              <Route path="/events/demo/proposal" element={<DemoContextProvider><ProposalGenerator /></DemoContextProvider>} />
-              <Route path="/events/demo/voice-booking" element={<DemoContextProvider><VoiceBookingAgent /></DemoContextProvider>} />
+              <Route path="/events/demo" element={<DemoContextProvider vertical="events"><EventsDemoHub /></DemoContextProvider>} />
+              <Route path="/events/demo/inquiry" element={<DemoContextProvider vertical="events"><InquiryQualifier /></DemoContextProvider>} />
+              <Route path="/events/demo/proposal" element={<DemoContextProvider vertical="events"><ProposalGenerator /></DemoContextProvider>} />
+              <Route path="/events/demo/voice-booking" element={<DemoContextProvider vertical="events"><VoiceBookingAgent /></DemoContextProvider>} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
