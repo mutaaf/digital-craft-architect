@@ -40,6 +40,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         style: 0.6,
         useSpeakerBoost: true,
         optimizeStreamingLatency: 3,
+        // Buffer text before sending to TTS so numbers aren't split across chunks
+        inputMinCharacters: 30,
+        inputPunctuationBoundaries: ['.', '!', '?', ',', ';', '—'],
       },
       transcriber: {
         provider: 'deepgram',
