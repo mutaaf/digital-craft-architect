@@ -17,6 +17,7 @@ import { useVoiceCall } from '@/hooks/useVoiceCall';
 import { runAgentPipeline } from '@/utils/agentPipeline';
 import type { PropertyData, AgentStep, AgentResult } from '@/data/propertyNegotiation';
 import type { BidRange } from '@/data/voiceNegotiation';
+import type { StoredConversation } from '@/utils/conversationStore';
 
 type Phase = 'input' | 'agent' | 'setup' | 'call' | 'summary';
 
@@ -124,6 +125,19 @@ const VoiceNegotiator = () => {
     setScrapeError(null);
     setBidRange(null);
   };
+
+  const handleCallAgain = useCallback((conv: StoredConversation) => {
+    if (!conv.property || !conv.report) return;
+    voice.reset();
+    setAgentResult({
+      property: conv.property,
+      report: conv.report,
+      comps: conv.comps || [],
+      sellerMessages: [],
+      elapsedMs: 0,
+    });
+    setPhase('setup');
+  }, [voice]);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
@@ -253,7 +267,7 @@ const VoiceNegotiator = () => {
 
         {/* ── Conversation History ── */}
         <div className="mt-10">
-          <ConversationHistory />
+          <ConversationHistory onCallAgain={handleCallAgain} />
         </div>
       </div>
     </div>

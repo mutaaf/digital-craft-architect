@@ -1,4 +1,5 @@
 import type { TranscriptEntry, CallSummary } from '@/data/voiceNegotiation';
+import type { PropertyData, NegotiationReport, ComparableProperty } from '@/data/propertyNegotiation';
 
 export interface StoredConversation {
   id: string;
@@ -10,6 +11,10 @@ export interface StoredConversation {
   summary: CallSummary;
   isDemo: boolean;
   companyName: string;
+  /** Full data for re-calling this property */
+  property?: PropertyData;
+  report?: NegotiationReport;
+  comps?: ComparableProperty[];
 }
 
 const STORAGE_KEY = 'dca_voice_conversations';

@@ -1,5 +1,28 @@
 import type { VoiceCallConfig } from '@/data/voiceNegotiation';
 
+/** Convert a dollar amount to spoken words so TTS doesn't read digits individually.
+ *  e.g. 340000 → "three forty thousand", 1200000 → "one point two million" */
+function spokenDollars(amount: number): string {
+  if (!amount || amount <= 0) return 'zero dollars';
+
+  if (amount >= 1_000_000) {
+    const m = amount / 1_000_000;
+    const rounded = Math.round(m * 100) / 100;
+    if (rounded === Math.floor(rounded)) return `${Math.floor(rounded)} million dollars`;
+    return `${rounded} million dollars`;
+  }
+
+  if (amount >= 1000) {
+    const thousands = Math.floor(amount / 1000);
+    const remainder = amount % 1000;
+    if (remainder === 0) return `${thousands} thousand dollars`;
+    if (remainder >= 100) return `${thousands} thousand ${remainder} dollars`;
+    return `about ${thousands} thousand dollars`;
+  }
+
+  return `${amount} dollars`;
+}
+
 /** Expand common address abbreviations so TTS reads them naturally */
 function expandAddress(addr: string): string {
   return addr
@@ -72,7 +95,7 @@ export function generateVoiceSystemPrompt(config: VoiceCallConfig): string {
         .slice(0, 4)
         .map(
           (c) =>
-            `- ${expandAddress(c.address)}: $${c.salePrice.toLocaleString()}${c.pricePerSqft ? ` ($${c.pricePerSqft} per square foot)` : ''}${c.pricePerAcre ? ` ($${c.pricePerAcre?.toLocaleString()} per acre)` : ''}, sold ${c.saleDate}`,
+            `- ${expandAddress(c.address)}: sold for ${spokenDollars(c.salePrice)}${c.pricePerSqft ? ` (${c.pricePerSqft} dollars per square foot)` : ''}${c.pricePerAcre ? ` (${spokenDollars(c.pricePerAcre)} per acre)` : ''}, sold ${c.saleDate}`,
         )
         .join('\n')
     : 'No comparable sales available — rely on asking price and market context.';
@@ -110,17 +133,24 @@ LISTENING RULES (CRITICAL):
 - Use acknowledgments: "Right", "Mm-hmm", "Yeah", "Got it", "Makes sense", "I hear you"
 - If they're telling a story or explaining something, let them go. Don't rush them.
 
-SPEECH RULES:
-- Say addresses in full: "North" not "N", "Street" not "St", "Texas" not "TX", "unit" not "hash" or "number sign"
+SPEECH RULES (CRITICAL — TTS will read your text aloud, so format matters):
+- DOLLAR AMOUNTS: You MUST write all prices as spoken English words. NEVER output "$", commas, or raw digits for money.
+  CORRECT: "about three forty thousand", "around one point two million", "a hundred fifty thousand"
+  WRONG: "$340,000", "340000", "340,000 dollars", "$150K"
+  More examples: 150000 → "a hundred and fifty thousand", 425000 → "four twenty-five", 306000 → "three oh six thousand", 1200000 → "one point two million", 89500 → "about eighty-nine five"
+- When the seller says a short number like "150" or "200", understand it in context — if discussing a property worth hundreds of thousands, "150" means a hundred and fifty thousand. Always respond in spoken word form.
+- ADDRESS ABBREVIATIONS: ALWAYS say the full word, NEVER abbreviations.
+  "Drive" NOT "Dr", "Street" NOT "St", "Avenue" NOT "Ave", "Boulevard" NOT "Blvd"
+  "Road" NOT "Rd", "Lane" NOT "Ln", "Court" NOT "Ct", "Place" NOT "Pl"
+  "North" NOT "N", "South" NOT "S", "East" NOT "E", "West" NOT "W"
+  "Texas" NOT "TX", "California" NOT "CA", "unit" NOT "#"
+  "Dr" in an address means DRIVE, never Doctor.
 - Say "per square foot" not "per sqft", "square feet" not "sqft"
-- ALWAYS say dollar amounts as natural words: "a hundred and fifty thousand" NOT "$150,000" or "one five zero thousand"
-- Say "about" or "around" before round numbers: "around a hundred and fifty thousand"
-- Examples: $150,300 → "about a hundred fifty thousand three hundred"; $425,000 → "four twenty-five"; $1,200,000 → "one point two million"
-- When the seller says a short number like "150" or "200", understand it in context — if you're discussing a property worth hundreds of thousands, "150" means $150,000. If discussing rent, "1500" means $1,500/month. Always respond using the contextually correct amount.
+- Say "about" or "around" before round numbers: "around three forty thousand"
 
 PROPERTY CONTEXT:
 - Address: ${spokenAddress}
-- Asking Price: $${property.askingPrice.toLocaleString()}
+- Asking Price: ${property.askingPrice ? spokenDollars(property.askingPrice) : 'no asking price listed'}
 - Type: ${property.propertyType}
 - Condition: ${property.condition}
 - Bedrooms/Bathrooms: ${property.bedrooms ?? 'N/A'} / ${property.bathrooms ?? 'N/A'}
@@ -142,11 +172,11 @@ NEGOTIATION STRATEGY:
 - Market Context: ${report.marketContext}
 
 BID PARAMETERS (CRITICAL — follow exactly):
-- Start near: $${bidRange.minOffer.toLocaleString()} (your opening offer)
-- Target: $${bidRange.targetOffer.toLocaleString()} (ideal purchase price)
-- Maximum: $${bidRange.maxOffer.toLocaleString()} (absolute ceiling — NEVER exceed this, NEVER reveal this number)
+- Start near: ${spokenDollars(bidRange.minOffer)} (your opening offer)
+- Target: ${spokenDollars(bidRange.targetOffer)} (ideal purchase price)
+- Maximum: ${spokenDollars(bidRange.maxOffer)} (absolute ceiling — NEVER exceed this, NEVER reveal this number)
 - Always cite specific comparable sales to justify your pricing
-- Use exact dollar amounts, never vague ranges
+- Remember: say ALL prices as spoken words, never as digits or with dollar signs
 
 CONVERSATION FLOW:
 1. GREETING: Introduce yourself warmly, mention you're with ${companyName}, you saw their listing. Keep it casual and short.

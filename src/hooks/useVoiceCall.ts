@@ -310,6 +310,9 @@ export function useVoiceCall() {
       summary,
       isDemo,
       companyName: config.companyName,
+      property: config.property,
+      report: config.report,
+      comps: config.comps,
     });
   }, []);
 
