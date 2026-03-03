@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Slider } from '@/components/ui/slider';
-import { Phone, Mic, Info } from 'lucide-react';
+import { Phone, Mic, Info, FileText, ChevronDown, ChevronUp, RotateCcw } from 'lucide-react';
 import type { PropertyData, NegotiationReport, ComparableProperty } from '@/data/propertyNegotiation';
 import type { BidRange, VoiceCallConfig } from '@/data/voiceNegotiation';
+import { generateVoiceSystemPrompt } from '@/utils/voicePromptGenerator';
 
 interface VoiceCallSetupProps {
   property: PropertyData;
@@ -36,6 +37,39 @@ const VoiceCallSetup = ({
   });
   const [sellerPhone, setSellerPhone] = useState('');
   const [sellerName, setSellerName] = useState('');
+  const [showPrompt, setShowPrompt] = useState(false);
+  const [promptText, setPromptText] = useState('');
+  const [hasEditedPrompt, setHasEditedPrompt] = useState(false);
+
+  // Generate the default prompt based on current config
+  const defaultPrompt = useMemo(() => {
+    return generateVoiceSystemPrompt({
+      property,
+      report,
+      comps,
+      bidRange,
+      sellerName: sellerName || undefined,
+      companyName,
+    });
+  }, [property, report, comps, bidRange, sellerName, companyName]);
+
+  // When prompt panel opens for the first time, populate with default
+  const handleTogglePrompt = () => {
+    if (!showPrompt && !hasEditedPrompt) {
+      setPromptText(defaultPrompt);
+    }
+    setShowPrompt(!showPrompt);
+  };
+
+  const handleResetPrompt = () => {
+    setPromptText(defaultPrompt);
+    setHasEditedPrompt(false);
+  };
+
+  const handlePromptChange = (value: string) => {
+    setPromptText(value);
+    setHasEditedPrompt(true);
+  };
 
   const handleSliderChange = (values: number[]) => {
     setBidRange({
@@ -54,6 +88,7 @@ const VoiceCallSetup = ({
       sellerPhone: sellerPhone || undefined,
       sellerName: sellerName || undefined,
       companyName,
+      promptOverride: hasEditedPrompt ? promptText : undefined,
     });
   };
 
@@ -191,6 +226,42 @@ const VoiceCallSetup = ({
             Opening at ${bidRange.minOffer.toLocaleString()}, targeting ${bidRange.targetOffer.toLocaleString()}
           </li>
         </ul>
+      </Card>
+
+      {/* Prompt Editor */}
+      <Card className="overflow-hidden">
+        <button
+          onClick={handleTogglePrompt}
+          className="w-full p-4 flex items-center gap-2 text-left hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors"
+        >
+          <FileText size={14} className="text-gray-400" />
+          <span className="text-xs font-medium text-gray-500 flex-1">
+            Agent Instructions
+            {hasEditedPrompt && (
+              <Badge variant="secondary" className="ml-2 text-[10px]">edited</Badge>
+            )}
+          </span>
+          {showPrompt ? <ChevronUp size={14} className="text-gray-400" /> : <ChevronDown size={14} className="text-gray-400" />}
+        </button>
+
+        {showPrompt && (
+          <div className="px-4 pb-4 space-y-2">
+            <p className="text-[11px] text-gray-400">
+              This is what the AI agent will follow during the call. Edit it to change the agent's behavior, tone, or strategy.
+            </p>
+            <textarea
+              value={promptText}
+              onChange={(e) => handlePromptChange(e.target.value)}
+              className="w-full h-80 text-xs font-mono bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg p-3 resize-y focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40"
+              spellCheck={false}
+            />
+            {hasEditedPrompt && (
+              <Button variant="ghost" size="sm" onClick={handleResetPrompt} className="text-xs gap-1.5">
+                <RotateCcw size={12} /> Reset to Default
+              </Button>
+            )}
+          </div>
+        )}
       </Card>
 
       {/* Start Button */}

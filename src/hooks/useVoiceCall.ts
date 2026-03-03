@@ -417,7 +417,7 @@ export function useVoiceCall() {
     if (isVapiMode && vapiStatus.publicKey) {
       // Real Vapi mode
       try {
-        const systemPrompt = generateVoiceSystemPrompt(config);
+        const systemPrompt = config.promptOverride || generateVoiceSystemPrompt(config);
         const firstName = config.sellerName?.split(' ')[0] || '';
         const willBePhoneCall = !!(config.sellerPhone && vapiStatus.hasPhoneNumber);
 
@@ -426,7 +426,9 @@ export function useVoiceCall() {
         const shortAddr = config.property.address.split(',')[0];
         const firstMessage = willBePhoneCall
           ? undefined
-          : `Hi${firstName ? ` ${firstName}` : ' there'}! This is calling from ${config.companyName}. I saw your property listing on ${shortAddr} and I'm really interested — do you have a minute to chat?`;
+          : config.companyName && config.companyName !== 'DigitalCraft AI'
+            ? `Hi${firstName ? ` ${firstName}` : ' there'}! This is calling from ${config.companyName}. I saw your property listing on ${shortAddr} and I'm really interested — do you have a minute to chat?`
+            : `Hi${firstName ? ` ${firstName}` : ' there'}! I saw your property listing on ${shortAddr} and I'm really interested — do you have a minute to chat?`;
 
         // Create assistant server-side
         const assistantResp = await fetch('/api/vapi-assistant', {
