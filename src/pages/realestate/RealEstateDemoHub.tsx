@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import RealEstateDemoNavbar from '@/components/realestate/RealEstateDemoNavbar';
+import DemoNavbar from '@/components/construction/DemoNavbar';
 import CompanySetupForm from '@/components/construction/CompanySetupForm';
 import { useDemoContext } from '@/contexts/DemoContext';
 import { Card } from '@/components/ui/card';
@@ -40,7 +40,7 @@ const RealEstateDemoHub = () => {
 
   const demos = [
     {
-      to: '/construction/demo/property-negotiator',
+      to: '/realestate/demo/property-negotiator',
       icon: <Home size={28} />,
       title: 'AI Deal Analyzer',
       description: `Paste a listing URL or enter property details and get a full negotiation playbook — offer price, comparable sales analysis, strategy, and ROI projection tailored for ${possessive} market.`,
@@ -48,7 +48,7 @@ const RealEstateDemoHub = () => {
       color: 'bg-orange-50 dark:bg-orange-900/20 text-orange-600',
     },
     {
-      to: '/construction/demo/voice-negotiator',
+      to: '/realestate/demo/voice-negotiator',
       icon: <Phone size={28} />,
       title: 'AI Voice Negotiator',
       description:
@@ -57,7 +57,7 @@ const RealEstateDemoHub = () => {
       color: 'bg-red-50 dark:bg-red-900/20 text-red-600',
     },
     {
-      to: '/construction/demo/lead-responder',
+      to: '/realestate/demo/lead-responder',
       icon: <MessageSquare size={28} />,
       title: 'AI Lead Qualifier',
       description: `Chat with ${possessive} AI as a potential buyer or seller. Watch it qualify leads, capture property preferences, and schedule showings — all automatically, 24/7.`,
@@ -82,7 +82,7 @@ const RealEstateDemoHub = () => {
         <meta property="og:description" content={ogDescription} />
         <meta property="og:type" content="website" />
       </Helmet>
-      <RealEstateDemoNavbar />
+      <DemoNavbar />
 
       <div className="max-w-4xl mx-auto px-4 py-10 sm:py-16">
         <div className="text-center mb-8 sm:mb-10 animate-fade-in">
