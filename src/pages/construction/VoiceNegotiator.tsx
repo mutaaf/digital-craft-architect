@@ -240,7 +240,14 @@ const VoiceNegotiator = () => {
         {phase === 'call' && voice.state.status === 'ended' && !voice.state.summary && (
           <Card className="p-8 text-center animate-fade-in">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-3" />
-            <p className="text-sm text-gray-500">Analyzing conversation...</p>
+            <p className="text-sm text-gray-500">
+              {voice.state.endedReason
+                ? `Call ended: ${voice.state.endedReason} — Processing...`
+                : 'Analyzing conversation...'}
+            </p>
+            <p className="text-[10px] text-gray-400 mt-1">
+              Fetching transcript and generating summary
+            </p>
           </Card>
         )}
 

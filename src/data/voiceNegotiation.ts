@@ -46,6 +46,7 @@ export interface VoiceCallState {
   summary: CallSummary | null;
   error: string | null;
   isDemo: boolean;
+  endedReason: string | null;
 }
 
 export interface VoiceCallConfig {

@@ -13,6 +13,7 @@ import {
   startBrowserCall,
   startPhoneCall,
   pollCallStatus,
+  endPhoneCall,
   endCall,
   cleanup,
   setupVapiListeners,
@@ -30,6 +31,7 @@ const INITIAL_STATE: VoiceCallState = {
   summary: null,
   error: null,
   isDemo: false,
+  endedReason: null,
 };
 
 interface VapiStatus {
@@ -37,6 +39,29 @@ interface VapiStatus {
   hasPublicKey: boolean;
   hasPhoneNumber: boolean;
   publicKey: string | null;
+}
+
+/** Map Vapi endedReason to a human-readable label */
+function getEndedReasonLabel(reason: string | null): string | null {
+  if (!reason) return null;
+  const map: Record<string, string> = {
+    'customer-did-not-answer': 'No Answer',
+    'customer-busy': 'Line Busy',
+    'customer-did-not-give-microphone-permission': 'No Mic Permission',
+    'assistant-ended-call': 'Agent Ended Call',
+    'assistant-said-end-call-phrase': 'Agent Ended Call',
+    'assistant-forwarded-call': 'Call Forwarded',
+    'assistant-join-timed-out': 'Connection Timeout',
+    'customer-ended-call': 'Seller Hung Up',
+    'silence-timed-out': 'No Response (Silence)',
+    'voicemail': 'Went to Voicemail',
+    'max-duration-reached': 'Max Duration Reached',
+    'manually-canceled': 'Call Cancelled',
+    'phone-call-provider-closed-websocket': 'Connection Lost',
+    'pipeline-error-openai-llm-failed': 'AI Service Error',
+    'pipeline-error-deepgram-transcriber-failed': 'Transcription Error',
+  };
+  return map[reason] || reason.replace(/[-_]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 export function useVoiceCall() {
@@ -52,6 +77,7 @@ export function useVoiceCall() {
   const configRef = useRef<VoiceCallConfig | null>(null);
   const transcriptRef = useRef<TranscriptEntry[]>([]);
   const phoneCallIdRef = useRef<string | null>(null);
+  const stoppingRef = useRef(false); // prevents race between polling ended + user clicking End
   const [isPhoneCall, setIsPhoneCall] = useState(false);
 
   // Check Vapi availability on mount
@@ -223,19 +249,48 @@ export function useVoiceCall() {
     return entries;
   }, []);
 
-  /** Do a final poll to grab the complete transcript after call ends */
+  /** Fetch transcript with retries and exponential backoff */
   const fetchFinalTranscript = useCallback(async (callId: string): Promise<TranscriptEntry[]> => {
-    try {
-      const data = await pollCallStatus(callId);
-      const entries = parsePollMessages(data.messages);
-      if (entries.length > 0) {
-        transcriptRef.current = entries;
-        setState((prev) => ({ ...prev, transcript: entries }));
+    const delays = [2000, 4000, 6000]; // retry delays
+    for (let attempt = 0; attempt <= delays.length; attempt++) {
+      try {
+        if (attempt > 0) {
+          await new Promise((r) => setTimeout(r, delays[attempt - 1]));
+        }
+        const data = await pollCallStatus(callId);
+        const entries = parsePollMessages(data.messages);
+        if (entries.length > 0) {
+          transcriptRef.current = entries;
+          setState((prev) => ({ ...prev, transcript: entries }));
+          return entries;
+        }
+        // If we got a transcript string but no parsed messages, use the string
+        if (data.transcript && data.transcript.trim()) {
+          // Parse the plain-text transcript into entries
+          const lines = data.transcript.split('\n').filter((l: string) => l.trim());
+          const parsed: TranscriptEntry[] = lines.map((line: string) => {
+            const isAgent = line.startsWith('AGENT:') || line.startsWith('AI:') || line.startsWith('Bot:');
+            const text = line.replace(/^(AGENT|SELLER|AI|Bot|User):\s*/i, '');
+            return {
+              role: isAgent ? 'assistant' as const : 'user' as const,
+              text,
+              timestamp: Date.now(),
+              isFinal: true,
+            };
+          });
+          if (parsed.length > 0) {
+            transcriptRef.current = parsed;
+            setState((prev) => ({ ...prev, transcript: parsed }));
+            return parsed;
+          }
+        }
+        // If the call hasn't been finalized yet and we have more retries, continue
+        if (attempt < delays.length) continue;
+      } catch {
+        if (attempt >= delays.length) break;
       }
-      return entries;
-    } catch {
-      return transcriptRef.current;
     }
+    return transcriptRef.current;
   }, [parsePollMessages]);
 
   const autoSaveConversation = useCallback((config: VoiceCallConfig, summary: CallSummary, isDemo: boolean) => {
@@ -258,9 +313,93 @@ export function useVoiceCall() {
     });
   }, []);
 
+  /** Handle call ended — fetch final transcript, generate summary, handle empty transcript */
+  const handleCallEnded = useCallback(async (
+    callId: string,
+    config: VoiceCallConfig,
+    endedReason: string | null,
+  ) => {
+    // Prevent double-processing
+    if (stoppingRef.current) return;
+    stoppingRef.current = true;
+
+    // Clear polling
+    if (pollRef.current) {
+      clearInterval(pollRef.current);
+      pollRef.current = null;
+    }
+
+    const reasonLabel = getEndedReasonLabel(endedReason);
+
+    setState((prev) => ({
+      ...prev,
+      status: 'ended',
+      endTime: Date.now(),
+      endedReason: reasonLabel,
+    }));
+
+    // Fetch final transcript with retries
+    const finalEntries = await fetchFinalTranscript(callId);
+
+    // If we have transcript, generate a proper summary
+    if (finalEntries.length > 0) {
+      const summary = await generateSummary(config);
+      if (summary) {
+        setState((prev) => ({ ...prev, summary }));
+        autoSaveConversation(config, summary, false);
+        stoppingRef.current = false;
+        return;
+      }
+    }
+
+    // No transcript or summary generation failed — create a fallback summary
+    const noConversation = endedReason === 'customer-did-not-answer'
+      || endedReason === 'customer-busy'
+      || endedReason === 'voicemail'
+      || endedReason === 'silence-timed-out'
+      || endedReason === 'manually-canceled'
+      || finalEntries.length === 0;
+
+    const fallbackSummary: CallSummary = {
+      sellerPosition: noConversation
+        ? 'No conversation took place — the call was not connected or ended before a conversation could happen.'
+        : 'Call ended but the full conversation could not be processed.',
+      lowestAcceptable: null,
+      sellerTimeline: 'Unknown',
+      sellerMotivation: 'Unknown — follow up needed',
+      keyInsights: noConversation
+        ? [
+            `Call outcome: ${reasonLabel || 'Call ended'}`,
+            'No conversation was recorded during this call',
+            'A follow-up attempt should be scheduled',
+          ]
+        : [
+            `Call outcome: ${reasonLabel || 'Call ended'}`,
+            'Conversation took place but transcript processing failed',
+            'Try calling again or follow up via email',
+          ],
+      recommendedNextSteps: [
+        'Schedule a follow-up call at a different time',
+        'Send an introductory email or text message',
+        'Research the best time to reach this seller',
+      ],
+      agreedPrice: null,
+      callDurationSeconds: Math.floor(
+        ((Date.now()) - (state.startTime || Date.now())) / 1000,
+      ),
+      overallSentiment: 'neutral',
+      sellerEmail: null,
+      sellerPhone: config.sellerPhone || null,
+    };
+
+    setState((prev) => ({ ...prev, summary: fallbackSummary }));
+    stoppingRef.current = false;
+  }, [fetchFinalTranscript, generateSummary, autoSaveConversation, state.startTime]);
+
   const startCall = useCallback(async (config: VoiceCallConfig) => {
     configRef.current = config;
     transcriptRef.current = [];
+    stoppingRef.current = false;
     setCoachingMessages([]);
 
     const isVapiMode = vapiStatus?.available && vapiStatus.hasPublicKey;
@@ -308,6 +447,7 @@ export function useVoiceCall() {
 
           // Poll for status and transcript every 3s
           pollRef.current = setInterval(async () => {
+            if (stoppingRef.current) return; // don't poll while stopping
             try {
               const data = await pollCallStatus(callId);
 
@@ -327,23 +467,10 @@ export function useVoiceCall() {
                 }
               }
 
-              // Call ended on the other side — stop polling, fetch final transcript, summarize
+              // Call ended on the other side
               if (data.status === 'ended') {
-                if (pollRef.current) {
-                  clearInterval(pollRef.current);
-                  pollRef.current = null;
-                }
-                // Final fetch to get complete transcript
-                await fetchFinalTranscript(callId);
-                handleStatusChange('ended');
-                setState((prev) => ({ ...prev, endTime: Date.now() }));
-                // Generate summary from final transcript
                 if (configRef.current) {
-                  const summary = await generateSummary(configRef.current);
-                  if (summary) {
-                    setState((prev) => ({ ...prev, summary }));
-                    autoSaveConversation(configRef.current, summary, false);
-                  }
+                  handleCallEnded(callId, configRef.current, data.endedReason);
                 }
               }
             } catch {
@@ -405,7 +532,7 @@ export function useVoiceCall() {
         }
       }
     }
-  }, [vapiStatus, handleTranscript, handleStatusChange, generateSummary, autoSaveConversation]);
+  }, [vapiStatus, handleTranscript, handleStatusChange, generateSummary, autoSaveConversation, handleCallEnded, parsePollMessages]);
 
   const stopCall = useCallback(() => {
     // Capture refs before clearing
@@ -418,43 +545,41 @@ export function useVoiceCall() {
     if (abortRef.current) {
       abortRef.current.abort();
     }
-    if (pollRef.current) {
-      clearInterval(pollRef.current);
-      pollRef.current = null;
-    }
 
-    setState((prev) => ({
-      ...prev,
-      status: 'ended',
-      endTime: Date.now(),
-    }));
+    if (wasPhoneCall && callId) {
+      // Actually terminate the phone call on Vapi's side
+      endPhoneCall(callId);
+      // handleCallEnded will manage everything: polling cleanup, transcript fetch, summary
+      if (configRef.current) {
+        handleCallEnded(callId, configRef.current, 'manually-canceled');
+      }
+    } else {
+      // Browser or demo call — set ended and generate summary immediately
+      if (pollRef.current) {
+        clearInterval(pollRef.current);
+        pollRef.current = null;
+      }
 
-    // For phone calls, do a final poll to grab transcript, then summarize
-    if (wasPhoneCall && configRef.current) {
-      const config = configRef.current;
-      // Small delay to let Vapi finalize, then fetch transcript
-      setTimeout(async () => {
-        await fetchFinalTranscript(callId);
-        const summary = await generateSummary(config);
-        if (summary) {
-          setState((prev) => ({ ...prev, summary }));
-          autoSaveConversation(config, summary, false);
-        }
-      }, 2000);
-    } else if (configRef.current) {
-      // Browser or demo call — generate summary immediately
-      const config = configRef.current;
-      const isDemo = !vapiRef.current;
-      generateSummary(config).then((summary) => {
-        if (summary) {
-          setState((prev) => ({ ...prev, summary }));
-          autoSaveConversation(config, summary, isDemo);
-        }
-      });
+      setState((prev) => ({
+        ...prev,
+        status: 'ended',
+        endTime: Date.now(),
+      }));
+
+      if (configRef.current) {
+        const config = configRef.current;
+        const isDemo = !vapiRef.current;
+        generateSummary(config).then((summary) => {
+          if (summary) {
+            setState((prev) => ({ ...prev, summary }));
+            autoSaveConversation(config, summary, isDemo);
+          }
+        });
+      }
     }
 
     phoneCallIdRef.current = null;
-  }, [generateSummary, autoSaveConversation, fetchFinalTranscript]);
+  }, [generateSummary, autoSaveConversation, handleCallEnded]);
 
   const reset = useCallback(() => {
     if (vapiRef.current) {
@@ -472,6 +597,7 @@ export function useVoiceCall() {
     phoneCallIdRef.current = null;
     transcriptRef.current = [];
     configRef.current = null;
+    stoppingRef.current = false;
     setCoachingMessages([]);
     setIsPhoneCall(false);
     setState(INITIAL_STATE);

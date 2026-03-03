@@ -1,7 +1,7 @@
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Phone, PhoneOff, Wifi, Clock } from 'lucide-react';
+import { Phone, PhoneOff, PhoneMissed, Voicemail, Wifi, Clock } from 'lucide-react';
 import AudioWaveform from './AudioWaveform';
 import VoiceTranscript from './VoiceTranscript';
 import CoachingPanel from './CoachingPanel';
@@ -35,6 +35,7 @@ const STATUS_CONFIG: Record<string, { label: string; color: string; pulse: boole
 const VoiceCallLive = ({ state, property, bidRange, onEndCall, onSendCoaching, coachingMessages = [], isPhoneCall = false }: VoiceCallLiveProps) => {
   const statusConfig = STATUS_CONFIG[state.status] || STATUS_CONFIG.connecting;
   const isActive = state.status === 'in_progress';
+  const isEnded = state.status === 'ended';
 
   // Determine who's speaking based on latest transcript
   const lastEntry = state.transcript[state.transcript.length - 1];
@@ -59,10 +60,25 @@ const VoiceCallLive = ({ state, property, bidRange, onEndCall, onSendCoaching, c
                 {state.isDemo && (
                   <Badge variant="secondary" className="text-[10px]">Demo</Badge>
                 )}
+                {isPhoneCall && !isEnded && (
+                  <Badge variant="outline" className="text-[10px] gap-1">
+                    <Phone size={8} /> Phone
+                  </Badge>
+                )}
               </div>
               <p className="text-xs text-gray-500 truncate max-w-[200px]">
                 {property.address}
               </p>
+              {isEnded && state.endedReason && (
+                <div className="flex items-center gap-1.5 mt-1">
+                  {state.endedReason === 'No Answer' || state.endedReason === 'Line Busy' ? (
+                    <PhoneMissed size={12} className="text-red-400" />
+                  ) : state.endedReason === 'Went to Voicemail' ? (
+                    <Voicemail size={12} className="text-yellow-500" />
+                  ) : null}
+                  <span className="text-xs text-gray-400">{state.endedReason}</span>
+                </div>
+              )}
             </div>
           </div>
 

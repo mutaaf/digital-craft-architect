@@ -76,12 +76,25 @@ export async function startPhoneCall(
 
 export async function pollCallStatus(
   callId: string,
-): Promise<{ status: string; transcript: string; messages: unknown[] }> {
+): Promise<{ status: string; transcript: string; messages: unknown[]; endedReason: string | null }> {
   const resp = await fetch(`/api/vapi-call-status?callId=${encodeURIComponent(callId)}`);
   if (!resp.ok) {
     throw new Error('Failed to poll call status');
   }
   return resp.json();
+}
+
+/** End a phone call via Vapi API */
+export async function endPhoneCall(callId: string): Promise<void> {
+  try {
+    await fetch('/api/vapi-call-end', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ callId }),
+    });
+  } catch {
+    // Best-effort — call may have already ended
+  }
 }
 
 export function sendCoachingMessage(
