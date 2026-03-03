@@ -32,12 +32,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       },
       voice: {
         provider: '11labs',
-        voiceId: voiceId || '21m00Tcm4TlvDq8ikWAM', // Rachel — warm, natural female
+        voiceId: voiceId || 'kdmDKE6EkgrWrrykO9Qt', // Alexandra — super realistic, crisp conversational female
         model: 'eleven_turbo_v2_5',
-        stability: 0.35,
-        similarityBoost: 0.78,
-        speed: 0.92,
-        style: 0.6,
+        stability: 0.4,
+        similarityBoost: 0.75,
+        speed: 0.95,
+        style: 0.5,
         useSpeakerBoost: true,
         optimizeStreamingLatency: 3,
         // Buffer text before sending to TTS so numbers aren't split across chunks
