@@ -133,6 +133,9 @@ const App = () => (
               <Route path="/construction/demo/voice-negotiator" element={<DemoContextProvider><VoiceNegotiator /></DemoContextProvider>} />
               <Route path="/realestate" element={<RealEstate />} />
               <Route path="/realestate/demo" element={<DemoContextProvider><RealEstateDemoHub /></DemoContextProvider>} />
+              <Route path="/realestate/demo/lead-responder" element={<DemoContextProvider><LeadResponder /></DemoContextProvider>} />
+              <Route path="/realestate/demo/property-negotiator" element={<DemoContextProvider><PropertyNegotiator /></DemoContextProvider>} />
+              <Route path="/realestate/demo/voice-negotiator" element={<DemoContextProvider><VoiceNegotiator /></DemoContextProvider>} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

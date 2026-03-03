@@ -38,11 +38,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         similarityBoost: 0.75,
         speed: 0.95,
         style: 0.5,
-        useSpeakerBoost: true,
         optimizeStreamingLatency: 3,
-        // Buffer text before sending to TTS so numbers aren't split across chunks
-        inputMinCharacters: 30,
-        inputPunctuationBoundaries: ['.', '!', '?', ',', ';', '—'],
+        chunkPlan: {
+          enabled: true,
+          minCharacters: 30,
+          punctuationBoundaries: ['.', '!', '?', ','],
+          formatPlan: {
+            enabled: true,
+          },
+        },
       },
       transcriber: {
         provider: 'deepgram',
