@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDemoContext } from '@/contexts/DemoContext';
+import type { Vertical } from '@/contexts/DemoContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -8,6 +9,12 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Globe, Loader2, CheckCircle2, Pencil, RotateCcw, AlertCircle } from 'lucide-react';
 import type { CompanyProfile } from '@/utils/websiteScraper';
+
+const VERTICAL_PLACEHOLDERS: Record<Vertical, string> = {
+  construction: 'e.g. premierbuilds.com or Premier Builds',
+  realestate: 'e.g. luxuryrealty.com or Luxury Realty Group',
+  events: 'e.g. djrubyru.com or Ruby Ru Events',
+};
 
 const EDITABLE_FIELDS: { key: keyof CompanyProfile; label: string; type?: string }[] = [
   { key: 'companyName', label: 'Company Name' },
@@ -23,10 +30,11 @@ const EDITABLE_FIELDS: { key: keyof CompanyProfile; label: string; type?: string
 ];
 
 const CompanySetupForm = () => {
-  const { company, isLoading, error, loadFromUrl, reset, updateField, isCustomized } =
+  const { company, isLoading, error, loadFromUrl, reset, updateField, isCustomized, vertical } =
     useDemoContext();
   const [input, setInput] = useState('');
   const [editOpen, setEditOpen] = useState(false);
+  const placeholder = VERTICAL_PLACEHOLDERS[vertical];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -156,7 +164,7 @@ const CompanySetupForm = () => {
         <Input
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="e.g. premierbuilds.com or Premier Builds"
+          placeholder={placeholder}
           className="flex-1"
         />
         <Button type="submit" disabled={!input.trim()} className="gap-1.5 shrink-0">

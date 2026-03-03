@@ -1,3 +1,5 @@
+import type { Vertical } from '@/contexts/DemoContext';
+
 export interface CompanyProfile {
   companyName: string;
   ownerName: string;
@@ -12,26 +14,41 @@ export interface CompanyProfile {
   primaryColor: string;
 }
 
-const DEFAULT_SERVICES = [
-  'Kitchen Remodeling',
-  'Bathroom Renovation',
-  'Home Additions',
-  'General Construction',
-];
+const VERTICAL_DEFAULTS: Record<Vertical, { services: string[]; tagline: string; avgJobValue: number; primaryColor: string }> = {
+  construction: {
+    services: ['Kitchen Remodeling', 'Bathroom Renovation', 'Home Additions', 'General Construction'],
+    tagline: 'Quality Construction & Remodeling',
+    avgJobValue: 35000,
+    primaryColor: '#0ea5e9',
+  },
+  realestate: {
+    services: ['Buyer Representation', 'Seller Representation', 'Property Management', 'Market Analysis'],
+    tagline: 'Expert Real Estate Services',
+    avgJobValue: 15000,
+    primaryColor: '#f59e0b',
+  },
+  events: {
+    services: ['DJ / Entertainment', 'Catering / Food Cart', 'Decoration / Florals', 'Photography / Video'],
+    tagline: 'Unforgettable Event Experiences',
+    avgJobValue: 5000,
+    primaryColor: '#8b5cf6',
+  },
+};
 
-function buildDefaults(domain: string): CompanyProfile {
+function buildDefaults(domain: string, vertical: Vertical): CompanyProfile {
+  const v = VERTICAL_DEFAULTS[vertical];
   return {
     companyName: domain.replace(/^www\./, '').split('.')[0],
     ownerName: 'the team',
-    tagline: 'Quality Construction & Remodeling',
+    tagline: v.tagline,
     location: 'your area',
     phone: '(555) 000-0000',
     email: `info@${domain.replace(/^www\./, '')}`,
     website: domain,
-    services: DEFAULT_SERVICES,
-    avgJobValue: 35000,
+    services: v.services,
+    avgJobValue: v.avgJobValue,
     bookingUrl: '',
-    primaryColor: '#0ea5e9',
+    primaryColor: v.primaryColor,
   };
 }
 
@@ -111,9 +128,25 @@ async function scrapeUrl(url: string): Promise<string | null> {
   }
 }
 
+const VERTICAL_EXTRACTION_PROMPTS: Record<Vertical, string> = {
+  construction:
+    'Extract construction/contractor company information from this website content. Return accurate data found on the site. For missing fields use sensible defaults: ownerName="the team", location="your area", phone="(555) 000-0000", email="info@domain.com", services=common construction services (e.g. Kitchen Remodeling, Bathroom Renovation), avgJobValue=35000, bookingUrl="", primaryColor="#0ea5e9".',
+  realestate:
+    'Extract real estate company/agent information from this website content. Return accurate data found on the site. For missing fields use sensible defaults: ownerName="the team", location="your area", phone="(555) 000-0000", email="info@domain.com", services=common real estate services (e.g. Buyer Representation, Seller Representation), avgJobValue=15000, bookingUrl="", primaryColor="#f59e0b".',
+  events:
+    'Extract event services company information from this website content. Return accurate data found on the site. For missing fields use sensible defaults: ownerName="the team", location="your area", phone="(555) 000-0000", email="info@domain.com", services=common event services (e.g. DJ / Entertainment, Catering, Decoration, Photography), avgJobValue=5000, bookingUrl="", primaryColor="#8b5cf6".',
+};
+
+const VERTICAL_LABELS: Record<Vertical, string> = {
+  construction: 'a construction company',
+  realestate: 'a real estate company',
+  events: 'an event services company',
+};
+
 async function extractWithOpenAI(
   content: string,
   url: string,
+  vertical: Vertical,
 ): Promise<Partial<CompanyProfile>> {
   const resp = await fetch('/api/chat', {
     method: 'POST',
@@ -122,8 +155,7 @@ async function extractWithOpenAI(
       messages: [
         {
           role: 'system',
-          content:
-            'Extract construction/contractor company information from this website content. Return accurate data found on the site. For missing fields use sensible defaults: ownerName="the team", location="your area", phone="(555) 000-0000", email="info@domain.com", services=common construction services, avgJobValue=35000, bookingUrl="", primaryColor="#0ea5e9".',
+          content: VERTICAL_EXTRACTION_PROMPTS[vertical],
         },
         {
           role: 'user',
@@ -147,7 +179,7 @@ async function extractWithOpenAI(
   return JSON.parse(data.choices[0].message.content);
 }
 
-export async function scrapeWebsite(input: string): Promise<CompanyProfile> {
+export async function scrapeWebsite(input: string, vertical: Vertical = 'construction'): Promise<CompanyProfile> {
   // Normalize input into a URL
   const isUrl = input.includes('.') && !input.includes(' ');
   const url = isUrl
@@ -156,7 +188,7 @@ export async function scrapeWebsite(input: string): Promise<CompanyProfile> {
   const fullUrl = isUrl ? `https://${url}` : '';
 
   const domain = isUrl ? url.replace(/^www\./, '').split('/')[0] : '';
-  const defaults = buildDefaults(domain || input);
+  const defaults = buildDefaults(domain || input, vertical);
 
   // Step 1: Scrape content with Jina
   let content: string;
@@ -164,11 +196,11 @@ export async function scrapeWebsite(input: string): Promise<CompanyProfile> {
     const scraped = await scrapeUrl(fullUrl);
     content = scraped || `(Scraping failed — only the URL is available: ${fullUrl})`;
   } else {
-    content = `(No URL provided — company name only: "${input}". Infer reasonable data for a construction company with this name.)`;
+    content = `(No URL provided — company name only: "${input}". Infer reasonable data for ${VERTICAL_LABELS[vertical]} with this name.)`;
   }
 
   // Step 2: Extract structured data with OpenAI
-  const extracted = await extractWithOpenAI(content, fullUrl || input);
+  const extracted = await extractWithOpenAI(content, fullUrl || input, vertical);
 
   // Merge with defaults
   return {
