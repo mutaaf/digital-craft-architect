@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { HardHat, Building2, ArrowLeft } from 'lucide-react';
+import { HardHat, Building2, PartyPopper, ArrowLeft } from 'lucide-react';
 import { useDemoContext } from '@/contexts/DemoContext';
 
 const CONSTRUCTION_LINKS = [
@@ -16,6 +16,12 @@ const REALESTATE_LINKS = [
   { path: 'lead-responder', label: 'Leads', fullLabel: 'Lead Qualifier' },
 ];
 
+const EVENTS_LINKS = [
+  { path: 'inquiry', label: 'Inquiry', fullLabel: 'Inquiry Qualifier' },
+  { path: 'proposal', label: 'Proposal', fullLabel: 'Proposal Generator' },
+  { path: 'voice-booking', label: 'Voice', fullLabel: 'Voice Booking' },
+];
+
 const DemoNavbar = () => {
   const { pathname } = useLocation();
   const { company } = useDemoContext();
@@ -27,10 +33,11 @@ const DemoNavbar = () => {
 
   // Detect section from URL path
   const isRealEstate = pathname.startsWith('/realestate');
-  const basePrefix = isRealEstate ? '/realestate/demo' : '/construction/demo';
-  const backTo = isRealEstate ? '/realestate' : '/construction';
-  const links = isRealEstate ? REALESTATE_LINKS : CONSTRUCTION_LINKS;
-  const Icon = isRealEstate ? Building2 : HardHat;
+  const isEvents = pathname.startsWith('/events');
+  const basePrefix = isEvents ? '/events/demo' : isRealEstate ? '/realestate/demo' : '/construction/demo';
+  const backTo = isEvents ? '/events' : isRealEstate ? '/realestate' : '/construction';
+  const links = isEvents ? EVENTS_LINKS : isRealEstate ? REALESTATE_LINKS : CONSTRUCTION_LINKS;
+  const Icon = isEvents ? PartyPopper : isRealEstate ? Building2 : HardHat;
 
   return (
     <nav className="sticky top-0 z-50 bg-white/90 dark:bg-gray-950/90 backdrop-blur border-b border-gray-200 dark:border-gray-800">

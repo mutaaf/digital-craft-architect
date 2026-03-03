@@ -14,6 +14,11 @@ import EstimateGenerator from "./pages/construction/EstimateGenerator";
 import ReviewSystem from "./pages/construction/ReviewSystem";
 import PropertyNegotiator from "./pages/construction/PropertyNegotiator";
 import VoiceNegotiator from "./pages/construction/VoiceNegotiator";
+import Events from "./pages/Events";
+import EventsDemoHub from "./pages/events/EventsDemoHub";
+import InquiryQualifier from "./pages/events/InquiryQualifier";
+import ProposalGenerator from "./pages/events/ProposalGenerator";
+import VoiceBookingAgent from "./pages/events/VoiceBookingAgent";
 import NotFound from "./pages/NotFound";
 import { ErrorBoundary } from "@sentry/react";
 import { captureException } from "./utils/sentry";
@@ -136,6 +141,11 @@ const App = () => (
               <Route path="/realestate/demo/lead-responder" element={<DemoContextProvider><LeadResponder /></DemoContextProvider>} />
               <Route path="/realestate/demo/property-negotiator" element={<DemoContextProvider><PropertyNegotiator /></DemoContextProvider>} />
               <Route path="/realestate/demo/voice-negotiator" element={<DemoContextProvider><VoiceNegotiator /></DemoContextProvider>} />
+              <Route path="/events" element={<Events />} />
+              <Route path="/events/demo" element={<DemoContextProvider><EventsDemoHub /></DemoContextProvider>} />
+              <Route path="/events/demo/inquiry" element={<DemoContextProvider><InquiryQualifier /></DemoContextProvider>} />
+              <Route path="/events/demo/proposal" element={<DemoContextProvider><ProposalGenerator /></DemoContextProvider>} />
+              <Route path="/events/demo/voice-booking" element={<DemoContextProvider><VoiceBookingAgent /></DemoContextProvider>} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
