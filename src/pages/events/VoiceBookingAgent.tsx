@@ -104,6 +104,7 @@ const VoiceBookingAgent = () => {
       sellerName: lead.clientName || undefined,
       companyName: name,
       promptOverride: promptText || buildBookingPrompt(lead, name),
+      firstMessage: `Hey${lead.clientName ? `, ${lead.clientName.split(' ')[0]}` : ''}! This is calling from ${name}. We got your inquiry about our ${EVENT_TYPE_LABELS[lead.eventType].toLowerCase()} services and I wanted to follow up — is now a good time to chat?`,
     };
 
     setPhase('call');

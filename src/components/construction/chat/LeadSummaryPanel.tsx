@@ -16,11 +16,14 @@ export interface LeadData {
   phone?: string;
 }
 
+export type FieldConfig = { key: keyof LeadData; label: string; icon: React.ReactNode };
+
 interface LeadSummaryPanelProps {
   data: LeadData;
+  fieldOverrides?: FieldConfig[];
 }
 
-const fields: { key: keyof LeadData; label: string; icon: React.ReactNode }[] = [
+const DEFAULT_FIELDS: FieldConfig[] = [
   { key: 'name', label: 'Name', icon: <User size={14} /> },
   { key: 'projectType', label: 'Project Type', icon: <Home size={14} /> },
   { key: 'sqft', label: 'Square Footage', icon: <Ruler size={14} /> },
@@ -30,10 +33,11 @@ const fields: { key: keyof LeadData; label: string; icon: React.ReactNode }[] = 
   { key: 'phone', label: 'Phone', icon: <Phone size={14} /> },
 ];
 
-const LeadSummaryPanel = ({ data }: LeadSummaryPanelProps) => {
+const LeadSummaryPanel = ({ data, fieldOverrides }: LeadSummaryPanelProps) => {
   const { company } = useDemoContext();
   const bookingUrl = company?.bookingUrl || 'https://calendly.com/mutaaf';
 
+  const fields = fieldOverrides || DEFAULT_FIELDS;
   const filled = fields.filter((f) => data[f.key]);
   const percent = Math.round((filled.length / fields.length) * 100);
   const qualified = percent >= 70;

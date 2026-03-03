@@ -101,7 +101,7 @@ const VoiceCallLive = ({ state, property, bidRange, onEndCall, onSendCoaching, c
           <AudioWaveform isActive={isActive} isSpeaking={isSpeaking} />
           {isSpeaking && (
             <p className="text-center text-xs text-gray-400 mt-1">
-              {isSpeaking === 'assistant' ? 'AI Agent speaking...' : 'Seller speaking...'}
+              {isSpeaking === 'assistant' ? 'AI Agent speaking...' : 'Other party speaking...'}
             </p>
           )}
         </div>
@@ -130,14 +130,16 @@ const VoiceCallLive = ({ state, property, bidRange, onEndCall, onSendCoaching, c
         />
       )}
 
-      {/* Side info: bid range */}
-      <Card className="p-3 bg-gray-50 dark:bg-gray-900/50">
-        <div className="flex items-center justify-between text-xs text-gray-500">
-          <span>Min: ${bidRange.minOffer.toLocaleString()}</span>
-          <span className="font-semibold text-primary">Target: ${bidRange.targetOffer.toLocaleString()}</span>
-          <span>Max: ${bidRange.maxOffer.toLocaleString()}</span>
-        </div>
-      </Card>
+      {/* Side info: bid range (hidden when all zeros, e.g. booking calls) */}
+      {(bidRange.minOffer > 0 || bidRange.targetOffer > 0 || bidRange.maxOffer > 0) && (
+        <Card className="p-3 bg-gray-50 dark:bg-gray-900/50">
+          <div className="flex items-center justify-between text-xs text-gray-500">
+            <span>Min: ${bidRange.minOffer.toLocaleString()}</span>
+            <span className="font-semibold text-primary">Target: ${bidRange.targetOffer.toLocaleString()}</span>
+            <span>Max: ${bidRange.maxOffer.toLocaleString()}</span>
+          </div>
+        </Card>
+      )}
 
       {/* End Call button */}
       {state.status !== 'ended' && state.status !== 'error' && (

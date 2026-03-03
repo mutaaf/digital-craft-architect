@@ -103,6 +103,8 @@ const VoiceCallSummary = ({
   property,
   onNewCall,
 }: VoiceCallSummaryProps) => {
+  // Detect booking call context (no asking price = not a property negotiation)
+  const isBookingCall = !property.askingPrice;
   const [transcriptOpen, setTranscriptOpen] = useState(false);
   const sentiment = SENTIMENT_CONFIG[summary.overallSentiment] || SENTIMENT_CONFIG.neutral;
 
@@ -140,39 +142,43 @@ const VoiceCallSummary = ({
           <div className="p-4 text-center">
             <DollarSign size={16} className="mx-auto mb-1 text-gray-400" />
             <p className="text-sm font-semibold">
-              {summary.agreedPrice
-                ? `$${summary.agreedPrice.toLocaleString()}`
-                : 'Pending'}
+              {isBookingCall
+                ? (summary.overallSentiment === 'positive' ? 'Likely' : summary.overallSentiment === 'negative' ? 'Unlikely' : 'Maybe')
+                : summary.agreedPrice
+                  ? `$${summary.agreedPrice.toLocaleString()}`
+                  : 'Pending'}
             </p>
             <p className="text-[10px] text-gray-500">
-              {summary.agreedPrice ? 'Agreed Price' : 'No Agreement Yet'}
+              {isBookingCall
+                ? 'Booking Likelihood'
+                : summary.agreedPrice ? 'Agreed Price' : 'No Agreement Yet'}
             </p>
           </div>
         </div>
       </Card>
 
-      {/* Seller Position */}
+      {/* Position / Interest */}
       <Card className="p-4">
         <div className="flex items-center gap-2 mb-2">
           <Target size={14} className="text-primary" />
-          <h4 className="text-sm font-semibold">Seller Position</h4>
+          <h4 className="text-sm font-semibold">{isBookingCall ? 'Client Interest' : 'Seller Position'}</h4>
         </div>
         <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
           {summary.sellerPosition}
         </p>
         <div className="grid grid-cols-2 gap-3 mt-3">
-          {summary.lowestAcceptable && (
+          {!isBookingCall && summary.lowestAcceptable && (
             <div className="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-2.5">
               <p className="text-[10px] text-gray-500 uppercase">Lowest Acceptable</p>
               <p className="text-sm font-semibold">${summary.lowestAcceptable.toLocaleString()}</p>
             </div>
           )}
           <div className="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-2.5">
-            <p className="text-[10px] text-gray-500 uppercase">Timeline</p>
+            <p className="text-[10px] text-gray-500 uppercase">{isBookingCall ? 'Event Timeline' : 'Timeline'}</p>
             <p className="text-sm font-semibold">{summary.sellerTimeline}</p>
           </div>
           <div className="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-2.5 col-span-2">
-            <p className="text-[10px] text-gray-500 uppercase">Motivation</p>
+            <p className="text-[10px] text-gray-500 uppercase">{isBookingCall ? 'What They Want' : 'Motivation'}</p>
             <p className="text-sm">{summary.sellerMotivation}</p>
           </div>
         </div>
@@ -212,12 +218,12 @@ const VoiceCallSummary = ({
         </ul>
       </Card>
 
-      {/* Seller Contact */}
+      {/* Contact Info */}
       {(summary.sellerEmail || summary.sellerPhone) && (
         <Card className="p-4">
           <div className="flex items-center gap-2 mb-3">
             <User size={14} className="text-primary" />
-            <h4 className="text-sm font-semibold">Seller Contact</h4>
+            <h4 className="text-sm font-semibold">{isBookingCall ? 'Client Contact' : 'Seller Contact'}</h4>
           </div>
           <div className="grid grid-cols-2 gap-3">
             {summary.sellerEmail && (

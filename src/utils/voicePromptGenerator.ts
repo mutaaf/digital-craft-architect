@@ -198,6 +198,28 @@ export function generateCallSummaryPrompt(
   transcript: string,
   config: VoiceCallConfig,
 ): string {
+  const isBookingCall = !!config.promptOverride;
+
+  if (isBookingCall) {
+    return `Analyze this phone call transcript between a booking agent (from ${config.companyName}) and a potential client. Context: ${config.property.address}.
+
+TRANSCRIPT:
+${transcript}
+
+Produce a structured JSON summary with these exact fields:
+- sellerPosition: A 1-2 sentence summary of the client's interest level and readiness to book (use this field for client position)
+- lowestAcceptable: null (not applicable for booking calls)
+- sellerTimeline: The client's event timeline or when they need services
+- sellerMotivation: What the client is looking for and what matters most to them
+- keyInsights: Array of 3-5 key takeaways from the conversation — event details, preferences, concerns (strings)
+- recommendedNextSteps: Array of 2-4 recommended follow-up actions (strings)
+- agreedPrice: null (not applicable for booking calls)
+- callDurationSeconds: Estimated call duration in seconds based on the conversation
+- overallSentiment: "positive", "neutral", or "negative" — the overall tone of the conversation
+- sellerEmail: The client's email address if mentioned in the transcript (string or null)
+- sellerPhone: The client's phone number or best contact number if mentioned (string or null)`;
+  }
+
   return `Analyze this phone negotiation transcript between a real estate professional (from ${config.companyName}) and a property seller. The property is at ${config.property.address}, asking price $${config.property.askingPrice.toLocaleString()}.
 
 The buyer's bid range was: min $${config.bidRange.minOffer.toLocaleString()}, target $${config.bidRange.targetOffer.toLocaleString()}, max $${config.bidRange.maxOffer.toLocaleString()}.
