@@ -55,7 +55,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       },
       endCallFunctionEnabled: true,
       maxDurationSeconds: 600,
-      silenceTimeoutSeconds: 4,
+      silenceTimeoutSeconds: 10,
       responseDelaySeconds: 0.8,
       backchannelingEnabled: true,
       backgroundDenoisingEnabled: true,
@@ -93,7 +93,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (!resp.ok) {
       const err = await resp.json().catch(() => ({}));
       console.error('Vapi assistant creation failed:', JSON.stringify(err));
-      return res.status(resp.status).json({ error: err.message || err.error || JSON.stringify(err) });
+      // Return full Vapi error so we can debug in the browser console
+      return res.status(resp.status).json({
+        error: err.message || err.error || JSON.stringify(err),
+        vapiError: err,
+      });
     }
 
     const data = await resp.json();
