@@ -32,7 +32,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       },
       voice: {
         provider: '11labs',
-        voiceId: voiceId || 'kdmDKE6EkgrWrrykO9Qt', // Alexandra — super realistic, crisp conversational female
+        voiceId: voiceId || '56AoDkrOh6qfVPDXZ7Pt', // Cassidy — crisp podcaster female
         model: 'eleven_turbo_v2_5',
         stability: 0.4,
         similarityBoost: 0.75,
