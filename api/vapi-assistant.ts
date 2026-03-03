@@ -55,7 +55,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       },
       endCallFunctionEnabled: true,
       maxDurationSeconds: 600,
-      silenceTimeoutSeconds: 10,
+      silenceTimeoutSeconds: 3,
       responseDelaySeconds: 0.8,
       backchannelingEnabled: true,
       backgroundDenoisingEnabled: true,
