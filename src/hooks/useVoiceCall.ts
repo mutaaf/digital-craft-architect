@@ -52,7 +52,7 @@ function getEndedReasonLabel(reason: string | null): string | null {
     'assistant-said-end-call-phrase': 'Agent Ended Call',
     'assistant-forwarded-call': 'Call Forwarded',
     'assistant-join-timed-out': 'Connection Timeout',
-    'customer-ended-call': 'Seller Hung Up',
+    'customer-ended-call': 'Other Party Hung Up',
     'silence-timed-out': 'No Response (Silence)',
     'voicemail': 'Went to Voicemail',
     'max-duration-reached': 'Max Duration Reached',
@@ -171,7 +171,7 @@ export function useVoiceCall() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             messages: [
-              { role: 'system', content: 'You are an expert real estate negotiation analyst. Produce valid JSON.' },
+              { role: 'system', content: 'You are an expert conversation analyst. Produce valid JSON.' },
               { role: 'user', content: prompt },
             ],
             temperature: 0.3,
@@ -421,14 +421,20 @@ export function useVoiceCall() {
         const firstName = config.sellerName?.split(' ')[0] || '';
         const willBePhoneCall = !!(config.sellerPhone && vapiStatus.hasPhoneNumber);
 
-        // For phone calls: no firstMessage — wait for the seller to say hello
+        // For phone calls: no firstMessage — wait for the other party to say hello
         // For browser calls: agent speaks first since it's a demo
-        const shortAddr = config.property.address.split(',')[0];
-        const firstMessage = willBePhoneCall
-          ? undefined
-          : config.companyName && config.companyName !== 'DigitalCraft AI'
+        // If config provides a firstMessage, always use it (allows verticals to customize)
+        let firstMessage: string | undefined;
+        if (willBePhoneCall) {
+          firstMessage = undefined;
+        } else if (config.firstMessage) {
+          firstMessage = config.firstMessage;
+        } else {
+          const shortAddr = config.property.address.split(',')[0];
+          firstMessage = config.companyName && config.companyName !== 'DigitalCraft AI'
             ? `Hi${firstName ? ` ${firstName}` : ' there'}! This is calling from ${config.companyName}. I saw your property listing on ${shortAddr} and I'm really interested — do you have a minute to chat?`
             : `Hi${firstName ? ` ${firstName}` : ' there'}! I saw your property listing on ${shortAddr} and I'm really interested — do you have a minute to chat?`;
+        }
 
         // Create assistant server-side
         const assistantResp = await fetch('/api/vapi-assistant', {

@@ -3,13 +3,13 @@ import DemoNavbar from '@/components/construction/DemoNavbar';
 import ChatBubble from '@/components/construction/chat/ChatBubble';
 import ChatInput from '@/components/construction/chat/ChatInput';
 import LeadSummaryPanel from '@/components/construction/chat/LeadSummaryPanel';
-import type { LeadData } from '@/components/construction/chat/LeadSummaryPanel';
+import type { LeadData, FieldConfig } from '@/components/construction/chat/LeadSummaryPanel';
 import { useDemoContext } from '@/contexts/DemoContext';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
-import { Sparkles, ClipboardList } from 'lucide-react';
+import { Sparkles, ClipboardList, User, PartyPopper, Users, DollarSign, Calendar, MapPin, Phone as PhoneIcon } from 'lucide-react';
 import { streamChat } from '@/utils/openaiChat';
 import type { ChatMessage } from '@/utils/openaiChat';
 
@@ -62,6 +62,16 @@ function buildGreeting(companyName: string): string {
 
 I'm here to learn about what you're planning so we can see how we can help. What type of event are you thinking about — a wedding, birthday, corporate event, or something else?`;
 }
+
+const EVENT_FIELDS: FieldConfig[] = [
+  { key: 'name', label: 'Name', icon: <User size={14} /> },
+  { key: 'projectType', label: 'Event Type', icon: <PartyPopper size={14} /> },
+  { key: 'timeline', label: 'Event Date', icon: <Calendar size={14} /> },
+  { key: 'sqft', label: 'Guest Count', icon: <Users size={14} /> },
+  { key: 'budget', label: 'Budget', icon: <DollarSign size={14} /> },
+  { key: 'address', label: 'Venue', icon: <MapPin size={14} /> },
+  { key: 'phone', label: 'Phone', icon: <PhoneIcon size={14} /> },
+];
 
 interface Message {
   role: 'user' | 'assistant';
@@ -210,7 +220,7 @@ const InquiryQualifier = () => {
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="bottom" className="h-[70vh]">
-                  <LeadSummaryPanel data={leadData} />
+                  <LeadSummaryPanel data={leadData} fieldOverrides={EVENT_FIELDS} />
                 </SheetContent>
               </Sheet>
             </div>
@@ -243,7 +253,7 @@ const InquiryQualifier = () => {
 
           {/* Lead panel — desktop only */}
           <div className="hidden lg:flex lg:flex-[2]">
-            <LeadSummaryPanel data={leadData} />
+            <LeadSummaryPanel data={leadData} fieldOverrides={EVENT_FIELDS} />
           </div>
         </div>
       </div>

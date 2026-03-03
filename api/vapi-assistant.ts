@@ -13,7 +13,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const { systemPrompt, firstMessage, voiceId, isPhoneCall } = req.body;
+    const { systemPrompt, firstMessage, voiceId, isPhoneCall, assistantName } = req.body;
 
     if (!systemPrompt) {
       return res.status(400).json({ error: 'systemPrompt is required' });
@@ -22,7 +22,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // For phone calls: no firstMessage — the agent waits for the seller to speak
     // For browser calls: firstMessage kicks off the conversation
     const assistantConfig: Record<string, unknown> = {
-      name: 'Property Negotiator',
+      name: assistantName || 'AI Voice Agent',
       model: {
         provider: 'openai',
         model: 'gpt-4o',

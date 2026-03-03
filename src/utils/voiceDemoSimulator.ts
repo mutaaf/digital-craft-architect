@@ -10,7 +10,7 @@ interface DemoTurn {
 const DEMO_CONVERSATION: DemoTurn[] = [
   {
     role: 'assistant',
-    text: "Hey! Hope I'm not interrupting dinner or anything — this is Sarah over at DigitalCraft AI. I came across your listing and honestly, I got a little excited about it. Do you have a sec?",
+    text: "Hey! Hope I'm not interrupting dinner or anything — I'm calling from DigitalCraft AI. I came across your listing and honestly, I got a little excited about it. Do you have a sec?",
   },
   {
     role: 'user',
@@ -167,9 +167,25 @@ async function runAIConversation(
   signal?: AbortSignal,
 ): Promise<TranscriptEntry[]> {
   const entries: TranscriptEntry[] = [];
-  const systemPrompt = generateVoiceSystemPrompt(config);
+  const systemPrompt = config.promptOverride || generateVoiceSystemPrompt(config);
 
-  const simulationPrompt = `${systemPrompt}
+  const isBookingCall = !!config.promptOverride;
+
+  const simulationPrompt = isBookingCall
+    ? `${systemPrompt}
+
+SIMULATION MODE: You are generating a simulated phone conversation for a demo. Generate a realistic back-and-forth phone call between yourself (the AI booking agent, labeled AGENT) and the client (labeled CLIENT).
+
+Use this exact format for each line:
+AGENT: [what the agent says]
+CLIENT: [what the client responds]
+
+Generate exactly 12-14 turns total (6-7 exchanges). Make it realistic — the client is interested but has questions about packages, pricing, and availability. End with a consultation being scheduled or the client agreeing to receive more info.
+
+The client's name is ${config.sellerName || 'the client'}.
+
+Start the conversation now:`
+    : `${systemPrompt}
 
 SIMULATION MODE: You are generating a simulated phone conversation for a demo. Generate a realistic back-and-forth negotiation between yourself (the AI caller) and the seller. Format your output as a conversation with clear speaker labels.
 
@@ -204,6 +220,9 @@ Start the conversation now:`;
       role = 'assistant';
       text = trimmed.slice(6).trim();
     } else if (trimmed.startsWith('SELLER:')) {
+      role = 'user';
+      text = trimmed.slice(7).trim();
+    } else if (trimmed.startsWith('CLIENT:')) {
       role = 'user';
       text = trimmed.slice(7).trim();
     }
