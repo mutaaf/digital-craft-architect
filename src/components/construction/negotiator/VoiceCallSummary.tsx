@@ -19,6 +19,9 @@ import {
   Target,
   Lightbulb,
   ArrowRight,
+  Mail,
+  MessageSquare,
+  User,
 } from 'lucide-react';
 import VoiceTranscript from './VoiceTranscript';
 import type { CallSummary, TranscriptEntry } from '@/data/voiceNegotiation';
@@ -43,6 +46,57 @@ const SENTIMENT_CONFIG = {
   negative: { label: 'Negative', color: 'bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300' },
 };
 
+function buildFollowUpEmail(summary: CallSummary, property: PropertyData): { subject: string; body: string } {
+  const subject = summary.agreedPrice
+    ? `Deal Follow-Up: ${property.address} — $${summary.agreedPrice.toLocaleString()} Agreed`
+    : `Follow-Up: ${property.address} — Next Steps`;
+
+  const lines: string[] = [];
+  lines.push(`Hi${summary.sellerEmail ? '' : ' there'},`);
+  lines.push('');
+  lines.push(`Great speaking with you about your property at ${property.address}. Here's a quick recap of our conversation:`);
+  lines.push('');
+
+  if (summary.agreedPrice) {
+    lines.push(`Agreed Price: $${summary.agreedPrice.toLocaleString()}`);
+  }
+  if (summary.lowestAcceptable) {
+    lines.push(`Discussed Range: Around $${summary.lowestAcceptable.toLocaleString()}`);
+  }
+  lines.push(`Timeline: ${summary.sellerTimeline}`);
+  lines.push('');
+
+  lines.push('Key takeaways:');
+  summary.keyInsights.forEach((insight) => {
+    lines.push(`- ${insight}`);
+  });
+  lines.push('');
+
+  lines.push('Next steps:');
+  summary.recommendedNextSteps.forEach((step) => {
+    lines.push(`- ${step}`);
+  });
+  lines.push('');
+
+  lines.push("Let me know if you have any questions or if anything's changed on your end. Looking forward to working with you!");
+  lines.push('');
+  lines.push('Best,');
+
+  return { subject, body: lines.join('\n') };
+}
+
+function buildFollowUpSMS(summary: CallSummary, property: PropertyData): string {
+  const lines: string[] = [];
+  lines.push(`Hey! Just following up on our call about ${property.address.split(',')[0]}.`);
+  if (summary.agreedPrice) {
+    lines.push(`We agreed on $${summary.agreedPrice.toLocaleString()} — I'll get the paperwork started.`);
+  } else {
+    lines.push(`Wanted to keep the conversation going.`);
+  }
+  lines.push(`What's the best time for a follow-up?`);
+  return lines.join(' ');
+}
+
 const VoiceCallSummary = ({
   summary,
   transcript,
@@ -51,6 +105,13 @@ const VoiceCallSummary = ({
 }: VoiceCallSummaryProps) => {
   const [transcriptOpen, setTranscriptOpen] = useState(false);
   const sentiment = SENTIMENT_CONFIG[summary.overallSentiment] || SENTIMENT_CONFIG.neutral;
+
+  const email = buildFollowUpEmail(summary, property);
+  const smsBody = buildFollowUpSMS(summary, property);
+  const mailtoUrl = `mailto:${summary.sellerEmail || ''}?subject=${encodeURIComponent(email.subject)}&body=${encodeURIComponent(email.body)}`;
+  const smsUrl = summary.sellerPhone
+    ? `sms:${summary.sellerPhone}?body=${encodeURIComponent(smsBody)}`
+    : `sms:?body=${encodeURIComponent(smsBody)}`;
 
   return (
     <div className="space-y-5 animate-fade-in">
@@ -149,6 +210,55 @@ const VoiceCallSummary = ({
             </li>
           ))}
         </ul>
+      </Card>
+
+      {/* Seller Contact */}
+      {(summary.sellerEmail || summary.sellerPhone) && (
+        <Card className="p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <User size={14} className="text-primary" />
+            <h4 className="text-sm font-semibold">Seller Contact</h4>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            {summary.sellerEmail && (
+              <div className="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-2.5">
+                <p className="text-[10px] text-gray-500 uppercase">Email</p>
+                <p className="text-sm font-medium truncate">{summary.sellerEmail}</p>
+              </div>
+            )}
+            {summary.sellerPhone && (
+              <div className="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-2.5">
+                <p className="text-[10px] text-gray-500 uppercase">Phone</p>
+                <p className="text-sm font-medium">{summary.sellerPhone}</p>
+              </div>
+            )}
+          </div>
+        </Card>
+      )}
+
+      {/* Follow-Up Actions */}
+      <Card className="p-4">
+        <div className="flex items-center gap-2 mb-3">
+          <Mail size={14} className="text-blue-500" />
+          <h4 className="text-sm font-semibold">Follow Up</h4>
+        </div>
+        <div className="flex gap-3">
+          <Button asChild className="flex-1 gap-2">
+            <a href={mailtoUrl}>
+              <Mail size={16} />
+              Open in Email
+            </a>
+          </Button>
+          <Button asChild variant="outline" className="flex-1 gap-2">
+            <a href={smsUrl}>
+              <MessageSquare size={16} />
+              Open in Messages
+            </a>
+          </Button>
+        </div>
+        <p className="text-[10px] text-gray-400 text-center mt-2">
+          Opens your default mail or messaging app with a pre-written follow-up
+        </p>
       </Card>
 
       {/* Full Transcript */}

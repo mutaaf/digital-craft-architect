@@ -32,6 +32,8 @@ export interface CallSummary {
   agreedPrice: number | null;
   callDurationSeconds: number;
   overallSentiment: 'positive' | 'neutral' | 'negative';
+  sellerEmail?: string | null;
+  sellerPhone?: string | null;
 }
 
 export interface VoiceCallState {

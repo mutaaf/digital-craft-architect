@@ -166,10 +166,13 @@ export function useVoiceCall() {
                     agreedPrice: { type: ['number', 'null'] },
                     callDurationSeconds: { type: 'number' },
                     overallSentiment: { type: 'string', enum: ['positive', 'neutral', 'negative'] },
+                    sellerEmail: { type: ['string', 'null'] },
+                    sellerPhone: { type: ['string', 'null'] },
                   },
                   required: [
                     'sellerPosition', 'lowestAcceptable', 'sellerTimeline', 'sellerMotivation',
                     'keyInsights', 'recommendedNextSteps', 'agreedPrice', 'callDurationSeconds', 'overallSentiment',
+                    'sellerEmail', 'sellerPhone',
                   ],
                   additionalProperties: false,
                 },

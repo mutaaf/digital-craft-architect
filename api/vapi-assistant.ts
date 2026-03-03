@@ -27,15 +27,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         provider: 'openai',
         model: 'gpt-4o',
         systemPrompt,
-        temperature: 0.8,
+        temperature: 0.85,
+        maxTokens: 150,
       },
       voice: {
         provider: '11labs',
         voiceId: voiceId || 'paula',
-        stability: 0.3,
-        similarityBoost: 0.75,
-        speed: 0.92,
-        style: 0.4,
+        stability: 0.2,
+        similarityBoost: 0.8,
+        speed: 0.88,
+        style: 0.5,
         useSpeakerBoost: true,
       },
       transcriber: {
@@ -46,9 +47,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       endCallFunctionEnabled: true,
       maxDurationSeconds: 600,
       silenceTimeoutSeconds: 30,
-      responseDelaySeconds: 0.5,
+      responseDelaySeconds: 0.8,
       backchannelingEnabled: true,
       backgroundDenoisingEnabled: true,
+      numWordsToInterruptAssistant: 3,
+      startSpeakingPlan: {
+        waitSeconds: 1.2,
+        smartEndpointingEnabled: true,
+        transcriptionEndpointingPlan: {
+          onPunctuationSeconds: 0.8,
+          onNoPunctuationSeconds: 1.5,
+          onNumberSeconds: 1.0,
+        },
+      },
     };
 
     // Only set firstMessage if provided (browser calls)
@@ -56,9 +67,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       assistantConfig.firstMessage = firstMessage;
     }
 
-    // For phone calls: add a short delay before responding so it sounds natural
+    // For phone calls: longer wait before responding so it doesn't cut off the seller
     if (isPhoneCall) {
-      assistantConfig.responseDelaySeconds = 0.8;
+      assistantConfig.responseDelaySeconds = 1.2;
     }
 
     const resp = await fetch('https://api.vapi.ai/assistant', {
