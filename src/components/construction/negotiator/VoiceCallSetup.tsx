@@ -57,8 +57,10 @@ const VoiceCallSetup = ({
     });
   };
 
-  const sliderMin = Math.round(property.askingPrice * 0.5);
-  const sliderMax = Math.round(property.askingPrice * 1.2);
+  // Use askingPrice if available, otherwise fall back to recommendedOffer or max bid
+  const basePrice = property.askingPrice || report.recommendedOffer || bidRange.maxOffer;
+  const sliderMin = Math.round(basePrice * 0.5);
+  const sliderMax = Math.round(basePrice * 1.3);
 
   return (
     <div className="space-y-5 animate-fade-in">
@@ -133,7 +135,11 @@ const VoiceCallSetup = ({
             />
             <div className="flex justify-between text-[10px] text-gray-400 mt-1">
               <span>${sliderMin.toLocaleString()}</span>
-              <span>Asking: ${property.askingPrice.toLocaleString()}</span>
+              <span>
+                {property.askingPrice
+                  ? `Asking: $${property.askingPrice.toLocaleString()}`
+                  : `Est. Value: $${basePrice.toLocaleString()}`}
+              </span>
               <span>${sliderMax.toLocaleString()}</span>
             </div>
           </div>

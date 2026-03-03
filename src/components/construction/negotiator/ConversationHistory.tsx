@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { History, ChevronDown, ChevronUp, Trash2 } from 'lucide-react';
+import { History, ChevronDown, ChevronUp, Trash2, Phone } from 'lucide-react';
 import VoiceTranscript from './VoiceTranscript';
 import type { StoredConversation } from '@/utils/conversationStore';
 import { getConversations, deleteConversation } from '@/utils/conversationStore';
@@ -13,7 +13,11 @@ const SENTIMENT_COLORS: Record<string, string> = {
   negative: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
 };
 
-const ConversationHistory = () => {
+interface ConversationHistoryProps {
+  onCallAgain?: (conversation: StoredConversation) => void;
+}
+
+const ConversationHistory = ({ onCallAgain }: ConversationHistoryProps) => {
   const [conversations, setConversations] = useState<StoredConversation[]>([]);
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
@@ -151,15 +155,25 @@ const ConversationHistory = () => {
                   </div>
                 </details>
 
-                {/* Delete button */}
-                <div className="pt-2 border-t border-gray-100 dark:border-gray-800">
+                {/* Actions */}
+                <div className="pt-2 border-t border-gray-100 dark:border-gray-800 flex items-center gap-2">
+                  {onCallAgain && conv.property && conv.report && (
+                    <Button
+                      variant="default"
+                      size="sm"
+                      onClick={() => onCallAgain(conv)}
+                      className="gap-1.5 text-xs"
+                    >
+                      <Phone size={12} /> Call Again
+                    </Button>
+                  )}
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() => handleDelete(conv.id)}
                     className="text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/20 gap-1.5 text-xs"
                   >
-                    <Trash2 size={12} /> Delete conversation
+                    <Trash2 size={12} /> Delete
                   </Button>
                 </div>
               </div>
