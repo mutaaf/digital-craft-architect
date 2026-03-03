@@ -57,4 +57,5 @@ export interface VoiceCallConfig {
   sellerPhone?: string;
   sellerName?: string;
   companyName: string;
+  promptOverride?: string;
 }
