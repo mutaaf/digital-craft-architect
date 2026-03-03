@@ -32,12 +32,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       },
       voice: {
         provider: '11labs',
-        voiceId: voiceId || 'paula',
-        stability: 0.2,
-        similarityBoost: 0.8,
-        speed: 0.88,
-        style: 0.5,
+        voiceId: voiceId || '21m00Tcm4TlvDq8ikWAM', // Rachel — warm, natural female
+        model: 'eleven_turbo_v2_5',
+        stability: 0.35,
+        similarityBoost: 0.78,
+        speed: 0.92,
+        style: 0.6,
         useSpeakerBoost: true,
+        optimizeStreamingLatency: 3,
       },
       transcriber: {
         provider: 'deepgram',
