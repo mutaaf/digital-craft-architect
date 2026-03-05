@@ -1,6 +1,33 @@
 {
   "rewrites": [
     { "source": "/api/:path*", "destination": "/api/:path*" },
+    {
+      "source": "/:path(construction|realestate|events)(.*)",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": "(?i)(facebookexternalhit|Twitterbot|LinkedInBot|WhatsApp|Slackbot|TelegramBot|Applebot|Discordbot|Googlebot|bingbot|PetalBot|Bytespider)"
+        },
+        {
+          "type": "query",
+          "key": "site",
+          "value": "(?<site>.+)"
+        }
+      ],
+      "destination": "/api/og?path=/:path$2&site=:site"
+    },
+    {
+      "source": "/:path(construction|realestate|events)(.*)",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": "(?i)(facebookexternalhit|Twitterbot|LinkedInBot|WhatsApp|Slackbot|TelegramBot|Applebot|Discordbot|Googlebot|bingbot|PetalBot|Bytespider)"
+        }
+      ],
+      "destination": "/api/og?path=/:path$2"
+    },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
