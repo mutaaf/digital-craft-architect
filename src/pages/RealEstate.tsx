@@ -460,7 +460,7 @@ const RealEstate: React.FC = () => {
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           <PricingTier
             name="Solo Agent"
-            price="$1,500"
+            price="$1,000"
             description="For individual agents building their brand"
             features={[
               'AI Lead Qualifier chatbot',
@@ -473,7 +473,7 @@ const RealEstate: React.FC = () => {
           />
           <PricingTier
             name="Team"
-            price="$4,000"
+            price="$3,000"
             description="For teams with 3-10 agents"
             features={[
               'Everything in Solo Agent',
@@ -488,7 +488,7 @@ const RealEstate: React.FC = () => {
           />
           <PricingTier
             name="Brokerage"
-            price="$8,000"
+            price="$10,000"
             description="For brokerages and large teams"
             features={[
               'Everything in Team',

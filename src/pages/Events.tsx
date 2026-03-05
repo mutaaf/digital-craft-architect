@@ -459,7 +459,7 @@ const Events: React.FC = () => {
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           <PricingTier
             name="Solo Vendor"
-            price="$1,500"
+            price="$500"
             description="For individual DJs, photographers, and caterers"
             features={[
               'AI Inquiry Qualifier chatbot',
@@ -472,7 +472,7 @@ const Events: React.FC = () => {
           />
           <PricingTier
             name="Growing Team"
-            price="$3,500"
+            price="$1,000"
             description="For event companies with a growing team"
             features={[
               'Everything in Solo Vendor',
@@ -486,7 +486,7 @@ const Events: React.FC = () => {
           />
           <PricingTier
             name="Agency / Multi-Vendor"
-            price="$7,000"
+            price="$2,000"
             description="For agencies and multi-vendor operations"
             features={[
               'Everything in Growing Team',
