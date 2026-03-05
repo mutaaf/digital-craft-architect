@@ -62,9 +62,9 @@ const Navbar: React.FC = () => {
       }`}
     >
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <a href="#" className="text-xl font-semibold text-gray-900 dark:text-white">
+        <Link to="/" className="text-xl font-semibold text-gray-900 dark:text-white">
           Digital<span className="text-skyblue">Craft</span>
-        </a>
+        </Link>
 
         <nav className="hidden md:flex items-center space-x-8">
           {/* Services Dropdown */}

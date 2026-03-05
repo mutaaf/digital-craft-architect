@@ -13,7 +13,7 @@ import type { CompanyProfile } from '@/utils/websiteScraper';
 const VERTICAL_PLACEHOLDERS: Record<Vertical, string> = {
   construction: 'e.g. premierbuilds.com or Premier Builds',
   realestate: 'e.g. luxuryrealty.com or Luxury Realty Group',
-  events: 'e.g. djrubyru.com or Ruby Ru Events',
+  events: 'e.g. eliteeventsco.com or Elite Events Co',
 };
 
 const EDITABLE_FIELDS: { key: keyof CompanyProfile; label: string; type?: string }[] = [
