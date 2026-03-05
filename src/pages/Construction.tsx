@@ -460,7 +460,7 @@ const Construction: React.FC = () => {
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           <PricingTier
             name="Starter"
-            price="$2,000"
+            price="$500"
             description="For solo contractors and small crews"
             features={[
               'AI Lead Responder chatbot',
@@ -473,7 +473,7 @@ const Construction: React.FC = () => {
           />
           <PricingTier
             name="Growth"
-            price="$5,000"
+            price="$1,500"
             description="For growing firms with 5-20 employees"
             features={[
               'Everything in Starter',
@@ -488,7 +488,7 @@ const Construction: React.FC = () => {
           />
           <PricingTier
             name="Scale"
-            price="$10,000"
+            price="$5,000"
             description="For established builders and GCs"
             features={[
               'Everything in Growth',
