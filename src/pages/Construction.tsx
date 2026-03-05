@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useContent } from '@/hooks/useContent';
@@ -205,6 +206,12 @@ const Construction: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
+      <Helmet>
+        <title>AI Systems for Construction Businesses | DigitalCraft AI</title>
+        <meta name="description" content="Interactive AI demos for construction: Lead Responder, Smart Estimates, Review Automation, Deal Analyzer, and Voice Negotiator." />
+        <meta property="og:title" content="AI Systems for Construction Businesses | DigitalCraft AI" />
+        <meta property="og:description" content="Interactive AI demos for construction: Lead Responder, Smart Estimates, Review Automation, Deal Analyzer, and Voice Negotiator." />
+      </Helmet>
       <Navbar />
 
       {/* ─── HERO ─── */}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useContent } from '@/hooks/useContent';
@@ -204,6 +205,12 @@ const Events: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
+      <Helmet>
+        <title>AI Systems for Event Planners | DigitalCraft AI</title>
+        <meta name="description" content="AI-powered booking, proposal generation, and client management for event planning businesses." />
+        <meta property="og:title" content="AI Systems for Event Planners | DigitalCraft AI" />
+        <meta property="og:description" content="AI-powered booking, proposal generation, and client management for event planning businesses." />
+      </Helmet>
       <Navbar />
 
       {/* ─── HERO ─── */}
