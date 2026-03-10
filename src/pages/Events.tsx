@@ -24,7 +24,6 @@ import {
   Sparkles,
 } from 'lucide-react';
 import {
-import { SEOHead } from "../seo-config";
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -206,7 +205,6 @@ const Events: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
-      <SEOHead />
       <Helmet>
         <title>AI Systems for Event Planners | DigitalCraft AI</title>
         <meta name="description" content="AI-powered booking, proposal generation, and client management for event planning businesses." />
