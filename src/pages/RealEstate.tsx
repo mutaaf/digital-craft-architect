@@ -25,7 +25,7 @@ import {
   TrendingUp,
 } from 'lucide-react';
 import {
-import { SEOHead } from "./seo-config";
+import { SEOHead } from "../seo-config";
   Accordion,
   AccordionContent,
   AccordionItem,
