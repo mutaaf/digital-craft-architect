@@ -16,7 +16,7 @@ import ParallaxBackground from '@/components/ParallaxBackground';
 import { Loader2 } from 'lucide-react';
 import { useAnalytics } from '@/utils/analytics';
 import { Helmet } from 'react-helmet-async';
-import { SEOHead } from "./seo-config";
+import { SEOHead } from "../seo-config";
 
 const Index = () => {
   const { content, isLoading, error } = useContent();
