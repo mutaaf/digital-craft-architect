@@ -16,7 +16,6 @@ import ParallaxBackground from '@/components/ParallaxBackground';
 import { Loader2 } from 'lucide-react';
 import { useAnalytics } from '@/utils/analytics';
 import { Helmet } from 'react-helmet-async';
-import { SEOHead } from "../seo-config";
 
 const Index = () => {
   const { content, isLoading, error } = useContent();
@@ -32,7 +31,6 @@ const Index = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-      <SEOHead />
         <div className="text-center">
           <Loader2 size={48} className="animate-spin mx-auto mb-4 text-skyblue" />
           <p className="text-lg text-gray-600">Loading content...</p>
