@@ -25,7 +25,6 @@ import {
   Sparkles,
 } from 'lucide-react';
 import {
-import { SEOHead } from "../seo-config";
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -207,7 +206,6 @@ const Construction: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
-      <SEOHead />
       <Helmet>
         <title>AI Systems for Construction Businesses | DigitalCraft AI</title>
         <meta name="description" content="Interactive AI demos for construction: Lead Responder, Smart Estimates, Review Automation, Deal Analyzer, and Voice Negotiator." />
