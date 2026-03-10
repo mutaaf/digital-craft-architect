@@ -25,7 +25,6 @@ import {
   TrendingUp,
 } from 'lucide-react';
 import {
-import { SEOHead } from "../seo-config";
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -207,7 +206,6 @@ const RealEstate: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
-      <SEOHead />
       <Helmet>
         <title>AI Systems for Real Estate Professionals | DigitalCraft AI</title>
         <meta name="description" content="AI-powered deal analysis, voice negotiation, and lead qualification for real estate investors and agents." />
