@@ -6,16 +6,15 @@
 
 ## ✅ Auto-Fixed in This PR
 
+Everything below is applied automatically — just merge and deploy.
+
 | File | What it does |
 |------|-------------|
 | `public/sitemap.xml` | Lists all 20 routes for search engine discovery |
 | `public/robots.txt` | Allows crawling + references sitemap |
-| `index.html` | Made `og:image` URL absolute |
-| `src/seo-config.tsx` | Per-route SEO meta tags, OG tags, canonical URLs |
-| `package.json` | Added react-helmet-async dependency |
-| 5 page files | Injected \<SEOHead /\> into each route component |
+| `index.html` | Made `og:image` URL absolute, Per-route SEO script (dynamic title, description, OG tags, canonical for all pages) |
 
-After merging, run `npm install` to install the new dependency.
+No code changes or npm installs required. The SEO script runs automatically on every page navigation.
 
 ## 🔴 Critical Issues (11)
 
@@ -185,9 +184,8 @@ These issues significantly hurt your search rankings and should be fixed first.
 | `/month` | 34/100 | 2 errors, 3 warnings |
 | `/sqft` | 34/100 | 2 errors, 3 warnings |
 
-## ⚡ After Merging
+## ⚡ Optional Improvements
 
-- [ ] Run `npm install` to install react-helmet-async
 - [ ] Create a proper OG image (1200x630px) at `public/og-image.png`
 - [ ] Add your social media URLs to the Organization JSON-LD `sameAs` array in index.html
 - [ ] Add more content to thin pages (aim for 300+ words)
