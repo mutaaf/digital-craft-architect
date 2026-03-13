@@ -8,32 +8,37 @@ const OG_DATA: Record<string, { title: string; description: string; image?: stri
     title: 'AI Systems for Construction Businesses | DigitalCraft AI',
     description:
       'Interactive AI demos for construction: Lead Responder, Smart Estimates, Review Automation, Deal Analyzer, and Voice Negotiator.',
-    image: '/lovable-uploads/c148eb9a-a8da-4557-8a7a-7001477fa8d0.png',
+    image: '/og-construction.png',
   },
   '/construction/demo': {
     title: 'Interactive AI Demos for Construction | DigitalCraft AI',
     description:
       'Five working AI proof-of-concepts for construction businesses. Enter your website to see demos personalized to your company.',
+    image: '/og-construction.png',
   },
   '/realestate': {
     title: 'AI Systems for Real Estate Professionals | DigitalCraft AI',
     description:
       'AI-powered deal analysis, voice negotiation, and lead qualification for real estate investors and agents.',
+    image: '/og-realestate.png',
   },
   '/realestate/demo': {
     title: 'Interactive AI Demos for Real Estate | DigitalCraft AI',
     description:
       'Three working AI proof-of-concepts: Deal Analyzer, Voice Negotiator, and Lead Qualifier. See the future of your real estate business.',
+    image: '/og-realestate.png',
   },
   '/events': {
     title: 'AI Systems for Event Planners | DigitalCraft AI',
     description:
       'AI-powered booking, proposal generation, and client management for event planning businesses.',
+    image: '/og-events.png',
   },
   '/events/demo': {
     title: 'Interactive AI Demos for Events | DigitalCraft AI',
     description:
       'Working AI proof-of-concepts for event planners: AI Booking Agent, Proposal Generator, and Lead Qualifier.',
+    image: '/og-events.png',
   },
   '/setupclaw': {
     title: 'SetupClaw — White-Glove AI Assistant Deployment | Dallas, Austin & Remote',
@@ -47,7 +52,7 @@ const DEFAULT_OG = {
   title: 'DigitalCraft AI | AI Automation for Traditional Industries',
   description:
     'We build AI systems for construction, real estate, and event planning businesses. See live demos personalized to your company.',
-  image: '/lovable-uploads/c148eb9a-a8da-4557-8a7a-7001477fa8d0.png',
+  image: '/og-default.png',
 };
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
