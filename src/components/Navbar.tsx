@@ -10,7 +10,11 @@ const VERTICALS = [
   { to: '/setupclaw', label: 'SetupClaw', icon: Server },
 ];
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  darkHero?: boolean;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ darkHero = false }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
@@ -56,6 +60,16 @@ const Navbar: React.FC = () => {
     }
   };
 
+  // When on a dark hero and not yet scrolled, force white text
+  const onDark = darkHero && !isScrolled;
+  const logoClass = onDark
+    ? 'text-xl font-semibold text-white'
+    : 'text-xl font-semibold text-gray-900 dark:text-white';
+  const linkClass = onDark
+    ? 'text-gray-200 hover:text-skyblue transition-colors'
+    : 'text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors';
+  const hamburgerClass = onDark ? 'text-white' : '';
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -63,7 +77,7 @@ const Navbar: React.FC = () => {
       }`}
     >
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <Link to="/" className="text-xl font-semibold text-gray-900 dark:text-white">
+        <Link to="/" className={logoClass}>
           Digital<span className="text-skyblue">Craft</span>
         </Link>
 
@@ -72,7 +86,7 @@ const Navbar: React.FC = () => {
           <div ref={dropdownRef} className="relative">
             <button
               onClick={() => setIsServicesOpen((o) => !o)}
-              className="flex items-center gap-1 text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors"
+              className={`flex items-center gap-1 ${linkClass}`}
             >
               Services
               <ChevronDown size={16} className={`transition-transform ${isServicesOpen ? 'rotate-180' : ''}`} />
@@ -95,9 +109,9 @@ const Navbar: React.FC = () => {
             )}
           </div>
 
-          <a href="#pricing" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors">Pricing</a>
-          <a href="#about" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors">About</a>
-          <a href="#case-studies" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors">Case Studies</a>
+          <a href="#pricing" className={linkClass}>Pricing</a>
+          <a href="#about" className={linkClass}>About</a>
+          <a href="#case-studies" className={linkClass}>Case Studies</a>
           <a
             href="#contact"
             className="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-md transition-colors"
@@ -117,7 +131,7 @@ const Navbar: React.FC = () => {
           >
             Contact
           </button>
-          <button onClick={toggleMenu}>
+          <button onClick={toggleMenu} className={hamburgerClass}>
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
