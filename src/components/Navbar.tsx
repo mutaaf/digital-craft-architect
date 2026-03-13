@@ -1,12 +1,13 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, ChevronDown, HardHat, Building2, PartyPopper } from 'lucide-react';
+import { Menu, X, ChevronDown, HardHat, Building2, PartyPopper, Server } from 'lucide-react';
 
 const VERTICALS = [
   { to: '/construction', label: 'Construction', icon: HardHat },
   { to: '/realestate', label: 'Real Estate', icon: Building2 },
   { to: '/events', label: 'Events', icon: PartyPopper },
+  { to: '/setupclaw', label: 'SetupClaw', icon: Server },
 ];
 
 const Navbar: React.FC = () => {

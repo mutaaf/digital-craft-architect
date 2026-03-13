@@ -19,6 +19,7 @@ import EventsDemoHub from "./pages/events/EventsDemoHub";
 import InquiryQualifier from "./pages/events/InquiryQualifier";
 import ProposalGenerator from "./pages/events/ProposalGenerator";
 import VoiceBookingAgent from "./pages/events/VoiceBookingAgent";
+import SetupClaw from "./pages/SetupClaw";
 import NotFound from "./pages/NotFound";
 import { ErrorBoundary } from "@sentry/react";
 import { captureException } from "./utils/sentry";
@@ -146,6 +147,7 @@ const App = () => (
               <Route path="/events/demo/inquiry" element={<DemoContextProvider vertical="events"><InquiryQualifier /></DemoContextProvider>} />
               <Route path="/events/demo/proposal" element={<DemoContextProvider vertical="events"><ProposalGenerator /></DemoContextProvider>} />
               <Route path="/events/demo/voice-booking" element={<DemoContextProvider vertical="events"><VoiceBookingAgent /></DemoContextProvider>} />
+              <Route path="/setupclaw" element={<SetupClaw />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
