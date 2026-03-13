@@ -39,7 +39,7 @@ const OG_DATA: Record<string, { title: string; description: string; image?: stri
     title: 'SetupClaw — White-Glove AI Assistant Deployment | Dallas, Austin & Remote',
     description:
       'We deploy and maintain your team\'s AI assistant on a Mac Mini — remotely or on-site in DFW and Austin, TX. No technical knowledge required. Starting at $5,000.',
-    image: '/api/og-image?page=setupclaw',
+    image: '/og-setupclaw.png',
   },
 };
 
