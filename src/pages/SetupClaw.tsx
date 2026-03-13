@@ -163,13 +163,13 @@ const SetupClaw: React.FC = () => {
         <meta property="og:url" content="https://digitalcraft.ai/setupclaw" />
         <meta property="og:title" content="SetupClaw — White-Glove AI Assistant Deployment | Dallas, Austin & Remote" />
         <meta property="og:description" content="We deploy and maintain your team's AI assistant on a Mac Mini. Remote worldwide, or on-site in DFW and Austin. No technical knowledge required." />
-        <meta property="og:image" content="/lovable-uploads/c148eb9a-a8da-4557-8a7a-7001477fa8d0.png" />
+        <meta property="og:image" content="/api/og-image?page=setupclaw" />
 
         {/* Twitter */}
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:title" content="SetupClaw — White-Glove AI Assistant Deployment" />
         <meta property="twitter:description" content="We deploy and maintain your team's AI assistant on a Mac Mini. Remote worldwide, or on-site in DFW and Austin, TX." />
-        <meta property="twitter:image" content="/lovable-uploads/c148eb9a-a8da-4557-8a7a-7001477fa8d0.png" />
+        <meta property="twitter:image" content="/api/og-image?page=setupclaw" />
 
         <link rel="canonical" href="https://digitalcraft.ai/setupclaw" />
 
