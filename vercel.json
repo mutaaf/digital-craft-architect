@@ -2,7 +2,7 @@
   "rewrites": [
     { "source": "/api/:path*", "destination": "/api/:path*" },
     {
-      "source": "/:path(construction|realestate|events)(.*)",
+      "source": "/:path(construction|realestate|events|setupclaw)(.*)",
       "has": [
         {
           "type": "header",
@@ -18,7 +18,7 @@
       "destination": "/api/og?path=/:path$2&site=:site"
     },
     {
-      "source": "/:path(construction|realestate|events)(.*)",
+      "source": "/:path(construction|realestate|events|setupclaw)(.*)",
       "has": [
         {
           "type": "header",
