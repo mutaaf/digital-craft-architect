@@ -211,7 +211,7 @@ const SetupClaw: React.FC = () => {
         })}</script>
       </Helmet>
 
-      <Navbar />
+      <Navbar darkHero />
 
       {/* ─── HERO ─── */}
       <section className="pt-24 md:pt-32 pb-16 md:pb-24 bg-gradient-to-br from-gray-950 to-gray-900">
