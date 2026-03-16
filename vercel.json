@@ -28,6 +28,10 @@
       ],
       "destination": "/api/og?path=/:path$2"
     },
+    {
+      "source": "/:path(construction|realestate|events|setupclaw)(.*)",
+      "destination": "/api/og-html?path=/:path$2"
+    },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
