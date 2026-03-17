@@ -26,7 +26,7 @@ import NotFound from "./pages/NotFound";
 import { ErrorBoundary } from "@sentry/react";
 import { captureException } from "./utils/sentry";
 import EasterEgg from "./components/EasterEgg";
-import ExitIntent from "./components/ExitIntent";
+
 import { DemoContextProvider } from "./contexts/DemoContext";
 
 const queryClient = new QueryClient({
@@ -130,7 +130,6 @@ const App = () => (
           <Toaster />
           <Sonner />
           <EasterEgg />
-          <ExitIntent />
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
