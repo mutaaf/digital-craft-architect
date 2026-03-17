@@ -2,7 +2,7 @@
   "rewrites": [
     { "source": "/api/:path*", "destination": "/api/:path*" },
     {
-      "source": "/:path(construction|realestate|events|setupclaw)(.*)",
+      "source": "/:path(construction|realestate|events|setupclaw|blog)(.*)",
       "has": [
         {
           "type": "header",
@@ -18,7 +18,7 @@
       "destination": "/api/og?path=/:path$2&site=:site"
     },
     {
-      "source": "/:path(construction|realestate|events|setupclaw)(.*)",
+      "source": "/:path(construction|realestate|events|setupclaw|blog)(.*)",
       "has": [
         {
           "type": "header",
@@ -29,7 +29,7 @@
       "destination": "/api/og?path=/:path$2"
     },
     {
-      "source": "/:path(construction|realestate|events|setupclaw)(.*)",
+      "source": "/:path(construction|realestate|events|setupclaw|blog)(.*)",
       "destination": "/api/og-html?path=/:path$2"
     },
     { "source": "/(.*)", "destination": "/index.html" }

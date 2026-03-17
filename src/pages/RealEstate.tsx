@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Navbar from '@/components/Navbar';
+import TrustBar from '@/components/TrustBar';
 import Footer from '@/components/Footer';
 import { useContent } from '@/hooks/useContent';
 import { useAnalytics } from '@/utils/analytics';
@@ -211,8 +212,33 @@ const RealEstate: React.FC = () => {
         <meta name="description" content="AI-powered deal analysis, voice negotiation, and lead qualification for real estate investors and agents." />
         <meta property="og:title" content="AI Systems for Real Estate Professionals | DigitalCraft AI" />
         <meta property="og:description" content="AI-powered deal analysis, voice negotiation, and lead qualification for real estate investors and agents." />
+        <link rel="canonical" href="https://digitalcraftai.com/realestate" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "AI Systems for Real Estate Professionals",
+          "description": "AI-powered deal analysis, voice negotiation, and lead qualification for real estate investors and agents.",
+          "provider": {
+            "@type": "Organization",
+            "name": "DigitalCraft AI",
+            "url": "https://digitalcraftai.com"
+          },
+          "areaServed": [
+            { "@type": "City", "name": "Dallas", "containedInPlace": { "@type": "State", "name": "Texas" } },
+            { "@type": "City", "name": "Fort Worth", "containedInPlace": { "@type": "State", "name": "Texas" } },
+            { "@type": "City", "name": "Austin", "containedInPlace": { "@type": "State", "name": "Texas" } },
+            { "@type": "Country", "name": "United States" }
+          ],
+          "serviceType": "AI Automation for Real Estate",
+          "offers": [
+            { "@type": "Offer", "name": "Solo Agent", "price": "1000", "priceCurrency": "USD", "description": "For individual agents building their brand" },
+            { "@type": "Offer", "name": "Team", "price": "3000", "priceCurrency": "USD", "description": "For teams with 3-10 agents" },
+            { "@type": "Offer", "name": "Brokerage", "price": "10000", "priceCurrency": "USD", "description": "For brokerages and large teams" }
+          ]
+        })}</script>
       </Helmet>
       <Navbar />
+      <TrustBar />
 
       {/* ─── HERO ─── */}
       <section className="pt-24 md:pt-32 pb-16 md:pb-24 bg-gradient-to-br from-gray-50 to-emerald-50 dark:from-gray-900 dark:to-gray-800">

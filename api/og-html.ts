@@ -35,6 +35,61 @@ const OG: Record<string, { t: string; d: string; i: string }> = {
     d: 'Working AI proof-of-concepts for event planners: AI Booking Agent, Proposal Generator, and Lead Qualifier.',
     i: '/og-events.png',
   },
+  '/construction/demo/lead-responder': {
+    t: 'AI Lead Responder Demo | DigitalCraft AI',
+    d: 'Chat with an AI lead responder that qualifies construction leads, extracts project details, and books consultations in real time.',
+    i: '/og-construction.png',
+  },
+  '/construction/demo/estimate': {
+    t: 'Smart Estimate Generator Demo | DigitalCraft AI',
+    d: 'Generate branded construction estimates in under 60 seconds using AI-powered pricing.',
+    i: '/og-construction.png',
+  },
+  '/construction/demo/reviews': {
+    t: 'Review Request System Demo | DigitalCraft AI',
+    d: 'Automated SMS review requests that turn completed projects into 5-star Google reviews.',
+    i: '/og-construction.png',
+  },
+  '/construction/demo/property-negotiator': {
+    t: 'AI Deal Analyzer Demo | DigitalCraft AI',
+    d: 'Paste a listing URL or enter property details and get a full negotiation playbook with offer price, strategy, and ROI projection.',
+    i: '/og-construction.png',
+  },
+  '/construction/demo/voice-negotiator': {
+    t: 'AI Voice Negotiator Demo | DigitalCraft AI',
+    d: 'Analyze a property, set your bid range, and let the AI negotiate with the seller by phone with live transcription.',
+    i: '/og-construction.png',
+  },
+  '/realestate/demo/lead-responder': {
+    t: 'AI Lead Qualifier Demo | DigitalCraft AI',
+    d: 'Chat with an AI that qualifies real estate leads, captures property preferences, and schedules showings automatically.',
+    i: '/og-realestate.png',
+  },
+  '/realestate/demo/property-negotiator': {
+    t: 'AI Deal Analyzer Demo | DigitalCraft AI',
+    d: 'Get a full negotiation playbook with comparable sales analysis, offer price, strategy, and ROI projection for any property.',
+    i: '/og-realestate.png',
+  },
+  '/realestate/demo/voice-negotiator': {
+    t: 'AI Voice Negotiator Demo | DigitalCraft AI',
+    d: 'Set your bid range and let the AI call the seller to negotiate on your behalf with live transcription.',
+    i: '/og-realestate.png',
+  },
+  '/events/demo/inquiry': {
+    t: 'AI Inquiry Qualifier Demo | DigitalCraft AI',
+    d: 'AI-powered event inquiry qualification that captures lead details and books consultations automatically.',
+    i: '/og-events.png',
+  },
+  '/events/demo/proposal': {
+    t: 'Smart Proposal Generator Demo | DigitalCraft AI',
+    d: 'Generate branded event proposals in 60 seconds using AI-powered pricing.',
+    i: '/og-events.png',
+  },
+  '/events/demo/voice-booking': {
+    t: 'AI Voice Booking Agent Demo | DigitalCraft AI',
+    d: 'Let the AI call leads to confirm interest, discuss packages, and schedule consultations with live transcription.',
+    i: '/og-events.png',
+  },
   '/setupclaw': {
     t: 'SetupClaw — White-Glove AI Assistant Deployment | Dallas, Austin & Remote',
     d: "We deploy and maintain your team's AI assistant on a Mac Mini — remotely or on-site in DFW and Austin, TX. No technical knowledge required. Starting at $5,000.",

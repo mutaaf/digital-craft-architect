@@ -71,6 +71,26 @@ export const trackEvent = (
   }
 };
 
+/** Track form submissions (SetupClaw, Contact) */
+export const trackFormSubmission = (formName: string, label?: string): void => {
+  trackEvent('form_submission', 'conversion', label || formName);
+};
+
+/** Track CTA clicks (Book a Call, Calendly) */
+export const trackCTAClick = (ctaName: string, location?: string): void => {
+  trackEvent('cta_click', 'engagement', location ? `${ctaName} - ${location}` : ctaName);
+};
+
+/** Track demo card clicks */
+export const trackDemoClick = (demoName: string, vertical: string): void => {
+  trackEvent('demo_click', 'engagement', `${vertical} - ${demoName}`);
+};
+
+/** Track company URL submission (scrape trigger) */
+export const trackCompanyUrlSubmission = (vertical: string): void => {
+  trackEvent('company_url_submit', 'conversion', vertical);
+};
+
 // Initialize simple page view tracking
 export const initPageViewTracking = (): void => {
   // Track initial page load

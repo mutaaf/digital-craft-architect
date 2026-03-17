@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { FormSection } from '@/hooks/useContent';
 import { CheckCircle, Wand2 } from 'lucide-react';
+import { trackFormSubmission } from '@/utils/analytics';
 import { useToast } from '@/hooks/use-toast';
 import { z } from 'zod';
 import {
@@ -135,12 +136,13 @@ const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
         throw new Error(errorData.error || 'Form submission failed');
       }
 
-      // Show success toast and set submitted state
+      trackFormSubmission('contact_form');
+
       toast({
         title: "Success!",
         description: "Your assessment request has been received. We'll be in touch soon.",
       });
-      
+
       setSubmitted(true);
       form.reset();
     } catch (err) {

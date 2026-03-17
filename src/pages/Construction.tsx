@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Navbar from '@/components/Navbar';
+import TrustBar from '@/components/TrustBar';
 import Footer from '@/components/Footer';
 import { useContent } from '@/hooks/useContent';
 import { useAnalytics } from '@/utils/analytics';
@@ -211,8 +212,33 @@ const Construction: React.FC = () => {
         <meta name="description" content="Interactive AI demos for construction: Lead Responder, Smart Estimates, Review Automation, Deal Analyzer, and Voice Negotiator." />
         <meta property="og:title" content="AI Systems for Construction Businesses | DigitalCraft AI" />
         <meta property="og:description" content="Interactive AI demos for construction: Lead Responder, Smart Estimates, Review Automation, Deal Analyzer, and Voice Negotiator." />
+        <link rel="canonical" href="https://digitalcraftai.com/construction" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "AI Systems for Construction Businesses",
+          "description": "AI-powered lead qualification, estimate generation, review automation, deal analysis, and voice negotiation for construction companies.",
+          "provider": {
+            "@type": "Organization",
+            "name": "DigitalCraft AI",
+            "url": "https://digitalcraftai.com"
+          },
+          "areaServed": [
+            { "@type": "City", "name": "Dallas", "containedInPlace": { "@type": "State", "name": "Texas" } },
+            { "@type": "City", "name": "Fort Worth", "containedInPlace": { "@type": "State", "name": "Texas" } },
+            { "@type": "City", "name": "Austin", "containedInPlace": { "@type": "State", "name": "Texas" } },
+            { "@type": "Country", "name": "United States" }
+          ],
+          "serviceType": "AI Automation for Construction",
+          "offers": [
+            { "@type": "Offer", "name": "Starter", "price": "500", "priceCurrency": "USD", "description": "For solo contractors and small crews" },
+            { "@type": "Offer", "name": "Growth", "price": "1500", "priceCurrency": "USD", "description": "For growing firms with 5-20 employees" },
+            { "@type": "Offer", "name": "Scale", "price": "5000", "priceCurrency": "USD", "description": "For established builders and GCs" }
+          ]
+        })}</script>
       </Helmet>
       <Navbar />
+      <TrustBar />
 
       {/* ─── HERO ─── */}
       <section className="pt-24 md:pt-32 pb-16 md:pb-24 bg-gradient-to-br from-gray-50 to-sky-50 dark:from-gray-900 dark:to-gray-800">

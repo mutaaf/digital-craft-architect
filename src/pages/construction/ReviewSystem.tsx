@@ -1,4 +1,5 @@
 import { useState, useCallback, useMemo } from 'react';
+import { Helmet } from 'react-helmet-async';
 import DemoNavbar from '@/components/construction/DemoNavbar';
 import PhoneMockup from '@/components/construction/reviews/PhoneMockup';
 import SMSBubble from '@/components/construction/reviews/SMSBubble';
@@ -99,6 +100,12 @@ const ReviewSystem = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+      <Helmet>
+        <title>Review Request System Demo | DigitalCraft AI</title>
+        <meta name="description" content="Experience automated SMS review requests that turn completed projects into 5-star Google reviews with smart follow-ups." />
+        <meta property="og:title" content="Review Request System Demo | DigitalCraft AI" />
+        <meta property="og:description" content="Automated SMS review requests that turn completed projects into 5-star Google reviews." />
+      </Helmet>
       <DemoNavbar />
 
       <div className="max-w-6xl mx-auto px-4 py-8 sm:py-10">

@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, ChevronDown, HardHat, Building2, PartyPopper, Server } from 'lucide-react';
+import { Menu, X, ChevronDown, HardHat, Building2, PartyPopper, Server, Phone } from 'lucide-react';
 
 const VERTICALS = [
   { to: '/construction', label: 'Construction', icon: HardHat },
@@ -109,8 +109,12 @@ const Navbar: React.FC<NavbarProps> = ({ darkHero = false }) => {
             )}
           </div>
 
+          <a href="tel:+14697734987" className={`flex items-center gap-1 ${linkClass}`}>
+            <Phone size={14} />
+            (469) 773-4987
+          </a>
           <a href="#pricing" className={linkClass}>Pricing</a>
-          <a href="#about" className={linkClass}>About</a>
+          <Link to="/blog" className={linkClass}>Blog</Link>
           <a href="#case-studies" className={linkClass}>Case Studies</a>
           <a
             href="#contact"
@@ -167,7 +171,7 @@ const Navbar: React.FC<NavbarProps> = ({ darkHero = false }) => {
           )}
 
           <a href="#pricing" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors" onClick={toggleMenu}>Pricing</a>
-          <a href="#about" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors" onClick={toggleMenu}>About</a>
+          <Link to="/blog" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors" onClick={toggleMenu}>Blog</Link>
           <a href="#case-studies" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors" onClick={toggleMenu}>Case Studies</a>
         </div>
       </div>

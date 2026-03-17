@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { FooterSection } from '@/hooks/useContent';
-import { Linkedin, Calendar, Github, Twitter } from 'lucide-react';
+import { Linkedin, Calendar, Github, Twitter, Phone } from 'lucide-react';
 
 interface FooterProps {
   data: FooterSection;
@@ -51,6 +51,13 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
             <p className="text-gray-400 text-balance">{data.tagline}</p>
           </div>
           
+          <div className="flex justify-center items-center gap-2 mb-6">
+            <Phone size={16} className="text-gray-400" />
+            <a href="tel:+14697734987" className="text-gray-400 hover:text-skyblue transition-colors">
+              (469) 773-4987
+            </a>
+          </div>
+
           <div className="flex justify-center space-x-6 mb-10">
             {Object.entries(data.socialLinks).map(([key, url]) => (
               <a 

@@ -14,6 +14,8 @@ import {
   ArrowRight,
   Sparkles,
 } from 'lucide-react';
+import { trackDemoClick, trackCTAClick } from '@/utils/analytics';
+import StickyCTA from '@/components/StickyCTA';
 
 const EventsDemoHub = () => {
   const { company, isCustomized, loadFromUrl, isLoading } = useDemoContext();
@@ -100,7 +102,7 @@ const EventsDemoHub = () => {
 
         <div className="grid gap-6">
           {demos.map((d, i) => (
-            <Link key={d.to} to={d.to} className="group animate-slide-up" style={{ animationDelay: `${i * 150}ms`, animationFillMode: 'both' }}>
+            <Link key={d.to} to={d.to} onClick={() => trackDemoClick(d.title, 'events')} className="group animate-slide-up" style={{ animationDelay: `${i * 150}ms`, animationFillMode: 'both' }}>
               <Card className="p-5 sm:p-6 flex flex-col sm:flex-row items-start gap-4 sm:gap-5 transition-all hover:shadow-lg hover:border-primary/30">
                 <div className={`w-14 h-14 rounded-xl flex items-center justify-center shrink-0 ${d.color}`}>
                   {d.icon}
@@ -133,12 +135,13 @@ const EventsDemoHub = () => {
             Ready to see these systems live in your event business?
           </p>
           <Button asChild size="lg" className="gap-2">
-            <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">
+            <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer" onClick={() => trackCTAClick('book_a_call', 'events_demo_hub')}>
               Book a Call with DigitalCraft AI <ArrowRight size={18} />
             </a>
           </Button>
         </div>
       </div>
+      <StickyCTA />
     </div>
   );
 };
