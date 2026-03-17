@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useCallback, useEffect } from 'rea
 import type { ReactNode } from 'react';
 import type { CompanyProfile } from '@/utils/websiteScraper';
 import { scrapeWebsite } from '@/utils/websiteScraper';
+import { trackCompanyUrlSubmission } from '@/utils/analytics';
 
 export type Vertical = 'construction' | 'realestate' | 'events';
 
@@ -55,6 +56,7 @@ export function DemoContextProvider({ vertical = 'construction', children }: { v
     setIsLoading(true);
     setError(null);
     try {
+      trackCompanyUrlSubmission(vertical);
       const profile = await scrapeWebsite(input, vertical);
       setCompany(profile);
     } catch (err) {

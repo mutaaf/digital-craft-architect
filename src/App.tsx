@@ -20,10 +20,13 @@ import InquiryQualifier from "./pages/events/InquiryQualifier";
 import ProposalGenerator from "./pages/events/ProposalGenerator";
 import VoiceBookingAgent from "./pages/events/VoiceBookingAgent";
 import SetupClaw from "./pages/SetupClaw";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 import { ErrorBoundary } from "@sentry/react";
 import { captureException } from "./utils/sentry";
 import EasterEgg from "./components/EasterEgg";
+import ExitIntent from "./components/ExitIntent";
 import { DemoContextProvider } from "./contexts/DemoContext";
 
 const queryClient = new QueryClient({
@@ -127,6 +130,7 @@ const App = () => (
           <Toaster />
           <Sonner />
           <EasterEgg />
+          <ExitIntent />
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
@@ -148,6 +152,8 @@ const App = () => (
               <Route path="/events/demo/proposal" element={<DemoContextProvider vertical="events"><ProposalGenerator /></DemoContextProvider>} />
               <Route path="/events/demo/voice-booking" element={<DemoContextProvider vertical="events"><VoiceBookingAgent /></DemoContextProvider>} />
               <Route path="/setupclaw" element={<SetupClaw />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

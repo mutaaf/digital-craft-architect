@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Navbar from '@/components/Navbar';
+import TrustBar from '@/components/TrustBar';
 import Footer from '@/components/Footer';
 import { useContent } from '@/hooks/useContent';
 import { useAnalytics } from '@/utils/analytics';
@@ -210,8 +211,33 @@ const Events: React.FC = () => {
         <meta name="description" content="AI-powered booking, proposal generation, and client management for event planning businesses." />
         <meta property="og:title" content="AI Systems for Event Planners | DigitalCraft AI" />
         <meta property="og:description" content="AI-powered booking, proposal generation, and client management for event planning businesses." />
+        <link rel="canonical" href="https://digitalcraftai.com/events" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "AI Systems for Event Planners",
+          "description": "AI-powered booking, proposal generation, and client management for event planning businesses.",
+          "provider": {
+            "@type": "Organization",
+            "name": "DigitalCraft AI",
+            "url": "https://digitalcraftai.com"
+          },
+          "areaServed": [
+            { "@type": "City", "name": "Dallas", "containedInPlace": { "@type": "State", "name": "Texas" } },
+            { "@type": "City", "name": "Fort Worth", "containedInPlace": { "@type": "State", "name": "Texas" } },
+            { "@type": "City", "name": "Austin", "containedInPlace": { "@type": "State", "name": "Texas" } },
+            { "@type": "Country", "name": "United States" }
+          ],
+          "serviceType": "AI Automation for Event Planning",
+          "offers": [
+            { "@type": "Offer", "name": "Solo Vendor", "price": "500", "priceCurrency": "USD", "description": "For individual DJs, photographers, and caterers" },
+            { "@type": "Offer", "name": "Growing Team", "price": "1000", "priceCurrency": "USD", "description": "For event companies with a growing team" },
+            { "@type": "Offer", "name": "Agency / Multi-Vendor", "price": "2000", "priceCurrency": "USD", "description": "For agencies and multi-vendor operations" }
+          ]
+        })}</script>
       </Helmet>
       <Navbar />
+      <TrustBar />
 
       {/* ─── HERO ─── */}
       <section className="pt-24 md:pt-32 pb-16 md:pb-24 bg-gradient-to-br from-violet-50 to-gray-50 dark:from-gray-900 dark:to-gray-800">

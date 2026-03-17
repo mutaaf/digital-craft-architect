@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Navbar from '@/components/Navbar';
+import TrustBar from '@/components/TrustBar';
 import Footer from '@/components/Footer';
 import { useContent } from '@/hooks/useContent';
-import { useAnalytics } from '@/utils/analytics';
+import { useAnalytics, trackFormSubmission, trackCTAClick } from '@/utils/analytics';
 import {
   Check,
   Shield,
@@ -134,6 +135,7 @@ const SetupClaw: React.FC = () => {
         }),
       });
       if (response.ok) {
+        trackFormSubmission('setupclaw_signup', formData.location);
         setSubmitted(true);
         setFormData({ name: '', email: '', phone: '', company: '', teamSize: '', location: 'remote', message: '' });
       }
@@ -212,6 +214,7 @@ const SetupClaw: React.FC = () => {
       </Helmet>
 
       <Navbar darkHero />
+      <TrustBar />
 
       {/* ─── HERO ─── */}
       <section className="pt-24 md:pt-32 pb-16 md:pb-24 bg-gradient-to-br from-gray-950 to-gray-900">
@@ -256,6 +259,7 @@ const SetupClaw: React.FC = () => {
                 href="https://calendly.com/mutaaf"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackCTAClick('book_a_call', 'setupclaw_hero')}
                 className="inline-flex items-center justify-center gap-2 text-lg px-8 py-4 rounded-lg border border-gray-600 text-gray-300 hover:bg-gray-800 transition-colors"
               >
                 Book a Call <ChevronRight size={20} />

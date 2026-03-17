@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
+import { Helmet } from 'react-helmet-async';
 import DemoNavbar from '@/components/construction/DemoNavbar';
 import ChatBubble from '@/components/construction/chat/ChatBubble';
 import ChatInput from '@/components/construction/chat/ChatInput';
@@ -176,6 +177,12 @@ const LeadResponder = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col">
+      <Helmet>
+        <title>AI Lead Responder Demo | DigitalCraft AI</title>
+        <meta name="description" content="Chat with an AI lead responder that qualifies construction leads, extracts project details, and books consultations in real time using GPT-4o." />
+        <meta property="og:title" content="AI Lead Responder Demo | DigitalCraft AI" />
+        <meta property="og:description" content="Chat with an AI lead responder that qualifies construction leads, extracts project details, and books consultations in real time." />
+      </Helmet>
       <DemoNavbar />
 
       <div className="flex-1 max-w-6xl mx-auto w-full px-4 py-6 flex flex-col">

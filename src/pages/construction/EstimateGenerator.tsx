@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { Helmet } from 'react-helmet-async';
 import DemoNavbar from '@/components/construction/DemoNavbar';
 import StepIndicator from '@/components/construction/estimate/StepIndicator';
 import ProjectTypeSelector from '@/components/construction/estimate/ProjectTypeSelector';
@@ -85,6 +86,12 @@ const EstimateGenerator = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+      <Helmet>
+        <title>Smart Estimate Generator Demo | DigitalCraft AI</title>
+        <meta name="description" content="Generate branded construction estimates in under 60 seconds. Enter project type and square footage for an instant ballpark estimate." />
+        <meta property="og:title" content="Smart Estimate Generator Demo | DigitalCraft AI" />
+        <meta property="og:description" content="Generate branded construction estimates in under 60 seconds using AI-powered pricing." />
+      </Helmet>
       <DemoNavbar />
 
       <div className="max-w-3xl mx-auto px-4 py-8 sm:py-10">

@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
+import { Helmet } from 'react-helmet-async';
 import DemoNavbar from '@/components/construction/DemoNavbar';
 import ChatBubble from '@/components/construction/chat/ChatBubble';
 import ChatInput from '@/components/construction/chat/ChatInput';
@@ -191,6 +192,12 @@ const InquiryQualifier = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col">
+      <Helmet>
+        <title>AI Inquiry Qualifier Demo | DigitalCraft AI</title>
+        <meta name="description" content="Chat with an AI that qualifies event leads by event type, date, guest count, budget, and style, then auto-books consultations." />
+        <meta property="og:title" content="AI Inquiry Qualifier Demo | DigitalCraft AI" />
+        <meta property="og:description" content="AI-powered event inquiry qualification that captures lead details and books consultations automatically." />
+      </Helmet>
       <DemoNavbar />
 
       <div className="flex-1 max-w-6xl mx-auto w-full px-4 py-6 flex flex-col">
