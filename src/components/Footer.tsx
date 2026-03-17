@@ -53,8 +53,8 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
           
           <div className="flex justify-center items-center gap-2 mb-6">
             <Phone size={16} className="text-gray-400" />
-            <a href="tel:+14697734987" className="text-gray-400 hover:text-skyblue transition-colors">
-              (469) 773-4987
+            <a href="tel:+19723523293" className="text-gray-400 hover:text-skyblue transition-colors">
+              (972) 352-3293
             </a>
           </div>
 
