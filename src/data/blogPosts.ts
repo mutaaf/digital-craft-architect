@@ -1,3 +1,36 @@
+/**
+ * ─── HOW TO ADD A NEW BLOG POST ───
+ *
+ * 1. Copy the template below and paste it at the TOP of the blogPosts array
+ * 2. Fill in all fields — the post will go live on the next deploy
+ * 3. Push to main → Vercel auto-deploys → post is live
+ *
+ * TEMPLATE:
+ * {
+ *   slug: 'your-url-slug',              // URL: /blog/your-url-slug
+ *   title: 'Your Post Title',
+ *   description: 'One-line summary for SEO and link previews.',
+ *   date: '2026-04-01',                 // YYYY-MM-DD
+ *   author: 'DigitalCraft AI',
+ *   readTime: '5 min read',
+ *   tags: ['Tag1', 'Tag2'],
+ *   content: `
+ *     <p>Your HTML content here.</p>
+ *     <h2>Use h2 for sections</h2>
+ *     <h3>Use h3 for subsections</h3>
+ *     <ul><li>Bullet points</li></ul>
+ *     <ol><li>Numbered lists</li></ol>
+ *     <strong>Bold</strong>, <em>italic</em>
+ *   `,
+ * },
+ *
+ * NOTES:
+ * - Posts display in array order (first = newest at top)
+ * - slug must be unique and URL-safe (lowercase, hyphens, no spaces)
+ * - content is raw HTML — use <p>, <h2>, <h3>, <ul>, <ol>, <strong>, <em>
+ * - After adding, also add the URL to public/sitemap.xml (optional but good for SEO)
+ */
+
 export interface BlogPost {
   slug: string;
   title: string;
