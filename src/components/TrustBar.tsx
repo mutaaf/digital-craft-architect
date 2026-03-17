@@ -14,8 +14,8 @@ const TrustBar: React.FC = () => (
       </span>
       <span className="inline-flex items-center gap-1.5">
         <Phone size={14} className="text-primary shrink-0" />
-        <a href="tel:+14697734987" className="hover:text-primary transition-colors">
-          (469) 773-4987
+        <a href="tel:+19723523293" className="hover:text-primary transition-colors">
+          (972) 352-3293
         </a>
       </span>
     </div>

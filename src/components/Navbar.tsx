@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, ChevronDown, HardHat, Building2, PartyPopper, Server, Phone } from 'lucide-react';
+import { Menu, X, ChevronDown, HardHat, Building2, PartyPopper, Server } from 'lucide-react';
 
 const VERTICALS = [
   { to: '/construction', label: 'Construction', icon: HardHat },
@@ -111,10 +111,6 @@ const Navbar: React.FC<NavbarProps> = ({ darkHero = false }) => {
 
           <a href="#pricing" className={linkClass}>Pricing</a>
           <Link to="/blog" className={linkClass}>Blog</Link>
-          <a href="tel:+14697734987" className={`flex items-center gap-1 text-sm ${linkClass}`}>
-            <Phone size={14} />
-            (469) 773-4987
-          </a>
           <a
             href="#contact"
             className="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-md transition-colors"
@@ -171,10 +167,6 @@ const Navbar: React.FC<NavbarProps> = ({ darkHero = false }) => {
 
           <a href="#pricing" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors" onClick={toggleMenu}>Pricing</a>
           <Link to="/blog" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors" onClick={toggleMenu}>Blog</Link>
-          <a href="tel:+14697734987" className="flex items-center gap-1.5 text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors" onClick={toggleMenu}>
-            <Phone size={14} />
-            (469) 773-4987
-          </a>
         </div>
       </div>
     </header>
