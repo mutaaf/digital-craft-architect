@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Navbar from '@/components/Navbar';
-import TrustBar from '@/components/TrustBar';
 import Footer from '@/components/Footer';
 import { useContent } from '@/hooks/useContent';
 import { useAnalytics, trackFormSubmission, trackCTAClick } from '@/utils/analytics';
@@ -214,7 +213,6 @@ const SetupClaw: React.FC = () => {
       </Helmet>
 
       <Navbar darkHero />
-      <TrustBar />
 
       {/* ─── HERO ─── */}
       <section className="pt-24 md:pt-32 pb-16 md:pb-24 bg-gradient-to-br from-gray-950 to-gray-900">
