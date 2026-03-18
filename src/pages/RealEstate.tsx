@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Navbar from '@/components/Navbar';
-import TrustBar from '@/components/TrustBar';
 import Footer from '@/components/Footer';
 import { useContent } from '@/hooks/useContent';
 import { useAnalytics } from '@/utils/analytics';
@@ -238,7 +237,6 @@ const RealEstate: React.FC = () => {
         })}</script>
       </Helmet>
       <Navbar />
-      <TrustBar />
 
       {/* ─── HERO ─── */}
       <section className="pt-24 md:pt-32 pb-16 md:pb-24 bg-gradient-to-br from-gray-50 to-emerald-50 dark:from-gray-900 dark:to-gray-800">
