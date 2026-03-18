@@ -45,6 +45,73 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'automated-review-requests-local-business',
+    title: 'Why Your Best Customers Never Leave Reviews (And How to Fix It)',
+    description: 'Most local businesses leave dozens of 5-star reviews uncollected each month. A two-message SMS automation is all it takes to change that.',
+    date: '2026-03-18',
+    author: 'DigitalCraft AI',
+    readTime: '5 min read',
+    tags: ['Review Management', 'Automation', 'Local Business', 'SMS'],
+    content: `
+<p>Ask any local business owner what their biggest frustration is, and reviews come up almost every time. Not bad reviews. The absence of reviews. Happy customers who say nothing publicly while one unhappy customer writes a paragraph.</p>
+
+<p>The problem isn't that satisfied customers don't want to help you. It's that leaving a review requires them to remember, find the right link, and follow through all on their own. Most don't. A simple automated follow-up changes that entirely.</p>
+
+<h2>The Gap Between Happy Customers and Published Reviews</h2>
+
+<p>BrightLocal's research consistently shows that <strong>77% of consumers will leave a review if asked directly</strong>. But fewer than 20% of local businesses ever ask. The result is a massive gap between the goodwill customers feel and the public record of it.</p>
+
+<p>A plumber who fixes an emergency pipe burst at 8pm on a Sunday earns genuine gratitude. That customer fully intends to leave a review. By Thursday, life has moved on and the moment is gone.</p>
+
+<h2>How Automated Review Requests Work</h2>
+
+<p>The mechanics are straightforward. When a job is marked complete in your system, an SMS goes out to the customer within the hour. It's short, personal, and includes a direct link to your Google Business profile. One tap and they're on the review page.</p>
+
+<p>If they don't respond, a follow-up goes out 3 to 4 days later with a softer nudge. Two messages total. After that, the sequence stops.</p>
+
+<p>That's the entire system. No complex logic, no branching workflows. Just the right message at the right time with no friction in the path.</p>
+
+<h3>Why Timing Matters</h3>
+
+<p>A review request sent within 60 minutes of service completion converts at roughly three times the rate of one sent the next day. The experience is fresh, the emotion is present, and the customer hasn't mentally filed the interaction away yet.</p>
+
+<p>Manual follow-ups fail not because business owners don't care, but because the timing window is easy to miss when you're running a business. Automation hits the window every single time.</p>
+
+<h3>Filtering Before You Send</h3>
+
+<p>One critical safeguard: your team needs a way to flag customers who should not receive a review request. A difficult job, a billing dispute, or an unresolved complaint means the review flow should be skipped entirely.</p>
+
+<p>This isn't censorship. It's good judgment. The goal is to hear from happy customers, not to silence unhappy ones. If there's an issue, address it directly before asking for a public review.</p>
+
+<h2>The Compound Effect on Local Search</h2>
+
+<p>Google uses review count, recency, and rating as local ranking signals. A plumbing company with 200 reviews from the past 12 months will consistently outrank a competitor with 40 reviews from 3 years ago, even if both have 4.8-star averages.</p>
+
+<p>The math compounds quickly. At 15 new reviews per month, you have 180 fresh reviews by year end. After two years, your review volume becomes a competitive moat that's genuinely hard for competitors to close.</p>
+
+<h2>What This Looks Like by Vertical</h2>
+
+<p>The trigger point varies by business type, but the system works the same way across industries:</p>
+
+<ul>
+<li><strong>HVAC and plumbing:</strong> send after job completion is confirmed in dispatch software</li>
+<li><strong>Dental practices:</strong> send 2 hours after checkout when the appointment record is finalized</li>
+<li><strong>Personal trainers and gyms:</strong> send after a first session or a milestone check-in</li>
+<li><strong>Accountants:</strong> send once tax filings or monthly reports are delivered</li>
+<li><strong>Remodeling contractors:</strong> send on the day of final walkthrough</li>
+<li><strong>Insurance agents:</strong> send after a successful claims resolution or policy placement</li>
+</ul>
+
+<p>In every case, the message is brief. Something like: "Hi Sarah, glad we could help today. If you have a minute, a Google review would mean a lot to us. [direct link]"</p>
+
+<h2>Getting Started Without Overthinking It</h2>
+
+<p>The manual version proves the concept in a week. After every completed job, text the customer directly from your phone with a link to your Google profile. Track how many respond. Most businesses that test this manually see 3 to 5 new reviews within 10 days and immediately want to automate it.</p>
+
+<p>Our review management demo shows the automated version in action, personalized to your company. You can see exactly what the message looks like and how the flow runs, all with your own branding.</p>
+`,
+  },
+  {
     slug: 'ai-voice-calls-service-businesses',
     title: 'The AI Phone Call That Books Appointments While You Sleep',
     description: 'Service businesses are using AI voice agents to handle inbound calls, qualify leads, and book appointments around the clock without adding staff.',
