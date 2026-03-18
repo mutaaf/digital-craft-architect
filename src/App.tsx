@@ -26,6 +26,7 @@ import NotFound from "./pages/NotFound";
 import { ErrorBoundary } from "@sentry/react";
 import { captureException } from "./utils/sentry";
 import EasterEgg from "./components/EasterEgg";
+import { Analytics } from "@vercel/analytics/react";
 
 import { DemoContextProvider } from "./contexts/DemoContext";
 
@@ -129,6 +130,7 @@ const App = () => (
         <TooltipProvider>
           <Toaster />
           <Sonner />
+          <Analytics />
           <EasterEgg />
           <BrowserRouter>
             <Routes>
