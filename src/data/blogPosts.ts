@@ -45,6 +45,56 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'ai-lead-follow-up-insurance-agents',
+    title: 'How Insurance Agents Close More Policies With AI',
+    description: 'Insurance agents who reach out within 5 minutes of a lead inquiry win far more deals. Here is how AI makes that possible automatically.',
+    date: '2026-04-08',
+    author: 'DigitalCraft AI',
+    readTime: '4 min read',
+    tags: ['Insurance', 'Lead Follow-Up', 'AI Automation', 'Voice AI'],
+    content: `<p>If you are an insurance agent, you already know the drill. A lead submits a quote request at 9:47 PM and the next morning you call back at 8:30 AM, only to hear they went with someone else the night before.</p>
+
+<p>Speed to lead is the whole game. Agents who reach out within 5 minutes of an inquiry are <strong>4 to 5 times more likely to qualify that lead</strong> than those who wait 30 minutes. Most agencies simply cannot staff for that window.</p>
+
+<h2>The Problem With Calling Back Later</h2>
+
+<p>Insurance leads are not loyal. When someone searches for a home or life insurance quote, they often submit 3 to 5 requests at once. Whoever calls first usually wins the conversation. Waiting until the next business day means competing with agents who already built rapport.</p>
+
+<p>Hiring more staff is not a clean answer either. A full-time lead responder costs $40,000 to $60,000 per year, and they still cannot work nights and weekends. AI can.</p>
+
+<h2>What AI Actually Does for Insurance Agents</h2>
+
+<p>A properly configured AI system handles first contact automatically. A lead comes in through your website, a third-party aggregator, or a social media ad. Within 60 seconds, an AI voice agent calls them.</p>
+
+<p>The call sounds natural. It introduces itself as calling on behalf of your agency, asks a few qualifying questions about coverage type, current insurer, and what prompted the search. Then it either books an appointment directly into your calendar or flags the lead as not a fit. You only spend time on the calls worth taking.</p>
+
+<h2>Numbers From Real Agent Workflows</h2>
+
+<p>Agencies using AI for initial lead outreach report that <strong>40 to 60 percent of leads that went cold</strong> actually respond when contacted by an AI voice agent within minutes of submitting. The contact rate for human agents calling those same leads hours later drops below 15 percent.</p>
+
+<p>One property and casualty agency running this setup handled 200 inbound leads per month with no additional staff. The AI handled first contact on all of them, booked 60 appointments, and the agents only showed up to those calls prepared to close.</p>
+
+<h2>Lead Qualification, Not Just Lead Response</h2>
+
+<p>Not every lead deserves a slot on your calendar. Someone shopping purely on price, someone locked into a contract for 9 more months, or someone outside your service area should be filtered out before they reach you.</p>
+
+<p>An AI chat or voice agent can ask those questions upfront, score the lead, and only route qualified prospects to a human. That alone saves agents 5 to 10 hours a week spent on calls that were never going to close.</p>
+
+<h2>Reviews: The Part Most Agents Skip</h2>
+
+<p>Insurance is a trust business. When someone is comparing two agents, they look at reviews. A few detailed 5-star reviews mentioning claims support and quick response times can be the deciding factor.</p>
+
+<p>An AI system can automatically send a review request by text or email after a policy is bound or renewed. Agents who add this step typically go from 8 or 10 reviews to 40 or 50 within a few months, just from satisfied clients who never thought to leave one on their own.</p>
+
+<h2>Getting Started Without Rebuilding Your Workflow</h2>
+
+<p>The starting point is connecting AI to your inbound lead source. Whether that is your website contact form, a Zapier integration, or a lead vendor like EverQuote or Hometown Quotes, the connection is usually straightforward.</p>
+
+<p>From there, AI handles first contact. You handle the relationships. That is the division of labor that actually scales without burning through payroll or burning out your team.</p>
+
+<p>If you are running 50 or more leads per month and not using automated first contact, a significant portion of your pipeline is going to whoever picks up the phone first. Right now, that is probably not you.</p>`,
+  },
+  {
     slug: 'ai-estimates-trades-businesses',
     title: 'Faster Estimates, More Jobs: How Trades Use AI to Win More Bids',
     description: 'HVAC companies, plumbers, and electricians are cutting estimate turnaround from days to minutes using AI. Here is what the workflow looks like and why it converts more leads.',
