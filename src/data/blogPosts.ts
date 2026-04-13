@@ -44,10 +44,68 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+    {
+        slug: 'ai-client-intake-law-firms',
+        title: 'How Law Firms Are Using AI to Handle After-Hours Case Inquiries',
+        description: 'Most law firm leads call outside business hours and never call back. AI intake handles first contact, qualifies the case, and books a consultation automatically.',
+        date: '2026-04-13',
+        author: 'DigitalCraft AI',
+        readTime: '5 min read',
+        tags: ['Law Firms', 'Client Intake', 'Voice AI', 'Lead Qualification'],
+        content: `
+        <p>A personal injury call comes in at 9:15 PM on a Friday. Nobody picks up. The caller hears voicemail, hangs up, and calls the next firm they found on Google. By Monday morning, they have already hired someone.</p>
+        
+        <p>This happens dozens of times a month at solo practices and small firms. The leads are real. The timing is just wrong.</p>
+        
+        <h2>Why Legal Intake Is a Race Against the Clock</h2>
+        
+        <p>Legal consumers behave like any other lead. When something happens, they act immediately. A car accident at 7 PM, a business dispute that spills over into a weekend, an employment termination on a Friday afternoon. The urgency is highest at the moment they reach out.</p>
+        
+        <p>Research from legal intake specialists consistently shows that <strong>law firms that respond within 5 minutes are 3 to 4 times more likely to sign the case</strong> versus those that call back the next business day. The problem is that most firms cannot realistically staff for 24-hour response.</p>
+        
+        <h2>What AI Intake Actually Looks Like</h2>
+        
+        <p>An AI voice agent picks up the call at any hour. It introduces itself as the intake coordinator for your firm, gathers the basic facts about the potential case, and determines whether it falls within your practice areas.</p>
+        
+        <p>For a personal injury firm, that means: what happened, when, who was involved, and whether there are obvious liability questions. For a family law practice, it means: what state, what type of matter, and what the client is looking to accomplish. The questions are specific to your firm and your criteria.</p>
+        
+        <p>Qualified leads get a callback booked directly into your calendar. Unqualified leads get a polite response explaining you cannot help them and, if possible, a referral direction. Either way, the caller gets a real response within seconds, not hours.</p>
+        
+        <h2>The Numbers That Make This Work</h2>
+        
+        <p>The average solo practitioner or small firm receives 30 to 80 inbound inquiries per month across phone, web form, and chat. Of those, roughly 40 percent arrive outside business hours. Without any after-hours coverage, that is 12 to 32 potential cases every month that reach voicemail and often do not leave messages.</p>
+        
+        <p>Even converting half of those after-hours calls into consultations changes the economics of running a small practice. One additional retained case per month at a $3,000 average retainer represents $36,000 in annual revenue from leads that were previously unreachable.</p>
+        
+        <h3>Beyond First Contact</h3>
+        
+        <p>AI also handles the follow-up. When a potential client fills out a contact form at midnight, an AI system can send a confirmation text within a minute, follow up with a call the next morning if they have not booked, and send a reminder 24 hours before a scheduled consultation.</p>
+        
+        <p>Most law firms do none of this consistently. The ones that do it with automation report a significant drop in no-show rates and a higher rate of consultations that convert to retained matters.</p>
+        
+        <h2>Handling the Questions That Always Come Up</h2>
+        
+        <p>People calling a law firm often have questions before they will agree to a consultation. Do you charge for initial consultations? Do you handle cases in my county? Do you work on contingency? An AI system can answer these questions accurately, every time, based on your firm's actual policies.</p>
+        
+        <p>This matters for first impressions. A caller who gets a confident, accurate answer to a basic policy question is far more likely to trust the firm with a more sensitive conversation later.</p>
+        
+        <h2>Compliance and Confidentiality</h2>
+        
+        <p>AI intake tools designed for legal practices are built to avoid creating attorney-client relationships during the screening process. The system collects facts about the situation, not legal advice. Calls are logged and transcribed for your review, and the system does not make any legal conclusions on behalf of your firm.</p>
+        
+        <p>The same confidentiality expectations that apply to your staff apply to the system. Purpose-built legal intake AI handles this correctly by default.</p>
+        
+        <h2>Getting Started</h2>
+        
+        <p>The simplest entry point is after-hours coverage only. Your staff handles calls during business hours as usual. The AI handles everything that comes in after 5 PM and on weekends. This requires no changes to your existing workflow and immediately closes the gap where most firms are losing leads.</p>
+        
+        <p>Our voice AI demo lets you hear what this sounds like for your specific firm. Enter your website URL and listen to an AI intake agent briefed on your practice areas handle a real conversation.</p>
+        `,
+  },
   {
-    slug: 'ai-lead-follow-up-insurance-agents',
-    title: 'How Insurance Agents Close More Policies With AI',
-    description: 'Insurance agents who reach out within 5 minutes of a lead inquiry win far more deals. Here is how AI makes that possible automatically.',
+        slug: 'ai-lead-follow-up-insurance-agents',
+        title: 'How Insurance Agents Close More Policies With AI',
+        description: 'Insurance agents who reach out within 5 minutes of a lead inquiry win far more deals. Here is how AI makes that possible automatically.',
     date: '2026-04-08',
     author: 'DigitalCraft AI',
     readTime: '4 min read',
