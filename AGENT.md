@@ -59,7 +59,7 @@ Status legend: `[ ]` = pending, `[x]` = done, `[~]` = skipped
 
 - [x] UTM-TRACKING: Create `src/utils/utmTracker.ts` that: (1) on import, reads `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term` from `window.location.search` and stores them in `sessionStorage` with `dca_utm_` prefix; (2) exports `getUtmParams()` returning an object of stored UTM values; (3) Update `ContactForm.tsx` and inline forms in Construction.tsx/RealEstate.tsx to include UTM params as hidden fields in the Formspree POST body. *(completed 2026-04-14)*
 
-- [ ] SOCIAL-PROOF-COUNTERS: Create `src/components/SocialProofBar.tsx` — a horizontal bar with 3 animated counters: "50+ Businesses Served", "4.9/5 Client Rating", "10,000+ AI Tasks Automated". Use a simple count-up animation on scroll into view. Add it below the hero section on `src/pages/Index.tsx`, `src/pages/Construction.tsx`, and `src/pages/RealEstate.tsx`. Include `dark:` variants.
+- [x] SOCIAL-PROOF-COUNTERS: Create `src/components/SocialProofBar.tsx` — a horizontal bar with 3 animated counters: "50+ Businesses Served", "4.9/5 Client Rating", "10,000+ AI Tasks Automated". Use a simple count-up animation on scroll into view. Add it below the hero section on `src/pages/Index.tsx`, `src/pages/Construction.tsx`, and `src/pages/RealEstate.tsx`. Include `dark:` variants. *(completed 2026-04-14)*
 
 ### TIER 2 — Engagement + Trust
 

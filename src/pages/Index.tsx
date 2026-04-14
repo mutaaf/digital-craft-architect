@@ -14,6 +14,7 @@ import Footer from '@/components/Footer';
 import AffiliateSection from '@/components/AffiliateSection';
 import ParallaxBackground from '@/components/ParallaxBackground';
 import StickyCTA from '@/components/StickyCTA';
+import SocialProofBar from '@/components/SocialProofBar';
 import { Loader2 } from 'lucide-react';
 import { useAnalytics } from '@/utils/analytics';
 import { Helmet } from 'react-helmet-async';
@@ -93,6 +94,7 @@ const Index = () => {
       )}
       <Navbar />
       <Hero data={content.hero} />
+      <SocialProofBar />
       {content.mvpPromotion?.enabled && <MVPPromotion data={content.mvpPromotion} />}
       <Services 
         data={content.services} 
