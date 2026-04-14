@@ -20,7 +20,6 @@ import {
   Wrench,
   Rocket,
   Check,
-  ChevronRight,
   ArrowRight,
   HardHat,
   Sparkles,
@@ -259,14 +258,6 @@ const Construction: React.FC = () => {
               <div className="flex flex-col sm:flex-row flex-wrap gap-4">
                 <a href="#contact" className="btn-primary inline-flex items-center justify-center gap-2 text-lg">
                   Get Your Free AI Audit <ArrowRight size={20} />
-                </a>
-                <a
-                  href="https://calendly.com/mutaaf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 text-lg px-6 py-3 rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-                >
-                  Book a Call <ChevronRight size={20} />
                 </a>
                 <Link
                   to="/construction/demo"
