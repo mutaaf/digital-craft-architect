@@ -55,7 +55,7 @@ Status legend: `[ ]` = pending, `[x]` = done, `[~]` = skipped
 
 - [x] HERO-CTA-SIMPLIFY: On `src/pages/Construction.tsx` and `src/pages/RealEstate.tsx`, the hero section has 3 competing CTAs (Get Free AI Audit + Book a Call + Try Live Demos). Remove the middle "Book a Call" button to reduce choice paralysis. Keep "Get Your Free AI Audit" as primary and "Try Live Demos" as secondary. *(completed 2026-04-14)*
 
-- [ ] FORM-SUCCESS-NEXT-STEPS: The form success screens in `src/components/ContactForm.tsx` and the inline forms in `src/pages/Construction.tsx` and `src/pages/RealEstate.tsx` are dead ends showing just "Thank You" + "Submit another". Add: (a) "Book your discovery call now" link to Calendly, (b) "Explore our AI demos" link to the relevant demo hub, (c) "Join 50+ businesses we've helped automate" social proof line.
+- [x] FORM-SUCCESS-NEXT-STEPS: The form success screens in `src/components/ContactForm.tsx` and the inline forms in `src/pages/Construction.tsx` and `src/pages/RealEstate.tsx` are dead ends showing just "Thank You" + "Submit another". Add: (a) "Book your discovery call now" link to Calendly, (b) "Explore our AI demos" link to the relevant demo hub, (c) "Join 50+ businesses we've helped automate" social proof line. *(completed 2026-04-14)*
 
 - [ ] UTM-TRACKING: Create `src/utils/utmTracker.ts` that: (1) on import, reads `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term` from `window.location.search` and stores them in `sessionStorage` with `dca_utm_` prefix; (2) exports `getUtmParams()` returning an object of stored UTM values; (3) Update `ContactForm.tsx` and inline forms in Construction.tsx/RealEstate.tsx to include UTM params as hidden fields in the Formspree POST body.
 

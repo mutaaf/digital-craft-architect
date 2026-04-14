@@ -1,8 +1,9 @@
 
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { FormSection } from '@/hooks/useContent';
-import { CheckCircle, Wand2 } from 'lucide-react';
-import { trackFormSubmission } from '@/utils/analytics';
+import { CheckCircle, Wand2, Calendar, Play } from 'lucide-react';
+import { trackFormSubmission, trackCTAClick } from '@/utils/analytics';
 import { useToast } from '@/hooks/use-toast';
 import { z } from 'zod';
 import {
@@ -196,12 +197,38 @@ const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
                 <CheckCircle size={64} />
               </div>
               <h3 className="text-2xl font-bold mb-2">Thank You!</h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-6">
+              <p className="text-gray-600 dark:text-gray-300 mb-4">
                 Your assessment request has been received. I'll be in touch shortly to schedule a call.
               </p>
-              <button 
+
+              <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6">
+                <a
+                  href="https://calendly.com/mutaaf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackCTAClick('book_discovery_call', 'form_success')}
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-sky-500 hover:bg-sky-600 text-white rounded-lg font-medium transition-colors"
+                >
+                  <Calendar size={18} />
+                  Book Your Discovery Call Now
+                </a>
+                <Link
+                  to="/construction/demo"
+                  onClick={() => trackCTAClick('explore_demos', 'form_success')}
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 border border-sky-500 text-sky-500 hover:bg-sky-50 dark:hover:bg-sky-900/20 rounded-lg font-medium transition-colors"
+                >
+                  <Play size={18} />
+                  Explore Our AI Demos
+                </Link>
+              </div>
+
+              <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+                Join 50+ businesses we've helped automate
+              </p>
+
+              <button
                 onClick={resetForm}
-                className="text-sky-500 hover:underline"
+                className="text-sky-500 hover:underline text-sm"
               >
                 Submit another request
               </button>
