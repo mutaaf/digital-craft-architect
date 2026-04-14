@@ -53,7 +53,7 @@ Status legend: `[ ]` = pending, `[x]` = done, `[~]` = skipped
 
 - [x] STICKY-CTA-LANDING: Add the existing `StickyCTA` component (`src/components/StickyCTA.tsx`) to the main landing pages. Import and render `<StickyCTA />` at the bottom of `src/pages/Index.tsx`, `src/pages/Construction.tsx`, `src/pages/RealEstate.tsx`, and `src/pages/Events.tsx`. It's currently only used in demo hub pages. *(completed 2026-04-14)*
 
-- [ ] HERO-CTA-SIMPLIFY: On `src/pages/Construction.tsx` and `src/pages/RealEstate.tsx`, the hero section has 3 competing CTAs (Get Free AI Audit + Book a Call + Try Live Demos). Remove the middle "Book a Call" button to reduce choice paralysis. Keep "Get Your Free AI Audit" as primary and "Try Live Demos" as secondary.
+- [x] HERO-CTA-SIMPLIFY: On `src/pages/Construction.tsx` and `src/pages/RealEstate.tsx`, the hero section has 3 competing CTAs (Get Free AI Audit + Book a Call + Try Live Demos). Remove the middle "Book a Call" button to reduce choice paralysis. Keep "Get Your Free AI Audit" as primary and "Try Live Demos" as secondary. *(completed 2026-04-14)*
 
 - [ ] FORM-SUCCESS-NEXT-STEPS: The form success screens in `src/components/ContactForm.tsx` and the inline forms in `src/pages/Construction.tsx` and `src/pages/RealEstate.tsx` are dead ends showing just "Thank You" + "Submit another". Add: (a) "Book your discovery call now" link to Calendly, (b) "Explore our AI demos" link to the relevant demo hub, (c) "Join 50+ businesses we've helped automate" social proof line.
 
