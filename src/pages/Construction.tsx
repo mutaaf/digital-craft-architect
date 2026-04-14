@@ -5,7 +5,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import StickyCTA from '@/components/StickyCTA';
 import { useContent } from '@/hooks/useContent';
-import { useAnalytics } from '@/utils/analytics';
+import { useAnalytics, trackCTAClick } from '@/utils/analytics';
 import {
   MessageSquare,
   Calculator,
@@ -23,6 +23,8 @@ import {
   ArrowRight,
   HardHat,
   Sparkles,
+  Calendar,
+  Play,
 } from 'lucide-react';
 import {
   Accordion,
@@ -617,13 +619,39 @@ const Construction: React.FC = () => {
                   <Check size={32} className="text-green-500" />
                 </div>
                 <h3 className="text-2xl font-bold mb-2">We Got It!</h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-6">
+                <p className="text-gray-600 dark:text-gray-300 mb-4">
                   We'll review your info and reach out within 24 hours to schedule your free AI
                   audit.
                 </p>
+
+                <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6">
+                  <a
+                    href="https://calendly.com/mutaaf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackCTAClick('book_discovery_call', 'construction_form_success')}
+                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-primary hover:bg-primary/90 text-white rounded-lg font-medium transition-colors"
+                  >
+                    <Calendar size={18} />
+                    Book Your Discovery Call Now
+                  </a>
+                  <Link
+                    to="/construction/demo"
+                    onClick={() => trackCTAClick('explore_demos', 'construction_form_success')}
+                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 border border-primary text-primary hover:bg-primary/5 dark:hover:bg-primary/10 rounded-lg font-medium transition-colors"
+                  >
+                    <Play size={18} />
+                    Explore Our AI Demos
+                  </Link>
+                </div>
+
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+                  Join 50+ businesses we've helped automate
+                </p>
+
                 <button
                   onClick={() => setSubmitted(false)}
-                  className="text-primary hover:underline"
+                  className="text-primary hover:underline text-sm"
                 >
                   Submit another request
                 </button>
