@@ -63,7 +63,7 @@ Status legend: `[ ]` = pending, `[x]` = done, `[~]` = skipped
 
 ### TIER 2 — Engagement + Trust
 
-- [ ] CTA-AFTER-TESTIMONIALS: In `src/pages/Index.tsx`, after the `<TestimonialCarousel />` (or `<Testimonials />`) component, add a centered CTA section: heading "Ready to See Results Like These?", subtext "Book a free discovery call and we'll show you what AI can do for your business.", button "Book Your Free Call" linking to Calendly. Track with `trackCTAClick('book_a_call', 'after_testimonials')`.
+- [x] CTA-AFTER-TESTIMONIALS: In `src/pages/Index.tsx`, after the `<TestimonialCarousel />` (or `<Testimonials />`) component, add a centered CTA section: heading "Ready to See Results Like These?", subtext "Book a free discovery call and we'll show you what AI can do for your business.", button "Book Your Free Call" linking to Calendly. Track with `trackCTAClick('book_a_call', 'after_testimonials')`. *(completed 2026-04-14)*
 
 - [ ] CTA-AFTER-CASESTUDIES: In `src/pages/Index.tsx`, after the `<CaseStudies />` component, add a CTA section: heading "Want Results Like These for Your Business?", button "Get Your Free AI Audit" that scrolls to `#contact`. Track with `trackCTAClick('get_ai_audit', 'after_casestudies')`.
 
