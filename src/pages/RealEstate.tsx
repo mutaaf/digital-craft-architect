@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import StickyCTA from '@/components/StickyCTA';
 import { useContent } from '@/hooks/useContent';
 import { useAnalytics } from '@/utils/analytics';
 import {
@@ -708,6 +709,7 @@ const RealEstate: React.FC = () => {
 
       {/* ─── FOOTER ─── */}
       {content?.footer && <Footer data={content.footer} />}
+      <StickyCTA />
     </div>
   );
 };

@@ -13,6 +13,7 @@ import ContactForm from '@/components/ContactForm';
 import Footer from '@/components/Footer';
 import AffiliateSection from '@/components/AffiliateSection';
 import ParallaxBackground from '@/components/ParallaxBackground';
+import StickyCTA from '@/components/StickyCTA';
 import { Loader2 } from 'lucide-react';
 import { useAnalytics } from '@/utils/analytics';
 import { Helmet } from 'react-helmet-async';
@@ -107,6 +108,7 @@ const Index = () => {
       {content.affiliates && <AffiliateSection data={content.affiliates} />}
       <ContactForm data={content.form} />
       <Footer data={content.footer} />
+      <StickyCTA />
     </ParallaxBackground>
   );
 };
