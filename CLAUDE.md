@@ -203,3 +203,13 @@ npm run lint         # ESLint catches code quality issues
 4. CRM integration for lead data export
 5. Multi-language voice support
 6. Call recording playback in conversation history
+
+---
+
+## Autonomous GTM Agent
+
+This project has an autonomous innovation agent that runs hourly to make conversion-optimized improvements. See [AGENT.md](./AGENT.md) for the prioritized backlog and agent instructions.
+
+- The agent tracks progress by checking off items in AGENT.md
+- Commit messages from the agent follow the format: `gtm(TASK-ID): description`
+- Safety: every commit must pass `npm run build`, agent never touches `/api/` or dependencies
