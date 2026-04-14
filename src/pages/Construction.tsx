@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import StickyCTA from '@/components/StickyCTA';
+import SocialProofBar from '@/components/SocialProofBar';
 import { useContent } from '@/hooks/useContent';
 import { useAnalytics, trackCTAClick } from '@/utils/analytics';
 import { getUtmParams } from '@/utils/utmTracker';
@@ -284,6 +285,8 @@ const Construction: React.FC = () => {
           </div>
         </div>
       </section>
+
+      <SocialProofBar />
 
       {/* ─── PAIN POINTS ─── */}
       <section className="container-section">
