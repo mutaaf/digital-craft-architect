@@ -14,6 +14,7 @@ import Footer from '@/components/Footer';
 import AffiliateSection from '@/components/AffiliateSection';
 import ParallaxBackground from '@/components/ParallaxBackground';
 import StickyCTA from '@/components/StickyCTA';
+import ExitIntentPopup from '@/components/ExitIntentPopup';
 import SocialProofBar from '@/components/SocialProofBar';
 import { Loader2, ArrowRight } from 'lucide-react';
 import { useAnalytics, trackCTAClick } from '@/utils/analytics';
@@ -149,6 +150,7 @@ const Index = () => {
       <ContactForm data={content.form} />
       <Footer data={content.footer} />
       <StickyCTA />
+      <ExitIntentPopup />
     </ParallaxBackground>
   );
 };
