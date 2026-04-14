@@ -15,8 +15,8 @@ import AffiliateSection from '@/components/AffiliateSection';
 import ParallaxBackground from '@/components/ParallaxBackground';
 import StickyCTA from '@/components/StickyCTA';
 import SocialProofBar from '@/components/SocialProofBar';
-import { Loader2 } from 'lucide-react';
-import { useAnalytics } from '@/utils/analytics';
+import { Loader2, ArrowRight } from 'lucide-react';
+import { useAnalytics, trackCTAClick } from '@/utils/analytics';
 import { Helmet } from 'react-helmet-async';
 
 const Index = () => {
@@ -103,10 +103,30 @@ const Index = () => {
       {content.pricingTiers && <PricingTiers data={content.pricingTiers} />}
       <Founder data={content.founder} />
       <CaseStudies data={content.caseStudies} />
-      <Testimonials 
-        data={content.testimonials} 
+      <Testimonials
+        data={content.testimonials}
         carouselConfig={uiConfig?.carouselItemsPerView}
       />
+      {/* CTA after testimonials */}
+      <section className="py-16 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900">
+        <div className="container mx-auto px-4 text-center max-w-2xl">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            Ready to See Results Like These?
+          </h2>
+          <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
+            Book a free discovery call and we'll show you what AI can do for your business.
+          </p>
+          <a
+            href="https://calendly.com/mutaaf"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackCTAClick('book_a_call', 'after_testimonials')}
+            className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white text-lg px-8 py-4 rounded-lg font-semibold transition-colors"
+          >
+            Book Your Free Call <ArrowRight size={20} />
+          </a>
+        </div>
+      </section>
       {content.affiliates && <AffiliateSection data={content.affiliates} />}
       <ContactForm data={content.form} />
       <Footer data={content.footer} />
