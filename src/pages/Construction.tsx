@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import StickyCTA from '@/components/StickyCTA';
+import ExitIntentPopup from '@/components/ExitIntentPopup';
 import SocialProofBar from '@/components/SocialProofBar';
 import { useContent } from '@/hooks/useContent';
 import { useAnalytics, trackCTAClick } from '@/utils/analytics';
@@ -734,6 +735,7 @@ const Construction: React.FC = () => {
       {/* ─── FOOTER ─── */}
       {content?.footer && <Footer data={content.footer} />}
       <StickyCTA />
+      <ExitIntentPopup />
     </div>
   );
 };
