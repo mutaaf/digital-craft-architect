@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 import { initSentry } from './utils/sentry'
+import './utils/utmTracker'
 
 // Initialize Sentry with the provided DSN
 initSentry(

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FormSection } from '@/hooks/useContent';
 import { CheckCircle, Wand2, Calendar, Play } from 'lucide-react';
 import { trackFormSubmission, trackCTAClick } from '@/utils/analytics';
+import { getUtmParams } from '@/utils/utmTracker';
 import { useToast } from '@/hooks/use-toast';
 import { z } from 'zod';
 import {
@@ -129,7 +130,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify({ ...values, ...getUtmParams() }),
       });
 
       if (!response.ok) {

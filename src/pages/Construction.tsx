@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import StickyCTA from '@/components/StickyCTA';
 import { useContent } from '@/hooks/useContent';
 import { useAnalytics, trackCTAClick } from '@/utils/analytics';
+import { getUtmParams } from '@/utils/utmTracker';
 import {
   MessageSquare,
   Calculator,
@@ -192,6 +193,7 @@ const Construction: React.FC = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
+          ...getUtmParams(),
           _subject: `[Construction Lead] ${formData.company}`,
         }),
       });
