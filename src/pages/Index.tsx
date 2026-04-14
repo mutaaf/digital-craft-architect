@@ -103,6 +103,24 @@ const Index = () => {
       {content.pricingTiers && <PricingTiers data={content.pricingTiers} />}
       <Founder data={content.founder} />
       <CaseStudies data={content.caseStudies} />
+      {/* CTA after case studies */}
+      <section className="py-16 bg-white dark:bg-gray-900">
+        <div className="container mx-auto px-4 text-center max-w-2xl">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            Want Results Like These for Your Business?
+          </h2>
+          <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
+            Tell us about your business and get a free AI automation audit.
+          </p>
+          <a
+            href="#contact"
+            onClick={() => trackCTAClick('get_ai_audit', 'after_casestudies')}
+            className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white text-lg px-8 py-4 rounded-lg font-semibold transition-colors"
+          >
+            Get Your Free AI Audit <ArrowRight size={20} />
+          </a>
+        </div>
+      </section>
       <Testimonials
         data={content.testimonials}
         carouselConfig={uiConfig?.carouselItemsPerView}
