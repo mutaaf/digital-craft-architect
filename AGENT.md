@@ -85,7 +85,7 @@ Status legend: `[ ]` = pending, `[x]` = done, `[~]` = skipped
 
 - [x] BLOG-POST-REALESTATE-SEO: Add a new blog post: "How Real Estate Agents Are Using AI to Close More Deals in 2026". Target keywords: "AI for real estate", "real estate AI tools", "AI deal analysis". Link to `/realestate` and `/realestate/demo`. *(completed 2026-04-15)*
 
-- [ ] BLOG-POST-LEAD-RESPONSE: Add a new blog post: "Why Responding to Leads in Under 60 Seconds Doubles Your Close Rate". Target keywords: "lead response time", "speed to lead", "AI lead qualification". Link to `/construction/demo/lead-responder` and `/realestate/demo/lead-responder`.
+- [x] BLOG-POST-LEAD-RESPONSE: Add a new blog post: "Why Responding to Leads in Under 60 Seconds Doubles Your Close Rate". Target keywords: "lead response time", "speed to lead", "AI lead qualification". Link to `/construction/demo/lead-responder` and `/realestate/demo/lead-responder`. *(completed 2026-04-15)*
 
 - [ ] BLOG-INTERNAL-LINKS: Add a CTA block at the end of each existing blog post's HTML content in `src/data/blogPosts.ts`. Append: a horizontal rule, then a box with "Ready to automate your business?" heading, brief text, and two links — "Book a Free AI Audit" (Calendly) and "Try Our Live Demos" (/construction/demo). Apply to all 9 existing posts.
 
