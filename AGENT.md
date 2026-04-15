@@ -105,7 +105,7 @@ Status legend: `[ ]` = pending, `[x]` = done, `[~]` = skipped
 
 - [x] CONTENT-PHONE-NEAR-FORM: Add a "Prefer to talk? Call us at (972) 352-3293" line near the contact form on all landing pages. The phone number exists in the footer but not near the form where people are deciding whether to reach out. *(completed 2026-04-15)*
 
-- [ ] SITEMAP-UPDATE: Update `public/sitemap.xml` to include all blog post URLs (`/blog/[slug]` for each of the 9+ posts), the events pages, and any missing demo hub URLs. Set appropriate `<changefreq>` and `<priority>` values.
+- [x] SITEMAP-UPDATE: Update `public/sitemap.xml` to include all blog post URLs (`/blog/[slug]` for each of the 9+ posts), the events pages, and any missing demo hub URLs. Set appropriate `<changefreq>` and `<priority>` values. *(completed 2026-04-15)*
 
 - [ ] BLOG-POST-VOICE-AI: Add a new blog post: "AI Voice Negotiation: How It Works and Why Sellers Pick Up the Phone". Target keywords: "AI voice calls", "AI negotiation", "automated cold calling". Link to `/construction/demo/voice-negotiator`.
 
