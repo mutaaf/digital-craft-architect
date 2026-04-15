@@ -119,7 +119,7 @@ const DemoHub = () => {
           <Badge variant="secondary" className="mb-4">
             <Sparkles size={14} className="mr-1" /> Built for {name}
           </Badge>
-          <h1 className="text-3xl sm:text-4xl font-bold mb-3">Interactive POC Demos</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold mb-3">Construction AI Automation Demos</h1>
           <p className="text-base sm:text-lg text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
             Five working proof-of-concepts showing exactly how AI will transform {possessive}{' '}
             lead capture, estimating, reputation management, deal analysis, and voice negotiation.
@@ -127,6 +127,53 @@ const DemoHub = () => {
         </div>
 
         <CompanySetupForm />
+
+        {/* SEO intro section */}
+        <section className="mb-10 bg-white dark:bg-gray-900 rounded-2xl p-6 sm:p-8 border border-gray-200 dark:border-gray-800">
+          <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+            AI for Construction: Interactive Automation Demos
+          </h2>
+          <div className="space-y-4 text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed">
+            <p>
+              If you run a construction company, you already know the bottlenecks: leads that go
+              unanswered after hours, estimates that take days to put together, five-star jobs that
+              never turn into five-star reviews, and off-market deals that slip through because nobody
+              had time to analyze the numbers. These five construction automation demos let you
+              experience, hands-on, how AI solves each of those problems — personalized to your
+              own company, not a generic slide deck.
+            </p>
+            <p>
+              Start with the <strong>AI Lead Responder</strong> to see how a GPT-4o chatbot qualifies
+              homeowner inquiries in real time, extracting project scope, budget, and timeline
+              while booking a consultation on your behalf. Next, try the{' '}
+              <strong>AI Estimate Generator</strong> — select a project type, enter square footage,
+              and receive a branded ballpark estimate in under 60 seconds, the kind of speed that
+              wins jobs before competitors even return the call.
+            </p>
+            <p>
+              The <strong>Review Request System</strong> simulates the automated SMS drip that turns
+              completed projects into Google reviews, complete with Day 3 and Day 7 follow-ups
+              and a live analytics dashboard. For investors and flippers, the{' '}
+              <strong>AI Deal Analyzer</strong> uses GPT-4o vision to extract property data from
+              listings or screenshots, generate comparable sales, and produce a full negotiation
+              playbook with offer price, strategy, and ROI projections.
+            </p>
+            <p>
+              Finally, the <strong>AI Voice Negotiator</strong> takes it one step further: after
+              analyzing a property, it places a live voice call to negotiate with the seller
+              using natural speech, real-time transcription, and a post-call summary with
+              recommended next steps. Every demo runs on the same production AI stack we deploy
+              for clients — no mock data, no smoke and mirrors.
+            </p>
+            <p>
+              Enter your company website above to see each construction automation demo branded to
+              your business, or jump straight in with the default configuration. Whether you are
+              evaluating AI for construction operations, looking for a smarter AI estimate
+              generator, or simply curious what modern automation looks like in the trades, these
+              demos give you a clear, no-commitment preview of the results.
+            </p>
+          </div>
+        </section>
 
         <div className="grid gap-6">
           {demos.map((d, i) => (

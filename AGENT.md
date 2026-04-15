@@ -75,7 +75,7 @@ Status legend: `[ ]` = pending, `[x]` = done, `[~]` = skipped
 
 ### TIER 3 — SEO + Content
 
-- [ ] DEMO-SEO-CONSTRUCTION: In `src/pages/construction/DemoHub.tsx`, add a 300+ word intro section above the demo cards. Cover: what these AI demos do, who they're for (construction company owners), why trying them matters, what to expect. Use proper H1/H2 tags and include keywords: "AI for construction", "construction automation demo", "AI estimate generator".
+- [x] DEMO-SEO-CONSTRUCTION: In `src/pages/construction/DemoHub.tsx`, add a 300+ word intro section above the demo cards. Cover: what these AI demos do, who they're for (construction company owners), why trying them matters, what to expect. Use proper H1/H2 tags and include keywords: "AI for construction", "construction automation demo", "AI estimate generator". *(completed 2026-04-15)*
 
 - [ ] DEMO-SEO-REALESTATE: Same as above for `src/pages/realestate/RealEstateDemoHub.tsx`. Keywords: "AI for real estate", "real estate AI tools", "AI deal analysis demo".
 
