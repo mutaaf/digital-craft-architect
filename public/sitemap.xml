@@ -140,9 +140,24 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-    <url>
-          <loc>https://digitalcraftai.com/blog/ai-client-intake-law-firms</loc>
-          <changefreq>monthly</changefreq>
-          <priority>0.6</priority>
-    </url>
+  <url>
+    <loc>https://digitalcraftai.com/blog/ai-client-intake-law-firms</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/blog/5-ways-ai-transforming-construction-2026</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/blog/real-estate-agents-using-ai-close-more-deals-2026</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/blog/lead-response-time-under-60-seconds-doubles-close-rate</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>
