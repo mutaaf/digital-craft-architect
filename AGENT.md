@@ -107,7 +107,7 @@ Status legend: `[ ]` = pending, `[x]` = done, `[~]` = skipped
 
 - [x] SITEMAP-UPDATE: Update `public/sitemap.xml` to include all blog post URLs (`/blog/[slug]` for each of the 9+ posts), the events pages, and any missing demo hub URLs. Set appropriate `<changefreq>` and `<priority>` values. *(completed 2026-04-15)*
 
-- [ ] BLOG-POST-VOICE-AI: Add a new blog post: "AI Voice Negotiation: How It Works and Why Sellers Pick Up the Phone". Target keywords: "AI voice calls", "AI negotiation", "automated cold calling". Link to `/construction/demo/voice-negotiator`.
+- [x] BLOG-POST-VOICE-AI: Add a new blog post: "AI Voice Negotiation: How It Works and Why Sellers Pick Up the Phone". Target keywords: "AI voice calls", "AI negotiation", "automated cold calling". Link to `/construction/demo/voice-negotiator`. *(completed 2026-04-15)*
 
 - [ ] TESTIMONIAL-VERTICAL-MATCH: On `src/pages/Construction.tsx`, add a testimonials section that filters or highlights the construction-relevant testimonials (currently testimonials only appear on Index.tsx). Reuse the TestimonialCarousel component with construction-specific data.
 
