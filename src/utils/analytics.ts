@@ -126,6 +126,77 @@ export const initPageViewTracking = (): void => {
   });
 };
 
+/** Track scroll depth — fires once at each threshold (25%, 50%, 75%, 100%) */
+export const trackScrollDepth = (): (() => void) => {
+  const thresholds = [25, 50, 75, 100];
+  const fired = new Set<number>();
+
+  const handler = () => {
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (scrollHeight <= 0) return;
+    const percent = Math.round((window.scrollY / scrollHeight) * 100);
+
+    for (const t of thresholds) {
+      if (percent >= t && !fired.has(t)) {
+        fired.add(t);
+        trackEvent('scroll_depth', 'engagement', `${t}%`);
+      }
+    }
+  };
+
+  window.addEventListener('scroll', handler, { passive: true });
+  return () => window.removeEventListener('scroll', handler);
+};
+
+/** Track time on page — fires at 30s, 60s, 120s thresholds */
+export const trackTimeOnPage = (): (() => void) => {
+  const thresholds = [30, 60, 120];
+  const timers: ReturnType<typeof setTimeout>[] = [];
+
+  for (const seconds of thresholds) {
+    timers.push(
+      setTimeout(() => {
+        trackEvent('time_on_page', 'engagement', `${seconds}s`);
+      }, seconds * 1000)
+    );
+  }
+
+  return () => timers.forEach(clearTimeout);
+};
+
+/** Track when a section enters the viewport via IntersectionObserver */
+export const trackSectionView = (sectionId: string): (() => void) => {
+  const el = document.getElementById(sectionId);
+  if (!el) return () => {};
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          trackEvent('section_view', 'engagement', sectionId);
+          observer.disconnect();
+        }
+      }
+    },
+    { threshold: 0.3 }
+  );
+
+  observer.observe(el);
+  return () => observer.disconnect();
+};
+
+/** Initialize enhanced engagement tracking (scroll depth + time on page) */
+export const useEngagementTracking = () => {
+  React.useEffect(() => {
+    const cleanupScroll = trackScrollDepth();
+    const cleanupTime = trackTimeOnPage();
+    return () => {
+      cleanupScroll();
+      cleanupTime();
+    };
+  }, []);
+};
+
 // A simple analytics hook that can be called to initialize analytics
 export const useAnalytics = (googleAnalyticsId?: string) => {
   React.useEffect(() => {

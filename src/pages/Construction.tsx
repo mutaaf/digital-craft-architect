@@ -8,7 +8,7 @@ import ExitIntentPopup from '@/components/ExitIntentPopup';
 import LeadMagnetSection from '@/components/LeadMagnetSection';
 import SocialProofBar from '@/components/SocialProofBar';
 import { useContent } from '@/hooks/useContent';
-import { useAnalytics, trackCTAClick } from '@/utils/analytics';
+import { useAnalytics, trackCTAClick, useEngagementTracking } from '@/utils/analytics';
 import { getUtmParams } from '@/utils/utmTracker';
 import {
   MessageSquare,
@@ -182,6 +182,7 @@ const Construction: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
 
   useAnalytics('G-JQ53W917HT');
+  useEngagementTracking();
 
   useEffect(() => {
     window.scrollTo(0, 0);
