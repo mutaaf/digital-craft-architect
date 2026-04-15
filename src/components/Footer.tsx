@@ -1,11 +1,68 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { FooterSection } from '@/hooks/useContent';
-import { Linkedin, Calendar, Github, Twitter, Phone } from 'lucide-react';
+import { Linkedin, Calendar, Github, Twitter, Phone, Send } from 'lucide-react';
+import { trackCTAClick } from '@/utils/analytics';
 
 interface FooterProps {
   data: FooterSection;
 }
+
+const FooterNewsletter: React.FC = () => {
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    setStatus('submitting');
+    trackCTAClick('newsletter_subscribe', 'footer');
+    try {
+      const res = await fetch('https://formspree.io/f/xovekqqk', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, _subject: '[Newsletter] New subscriber' }),
+      });
+      setStatus(res.ok ? 'success' : 'error');
+      if (res.ok) setEmail('');
+    } catch {
+      setStatus('error');
+    }
+  };
+
+  return (
+    <div className="border-t border-gray-800 pt-8 pb-8">
+      {status === 'success' ? (
+        <p className="text-center text-green-400 text-sm">Thanks for subscribing! We'll be in touch.</p>
+      ) : (
+        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <p className="text-gray-300 text-sm whitespace-nowrap">Get AI insights delivered to your inbox</p>
+          <div className="flex w-full sm:w-auto gap-2">
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="your@email.com"
+              className="flex-1 sm:w-64 px-3 py-2 rounded-md bg-gray-800 dark:bg-gray-800 border border-gray-700 text-white text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-skyblue focus:border-transparent"
+            />
+            <button
+              type="submit"
+              disabled={status === 'submitting'}
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md bg-skyblue hover:bg-skyblue/90 text-white text-sm font-medium transition-colors disabled:opacity-50"
+            >
+              <Send size={14} />
+              Subscribe
+            </button>
+          </div>
+          {status === 'error' && (
+            <p className="text-red-400 text-xs">Something went wrong. Please try again.</p>
+          )}
+        </form>
+      )}
+    </div>
+  );
+};
 
 const Footer: React.FC<FooterProps> = ({ data }) => {
   // Get the actual build timestamp (when the app was compiled)
@@ -73,6 +130,8 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
             ))}
           </div>
           
+          <FooterNewsletter />
+
           <div className="border-t border-gray-800 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <p className="text-gray-400 text-sm mb-4 md:mb-0">

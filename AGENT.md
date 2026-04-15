@@ -99,7 +99,7 @@ Status legend: `[ ]` = pending, `[x]` = done, `[~]` = skipped
 
 - [x] NAVBAR-CTA-BOOK-CALL: Add a "Book a Call" button to `src/components/Navbar.tsx` next to the existing "Contact" link. Style it as a primary button (filled, not outline). On mobile, add it to the mobile menu as well. Link to Calendly. Track with `trackCTAClick('book_a_call', 'navbar')`. *(completed 2026-04-15)*
 
-- [ ] FOOTER-LEAD-CAPTURE: Add an email signup section to the Footer component: "Get AI insights delivered to your inbox" with an email input and "Subscribe" button. Submit to Formspree with subject `[Newsletter]`. Keep it compact — single row on desktop, stacked on mobile.
+- [x] FOOTER-LEAD-CAPTURE: Add an email signup section to the Footer component: "Get AI insights delivered to your inbox" with an email input and "Subscribe" button. Submit to Formspree with subject `[Newsletter]`. Keep it compact — single row on desktop, stacked on mobile. *(completed 2026-04-15)*
 
 - [ ] PRICING-ANCHOR: On Construction.tsx and RealEstate.tsx pricing sections, add a crossed-out "original" price above each tier price to anchor value. E.g., "~~$800~~ $500/month". Use Tailwind `line-through text-gray-400` for the old price.
 
