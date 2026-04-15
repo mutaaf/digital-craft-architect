@@ -71,7 +71,7 @@ Status legend: `[ ]` = pending, `[x]` = done, `[~]` = skipped
 
 - [x] LEAD-MAGNET-SECTION: Create `src/components/LeadMagnetSection.tsx` — a section with: icon/image, heading "Free Download: AI Readiness Checklist", description "Find out if your business is ready for AI automation. Our checklist covers the 10 key areas where AI delivers the fastest ROI.", email input + "Send Me the Checklist" button, submit to Formspree with subject `[Lead Magnet]`. Add between FAQ and Contact sections on Construction.tsx and RealEstate.tsx. *(completed 2026-04-15)*
 
-- [ ] URGENCY-MVP-SECTION: In the `MVPPromotion` component (or where it's rendered), add a scarcity element: "Only 3 spots remaining this month" with a subtle pulsing dot indicator. Use a static number (not dynamic) — the business owner can update it manually. Keep it tasteful, not spammy.
+- [x] URGENCY-MVP-SECTION: In the `MVPPromotion` component (or where it's rendered), add a scarcity element: "Only 3 spots remaining this month" with a subtle pulsing dot indicator. Use a static number (not dynamic) — the business owner can update it manually. Keep it tasteful, not spammy. *(completed 2026-04-15)*
 
 ### TIER 3 — SEO + Content
 
