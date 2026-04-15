@@ -1,7 +1,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, ChevronDown, HardHat, Building2, PartyPopper, Server } from 'lucide-react';
+import { Menu, X, ChevronDown, HardHat, Building2, PartyPopper, Server, Phone } from 'lucide-react';
+import { trackCTAClick } from '@/utils/analytics';
 
 const VERTICALS = [
   { to: '/construction', label: 'Construction', icon: HardHat },
@@ -113,7 +114,7 @@ const Navbar: React.FC<NavbarProps> = ({ darkHero = false }) => {
           <Link to="/blog" className={linkClass}>Blog</Link>
           <a
             href="#contact"
-            className="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-md transition-colors"
+            className={linkClass}
             onClick={(e) => {
               e.preventDefault();
               scrollToContact();
@@ -121,15 +122,29 @@ const Navbar: React.FC<NavbarProps> = ({ darkHero = false }) => {
           >
             Contact
           </a>
+          <a
+            href="https://calendly.com/mutaaf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-md transition-colors inline-flex items-center gap-1.5"
+            onClick={() => trackCTAClick('book_a_call', 'navbar')}
+          >
+            <Phone size={15} />
+            Book a Call
+          </a>
         </nav>
 
         <div className="md:hidden flex items-center">
-          <button
-            onClick={scrollToContact}
-            className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md transition-colors mr-3"
+          <a
+            href="https://calendly.com/mutaaf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md transition-colors mr-3 inline-flex items-center gap-1.5 text-sm"
+            onClick={() => trackCTAClick('book_a_call', 'navbar')}
           >
-            Contact
-          </button>
+            <Phone size={14} />
+            Book a Call
+          </a>
           <button onClick={toggleMenu} className={hamburgerClass}>
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -167,6 +182,30 @@ const Navbar: React.FC<NavbarProps> = ({ darkHero = false }) => {
 
           <a href="#pricing" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors" onClick={toggleMenu}>Pricing</a>
           <Link to="/blog" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors" onClick={toggleMenu}>Blog</Link>
+          <a
+            href="#contact"
+            className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToContact();
+              toggleMenu();
+            }}
+          >
+            Contact
+          </a>
+          <a
+            href="https://calendly.com/mutaaf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-primary hover:bg-primary/90 text-white px-4 py-2.5 rounded-md transition-colors inline-flex items-center justify-center gap-1.5 text-center"
+            onClick={() => {
+              trackCTAClick('book_a_call', 'navbar');
+              toggleMenu();
+            }}
+          >
+            <Phone size={15} />
+            Book a Call
+          </a>
         </div>
       </div>
     </header>

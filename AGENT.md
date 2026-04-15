@@ -97,7 +97,7 @@ Status legend: `[ ]` = pending, `[x]` = done, `[~]` = skipped
 
 - [x] SCHEMA-MARKUP-FAQ: Add FAQ structured data (JSON-LD `@type: FAQPage`) to `src/pages/Construction.tsx` and `src/pages/RealEstate.tsx`. Extract the existing FAQ accordion Q&A content and render it in a `<script type="application/ld+json">` tag. This improves Google search appearance with rich results. *(completed 2026-04-15)*
 
-- [ ] NAVBAR-CTA-BOOK-CALL: Add a "Book a Call" button to `src/components/Navbar.tsx` next to the existing "Contact" link. Style it as a primary button (filled, not outline). On mobile, add it to the mobile menu as well. Link to Calendly. Track with `trackCTAClick('book_a_call', 'navbar')`.
+- [x] NAVBAR-CTA-BOOK-CALL: Add a "Book a Call" button to `src/components/Navbar.tsx` next to the existing "Contact" link. Style it as a primary button (filled, not outline). On mobile, add it to the mobile menu as well. Link to Calendly. Track with `trackCTAClick('book_a_call', 'navbar')`. *(completed 2026-04-15)*
 
 - [ ] FOOTER-LEAD-CAPTURE: Add an email signup section to the Footer component: "Get AI insights delivered to your inbox" with an email input and "Subscribe" button. Submit to Formspree with subject `[Newsletter]`. Keep it compact — single row on desktop, stacked on mobile.
 
