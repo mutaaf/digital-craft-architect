@@ -79,7 +79,7 @@ Status legend: `[ ]` = pending, `[x]` = done, `[~]` = skipped
 
 - [x] DEMO-SEO-REALESTATE: Same as above for `src/pages/realestate/RealEstateDemoHub.tsx`. Keywords: "AI for real estate", "real estate AI tools", "AI deal analysis demo". *(completed 2026-04-15)*
 
-- [ ] DEMO-SEO-EVENTS: Same for `src/pages/events/EventsDemoHub.tsx`. Keywords: "AI for event planning", "event automation", "AI proposal generator".
+- [x] DEMO-SEO-EVENTS: Same for `src/pages/events/EventsDemoHub.tsx`. Keywords: "AI for event planning", "event automation", "AI proposal generator". *(completed 2026-04-15)*
 
 - [ ] BLOG-POST-CONSTRUCTION-SEO: Add a new blog post to `src/data/blogPosts.ts`: "5 Ways AI is Transforming Construction Companies in 2026". Target keywords: "AI for construction", "construction automation", "AI estimate generator". Include internal links to `/construction` and `/construction/demo`. Follow the existing blog post format (slug, title, description, date, author, readTime, tags, content as HTML string).
 

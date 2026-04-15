@@ -100,6 +100,57 @@ const EventsDemoHub = () => {
 
         <CompanySetupForm />
 
+        {/* SEO intro section */}
+        <section className="mb-10 bg-white dark:bg-gray-900 rounded-2xl p-6 sm:p-8 border border-gray-200 dark:border-gray-800">
+          <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+            AI for Event Planning: Interactive Automation Demos
+          </h2>
+          <div className="space-y-4 text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed">
+            <p>
+              Running an event planning business means juggling dozens of inquiries at once —
+              couples asking about wedding packages, corporate clients requesting proposals for
+              galas, and last-minute party planners who need answers now. Most event vendors lose
+              bookings simply because they cannot respond fast enough, especially during peak
+              season when every hour counts. These three event automation demos show you exactly
+              how AI handles the heavy lifting, personalized to your own brand, so you can see
+              real results instead of reading about them.
+            </p>
+            <p>
+              Start with the <strong>AI Inquiry Qualifier</strong> to watch a GPT-4o-powered
+              chatbot engage prospective clients in real time. It asks about event type, date,
+              guest count, budget, and style preferences, then scores the lead and books a
+              consultation — all without your team lifting a finger. This is the kind of
+              AI for event planning that turns after-hours website visits into confirmed
+              appointments by morning.
+            </p>
+            <p>
+              Next, try the <strong>AI Proposal Generator</strong>. Select a service category,
+              enter the guest count, choose a package tier, and receive a polished, branded
+              proposal in under 60 seconds. No more spending hours in Word or Canva assembling
+              quotes — the AI proposal generator pulls from your real pricing to deliver
+              professional documents that clients can review immediately, giving you a
+              competitive edge when speed matters most.
+            </p>
+            <p>
+              Finally, experience the <strong>AI Voice Booking Agent</strong>. Enter a lead's
+              details and let the AI place an outbound call to confirm interest, discuss
+              available packages, and schedule a consultation — all with natural speech and
+              live transcription. After the call, you receive a full summary with key
+              takeaways and recommended next steps. This is event automation at its most
+              advanced: a voice agent that follows up with leads so your team can focus on
+              executing unforgettable events.
+            </p>
+            <p>
+              Enter your company website above to see each demo branded to your business, or
+              explore with the default configuration. Whether you are a wedding planner
+              evaluating AI for event planning, a catering company looking for a faster
+              AI proposal generator, or a venue owner curious about event automation, these
+              interactive demos give you a no-commitment preview of how AI transforms
+              the way event professionals win and manage clients.
+            </p>
+          </div>
+        </section>
+
         <div className="grid gap-6">
           {demos.map((d, i) => (
             <Link key={d.to} to={d.to} onClick={() => trackDemoClick(d.title, 'events')} className="group animate-slide-up" style={{ animationDelay: `${i * 150}ms`, animationFillMode: 'both' }}>
