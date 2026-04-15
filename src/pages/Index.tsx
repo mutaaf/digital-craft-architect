@@ -16,6 +16,7 @@ import ParallaxBackground from '@/components/ParallaxBackground';
 import StickyCTA from '@/components/StickyCTA';
 import ExitIntentPopup from '@/components/ExitIntentPopup';
 import SocialProofBar from '@/components/SocialProofBar';
+import ScrollProgress from '@/components/ScrollProgress';
 import { Loader2, ArrowRight } from 'lucide-react';
 import { useAnalytics, trackCTAClick, useEngagementTracking } from '@/utils/analytics';
 import { Helmet } from 'react-helmet-async';
@@ -95,6 +96,7 @@ const Index = () => {
         </Helmet>
       )}
       <Navbar />
+      <ScrollProgress />
       <Hero data={content.hero} />
       <SocialProofBar />
       {content.mvpPromotion?.enabled && <MVPPromotion data={content.mvpPromotion} />}

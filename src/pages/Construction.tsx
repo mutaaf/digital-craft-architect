@@ -7,6 +7,7 @@ import StickyCTA from '@/components/StickyCTA';
 import ExitIntentPopup from '@/components/ExitIntentPopup';
 import LeadMagnetSection from '@/components/LeadMagnetSection';
 import SocialProofBar from '@/components/SocialProofBar';
+import ScrollProgress from '@/components/ScrollProgress';
 import Testimonials from '@/components/Testimonials';
 import { useContent, TestimonialItem } from '@/hooks/useContent';
 import { useAnalytics, trackCTAClick, useEngagementTracking } from '@/utils/analytics';
@@ -326,6 +327,7 @@ const Construction: React.FC = () => {
         })}</script>
       </Helmet>
       <Navbar />
+      <ScrollProgress />
 
       {/* ─── HERO ─── */}
       <section className="pt-24 md:pt-32 pb-16 md:pb-24 bg-gradient-to-br from-gray-50 to-sky-50 dark:from-gray-900 dark:to-gray-800">
