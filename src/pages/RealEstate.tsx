@@ -243,6 +243,60 @@ const RealEstate: React.FC = () => {
             { "@type": "Offer", "name": "Brokerage", "price": "10000", "priceCurrency": "USD", "description": "For brokerages and large teams" }
           ]
         })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Does it work with my MLS?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Our AI systems pull data from public listing sources and can integrate with most MLS feeds via IDX/RETS. We'll configure the connection during setup so your CMA reports and lead qualifier have access to real-time market data."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can my whole team use it?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Absolutely. The Team and Brokerage plans include multi-agent support with individual lead routing, separate branded outputs, and performance tracking per agent. Each agent gets their own AI assistant configured to their style."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does it integrate with my IDX website?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. The AI chatbot is a lightweight widget that installs on any website — WordPress, Squarespace, custom IDX sites, or KVCore. It works alongside your existing site without any redesign needed."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How fast will I see results?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Lead response time drops to under 60 seconds from day one. Most agents see a measurable increase in qualified appointments within the first month. Review counts typically double within 60-90 days."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What's the contract length?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Month-to-month. No long-term contracts. We earn your business every month by delivering results. Most clients stay because the ROI is obvious within 30 days."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How is this different from a marketing agency?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We build actual AI systems — custom software that automates your operations. A marketing agency runs your ads. We build the systems that capture, qualify, and convert those leads automatically, plus streamline your CMA process, follow-ups, and reputation management."
+              }
+            }
+          ]
+        })}</script>
       </Helmet>
       <Navbar />
 

@@ -95,7 +95,7 @@ Status legend: `[ ]` = pending, `[x]` = done, `[~]` = skipped
 
 - [x] RETARGETING-PIXELS: Add Meta Pixel and Google Ads conversion tag script blocks to `index.html`. Gate them behind environment variables: `VITE_META_PIXEL_ID` and `VITE_GADS_CONVERSION_ID`. Only render the scripts when the env vars are set. Use the standard pixel/tag snippets with the IDs injected. *(completed 2026-04-15)*
 
-- [ ] SCHEMA-MARKUP-FAQ: Add FAQ structured data (JSON-LD `@type: FAQPage`) to `src/pages/Construction.tsx` and `src/pages/RealEstate.tsx`. Extract the existing FAQ accordion Q&A content and render it in a `<script type="application/ld+json">` tag. This improves Google search appearance with rich results.
+- [x] SCHEMA-MARKUP-FAQ: Add FAQ structured data (JSON-LD `@type: FAQPage`) to `src/pages/Construction.tsx` and `src/pages/RealEstate.tsx`. Extract the existing FAQ accordion Q&A content and render it in a `<script type="application/ld+json">` tag. This improves Google search appearance with rich results. *(completed 2026-04-15)*
 
 - [ ] NAVBAR-CTA-BOOK-CALL: Add a "Book a Call" button to `src/components/Navbar.tsx` next to the existing "Contact" link. Style it as a primary button (filled, not outline). On mobile, add it to the mobile menu as well. Link to Calendly. Track with `trackCTAClick('book_a_call', 'navbar')`.
 

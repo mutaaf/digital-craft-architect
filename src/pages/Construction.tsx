@@ -243,6 +243,60 @@ const Construction: React.FC = () => {
             { "@type": "Offer", "name": "Scale", "price": "5000", "priceCurrency": "USD", "description": "For established builders and GCs" }
           ]
         })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Will my crew need to learn new software?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. The AI systems work behind the scenes. Your crew keeps doing what they do — the AI handles the admin, lead capture, and communication automatically. If a foreman needs to submit a project update, it's as simple as sending a text message."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How long until I see results?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Most clients see measurable improvements within the first month. Lead response time drops to under 60 seconds from day one. Review counts typically double within 60-90 days. Estimate generation time drops immediately."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What if I already have a website?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Perfect — we integrate with your existing website. The AI chatbot is a simple widget that gets added to your current site. We don't rebuild what's already working."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do you work with subcontractors too?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Whether you're a GC, a specialty sub, or a remodeling company, the AI tools adapt to your business. The lead responder and estimate tools are especially valuable for subs who need to quote fast and win jobs."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What's the contract length?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Month-to-month. No long-term contracts. We earn your business every month by delivering results. Most clients stay because the ROI is obvious within 30 days."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What makes you different from a marketing agency?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We're engineers, not marketers. We build actual AI systems — custom software that automates your operations. A marketing agency runs your ads. We build the systems that capture, qualify, and convert those leads automatically, plus streamline your back-office operations."
+              }
+            }
+          ]
+        })}</script>
       </Helmet>
       <Navbar />
 
