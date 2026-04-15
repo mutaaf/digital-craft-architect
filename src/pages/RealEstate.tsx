@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import StickyCTA from '@/components/StickyCTA';
 import ExitIntentPopup from '@/components/ExitIntentPopup';
+import LeadMagnetSection from '@/components/LeadMagnetSection';
 import SocialProofBar from '@/components/SocialProofBar';
 import { useContent } from '@/hooks/useContent';
 import { useAnalytics, trackCTAClick } from '@/utils/analytics';
@@ -604,6 +605,9 @@ const RealEstate: React.FC = () => {
           </Accordion>
         </div>
       </section>
+
+      {/* ─── LEAD MAGNET ─── */}
+      <LeadMagnetSection />
 
       {/* ─── CONTACT FORM ─── */}
       <section id="contact" className="container-section">
