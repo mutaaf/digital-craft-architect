@@ -7,7 +7,8 @@ import StickyCTA from '@/components/StickyCTA';
 import ExitIntentPopup from '@/components/ExitIntentPopup';
 import LeadMagnetSection from '@/components/LeadMagnetSection';
 import SocialProofBar from '@/components/SocialProofBar';
-import { useContent } from '@/hooks/useContent';
+import Testimonials from '@/components/Testimonials';
+import { useContent, TestimonialItem } from '@/hooks/useContent';
 import { useAnalytics, trackCTAClick, useEngagementTracking } from '@/utils/analytics';
 import { getUtmParams } from '@/utils/utmTracker';
 import {
@@ -175,6 +176,27 @@ const PricingTier: React.FC<{
 /* ═══════════════════════════════════════════════════════════
    MAIN CONSTRUCTION PAGE
    ═══════════════════════════════════════════════════════════ */
+const constructionTestimonials: TestimonialItem[] = [
+  {
+    quote: "The AI systems we implemented together saved us 20 hours per week in manual work. Our technicians now focus on what they do best while the AI handles the routine tasks.",
+    author: "Sarah Johnson",
+    position: "Operations Director, HVAC Co.",
+    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300&q=80",
+  },
+  {
+    quote: "Finally, someone who understands both cutting-edge AI AND the realities of running a construction business. The perfect bridge we needed to modernize without disruption.",
+    author: "David Rodriguez",
+    position: "CEO, BuildRight Construction",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=300&q=80",
+  },
+  {
+    quote: "Our lead response time went from hours to under a minute. We're booking more estimates than ever and our close rate jumped 30% in the first quarter.",
+    author: "Mike Palmer",
+    position: "Owner, Palmer Roofing & Siding",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80",
+  },
+];
+
 const Construction: React.FC = () => {
   const { content } = useContent();
   const [formData, setFormData] = useState({
@@ -593,6 +615,12 @@ const Construction: React.FC = () => {
           All plans include a 2-week setup period. No long-term contracts — cancel anytime.
         </p>
       </section>
+
+      {/* ─── TESTIMONIALS ─── */}
+      <Testimonials
+        data={constructionTestimonials}
+        carouselConfig={{ mobile: 1, tablet: 2, desktop: 3 }}
+      />
 
       {/* ─── FAQ ─── */}
       <section className="container-section bg-gray-50 dark:bg-gray-900">
