@@ -109,7 +109,7 @@ Status legend: `[ ]` = pending, `[x]` = done, `[~]` = skipped
 
 - [x] BLOG-POST-VOICE-AI: Add a new blog post: "AI Voice Negotiation: How It Works and Why Sellers Pick Up the Phone". Target keywords: "AI voice calls", "AI negotiation", "automated cold calling". Link to `/construction/demo/voice-negotiator`. *(completed 2026-04-15)*
 
-- [ ] TESTIMONIAL-VERTICAL-MATCH: On `src/pages/Construction.tsx`, add a testimonials section that filters or highlights the construction-relevant testimonials (currently testimonials only appear on Index.tsx). Reuse the TestimonialCarousel component with construction-specific data.
+- [x] TESTIMONIAL-VERTICAL-MATCH: On `src/pages/Construction.tsx`, add a testimonials section that filters or highlights the construction-relevant testimonials (currently testimonials only appear on Index.tsx). Reuse the TestimonialCarousel component with construction-specific data. *(completed 2026-04-15)*
 
 - [ ] SCROLL-PROGRESS-INDICATOR: Create `src/components/ScrollProgress.tsx` — a thin (3px) progress bar fixed at the very top of the viewport showing page scroll progress. Use the primary brand color. Add to Index.tsx, Construction.tsx, RealEstate.tsx below the Navbar.
 
