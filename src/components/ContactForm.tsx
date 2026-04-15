@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FormSection } from '@/hooks/useContent';
-import { CheckCircle, Wand2, Calendar, Play } from 'lucide-react';
+import { CheckCircle, Wand2, Calendar, Play, Phone } from 'lucide-react';
 import { trackFormSubmission, trackCTAClick } from '@/utils/analytics';
 import { getUtmParams } from '@/utils/utmTracker';
 import { useToast } from '@/hooks/use-toast';
@@ -339,6 +339,11 @@ const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
             </Form>
           )}
         </div>
+        <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-4 flex items-center justify-center gap-1.5">
+          <Phone size={14} />
+          Prefer to talk? Call us at{' '}
+          <a href="tel:+19723523293" className="text-primary hover:underline font-medium">(972) 352-3293</a>
+        </p>
       </div>
     </section>
   );
