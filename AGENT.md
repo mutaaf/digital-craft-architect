@@ -83,7 +83,7 @@ Status legend: `[ ]` = pending, `[x]` = done, `[~]` = skipped
 
 - [x] BLOG-POST-CONSTRUCTION-SEO: Add a new blog post to `src/data/blogPosts.ts`: "5 Ways AI is Transforming Construction Companies in 2026". Target keywords: "AI for construction", "construction automation", "AI estimate generator". Include internal links to `/construction` and `/construction/demo`. Follow the existing blog post format (slug, title, description, date, author, readTime, tags, content as HTML string). *(completed 2026-04-15)*
 
-- [ ] BLOG-POST-REALESTATE-SEO: Add a new blog post: "How Real Estate Agents Are Using AI to Close More Deals in 2026". Target keywords: "AI for real estate", "real estate AI tools", "AI deal analysis". Link to `/realestate` and `/realestate/demo`.
+- [x] BLOG-POST-REALESTATE-SEO: Add a new blog post: "How Real Estate Agents Are Using AI to Close More Deals in 2026". Target keywords: "AI for real estate", "real estate AI tools", "AI deal analysis". Link to `/realestate` and `/realestate/demo`. *(completed 2026-04-15)*
 
 - [ ] BLOG-POST-LEAD-RESPONSE: Add a new blog post: "Why Responding to Leads in Under 60 Seconds Doubles Your Close Rate". Target keywords: "lead response time", "speed to lead", "AI lead qualification". Link to `/construction/demo/lead-responder` and `/realestate/demo/lead-responder`.
 
