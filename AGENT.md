@@ -91,7 +91,7 @@ Status legend: `[ ]` = pending, `[x]` = done, `[~]` = skipped
 
 ### TIER 4 — Polish + Infrastructure
 
-- [ ] GA-ENHANCED-EVENTS: Extend `src/utils/analytics.ts` with: (1) `trackScrollDepth()` — fires events at 25%, 50%, 75%, 100% scroll (once each per page); (2) `trackTimeOnPage()` — fires at 30s, 60s, 120s thresholds; (3) `trackSectionView(sectionId)` — fires when a section enters viewport via IntersectionObserver. Initialize scroll depth and time tracking in landing page components.
+- [x] GA-ENHANCED-EVENTS: Extend `src/utils/analytics.ts` with: (1) `trackScrollDepth()` — fires events at 25%, 50%, 75%, 100% scroll (once each per page); (2) `trackTimeOnPage()` — fires at 30s, 60s, 120s thresholds; (3) `trackSectionView(sectionId)` — fires when a section enters viewport via IntersectionObserver. Initialize scroll depth and time tracking in landing page components. *(completed 2026-04-15)*
 
 - [ ] RETARGETING-PIXELS: Add Meta Pixel and Google Ads conversion tag script blocks to `index.html`. Gate them behind environment variables: `VITE_META_PIXEL_ID` and `VITE_GADS_CONVERSION_ID`. Only render the scripts when the env vars are set. Use the standard pixel/tag snippets with the IDs injected.
 

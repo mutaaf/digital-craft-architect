@@ -17,7 +17,7 @@ import StickyCTA from '@/components/StickyCTA';
 import ExitIntentPopup from '@/components/ExitIntentPopup';
 import SocialProofBar from '@/components/SocialProofBar';
 import { Loader2, ArrowRight } from 'lucide-react';
-import { useAnalytics, trackCTAClick } from '@/utils/analytics';
+import { useAnalytics, trackCTAClick, useEngagementTracking } from '@/utils/analytics';
 import { Helmet } from 'react-helmet-async';
 
 const Index = () => {
@@ -25,6 +25,7 @@ const Index = () => {
   
   // Initialize Google Analytics with your specific GA ID
   useAnalytics('G-JQ53W917HT');
+  useEngagementTracking();
 
   // Scroll to top on page load
   useEffect(() => {
