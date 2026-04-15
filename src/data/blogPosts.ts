@@ -124,6 +124,13 @@ export const blogPosts: BlogPost[] = [
 <p>If you run a construction company, <a href="/construction/demo/lead-responder">try the construction AI lead responder</a>. Enter your website URL and have a conversation as if you were a homeowner looking for a quote. If you are in real estate, <a href="/realestate/demo/lead-responder">try the real estate AI lead responder</a> and see how it handles buyer and seller inquiries.</p>
 
 <p>The gap between businesses that respond in seconds and those that respond in hours will only widen as AI adoption grows. <strong>Speed to lead</strong> is no longer about hiring more people or checking your inbox more often. It is about having a system that never sleeps, never forgets, and never lets a qualified lead walk away without a conversation.</p>
+
+<hr />
+<div style="background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5em; text-align: center;">
+<h3>Ready to automate your business?</h3>
+<p>See what AI can do for your company — personalized to your brand, your services, and your market.</p>
+<p><a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer"><strong>Book a Free AI Audit</strong></a> &nbsp;&middot;&nbsp; <a href="/construction/demo"><strong>Try Our Live Demos</strong></a></p>
+</div>
 `,
     },
     {
@@ -194,6 +201,13 @@ export const blogPosts: BlogPost[] = [
 <p>The real estate professionals who adopt <strong>AI for real estate</strong> now are not replacing their skills. They are multiplying them. Responding faster, analyzing more deals, following up more consistently, and focusing their personal time on the high-value activities that actually close transactions.</p>
 
 <p>Visit our <a href="/realestate">real estate AI solutions page</a> to learn more about how these tools work together, or jump straight into the <a href="/realestate/demo">live demos</a> to see them in action with your own company.</p>
+
+<hr />
+<div style="background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5em; text-align: center;">
+<h3>Ready to automate your business?</h3>
+<p>See what AI can do for your company — personalized to your brand, your services, and your market.</p>
+<p><a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer"><strong>Book a Free AI Audit</strong></a> &nbsp;&middot;&nbsp; <a href="/construction/demo"><strong>Try Our Live Demos</strong></a></p>
+</div>
 `,
     },
     {
@@ -268,6 +282,13 @@ export const blogPosts: BlogPost[] = [
 <p>The construction companies adopting <strong>construction automation</strong> today are not the biggest or the most tech-savvy. They are the ones who recognized that responding faster, quoting faster, and following up more consistently is what wins jobs. AI just makes that possible without adding headcount.</p>
 
 <p>Visit our <a href="/construction">construction AI solutions page</a> to learn more about how these tools work together, or jump straight into the <a href="/construction/demo">live demos</a> to experience them firsthand.</p>
+
+<hr />
+<div style="background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5em; text-align: center;">
+<h3>Ready to automate your business?</h3>
+<p>See what AI can do for your company — personalized to your brand, your services, and your market.</p>
+<p><a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer"><strong>Book a Free AI Audit</strong></a> &nbsp;&middot;&nbsp; <a href="/construction/demo"><strong>Try Our Live Demos</strong></a></p>
+</div>
 `,
     },
     {
@@ -326,6 +347,13 @@ export const blogPosts: BlogPost[] = [
         <p>The simplest entry point is after-hours coverage only. Your staff handles calls during business hours as usual. The AI handles everything that comes in after 5 PM and on weekends. This requires no changes to your existing workflow and immediately closes the gap where most firms are losing leads.</p>
         
         <p>Our voice AI demo lets you hear what this sounds like for your specific firm. Enter your website URL and listen to an AI intake agent briefed on your practice areas handle a real conversation.</p>
+
+<hr />
+<div style="background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5em; text-align: center;">
+<h3>Ready to automate your business?</h3>
+<p>See what AI can do for your company — personalized to your brand, your services, and your market.</p>
+<p><a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer"><strong>Book a Free AI Audit</strong></a> &nbsp;&middot;&nbsp; <a href="/construction/demo"><strong>Try Our Live Demos</strong></a></p>
+</div>
         `,
   },
   {
@@ -376,7 +404,15 @@ export const blogPosts: BlogPost[] = [
 
 <p>From there, AI handles first contact. You handle the relationships. That is the division of labor that actually scales without burning through payroll or burning out your team.</p>
 
-<p>If you are running 50 or more leads per month and not using automated first contact, a significant portion of your pipeline is going to whoever picks up the phone first. Right now, that is probably not you.</p>`,
+<p>If you are running 50 or more leads per month and not using automated first contact, a significant portion of your pipeline is going to whoever picks up the phone first. Right now, that is probably not you.</p>
+
+<hr />
+<div style="background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5em; text-align: center;">
+<h3>Ready to automate your business?</h3>
+<p>See what AI can do for your company — personalized to your brand, your services, and your market.</p>
+<p><a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer"><strong>Book a Free AI Audit</strong></a> &nbsp;&middot;&nbsp; <a href="/construction/demo"><strong>Try Our Live Demos</strong></a></p>
+</div>
+`,
   },
   {
     slug: 'ai-estimates-trades-businesses',
@@ -437,6 +473,13 @@ export const blogPosts: BlogPost[] = [
 <p>That one template will tell you more about whether this works for your business than any case study ever could.</p>
 
 <p>Our estimate generator demo lets you see this in action, personalized to your company pricing and branding. Enter your website URL and generate a branded estimate in under 60 seconds.</p>
+
+<hr />
+<div style="background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5em; text-align: center;">
+<h3>Ready to automate your business?</h3>
+<p>See what AI can do for your company — personalized to your brand, your services, and your market.</p>
+<p><a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer"><strong>Book a Free AI Audit</strong></a> &nbsp;&middot;&nbsp; <a href="/construction/demo"><strong>Try Our Live Demos</strong></a></p>
+</div>
 `,
   },
   {
@@ -504,6 +547,13 @@ export const blogPosts: BlogPost[] = [
 <p>The manual version proves the concept in a week. After every completed job, text the customer directly from your phone with a link to your Google profile. Track how many respond. Most businesses that test this manually see 3 to 5 new reviews within 10 days and immediately want to automate it.</p>
 
 <p>Our review management demo shows the automated version in action, personalized to your company. You can see exactly what the message looks like and how the flow runs, all with your own branding.</p>
+
+<hr />
+<div style="background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5em; text-align: center;">
+<h3>Ready to automate your business?</h3>
+<p>See what AI can do for your company — personalized to your brand, your services, and your market.</p>
+<p><a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer"><strong>Book a Free AI Audit</strong></a> &nbsp;&middot;&nbsp; <a href="/construction/demo"><strong>Try Our Live Demos</strong></a></p>
+</div>
 `,
   },
   {
@@ -564,6 +614,13 @@ export const blogPosts: BlogPost[] = [
 <p>The setup should also give you control over how the agent represents your business. Scripts and guardrails matter. You want an AI that stays on-brand and doesn't go off-script in ways that could cause problems.</p>
 
 <p>Our voice negotiator demo lets you hear exactly what this sounds like using your own company's information. Enter your website URL and listen to an AI that's been briefed on your business handle a real conversation. It's the fastest way to decide if this is the right fit.</p>
+
+<hr />
+<div style="background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5em; text-align: center;">
+<h3>Ready to automate your business?</h3>
+<p>See what AI can do for your company — personalized to your brand, your services, and your market.</p>
+<p><a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer"><strong>Book a Free AI Audit</strong></a> &nbsp;&middot;&nbsp; <a href="/construction/demo"><strong>Try Our Live Demos</strong></a></p>
+</div>
 `,
   },
   {
@@ -606,6 +663,13 @@ export const blogPosts: BlogPost[] = [
 <p>The best way to evaluate AI for your construction business is to try it with your own company. Our interactive demos let you enter your website URL and see AI systems personalized to your brand, your pricing, and your market.</p>
 
 <p>No commitment, no credit card. Just a live demonstration of what's possible.</p>
+
+<hr />
+<div style="background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5em; text-align: center;">
+<h3>Ready to automate your business?</h3>
+<p>See what AI can do for your company — personalized to your brand, your services, and your market.</p>
+<p><a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer"><strong>Book a Free AI Audit</strong></a> &nbsp;&middot;&nbsp; <a href="/construction/demo"><strong>Try Our Live Demos</strong></a></p>
+</div>
 `,
   },
   {
@@ -646,6 +710,13 @@ export const blogPosts: BlogPost[] = [
 <p>The AI lead responder lives as a chat widget on your website. It uses your company name, colors, and services. When a visitor starts chatting, the AI engages them naturally — no robotic scripts. It captures their information and delivers it to you via email, SMS, or CRM integration.</p>
 
 <p>The best part: you can try it right now with your own company. Enter your website URL in our demo and chat with your AI as if you were a homeowner looking for a quote.</p>
+
+<hr />
+<div style="background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5em; text-align: center;">
+<h3>Ready to automate your business?</h3>
+<p>See what AI can do for your company — personalized to your brand, your services, and your market.</p>
+<p><a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer"><strong>Book a Free AI Audit</strong></a> &nbsp;&middot;&nbsp; <a href="/construction/demo"><strong>Try Our Live Demos</strong></a></p>
+</div>
 `,
   },
   {
@@ -684,6 +755,13 @@ export const blogPosts: BlogPost[] = [
 
 <h2>Try It Yourself</h2>
 <p>Our voice negotiator demo lets you analyze a property and then listen to the AI negotiate in real time. You can use browser mode to hear the conversation, or enter a phone number for an outbound call. It's the fastest way to understand what's possible.</p>
+
+<hr />
+<div style="background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5em; text-align: center;">
+<h3>Ready to automate your business?</h3>
+<p>See what AI can do for your company — personalized to your brand, your services, and your market.</p>
+<p><a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer"><strong>Book a Free AI Audit</strong></a> &nbsp;&middot;&nbsp; <a href="/construction/demo"><strong>Try Our Live Demos</strong></a></p>
+</div>
 `,
   },
   {
@@ -722,6 +800,13 @@ export const blogPosts: BlogPost[] = [
 
 <h2>Who It's For</h2>
 <p>SetupClaw is built for businesses with 4-50+ employees where the CEO, CFO, or head of sales needs AI leverage without creating new security risk. If your team can use iMessage, they can use OpenClaw.</p>
+
+<hr />
+<div style="background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5em; text-align: center;">
+<h3>Ready to automate your business?</h3>
+<p>See what AI can do for your company — personalized to your brand, your services, and your market.</p>
+<p><a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer"><strong>Book a Free AI Audit</strong></a> &nbsp;&middot;&nbsp; <a href="/construction/demo"><strong>Try Our Live Demos</strong></a></p>
+</div>
 `,
   },
 ];
