@@ -120,11 +120,12 @@ const StatCard: React.FC<{ value: string; label: string; delay: number }> = ({
 const PricingTier: React.FC<{
   name: string;
   price: string;
+  originalPrice?: string;
   description: string;
   features: string[];
   highlight?: boolean;
   delay: number;
-}> = ({ name, price, description, features, highlight, delay }) => (
+}> = ({ name, price, originalPrice, description, features, highlight, delay }) => (
   <div
     className={`rounded-xl p-8 shadow-md border transition-all duration-300 hover:shadow-lg animate-slide-up ${
       highlight
@@ -138,6 +139,9 @@ const PricingTier: React.FC<{
       {description}
     </p>
     <p className="mb-6">
+      {originalPrice && (
+        <span className={`text-lg line-through mr-2 ${highlight ? 'text-white/50' : 'text-gray-400 dark:text-gray-500'}`}>{originalPrice}</span>
+      )}
       <span className={`text-4xl font-bold ${highlight ? 'text-white' : ''}`}>{price}</span>
       <span className={`text-sm ${highlight ? 'text-white/80' : 'text-gray-500'}`}>/month</span>
     </p>
@@ -541,6 +545,7 @@ const Construction: React.FC = () => {
           <PricingTier
             name="Starter"
             price="$500"
+            originalPrice="$800"
             description="For solo contractors and small crews"
             features={[
               'AI Lead Responder chatbot',
@@ -554,6 +559,7 @@ const Construction: React.FC = () => {
           <PricingTier
             name="Growth"
             price="$1,500"
+            originalPrice="$2,500"
             description="For growing firms with 5-20 employees"
             features={[
               'Everything in Starter',
@@ -569,6 +575,7 @@ const Construction: React.FC = () => {
           <PricingTier
             name="Scale"
             price="$5,000"
+            originalPrice="$8,000"
             description="For established builders and GCs"
             features={[
               'Everything in Growth',
