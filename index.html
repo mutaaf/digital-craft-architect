@@ -79,6 +79,38 @@
       window.addEventListener("popstate",update);
     })();
     </script>
+
+    <!-- Meta Pixel — only loads when VITE_META_PIXEL_ID is set -->
+    <script>
+    (function(){
+      var pixelId = '%VITE_META_PIXEL_ID%';
+      if (!pixelId || pixelId.charAt(0) === '%') return;
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+      document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', pixelId);
+      fbq('track', 'PageView');
+    })();
+    </script>
+
+    <!-- Google Ads conversion tag — only loads when VITE_GADS_CONVERSION_ID is set -->
+    <script>
+    (function(){
+      var convId = '%VITE_GADS_CONVERSION_ID%';
+      if (!convId || convId.charAt(0) === '%') return;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + convId;
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', convId);
+    })();
+    </script>
   </head>
 
   <body>
