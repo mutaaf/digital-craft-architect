@@ -101,7 +101,7 @@ Status legend: `[ ]` = pending, `[x]` = done, `[~]` = skipped
 
 - [x] FOOTER-LEAD-CAPTURE: Add an email signup section to the Footer component: "Get AI insights delivered to your inbox" with an email input and "Subscribe" button. Submit to Formspree with subject `[Newsletter]`. Keep it compact — single row on desktop, stacked on mobile. *(completed 2026-04-15)*
 
-- [ ] PRICING-ANCHOR: On Construction.tsx and RealEstate.tsx pricing sections, add a crossed-out "original" price above each tier price to anchor value. E.g., "~~$800~~ $500/month". Use Tailwind `line-through text-gray-400` for the old price.
+- [x] PRICING-ANCHOR: On Construction.tsx and RealEstate.tsx pricing sections, add a crossed-out "original" price above each tier price to anchor value. E.g., "~~$800~~ $500/month". Use Tailwind `line-through text-gray-400` for the old price. *(completed 2026-04-15)*
 
 - [ ] CONTENT-PHONE-NEAR-FORM: Add a "Prefer to talk? Call us at (972) 352-3293" line near the contact form on all landing pages. The phone number exists in the footer but not near the form where people are deciding whether to reach out.
 
