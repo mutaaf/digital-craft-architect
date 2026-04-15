@@ -29,6 +29,7 @@ import {
   TrendingUp,
   Calendar,
   Play,
+  Phone,
 } from 'lucide-react';
 import {
   Accordion,
@@ -795,6 +796,11 @@ const RealEstate: React.FC = () => {
               </form>
             )}
           </div>
+          <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-4 flex items-center justify-center gap-1.5">
+            <Phone size={14} />
+            Prefer to talk? Call us at{' '}
+            <a href="tel:+19723523293" className="text-primary hover:underline font-medium">(972) 352-3293</a>
+          </p>
         </div>
       </section>
 
