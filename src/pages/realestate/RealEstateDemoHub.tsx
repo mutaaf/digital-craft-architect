@@ -83,6 +83,12 @@ const RealEstateDemoHub = () => {
         <meta property="og:title" content={ogTitle} />
         <meta property="og:description" content={ogDescription} />
         <meta property="og:type" content="website" />
+        <meta property="og:url" content={window.location.href} />
+        <meta property="og:image" content="/og-realestate.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={ogTitle} />
+        <meta name="twitter:description" content={ogDescription} />
+        <meta name="twitter:image" content="/og-realestate.png" />
       </Helmet>
       <DemoNavbar />
 
@@ -99,6 +105,58 @@ const RealEstateDemoHub = () => {
         </div>
 
         <CompanySetupForm />
+
+        {/* SEO intro section */}
+        <section className="mb-10 bg-white dark:bg-gray-900 rounded-2xl p-6 sm:p-8 border border-gray-200 dark:border-gray-800">
+          <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+            AI for Real Estate: Interactive Tools You Can Try Right Now
+          </h2>
+          <div className="space-y-4 text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed">
+            <p>
+              Real estate moves fast, and the agents and investors who win are the ones who
+              respond first, analyze deals faster, and follow up relentlessly. These three
+              real estate AI tools let you experience exactly what that looks like — not in
+              a pitch deck, but with live, working demos personalized to your brokerage or
+              investment firm. Enter your website above and every demo adapts to your brand,
+              your market, and your business.
+            </p>
+            <p>
+              Start with the <strong>AI Deal Analyzer</strong>, the most comprehensive
+              AI deal analysis demo available online. Paste any listing URL, upload a
+              screenshot from Zillow or the MLS, or type in property details manually.
+              Within seconds GPT-4o extracts the data, pulls comparable sales, calculates
+              your maximum allowable offer, projects ROI, and drafts seller outreach
+              messages — the full negotiation playbook that used to take an analyst hours
+              to assemble.
+            </p>
+            <p>
+              Next, take the analysis a step further with the <strong>AI Voice
+              Negotiator</strong>. After the deal analyzer builds your playbook, set a
+              bid range and let the AI place a live voice call to the seller. You will
+              hear the conversation in real time, watch the transcript update word by
+              word, and receive a post-call summary with sentiment analysis, key
+              concessions, and recommended next steps. It is the same voice AI stack used
+              by top-performing wholesalers and acquisition teams, running on Vapi with
+              ElevenLabs natural speech and Deepgram transcription.
+            </p>
+            <p>
+              Finally, the <strong>AI Lead Qualifier</strong> shows how a GPT-4o chatbot
+              handles inbound buyer and seller inquiries around the clock. It asks the
+              right qualifying questions — budget, timeline, neighborhoods, property type,
+              pre-approval status — scores the lead, and schedules a showing or
+              consultation automatically. No more missed leads at 11 PM or over the
+              weekend.
+            </p>
+            <p>
+              Every demo runs on production-grade AI, the same systems we deploy for
+              real estate clients across the country. Whether you are exploring AI for
+              real estate operations, evaluating real estate AI tools for your team, or
+              simply curious how an AI deal analysis demo compares to your current
+              workflow, these interactive demos give you a clear, no-commitment preview.
+              Try them now, or enter your company URL to see them branded to your business.
+            </p>
+          </div>
+        </section>
 
         <div className="grid gap-6">
           {demos.map((d, i) => (
