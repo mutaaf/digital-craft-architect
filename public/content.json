@@ -148,134 +148,96 @@
   ],
   "founder": {
     "photo": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=80",
-    "bio": "Former enterprise engineering leaders turned AI implementation specialist for traditional businesses. We help family-run, blue-collar, and legacy industries leapfrog into the AI era with practical, impactful solutions.",
+    "bio": "Fractional CTO since 2019 for healthcare, construction, recycling, and entertainment businesses. Now productizing the playbook as DigitalCraft AI — practical AI systems for traditional industries.",
     "timeline": [
-      { "year": "2018", "event": "Engineering Leader at Motorola Solutions, modernizing legacy CCTV solutions" },
-      { "year": "2021", "event": "Led team at Amazon, modernizing driver communications technology" },
-      { "year": "2022", "event": "Joined Disney, transforming streaming for live sports and events" },
-      { "year": "2025", "event": "Founded my consultancy, bringing AI expertise to overlooked industries" }
+      { "year": "2018", "event": "Engineering Leader at Motorola Solutions — modernizing legacy CCTV" },
+      { "year": "2019", "event": "Launched independent fractional-CTO practice" },
+      { "year": "2021", "event": "Led driver-communications modernization at Amazon" },
+      { "year": "2022", "event": "Joined Disney — streaming platform for live sports and events" },
+      { "year": "2023", "event": "Onboarded Overwatch Digital Health, Recyclops, and TryMinded on retainer" },
+      { "year": "2024", "event": "Added 448Developments, Infinity Builders, and CheekyMonkeys; shipped DJ RubyRu integrations" },
+      { "year": "2025", "event": "Launched DigitalCraft AI — productized across 11 verticals" }
     ]
   },
   "caseStudies": [
     {
-      "title": "From Paper to Predictive",
-      "subtitle": "Helped digitize a 60-year-old HVAC company with LLM integration",
-      "image": "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=1000&q=80",
-      "before": "Manual scheduling and reactive maintenance",
-      "after": "AI-powered dispatch and predictive maintenance alerts"
-    },
-    {
-      "title": "Kitchen Intelligence",
-      "subtitle": "Restaurant operations transformed with AI",
-      "image": "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=1000&q=80",
-      "before": "Paper tickets and intuition-based ordering",
-      "after": "Smart inventory prediction and AI-optimized staffing"
-    },
-    {
-      "title": "Connected Fleet",
-      "subtitle": "Logistics company AI transformation",
-      "image": "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=1000&q=80",
-      "before": "Manual route planning and reactive maintenance",
-      "after": "LLM-powered route optimization and predictive vehicle maintenance"
-    },
-    {
-      "title": "Construction Site Insights",
-      "subtitle": "Modernizing project management with generative AI",
-      "image": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1000&q=80",
-      "before": "Delayed reporting and disconnected planning",
-      "after": "AI-generated progress reports and predictive timeline adjustments"
-    },
-    {
-      "title": "Youth Sports Revolution",
-      "subtitle": "Transforming league management for youth basketball",
-      "image": "https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=1000&q=80",
-      "before": "Manual scheduling and chaotic tournament organization",
-      "after": "AI-optimized game schedules and automated skill development tracking"
-    },
-    {
-      "title": "Masjid Modernization",
-      "subtitle": "Helping an Islamic Center streamline operations",
-      "image": "https://images.unsplash.com/photo-1542385151-96bb0e60849c?auto=format&fit=crop&w=1000&q=80",
-      "before": "Paper-based donation tracking and manual event scheduling",
-      "after": "Integrated member management and automated charitable contribution analytics"
-    },
-    {
-      "title": "Nonprofit Resource Allocation",
-      "subtitle": "Optimizing a food bank's distribution network",
-      "image": "https://images.unsplash.com/photo-1593113598332-cd59a0c3d5fa?auto=format&fit=crop&w=1000&q=80",
-      "before": "Inconsistent food distribution and manual inventory tracking",
-      "after": "AI-driven demand forecasting and optimized volunteer scheduling"
-    },
-    {
-      "title": "Church Community Engagement",
-      "subtitle": "Revitalizing member participation through technology",
-      "image": "https://images.unsplash.com/photo-1492321936769-b49830bc1d1e?auto=format&fit=crop&w=1000&q=80",
-      "before": "Declining attendance and disconnected member communications",
-      "after": "Personalized engagement platform with AI-recommended community activities"
-    },
-    {
-      "title": "School District Transformation",
-      "subtitle": "Modernizing administrative processes for K-12 education",
-      "image": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1000&q=80",
-      "before": "Overwhelmed staff and paper-based record keeping",
-      "after": "Streamlined enrollment, predictive resource allocation, and personalized learning plans"
-    },
-    {
-      "title": "Healthcare Provider Efficiency",
-      "subtitle": "Optimizing patient care workflows for a rural clinic",
+      "title": "Telemedicine Platform, Built to Ship",
+      "subtitle": "Fractional CTO engagement with a digital-health company",
       "image": "https://images.unsplash.com/photo-1504439468489-c8920d796a29?auto=format&fit=crop&w=1000&q=80",
-      "before": "Long wait times and inefficient scheduling",
-      "after": "AI-powered triage and personalized care pathway recommendations"
+      "before": "No technical architecture, vendor-dependent, months from launch",
+      "after": "Production telemedicine platform with AI intake and a roadmap the team could operate against on day one"
+    },
+    {
+      "title": "Construction Lead-to-Estimate in Under an Hour",
+      "subtitle": "AI lead capture and estimating for a developer-builder",
+      "image": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1000&q=80",
+      "before": "Lead response in hours or days; estimates took days to prepare",
+      "after": "Lead response under a minute; estimates delivered in under an hour; more jobs booked, more jobs closed"
+    },
+    {
+      "title": "Logistics Ops That Scale Without Headcount",
+      "subtitle": "Multi-year CTO retainer with a recycling operation",
+      "image": "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=1000&q=80",
+      "before": "Manual dispatch, coordination overhead growing with every new market",
+      "after": "Automation and AI tooling that lets the ops team scale without adding staff"
+    },
+    {
+      "title": "Party Bookings on Autopilot",
+      "subtitle": "Family entertainment center handling 40–45 parties every weekend",
+      "image": "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=1000&q=80",
+      "before": "15–20 hours a week retyping booking details across four systems",
+      "after": "AI intake captures every call and auto-populates ops sheets — zero manual data entry"
+    },
+    {
+      "title": "Event Ops, Fully Integrated",
+      "subtitle": "A dozen integrations for an event production business",
+      "image": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1000&q=80",
+      "before": "Booking, vendor coordination, and gig prep all managed by hand",
+      "after": "DJs arrive at every event knowing exactly what the night needs; owner stops touching the ops layer"
     }
   ],
   "testimonials": [
     {
-      "quote": "The AI systems we implemented together saved us 20 hours per week in manual work. Our technicians now focus on what they do best while the AI handles the routine tasks.",
-      "author": "Sarah Johnson",
-      "position": "Operations Director, HVAC Co.",
+      "quote": "He's been our fractional CTO through multiple product phases. Having an engineering partner who actually ships is the difference between hitting compliance milestones ahead of plan and grinding in place. We run the roadmap; he makes it real.",
+      "author": "Leadership",
+      "position": "Overwatch Digital Health",
       "image": "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300&q=80"
     },
     {
-      "quote": "We tried expensive off-the-shelf software for years. Nothing worked until this custom AI approach that actually fits how our business operates and learns from our specific needs.",
-      "author": "Michael Chen",
-      "position": "Owner, Chen's Restaurant Group",
+      "quote": "We brought him in to architect our telemedicine platform end-to-end. What would have taken a full in-house team a year, we had in production in months — with a system we could actually operate against on day one.",
+      "author": "Leadership",
+      "position": "TryMinded",
       "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80"
     },
     {
-      "quote": "Finally, someone who understands both cutting-edge AI AND the realities of running a construction business. The perfect bridge we needed to modernize without disruption.",
-      "author": "David Rodriguez",
-      "position": "CEO, BuildRight Construction",
+      "quote": "Our estimate turnaround went from days to under an hour. Our lead response went from 'whenever someone saw the voicemail' to under a minute. We book more jobs and close more of them — the ROI paid for itself in the first month.",
+      "author": "Principal",
+      "position": "448Developments",
       "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=300&q=80"
     },
     {
-      "quote": "Their AI system revolutionized how we plan events. What used to take days of scheduling and coordination now happens automatically, and our DJs arrive prepared with exactly what each venue needs.",
-      "author": "Jason Maxwell",
-      "position": "Founder, Beats Entertainment",
+      "quote": "He's built over a dozen integrations for my event business — booking flow, vendor coordination, automated prep for every gig. My DJs walk into every event knowing exactly what the night needs, and I don't manage any of it by hand anymore.",
+      "author": "Founder",
+      "position": "DJ RubyRu",
       "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80"
     },
     {
-      "quote": "The investor matching algorithm they built has completely transformed our funding process. We're now connecting with investors who truly align with our development vision and values.",
-      "author": "Sophia Patel",
-      "position": "Director, Urban Heights Properties",
+      "quote": "He built a lead-capture and estimating system that runs while we're on the jobsite. We stopped losing leads to faster competitors. If you build anything and you're still doing intake by hand, you're leaving money on the table.",
+      "author": "Principal",
+      "position": "Infinity Builders",
       "image": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=300&q=80"
     },
     {
-      "quote": "Our youth basketball league went from chaos to clockwork. Registration, team balancing, and tournament scheduling now happen automatically, giving our coaches more time to focus on the kids.",
-      "author": "Marcus Thompson",
-      "position": "Director, Metro Youth Sports Association",
+      "quote": "We host 40 to 45 parties every weekend. Before this, my team spent 15 to 20 hours a week retyping booking details across four different systems. The AI intake eliminated that entirely — staff actually get to go home on time now.",
+      "author": "Owner",
+      "position": "CheekyMonkeys",
       "image": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=300&q=80"
     },
     {
-      "quote": "The donation management system has been transformative for our masjid. We've increased charitable giving by 45% while cutting administrative costs. Now we can focus on serving our community.",
-      "author": "Imam Khalid Rahman",
-      "position": "Director, Al-Hidaya Islamic Center",
+      "quote": "We run a complex logistics operation across dozens of markets. He built the automation and AI tooling that let our ops team scale without scaling headcount — and he's stayed on through every new phase of the business.",
+      "author": "Leadership",
+      "position": "Recyclops",
       "image": "https://images.unsplash.com/photo-1566492031773-4f4e44671857?auto=format&fit=crop&w=300&q=80"
-    },
-    {
-      "quote": "As a food bank serving 12 counties, coordinating volunteers and donations was overwhelming. Their AI solution has helped us serve 30% more families with the same resources.",
-      "author": "Rebecca Torres",
-      "position": "Executive Director, Regional Food Network",
-      "image": "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=300&q=80"
     }
   ],
   "form": {
