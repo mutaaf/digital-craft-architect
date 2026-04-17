@@ -179,21 +179,21 @@ const PricingTier: React.FC<{
    ═══════════════════════════════════════════════════════════ */
 const constructionTestimonials: TestimonialItem[] = [
   {
-    quote: "The AI systems we implemented together saved us 20 hours per week in manual work. Our technicians now focus on what they do best while the AI handles the routine tasks.",
-    author: "Sarah Johnson",
-    position: "Operations Director, HVAC Co.",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300&q=80",
-  },
-  {
-    quote: "Finally, someone who understands both cutting-edge AI AND the realities of running a construction business. The perfect bridge we needed to modernize without disruption.",
-    author: "David Rodriguez",
-    position: "CEO, BuildRight Construction",
+    quote: "Our estimate turnaround went from days to under an hour. Our lead response went from 'whenever someone saw the voicemail' to under a minute. We book more jobs and close more of them — the ROI paid for itself in the first month.",
+    author: "Principal",
+    position: "448Developments",
     image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=300&q=80",
   },
   {
-    quote: "Our lead response time went from hours to under a minute. We're booking more estimates than ever and our close rate jumped 30% in the first quarter.",
-    author: "Mike Palmer",
-    position: "Owner, Palmer Roofing & Siding",
+    quote: "He built a lead-capture and estimating system that runs while we're on the jobsite. We stopped losing leads to faster competitors. If you build anything and you're still doing intake by hand, you're leaving money on the table.",
+    author: "Principal",
+    position: "Infinity Builders",
+    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300&q=80",
+  },
+  {
+    quote: "He's our fractional CTO and he ships. Compliance milestones hit ahead of plan, roadmap turns into production — that's the difference between an engineering partner and a vendor.",
+    author: "Leadership",
+    position: "Overwatch Digital Health",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80",
   },
 ];
