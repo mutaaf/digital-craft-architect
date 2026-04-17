@@ -144,6 +144,7 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
                   </span>
                 </p>
                 <div className="flex space-x-6">
+                  <a href="/industries" className="text-gray-400 hover:text-skyblue text-sm">Industries</a>
                   <a href="#" className="text-gray-400 hover:text-skyblue text-sm">Privacy Policy</a>
                   <a href="#" className="text-gray-400 hover:text-skyblue text-sm">Terms of Service</a>
                 </div>

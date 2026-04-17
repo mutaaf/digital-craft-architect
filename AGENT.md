@@ -173,7 +173,7 @@ Each new vertical follows the established pattern: landing page (`src/pages/[Ver
 
 - [x] NAV-INDUSTRIES-DROPDOWN: Update `src/components/Navbar.tsx` to replace the current services navigation with an "Industries" mega-menu dropdown. Group all verticals: Construction, Real Estate, Events, Home Services, Healthcare, Legal, Restaurant, Kids Play, Fitness, Dental, Salon, Auto Repair. Show icons and brief descriptions. Mobile: collapsible accordion. This replaces individual nav entries added by prior vertical tasks.
 
-- [ ] INDUSTRIES-DIRECTORY-PAGE: Create `src/pages/Industries.tsx` — a directory page listing all supported industry verticals with cards (icon, name, tagline, link to landing page). Route: `/industries`. Add to footer and navbar. This serves as both a user navigation aid and an SEO hub page linking to all vertical landing pages. Target keywords: "AI automation by industry", "AI for small business".
+- [x] INDUSTRIES-DIRECTORY-PAGE: Create `src/pages/Industries.tsx` — a directory page listing all supported industry verticals with cards (icon, name, tagline, link to landing page). Route: `/industries`. Add to footer and navbar. This serves as both a user navigation aid and an SEO hub page linking to all vertical landing pages. Target keywords: "AI automation by industry", "AI for small business". *(completed 2026-04-17)*
 
 ### TIER 6 — Quality Assurance + CI/CD
 
