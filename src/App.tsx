@@ -19,6 +19,24 @@ import EventsDemoHub from "./pages/events/EventsDemoHub";
 import InquiryQualifier from "./pages/events/InquiryQualifier";
 import ProposalGenerator from "./pages/events/ProposalGenerator";
 import VoiceBookingAgent from "./pages/events/VoiceBookingAgent";
+import HomeServices from "./pages/HomeServices";
+import HomeServicesDemoHub from "./pages/homeservices/DemoHub";
+import Healthcare from "./pages/Healthcare";
+import HealthcareDemoHub from "./pages/healthcare/DemoHub";
+import Legal from "./pages/Legal";
+import LegalDemoHub from "./pages/legal/DemoHub";
+import Restaurant from "./pages/Restaurant";
+import RestaurantDemoHub from "./pages/restaurant/DemoHub";
+import KidsPlay from "./pages/KidsPlay";
+import KidsPlayDemoHub from "./pages/kidsplay/DemoHub";
+import Fitness from "./pages/Fitness";
+import FitnessDemoHub from "./pages/fitness/DemoHub";
+import Dental from "./pages/Dental";
+import DentalDemoHub from "./pages/dental/DemoHub";
+import Salon from "./pages/Salon";
+import SalonDemoHub from "./pages/salon/DemoHub";
+import AutoRepair from "./pages/AutoRepair";
+import AutoRepairDemoHub from "./pages/autorepair/DemoHub";
 import SetupClaw from "./pages/SetupClaw";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
@@ -152,6 +170,51 @@ const App = () => (
               <Route path="/events/demo/inquiry" element={<DemoContextProvider vertical="events"><InquiryQualifier /></DemoContextProvider>} />
               <Route path="/events/demo/proposal" element={<DemoContextProvider vertical="events"><ProposalGenerator /></DemoContextProvider>} />
               <Route path="/events/demo/voice-booking" element={<DemoContextProvider vertical="events"><VoiceBookingAgent /></DemoContextProvider>} />
+              <Route path="/homeservices" element={<HomeServices />} />
+              <Route path="/homeservices/demo" element={<DemoContextProvider vertical="homeservices"><HomeServicesDemoHub /></DemoContextProvider>} />
+              <Route path="/homeservices/demo/lead-responder" element={<DemoContextProvider vertical="homeservices"><LeadResponder /></DemoContextProvider>} />
+              <Route path="/homeservices/demo/estimate" element={<DemoContextProvider vertical="homeservices"><EstimateGenerator /></DemoContextProvider>} />
+              <Route path="/homeservices/demo/voice-followup" element={<DemoContextProvider vertical="homeservices"><VoiceNegotiator /></DemoContextProvider>} />
+              <Route path="/healthcare" element={<Healthcare />} />
+              <Route path="/healthcare/demo" element={<DemoContextProvider vertical="healthcare"><HealthcareDemoHub /></DemoContextProvider>} />
+              <Route path="/healthcare/demo/intake" element={<DemoContextProvider vertical="healthcare"><LeadResponder /></DemoContextProvider>} />
+              <Route path="/healthcare/demo/scheduler" element={<DemoContextProvider vertical="healthcare"><ProposalGenerator /></DemoContextProvider>} />
+              <Route path="/healthcare/demo/voice-followup" element={<DemoContextProvider vertical="healthcare"><VoiceNegotiator /></DemoContextProvider>} />
+              <Route path="/legal" element={<Legal />} />
+              <Route path="/legal/demo" element={<DemoContextProvider vertical="legal"><LegalDemoHub /></DemoContextProvider>} />
+              <Route path="/legal/demo/intake" element={<DemoContextProvider vertical="legal"><LeadResponder /></DemoContextProvider>} />
+              <Route path="/legal/demo/consultation" element={<DemoContextProvider vertical="legal"><ProposalGenerator /></DemoContextProvider>} />
+              <Route path="/legal/demo/voice-followup" element={<DemoContextProvider vertical="legal"><VoiceNegotiator /></DemoContextProvider>} />
+              <Route path="/restaurant" element={<Restaurant />} />
+              <Route path="/restaurant/demo" element={<DemoContextProvider vertical="restaurant"><RestaurantDemoHub /></DemoContextProvider>} />
+              <Route path="/restaurant/demo/reservations" element={<DemoContextProvider vertical="restaurant"><LeadResponder /></DemoContextProvider>} />
+              <Route path="/restaurant/demo/catering" element={<DemoContextProvider vertical="restaurant"><EstimateGenerator /></DemoContextProvider>} />
+              <Route path="/restaurant/demo/reviews" element={<DemoContextProvider vertical="restaurant"><ReviewSystem /></DemoContextProvider>} />
+              <Route path="/kidsplay" element={<KidsPlay />} />
+              <Route path="/kidsplay/demo" element={<DemoContextProvider vertical="kidsplay"><KidsPlayDemoHub /></DemoContextProvider>} />
+              <Route path="/kidsplay/demo/party-booker" element={<DemoContextProvider vertical="kidsplay"><LeadResponder /></DemoContextProvider>} />
+              <Route path="/kidsplay/demo/packages" element={<DemoContextProvider vertical="kidsplay"><EstimateGenerator /></DemoContextProvider>} />
+              <Route path="/kidsplay/demo/voice-booking" element={<DemoContextProvider vertical="kidsplay"><VoiceNegotiator /></DemoContextProvider>} />
+              <Route path="/fitness" element={<Fitness />} />
+              <Route path="/fitness/demo" element={<DemoContextProvider vertical="fitness"><FitnessDemoHub /></DemoContextProvider>} />
+              <Route path="/fitness/demo/lead-qualifier" element={<DemoContextProvider vertical="fitness"><LeadResponder /></DemoContextProvider>} />
+              <Route path="/fitness/demo/membership" element={<DemoContextProvider vertical="fitness"><EstimateGenerator /></DemoContextProvider>} />
+              <Route path="/fitness/demo/voice-retention" element={<DemoContextProvider vertical="fitness"><VoiceNegotiator /></DemoContextProvider>} />
+              <Route path="/dental" element={<Dental />} />
+              <Route path="/dental/demo" element={<DemoContextProvider vertical="dental"><DentalDemoHub /></DemoContextProvider>} />
+              <Route path="/dental/demo/intake" element={<DemoContextProvider vertical="dental"><LeadResponder /></DemoContextProvider>} />
+              <Route path="/dental/demo/estimate" element={<DemoContextProvider vertical="dental"><EstimateGenerator /></DemoContextProvider>} />
+              <Route path="/dental/demo/voice-recall" element={<DemoContextProvider vertical="dental"><VoiceNegotiator /></DemoContextProvider>} />
+              <Route path="/salon" element={<Salon />} />
+              <Route path="/salon/demo" element={<DemoContextProvider vertical="salon"><SalonDemoHub /></DemoContextProvider>} />
+              <Route path="/salon/demo/booking" element={<DemoContextProvider vertical="salon"><LeadResponder /></DemoContextProvider>} />
+              <Route path="/salon/demo/services" element={<DemoContextProvider vertical="salon"><EstimateGenerator /></DemoContextProvider>} />
+              <Route path="/salon/demo/voice-rebook" element={<DemoContextProvider vertical="salon"><VoiceNegotiator /></DemoContextProvider>} />
+              <Route path="/autorepair" element={<AutoRepair />} />
+              <Route path="/autorepair/demo" element={<DemoContextProvider vertical="autorepair"><AutoRepairDemoHub /></DemoContextProvider>} />
+              <Route path="/autorepair/demo/advisor" element={<DemoContextProvider vertical="autorepair"><LeadResponder /></DemoContextProvider>} />
+              <Route path="/autorepair/demo/estimate" element={<DemoContextProvider vertical="autorepair"><EstimateGenerator /></DemoContextProvider>} />
+              <Route path="/autorepair/demo/voice-reminder" element={<DemoContextProvider vertical="autorepair"><VoiceNegotiator /></DemoContextProvider>} />
               <Route path="/setupclaw" element={<SetupClaw />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />

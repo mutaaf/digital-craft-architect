@@ -1,13 +1,22 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, ChevronDown, HardHat, Building2, PartyPopper, Server, Phone } from 'lucide-react';
+import { Menu, X, ChevronDown, HardHat, Building2, PartyPopper, Server, Phone, Wrench, Heart, Scale, UtensilsCrossed, Gamepad2, Dumbbell, Stethoscope, Scissors, Car } from 'lucide-react';
 import { trackCTAClick } from '@/utils/analytics';
 
 const VERTICALS = [
   { to: '/construction', label: 'Construction', icon: HardHat },
   { to: '/realestate', label: 'Real Estate', icon: Building2 },
   { to: '/events', label: 'Events', icon: PartyPopper },
+  { to: '/homeservices', label: 'Home Services', icon: Wrench },
+  { to: '/healthcare', label: 'Healthcare', icon: Heart },
+  { to: '/legal', label: 'Law Firms', icon: Scale },
+  { to: '/restaurant', label: 'Restaurants', icon: UtensilsCrossed },
+  { to: '/kidsplay', label: 'Kids Play', icon: Gamepad2 },
+  { to: '/fitness', label: 'Fitness & Gyms', icon: Dumbbell },
+  { to: '/dental', label: 'Dental', icon: Stethoscope },
+  { to: '/salon', label: 'Salons & Spas', icon: Scissors },
+  { to: '/autorepair', label: 'Auto Repair', icon: Car },
   { to: '/setupclaw', label: 'SetupClaw', icon: Server },
 ];
 
