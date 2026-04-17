@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, ChevronDown, HardHat, Building2, PartyPopper, Server, Phone, Wrench, Heart, Scale, UtensilsCrossed, Gamepad2, Dumbbell, Stethoscope, Scissors, Car } from 'lucide-react';
+import { Menu, X, ChevronDown, HardHat, Building2, PartyPopper, Server, Phone, Wrench, Heart, Scale, UtensilsCrossed, Gamepad2, Dumbbell, Stethoscope, Scissors, Car, ArrowRight } from 'lucide-react';
 import { trackCTAClick } from '@/utils/analytics';
 
 const VERTICALS = [
@@ -115,6 +115,14 @@ const Navbar: React.FC<NavbarProps> = ({ darkHero = false }) => {
                     {v.label}
                   </Link>
                 ))}
+                <Link
+                  to="/industries"
+                  onClick={() => setIsServicesOpen(false)}
+                  className="flex items-center justify-center gap-1 px-4 py-2.5 text-sm font-medium text-primary hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors border-t border-gray-200 dark:border-gray-700"
+                >
+                  View All Industries
+                  <ArrowRight size={14} />
+                </Link>
               </div>
             )}
           </div>
@@ -186,6 +194,14 @@ const Navbar: React.FC<NavbarProps> = ({ darkHero = false }) => {
                   {v.label}
                 </Link>
               ))}
+              <Link
+                to="/industries"
+                onClick={toggleMenu}
+                className="flex items-center gap-1 text-sm font-medium text-primary hover:text-primary/80 transition-colors pt-2 border-t border-gray-200 dark:border-gray-700"
+              >
+                View All Industries
+                <ArrowRight size={14} />
+              </Link>
             </div>
           )}
 
