@@ -177,7 +177,7 @@ Each new vertical follows the established pattern: landing page (`src/pages/[Ver
 
 ### TIER 6 — Quality Assurance + CI/CD
 
-- [ ] CI-GITHUB-ACTIONS: Create `.github/workflows/ci.yml` — a GitHub Actions workflow that runs on every push and PR to main. Steps: (1) checkout, (2) setup Node 20, (3) `npm ci`, (4) `npm run lint`, (5) `npm run build`. This catches build and lint errors before Vercel deploys. Use caching for node_modules.
+- [x] CI-GITHUB-ACTIONS: Create `.github/workflows/ci.yml` — a GitHub Actions workflow that runs on every push and PR to main. Steps: (1) checkout, (2) setup Node 20, (3) `npm ci`, (4) `npm run lint`, (5) `npm run build`. This catches build and lint errors before Vercel deploys. Use caching for node_modules. *(completed 2026-04-17)*
 
 - [ ] CI-LINK-CHECKER: Add a link validation script at `scripts/check-links.ts` that: (1) reads all routes from App.tsx, (2) reads all `<Link to="...">` and `href="..."` patterns across the codebase, (3) verifies every internal link has a matching route, (4) reports mismatches. Add `"check-links": "npx tsx scripts/check-links.ts"` to package.json scripts. Add this step to the GitHub Actions CI workflow.
 
