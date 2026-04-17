@@ -4,7 +4,7 @@ import type { CompanyProfile } from '@/utils/websiteScraper';
 import { scrapeWebsite } from '@/utils/websiteScraper';
 import { trackCompanyUrlSubmission } from '@/utils/analytics';
 
-export type Vertical = 'construction' | 'realestate' | 'events';
+export type Vertical = 'construction' | 'realestate' | 'events' | 'homeservices' | 'healthcare' | 'legal' | 'restaurant' | 'kidsplay' | 'fitness' | 'dental' | 'salon' | 'autorepair';
 
 interface DemoContextValue {
   company: CompanyProfile | null;
