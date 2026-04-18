@@ -167,11 +167,15 @@ const PropertyNegotiator = () => {
           <Badge variant="secondary" className="mb-4">
             <Sparkles size={14} className="mr-1" /> POC Demo
           </Badge>
-          <h1 className="text-3xl sm:text-4xl font-bold mb-3">AI Deal Negotiator</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold mb-3">AI Property Deal Analyzer</h1>
           <p className="text-base sm:text-lg text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
             Paste a property, watch the AI analyze it live, get comps + strategy + seller messages.
           </p>
         </div>
+
+        <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm leading-relaxed max-w-2xl mx-auto text-center mb-6">
+          This AI deal analysis demo shows how real estate investors and contractors evaluate properties in minutes instead of hours. Paste a listing URL, upload a screenshot, or enter details manually — the AI extracts property data, generates comparable sales, calculates ARV and potential profit, then drafts personalized seller outreach messages. The four-step pipeline uses GPT-4o with vision to analyze listings from Zillow, Realtor.com, and MLS screenshots. For real estate professionals and construction investors, this AI-powered deal analyzer replaces manual comp research and spreadsheet analysis with instant, data-driven investment decisions. Try the AI property negotiation tool below to see comps, deal scoring, and ready-to-send seller messages generated in real time.
+        </p>
 
         {/* ── Input Phase ──────────────────────────────────────────────── */}
         {phase === 'input' && (

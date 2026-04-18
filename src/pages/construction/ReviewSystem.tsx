@@ -115,13 +115,17 @@ const ReviewSystem = () => {
             <Sparkles size={14} className="mr-1" /> POC Demo
           </Badge>
           <h1 className="text-2xl sm:text-3xl font-bold mb-2">
-            Go from 3 Reviews to 50+ in 90 Days
+            AI Review Management for Contractors
           </h1>
           <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base max-w-xl mx-auto">
             Automated SMS sequences turn every completed project into a 5-star Google review —
             without {ownerName} or the team lifting a finger.
           </p>
         </div>
+
+        <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm leading-relaxed max-w-2xl mx-auto text-center mb-6">
+          This AI review management demo shows how contractors and construction companies can automate their online reputation. Most contractors finish great work but never ask for reviews — and the few who do ask too late, when the excitement has faded. Our automated review request system sends personalized SMS messages at the perfect time after project completion, making it effortless for happy clients to leave 5-star Google reviews. The dashboard tracks review velocity, sentiment, and response rates in real time. See below how the SMS flow works from initial follow-up through gentle reminders, and watch the review dashboard update as positive reviews come in. For construction businesses, more Google reviews mean higher local search rankings, more trust from prospects, and more booked jobs.
+        </p>
 
         {/* How it works — 3-step pipeline */}
         <div className="grid sm:grid-cols-3 gap-4 mb-10">
