@@ -73,6 +73,7 @@ const LeadMagnetSection: React.FC = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              aria-label="Email address for AI readiness checklist"
               className="flex-1 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
             />
             <Button
