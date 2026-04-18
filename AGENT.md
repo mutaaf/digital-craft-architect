@@ -185,7 +185,7 @@ Each new vertical follows the established pattern: landing page (`src/pages/[Ver
 
 - [x] FIX-OG-IMAGES: Wire up the unused OG images. In the meta tag system (check `index.html` and the dynamic meta script), ensure `/og-realestate.png` is used for `/realestate` routes and `/og-events.png` is used for `/events` routes. Currently only `/og-default.png` and `/og-construction.png` are referenced. *(completed 2026-04-18)*
 
-- [ ] CI-LIGHTHOUSE: Add a Lighthouse CI step to the GitHub Actions workflow that runs against the production build preview. Use `@lhci/cli` to audit the landing pages (Index, Construction, RealEstate) for performance, accessibility, SEO, and best practices. Set minimum score thresholds: Performance 80, Accessibility 90, SEO 90, Best Practices 90. Fail the build if scores drop below thresholds.
+- [x] CI-LIGHTHOUSE: Add a Lighthouse CI step to the GitHub Actions workflow that runs against the production build preview. Use `@lhci/cli` to audit the landing pages (Index, Construction, RealEstate) for performance, accessibility, SEO, and best practices. Set minimum score thresholds: Performance 80, Accessibility 90, SEO 90, Best Practices 90. Fail the build if scores drop below thresholds. *(completed 2026-04-18)*
 
 - [ ] SITEMAP-AUTO-GENERATE: Create `scripts/generate-sitemap.ts` that reads all routes from App.tsx and all blog slugs from blogPosts.ts, then generates `public/sitemap.xml` automatically. Add `"sitemap": "npx tsx scripts/generate-sitemap.ts"` to package.json. Add as a pre-build step so the sitemap is always current.
 
