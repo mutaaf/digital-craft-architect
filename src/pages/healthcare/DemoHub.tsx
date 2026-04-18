@@ -86,11 +86,11 @@ const DemoHub = () => {
         <meta property="og:description" content={ogDescription} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={window.location.href} />
-        <meta property="og:image" content="/og-healthcare.png" />
+        <meta property="og:image" content="/og-default.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={ogTitle} />
         <meta name="twitter:description" content={ogDescription} />
-        <meta name="twitter:image" content="/og-healthcare.png" />
+        <meta name="twitter:image" content="/og-default.png" />
       </Helmet>
       <DemoNavbar />
 
