@@ -162,7 +162,7 @@ const Navbar: React.FC<NavbarProps> = ({ darkHero = false }) => {
             <Phone size={14} />
             Book a Call
           </a>
-          <button onClick={toggleMenu} className={hamburgerClass}>
+          <button onClick={toggleMenu} className={hamburgerClass} aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} aria-expanded={isMenuOpen}>
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>

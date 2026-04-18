@@ -15,7 +15,7 @@ const ScrollProgress: React.FC = () => {
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-[60] h-[3px] bg-transparent">
+    <div className="fixed top-0 left-0 right-0 z-[60] h-[3px] bg-transparent" aria-hidden="true">
       <div
         className="h-full bg-primary transition-[width] duration-75"
         style={{ width: `${progress}%` }}
