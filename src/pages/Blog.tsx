@@ -5,7 +5,7 @@ import Footer from '@/components/Footer';
 import { useContent } from '@/hooks/useContent';
 import { useAnalytics } from '@/utils/analytics';
 import { blogPosts } from '@/data/blogPosts';
-import { ArrowRight, Calendar, Clock } from 'lucide-react';
+import { ArrowRight, Calendar, Clock, Rss } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
 const Blog = () => {
@@ -74,6 +74,13 @@ const Blog = () => {
           </div>
         </div>
       </section>
+
+      <div className="text-center py-6">
+        <a href="/rss.xml" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-primary transition-colors">
+          <Rss size={16} />
+          Subscribe via RSS
+        </a>
+      </div>
 
       {content?.footer && <Footer data={content.footer} />}
     </div>

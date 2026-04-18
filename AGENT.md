@@ -193,6 +193,6 @@ Each new vertical follows the established pattern: landing page (`src/pages/[Ver
 
 - [x] DEMO-SEO-THIN-CONTENT: Audit all demo pages (LeadResponder, EstimateGenerator, ReviewSystem, PropertyNegotiator, VoiceNegotiator, InquiryQualifier, ProposalGenerator, VoiceBookingAgent) and add descriptive intro paragraphs (150+ words) above the interactive elements. This helps with SEO for individual demo pages, not just the hubs. Include H1 tags with keywords and brief explanations of what each demo does. *(completed 2026-04-18)*
 
-- [ ] BLOG-RSS-FEED: Create `scripts/generate-rss.ts` that reads blog posts from `src/data/blogPosts.ts` and generates `public/rss.xml` (RSS 2.0 feed). Add link to RSS feed in the `<head>` of `index.html` and in the blog page footer. This enables RSS readers and automated content distribution.
+- [x] BLOG-RSS-FEED: Create `scripts/generate-rss.ts` that reads blog posts from `src/data/blogPosts.ts` and generates `public/rss.xml` (RSS 2.0 feed). Add link to RSS feed in the `<head>` of `index.html` and in the blog page footer. This enables RSS readers and automated content distribution. *(completed 2026-04-18)*
 
 - [ ] ACCESSIBILITY-AUDIT: Audit all landing pages and demo pages for accessibility: (1) ensure all images have alt text, (2) all form inputs have labels, (3) all interactive elements are keyboard-navigable, (4) color contrast meets WCAG AA, (5) ARIA labels on icon-only buttons. Fix any issues found. Focus on the main conversion paths first (hero → form → success).
