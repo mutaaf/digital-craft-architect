@@ -199,6 +199,14 @@
   from { opacity: 0; }
   to   { opacity: 1; }
 }
+@keyframes v2-wave {
+  from { transform: scaleY(0.35); }
+  to   { transform: scaleY(1.1); }
+}
+@keyframes v2-glow {
+  0%, 100% { opacity: 0.25; }
+  50%      { opacity: 0.55; }
+}
 
 .v2-rise   { animation: v2-rise 1s cubic-bezier(0.22, 1, 0.36, 1) both; }
 .v2-sweep  { animation: v2-sweep 1.2s cubic-bezier(0.22, 1, 0.36, 1) both; transform-origin: left; }
