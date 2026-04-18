@@ -24,6 +24,28 @@ export default tseslint.config(
         { allowConstantExport: true },
       ],
       "@typescript-eslint/no-unused-vars": "off",
+      "@typescript-eslint/no-unused-expressions": [
+        "error",
+        { allowTernary: true, allowShortCircuit: true },
+      ],
+    },
+  },
+  {
+    files: ["src/components/ui/**/*.{ts,tsx}"],
+    rules: {
+      "@typescript-eslint/no-empty-object-type": "off",
+    },
+  },
+  {
+    files: ["src/utils/analytics.ts", "src/utils/sentry.ts"],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+    },
+  },
+  {
+    files: ["*.config.{ts,js}", "**/*.config.{ts,js}"],
+    rules: {
+      "@typescript-eslint/no-require-imports": "off",
     },
   }
 );
