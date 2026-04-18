@@ -191,7 +191,7 @@ Each new vertical follows the established pattern: landing page (`src/pages/[Ver
 
 - [x] META-TAGS-AUDIT: Create `scripts/check-meta.ts` that verifies every route defined in App.tsx has corresponding meta tag configuration (title, description, OG image). Report any routes missing meta data. Add to CI workflow. *(completed 2026-04-18)*
 
-- [ ] DEMO-SEO-THIN-CONTENT: Audit all demo pages (LeadResponder, EstimateGenerator, ReviewSystem, PropertyNegotiator, VoiceNegotiator, InquiryQualifier, ProposalGenerator, VoiceBookingAgent) and add descriptive intro paragraphs (150+ words) above the interactive elements. This helps with SEO for individual demo pages, not just the hubs. Include H1 tags with keywords and brief explanations of what each demo does.
+- [x] DEMO-SEO-THIN-CONTENT: Audit all demo pages (LeadResponder, EstimateGenerator, ReviewSystem, PropertyNegotiator, VoiceNegotiator, InquiryQualifier, ProposalGenerator, VoiceBookingAgent) and add descriptive intro paragraphs (150+ words) above the interactive elements. This helps with SEO for individual demo pages, not just the hubs. Include H1 tags with keywords and brief explanations of what each demo does. *(completed 2026-04-18)*
 
 - [ ] BLOG-RSS-FEED: Create `scripts/generate-rss.ts` that reads blog posts from `src/data/blogPosts.ts` and generates `public/rss.xml` (RSS 2.0 feed). Add link to RSS feed in the `<head>` of `index.html` and in the blog page footer. This enables RSS readers and automated content distribution.
 

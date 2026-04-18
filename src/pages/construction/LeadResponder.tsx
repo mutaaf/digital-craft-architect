@@ -191,11 +191,15 @@ const LeadResponder = () => {
           <Badge variant="secondary" className="mb-3">
             <Sparkles size={14} className="mr-1" /> POC Demo
           </Badge>
-          <h1 className="text-2xl sm:text-3xl font-bold mb-2">AI Lead Responder</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold mb-2">AI Lead Qualification for Construction Companies</h1>
           <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base">
             Play the homeowner — chat with {companyName}'s AI and watch it qualify leads in real time.
           </p>
         </div>
+
+        <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm leading-relaxed max-w-2xl mx-auto text-center mb-6">
+          This AI lead responder demo shows how construction companies can automate lead qualification using GPT-4o. When a homeowner visits your website and asks about a kitchen remodel, bathroom renovation, or full home project, the AI assistant responds instantly — qualifying the lead by gathering project details, square footage, budget, timeline, and contact information through natural conversation. Instead of losing leads to slow follow-up, your AI responds in under 60 seconds, 24/7. It extracts structured lead data in real time, gives ballpark pricing estimates using your actual rates, and suggests booking a consultation when the prospect is ready. Try it below to see how automated lead follow-up works for contractors, remodelers, and construction businesses looking to convert more website visitors into booked appointments.
+        </p>
 
         <div className="flex-1 flex flex-col lg:flex-row gap-4 lg:gap-6 min-h-0">
           {/* Chat column */}

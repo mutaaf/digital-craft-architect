@@ -206,11 +206,15 @@ const InquiryQualifier = () => {
           <Badge variant="secondary" className="mb-3">
             <Sparkles size={14} className="mr-1" /> POC Demo
           </Badge>
-          <h1 className="text-2xl sm:text-3xl font-bold mb-2">AI Inquiry Qualifier</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold mb-2">AI Event Inquiry Qualifier</h1>
           <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base">
             Play the client — chat with {companyName}'s AI and watch it qualify event inquiries in real time.
           </p>
         </div>
+
+        <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm leading-relaxed max-w-2xl mx-auto text-center mb-6">
+          This AI inquiry qualifier demo shows how event planning companies automate lead qualification for weddings, corporate events, and private parties. When a prospect reaches out asking about availability, pricing, or packages, the AI assistant responds instantly — gathering event date, guest count, venue preferences, budget range, and special requirements through natural conversation. For event planners, DJs, caterers, photographers, and venue owners, this means no more lost leads from slow email responses. The AI qualifies inquiries 24/7, extracts structured booking data in real time, and suggests scheduling a consultation when the client is ready. Try the event automation demo below to see how AI-powered inquiry qualification helps event professionals book more clients while spending less time on initial screening.
+        </p>
 
         <div className="flex-1 flex flex-col lg:flex-row gap-4 lg:gap-6 min-h-0">
           {/* Chat column */}
