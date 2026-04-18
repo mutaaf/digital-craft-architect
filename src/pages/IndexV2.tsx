@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { ArrowUpRight, ArrowRight } from 'lucide-react';
-import Navbar from '@/components/Navbar';
+import NavbarV2 from '@/components/v2/NavbarV2';
 import Footer from '@/components/Footer';
 import { useContent } from '@/hooks/useContent';
 import {
@@ -24,9 +24,52 @@ import {
 const CALENDLY = 'https://calendly.com/mutaaf';
 
 const CREDENTIALS = [
-  { org: 'Motorola Solutions', role: 'Engineering Leadership', era: '—2019' },
-  { org: 'Amazon', role: 'Driver Communications', era: '2021' },
-  { org: 'Disney', role: 'Live Sports Streaming', era: '2022' },
+  { roman: 'I',   org: 'Motorola Solutions', role: 'Engineering Leadership', era: '—2019' },
+  { roman: 'II',  org: 'Amazon',             role: 'Driver Communications',  era: '2021' },
+  { roman: 'III', org: 'Disney',             role: 'Live Sports Streaming',  era: '2022' },
+];
+
+const ACTIVE_RETAINERS = [
+  'Overwatch Digital Health',
+  'Recyclops',
+  'TryMinded',
+  '448 Developments',
+  'Infinity Builders',
+  'CheekyMonkeys',
+  'DJ RubyRu',
+];
+
+const STUDIO = [
+  {
+    n: '01',
+    role: 'AI Systems',
+    craft: 'LLM pipelines, agent orchestration, RAG, evals.',
+    stack: 'GPT-4o · Claude · LangGraph · Vercel AI',
+  },
+  {
+    n: '02',
+    role: 'Voice & Conversation',
+    craft: 'Production voice stacks, latency budgets, prompt choreography.',
+    stack: 'Vapi · ElevenLabs · Deepgram · Twilio',
+  },
+  {
+    n: '03',
+    role: 'Product Engineering',
+    craft: 'Shipping what the roadmap calls for. End-to-end delivery.',
+    stack: 'TypeScript · React · Node · Postgres · Vercel',
+  },
+  {
+    n: '04',
+    role: 'Design & Brand',
+    craft: 'Interfaces that feel considered. Identities that outlast a trend cycle.',
+    stack: 'Figma · Framer · brand systems',
+  },
+  {
+    n: '05',
+    role: 'Ops, Data & Security',
+    craft: 'Reliability, observability, compliance. Production readiness as a practice.',
+    stack: 'Sentry · OpenTelemetry · SOC2 readiness',
+  },
 ];
 
 const METRICS = [
@@ -92,6 +135,44 @@ const Eyebrow: React.FC<{ children: React.ReactNode; muted?: boolean }> = ({
     {children}
   </span>
 );
+
+const nextAvailableSlot = (): string => {
+  const d = new Date();
+  d.setDate(d.getDate() + 2);
+  return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+};
+
+const RetainerMarquee: React.FC = () => {
+  const items = [...ACTIVE_RETAINERS, ...ACTIVE_RETAINERS];
+  return (
+    <div
+      className="v2-marquee relative overflow-hidden border-y border-white/10 py-4"
+      aria-label="Active retainer clients"
+    >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-ink to-transparent"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-ink to-transparent"
+      />
+      <div className="v2-marquee-track items-center gap-10">
+        {items.map((label, i) => (
+          <span
+            key={`${label}-${i}`}
+            className="flex shrink-0 items-center gap-10"
+          >
+            <span className="v2-display text-xl text-bone/85 md:text-2xl" style={{ fontWeight: 400 }}>
+              {label}
+            </span>
+            <span className="text-copper">◆</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 /* ---------------------------------- HERO ---------------------------------- */
 const HeroV2: React.FC = () => (
@@ -179,6 +260,14 @@ const HeroV2: React.FC = () => (
               What He Ships ↓
             </a>
           </div>
+
+          <div className="mt-5 flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-bone/50">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-copper opacity-75" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-copper" />
+            </span>
+            Next discovery · {nextAvailableSlot()}
+          </div>
         </div>
       </div>
 
@@ -231,7 +320,7 @@ const ProvenanceV2: React.FC = () => {
               {CREDENTIALS.map((c, i) => (
                 <li
                   key={c.org}
-                  className="flex items-baseline justify-between gap-6 py-6 md:py-8"
+                  className="flex items-baseline justify-between gap-4 py-6 md:gap-6 md:py-8"
                   style={{
                     animation: inView
                       ? `v2-rise 800ms ${200 + i * 140}ms both`
@@ -239,18 +328,30 @@ const ProvenanceV2: React.FC = () => {
                     opacity: inView ? 1 : 0,
                   }}
                 >
-                  <div>
-                    <div
-                      className="v2-display text-bone"
+                  <div className="flex items-baseline gap-4 md:gap-6">
+                    <span
+                      className="v2-display shrink-0 text-copper/70"
                       style={{
                         fontWeight: 380,
-                        fontSize: 'clamp(1.6rem, 5.5vw, 3rem)',
+                        fontStyle: 'italic',
+                        fontSize: 'clamp(1.1rem, 2.2vw, 1.5rem)',
                       }}
                     >
-                      {c.org}
-                    </div>
-                    <div className="mt-2 font-editorial text-sm text-bone/55 md:text-base">
-                      {c.role}
+                      {c.roman}.
+                    </span>
+                    <div>
+                      <div
+                        className="v2-display text-bone"
+                        style={{
+                          fontWeight: 380,
+                          fontSize: 'clamp(1.6rem, 5.5vw, 3rem)',
+                        }}
+                      >
+                        {c.org}
+                      </div>
+                      <div className="mt-2 font-editorial text-sm text-bone/55 md:text-base">
+                        {c.role}
+                      </div>
                     </div>
                   </div>
                   <div className="v2-mono shrink-0 text-copper">{c.era}</div>
@@ -331,6 +432,103 @@ const MandateV2: React.FC = () => {
             </li>
           ))}
         </ul>
+      </div>
+    </section>
+  );
+};
+
+/* ---------------------------- STUDIO (THE TEAM) ---------------------------- */
+const StudioV2: React.FC = () => {
+  const { ref, inView } = useInView<HTMLDivElement>();
+  return (
+    <section
+      ref={ref}
+      className="relative border-b border-white/10 py-20 md:py-32"
+      style={{ background: 'linear-gradient(180deg, #0b0b0d 0%, #0f0f12 100%)' }}
+    >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cpath d='M0 39h40v1H0zM39 0h1v40h-1z' fill='%23f4efe6'/%3E%3C/svg%3E\")",
+        }}
+      />
+      <div className="container relative mx-auto max-w-6xl px-5 sm:px-6">
+        <div className="mb-12 flex flex-col gap-6 border-b border-white/10 pb-6 md:mb-16 md:flex-row md:items-end md:justify-between">
+          <div>
+            <Eyebrow>§ 05 — The Studio</Eyebrow>
+            <h2
+              className="v2-display mt-4 max-w-3xl text-bone"
+              style={{ fontWeight: 400, fontSize: 'clamp(2.2rem, 6vw, 4rem)' }}
+            >
+              A championship
+              <br />
+              <span className="italic text-copper">isn't a solo act.</span>
+            </h2>
+          </div>
+          <p className="max-w-sm font-editorial text-base leading-relaxed text-bone/70 md:text-lg">
+            You hire <span className="text-bone">the partner.</span> You get
+            the firm. A hand-picked bench of craftsmen I've built over seven
+            years — deployed to each engagement by need, not by seat.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-12 gap-4 md:gap-5">
+          {STUDIO.map((s, i) => (
+            <div
+              key={s.n}
+              className={`group relative col-span-12 overflow-hidden rounded-md border border-white/10 bg-ink-soft/40 p-6 transition hover:border-copper/50 hover:bg-ink-soft/70 md:p-7 ${
+                i < 3 ? 'md:col-span-4' : 'md:col-span-6'
+              }`}
+              style={{
+                animation: inView ? `v2-rise 700ms ${i * 90}ms both` : 'none',
+                opacity: inView ? 1 : 0,
+              }}
+            >
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-40"
+                style={{ background: '#c96e2c' }}
+              />
+              <div className="relative flex items-baseline justify-between">
+                <span className="v2-mono text-copper">{s.n}</span>
+                <span className="v2-mono text-bone/35">Craft</span>
+              </div>
+              <h3
+                className="v2-display relative mt-5 text-bone"
+                style={{
+                  fontWeight: 400,
+                  fontSize: 'clamp(1.5rem, 3vw, 2rem)',
+                }}
+              >
+                {s.role}
+              </h3>
+              <p className="relative mt-3 font-editorial text-[15px] leading-relaxed text-bone/75">
+                {s.craft}
+              </p>
+              <div className="relative mt-6 border-t border-white/10 pt-4">
+                <span className="v2-mono text-[10px] text-bone/45">
+                  {s.stack}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <blockquote
+          className="mx-auto mt-14 max-w-3xl border-l-2 border-copper pl-5 font-editorial text-xl italic leading-relaxed text-bone/85 md:mt-20 md:pl-6 md:text-2xl"
+          style={{
+            animation: inView ? 'v2-rise 900ms 700ms both' : 'none',
+            opacity: inView ? 1 : 0,
+          }}
+        >
+          “Every engagement is mine to lead. The bench is mine to deploy.
+          You'll always know whose hand is on the wheel.”
+          <footer className="v2-mono mt-4 not-italic text-bone/50">
+            — Mutaaf · Founding Partner
+          </footer>
+        </blockquote>
       </div>
     </section>
   );
@@ -663,7 +861,7 @@ const EngageV2: React.FC = () => (
     <div className="container relative mx-auto max-w-6xl px-5 sm:px-6">
       <div className="grid grid-cols-12 gap-6 md:gap-10">
         <div className="col-span-12 md:col-span-8">
-          <Eyebrow>§ 05 — Engage</Eyebrow>
+          <Eyebrow>§ 06 — Engage</Eyebrow>
           <h2
             className="v2-display mt-5 text-bone"
             style={{
@@ -695,7 +893,7 @@ const EngageV2: React.FC = () => (
           >
             <div className="text-left">
               <div className="v2-mono text-ink/60 group-hover:text-bone/70">
-                Book discovery
+                Next open · {nextAvailableSlot()}
               </div>
               <div
                 className="v2-display mt-1 text-xl md:text-2xl"
@@ -743,12 +941,14 @@ const IndexV2: React.FC = () => {
           content="A Fortune 100-caliber fractional CTO on retainer. Strategic architecture, AI systems, and shipped engineering for operators who refuse to lose to better-tooled competitors."
         />
       </Helmet>
-      <Navbar darkHero />
+      <NavbarV2 />
       <HeroV2 />
       <ProvenanceV2 />
+      <RetainerMarquee />
       <MandateV2 />
       <CapabilitiesV2 />
       <ChampionV2 photo={photo} bio={bio} />
+      <StudioV2 />
       <EngageV2 />
       {content?.footer && <Footer data={content.footer} />}
     </div>
