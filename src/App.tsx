@@ -1,3 +1,4 @@
+import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -5,6 +6,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import Index from "./pages/Index";
+import IndexV2 from "./pages/IndexV2";
+import ABToggle from "./components/ABToggle";
+import { useABVariant } from "./hooks/useABVariant";
 import Construction from "./pages/Construction";
 import RealEstate from "./pages/RealEstate";
 import RealEstateDemoHub from "./pages/realestate/RealEstateDemoHub";
@@ -80,6 +84,16 @@ const queryClient = new QueryClient({
   },
 });
 
+const ABLandingRoot: React.FC = () => {
+  const variant = useABVariant();
+  return (
+    <>
+      {variant === 'b' ? <IndexV2 /> : <Index />}
+      <ABToggle current={variant} />
+    </>
+  );
+};
+
 interface FallbackProps {
   error: Error;
   resetError: () => void;
@@ -153,7 +167,7 @@ const App = () => (
           <EasterEgg />
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Index />} />
+              <Route path="/" element={<ABLandingRoot />} />
               <Route path="/construction" element={<Construction />} />
               <Route path="/construction/demo" element={<DemoContextProvider vertical="construction"><DemoHub /></DemoContextProvider>} />
               <Route path="/construction/demo/lead-responder" element={<DemoContextProvider vertical="construction"><LeadResponder /></DemoContextProvider>} />

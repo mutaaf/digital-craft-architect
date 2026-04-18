@@ -54,6 +54,19 @@ export default {
           foreground: "hsl(var(--card-foreground))"
         },
         skyblue: "#33C3F0",
+        ink: {
+          DEFAULT: "#0b0b0d",
+          soft: "#17171b",
+        },
+        bone: {
+          DEFAULT: "#f4efe6",
+          soft: "#ece6d9",
+        },
+        copper: {
+          DEFAULT: "#c96e2c",
+          soft: "#e89862",
+        },
+        smoke: "#8a847a",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -91,6 +104,9 @@ export default {
       },
       fontFamily: {
         sans: ["Inter", "sans-serif"],
+        display: ["Fraunces", "Newsreader", "Georgia", "serif"],
+        editorial: ["Newsreader", "Georgia", "serif"],
+        mono: ["'JetBrains Mono'", "ui-monospace", "monospace"],
       },
     },
   },

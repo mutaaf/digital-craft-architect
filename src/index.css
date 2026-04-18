@@ -1,5 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -120,6 +121,88 @@
     text-wrap: balance;
   }
 }
+
+/* V2 (Champion) landing tokens */
+:root {
+  --v2-ink: #0b0b0d;
+  --v2-ink-soft: #17171b;
+  --v2-bone: #f4efe6;
+  --v2-bone-soft: #ece6d9;
+  --v2-copper: #c96e2c;
+  --v2-copper-soft: #e89862;
+  --v2-smoke: #8a847a;
+  --v2-line: rgba(244, 239, 230, 0.12);
+  --v2-line-inv: rgba(11, 11, 13, 0.14);
+}
+
+.v2-root {
+  background: var(--v2-ink);
+  color: var(--v2-bone);
+  font-family: 'Newsreader', Georgia, serif;
+  font-feature-settings: 'liga' 1, 'calt' 1, 'ss01' 1;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.v2-display {
+  font-family: 'Fraunces', 'Newsreader', Georgia, serif;
+  font-variation-settings: 'opsz' 144, 'SOFT' 30;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+}
+
+.v2-mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+
+.v2-bone-bg {
+  background: var(--v2-bone);
+  color: var(--v2-ink);
+}
+
+.v2-rule {
+  height: 1px;
+  background: var(--v2-line);
+  width: 100%;
+}
+
+.v2-rule-inv {
+  height: 1px;
+  background: var(--v2-line-inv);
+  width: 100%;
+}
+
+.v2-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.96 0 0 0 0 0.93 0 0 0 0 0.88 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  opacity: 0.6;
+  z-index: 1;
+}
+
+@keyframes v2-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes v2-sweep {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@keyframes v2-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.v2-rise   { animation: v2-rise 1s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.v2-sweep  { animation: v2-sweep 1.2s cubic-bezier(0.22, 1, 0.36, 1) both; transform-origin: left; }
+.v2-fade   { animation: v2-fade 1.4s ease-out both; }
 
 /* Print styles for estimate card */
 @media print {
