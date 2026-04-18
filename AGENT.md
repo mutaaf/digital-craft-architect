@@ -189,7 +189,7 @@ Each new vertical follows the established pattern: landing page (`src/pages/[Ver
 
 - [x] SITEMAP-AUTO-GENERATE: Create `scripts/generate-sitemap.ts` that reads all routes from App.tsx and all blog slugs from blogPosts.ts, then generates `public/sitemap.xml` automatically. Add `"sitemap": "npx tsx scripts/generate-sitemap.ts"` to package.json. Add as a pre-build step so the sitemap is always current. *(completed 2026-04-18)*
 
-- [ ] META-TAGS-AUDIT: Create `scripts/check-meta.ts` that verifies every route defined in App.tsx has corresponding meta tag configuration (title, description, OG image). Report any routes missing meta data. Add to CI workflow.
+- [x] META-TAGS-AUDIT: Create `scripts/check-meta.ts` that verifies every route defined in App.tsx has corresponding meta tag configuration (title, description, OG image). Report any routes missing meta data. Add to CI workflow. *(completed 2026-04-18)*
 
 - [ ] DEMO-SEO-THIN-CONTENT: Audit all demo pages (LeadResponder, EstimateGenerator, ReviewSystem, PropertyNegotiator, VoiceNegotiator, InquiryQualifier, ProposalGenerator, VoiceBookingAgent) and add descriptive intro paragraphs (150+ words) above the interactive elements. This helps with SEO for individual demo pages, not just the hubs. Include H1 tags with keywords and brief explanations of what each demo does.
 

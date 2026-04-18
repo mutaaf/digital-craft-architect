@@ -32,6 +32,9 @@ jobs:
       - name: Check image references
         run: npm run check-images
 
+      - name: Check meta tags
+        run: npm run check-meta
+
       - name: Build
         run: npm run build
 

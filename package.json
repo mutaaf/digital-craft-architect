@@ -11,7 +11,8 @@
     "preview": "vite preview",
     "check-links": "npx tsx scripts/check-links.ts",
     "check-images": "npx tsx scripts/check-images.ts",
-    "sitemap": "npx tsx scripts/generate-sitemap.ts"
+    "sitemap": "npx tsx scripts/generate-sitemap.ts",
+    "check-meta": "npx tsx scripts/check-meta.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.0",
