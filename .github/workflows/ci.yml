@@ -29,5 +29,8 @@ jobs:
       - name: Check internal links
         run: npm run check-links
 
+      - name: Check image references
+        run: npm run check-images
+
       - name: Build
         run: npm run build
