@@ -13,32 +13,32 @@
   <url>
     <loc>https://digitalcraftai.com/construction/demo</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://digitalcraftai.com/construction/demo/lead-responder</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://digitalcraftai.com/construction/demo/estimate</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://digitalcraftai.com/construction/demo/reviews</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://digitalcraftai.com/construction/demo/property-negotiator</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://digitalcraftai.com/construction/demo/voice-negotiator</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://digitalcraftai.com/realestate</loc>
@@ -48,22 +48,22 @@
   <url>
     <loc>https://digitalcraftai.com/realestate/demo</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://digitalcraftai.com/realestate/demo/lead-responder</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://digitalcraftai.com/realestate/demo/property-negotiator</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://digitalcraftai.com/realestate/demo/voice-negotiator</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://digitalcraftai.com/events</loc>
@@ -73,20 +73,250 @@
   <url>
     <loc>https://digitalcraftai.com/events/demo</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://digitalcraftai.com/events/demo/inquiry</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://digitalcraftai.com/events/demo/proposal</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://digitalcraftai.com/events/demo/voice-booking</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/homeservices</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/homeservices/demo</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/homeservices/demo/lead-responder</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/homeservices/demo/estimate</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/homeservices/demo/voice-followup</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/healthcare</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/healthcare/demo</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/healthcare/demo/intake</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/healthcare/demo/scheduler</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/healthcare/demo/voice-followup</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/legal</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/legal/demo</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/legal/demo/intake</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/legal/demo/consultation</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/legal/demo/voice-followup</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/restaurant</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/restaurant/demo</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/restaurant/demo/reservations</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/restaurant/demo/catering</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/restaurant/demo/reviews</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/kidsplay</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/kidsplay/demo</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/kidsplay/demo/party-booker</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/kidsplay/demo/packages</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/kidsplay/demo/voice-booking</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/fitness</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/fitness/demo</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/fitness/demo/lead-qualifier</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/fitness/demo/membership</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/fitness/demo/voice-retention</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/dental</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/dental/demo</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/dental/demo/intake</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/dental/demo/estimate</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/dental/demo/voice-recall</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/salon</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/salon/demo</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/salon/demo/booking</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/salon/demo/services</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/salon/demo/voice-rebook</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/autorepair</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/autorepair/demo</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/autorepair/demo/advisor</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/autorepair/demo/estimate</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/autorepair/demo/voice-reminder</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/industries</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -99,6 +329,51 @@
     <loc>https://digitalcraftai.com/blog</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/blog/your-url-slug</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/blog/ai-voice-negotiation-how-it-works</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/blog/lead-response-time-under-60-seconds-doubles-close-rate</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/blog/real-estate-agents-using-ai-close-more-deals-2026</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/blog/5-ways-ai-transforming-construction-2026</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/blog/ai-client-intake-law-firms</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/blog/ai-lead-follow-up-insurance-agents</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/blog/ai-estimates-trades-businesses</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://digitalcraftai.com/blog/automated-review-requests-local-business</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://digitalcraftai.com/blog/ai-voice-calls-service-businesses</loc>
@@ -122,46 +397,6 @@
   </url>
   <url>
     <loc>https://digitalcraftai.com/blog/setupclaw-ai-assistant-setup</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://digitalcraftai.com/blog/automated-review-requests-local-business</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://digitalcraftai.com/blog/ai-estimates-trades-businesses</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://digitalcraftai.com/blog/ai-lead-follow-up-insurance-agents</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://digitalcraftai.com/blog/ai-client-intake-law-firms</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://digitalcraftai.com/blog/5-ways-ai-transforming-construction-2026</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://digitalcraftai.com/blog/real-estate-agents-using-ai-close-more-deals-2026</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://digitalcraftai.com/blog/lead-response-time-under-60-seconds-doubles-close-rate</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://digitalcraftai.com/blog/ai-voice-negotiation-how-it-works</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
