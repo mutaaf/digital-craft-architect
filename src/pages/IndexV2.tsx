@@ -29,14 +29,53 @@ const CREDENTIALS = [
   { roman: 'III', org: 'Disney',             role: 'Live Sports Streaming',  era: '2022' },
 ];
 
-const ACTIVE_RETAINERS = [
-  'Overwatch Digital Health',
-  'Recyclops',
-  'TryMinded',
-  '448 Developments',
-  'Infinity Builders',
-  'CheekyMonkeys',
-  'DJ RubyRu',
+const OUTCOME_TICKER = [
+  { client: '448 Developments',       metric: 'Lead response · hours → 47s' },
+  { client: 'CheekyMonkeys',          metric: '20 hrs/wk manual entry → zero' },
+  { client: 'TryMinded',              metric: 'Telemed platform · shipped in months' },
+  { client: 'Recyclops',              metric: 'Ops scaled with zero new hires' },
+  { client: 'Infinity Builders',      metric: 'Estimates · days → under an hour' },
+  { client: 'DJ RubyRu',              metric: '12 integrations · zero manual ops' },
+  { client: 'Overwatch Digital Health', metric: 'Compliance milestones · ahead of plan' },
+];
+
+const OUTCOMES = [
+  {
+    vertical: 'Construction',
+    client: '448 Developments',
+    headline: '< 60 seconds',
+    label: 'Lead response',
+    body:
+      'Down from "whenever someone saw the voicemail." Estimate turnaround went from days to under an hour. More jobs booked. More jobs closed.',
+    chip: 'ROI paid in month 1',
+  },
+  {
+    vertical: 'Family Entertainment',
+    client: 'CheekyMonkeys',
+    headline: '20 hrs/week',
+    label: 'Manual data entry eliminated',
+    body:
+      'AI intake captures every party inquiry and auto-populates ops across four disconnected systems. Staff stopped retyping; owner stopped supervising it.',
+    chip: '40–45 parties / weekend',
+  },
+  {
+    vertical: 'Digital Health',
+    client: 'TryMinded',
+    headline: 'Shipped in months',
+    label: 'Not years',
+    body:
+      'Production telemedicine platform with AI intake, end-to-end. What a full in-house team would have taken a year to build — with a roadmap the team could operate on day one.',
+    chip: 'CTO engagement, not staffing',
+  },
+  {
+    vertical: 'Logistics',
+    client: 'Recyclops',
+    headline: 'Zero new hires',
+    label: 'To scale ops across markets',
+    body:
+      'Multi-year retainer automating dispatch and coordination. The ops team grew throughput without growing headcount — the way software is supposed to work.',
+    chip: 'Multi-year partnership',
+  },
 ];
 
 const STUDIO = [
@@ -73,10 +112,10 @@ const STUDIO = [
 ];
 
 const METRICS = [
-  { k: 'Fortune 100', v: 'Shipped at' },
-  { k: '7+ yrs', v: 'Fractional CTO' },
-  { k: '11', v: 'Verticals live' },
   { k: '< 60s', v: 'Lead response' },
+  { k: '< 1hr', v: 'Estimate turnaround' },
+  { k: '20 hr/wk', v: 'Ops hours reclaimed' },
+  { k: '0', v: 'New hires required' },
 ];
 
 const MANDATE = [
@@ -112,17 +151,6 @@ const MANDATE = [
   },
 ];
 
-const LEDGER = [
-  { y: '—2019', t: 'Engineering leadership at Motorola Solutions' },
-  { y: '2019', t: 'Launched independent fractional-CTO practice' },
-  { y: '2021', t: 'Amazon — driver-communications modernization' },
-  { y: '2022', t: 'Disney — live sports & events streaming platform' },
-  { y: '2023', t: 'Overwatch Digital Health, Recyclops, TryMinded on retainer' },
-  { y: '2024', t: '448 Developments, Infinity Builders, CheekyMonkeys, DJ RubyRu' },
-  { y: '2025', t: 'Launched DigitalCraft AI — productized across 11 verticals' },
-  { y: '2026', t: 'Scaling productized delivery across active retainers' },
-];
-
 const Eyebrow: React.FC<{ children: React.ReactNode; muted?: boolean }> = ({
   children,
   muted,
@@ -142,12 +170,12 @@ const nextAvailableSlot = (): string => {
   return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
 };
 
-const RetainerMarquee: React.FC = () => {
-  const items = [...ACTIVE_RETAINERS, ...ACTIVE_RETAINERS];
+const OutcomesMarquee: React.FC = () => {
+  const items = [...OUTCOME_TICKER, ...OUTCOME_TICKER];
   return (
     <div
-      className="v2-marquee relative overflow-hidden border-y border-white/10 py-4"
-      aria-label="Active retainer clients"
+      className="v2-marquee relative overflow-hidden border-y border-white/10 bg-ink-soft/40 py-5"
+      aria-label="Client outcomes ticker"
     >
       <div
         aria-hidden
@@ -157,16 +185,19 @@ const RetainerMarquee: React.FC = () => {
         aria-hidden
         className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-ink to-transparent"
       />
-      <div className="v2-marquee-track items-center gap-10">
-        {items.map((label, i) => (
+      <div className="v2-marquee-track items-center gap-8">
+        {items.map((o, i) => (
           <span
-            key={`${label}-${i}`}
-            className="flex shrink-0 items-center gap-10"
+            key={`${o.client}-${i}`}
+            className="flex shrink-0 items-center gap-8"
           >
-            <span className="v2-display text-xl text-bone/85 md:text-2xl" style={{ fontWeight: 400 }}>
-              {label}
+            <span className="flex items-baseline gap-3">
+              <span className="v2-mono text-copper/80">{o.client}</span>
+              <span className="v2-display text-lg text-bone/90 md:text-xl" style={{ fontWeight: 400 }}>
+                {o.metric}
+              </span>
             </span>
-            <span className="text-copper">◆</span>
+            <span className="text-copper/60">◆</span>
           </span>
         ))}
       </div>
@@ -195,7 +226,7 @@ const HeroV2: React.FC = () => (
 
     <div className="container mx-auto max-w-6xl px-5 sm:px-6">
       <div className="mb-8 flex items-center justify-between md:mb-14">
-        <Eyebrow>§ Masthead / Vol. VII · MMXXVI</Eyebrow>
+        <Eyebrow>§ Customer outcomes — not a résumé</Eyebrow>
         <Eyebrow muted>
           <span className="hidden sm:inline">Fractional CTO · </span>On Retainer
         </Eyebrow>
@@ -207,19 +238,18 @@ const HeroV2: React.FC = () => (
             className="v2-display v2-rise text-bone"
             style={{
               fontWeight: 360,
-              fontSize: 'clamp(3.2rem, 11.5vw, 8.25rem)',
-              lineHeight: 0.9,
+              fontSize: 'clamp(2.8rem, 10vw, 7.5rem)',
+              lineHeight: 0.92,
             }}
           >
-            Your{' '}
+            Book more jobs.
+            <br />
+            Close more deals.
+            <br />
+            Run ops on{' '}
             <span className="italic text-copper" style={{ fontWeight: 380 }}>
-              Fortune&nbsp;100
+              autopilot.
             </span>
-            <br />
-            technology
-            <br />
-            champion.
-            <span className="ml-3 inline-block text-bone/35">On retainer.</span>
           </h1>
         </div>
 
@@ -227,12 +257,11 @@ const HeroV2: React.FC = () => (
           className="col-span-12 flex flex-col justify-end md:col-span-4 v2-rise"
           style={{ animationDelay: '180ms' }}
         >
-          <p className="font-editorial text-lg leading-relaxed text-bone/75 md:text-xl">
-            You don't need another vendor.
+          <p className="font-editorial text-lg leading-relaxed text-bone/80 md:text-xl">
+            Custom AI systems that <span className="text-bone">book, qualify, and close</span> —
+            delivered end-to-end on a retainer that costs less than a single senior hire.
             <br />
-            You need the engineer your biggest competitor wishes they could hire.
-            <br />
-            <span className="text-bone">Now you can.</span>
+            <span className="text-bone/70 italic">Shipped, not pitched.</span>
           </p>
 
           <div className="mt-7 flex flex-wrap items-center gap-3">
@@ -246,18 +275,18 @@ const HeroV2: React.FC = () => (
               }}
               className="group inline-flex items-center gap-2 rounded-full bg-bone px-6 py-3 font-mono text-[13px] uppercase tracking-wider text-ink transition hover:bg-copper hover:text-bone"
             >
-              Engage the Champion
+              Show Me the ROI
               <ArrowUpRight
                 size={16}
                 className="transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
               />
             </a>
             <a
-              href="#capabilities"
-              onClick={() => trackCTAClick('see_capabilities', 'v2_hero')}
+              href="#outcomes"
+              onClick={() => trackCTAClick('see_outcomes', 'v2_hero')}
               className="inline-flex items-center gap-2 rounded-full border border-bone/25 px-6 py-3 font-mono text-[13px] uppercase tracking-wider text-bone/85 transition hover:border-bone hover:text-bone"
             >
-              What He Ships ↓
+              See the Outcomes ↓
             </a>
           </div>
 
@@ -291,91 +320,140 @@ const HeroV2: React.FC = () => (
   </section>
 );
 
-/* ------------------------------- PROVENANCE ------------------------------- */
-const ProvenanceV2: React.FC = () => {
+/* -------------------------------- OUTCOMES -------------------------------- */
+const OutcomesV2: React.FC = () => {
   const { ref, inView } = useInView<HTMLDivElement>();
   return (
     <section
+      id="outcomes"
       ref={ref}
       className="relative border-b border-white/10 py-20 md:py-32"
     >
       <div className="container mx-auto max-w-6xl px-5 sm:px-6">
-        <div className="grid grid-cols-12 gap-8">
-          <div className="col-span-12 md:col-span-4">
-            <Eyebrow>§ 01 — Provenance</Eyebrow>
+        <div className="mb-12 flex flex-col gap-6 border-b border-white/10 pb-6 md:mb-16 md:flex-row md:items-end md:justify-between">
+          <div>
+            <Eyebrow>§ 01 — Outcomes</Eyebrow>
             <h2
-              className="v2-display mt-5 text-bone"
-              style={{ fontWeight: 400, fontSize: 'clamp(2rem, 5.5vw, 3rem)' }}
+              className="v2-display mt-4 max-w-3xl text-bone"
+              style={{ fontWeight: 400, fontSize: 'clamp(2.2rem, 6vw, 4rem)' }}
             >
-              Where the résumé came from.
+              What <span className="italic text-copper">you</span> walk away with.
             </h2>
-            <p className="mt-5 font-editorial text-base leading-relaxed text-bone/65 md:text-lg">
-              Three names you recognize. A decade of building systems the rest of
-              the market copies five years later.
-            </p>
           </div>
+          <p className="max-w-sm font-editorial text-base leading-relaxed text-bone/70 md:text-lg">
+            Not deliverables. Not hours billed. The concrete P&L changes real
+            operators have pointed to as the reason they stayed on retainer.
+          </p>
+        </div>
 
-          <div className="col-span-12 md:col-span-8">
-            <ul className="divide-y divide-white/10">
-              {CREDENTIALS.map((c, i) => (
-                <li
-                  key={c.org}
-                  className="flex items-baseline justify-between gap-4 py-6 md:gap-6 md:py-8"
-                  style={{
-                    animation: inView
-                      ? `v2-rise 800ms ${200 + i * 140}ms both`
-                      : 'none',
-                    opacity: inView ? 1 : 0,
-                  }}
-                >
-                  <div className="flex items-baseline gap-4 md:gap-6">
-                    <span
-                      className="v2-display shrink-0 text-copper/70"
-                      style={{
-                        fontWeight: 380,
-                        fontStyle: 'italic',
-                        fontSize: 'clamp(1.1rem, 2.2vw, 1.5rem)',
-                      }}
-                    >
-                      {c.roman}.
-                    </span>
-                    <div>
-                      <div
-                        className="v2-display text-bone"
-                        style={{
-                          fontWeight: 380,
-                          fontSize: 'clamp(1.6rem, 5.5vw, 3rem)',
-                        }}
-                      >
-                        {c.org}
-                      </div>
-                      <div className="mt-2 font-editorial text-sm text-bone/55 md:text-base">
-                        {c.role}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="v2-mono shrink-0 text-copper">{c.era}</div>
-                </li>
-              ))}
-            </ul>
-
-            <blockquote
-              className="mt-10 border-l-2 border-copper pl-5 font-editorial text-lg italic leading-relaxed text-bone/85 md:pl-6 md:text-2xl"
+        <div className="grid grid-cols-12 gap-4 md:gap-5">
+          {OUTCOMES.map((o, i) => (
+            <article
+              key={o.client}
+              className="group relative col-span-12 overflow-hidden rounded-md border border-white/10 bg-ink-soft/40 p-6 transition hover:border-copper/60 hover:bg-ink-soft/80 md:col-span-6 md:p-8"
               style={{
-                animation: inView ? 'v2-rise 900ms 700ms both' : 'none',
+                animation: inView ? `v2-rise 700ms ${i * 100}ms both` : 'none',
                 opacity: inView ? 1 : 0,
               }}
             >
-              “I built the systems at the companies your competitors aspire to. I
-              now build them for operators who run real businesses — the ones
-              Fortune 100 talent never shows up for.”
-            </blockquote>
-          </div>
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-40"
+                style={{ background: '#c96e2c' }}
+              />
+
+              <div className="relative flex items-center justify-between">
+                <span className="v2-mono text-copper">
+                  § {o.vertical}
+                </span>
+                <span className="v2-mono text-bone/45">{o.client}</span>
+              </div>
+
+              <div className="relative mt-6">
+                <div
+                  className="v2-display text-bone"
+                  style={{
+                    fontWeight: 400,
+                    fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
+                    lineHeight: 1,
+                  }}
+                >
+                  {o.headline}
+                </div>
+                <div className="mt-2 font-editorial text-lg italic text-bone/60">
+                  {o.label}
+                </div>
+              </div>
+
+              <p className="relative mt-6 font-editorial text-[15px] leading-relaxed text-bone/75 md:text-base">
+                {o.body}
+              </p>
+
+              <div className="relative mt-6 inline-flex items-center gap-2 border border-copper/40 bg-copper/10 px-3 py-1.5">
+                <span className="v2-mono text-[10px] text-copper">
+                  {o.chip}
+                </span>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-6 md:mt-16 md:flex-row md:items-center">
+          <p className="font-editorial text-base italic text-bone/60 md:text-lg">
+            “Every retainer pays for itself before month three — or we renegotiate.”
+          </p>
+          <a
+            href={CALENDLY}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => {
+              trackCTAClick('scope_my_outcome', 'v2_outcomes');
+              trackVariantConversion('scope_my_outcome', 'b');
+            }}
+            className="group inline-flex items-center gap-2 rounded-full border border-bone/30 px-5 py-2.5 font-mono text-[12px] uppercase tracking-wider text-bone transition hover:border-copper hover:bg-copper hover:text-bone"
+          >
+            Scope my outcome
+            <ArrowUpRight
+              size={14}
+              className="transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+            />
+          </a>
         </div>
       </div>
     </section>
   );
 };
+
+/* ----------------------------- TRUST STRIP -------------------------------- */
+const TrustStripV2: React.FC = () => (
+  <section className="border-b border-white/10 bg-ink/60 py-6">
+    <div className="container mx-auto max-w-6xl px-5 sm:px-6">
+      <div className="flex flex-col items-center justify-center gap-3 text-center md:flex-row md:gap-6">
+        <span className="v2-mono text-bone/45">
+          Built systems at
+        </span>
+        <div className="flex items-center gap-5 md:gap-8">
+          {CREDENTIALS.map((c, i) => (
+            <React.Fragment key={c.org}>
+              <span
+                className="v2-display italic text-bone/80"
+                style={{
+                  fontWeight: 400,
+                  fontSize: 'clamp(1.1rem, 2vw, 1.35rem)',
+                }}
+              >
+                {c.org}
+              </span>
+              {i < CREDENTIALS.length - 1 && (
+                <span className="text-copper/60">◆</span>
+              )}
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+);
 
 /* -------------------------------- MANDATE --------------------------------- */
 const MandateV2: React.FC = () => {
@@ -457,7 +535,7 @@ const StudioV2: React.FC = () => {
       <div className="container relative mx-auto max-w-6xl px-5 sm:px-6">
         <div className="mb-12 flex flex-col gap-6 border-b border-white/10 pb-6 md:mb-16 md:flex-row md:items-end md:justify-between">
           <div>
-            <Eyebrow>§ 05 — The Studio</Eyebrow>
+            <Eyebrow>§ 04 — The Studio</Eyebrow>
             <h2
               className="v2-display mt-4 max-w-3xl text-bone"
               style={{ fontWeight: 400, fontSize: 'clamp(2.2rem, 6vw, 4rem)' }}
@@ -769,16 +847,13 @@ const CapabilitiesV2: React.FC = () => {
 };
 
 /* -------------------------------- CHAMPION -------------------------------- */
-const ChampionV2: React.FC<{ photo: string; bio: string }> = ({
-  photo,
-  bio,
-}) => {
+const ChampionV2: React.FC<{ photo: string }> = ({ photo }) => {
   const { ref, inView } = useInView<HTMLDivElement>();
   return (
-    <section ref={ref} className="v2-bone-bg relative py-20 md:py-32">
+    <section ref={ref} className="v2-bone-bg relative py-16 md:py-24">
       <div className="container mx-auto max-w-6xl px-5 sm:px-6">
-        <div className="grid grid-cols-12 gap-8 md:gap-10">
-          <div className="col-span-12 md:col-span-5">
+        <div className="grid grid-cols-12 items-center gap-8 md:gap-10">
+          <div className="col-span-12 md:col-span-4">
             <div
               className="relative"
               style={{
@@ -786,58 +861,44 @@ const ChampionV2: React.FC<{ photo: string; bio: string }> = ({
                 opacity: inView ? 1 : 0,
               }}
             >
-              <div className="absolute -inset-3 border border-ink/20" />
+              <div className="absolute -inset-2 border border-ink/20" />
               <img
                 src={photo}
                 alt="Mutaaf — Fractional CTO"
-                className="relative z-10 h-[420px] w-full object-cover grayscale contrast-[1.05] md:h-[560px]"
+                className="relative z-10 h-[320px] w-full object-cover grayscale contrast-[1.05] md:h-[380px]"
               />
-              <div className="absolute -bottom-4 -right-4 z-20 bg-copper px-4 py-2">
-                <span className="v2-mono text-bone">The Champion</span>
-              </div>
             </div>
           </div>
 
           <div
-            className="col-span-12 md:col-span-7"
+            className="col-span-12 md:col-span-8"
             style={{
               animation: inView ? 'v2-rise 900ms 180ms both' : 'none',
               opacity: inView ? 1 : 0,
             }}
           >
-            <span className="v2-mono text-copper">§ 04 — The Operator</span>
+            <span className="v2-mono text-copper">§ 05 — Who's on the call</span>
             <h2
               className="v2-display mt-4 text-ink"
-              style={{ fontWeight: 400, fontSize: 'clamp(2.2rem, 6vw, 4rem)' }}
+              style={{ fontWeight: 400, fontSize: 'clamp(1.9rem, 5vw, 3rem)' }}
             >
-              One engineer.
-              <br />
-              <span className="italic">In your corner.</span>
+              You'll be working with{' '}
+              <span className="italic">Mutaaf.</span>
             </h2>
-            <p className="mt-7 font-editorial text-lg leading-relaxed text-ink/80 md:text-xl">
-              {bio}
+            <p className="mt-5 font-editorial text-lg leading-relaxed text-ink/80 md:text-xl">
+              Fractional CTO since 2019. The direct line on every retainer —
+              not a lead, not a handoff, not an AM. The same person who scopes
+              your outcome is the one who architects and ships it, with the
+              studio executing under his direction.
             </p>
-            <p className="mt-4 font-editorial text-lg leading-relaxed text-ink/80 md:text-xl">
-              A retainer isn't a seat on a Slack channel. It's a direct line to
-              the person who has shipped at the scale you're trying to reach —
-              and who treats your roadmap like a founder would.
-            </p>
-
-            <div className="mt-10 border-t border-ink/15 pt-6">
-              <span className="v2-mono text-ink/55">Ledger</span>
-              <ul className="mt-4 divide-y divide-ink/10">
-                {LEDGER.map((l) => (
-                  <li
-                    key={l.y}
-                    className="flex items-baseline gap-4 py-3 md:gap-6"
-                  >
-                    <span className="v2-mono w-14 shrink-0 text-copper md:w-16">
-                      {l.y}
-                    </span>
-                    <span className="font-editorial text-ink/85">{l.t}</span>
-                  </li>
-                ))}
-              </ul>
+            <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[12px] uppercase tracking-wider text-ink/65">
+              <span>Motorola Solutions</span>
+              <span className="text-copper/70">◆</span>
+              <span>Amazon</span>
+              <span className="text-copper/70">◆</span>
+              <span>Disney</span>
+              <span className="text-copper/70">◆</span>
+              <span>7 yrs fractional CTO</span>
             </div>
           </div>
         </div>
@@ -928,27 +989,27 @@ const IndexV2: React.FC = () => {
   const photo =
     content?.founder?.photo ||
     'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=80';
-  const bio =
-    content?.founder?.bio ||
-    'Fractional CTO since 2019 for healthcare, construction, recycling, and entertainment businesses.';
 
   return (
     <div ref={rootRef} className="v2-root min-h-screen">
       <Helmet>
-        <title>Your Fortune 100 Technology Champion · DigitalCraft AI</title>
+        <title>
+          Book more jobs. Close more deals. Run ops on autopilot · DigitalCraft AI
+        </title>
         <meta
           name="description"
-          content="A Fortune 100-caliber fractional CTO on retainer. Strategic architecture, AI systems, and shipped engineering for operators who refuse to lose to better-tooled competitors."
+          content="Custom AI systems that book, qualify, and close — delivered and run by a fractional CTO on a retainer that costs less than a single senior hire. See the outcomes real operators point to."
         />
       </Helmet>
       <NavbarV2 />
       <HeroV2 />
-      <ProvenanceV2 />
-      <RetainerMarquee />
+      <TrustStripV2 />
+      <OutcomesV2 />
+      <OutcomesMarquee />
       <MandateV2 />
       <CapabilitiesV2 />
-      <ChampionV2 photo={photo} bio={bio} />
       <StudioV2 />
+      <ChampionV2 photo={photo} />
       <EngageV2 />
       {content?.footer && <Footer data={content.footer} />}
     </div>
