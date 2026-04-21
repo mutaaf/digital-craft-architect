@@ -100,13 +100,13 @@ const Index = () => {
       <ScrollProgress />
       <Hero data={content.hero} />
       <SocialProofBar />
+      {content.pricingTiers && <PricingTiers data={content.pricingTiers} />}
       {content.mvpPromotion?.enabled && <MVPPromotion data={content.mvpPromotion} />}
       <Services
         data={content.services}
         carouselConfig={uiConfig?.carouselItemsPerView}
       />
       <CTOHeroSection />
-      {content.pricingTiers && <PricingTiers data={content.pricingTiers} />}
       <Founder data={content.founder} />
       <CaseStudies data={content.caseStudies} />
       {/* CTA after case studies */}
