@@ -8,6 +8,7 @@ import ExitIntentPopup from '@/components/ExitIntentPopup';
 import LeadMagnetSection from '@/components/LeadMagnetSection';
 import SocialProofBar from '@/components/SocialProofBar';
 import ScrollProgress from '@/components/ScrollProgress';
+import ROICalculator from '@/components/ROICalculator';
 import Testimonials from '@/components/Testimonials';
 import { useContent, TestimonialItem } from '@/hooks/useContent';
 import { useAnalytics, trackCTAClick, useEngagementTracking } from '@/utils/analytics';
@@ -617,6 +618,9 @@ const Construction: React.FC = () => {
           All plans include a 2-week setup period. No long-term contracts — cancel anytime.
         </p>
       </section>
+
+      {/* ─── ROI CALCULATOR ─── */}
+      <ROICalculator vertical="construction" />
 
       {/* ─── TESTIMONIALS ─── */}
       <Testimonials
