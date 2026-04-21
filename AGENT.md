@@ -196,3 +196,93 @@ Each new vertical follows the established pattern: landing page (`src/pages/[Ver
 - [x] BLOG-RSS-FEED: Create `scripts/generate-rss.ts` that reads blog posts from `src/data/blogPosts.ts` and generates `public/rss.xml` (RSS 2.0 feed). Add link to RSS feed in the `<head>` of `index.html` and in the blog page footer. This enables RSS readers and automated content distribution. *(completed 2026-04-18)*
 
 - [x] ACCESSIBILITY-AUDIT: Audit all landing pages and demo pages for accessibility: (1) ensure all images have alt text, (2) all form inputs have labels, (3) all interactive elements are keyboard-navigable, (4) color contrast meets WCAG AA, (5) ARIA labels on icon-only buttons. Fix any issues found. Focus on the main conversion paths first (hero → form → success). *(completed 2026-04-18)*
+
+### TIER 7 — Advanced Conversion + Lead Capture
+
+- [ ] ROI-CALCULATOR: Create `src/components/ROICalculator.tsx` — an interactive calculator with inputs (monthly leads, close rate, avg deal value, hours spent on follow-up per week) and outputs (projected ROI with DCA, hours saved, added revenue). Use shadcn `Slider` + `Input`. Show a side-by-side "Without DCA" vs "With DCA" comparison. End with CTA to book a call. Add to `src/pages/Construction.tsx` and `src/pages/RealEstate.tsx` between pricing and FAQ. Include `dark:` variants and `trackCTAClick('roi_calculator_book', 'roi_calculator')`.
+
+- [ ] AI-READINESS-QUIZ: Create `src/pages/AIReadinessQuiz.tsx` — a 7-question quiz (business type, lead volume, current tools, response time, team size, pain point, budget range). Score generates a readiness tier (Getting Started / Ready / Advanced). Gate result behind email capture via Formspree (subject `[Quiz] AI Readiness`). After email submit, show score + personalized demo recommendations linking to relevant vertical demo hub. Route: `/quiz`. Add CTA on Index.tsx hero and navbar.
+
+- [ ] LIVE-CHAT-BUBBLE: Create `src/components/LiveChatBubble.tsx` — a bottom-right floating chat bubble that opens a lightweight pre-qualification chat (5 questions: name, business type, biggest challenge, team size, email). Submits to Formspree with subject `[Chat Lead]`. Shows on all landing pages. Session key `dca_chat_bubble_dismissed` to suppress for 24h after close. Keep bundle small — pure React, no external chat SDK.
+
+- [ ] COMPARISON-PAGE-HUBSPOT: Create `src/pages/compare/HubSpot.tsx` — a "DigitalCraft AI vs HubSpot" comparison page with feature matrix table (AI voice, industry-specific models, setup time, pricing, implementation). Include fair, factual positioning focused on DCA's strengths (custom AI, vertical focus, faster setup). Route: `/compare/hubspot`. Add to sitemap. Target keywords: "HubSpot alternative", "AI CRM for construction".
+
+- [ ] COMPARISON-PAGE-GOHIGHLEVEL: Same as above but for GoHighLevel. Route: `/compare/gohighlevel`. Target keywords: "GoHighLevel alternative", "AI CRM vs GHL".
+
+- [ ] PRICING-FAQ-ACCORDION: On Construction.tsx and RealEstate.tsx pricing sections, add a pricing-specific FAQ accordion with 5-6 questions (Is there a setup fee? Can I cancel anytime? What's included? Do you offer custom plans? How long until I see ROI? Is training included?). Use shadcn `Accordion`. Reduces purchase friction at the pricing stage.
+
+- [ ] MONEYBACK-GUARANTEE-BADGE: Create `src/components/GuaranteeBadge.tsx` — a trust badge showing "30-Day ROI Guarantee" or "If we don't cut your response time in half, we refund your first month." Place near pricing CTAs on Construction.tsx, RealEstate.tsx, and all new vertical landing pages. Include `dark:` variants.
+
+- [ ] MULTI-STEP-FORM: Convert the current single-step contact form in `src/components/ContactForm.tsx` into a 3-step wizard: Step 1 (name + email), Step 2 (business type + size), Step 3 (biggest challenge + message). Reduces perceived form length, increases completion. Show a progress bar. Each step advances on click. Track each step completion via `trackCTAClick('form_step_N', 'contact_form')`.
+
+- [ ] URGENCY-COUNTDOWN-BANNER: Create `src/components/CountdownBanner.tsx` — a top-of-page banner showing a 7-day countdown to next pricing increase or a monthly "spots remaining" number. Static deadline (business owner updates monthly). Sticky below navbar on landing pages. Dismissible via `dca_urgency_banner_dismissed` session key. Keep copy tasteful, not spammy.
+
+### TIER 8 — Innovation Demos (Expand Product Surface)
+
+- [ ] DEMO-INVOICE-GENERATOR: Create `src/pages/construction/InvoiceGenerator.tsx` — a new demo where the user enters project details (client, line items, tax rate), GPT-4o generates a professional invoice with polished markup language. Show generated invoice in styled preview + download as PDF (use browser print-to-PDF). Add to Construction DemoHub. Route: `/construction/demo/invoice`. Reuse existing streaming chat pattern from `agentPipeline.ts`.
+
+- [ ] DEMO-CONTRACT-DRAFTER: Create `src/pages/realestate/ContractDrafter.tsx` — demo that takes deal terms (price, closing date, contingencies) and produces a draft purchase agreement using GPT-4o. Add disclaimer that this is a draft, not legal advice. Add to RE DemoHub. Route: `/realestate/demo/contract`.
+
+- [ ] DEMO-SMS-SEQUENCE: Create `src/pages/construction/SMSSequence.tsx` — demo that takes a lead's info and generates a 5-message SMS nurture sequence with timing recommendations. Show messages in iPhone-style chat bubbles. Add to Construction DemoHub. Route: `/construction/demo/sms-sequence`.
+
+- [ ] DEMO-MARKET-ANALYZER: Create `src/pages/realestate/MarketAnalyzer.tsx` — demo that takes a zip code and property type, generates a market snapshot (median price trends, days-on-market, rent-to-own ratios) using GPT-4o with web context. Add to RE DemoHub. Route: `/realestate/demo/market-analysis`.
+
+- [ ] DEMO-REVIEW-RESPONDER-V2: Enhance `src/pages/construction/ReviewSystem.tsx` to add a "Smart Reply Generator" mode — paste any review (positive or negative) and get 3 suggested responses in different tones (professional, warm, apologetic). Reuses existing GPT-4o proxy pattern.
+
+- [ ] DEMO-LEAD-SCORING: Create `src/pages/construction/LeadScoring.tsx` — demo that lets user paste lead info (from a form submission) and scores it 1-100 with reasoning (budget fit, urgency signals, decision-maker status). Add to Construction DemoHub. Route: `/construction/demo/lead-scoring`.
+
+- [ ] DEMO-VIDEO-PLACEHOLDERS: On each demo hub, add short placeholder video cards (30-60s explainer) above the interactive demos. Use `<video>` tag with poster image. Videos can be stub/coming-soon initially but card shape preserves layout for when real videos ship.
+
+### TIER 9 — SEO + Content Expansion
+
+- [ ] BLOG-POST-AUTO-REPAIR: Add blog post to `src/data/blogPosts.ts`: "How AI Is Transforming Auto Repair Shops in 2026". Target keywords: "AI for auto repair", "auto shop automation", "automotive CRM AI". Link to `/autorepair` and `/autorepair/demo`. Follow existing blog post format.
+
+- [ ] BLOG-POST-DENTAL: Add blog post: "7 Ways Dental Practices Use AI to Fill More Chairs". Target keywords: "dental AI", "patient recall AI", "dental practice automation". Link to `/dental` and `/dental/demo`.
+
+- [ ] BLOG-POST-FITNESS: Add blog post: "How Gyms Use AI to Reduce Churn and Increase Retention". Target keywords: "fitness AI", "gym retention software", "AI membership software". Link to `/fitness` and `/fitness/demo`.
+
+- [ ] BLOG-POST-RESTAURANT: Add blog post: "AI for Restaurants: From Reservations to Reviews". Target keywords: "AI restaurant software", "restaurant automation", "AI reservation system". Link to `/restaurant` and `/restaurant/demo`.
+
+- [ ] BLOG-POST-SALON: Add blog post: "Smart Salons: How AI Fills the Chair and Keeps Clients Coming Back". Target keywords: "salon AI", "spa booking automation", "AI for beauty business". Link to `/salon` and `/salon/demo`.
+
+- [ ] BLOG-POST-HEALTHCARE: Add blog post: "AI for Medical Practices: Reducing No-Shows and Streamlining Intake". Target keywords: "healthcare AI", "medical practice automation", "AI patient scheduling". Link to `/healthcare` and `/healthcare/demo`.
+
+- [ ] BLOG-POST-LEGAL: Add blog post: "AI for Law Firms: The Modern Client Intake Playbook". Target keywords: "law firm AI", "legal intake automation", "AI for attorneys". Link to `/legal` and `/legal/demo`.
+
+- [ ] BLOG-POST-KIDSPLAY: Add blog post: "Birthday Party Booking on Autopilot: AI for Kids Play Places". Target keywords: "party booking software", "family entertainment AI", "kids play place CRM". Link to `/kidsplay` and `/kidsplay/demo`.
+
+- [ ] BLOG-POST-ROI-CASESTUDY: Add blog post: "Real ROI: How a Construction Company Cut Response Time by 92% With AI". Narrative case study format (anonymized). Target keywords: "construction CRM case study", "AI ROI construction", "lead response time case study". Link to `/construction` and ROI calculator.
+
+- [ ] BLOG-POST-SETUP-TIME: Add blog post: "From Sign-Up to Live in 48 Hours: The DCA Implementation Playbook". Target keywords: "AI implementation", "fast AI setup", "AI deployment timeline". Link to `/contact` and `/industries`.
+
+- [ ] GLOSSARY-PAGE: Create `src/pages/Glossary.tsx` with definitions for 30+ AI + industry terms (LLM, RAG, Voice AI, Lead Scoring, CRM, Speed-to-Lead, etc.). Route: `/glossary`. Each term anchored with ID for deep linking. Adds SEO surface area.
+
+- [ ] LOCATION-PAGES-TEXAS: Create `src/pages/locations/Texas.tsx` — Texas-specific construction + RE landing page with state-relevant stats, cities (Dallas, Houston, Austin), and local testimonial placeholders. Route: `/locations/texas`. Target keywords: "AI automation Texas", "construction AI Dallas", "Texas real estate AI".
+
+- [ ] CASE-STUDY-PAGES: Create `src/pages/case-studies/[slug].tsx` route structure and 3 individual case study pages (one per main vertical) with deeper detail than the existing CaseStudies carousel. Route: `/case-studies/:slug`. Link from homepage case studies section.
+
+### TIER 10 — Personalization + Retention
+
+- [ ] RETURN-VISITOR-BANNER: Create `src/components/ReturnVisitorBanner.tsx` — detects repeat visitors via `dca_visit_count` localStorage key. On visit 2+, shows a soft banner: "Welcome back! Ready to go deeper? Book a free strategy call →". Dismissible. Track banner impression + click via `trackCTAClick`.
+
+- [ ] UTM-PERSONALIZED-HERO: On Index.tsx, use `getUtmParams()` from `src/utils/utmTracker.ts` to personalize hero copy. If `utm_campaign` contains "construction", swap hero subheadline to construction-specific copy. Same for "realestate", "restaurant", etc. Falls back to default copy when no matching UTM.
+
+- [ ] INDUSTRY-AUTO-REDIRECT-CTA: Create `src/components/IndustrySuggestionBanner.tsx` — after 15 seconds on Index.tsx, show a small banner: "Looking for something specific? Jump to AI for [Construction / Real Estate / ...]". Links to the 5 most-visited vertical pages. Session key `dca_industry_suggest_dismissed`.
+
+- [ ] CONTENT-DYNAMIC-PRICING-CTA: In `src/components/StickyCTA.tsx`, make the CTA adapt to the current route. On `/construction` routes, button says "See Construction Pricing"; on `/realestate`, "See Real Estate Pricing"; etc. Uses `useLocation()` from react-router.
+
+- [ ] EMAIL-COURSE-OPTIN: Create `src/components/EmailCourseOptin.tsx` — a compact lead-magnet form: "Get our 5-day AI Implementation Email Course". Submits to Formspree with subject `[Email Course]`. Add below hero on `/industries` and in the footer as a 2nd opt-in. Uses email validation.
+
+### TIER 11 — Analytics + Optimization Infrastructure
+
+- [ ] FUNNEL-DASHBOARD: Create `src/pages/internal/FunnelDashboard.tsx` (unlisted, gated by URL-only access) — a dashboard visualizing conversion funnel stages: landing → demo view → form start → form submit → booking. Reads from Google Analytics Data API if available, else shows static GA event names for reference. Route: `/internal/funnel`. NOT listed in sitemap.
+
+- [ ] HEATMAP-HOOK: Create `src/hooks/useHeatmap.ts` — lightweight click tracking that sends click coordinates to Google Analytics as custom events with page path. Call on Index, Construction, RealEstate. Lets us see where visitors click without adding Hotjar/Fullstory. Keep it sampled (1 in 10 clicks) to not flood GA.
+
+- [ ] A-B-TEST-FRAMEWORK-EXPAND: Extend `src/utils/abTest.ts` to support multi-variant tests with weighted splits. Add 3 new experiments: hero CTA copy (Get Free Audit vs See Live Demo vs Book Discovery Call), pricing display order (Starter-first vs Scale-first), and social proof position (above fold vs below).
+
+- [ ] FORM-ABANDONMENT-TRACKING: In `src/components/ContactForm.tsx`, track form abandonment events — when a user focuses a field and then navigates away without submitting, fire `trackCTAClick('form_abandoned_at_[fieldname]', 'contact_form')`. Helps identify which form fields cause dropoff.
+
+- [ ] LIGHTHOUSE-PERF-BUDGET: In the Lighthouse CI config, tighten performance budgets once current baseline is stable: LCP < 2.5s, TTI < 3.8s, CLS < 0.1. Set as warnings first, then errors after two clean builds.
+
+- [ ] CLIENT-LOGO-MARQUEE: Create `src/components/ClientLogoMarquee.tsx` — a horizontally scrolling marquee of placeholder client logos (grayscale, 8-12 logos). Positioned below hero on Index.tsx, Construction.tsx, RealEstate.tsx. Start with SVG placeholder boxes labeled with generic industry types (e.g. "Construction Co", "RE Agency") — business owner swaps in real logos as they onboard clients. Include `dark:` variants.
