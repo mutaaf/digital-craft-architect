@@ -1,89 +1,205 @@
-
-import React from 'react';
-import { TestimonialItem } from '@/hooks/useContent';
-import { Quote } from 'lucide-react';
-import { 
-  Carousel, 
-  CarouselContent, 
-  CarouselItem, 
-  CarouselNext, 
-  CarouselPrevious 
-} from '@/components/ui/carousel';
+import React, { useCallback, useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
-import { 
-  Card, 
-  CardHeader, 
-  CardContent, 
-  CardFooter 
-} from '@/components/ui/card';
+import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import { TestimonialItem } from '@/hooks/useContent';
 
 interface TestimonialCarouselProps {
   data: TestimonialItem[];
-  itemsToShow: {
+  itemsToShow?: {
     mobile: number;
     tablet: number;
     desktop: number;
   };
 }
 
-const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({ data, itemsToShow }) => {
-  const [emblaRef] = useEmblaCarousel({
+const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({ data }) => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
-    align: 'start',
-    slidesToScroll: 1,
-    breakpoints: {
-      '(max-width: 640px)': { slidesToScroll: 1 },
-      '(min-width: 641px) and (max-width: 1024px)': { slidesToScroll: 1 },
-      '(min-width: 1025px)': { slidesToScroll: 1 }
-    }
+    align: 'center',
+    containScroll: 'trimSnaps',
   });
+  const [selected, setSelected] = useState(0);
+
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
+  const scrollTo = useCallback(
+    (i: number) => emblaApi?.scrollTo(i),
+    [emblaApi]
+  );
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    const onSelect = () => setSelected(emblaApi.selectedScrollSnap());
+    onSelect();
+    emblaApi.on('select', onSelect);
+    emblaApi.on('reInit', onSelect);
+    return () => {
+      emblaApi.off('select', onSelect);
+      emblaApi.off('reInit', onSelect);
+    };
+  }, [emblaApi]);
+
+  // Auto-advance every 9s
+  useEffect(() => {
+    if (!emblaApi) return;
+    const id = setInterval(() => emblaApi.scrollNext(), 9000);
+    return () => clearInterval(id);
+  }, [emblaApi]);
 
   return (
-    <div className="w-full">
-      <Carousel opts={{ align: 'start', loop: true }}>
-        <CarouselContent ref={emblaRef}>
-          {data.map((testimonial, index) => (
-            <CarouselItem 
-              key={index} 
-              className={`
-                pl-4 
-                basis-full
-                sm:basis-1/${itemsToShow.mobile} 
-                md:basis-1/${itemsToShow.tablet} 
-                lg:basis-1/${itemsToShow.desktop}
-              `}
+    <div className="relative mx-auto w-full max-w-5xl">
+      {/* Decorative background */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -inset-x-4 -inset-y-8 -z-10 opacity-60 blur-3xl"
+        style={{
+          background:
+            'radial-gradient(50% 60% at 50% 50%, rgba(51, 195, 240, 0.18), transparent 70%)',
+        }}
+      />
+
+      {/* Viewport */}
+      <div className="overflow-hidden pt-14 pb-6" ref={emblaRef}>
+        <div className="flex">
+          {data.map((t, i) => (
+            <div
+              key={i}
+              className="relative flex min-w-0 flex-[0_0_100%] px-3 md:px-5"
             >
-              <Card className="h-full">
-                <CardHeader className="pb-2 relative">
-                  <div className="absolute -top-4 -left-4 w-10 h-10 bg-skyblue rounded-full flex items-center justify-center">
-                    <Quote size={20} className="text-white" />
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-700 dark:text-gray-300 mb-6 italic">"{testimonial.quote}"</p>
-                </CardContent>
-                <CardFooter className="pt-2 border-t">
-                  <div className="flex items-center">
-                    <img 
-                      src={testimonial.image} 
-                      alt={testimonial.author} 
-                      className="w-12 h-12 rounded-full object-cover mr-4"
+              <article className="relative flex w-full flex-col gap-6 rounded-2xl border border-gray-200/80 bg-white p-6 shadow-[0_20px_60px_-20px_rgba(15,23,42,0.18)] dark:border-gray-800/70 dark:bg-gray-900/80 md:p-10 lg:p-12">
+                {/* Giant decorative quote glyph */}
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute -top-10 left-6 select-none font-serif text-[140px] leading-none text-skyblue/25 md:-top-14 md:left-10 md:text-[190px]"
+                  style={{ fontFamily: "'Newsreader', Georgia, serif" }}
+                >
+                  “
+                </span>
+
+                <div className="relative flex items-center gap-0.5">
+                  {Array.from({ length: 5 }).map((_, s) => (
+                    <Star
+                      key={s}
+                      size={16}
+                      className="fill-amber-400 stroke-amber-400"
                     />
-                    <div>
-                      <h4 className="font-semibold">{testimonial.author}</h4>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{testimonial.position}</p>
+                  ))}
+                  <span className="ml-2 font-mono text-[11px] uppercase tracking-[0.14em] text-gray-500 dark:text-gray-400">
+                    Verified engagement
+                  </span>
+                </div>
+
+                <blockquote
+                  className="relative text-[20px] leading-[1.55] text-gray-800 dark:text-gray-100 md:text-[26px] md:leading-[1.45]"
+                  style={{ fontFamily: "'Newsreader', Georgia, serif" }}
+                >
+                  {t.quote}
+                </blockquote>
+
+                <footer className="relative flex items-center gap-4 border-t border-gray-100 pt-6 dark:border-gray-800">
+                  <img
+                    src={t.image}
+                    alt={t.author}
+                    className="h-14 w-14 rounded-full border-2 border-skyblue/30 object-cover md:h-16 md:w-16"
+                  />
+                  <div className="min-w-0">
+                    <div className="font-semibold text-gray-900 dark:text-white md:text-lg">
+                      {t.author}
+                    </div>
+                    <div className="truncate text-sm text-gray-600 dark:text-gray-400">
+                      {t.position}
                     </div>
                   </div>
-                </CardFooter>
-              </Card>
-            </CarouselItem>
+                  <div className="ml-auto hidden items-center gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-gray-400 md:flex">
+                    <span>
+                      {String(i + 1).padStart(2, '0')} /{' '}
+                      {String(data.length).padStart(2, '0')}
+                    </span>
+                  </div>
+                </footer>
+              </article>
+            </div>
           ))}
-        </CarouselContent>
-        <div className="flex justify-center mt-6 gap-2">
-          <CarouselPrevious className="relative inset-0 translate-y-0 bg-white hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700" />
-          <CarouselNext className="relative inset-0 translate-y-0 bg-white hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700" />
         </div>
-      </Carousel>
+      </div>
+
+      {/* Controls */}
+      <div className="mt-6 flex items-center justify-center gap-6">
+        <button
+          type="button"
+          onClick={scrollPrev}
+          aria-label="Previous testimonial"
+          className="group flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 shadow-sm transition hover:border-skyblue hover:text-skyblue dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
+        >
+          <ChevronLeft
+            size={18}
+            className="transition-transform group-hover:-translate-x-0.5"
+          />
+        </button>
+
+        <div className="flex items-center gap-2">
+          {data.map((_, i) => {
+            const active = i === selected;
+            return (
+              <button
+                key={i}
+                type="button"
+                onClick={() => scrollTo(i)}
+                aria-label={`Go to testimonial ${i + 1}`}
+                aria-current={active}
+                className={`relative h-1.5 overflow-hidden rounded-full transition-all duration-300 ${
+                  active
+                    ? 'w-10 bg-skyblue'
+                    : 'w-1.5 bg-gray-300 hover:bg-gray-400 dark:bg-gray-700'
+                }`}
+              >
+                {active && (
+                  <span
+                    className="absolute inset-y-0 left-0 bg-skyblue/60"
+                    style={{ animation: 'tm-progress 9s linear forwards' }}
+                  />
+                )}
+              </button>
+            );
+          })}
+        </div>
+
+        <button
+          type="button"
+          onClick={scrollNext}
+          aria-label="Next testimonial"
+          className="group flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 shadow-sm transition hover:border-skyblue hover:text-skyblue dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
+        >
+          <ChevronRight
+            size={18}
+            className="transition-transform group-hover:translate-x-0.5"
+          />
+        </button>
+      </div>
+
+      {/* Attribution strip */}
+      <div className="mt-10 border-t border-gray-200 pt-6 dark:border-gray-800">
+        <div className="mb-4 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400">
+          Voices of
+        </div>
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 md:gap-x-10">
+          {data.map((t, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => scrollTo(i)}
+              className={`font-serif text-sm italic transition md:text-base ${
+                i === selected
+                  ? 'text-gray-900 underline decoration-skyblue decoration-2 underline-offset-4 dark:text-white'
+                  : 'text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200'
+              }`}
+              style={{ fontFamily: "'Newsreader', Georgia, serif" }}
+            >
+              {t.position}
+            </button>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
