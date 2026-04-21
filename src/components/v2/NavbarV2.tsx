@@ -20,6 +20,7 @@ import {
   Server,
 } from 'lucide-react';
 import { trackCTAClick } from '@/utils/analytics';
+import { isCTOHost, ROOT_URL } from '@/utils/hostVariant';
 
 const VERTICALS = [
   { to: '/construction', label: 'Construction', icon: HardHat },
@@ -45,6 +46,11 @@ const NavbarV2: React.FC = () => {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [onCTO, setOnCTO] = useState(false);
+
+  useEffect(() => {
+    setOnCTO(isCTOHost());
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -74,17 +80,36 @@ const NavbarV2: React.FC = () => {
       }`}
     >
       <div className="container mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-6">
-        <Link to="/" className="flex items-baseline gap-2">
-          <span
-            className="v2-display text-2xl leading-none text-bone"
-            style={{ fontWeight: 420 }}
+        {onCTO ? (
+          <a
+            href={ROOT_URL}
+            onClick={() => trackCTAClick('logo_to_root', 'v2_navbar')}
+            className="flex items-baseline gap-2"
+            aria-label="DigitalCraft home"
           >
-            Digital<span className="italic text-copper">Craft</span>
-          </span>
-          <span className="v2-mono hidden text-[10px] text-bone/40 md:inline">
-            / EST. 2019
-          </span>
-        </Link>
+            <span
+              className="v2-display text-2xl leading-none text-bone"
+              style={{ fontWeight: 420 }}
+            >
+              Digital<span className="italic text-copper">Craft</span>
+            </span>
+            <span className="v2-mono hidden text-[10px] text-copper md:inline">
+              / CTO
+            </span>
+          </a>
+        ) : (
+          <Link to="/" className="flex items-baseline gap-2">
+            <span
+              className="v2-display text-2xl leading-none text-bone"
+              style={{ fontWeight: 420 }}
+            >
+              Digital<span className="italic text-copper">Craft</span>
+            </span>
+            <span className="v2-mono hidden text-[10px] text-bone/40 md:inline">
+              / EST. 2019
+            </span>
+          </Link>
+        )}
 
         <nav className="hidden items-center gap-7 md:flex">
           <div ref={dropdownRef} className="relative">

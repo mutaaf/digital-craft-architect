@@ -12,6 +12,7 @@ import Testimonials from '@/components/Testimonials';
 import ContactForm from '@/components/ContactForm';
 import Footer from '@/components/Footer';
 import AffiliateSection from '@/components/AffiliateSection';
+import { CTOHeroSection } from '@/components/CTOCallout';
 import ParallaxBackground from '@/components/ParallaxBackground';
 import StickyCTA from '@/components/StickyCTA';
 import ExitIntentPopup from '@/components/ExitIntentPopup';
@@ -100,10 +101,11 @@ const Index = () => {
       <Hero data={content.hero} />
       <SocialProofBar />
       {content.mvpPromotion?.enabled && <MVPPromotion data={content.mvpPromotion} />}
-      <Services 
-        data={content.services} 
+      <Services
+        data={content.services}
         carouselConfig={uiConfig?.carouselItemsPerView}
       />
+      <CTOHeroSection />
       {content.pricingTiers && <PricingTiers data={content.pricingTiers} />}
       <Founder data={content.founder} />
       <CaseStudies data={content.caseStudies} />
