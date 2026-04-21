@@ -199,7 +199,7 @@ Each new vertical follows the established pattern: landing page (`src/pages/[Ver
 
 ### TIER 7 — Advanced Conversion + Lead Capture
 
-- [ ] ROI-CALCULATOR: Create `src/components/ROICalculator.tsx` — an interactive calculator with inputs (monthly leads, close rate, avg deal value, hours spent on follow-up per week) and outputs (projected ROI with DCA, hours saved, added revenue). Use shadcn `Slider` + `Input`. Show a side-by-side "Without DCA" vs "With DCA" comparison. End with CTA to book a call. Add to `src/pages/Construction.tsx` and `src/pages/RealEstate.tsx` between pricing and FAQ. Include `dark:` variants and `trackCTAClick('roi_calculator_book', 'roi_calculator')`.
+- [x] ROI-CALCULATOR: Create `src/components/ROICalculator.tsx` — an interactive calculator with inputs (monthly leads, close rate, avg deal value, hours spent on follow-up per week) and outputs (projected ROI with DCA, hours saved, added revenue). Use shadcn `Slider` + `Input`. Show a side-by-side "Without DCA" vs "With DCA" comparison. End with CTA to book a call. Add to `src/pages/Construction.tsx` and `src/pages/RealEstate.tsx` between pricing and FAQ. Include `dark:` variants and `trackCTAClick('roi_calculator_book', 'roi_calculator')`. *(completed 2026-04-21)*
 
 - [ ] AI-READINESS-QUIZ: Create `src/pages/AIReadinessQuiz.tsx` — a 7-question quiz (business type, lead volume, current tools, response time, team size, pain point, budget range). Score generates a readiness tier (Getting Started / Ready / Advanced). Gate result behind email capture via Formspree (subject `[Quiz] AI Readiness`). After email submit, show score + personalized demo recommendations linking to relevant vertical demo hub. Route: `/quiz`. Add CTA on Index.tsx hero and navbar.
 

@@ -8,6 +8,7 @@ import ExitIntentPopup from '@/components/ExitIntentPopup';
 import LeadMagnetSection from '@/components/LeadMagnetSection';
 import SocialProofBar from '@/components/SocialProofBar';
 import ScrollProgress from '@/components/ScrollProgress';
+import ROICalculator from '@/components/ROICalculator';
 import { useContent } from '@/hooks/useContent';
 import { useAnalytics, trackCTAClick, useEngagementTracking } from '@/utils/analytics';
 import { getUtmParams } from '@/utils/utmTracker';
@@ -595,6 +596,9 @@ const RealEstate: React.FC = () => {
           All plans include a 2-week setup period. No long-term contracts — cancel anytime.
         </p>
       </section>
+
+      {/* ─── ROI CALCULATOR ─── */}
+      <ROICalculator vertical="realestate" />
 
       {/* ─── FAQ ─── */}
       <section className="container-section bg-gray-50 dark:bg-gray-900">
