@@ -64,10 +64,22 @@
         if(!e){e=document.createElement("link");e.rel=r;document.head.appendChild(e);}
         e.href=h;
       }
+      function isCTOHost(){
+        return location.hostname.indexOf("cto.")===0;
+      }
       function update(){
         var p=location.pathname.replace(/\/$/,"")||"/";
         var cfg=pages[p]||pages["/"];
         if(!cfg)return;
+        // Hostname-aware override for the CTO subdomain landing page
+        if(p==="/" && isCTOHost()){
+          cfg={
+            t:"Your Fortune 100 CTO, on retainer · DigitalCraft",
+            d:"A fractional CTO who has shipped at Motorola, Amazon, and Disney — now on retainer for operators who want strategic technology leadership, not just tools. Book more jobs. Close more deals. Run ops on autopilot.",
+            u:"https://cto.digitalcraftai.com",
+            i:"https://cto.digitalcraftai.com/og-cto.svg"
+          };
+        }
         document.title=cfg.t;
         setMeta("description",cfg.d);
         setLink("canonical",cfg.u);
@@ -75,7 +87,7 @@
         setMeta("og:description",cfg.d,"property");
         setMeta("og:url",cfg.u,"property");
         setMeta("og:type","website","property");
-        setMeta("og:site_name",defined,"property");
+        setMeta("og:site_name",isCTOHost()?"DigitalCraft · CTO":defined,"property");
         var ogi=cfg.i||ogForPath(p);
         setMeta("og:image",ogi,"property");
         setMeta("twitter:card","summary_large_image");

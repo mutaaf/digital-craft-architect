@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, ChevronDown, HardHat, Building2, PartyPopper, Server, Phone, Wrench, Heart, Scale, UtensilsCrossed, Gamepad2, Dumbbell, Stethoscope, Scissors, Car, ArrowRight } from 'lucide-react';
+import { Menu, X, ChevronDown, HardHat, Building2, PartyPopper, Server, Phone, Wrench, Heart, Scale, UtensilsCrossed, Gamepad2, Dumbbell, Stethoscope, Scissors, Car, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { trackCTAClick } from '@/utils/analytics';
 
 const VERTICALS = [
@@ -127,6 +127,14 @@ const Navbar: React.FC<NavbarProps> = ({ darkHero = false }) => {
             )}
           </div>
 
+          <a
+            href="https://cto.digitalcraftai.com"
+            className={`${linkClass} inline-flex items-center gap-1`}
+            onClick={() => trackCTAClick('fractional_cto_nav', 'navbar')}
+          >
+            Fractional CTO
+            <ArrowUpRight size={12} className="opacity-70" />
+          </a>
           <a href="#pricing" className={linkClass}>Pricing</a>
           <Link to="/blog" className={linkClass}>Blog</Link>
           <a
@@ -205,6 +213,17 @@ const Navbar: React.FC<NavbarProps> = ({ darkHero = false }) => {
             </div>
           )}
 
+          <a
+            href="https://cto.digitalcraftai.com"
+            className="inline-flex items-center gap-1 text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors"
+            onClick={() => {
+              trackCTAClick('fractional_cto_nav', 'navbar_mobile');
+              toggleMenu();
+            }}
+          >
+            Fractional CTO
+            <ArrowUpRight size={14} className="opacity-70" />
+          </a>
           <a href="#pricing" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors" onClick={toggleMenu}>Pricing</a>
           <Link to="/blog" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors" onClick={toggleMenu}>Blog</Link>
           <a

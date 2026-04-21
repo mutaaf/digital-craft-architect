@@ -4,6 +4,7 @@ import { join } from "path";
 const ROOT = join(import.meta.dirname, "..");
 const SRC = join(ROOT, "src");
 const BASE_URL = "https://digitalcraftai.com";
+const CTO_URL = "https://cto.digitalcraftai.com";
 
 function readFile(path: string): string {
   return readFileSync(path, "utf-8");
@@ -71,6 +72,13 @@ function generateSitemap(routes: string[], blogSlugs: string[]): string {
   </url>`;
   });
 
+  // CTO subdomain landing — distinct canonical URL
+  entries.push(`  <url>
+    <loc>${CTO_URL}</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>`);
+
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${entries.join("\n")}
@@ -87,9 +95,9 @@ function run() {
   const outPath = join(ROOT, "public", "sitemap.xml");
   writeFileSync(outPath, sitemap, "utf-8");
 
-  const totalUrls = routes.length + blogSlugs.length;
+  const totalUrls = routes.length + blogSlugs.length + 1; // +1 for CTO subdomain
   console.log(
-    `✓ Sitemap generated with ${totalUrls} URLs (${routes.length} routes + ${blogSlugs.length} blog posts) → public/sitemap.xml`
+    `✓ Sitemap generated with ${totalUrls} URLs (${routes.length} routes + ${blogSlugs.length} blog posts + 1 subdomain) → public/sitemap.xml`
   );
 }
 

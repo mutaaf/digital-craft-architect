@@ -7,8 +7,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import Index from "./pages/Index";
 import IndexV2 from "./pages/IndexV2";
-import ABToggle from "./components/ABToggle";
-import { useABVariant } from "./hooks/useABVariant";
+import { isCTOHost } from "./utils/hostVariant";
+import { trackEvent } from "./utils/analytics";
 import Construction from "./pages/Construction";
 import RealEstate from "./pages/RealEstate";
 import RealEstateDemoHub from "./pages/realestate/RealEstateDemoHub";
@@ -84,14 +84,12 @@ const queryClient = new QueryClient({
   },
 });
 
-const ABLandingRoot: React.FC = () => {
-  const variant = useABVariant();
-  return (
-    <>
-      {variant === 'b' ? <IndexV2 /> : <Index />}
-      <ABToggle current={variant} />
-    </>
-  );
+const LandingRoot: React.FC = () => {
+  const isCTO = React.useMemo(() => isCTOHost(), []);
+  React.useEffect(() => {
+    trackEvent('landing_view', 'navigation', isCTO ? 'cto_subdomain' : 'root_domain');
+  }, [isCTO]);
+  return isCTO ? <IndexV2 /> : <Index />;
 };
 
 interface FallbackProps {
@@ -167,7 +165,7 @@ const App = () => (
           <EasterEgg />
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<ABLandingRoot />} />
+              <Route path="/" element={<LandingRoot />} />
               <Route path="/construction" element={<Construction />} />
               <Route path="/construction/demo" element={<DemoContextProvider vertical="construction"><DemoHub /></DemoContextProvider>} />
               <Route path="/construction/demo/lead-responder" element={<DemoContextProvider vertical="construction"><LeadResponder /></DemoContextProvider>} />

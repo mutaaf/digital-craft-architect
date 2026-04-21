@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b0b0d"/>
+      <stop offset="0.5" stop-color="#121215"/>
+      <stop offset="1" stop-color="#0b0b0d"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.82" cy="0.18" r="0.55">
+      <stop offset="0" stop-color="#c96e2c" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#c96e2c" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0.15" cy="0.9" r="0.45">
+      <stop offset="0" stop-color="#e89862" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#e89862" stop-opacity="0"/>
+    </radialGradient>
+    <style>
+      .display { font-family: 'Fraunces', 'Playfair Display', Georgia, serif; font-weight: 380; letter-spacing: -0.03em; }
+      .italic-cop { font-family: 'Fraunces', 'Playfair Display', Georgia, serif; font-style: italic; font-weight: 400; fill: #c96e2c; }
+      .mono { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace; letter-spacing: 0.18em; text-transform: uppercase; }
+      .editorial { font-family: 'Newsreader', Georgia, serif; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect width="1200" height="630" fill="url(#glow2)"/>
+
+  <!-- top rule + masthead -->
+  <line x1="80" y1="88" x2="1120" y2="88" stroke="#f4efe6" stroke-opacity="0.12" stroke-width="1"/>
+  <text x="80" y="68" class="mono" fill="#c96e2c" font-size="18">§ Masthead · Vol. VII · MMXXVI</text>
+  <text x="1120" y="68" class="mono" fill="#f4efe6" fill-opacity="0.5" font-size="18" text-anchor="end">cto.digitalcraftai.com</text>
+
+  <!-- headline -->
+  <text x="80" y="230" class="display" fill="#f4efe6" font-size="116">Your</text>
+  <text x="80" y="354" class="italic-cop" font-size="128">Fortune 100</text>
+  <text x="80" y="472" class="display" fill="#f4efe6" font-size="116">CTO, on retainer.</text>
+
+  <!-- standfirst -->
+  <text x="80" y="534" class="editorial" fill="#f4efe6" fill-opacity="0.7" font-size="24" font-style="italic">
+    Book more jobs. Close more deals. Run ops on autopilot.
+  </text>
+
+  <!-- bottom rule + credentials -->
+  <line x1="80" y1="566" x2="1120" y2="566" stroke="#f4efe6" stroke-opacity="0.12" stroke-width="1"/>
+  <text x="80" y="598" class="mono" fill="#f4efe6" fill-opacity="0.55" font-size="15">
+    Built systems at
+    <tspan fill="#f4efe6" fill-opacity="0.85" dx="12">Motorola</tspan>
+    <tspan fill="#c96e2c" dx="12">◆</tspan>
+    <tspan fill="#f4efe6" fill-opacity="0.85" dx="12">Amazon</tspan>
+    <tspan fill="#c96e2c" dx="12">◆</tspan>
+    <tspan fill="#f4efe6" fill-opacity="0.85" dx="12">Disney</tspan>
+  </text>
+  <text x="1120" y="598" class="mono" fill="#c96e2c" font-size="15" text-anchor="end">DigitalCraft</text>
+</svg>

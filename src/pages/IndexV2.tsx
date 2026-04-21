@@ -10,7 +10,12 @@ import {
   useEngagementTracking,
   trackCTAClick,
 } from '@/utils/analytics';
-import { trackVariantConversion } from '@/utils/abTest';
+import { trackEvent } from '@/utils/analytics';
+import { currentHostTag } from '@/utils/hostVariant';
+
+const trackLandingConversion = (name: string) => {
+  trackEvent('landing_conversion', 'conversion', `${currentHostTag()}:${name}`);
+};
 import {
   useInView,
   LivePulse,
@@ -271,7 +276,7 @@ const HeroV2: React.FC = () => (
               rel="noopener noreferrer"
               onClick={() => {
                 trackCTAClick('book_discovery', 'v2_hero');
-                trackVariantConversion('book_discovery_hero', 'b');
+                trackLandingConversion('book_discovery_hero');
               }}
               className="group inline-flex items-center gap-2 rounded-full bg-bone px-6 py-3 font-mono text-[13px] uppercase tracking-wider text-ink transition hover:bg-copper hover:text-bone"
             >
@@ -408,7 +413,7 @@ const OutcomesV2: React.FC = () => {
             rel="noopener noreferrer"
             onClick={() => {
               trackCTAClick('scope_my_outcome', 'v2_outcomes');
-              trackVariantConversion('scope_my_outcome', 'b');
+              trackLandingConversion('scope_my_outcome');
             }}
             className="group inline-flex items-center gap-2 rounded-full border border-bone/30 px-5 py-2.5 font-mono text-[12px] uppercase tracking-wider text-bone transition hover:border-copper hover:bg-copper hover:text-bone"
           >
@@ -948,7 +953,7 @@ const EngageV2: React.FC = () => (
             rel="noopener noreferrer"
             onClick={() => {
               trackCTAClick('book_discovery', 'v2_engage');
-              trackVariantConversion('book_discovery_engage', 'b');
+              trackLandingConversion('book_discovery_engage');
             }}
             className="group inline-flex w-full items-center justify-between gap-4 border border-bone/30 bg-bone px-6 py-5 text-ink transition hover:bg-copper hover:text-bone md:px-8 md:py-6"
           >
@@ -993,12 +998,39 @@ const IndexV2: React.FC = () => {
   return (
     <div ref={rootRef} className="v2-root min-h-screen">
       <Helmet>
-        <title>
-          Book more jobs. Close more deals. Run ops on autopilot · DigitalCraft AI
-        </title>
+        <title>Your Fortune 100 CTO, on retainer · DigitalCraft</title>
         <meta
           name="description"
-          content="Custom AI systems that book, qualify, and close — delivered and run by a fractional CTO on a retainer that costs less than a single senior hire. See the outcomes real operators point to."
+          content="A fractional CTO who has shipped at Motorola, Amazon, and Disney — now on retainer for operators who want strategic technology leadership, not just tools. Book more jobs. Close more deals. Run ops on autopilot."
+        />
+        <link rel="canonical" href="https://cto.digitalcraftai.com" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://cto.digitalcraftai.com" />
+        <meta
+          property="og:title"
+          content="Your Fortune 100 CTO, on retainer · DigitalCraft"
+        />
+        <meta
+          property="og:description"
+          content="A fractional CTO who has shipped at Motorola, Amazon, and Disney — now on retainer for operators who want strategic technology leadership, not just tools."
+        />
+        <meta
+          property="og:image"
+          content="https://cto.digitalcraftai.com/og-cto.svg"
+        />
+        <meta property="og:site_name" content="DigitalCraft · CTO" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Your Fortune 100 CTO, on retainer · DigitalCraft"
+        />
+        <meta
+          name="twitter:description"
+          content="A fractional CTO who has shipped at Motorola, Amazon, and Disney — now on retainer for operators who want strategic technology leadership, not just tools."
+        />
+        <meta
+          name="twitter:image"
+          content="https://cto.digitalcraftai.com/og-cto.svg"
         />
       </Helmet>
       <NavbarV2 />
