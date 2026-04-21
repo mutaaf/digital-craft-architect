@@ -76,15 +76,20 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({ data }) => {
                   “
                 </span>
 
-                <div className="relative flex items-center gap-0.5">
+                <div
+                  className="relative flex items-center gap-0.5"
+                  role="img"
+                  aria-label="Rated 5 out of 5 stars"
+                >
                   {Array.from({ length: 5 }).map((_, s) => (
                     <Star
                       key={s}
                       size={16}
-                      className="fill-amber-400 stroke-amber-400"
+                      aria-hidden="true"
+                      className="fill-amber-500 stroke-amber-500"
                     />
                   ))}
-                  <span className="ml-2 font-mono text-[11px] uppercase tracking-[0.14em] text-gray-500 dark:text-gray-400">
+                  <span className="ml-2 font-mono text-[11px] uppercase tracking-[0.14em] text-gray-600 dark:text-gray-300">
                     Verified engagement
                   </span>
                 </div>
@@ -110,7 +115,7 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({ data }) => {
                       {t.position}
                     </div>
                   </div>
-                  <div className="ml-auto hidden items-center gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-gray-400 md:flex">
+                  <div className="ml-auto hidden items-center gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-gray-600 dark:text-gray-300 md:flex">
                     <span>
                       {String(i + 1).padStart(2, '0')} /{' '}
                       {String(data.length).padStart(2, '0')}
@@ -137,28 +142,34 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({ data }) => {
           />
         </button>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center" role="tablist" aria-label="Testimonials">
           {data.map((_, i) => {
             const active = i === selected;
             return (
               <button
                 key={i}
                 type="button"
+                role="tab"
                 onClick={() => scrollTo(i)}
-                aria-label={`Go to testimonial ${i + 1}`}
-                aria-current={active}
-                className={`relative h-1.5 overflow-hidden rounded-full transition-all duration-300 ${
-                  active
-                    ? 'w-10 bg-skyblue'
-                    : 'w-1.5 bg-gray-300 hover:bg-gray-400 dark:bg-gray-700'
-                }`}
+                aria-label={`Go to testimonial ${i + 1} of ${data.length}`}
+                aria-selected={active}
+                className="group flex h-11 w-11 items-center justify-center"
               >
-                {active && (
-                  <span
-                    className="absolute inset-y-0 left-0 bg-skyblue/60"
-                    style={{ animation: 'tm-progress 9s linear forwards' }}
-                  />
-                )}
+                <span
+                  aria-hidden="true"
+                  className={`relative block h-1.5 overflow-hidden rounded-full transition-all duration-300 ${
+                    active
+                      ? 'w-10 bg-sky-600'
+                      : 'w-1.5 bg-gray-400 group-hover:bg-gray-500 dark:bg-gray-500 dark:group-hover:bg-gray-400'
+                  }`}
+                >
+                  {active && (
+                    <span
+                      className="absolute inset-y-0 left-0 bg-sky-600/60"
+                      style={{ animation: 'tm-progress 9s linear forwards' }}
+                    />
+                  )}
+                </span>
               </button>
             );
           })}
@@ -179,7 +190,7 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({ data }) => {
 
       {/* Attribution strip */}
       <div className="mt-10 border-t border-gray-200 pt-6 dark:border-gray-800">
-        <div className="mb-4 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400">
+        <div className="mb-4 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-gray-600 dark:text-gray-300">
           Voices of
         </div>
         <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 md:gap-x-10">
@@ -188,10 +199,11 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({ data }) => {
               key={i}
               type="button"
               onClick={() => scrollTo(i)}
-              className={`font-serif text-sm italic transition md:text-base ${
+              aria-label={`Show testimonial from ${t.position}`}
+              className={`py-2 font-serif text-sm italic transition md:text-base ${
                 i === selected
-                  ? 'text-gray-900 underline decoration-skyblue decoration-2 underline-offset-4 dark:text-white'
-                  : 'text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200'
+                  ? 'text-gray-900 underline decoration-sky-600 decoration-2 underline-offset-4 dark:text-white'
+                  : 'text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white'
               }`}
               style={{ fontFamily: "'Newsreader', Georgia, serif" }}
             >

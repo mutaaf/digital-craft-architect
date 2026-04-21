@@ -19,7 +19,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({
   return (
     <section className="container-section">
       <div className="text-center mb-12 md:mb-14 animate-fade-in">
-        <div className="font-mono text-[10px] md:text-[11px] uppercase tracking-[0.22em] text-skyblue mb-3">
+        <div className="font-mono text-[10px] md:text-[11px] uppercase tracking-[0.22em] text-sky-700 dark:text-sky-300 mb-3">
           § Client Voices
         </div>
         <h2 className="text-3xl md:text-5xl font-bold mb-4 text-balance">
