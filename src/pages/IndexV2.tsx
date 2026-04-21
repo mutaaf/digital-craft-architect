@@ -35,19 +35,19 @@ const CREDENTIALS = [
 ];
 
 const OUTCOME_TICKER = [
-  { client: '448 Developments',       metric: 'Lead response · hours → 47s' },
-  { client: 'CheekyMonkeys',          metric: '20 hrs/wk manual entry → zero' },
-  { client: 'TryMinded',              metric: 'Telemed platform · shipped in months' },
-  { client: 'Recyclops',              metric: 'Ops scaled with zero new hires' },
-  { client: 'Infinity Builders',      metric: 'Estimates · days → under an hour' },
-  { client: 'DJ RubyRu',              metric: '12 integrations · zero manual ops' },
-  { client: 'Overwatch Digital Health', metric: 'Compliance milestones · ahead of plan' },
+  { client: 'Residential Development Firm', metric: 'Lead response · hours → 47s' },
+  { client: 'Family Entertainment Center',  metric: '20 hrs/wk manual entry → zero' },
+  { client: 'TryMinded',                    metric: 'Telemed platform · shipped in months' },
+  { client: 'Recyclops',                    metric: 'Ops scaled with zero new hires' },
+  { client: 'Multi-Location Service Co.',   metric: 'Estimates · days → under an hour' },
+  { client: 'Independent Event Studio',     metric: '12 integrations · zero manual ops' },
+  { client: 'Overwatch Digital Health',     metric: 'Compliance milestones · ahead of plan' },
 ];
 
 const OUTCOMES = [
   {
     vertical: 'Construction',
-    client: '448 Developments',
+    client: 'Residential Development Firm',
     headline: '< 60 seconds',
     label: 'Lead response',
     body:
@@ -56,7 +56,7 @@ const OUTCOMES = [
   },
   {
     vertical: 'Family Entertainment',
-    client: 'CheekyMonkeys',
+    client: 'Family Entertainment Center',
     headline: '20 hrs/week',
     label: 'Manual data entry eliminated',
     body:
