@@ -17,6 +17,7 @@ import LeadResponder from "./pages/construction/LeadResponder";
 import EstimateGenerator from "./pages/construction/EstimateGenerator";
 import InvoiceGenerator from "./pages/construction/InvoiceGenerator";
 import ContractDrafter from "./pages/realestate/ContractDrafter";
+import MarketAnalyzer from "./pages/realestate/MarketAnalyzer";
 import SMSSequence from "./pages/construction/SMSSequence";
 import ReviewSystem from "./pages/construction/ReviewSystem";
 import PropertyNegotiator from "./pages/construction/PropertyNegotiator";
@@ -186,6 +187,7 @@ const App = () => (
               <Route path="/realestate/demo/lead-responder" element={<DemoContextProvider vertical="realestate"><LeadResponder /></DemoContextProvider>} />
               <Route path="/realestate/demo/property-negotiator" element={<DemoContextProvider vertical="realestate"><PropertyNegotiator /></DemoContextProvider>} />
               <Route path="/realestate/demo/contract" element={<DemoContextProvider vertical="realestate"><ContractDrafter /></DemoContextProvider>} />
+              <Route path="/realestate/demo/market-analysis" element={<DemoContextProvider vertical="realestate"><MarketAnalyzer /></DemoContextProvider>} />
               <Route path="/realestate/demo/voice-negotiator" element={<DemoContextProvider vertical="realestate"><VoiceNegotiator /></DemoContextProvider>} />
               <Route path="/events" element={<Events />} />
               <Route path="/events/demo" element={<DemoContextProvider vertical="events"><EventsDemoHub /></DemoContextProvider>} />
