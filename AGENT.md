@@ -207,7 +207,7 @@ Each new vertical follows the established pattern: landing page (`src/pages/[Ver
 
 - [x] COMPARISON-PAGE-HUBSPOT: Create `src/pages/compare/HubSpot.tsx` — a "DigitalCraft AI vs HubSpot" comparison page with feature matrix table (AI voice, industry-specific models, setup time, pricing, implementation). Include fair, factual positioning focused on DCA's strengths (custom AI, vertical focus, faster setup). Route: `/compare/hubspot`. Add to sitemap. Target keywords: "HubSpot alternative", "AI CRM for construction". *(completed 2026-04-22)*
 
-- [ ] COMPARISON-PAGE-GOHIGHLEVEL: Same as above but for GoHighLevel. Route: `/compare/gohighlevel`. Target keywords: "GoHighLevel alternative", "AI CRM vs GHL".
+- [x] COMPARISON-PAGE-GOHIGHLEVEL: Same as above but for GoHighLevel. Route: `/compare/gohighlevel`. Target keywords: "GoHighLevel alternative", "AI CRM vs GHL". *(completed 2026-04-22)*
 
 - [ ] PRICING-FAQ-ACCORDION: On Construction.tsx and RealEstate.tsx pricing sections, add a pricing-specific FAQ accordion with 5-6 questions (Is there a setup fee? Can I cancel anytime? What's included? Do you offer custom plans? How long until I see ROI? Is training included?). Use shadcn `Accordion`. Reduces purchase friction at the pricing stage.
 
