@@ -205,7 +205,7 @@ Each new vertical follows the established pattern: landing page (`src/pages/[Ver
 
 - [x] LIVE-CHAT-BUBBLE: Create `src/components/LiveChatBubble.tsx` — a bottom-right floating chat bubble that opens a lightweight pre-qualification chat (5 questions: name, business type, biggest challenge, team size, email). Submits to Formspree with subject `[Chat Lead]`. Shows on all landing pages. Session key `dca_chat_bubble_dismissed` to suppress for 24h after close. Keep bundle small — pure React, no external chat SDK. *(completed 2026-04-22)*
 
-- [ ] COMPARISON-PAGE-HUBSPOT: Create `src/pages/compare/HubSpot.tsx` — a "DigitalCraft AI vs HubSpot" comparison page with feature matrix table (AI voice, industry-specific models, setup time, pricing, implementation). Include fair, factual positioning focused on DCA's strengths (custom AI, vertical focus, faster setup). Route: `/compare/hubspot`. Add to sitemap. Target keywords: "HubSpot alternative", "AI CRM for construction".
+- [x] COMPARISON-PAGE-HUBSPOT: Create `src/pages/compare/HubSpot.tsx` — a "DigitalCraft AI vs HubSpot" comparison page with feature matrix table (AI voice, industry-specific models, setup time, pricing, implementation). Include fair, factual positioning focused on DCA's strengths (custom AI, vertical focus, faster setup). Route: `/compare/hubspot`. Add to sitemap. Target keywords: "HubSpot alternative", "AI CRM for construction". *(completed 2026-04-22)*
 
 - [ ] COMPARISON-PAGE-GOHIGHLEVEL: Same as above but for GoHighLevel. Route: `/compare/gohighlevel`. Target keywords: "GoHighLevel alternative", "AI CRM vs GHL".
 

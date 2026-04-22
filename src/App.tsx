@@ -42,6 +42,7 @@ import SalonDemoHub from "./pages/salon/DemoHub";
 import AutoRepair from "./pages/AutoRepair";
 import AutoRepairDemoHub from "./pages/autorepair/DemoHub";
 import Industries from "./pages/Industries";
+import HubSpotComparison from "./pages/compare/HubSpot";
 import AIReadinessQuiz from "./pages/AIReadinessQuiz";
 import SetupClaw from "./pages/SetupClaw";
 import Blog from "./pages/Blog";
@@ -230,6 +231,7 @@ const App = () => (
               <Route path="/autorepair/demo/estimate" element={<DemoContextProvider vertical="autorepair"><EstimateGenerator /></DemoContextProvider>} />
               <Route path="/autorepair/demo/voice-reminder" element={<DemoContextProvider vertical="autorepair"><VoiceNegotiator /></DemoContextProvider>} />
               <Route path="/industries" element={<Industries />} />
+              <Route path="/compare/hubspot" element={<HubSpotComparison />} />
               <Route path="/quiz" element={<AIReadinessQuiz />} />
               <Route path="/setupclaw" element={<SetupClaw />} />
               <Route path="/blog" element={<Blog />} />
