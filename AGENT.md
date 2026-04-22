@@ -213,7 +213,7 @@ Each new vertical follows the established pattern: landing page (`src/pages/[Ver
 
 - [x] MONEYBACK-GUARANTEE-BADGE: Create `src/components/GuaranteeBadge.tsx` — a trust badge showing "30-Day ROI Guarantee" or "If we don't cut your response time in half, we refund your first month." Place near pricing CTAs on Construction.tsx, RealEstate.tsx, and all new vertical landing pages. Include `dark:` variants.
 
-- [ ] MULTI-STEP-FORM: Convert the current single-step contact form in `src/components/ContactForm.tsx` into a 3-step wizard: Step 1 (name + email), Step 2 (business type + size), Step 3 (biggest challenge + message). Reduces perceived form length, increases completion. Show a progress bar. Each step advances on click. Track each step completion via `trackCTAClick('form_step_N', 'contact_form')`.
+- [x] MULTI-STEP-FORM: Convert the current single-step contact form in `src/components/ContactForm.tsx` into a 3-step wizard: Step 1 (name + email), Step 2 (business type + size), Step 3 (biggest challenge + message). Reduces perceived form length, increases completion. Show a progress bar. Each step advances on click. Track each step completion via `trackCTAClick('form_step_N', 'contact_form')`.
 
 - [ ] URGENCY-COUNTDOWN-BANNER: Create `src/components/CountdownBanner.tsx` — a top-of-page banner showing a 7-day countdown to next pricing increase or a monthly "spots remaining" number. Static deadline (business owner updates monthly). Sticky below navbar on landing pages. Dismissible via `dca_urgency_banner_dismissed` session key. Keep copy tasteful, not spammy.
 
