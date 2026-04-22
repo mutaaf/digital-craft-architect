@@ -209,7 +209,7 @@ Each new vertical follows the established pattern: landing page (`src/pages/[Ver
 
 - [x] COMPARISON-PAGE-GOHIGHLEVEL: Same as above but for GoHighLevel. Route: `/compare/gohighlevel`. Target keywords: "GoHighLevel alternative", "AI CRM vs GHL". *(completed 2026-04-22)*
 
-- [ ] PRICING-FAQ-ACCORDION: On Construction.tsx and RealEstate.tsx pricing sections, add a pricing-specific FAQ accordion with 5-6 questions (Is there a setup fee? Can I cancel anytime? What's included? Do you offer custom plans? How long until I see ROI? Is training included?). Use shadcn `Accordion`. Reduces purchase friction at the pricing stage.
+- [x] PRICING-FAQ-ACCORDION: On Construction.tsx and RealEstate.tsx pricing sections, add a pricing-specific FAQ accordion with 5-6 questions (Is there a setup fee? Can I cancel anytime? What's included? Do you offer custom plans? How long until I see ROI? Is training included?). Use shadcn `Accordion`. Reduces purchase friction at the pricing stage.
 
 - [ ] MONEYBACK-GUARANTEE-BADGE: Create `src/components/GuaranteeBadge.tsx` — a trust badge showing "30-Day ROI Guarantee" or "If we don't cut your response time in half, we refund your first month." Place near pricing CTAs on Construction.tsx, RealEstate.tsx, and all new vertical landing pages. Include `dark:` variants.
 
