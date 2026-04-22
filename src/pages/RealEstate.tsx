@@ -12,6 +12,7 @@ import ScrollProgress from '@/components/ScrollProgress';
 import ROICalculator from '@/components/ROICalculator';
 import PricingFAQ from '@/components/PricingFAQ';
 import GuaranteeBadge from '@/components/GuaranteeBadge';
+import CountdownBanner from '@/components/CountdownBanner';
 import { useContent } from '@/hooks/useContent';
 import { useAnalytics, trackCTAClick, useEngagementTracking } from '@/utils/analytics';
 import { getUtmParams } from '@/utils/utmTracker';
@@ -309,6 +310,7 @@ const RealEstate: React.FC = () => {
         })}</script>
       </Helmet>
       <Navbar />
+      <CountdownBanner />
       <ScrollProgress />
 
       {/* ─── HERO ─── */}
