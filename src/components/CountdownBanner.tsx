@@ -38,7 +38,24 @@ const CountdownBanner: React.FC = () => {
     return () => clearInterval(id);
   }, [target]);
 
-  if (dismissed || !remaining) return null;
+  const isVisible = !dismissed && !!remaining;
+
+  // When the banner is visible, claim a 40px-tall slot at the top of the
+  // viewport and shift the (fixed) Navbar + body content down by the same
+  // amount. Unsets cleanly on dismiss/unmount.
+  useEffect(() => {
+    if (!isVisible) return;
+    const root = document.documentElement;
+    const prevBodyPad = document.body.style.paddingTop;
+    root.style.setProperty('--dca-banner-offset', '40px');
+    document.body.style.paddingTop = '40px';
+    return () => {
+      root.style.removeProperty('--dca-banner-offset');
+      document.body.style.paddingTop = prevBodyPad;
+    };
+  }, [isVisible]);
+
+  if (!isVisible) return null;
 
   const dismiss = () => {
     setDismissed(true);
@@ -50,10 +67,10 @@ const CountdownBanner: React.FC = () => {
   };
 
   return (
-    <div className="bg-primary/95 text-white text-sm">
-      <div className="container mx-auto px-4 py-2.5 flex items-center justify-center gap-3 relative">
+    <div className="fixed inset-x-0 top-0 z-[60] h-10 bg-primary/95 text-white text-sm shadow-sm">
+      <div className="container mx-auto px-4 h-full flex items-center justify-center gap-3 relative">
         <Clock className="h-4 w-4 shrink-0 opacity-80" />
-        <p className="text-center">
+        <p className="text-center truncate">
           <span className="font-semibold">Pricing updates in {remaining.days}d {remaining.hours}h</span>
           <span className="hidden sm:inline"> — lock in current rates before they change.</span>
         </p>
