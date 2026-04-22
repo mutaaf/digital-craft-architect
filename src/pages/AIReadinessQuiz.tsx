@@ -690,6 +690,13 @@ const AIReadinessQuiz: React.FC = () => {
   const aiAbortRef = useRef<AbortController | null>(null);
   const aiStartedRef = useRef(false);
 
+  // Reset scroll on SPA navigation into /quiz. Without this, entering
+  // from the navbar while scrolled down on another page keeps you
+  // pinned below the fold and the quiz looks broken.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const isQuizDone = step === QUESTIONS.length;
   const tier = isQuizDone ? computeTier(answers) : null;
   const tierInfo = tier ? TIERS[tier] : null;
