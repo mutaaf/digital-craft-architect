@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import StickyCTA from '@/components/StickyCTA';
 import ExitIntentPopup from '@/components/ExitIntentPopup';
+import LiveChatBubble from '@/components/LiveChatBubble';
 import LeadMagnetSection from '@/components/LeadMagnetSection';
 import SocialProofBar from '@/components/SocialProofBar';
 import ScrollProgress from '@/components/ScrollProgress';
@@ -814,6 +815,7 @@ const RealEstate: React.FC = () => {
       {content?.footer && <Footer data={content.footer} />}
       <StickyCTA />
       <ExitIntentPopup />
+      <LiveChatBubble />
     </div>
   );
 };

@@ -16,6 +16,7 @@ import { CTOHeroSection } from '@/components/CTOCallout';
 import ParallaxBackground from '@/components/ParallaxBackground';
 import StickyCTA from '@/components/StickyCTA';
 import ExitIntentPopup from '@/components/ExitIntentPopup';
+import LiveChatBubble from '@/components/LiveChatBubble';
 import SocialProofBar from '@/components/SocialProofBar';
 import ScrollProgress from '@/components/ScrollProgress';
 import { Link } from 'react-router-dom';
@@ -170,6 +171,7 @@ const Index = () => {
       <Footer data={content.footer} />
       <StickyCTA />
       <ExitIntentPopup />
+      <LiveChatBubble />
     </ParallaxBackground>
   );
 };
