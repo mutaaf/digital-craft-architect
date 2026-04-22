@@ -207,7 +207,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
     const currentFieldIds = fieldSteps[step].map((f) =>
       f.toLowerCase().replace(/\s+/g, '-')
     );
-    const valid = await form.trigger(currentFieldIds as any);
+    const valid = await form.trigger(currentFieldIds as Parameters<typeof form.trigger>[0]);
     if (valid) {
       trackCTAClick(`form_step_${step + 1}`, 'contact_form');
       setStep((s) => Math.min(s + 1, totalSteps - 1));
