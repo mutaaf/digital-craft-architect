@@ -321,6 +321,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://digitalcraftai.com/compare/hubspot</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://digitalcraftai.com/quiz</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
