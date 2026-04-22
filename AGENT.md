@@ -243,13 +243,13 @@ Each new vertical follows the established pattern: landing page (`src/pages/[Ver
 
 - [x] BLOG-POST-RESTAURANT: Add blog post: "AI for Restaurants: From Reservations to Reviews". Target keywords: "AI restaurant software", "restaurant automation", "AI reservation system". Link to `/restaurant` and `/restaurant/demo`.
 
-- [ ] BLOG-POST-SALON: Add blog post: "Smart Salons: How AI Fills the Chair and Keeps Clients Coming Back". Target keywords: "salon AI", "spa booking automation", "AI for beauty business". Link to `/salon` and `/salon/demo`.
+- [x] BLOG-POST-SALON: Add blog post: "Smart Salons: How AI Fills the Chair and Keeps Clients Coming Back". Target keywords: "salon AI", "spa booking automation", "AI for beauty business". Link to `/salon` and `/salon/demo`.
 
-- [ ] BLOG-POST-HEALTHCARE: Add blog post: "AI for Medical Practices: Reducing No-Shows and Streamlining Intake". Target keywords: "healthcare AI", "medical practice automation", "AI patient scheduling". Link to `/healthcare` and `/healthcare/demo`.
+- [x] BLOG-POST-HEALTHCARE: Add blog post: "AI for Medical Practices: Reducing No-Shows and Streamlining Intake". Target keywords: "healthcare AI", "medical practice automation", "AI patient scheduling". Link to `/healthcare` and `/healthcare/demo`.
 
-- [ ] BLOG-POST-LEGAL: Add blog post: "AI for Law Firms: The Modern Client Intake Playbook". Target keywords: "law firm AI", "legal intake automation", "AI for attorneys". Link to `/legal` and `/legal/demo`.
+- [x] BLOG-POST-LEGAL: Add blog post: "AI for Law Firms: The Modern Client Intake Playbook". Target keywords: "law firm AI", "legal intake automation", "AI for attorneys". Link to `/legal` and `/legal/demo`.
 
-- [ ] BLOG-POST-KIDSPLAY: Add blog post: "Birthday Party Booking on Autopilot: AI for Kids Play Places". Target keywords: "party booking software", "family entertainment AI", "kids play place CRM". Link to `/kidsplay` and `/kidsplay/demo`.
+- [x] BLOG-POST-KIDSPLAY: Add blog post: "Birthday Party Booking on Autopilot: AI for Kids Play Places". Target keywords: "party booking software", "family entertainment AI", "kids play place CRM". Link to `/kidsplay` and `/kidsplay/demo`.
 
 - [ ] BLOG-POST-ROI-CASESTUDY: Add blog post: "Real ROI: How a Construction Company Cut Response Time by 92% With AI". Narrative case study format (anonymized). Target keywords: "construction CRM case study", "AI ROI construction", "lead response time case study". Link to `/construction` and ROI calculator.
 
