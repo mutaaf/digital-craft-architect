@@ -82,9 +82,10 @@ const Navbar: React.FC<NavbarProps> = ({ darkHero = false }) => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-sm' : 'bg-transparent'
       }`}
+      style={{ top: 'var(--dca-banner-offset, 0px)' }}
     >
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <Link to="/" className={logoClass}>
