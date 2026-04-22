@@ -239,9 +239,9 @@ Each new vertical follows the established pattern: landing page (`src/pages/[Ver
 
 - [x] BLOG-POST-DENTAL: Add blog post: "7 Ways Dental Practices Use AI to Fill More Chairs". Target keywords: "dental AI", "patient recall AI", "dental practice automation". Link to `/dental` and `/dental/demo`.
 
-- [ ] BLOG-POST-FITNESS: Add blog post: "How Gyms Use AI to Reduce Churn and Increase Retention". Target keywords: "fitness AI", "gym retention software", "AI membership software". Link to `/fitness` and `/fitness/demo`.
+- [x] BLOG-POST-FITNESS: Add blog post: "How Gyms Use AI to Reduce Churn and Increase Retention". Target keywords: "fitness AI", "gym retention software", "AI membership software". Link to `/fitness` and `/fitness/demo`.
 
-- [ ] BLOG-POST-RESTAURANT: Add blog post: "AI for Restaurants: From Reservations to Reviews". Target keywords: "AI restaurant software", "restaurant automation", "AI reservation system". Link to `/restaurant` and `/restaurant/demo`.
+- [x] BLOG-POST-RESTAURANT: Add blog post: "AI for Restaurants: From Reservations to Reviews". Target keywords: "AI restaurant software", "restaurant automation", "AI reservation system". Link to `/restaurant` and `/restaurant/demo`.
 
 - [ ] BLOG-POST-SALON: Add blog post: "Smart Salons: How AI Fills the Chair and Keeps Clients Coming Back". Target keywords: "salon AI", "spa booking automation", "AI for beauty business". Link to `/salon` and `/salon/demo`.
 
