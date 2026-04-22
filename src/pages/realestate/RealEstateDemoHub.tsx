@@ -13,6 +13,7 @@ import {
   MessageSquare,
   ArrowRight,
   Sparkles,
+  FileText,
 } from 'lucide-react';
 import { trackDemoClick, trackCTAClick } from '@/utils/analytics';
 import StickyCTA from '@/components/StickyCTA';
@@ -57,6 +58,14 @@ const RealEstateDemoHub = () => {
         'Set your bid range and let the AI call the seller to negotiate on your behalf. Watch the live transcript and receive a full call summary with insights and recommended next steps.',
       tags: ['Vapi Voice AI', 'Live Transcription'],
       color: 'bg-red-50 dark:bg-red-900/20 text-red-600',
+    },
+    {
+      to: '/realestate/demo/contract',
+      icon: <FileText size={28} />,
+      title: 'AI Contract Drafter',
+      description: `Enter deal terms — buyer, seller, price, contingencies — and get a professional purchase agreement draft in seconds. Powered by GPT-4o.`,
+      tags: ['GPT-4o', 'Instant Draft'],
+      color: 'bg-purple-50 dark:bg-purple-900/20 text-purple-600',
     },
     {
       to: '/realestate/demo/lead-responder',

@@ -221,7 +221,7 @@ Each new vertical follows the established pattern: landing page (`src/pages/[Ver
 
 - [x] DEMO-INVOICE-GENERATOR: Create `src/pages/construction/InvoiceGenerator.tsx` — a new demo where the user enters project details (client, line items, tax rate), GPT-4o generates a professional invoice with polished markup language. Show generated invoice in styled preview + download as PDF (use browser print-to-PDF). Add to Construction DemoHub. Route: `/construction/demo/invoice`. Reuse existing streaming chat pattern from `agentPipeline.ts`.
 
-- [ ] DEMO-CONTRACT-DRAFTER: Create `src/pages/realestate/ContractDrafter.tsx` — demo that takes deal terms (price, closing date, contingencies) and produces a draft purchase agreement using GPT-4o. Add disclaimer that this is a draft, not legal advice. Add to RE DemoHub. Route: `/realestate/demo/contract`.
+- [x] DEMO-CONTRACT-DRAFTER: Create `src/pages/realestate/ContractDrafter.tsx` — demo that takes deal terms (price, closing date, contingencies) and produces a draft purchase agreement using GPT-4o. Add disclaimer that this is a draft, not legal advice. Add to RE DemoHub. Route: `/realestate/demo/contract`.
 
 - [ ] DEMO-SMS-SEQUENCE: Create `src/pages/construction/SMSSequence.tsx` — demo that takes a lead's info and generates a 5-message SMS nurture sequence with timing recommendations. Show messages in iPhone-style chat bubbles. Add to Construction DemoHub. Route: `/construction/demo/sms-sequence`.
 
