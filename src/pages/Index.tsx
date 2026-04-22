@@ -18,7 +18,8 @@ import StickyCTA from '@/components/StickyCTA';
 import ExitIntentPopup from '@/components/ExitIntentPopup';
 import SocialProofBar from '@/components/SocialProofBar';
 import ScrollProgress from '@/components/ScrollProgress';
-import { Loader2, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Loader2, ArrowRight, Brain } from 'lucide-react';
 import { useAnalytics, trackCTAClick, useEngagementTracking } from '@/utils/analytics';
 import { Helmet } from 'react-helmet-async';
 
@@ -99,6 +100,19 @@ const Index = () => {
       <Navbar />
       <ScrollProgress />
       <Hero data={content.hero} />
+      <div className="bg-primary/5 dark:bg-primary/10 py-3">
+        <div className="container mx-auto px-4 text-center">
+          <Link
+            to="/quiz"
+            onClick={() => trackCTAClick('quiz_cta', 'hero_banner')}
+            className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium transition-colors"
+          >
+            <Brain size={18} />
+            Take the 2-min AI Readiness Quiz
+            <ArrowRight size={16} />
+          </Link>
+        </div>
+      </div>
       <SocialProofBar />
       {content.pricingTiers && <PricingTiers data={content.pricingTiers} />}
       {content.mvpPromotion?.enabled && <MVPPromotion data={content.mvpPromotion} />}

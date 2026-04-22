@@ -136,6 +136,7 @@ const Navbar: React.FC<NavbarProps> = ({ darkHero = false }) => {
             <ArrowUpRight size={12} className="opacity-70" />
           </a>
           <a href="#pricing" className={linkClass}>Pricing</a>
+          <Link to="/quiz" className={linkClass}>AI Quiz</Link>
           <Link to="/blog" className={linkClass}>Blog</Link>
           <a
             href="#contact"
@@ -225,6 +226,7 @@ const Navbar: React.FC<NavbarProps> = ({ darkHero = false }) => {
             <ArrowUpRight size={14} className="opacity-70" />
           </a>
           <a href="#pricing" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors" onClick={toggleMenu}>Pricing</a>
+          <Link to="/quiz" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors" onClick={toggleMenu}>AI Quiz</Link>
           <Link to="/blog" className="text-gray-700 hover:text-skyblue dark:text-gray-300 dark:hover:text-skyblue transition-colors" onClick={toggleMenu}>Blog</Link>
           <a
             href="#contact"
