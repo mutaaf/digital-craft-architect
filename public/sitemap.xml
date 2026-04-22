@@ -66,6 +66,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://digitalcraftai.com/realestate/demo/contract</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://digitalcraftai.com/realestate/demo/voice-negotiator</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
