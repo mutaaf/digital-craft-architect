@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { trackCTAClick, trackFormSubmission } from '@/utils/analytics';
 import { getUtmParams } from '@/utils/utmTracker';
+import { useContent } from '@/hooks/useContent';
 import { ArrowRight, ArrowLeft, Brain, Zap, Rocket } from 'lucide-react';
 
 interface QuizOption { label: string; value: string; points: number }
@@ -149,6 +150,7 @@ const AIReadinessQuiz: React.FC = () => {
   const [email, setEmail] = useState('');
   const [emailSubmitted, setEmailSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { content } = useContent();
 
   const isQuizDone = step === QUESTIONS.length;
   const tier = isQuizDone ? computeTier(answers) : null;
@@ -316,7 +318,7 @@ const AIReadinessQuiz: React.FC = () => {
           )}
         </div>
       </main>
-      <Footer />
+      {content?.footer && <Footer data={content.footer} />}
     </>
   );
 };
