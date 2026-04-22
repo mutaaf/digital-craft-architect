@@ -235,9 +235,9 @@ Each new vertical follows the established pattern: landing page (`src/pages/[Ver
 
 ### TIER 9 — SEO + Content Expansion
 
-- [ ] BLOG-POST-AUTO-REPAIR: Add blog post to `src/data/blogPosts.ts`: "How AI Is Transforming Auto Repair Shops in 2026". Target keywords: "AI for auto repair", "auto shop automation", "automotive CRM AI". Link to `/autorepair` and `/autorepair/demo`. Follow existing blog post format.
+- [x] BLOG-POST-AUTO-REPAIR: Add blog post to `src/data/blogPosts.ts`: "How AI Is Transforming Auto Repair Shops in 2026". Target keywords: "AI for auto repair", "auto shop automation", "automotive CRM AI". Link to `/autorepair` and `/autorepair/demo`. Follow existing blog post format.
 
-- [ ] BLOG-POST-DENTAL: Add blog post: "7 Ways Dental Practices Use AI to Fill More Chairs". Target keywords: "dental AI", "patient recall AI", "dental practice automation". Link to `/dental` and `/dental/demo`.
+- [x] BLOG-POST-DENTAL: Add blog post: "7 Ways Dental Practices Use AI to Fill More Chairs". Target keywords: "dental AI", "patient recall AI", "dental practice automation". Link to `/dental` and `/dental/demo`.
 
 - [ ] BLOG-POST-FITNESS: Add blog post: "How Gyms Use AI to Reduce Churn and Increase Retention". Target keywords: "fitness AI", "gym retention software", "AI membership software". Link to `/fitness` and `/fitness/demo`.
 

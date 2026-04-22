@@ -45,6 +45,108 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
     {
+        slug: 'ai-transforming-auto-repair-shops-2026',
+        title: 'How AI Is Transforming Auto Repair Shops in 2026',
+        description: 'Auto repair shops using AI automation are booking more jobs, reducing estimate disputes, and winning back declined services. Here is how.',
+        date: '2026-04-22',
+        author: 'DigitalCraft AI',
+        readTime: '6 min read',
+        tags: ['Auto Repair', 'AI Automation', 'Automotive CRM'],
+        content: `
+<p>The auto repair industry has a trust problem. Customers walk in suspicious, and most shops still rely on handwritten estimates, phone tag for approvals, and hoping people come back for the work they declined last visit. AI is changing every step of that process.</p>
+
+<h2>The Broken Workflow Most Shops Run</h2>
+
+<p>Here is what a typical day looks like without automation: a customer calls, the phone rings while a tech is under a hood. Nobody answers. The customer calls the shop down the street. Or they do get through, but the service advisor spends 15 minutes on the phone explaining the difference between a timing belt and a serpentine belt before they can even book an appointment.</p>
+
+<p>Then there are the declined services — the brake pads that "can wait," the fluid flush that gets put off. Most shops have no system to follow up on those. The revenue just evaporates.</p>
+
+<h2>AI Service Advisor: Instant, 24/7 Lead Qualification</h2>
+
+<p>An AI service advisor chatbot handles inquiries the moment they come in — website forms, text messages, after-hours calls. It asks the right questions: vehicle make and model, symptoms, mileage, urgency level. By the time your human advisor picks up the thread, the lead is qualified, the vehicle info is captured, and the customer feels heard.</p>
+
+<p>This alone cuts response time from hours to under 60 seconds. For auto repair, where customers are often stranded or anxious, that speed is the difference between a booked job and a lost lead.</p>
+
+<h2>Transparent Estimate Generation</h2>
+
+<p>AI-powered <a href="/autorepair/demo/estimate">estimate generators</a> pull from your actual parts and labor pricing to produce instant ballpark quotes. Customers get a clear, branded breakdown — not a scribbled number on a carbon-copy form. Transparency builds trust, and trust closes jobs.</p>
+
+<h2>Automated Declined-Service Follow-Up</h2>
+
+<p>This is where the real money hides. When a customer declines a recommended service, the AI logs it and sends a follow-up message 30, 60, and 90 days later. "Hi Mike, we noticed your brake pads were at 3mm when you visited in January. Want to get those taken care of before they hit metal-on-metal?" That is revenue recovery that requires zero effort from your team.</p>
+
+<h2>Voice AI for Service Reminders</h2>
+
+<p>AI voice agents can call customers for oil change reminders, seasonal maintenance prompts, and recall notifications. They handle the entire conversation — scheduling, confirming, and logging the appointment — without your front desk touching the phone. <a href="/autorepair/demo/voice-reminder">See how it works.</a></p>
+
+<h2>Getting Started</h2>
+
+<p>Auto repair shops that adopt AI automation typically see 25 to 40 percent more booked appointments within 60 days. The tools are not replacing your technicians — they are replacing the busy signals, the missed follow-ups, and the estimates that never got sent.</p>
+
+<p>Ready to see what AI can do for your shop? <a href="/autorepair">Explore our auto repair solutions</a> or <a href="/autorepair/demo">try the live demos</a>.</p>
+
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to automate your auto shop?</strong>
+  <p style="margin: 8px 0;">Join dozens of service businesses already using AI to book more jobs and win back lost revenue.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/autorepair/demo">Try Our Live Demos</a>
+</div>
+`,
+    },
+    {
+        slug: 'dental-ai-fill-more-chairs-2026',
+        title: '7 Ways Dental Practices Use AI to Fill More Chairs',
+        description: 'Dental practices are using AI to reduce no-shows, automate patient recall, streamline intake, and keep chairs filled. Here are 7 proven methods.',
+        date: '2026-04-22',
+        author: 'DigitalCraft AI',
+        readTime: '7 min read',
+        tags: ['Dental', 'Healthcare AI', 'Patient Recall'],
+        content: `
+<p>Empty chairs cost money. Every unfilled hygiene slot, every no-show, every patient who "means to call back" but never does — that is lost production. Dental practices are using AI to close those gaps without adding staff or burning out the front desk.</p>
+
+<h2>1. Instant Patient Intake Qualification</h2>
+
+<p>When a new patient inquires online, an <a href="/dental/demo/intake">AI intake qualifier</a> responds in seconds. It captures insurance information, symptoms, appointment preferences, and urgency — then routes the qualified lead to your scheduling team with everything they need to book.</p>
+
+<h2>2. Automated Hygiene Recall</h2>
+
+<p>Most practices lose 20 to 30 percent of hygiene patients to attrition each year simply because nobody followed up. AI recall systems send personalized messages at the right intervals: 5 months, 5.5 months, 6 months. Text, email, and even <a href="/dental/demo/voice-recall">AI phone calls</a> that sound natural and book directly into your schedule.</p>
+
+<h2>3. No-Show Prediction and Prevention</h2>
+
+<p>AI analyzes patient history to identify no-show risks. Patients with a pattern of cancellations get extra confirmation touchpoints — a text the morning of, a call the day before. Practices using this approach report 30 to 50 percent fewer no-shows.</p>
+
+<h2>4. Smart Treatment Estimates</h2>
+
+<p>Patients postpone treatment when they do not understand the cost. AI-powered <a href="/dental/demo/estimate">treatment estimators</a> give instant, clear breakdowns: what insurance covers, what the patient owes, and payment plan options. Remove the uncertainty and more patients say yes.</p>
+
+<h2>5. Post-Treatment Follow-Up</h2>
+
+<p>After a procedure, AI sends check-in messages: "How are you feeling after yesterday's crown prep?" This builds trust, catches complications early, and gives patients a reason to leave positive reviews.</p>
+
+<h2>6. Review Generation on Autopilot</h2>
+
+<p>Happy patients rarely leave reviews on their own. AI sends a timed request — 2 hours after a positive visit — with a direct link to Google Reviews. Practices using automated review requests see their Google rating climb by 0.3 to 0.5 stars within 90 days.</p>
+
+<h2>7. Reactivation of Dormant Patients</h2>
+
+<p>Patients who have not visited in 12+ months get a personalized outreach: "Hi Sarah, it has been a while since your last cleaning at Bright Smile Dental. We have new evening hours that might work better for your schedule." AI handles the entire reactivation sequence — texts, emails, and calls — until the patient books or opts out.</p>
+
+<h2>The Bottom Line</h2>
+
+<p>AI is not replacing your dental team. It is handling the repetitive admin work that keeps chairs empty: the follow-ups that do not get made, the recalls that slip through, the estimates that never get sent. The result is more production per chair, higher patient retention, and a front desk that can focus on the patients standing in front of them.</p>
+
+<p><a href="/dental">Learn more about AI for dental practices</a> or <a href="/dental/demo">try the live demos</a>.</p>
+
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to fill more chairs?</strong>
+  <p style="margin: 8px 0;">See how AI automation keeps your schedule full and your patients coming back.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/dental/demo">Try Our Live Demos</a>
+</div>
+`,
+    },
+    {
         slug: 'ai-scheduling-follow-up-hvac-plumbing',
         title: 'AI Follow-Up for HVAC and Plumbing: Fill Your Schedule Faster',
         description: 'HVAC and plumbing shops using AI follow-up book more jobs, reduce phone tag, and stop losing leads to voicemail. Here is how it works.',
