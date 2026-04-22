@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { useContent } from '@/hooks/useContent';
 import Navbar from '@/components/Navbar';
+import CountdownBanner from '@/components/CountdownBanner';
 import Hero from '@/components/Hero';
 import MVPPromotion from '@/components/MVPPromotion';
 import Services from '@/components/Services';
@@ -99,6 +100,7 @@ const Index = () => {
         </Helmet>
       )}
       <Navbar />
+      <CountdownBanner />
       <ScrollProgress />
       <Hero data={content.hero} />
       <div className="bg-primary/5 dark:bg-primary/10 py-3">

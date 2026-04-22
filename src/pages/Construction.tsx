@@ -12,6 +12,7 @@ import ScrollProgress from '@/components/ScrollProgress';
 import ROICalculator from '@/components/ROICalculator';
 import PricingFAQ from '@/components/PricingFAQ';
 import GuaranteeBadge from '@/components/GuaranteeBadge';
+import CountdownBanner from '@/components/CountdownBanner';
 import Testimonials from '@/components/Testimonials';
 import { useContent, TestimonialItem } from '@/hooks/useContent';
 import { useAnalytics, trackCTAClick, useEngagementTracking } from '@/utils/analytics';
@@ -331,6 +332,7 @@ const Construction: React.FC = () => {
         })}</script>
       </Helmet>
       <Navbar />
+      <CountdownBanner />
       <ScrollProgress />
 
       {/* ─── HERO ─── */}
