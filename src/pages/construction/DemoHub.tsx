@@ -16,6 +16,7 @@ import {
   Home,
   Phone,
   FileText,
+  MessageCircle,
 } from 'lucide-react';
 import { trackDemoClick, trackCTAClick } from '@/utils/analytics';
 import StickyCTA from '@/components/StickyCTA';
@@ -78,6 +79,14 @@ const DemoHub = () => {
         'Experience the automated SMS flow that turns completed projects into 5-star Google reviews — with Day 3 and Day 7 follow-ups.',
       tags: ['SMS Simulation', 'Analytics Dashboard'],
       color: 'bg-yellow-50 dark:bg-yellow-900/20 text-yellow-600',
+    },
+    {
+      to: '/construction/demo/sms-sequence',
+      icon: <MessageCircle size={28} />,
+      title: 'SMS Nurture Sequence',
+      description: `Enter a lead's name and project type — get a 5-message SMS drip sequence with timing, personalized for ${possessive} business.`,
+      tags: ['GPT-4o', 'Lead Nurture'],
+      color: 'bg-teal-50 dark:bg-teal-900/20 text-teal-600',
     },
     {
       to: '/construction/demo/property-negotiator',
