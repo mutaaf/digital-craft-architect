@@ -15,6 +15,7 @@ import {
   Sparkles,
   Home,
   Phone,
+  FileText,
 } from 'lucide-react';
 import { trackDemoClick, trackCTAClick } from '@/utils/analytics';
 import StickyCTA from '@/components/StickyCTA';
@@ -60,6 +61,14 @@ const DemoHub = () => {
       description: `Pick a project type, enter your square footage, and get a branded ballpark estimate using ${possessive} pricing in under 60 seconds.`,
       tags: ['Real Pricing', 'Branded Output'],
       color: 'bg-green-50 dark:bg-green-900/20 text-green-600',
+    },
+    {
+      to: '/construction/demo/invoice',
+      icon: <FileText size={28} />,
+      title: 'Invoice Generator',
+      description: `Create a professional, branded invoice in seconds. Add client details, line items, and tax — get a polished PDF-ready invoice for ${possessive} projects.`,
+      tags: ['Instant Output', 'Branded'],
+      color: 'bg-purple-50 dark:bg-purple-900/20 text-purple-600',
     },
     {
       to: '/construction/demo/reviews',
