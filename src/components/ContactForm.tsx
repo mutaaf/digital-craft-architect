@@ -30,6 +30,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFormatting, setIsFormatting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [step, setStep] = useState(0);
   const { toast } = useToast();
 
   // Create a dynamic schema based on form fields
@@ -165,6 +166,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
 
   const resetForm = () => {
     setSubmitted(false);
+    setStep(0);
     form.reset();
   };
 
@@ -175,11 +177,44 @@ const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
   };
 
   const isChallengeField = (field: string) => {
-    return field.toLowerCase().includes('challenge') || 
-           field.toLowerCase().includes('business') || 
+    return field.toLowerCase().includes('challenge') ||
+           field.toLowerCase().includes('business') ||
            field.toLowerCase().includes('solving') ||
            field.toLowerCase().includes('looking');
   };
+
+  const fieldSteps: string[][] = (() => {
+    const f = data.fields;
+    if (f.length <= 2) return [f];
+    if (f.length <= 3) return [f.slice(0, 1), f.slice(1, 2), f.slice(2)];
+    const mid = Math.ceil((f.length - 1) / 2);
+    return [f.slice(0, mid), f.slice(mid, f.length - 1), f.slice(f.length - 1)];
+  })();
+
+  const totalSteps = fieldSteps.length;
+  const isMultiStep = totalSteps > 1;
+
+  const canAdvance = () => {
+    const currentFields = fieldSteps[step];
+    return currentFields.every((field) => {
+      const fieldId = field.toLowerCase().replace(/\s+/g, '-');
+      const val = form.getValues(fieldId);
+      return val && val.length >= 2;
+    });
+  };
+
+  const handleNext = async () => {
+    const currentFieldIds = fieldSteps[step].map((f) =>
+      f.toLowerCase().replace(/\s+/g, '-')
+    );
+    const valid = await form.trigger(currentFieldIds as any);
+    if (valid) {
+      trackCTAClick(`form_step_${step + 1}`, 'contact_form');
+      setStep((s) => Math.min(s + 1, totalSteps - 1));
+    }
+  };
+
+  const stepLabels = ['Your Info', 'Your Business', 'Your Challenge'];
 
   return (
     <section id="contact" className="container-section">
@@ -236,8 +271,36 @@ const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
             </div>
           ) : (
             <Form {...form}>
+              {isMultiStep && (
+                <div className="mb-8">
+                  <div className="flex justify-between mb-2">
+                    {stepLabels.slice(0, totalSteps).map((label, i) => (
+                      <button
+                        key={i}
+                        type="button"
+                        onClick={() => i < step && setStep(i)}
+                        className={`text-xs font-medium transition-colors ${
+                          i <= step
+                            ? 'text-primary'
+                            : 'text-gray-400 dark:text-gray-500'
+                        } ${i < step ? 'cursor-pointer hover:underline' : 'cursor-default'}`}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-primary rounded-full transition-all duration-300"
+                      style={{ width: `${((step + 1) / totalSteps) * 100}%` }}
+                    />
+                  </div>
+                </div>
+              )}
               <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
                 {data.fields.map((field, index) => {
+                  const fieldStep = fieldSteps.findIndex((group) => group.includes(field));
+                  if (isMultiStep && fieldStep !== step) return null;
                   const fieldId = field.toLowerCase().replace(/\s+/g, '-');
                   const isTextarea = isChallengeField(field) || 
                                     field.toLowerCase().includes('message');
@@ -309,24 +372,43 @@ const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
                   );
                 })}
                 
-                <div className="mt-8">
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full btn-primary py-4 text-lg font-medium relative overflow-hidden"
-                  >
-                    {isSubmitting ? (
-                      <span className="flex items-center justify-center">
-                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        Processing...
-                      </span>
-                    ) : (
-                      data.submitText
-                    )}
-                  </button>
+                <div className="mt-8 flex gap-3">
+                  {isMultiStep && step > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => setStep((s) => s - 1)}
+                      className="px-6 py-4 text-sm font-medium rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                    >
+                      Back
+                    </button>
+                  )}
+                  {isMultiStep && step < totalSteps - 1 ? (
+                    <button
+                      type="button"
+                      onClick={handleNext}
+                      className="flex-1 btn-primary py-4 text-lg font-medium"
+                    >
+                      Continue
+                    </button>
+                  ) : (
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="flex-1 btn-primary py-4 text-lg font-medium relative overflow-hidden"
+                    >
+                      {isSubmitting ? (
+                        <span className="flex items-center justify-center">
+                          <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          Processing...
+                        </span>
+                      ) : (
+                        data.submitText
+                      )}
+                    </button>
+                  )}
                 </div>
                 
                 {import.meta.env.VITE_OPENAI_API_KEY ? null : (
