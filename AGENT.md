@@ -225,7 +225,7 @@ Each new vertical follows the established pattern: landing page (`src/pages/[Ver
 
 - [x] DEMO-SMS-SEQUENCE: Create `src/pages/construction/SMSSequence.tsx` — demo that takes a lead's info and generates a 5-message SMS nurture sequence with timing recommendations. Show messages in iPhone-style chat bubbles. Add to Construction DemoHub. Route: `/construction/demo/sms-sequence`.
 
-- [ ] DEMO-MARKET-ANALYZER: Create `src/pages/realestate/MarketAnalyzer.tsx` — demo that takes a zip code and property type, generates a market snapshot (median price trends, days-on-market, rent-to-own ratios) using GPT-4o with web context. Add to RE DemoHub. Route: `/realestate/demo/market-analysis`.
+- [x] DEMO-MARKET-ANALYZER: Create `src/pages/realestate/MarketAnalyzer.tsx` — demo that takes a zip code and property type, generates a market snapshot (median price trends, days-on-market, rent-to-own ratios) using GPT-4o with web context. Add to RE DemoHub. Route: `/realestate/demo/market-analysis`. *(completed 2026-04-22)*
 
 - [ ] DEMO-REVIEW-RESPONDER-V2: Enhance `src/pages/construction/ReviewSystem.tsx` to add a "Smart Reply Generator" mode — paste any review (positive or negative) and get 3 suggested responses in different tones (professional, warm, apologetic). Reuses existing GPT-4o proxy pattern.
 

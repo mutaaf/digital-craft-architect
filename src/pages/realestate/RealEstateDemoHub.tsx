@@ -14,6 +14,7 @@ import {
   ArrowRight,
   Sparkles,
   FileText,
+  BarChart3,
 } from 'lucide-react';
 import { trackDemoClick, trackCTAClick } from '@/utils/analytics';
 import StickyCTA from '@/components/StickyCTA';
@@ -74,6 +75,14 @@ const RealEstateDemoHub = () => {
       description: `Chat with ${possessive} AI as a potential buyer or seller. Watch it qualify leads, capture property preferences, and schedule showings — all automatically, 24/7.`,
       tags: ['GPT-4o Streaming', 'Lead Scoring'],
       color: 'bg-blue-50 dark:bg-blue-900/20 text-blue-600',
+    },
+    {
+      to: '/realestate/demo/market-analysis',
+      icon: <BarChart3 size={28} />,
+      title: 'AI Market Analyzer',
+      description: `Enter any zip code and get an instant market snapshot — median prices, days on market, rent-to-price ratios, and investment outlook for ${possessive} target markets.`,
+      tags: ['GPT-4o', 'Market Data'],
+      color: 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600',
     },
   ];
 
