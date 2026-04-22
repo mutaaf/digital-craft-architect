@@ -44,7 +44,9 @@ const CountdownBanner: React.FC = () => {
     setDismissed(true);
     try {
       sessionStorage.setItem(SESSION_KEY, '1');
-    } catch {}
+    } catch {
+      /* session storage unavailable — non-fatal */
+    }
   };
 
   return (
