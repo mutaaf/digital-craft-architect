@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import StickyCTA from '@/components/StickyCTA';
+import LiveChatBubble from '@/components/LiveChatBubble';
 import { useContent } from '@/hooks/useContent';
 import { useAnalytics } from '@/utils/analytics';
 import {
@@ -709,6 +710,7 @@ const Events: React.FC = () => {
       {/* ─── FOOTER ─── */}
       {content?.footer && <Footer data={content.footer} />}
       <StickyCTA />
+      <LiveChatBubble />
     </div>
   );
 };
