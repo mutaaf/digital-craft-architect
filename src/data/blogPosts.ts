@@ -45,6 +45,142 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
     {
+        slug: 'smart-salons-ai-fills-chair-keeps-clients',
+        title: 'Smart Salons: How AI Fills the Chair and Keeps Clients Coming Back',
+        description: 'Salons and spas using AI automation reduce no-shows, increase rebookings, and fill last-minute openings without adding front-desk staff.',
+        date: '2026-04-22',
+        author: 'DigitalCraft AI',
+        readTime: '5 min read',
+        tags: ['Salon', 'Spa', 'AI Booking Automation'],
+        content: `
+<p>The salon industry runs on relationships and repeat visits. But between no-shows, last-minute cancellations, and clients who "mean to rebook" but never do, most salons leave 15 to 25 percent of their revenue on the table. AI automation is closing that gap.</p>
+
+<h2>Instant Booking Qualification</h2>
+<p>When a new client inquires through your website or social media, an <a href="/salon/demo/booking">AI booking qualifier</a> responds immediately — confirming service type, stylist preference, and availability. No more back-and-forth texts that take hours. The client is booked before they shop competitors.</p>
+
+<h2>Automated Rebooking Reminders</h2>
+<p>The most profitable clients are the ones who rebook every 4 to 6 weeks. AI tracks each client's cycle and sends a personalized reminder at the right time: "Hi Sarah, it's been 5 weeks since your last balayage. Want to grab your usual Thursday slot with Jen?" <a href="/salon/demo/voice-rebook">Voice AI</a> can even make the call.</p>
+
+<h2>Last-Minute Opening Filler</h2>
+<p>When a cancellation opens up a premium slot, AI texts the waitlist instantly: "Good news — a 2pm opening just opened with Mia tomorrow. Want it?" First to reply gets the slot. Zero effort from your front desk.</p>
+
+<h2>Service Estimation and Upselling</h2>
+<p>An <a href="/salon/demo/services">AI service estimator</a> helps new clients understand pricing for complex services — color corrections, keratin treatments, bridal packages. It captures their needs and generates a clear estimate, reducing sticker shock at checkout and increasing upsell conversion.</p>
+
+<h2>Getting Started</h2>
+<p>Salons that implement AI booking and rebooking automation typically see a 20 to 30 percent increase in rebooking rates within 60 days. <a href="/salon">Explore AI for salons</a> or <a href="/salon/demo">try the live demos</a>.</p>
+
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to fill more chairs?</strong>
+  <p style="margin: 8px 0;">AI handles rebooking, no-shows, and client outreach so you can focus on the craft.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/salon/demo">Try Our Live Demos</a>
+</div>
+`,
+    },
+    {
+        slug: 'ai-medical-practices-no-shows-intake',
+        title: 'AI for Medical Practices: Reducing No-Shows and Streamlining Intake',
+        description: 'Medical practices using AI automation cut no-shows by 30-50%, speed up patient intake, and keep appointment books full without extra admin staff.',
+        date: '2026-04-22',
+        author: 'DigitalCraft AI',
+        readTime: '6 min read',
+        tags: ['Healthcare', 'Medical AI', 'Patient Scheduling'],
+        content: `
+<p>Medical practices lose an estimated $150 billion annually to missed appointments. For a typical practice, no-shows represent 5 to 30 percent of scheduled visits — each one costing $200 or more in lost revenue. AI is attacking this problem from multiple angles.</p>
+
+<h2>Intelligent Appointment Reminders</h2>
+<p>AI doesn't just send a generic text 24 hours before. It analyzes patient history to identify no-show risks and adjusts the reminder cadence. High-risk patients get a call 48 hours out, a text the morning of, and a final check 2 hours before. Practices using AI-powered reminders report 30 to 50 percent fewer no-shows.</p>
+
+<h2>Streamlined Patient Intake</h2>
+<p>New patient paperwork is a bottleneck. An <a href="/healthcare/demo/intake">AI intake qualifier</a> captures insurance details, medical history, symptoms, and appointment preferences before the patient walks through the door. The front desk gets a pre-filled chart instead of a stack of clipboards.</p>
+
+<h2>Automated Recall and Follow-Up</h2>
+<p>Preventive care appointments — annual physicals, screenings, follow-ups — are the backbone of practice revenue. AI tracks when each patient is due and sends personalized outreach at the right interval. <a href="/healthcare/demo/voice-followup">Voice AI</a> handles the calls that patients ignore as texts.</p>
+
+<h2>After-Visit Check-Ins</h2>
+<p>Post-procedure follow-ups show patients you care and catch complications early. AI sends a check-in message 24 hours after a visit: "How are you feeling after your procedure yesterday, Mr. Chen? Reply if you have any concerns." This reduces unnecessary ER visits and builds loyalty.</p>
+
+<h2>Getting Started</h2>
+<p>Medical practices that adopt AI scheduling and intake automation see measurable results within 30 days. <a href="/healthcare">Learn more about AI for healthcare</a> or <a href="/healthcare/demo">try the live demos</a>.</p>
+
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to reduce no-shows?</strong>
+  <p style="margin: 8px 0;">AI keeps your schedule full and your patients on track.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/healthcare/demo">Try Our Live Demos</a>
+</div>
+`,
+    },
+    {
+        slug: 'ai-law-firms-client-intake-playbook',
+        title: 'AI for Law Firms: The Modern Client Intake Playbook',
+        description: 'Law firms using AI automation qualify clients faster, book more consultations, and stop losing leads to slow intake processes.',
+        date: '2026-04-22',
+        author: 'DigitalCraft AI',
+        readTime: '5 min read',
+        tags: ['Legal', 'Law Firm AI', 'Client Intake'],
+        content: `
+<p>Law firms live and die by intake. When a potential client calls or fills out a form, the clock starts — studies show that responding within 5 minutes makes you 21 times more likely to qualify the lead. Most firms take hours or days. AI closes that gap instantly.</p>
+
+<h2>AI-Powered Client Qualification</h2>
+<p>An <a href="/legal/demo/intake">AI intake qualifier</a> engages new inquiries the moment they arrive. It asks about the case type, timeline, jurisdiction, and basic facts. By the time an attorney reviews the lead, the client is pre-qualified, the basics are documented, and the case assessment can begin immediately.</p>
+
+<h2>Consultation Scheduling</h2>
+<p>AI handles the back-and-forth of scheduling. After qualifying a lead, it offers available consultation slots, sends calendar invites, and follows up with reminders. No more phone tag between the front desk and potential clients.</p>
+
+<h2>Conflict Checking at Speed</h2>
+<p>Before a consultation is booked, AI can cross-reference the potential client's name and opposing parties against your existing client database, flagging potential conflicts before time is wasted.</p>
+
+<h2>After-Consultation Follow-Up</h2>
+<p>Not every consultation converts to a retained client on the spot. AI sends a follow-up sequence: a thank-you message, a summary of next steps, and a gentle nudge at day 3 and day 7. This keeps your firm top-of-mind during the decision period.</p>
+
+<h2>Getting Started</h2>
+<p>Law firms that implement AI intake see a significant increase in consultation bookings within 30 days — simply by responding faster and following up consistently. <a href="/legal">Learn more about AI for law firms</a> or <a href="/legal/demo">try the live demos</a>.</p>
+
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to modernize your intake?</strong>
+  <p style="margin: 8px 0;">AI qualifies clients and books consultations while your attorneys focus on billable work.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/legal/demo">Try Our Live Demos</a>
+</div>
+`,
+    },
+    {
+        slug: 'birthday-party-booking-autopilot-ai-kids-play',
+        title: 'Birthday Party Booking on Autopilot: AI for Kids Play Places',
+        description: 'Kids play places and family entertainment centers using AI handle party inquiries, package estimates, and parent follow-up without extra staff.',
+        date: '2026-04-22',
+        author: 'DigitalCraft AI',
+        readTime: '5 min read',
+        tags: ['Kids Play', 'Family Entertainment', 'Party Booking AI'],
+        content: `
+<p>Birthday parties are the cash cow of every indoor play place. A single party booking can be worth $300 to $1,000 or more. But the booking process — fielding inquiries, explaining packages, confirming dates, collecting deposits — overwhelms small teams, especially during peak season. AI handles the entire funnel.</p>
+
+<h2>Instant Party Inquiry Response</h2>
+<p>When a parent submits an inquiry at 9pm (they all do), an <a href="/kidsplay/demo/party-booker">AI party booking qualifier</a> responds immediately. It captures the child's age, guest count, preferred date, and package interest. By morning, your party coordinator has a fully qualified lead instead of a cold contact form.</p>
+
+<h2>Smart Package Estimation</h2>
+<p>Parents want to know the cost upfront. An <a href="/kidsplay/demo/packages">AI package estimator</a> walks them through your options — basic, premium, ultimate, add-ons like face painting or character appearances — and generates a clear price breakdown. No sticker shock, no back-and-forth, higher conversion from inquiry to deposit.</p>
+
+<h2>Automated Booking Confirmation and Reminders</h2>
+<p>After a party is booked, AI handles the confirmation flow: deposit reminders, final headcount requests, food allergy check-ins, and day-of logistics messages. Parents feel taken care of. Your team stays focused on running the floor.</p>
+
+<h2>Voice Booking for Phone-First Parents</h2>
+<p>Some parents prefer to call. <a href="/kidsplay/demo/voice-booking">AI voice agents</a> answer party inquiries by phone — checking availability, explaining packages, and capturing booking details naturally. No missed calls during a birthday party rush.</p>
+
+<h2>Getting Started</h2>
+<p>Play places that automate party booking see 25 to 40 percent more booked parties during peak months. <a href="/kidsplay">Explore AI for kids play places</a> or <a href="/kidsplay/demo">try the live demos</a>.</p>
+
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to book more parties?</strong>
+  <p style="margin: 8px 0;">AI handles inquiries, estimates, and follow-up so your team can focus on making kids smile.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/kidsplay/demo">Try Our Live Demos</a>
+</div>
+`,
+    },
+    {
         slug: 'gyms-ai-reduce-churn-retention-2026',
         title: 'How Gyms Use AI to Reduce Churn and Increase Retention',
         description: 'Gyms and fitness studios using AI automation are keeping more members, converting more trials, and re-engaging lapsed clients. Here is how.',
