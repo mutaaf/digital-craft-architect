@@ -32,10 +32,27 @@ const Index = () => {
   useAnalytics('G-JQ53W917HT');
   useEngagementTracking();
 
-  // Scroll to top on page load
+  // Scroll to top on page load (unless arriving with a hash like #contact)
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (!window.location.hash) {
+      window.scrollTo(0, 0);
+    }
   }, []);
+
+  // Once content is hydrated, honor a hash like /#contact that navbar uses
+  // when the user clicks Contact from a page that has no #contact section.
+  useEffect(() => {
+    if (!content) return;
+    const hash = window.location.hash;
+    if (!hash) return;
+    const id = hash.slice(1);
+    // Wait a tick so the target section has rendered in the DOM
+    const t = setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 80);
+    return () => clearTimeout(t);
+  }, [content]);
 
   if (isLoading) {
     return (

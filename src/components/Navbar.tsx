@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X, ChevronDown, HardHat, Building2, PartyPopper, Server, Phone, Wrench, Heart, Scale, UtensilsCrossed, Gamepad2, Dumbbell, Stethoscope, Scissors, Car, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { trackCTAClick } from '@/utils/analytics';
 
@@ -30,6 +30,7 @@ const Navbar: React.FC<NavbarProps> = ({ darkHero = false }) => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -64,6 +65,10 @@ const Navbar: React.FC<NavbarProps> = ({ darkHero = false }) => {
     const contactSection = document.getElementById('contact');
     if (contactSection) {
       contactSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // No contact section on this page (Blog, /quiz, /compare/*, etc.)
+      // Hop to home and let Index handle the #contact hash after mount.
+      navigate('/#contact');
     }
     if (isMenuOpen) {
       setIsMenuOpen(false);
