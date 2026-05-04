@@ -31,6 +31,11 @@ const BlogPost = () => {
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.description} />
         <meta property="og:type" content="article" />
+        <meta property="article:published_time" content={post.date} />
+        <meta property="article:author" content={post.author} />
+        {post.tags.map((tag) => (
+          <meta key={tag} property="article:tag" content={tag} />
+        ))}
         <link rel="canonical" href={`https://digitalcraftai.com/blog/${post.slug}`} />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
@@ -38,6 +43,11 @@ const BlogPost = () => {
           "headline": post.title,
           "description": post.description,
           "datePublished": post.date,
+          "dateModified": post.date,
+          "keywords": post.tags.join(", "),
+          "image": post.image
+            ? [post.image]
+            : ["https://digitalcraftai.com/og-default.png"],
           "author": {
             "@type": "Organization",
             "name": post.author,
@@ -46,9 +56,40 @@ const BlogPost = () => {
           "publisher": {
             "@type": "Organization",
             "name": "DigitalCraft AI",
-            "url": "https://digitalcraftai.com"
+            "url": "https://digitalcraftai.com",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://digitalcraftai.com/og-default.png"
+            }
           },
-          "mainEntityOfPage": `https://digitalcraftai.com/blog/${post.slug}`
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": `https://digitalcraftai.com/blog/${post.slug}`
+          }
+        })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://digitalcraftai.com"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://digitalcraftai.com/blog"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": post.title,
+              "item": `https://digitalcraftai.com/blog/${post.slug}`
+            }
+          ]
         })}</script>
       </Helmet>
 
@@ -77,7 +118,7 @@ const BlogPost = () => {
             <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-10">
               <span className="inline-flex items-center gap-1">
                 <Calendar size={14} />
-                {new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                {new Date(post.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
               </span>
               <span className="inline-flex items-center gap-1">
                 <Clock size={14} />

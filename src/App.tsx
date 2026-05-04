@@ -48,8 +48,12 @@ import AutoRepairDemoHub from "./pages/autorepair/DemoHub";
 import Industries from "./pages/Industries";
 import HubSpotComparison from "./pages/compare/HubSpot";
 import GoHighLevelComparison from "./pages/compare/GoHighLevel";
+import ZapierComparison from "./pages/compare/Zapier";
+import MakeComparison from "./pages/compare/Make";
+import IntercomComparison from "./pages/compare/Intercom";
 import AIReadinessQuiz from "./pages/AIReadinessQuiz";
 import SetupClaw from "./pages/SetupClaw";
+import SmallBusiness from "./pages/SmallBusiness";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
@@ -242,8 +246,12 @@ const App = () => (
               <Route path="/industries" element={<Industries />} />
               <Route path="/compare/hubspot" element={<HubSpotComparison />} />
               <Route path="/compare/gohighlevel" element={<GoHighLevelComparison />} />
+              <Route path="/compare/zapier" element={<ZapierComparison />} />
+              <Route path="/compare/make" element={<MakeComparison />} />
+              <Route path="/compare/intercom" element={<IntercomComparison />} />
               <Route path="/quiz" element={<AIReadinessQuiz />} />
               <Route path="/setupclaw" element={<SetupClaw />} />
+              <Route path="/ai-for-small-business" element={<SmallBusiness />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="*" element={<NotFound />} />

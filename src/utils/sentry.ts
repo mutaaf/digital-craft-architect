@@ -19,7 +19,24 @@ export const initSentry = (
     integrations: [new BrowserTracing()],
     environment,
     release,
-    
+
+    // Drop generic network/abort/extension noise that is not actionable from the client.
+    // Real API failures surface in Vercel logs; these are user-offline, ad-blocker,
+    // tab-close-mid-request, and Safari abort variants.
+    ignoreErrors: [
+      'TypeError: Failed to fetch',
+      'TypeError: NetworkError when attempting to fetch resource',
+      'TypeError: Load failed',
+      'TypeError: cancelled',
+      'AbortError',
+      'Non-Error promise rejection captured',
+    ],
+    denyUrls: [
+      /extensions\//i,
+      /^chrome:\/\//i,
+      /^moz-extension:\/\//i,
+    ],
+
     // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring
     // We recommend adjusting this value in production
     tracesSampleRate: 1.0,

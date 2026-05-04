@@ -35,11 +35,13 @@ function extractBlogSlugs(): string[] {
 
 function getPriority(path: string): string {
   if (path === "/") return "1.0";
+  if (path === "/ai-for-small-business") return "0.9";
   const depth = path.split("/").filter(Boolean).length;
   if (depth === 1) {
     if (path === "/blog") return "0.7";
     return "0.8";
   }
+  if (path.startsWith("/compare/")) return "0.8";
   if (path.endsWith("/demo")) return "0.7";
   if (path.startsWith("/blog/")) return "0.6";
   return "0.6";
