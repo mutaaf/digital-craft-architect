@@ -21,13 +21,14 @@ function extractStaticRoutes(appContent: string): string[] {
 }
 
 function extractMetaPages(htmlContent: string): Set<string> {
-  const pagesMatch = htmlContent.match(/var pages\s*=\s*\{(.+)\};/);
+  const pagesMatch = htmlContent.match(/var pages\s*=\s*\{(.+)\};/s);
   if (!pagesMatch) {
     console.error("✗ Could not find pages object in index.html");
     process.exit(1);
   }
   const routes = new Set<string>();
-  const keyRegex = /"(\/[^"]*)":\s*\{/g;
+  // Path keys may be followed by either `{...}` (legacy inline) or `P(...)` (helper form).
+  const keyRegex = /"(\/[^"]*)":\s*(?:\{|P\()/g;
   let match: RegExpExecArray | null;
   while ((match = keyRegex.exec(pagesMatch[1])) !== null) {
     routes.add(match[1]);
