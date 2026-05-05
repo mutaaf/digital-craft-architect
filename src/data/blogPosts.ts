@@ -55,7 +55,7 @@ export const blogPosts: BlogPost[] = [
     slug: 'ai-cleaning-services-booking-automation',
     title: 'How Cleaning Companies Stop Losing Jobs to Voicemail',
     description: 'AI automation helps cleaning businesses respond to leads in seconds, collect more 5-star reviews, and win back lapsed clients automatically.',
-    date: '2026-05-01',
+    date: '2026-05-05',
     author: 'DigitalCraft AI',
     readTime: '5 min read',
     tags: ['Cleaning Services', 'Lead Response', 'Automation', 'Reviews'],
