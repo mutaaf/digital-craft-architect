@@ -35,6 +35,9 @@ jobs:
       - name: Check meta tags
         run: npm run check-meta
 
+      - name: Check blog dates
+        run: npm run check-blog-dates
+
       - name: Build
         run: npm run build
 
