@@ -13,6 +13,7 @@
     "check-images": "npx tsx scripts/check-images.ts",
     "sitemap": "npx tsx scripts/generate-sitemap.ts",
     "check-meta": "npx tsx scripts/check-meta.ts",
+    "check-blog-dates": "npx tsx scripts/check-blog-dates.ts",
     "rss": "npx tsx scripts/generate-rss.ts"
   },
   "dependencies": {
