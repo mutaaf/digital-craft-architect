@@ -6,14 +6,77 @@ You are an autonomous GTM (Go-To-Market) innovation agent for the DigitalCraft A
 
 ## Workflow
 
-1. Read this file — find the first unchecked `[ ]` item in the backlog
-2. Implement that item following the detailed description
-3. Run `npm run build` to verify the build passes
-4. If build fails, fix the error. If you cannot fix it, mark the item `[~]` (skipped) and move to the next
-5. Commit all changes (implementation + this file) with message format: `gtm(TASK-ID): description`
-6. Mark the item `[x]` in this file with today's date
-7. Push to main: `git push origin main`
-8. If time allows, pick the next item
+You ship through pull requests, not direct pushes. `main` is protected; the PR is the gate, CI is the proof, GitHub auto-merge does the merge once required checks pass.
+
+1. `git checkout main && git pull` so you start from the merged state.
+2. Read this file — find the first unchecked `[ ]` item in the backlog.
+3. Create a working branch: `git checkout -b gtm/<TASK-ID>-$(date +%Y%m%d)`.
+4. Implement that item following the detailed description.
+5. Run the full local check suite — ALL must pass before you proceed:
+   - `npm run lint`
+   - `npm run check-links`
+   - `npm run check-images`
+   - `npm run check-meta`
+   - `npm run check-blog-dates`
+   - `npm run build`
+   If any fail, fix the cause (not the check). If you genuinely cannot, mark the item `[~]` in this file, abandon the branch (`git checkout main && git branch -D <branch>`), and move to the next item.
+6. Mark the backlog item `[x]` in this file with today's date (`date +%Y-%m-%d`).
+7. Commit all changes (implementation + this file) with message: `gtm(TASK-ID): description`.
+8. Push the branch: `git push -u origin gtm/<TASK-ID>-$(date +%Y%m%d)`.
+9. **Run the Self-Review pass** (see "Self-Review" section below). If it returns `BLOCK`, fix the cited issues, re-run step 5's checks, amend or add commits, and re-run Self-Review. Only proceed when it returns `OK`.
+10. Open the PR:
+    ```
+    gh pr create --label gtm-agent \
+      --title "gtm(<TASK-ID>): <description>" \
+      --body "$(cat <<'BODY'
+    ## Task
+    <paste the AGENT.md backlog item verbatim>
+
+    ## Summary of changes
+    <2–4 bullets of what you did>
+
+    ## Self-Review
+    <paste the Self-Review pass output, including the OK verdict>
+
+    ## Local checks
+    - lint, check-links, check-images, check-meta, check-blog-dates, build — all green
+    BODY
+    )"
+    ```
+11. Enable auto-merge so GitHub squashes the PR once required CI checks go green:
+    `gh pr merge --squash --auto`
+12. `git checkout main && git pull` so the next task starts from the new merged state. If time allows, pick the next backlog item from step 1.
+
+## Self-Review
+
+Before opening the PR, you MUST capture your diff and run a fresh sub-agent review of it. Default posture is **BLOCK** — only the literal token `OK` from the reviewer authorizes you to proceed.
+
+How to run it:
+1. Capture the diff:
+   `git diff origin/main...HEAD > /tmp/gtm-diff.patch`
+   (Also note: the TASK-ID you claim to be implementing, and the verbatim backlog item from this file.)
+2. Spawn a sub-agent (in this Claude Code session, use the `Agent` tool with `subagent_type: general-purpose`) with this prompt:
+
+   > You are a strict code reviewer for a marketing-site repo. The diff at `/tmp/gtm-diff.patch` was produced by an autonomous agent claiming to implement TASK-ID `<id>` whose spec is:
+   >
+   > <paste the verbatim backlog item>
+   >
+   > Read the diff. Apply the rubric below. Default to BLOCK on uncertainty.
+   >
+   > Rubric:
+   > - Does the diff implement the *specific* TASK-ID, or did it drift?
+   > - Date sanity: any post in `src/data/blogPosts.ts` with a date ≠ today (`date +%Y-%m-%d`) or duplicating an existing post's date?
+   > - No-touch zones: any change in `/api/`, `package.json`, `package-lock.json`, `.env*`?
+   > - Dark mode: any new component or markup without `dark:` Tailwind variants where light variants exist?
+   > - Brand voice: indefensible claims (e.g., "500+" without basis), fabricated testimonials, em-dashes (—), invented numbers?
+   > - Internal links: do new blog posts link to the right vertical pages (`/construction`, `/realestate`, etc.)?
+   > - Off-task signal: more than ~200 lines diff (excluding blog post content) under one TASK-ID?
+   >
+   > Output strictly one of:
+   > - `OK` — followed by a one-paragraph summary of what you checked.
+   > - `BLOCK: <rubric item>` — one line per concern, with the specific file:line and a one-sentence reason. Do NOT propose fixes; only surface issues.
+
+3. Paste the reviewer's verdict and summary into the PR body. If `BLOCK`, fix and repeat. Do not open the PR until you have an `OK`.
 
 ## Rules
 
