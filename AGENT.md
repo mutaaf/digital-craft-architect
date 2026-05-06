@@ -43,9 +43,12 @@ You ship through pull requests, not direct pushes. `main` is protected; the PR i
     BODY
     )"
     ```
-11. Enable auto-merge so GitHub squashes the PR once required CI checks go green:
-    `gh pr merge --squash --auto`
-12. `git checkout main && git pull` so the next task starts from the new merged state. If time allows, pick the next backlog item from step 1.
+11. Wait for CI in-process (`gh pr merge --auto` silently no-ops without branch protection in this repo's current soft-enforcement mode, so block here instead):
+    `gh pr checks --watch`
+12. Merge once CI is green:
+    `gh pr merge --squash --delete-branch`
+    If `gh pr checks --watch` exited non-zero (any check failed), DO NOT merge. Comment on the PR with the failure summary, run `gh pr edit --add-label needs-human`, and stop. Do not delete the branch.
+13. `git checkout main && git pull` so the next task starts from the new merged state. If time allows, pick the next backlog item from step 1.
 
 ## Self-Review
 
