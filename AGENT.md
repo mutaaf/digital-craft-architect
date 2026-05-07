@@ -43,12 +43,12 @@ You ship through pull requests, not direct pushes. `main` is protected; the PR i
     BODY
     )"
     ```
-11. Wait for CI in-process (`gh pr merge --auto` silently no-ops without branch protection in this repo's current soft-enforcement mode, so block here instead):
-    `gh pr checks --watch`
-12. Merge once CI is green:
-    `gh pr merge --squash --delete-branch`
-    If `gh pr checks --watch` exited non-zero (any check failed), DO NOT merge. Comment on the PR with the failure summary, run `gh pr edit --add-label needs-human`, and stop. Do not delete the branch.
-13. `git checkout main && git pull` so the next task starts from the new merged state. If time allows, pick the next backlog item from step 1.
+11. Wait for CI in-process: `gh pr checks --watch`
+12. Handoff to the reviewer agent:
+    - If `gh pr checks --watch` exited non-zero (any check failed), comment on the PR with the failure summary, run `gh pr edit --add-label needs-human`, and stop. Do not delete the branch. Do not merge.
+    - If CI is green, you are done. **Do NOT merge.** The `gtm-reviewer` scheduled agent runs ~30 minutes after you (`30 8 * * 1,3`); it reviews your PR with an independent rubric and either merges it or labels it `needs-human`. Do not poll for the reviewer's verdict; do not pick up another task this run; just stop.
+
+> **Phase 2 handoff note:** Up through 2026-05-07 the worker self-merged after CI green. As of 2026-05-08, the merge decision belongs to the `gtm-reviewer` agent. This is the second oversight layer; your inline Self-Review is the first and is known to be lenient (it rubber-stamped an em-dash violation on 2026-05-07 that the reviewer caught after the fact). Do not assume your Self-Review's `OK` is the final word.
 
 ## Self-Review
 
