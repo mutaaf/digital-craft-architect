@@ -52,6 +52,66 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'ai-accountants-cpas-client-intake-2026',
+    title: 'How CPAs Are Using AI to Stop Losing Leads During Tax Season',
+    description: 'AI lead response and intake automation helps accounting firms convert more inquiries, collect reviews automatically, and fill their calendar year-round.',
+    date: '2026-05-11',
+    author: 'DigitalCraft AI',
+    readTime: '5 min read',
+    tags: ['Accounting', 'Lead Response', 'AI Automation', 'Client Intake'],
+    content: `<p>February is the worst time to be a CPA chasing new leads. You are buried in returns, your phone rings twice before voicemail kicks in, and the prospect who reached out on Tuesday morning has already hired someone else by Thursday.</p>
+
+<p>The timing problem is structural. New client inquiries peak right when you have the least capacity to respond. AI does not fix your workload -- but it does fix the response problem.</p>
+
+<h2>Speed Is the Variable CPAs Underestimate</h2>
+
+<p>Response time is the single biggest predictor of whether a new inquiry converts to a client. Research across professional services firms shows that the first firm to follow up wins the business more than 70% of the time, regardless of price or credentials.</p>
+
+<p>Most accounting firms respond in hours, sometimes days. An AI lead responder replies in under 60 seconds, asks qualifying questions, and books a discovery call -- all before you have seen the notification email.</p>
+
+<h2>What a Smart Intake Conversation Looks Like</h2>
+
+<p>The AI does not just acknowledge the inquiry. It gathers information that would otherwise require your time to collect.</p>
+
+<p>When someone fills out your contact form or sends an inquiry, the AI asks: Are you a business or individual? What is the primary issue -- tax filing, bookkeeping, back taxes, or something else? What software are you currently using? Is there a deadline coming up?</p>
+
+<p>By the time the lead reaches your calendar, you have a qualified summary. You know whether the call is worth your time before you get on it.</p>
+
+<h2>Review Volume Is a Local SEO Problem</h2>
+
+<p>Search "CPA near me" in any mid-sized city and the firms that dominate the results share one thing: review volume. A firm with 80 reviews outranks a firm with 12, even if the second firm has been operating for 20 years.</p>
+
+<p>Most accounting firms collect reviews inconsistently -- maybe after a particularly good interaction, or when a client offers one unprompted. AI handles the ask automatically.</p>
+
+<p>After each return gets filed or each engagement closes, the system sends a short, personalized text to the client. The timing is right when the relationship is warm. One CPA practice in Austin added over 40 Google reviews in a single tax season using this approach.</p>
+
+<h2>Outbound Calls for Tax Planning and Seasonal Outreach</h2>
+
+<p>Most CPA firms do not do any proactive outreach to existing clients outside of filing deadlines. That is a missed revenue opportunity.</p>
+
+<p>Before Q4 planning season, an AI voice agent can call your client list to check in on their situation, ask whether anything has changed (new business, major asset purchase, life event), and offer to schedule a planning session. It is a real conversation, not a robocall. The AI listens and responds -- and hands off when the client has a complex question.</p>
+
+<p>Clients who get this call book planning sessions at a much higher rate than those who receive a generic email.</p>
+
+<h2>Scoping Calls That Go Nowhere</h2>
+
+<p>Every CPA has experienced this: a 30-minute discovery call with a prospect who expected to pay $200 for a service that starts at $1,500. Both parties wasted their time.</p>
+
+<p>An AI intake flow can prequalify on budget before the call happens. It asks about entity type, transaction volume, software stack, and service needs -- then provides a rough estimate range. Prospects who are serious book the call. Those who are not self-select out.</p>
+
+<h2>Where to Start</h2>
+
+<p>You do not need to automate everything at once. Pick the friction point that is costing you the most:</p>
+
+<ul>
+<li>Slow lead response during tax season -- start with an AI intake responder on your contact form.</li>
+<li>Low Google review count -- automate the review request after each filing cycle.</li>
+<li>Wasted time on unqualified discovery calls -- add a pre-qualification step before any call gets booked.</li>
+</ul>
+
+<p>Each one is a contained change with a measurable return. After one full tax season, the difference in conversion rate and inbound pipeline is not subtle.</p>`,
+  },
+  {
     slug: 'ai-cleaning-services-booking-automation',
     title: 'How Cleaning Companies Stop Losing Jobs to Voicemail',
     description: 'AI automation helps cleaning businesses respond to leads in seconds, collect more 5-star reviews, and win back lapsed clients automatically.',
