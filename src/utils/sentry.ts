@@ -1,6 +1,5 @@
 
 import * as Sentry from '@sentry/react';
-import { BrowserTracing } from '@sentry/tracing';
 import React from 'react';
 
 /**
@@ -16,7 +15,7 @@ export const initSentry = (
 ): void => {
   Sentry.init({
     dsn,
-    integrations: [new BrowserTracing()],
+    integrations: [Sentry.browserTracingIntegration()],
     environment,
     release,
 
@@ -40,12 +39,8 @@ export const initSentry = (
     // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring
     // We recommend adjusting this value in production
     tracesSampleRate: 1.0,
-    
-    // Capture user interactions automatically (clicks, page loads, etc)
-    autoSessionTracking: true,
-    
-    // This sets the sample rate to be 10%. You may want this to be 100% while
-    // in development and sample at a lower rate in production
+
+    // Sample 10% of sessions for Replay; sample 100% when an error occurs.
     replaysSessionSampleRate: 0.1,
     
     // If the entire session is not sampled, use the below sample rate to sample
@@ -193,35 +188,9 @@ export const addBreadcrumb = (
 };
 
 /**
- * Create a performance span for monitoring
- * @param name Span name
- * @param operation Operation type
- * @param data Additional data
- */
-export const startPerformanceSpan = (
-  name: string,
-  operation: string,
-  data?: Record<string, any>
-): Sentry.Span => {
-  const transaction = Sentry.startTransaction({
-    name,
-    op: operation,
-    data,
-  });
-  
-  Sentry.configureScope((scope) => {
-    scope.setSpan(transaction);
-  });
-  
-  return transaction;
-};
-
-/**
- * Utility to measure function execution time and report to Sentry
- * @param fn Function to measure
- * @param name Transaction name
- * @param operation Operation type
- * @param throwError Whether to throw an error if the function fails
+ * Run an async function inside a Sentry performance span. Use this in place of
+ * the legacy startTransaction / configureScope APIs that were removed in
+ * Sentry SDK v8+. The span is automatically ended after fn resolves or throws.
  */
 export const measureFunction = async <T>(
   fn: () => Promise<T>,
@@ -229,29 +198,17 @@ export const measureFunction = async <T>(
   operation: string = 'function.execution',
   throwError: boolean = true
 ): Promise<T> => {
-  const transaction = startPerformanceSpan(name, operation);
-  
-  try {
-    const result = await fn();
-    transaction.finish();
-    return result;
-  } catch (error) {
-    transaction.setStatus('internal_error');
-    transaction.finish();
-    
-    if (error instanceof Error) {
-      captureException(error, { transactionName: name });
-    } else {
-      captureException(new Error(String(error)), { transactionName: name });
-    }
-    
-    if (throwError) {
+  return Sentry.startSpan({ name, op: operation }, async (span) => {
+    try {
+      return await fn();
+    } catch (error) {
+      span?.setStatus({ code: 2, message: 'internal_error' });
+      const err = error instanceof Error ? error : new Error(String(error));
+      captureException(err, { transactionName: name });
+      if (throwError) throw error;
       throw error;
     }
-    
-    // Return a default value or re-throw depending on your needs
-    throw error;
-  }
+  });
 };
 
 // Export common Sentry utilities for direct usage
@@ -284,7 +241,6 @@ export const useSentry = (
     setUserContext,
     setTags,
     setContext,
-    startPerformanceSpan,
     measureFunction,
     ErrorBoundary: Sentry.ErrorBoundary, // Explicitly import from Sentry
   };
