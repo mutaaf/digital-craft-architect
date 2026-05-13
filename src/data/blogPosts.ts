@@ -52,6 +52,60 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'ai-event-planners-after-hours-inquiry-capture-2026',
+    title: 'Why Event Planners Lose 30% of Inquiries After 6pm (and How to Fix It)',
+    description: 'Couples and corporate clients submit event inquiries late. AI captures, qualifies, and follow-up-books them while your team is off the clock.',
+    date: '2026-05-13',
+    author: 'DigitalCraft AI',
+    readTime: '5 min read',
+    tags: ['Event Planning', 'AI Lead Response', 'After-Hours Automation'],
+    content: `
+<p>Look at when event inquiries actually land in your inbox. For most planners, the median submission time is between 8pm and 11pm. Couples planning weddings, corporate event leads finalizing offsite details, parents booking quinceañeras. They are not free during business hours. They reach out after dinner, after the kids are down, after the workday.</p>
+
+<p>And that is exactly when most event companies are not answering. The inquiry sits overnight, the prospect sends the same form to three competitors, and by 9am the next morning whoever responded first is already on a discovery call.</p>
+
+<h2>The 30% That Disappears</h2>
+
+<p>A common pattern we see across event planners: roughly 30% of inquiries received between 6pm and midnight go cold before anyone replies the next day. Some prospects book elsewhere within hours. Others lose the momentum that made them fill out the form in the first place. Either way, the lead is gone before your team has read it.</p>
+
+<p>The fix is not staffing an evening shift. It is letting an <a href="/events/demo/inquiry">AI inquiry handler</a> field the first message at 9:14pm with the same care your coordinator would at 10am.</p>
+
+<h2>What Good After-Hours Capture Looks Like</h2>
+
+<p>A prospect submits an inquiry at 9:30pm with vague details: "Looking for a venue for our wedding next September, around 150 guests, want something outdoorsy." Your AI assistant replies within 60 seconds. It thanks them, confirms the date range, asks about budget tier and ceremony style, and offers two follow-up options: a 15-minute call tomorrow at a time the prospect picks, or a same-night text exchange to lock in the basics.</p>
+
+<p>By the time your coordinator opens email the next morning, the lead is qualified, scheduled, and warm. Not a cold form to chase.</p>
+
+<h2>What It Captures That Static Forms Miss</h2>
+
+<ul>
+<li><strong>Real availability windows.</strong> Static forms ask for a single date. AI conversations ask "are you flexible on weekends in September or locked to the 12th?", which dramatically widens the booking funnel.</li>
+<li><strong>Budget tier without sticker shock.</strong> Phrased as ranges ("most 150-guest weddings at our venue land in $25k to $45k, does that align?"), not a blank dollar input.</li>
+<li><strong>Decision-maker signals.</strong> "Is this just the two of you deciding, or are family members involved?" That answer reshapes your pitch.</li>
+<li><strong>Vendor preference hints.</strong> "Do you have a photographer already, or want us to coordinate that?" Future upsell, captured at intake.</li>
+</ul>
+
+<h2>The Voice Layer for Higher-Intent Leads</h2>
+
+<p>For leads that look high-intent, the AI can offer an immediate voice call. Our <a href="/events/demo/voice-booking">voice booking agent</a> handles inbound and outbound voice, in natural conversation, in real time. A couple who just left a venue tour can call at 10pm, ask about availability, and have a hold placed on a date before they go to sleep.</p>
+
+<p>For corporate event coordinators with a tight RFP deadline, the same agent can call them back inside the hour with package details, capacity confirmation, and a draft estimate. No back-and-forth email chain.</p>
+
+<h2>What Changes for Your Team</h2>
+
+<p>Your coordinators stop spending the first hour of every morning triaging overnight inquiries. They start each day with qualified, scheduled leads. The unqualified ones (wrong budget tier, date already booked, outside your geographic range) get politely deflected with helpful info, no human touch required.</p>
+
+<p>Bookings per inbound inquiry trend up, response time trends down, and you stop losing the prospects who happened to fill out your form at 10pm on a Sunday.</p>
+
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to stop losing leads to bedtime?</strong>
+  <p style="margin: 8px 0;">See what after-hours AI capture looks like for your event business, personalized to your venue, packages, and tone.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/events/demo">Try Our Live Demos</a>
+</div>
+`,
+  },
+  {
     slug: 'ai-accountants-cpas-client-intake-2026',
     title: 'How CPAs Are Using AI to Stop Losing Leads During Tax Season',
     description: 'AI lead response and intake automation helps accounting firms convert more inquiries, collect reviews automatically, and fill their calendar year-round.',
