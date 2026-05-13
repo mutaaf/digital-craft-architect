@@ -60,7 +60,7 @@ export const blogPosts: BlogPost[] = [
     readTime: '5 min read',
     tags: ['Event Planning', 'AI Lead Response', 'After-Hours Automation'],
     content: `
-<p>Look at when event inquiries actually land in your inbox. For most planners, the median submission time is between 8pm and 11pm. Couples planning weddings, corporate event leads finalizing offsite details, parents booking quinceañeras. They are not free during business hours. They reach out after dinner, after the kids are down, after the workday.</p>
+<p>Look at when event inquiries actually land in your <a href="/events">event planning</a> inbox. For most planners, the median submission time is between 8pm and 11pm. Couples planning weddings, corporate event leads finalizing offsite details, parents booking quinceañeras. They are not free during business hours. They reach out after dinner, after the kids are down, after the workday.</p>
 
 <p>And that is exactly when most event companies are not answering. The inquiry sits overnight, the prospect sends the same form to three competitors, and by 9am the next morning whoever responded first is already on a discovery call.</p>
 
