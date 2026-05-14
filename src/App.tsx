@@ -56,6 +56,8 @@ import SetupClaw from "./pages/SetupClaw";
 import SmallBusiness from "./pages/SmallBusiness";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
+import Classes from "./pages/Classes";
+import ClassRegistration from "./pages/classes/ClassRegistration";
 import NotFound from "./pages/NotFound";
 import { ErrorBoundary } from "@sentry/react";
 import { captureException } from "./utils/sentry";
@@ -254,6 +256,8 @@ const App = () => (
               <Route path="/ai-for-small-business" element={<SmallBusiness />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/classes" element={<Classes />} />
+              <Route path="/classes/register" element={<ClassRegistration />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
