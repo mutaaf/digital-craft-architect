@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { ArrowLeft, ArrowDown, Check, Clock, Users, Gift } from 'lucide-react';
+import { ArrowLeft, ArrowDown, Check, Clock, Users, Gift, CalendarPlus, X, Mail, MapPin, AlertCircle } from 'lucide-react';
 import { trackCTAClick, trackFormSubmission } from '@/utils/analytics';
 import {
   CANONICAL_ORIGIN,
@@ -37,6 +37,19 @@ const ClassRegistration: React.FC<Props> = ({ legacyDefault = false }) => {
   const [hasSibling, setHasSibling] = useState(false);
   const [trackError, setTrackError] = useState(false);
 
+  // Submission state for AJAX flow — keeps users on the site after Formspree
+  // accepts the POST, instead of being redirected to formspree.io/thanks.
+  type SubmissionState = 'idle' | 'submitting' | 'success' | 'error';
+  const [submissionState, setSubmissionState] = useState<SubmissionState>('idle');
+  const [submissionData, setSubmissionData] = useState<{
+    firstName: string;
+    email: string;
+    participantName: string;
+    trackName: string;
+    trackPrice: string;
+  } | null>(null);
+  const [submissionError, setSubmissionError] = useState<string | null>(null);
+
   const registerUrl = session
     ? `${CANONICAL_ORIGIN}/classes/${session.slug}/register`
     : `${CANONICAL_ORIGIN}/classes`;
@@ -58,16 +71,98 @@ const ClassRegistration: React.FC<Props> = ({ legacyDefault = false }) => {
     return <Navigate to="/classes" replace />;
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (!selectedTrack) {
-      e.preventDefault();
       setTrackError(true);
       document.getElementById('trackSelector')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    // Capture what we'll show in the success modal — pulled BEFORE the POST
+    // so we still have it after Formspree responds and React rerenders.
+    const selectedTrackObj = session.tracks.find((t) => t.formLabel === selectedTrack);
+    const captured = {
+      firstName: String(formData.get('first_name') ?? '').trim(),
+      email: String(formData.get('email') ?? '').trim(),
+      participantName: [
+        formData.get('participant_1_first_name'),
+        formData.get('participant_1_last_name'),
+      ]
+        .map((v) => String(v ?? '').trim())
+        .filter(Boolean)
+        .join(' '),
+      trackName: selectedTrackObj?.name ?? selectedTrack,
+      trackPrice: selectedTrackObj?.price ?? '',
+    };
+
     trackFormSubmission(`classes_register_submit:${session.slug}`, selectedTrack);
-    // Let Formspree handle the POST + redirect.
+    setSubmissionState('submitting');
+    setSubmissionError(null);
+
+    try {
+      const res = await fetch(session.formspreeEndpoint, {
+        method: 'POST',
+        body: formData,
+        headers: { Accept: 'application/json' },
+      });
+      if (!res.ok) {
+        let msg = 'Submission failed. Please try again.';
+        try {
+          const json = await res.json();
+          if (json?.errors?.[0]?.message) msg = json.errors[0].message;
+        } catch {
+          /* JSON parse error — fall through with default */
+        }
+        throw new Error(msg);
+      }
+      setSubmissionData(captured);
+      setSubmissionState('success');
+      // Replace the page-scroll position so the modal is the first thing
+      // they see, but don't navigate away.
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (err) {
+      setSubmissionState('error');
+      setSubmissionError(err instanceof Error ? err.message : 'Network error — please try again.');
+    }
   };
+
+  // Plain computed values (called after the early-return guard above — so
+  // not wrapped in useMemo, which would have to live above the guard and
+  // violate rules-of-hooks).
+  const calendarUrl = (() => {
+    const fmt = (iso: string) =>
+      new Date(iso).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+    const startDate = new Date(session.startDate);
+    const endTime = (session.scheduleEndTime ?? '19:30').split(':');
+    const firstSessionEnd = new Date(startDate);
+    firstSessionEnd.setHours(Number(endTime[0]), Number(endTime[1]), 0, 0);
+    const untilFmt = new Date(session.endDate)
+      .toISOString()
+      .replace(/[-:]/g, '')
+      .replace(/\.\d{3}/, '');
+    const params = new URLSearchParams({
+      action: 'TEMPLATE',
+      text: session.shortName,
+      dates: `${fmt(session.startDate)}/${fmt(firstSessionEnd.toISOString())}`,
+      details: `${session.social.ogDescription}\n\nDetails & schedule: ${CANONICAL_ORIGIN}/classes/${session.slug}`,
+      location: `${session.location.venue}, ${session.location.city}, ${session.location.state}`,
+      recur: `RRULE:FREQ=WEEKLY;BYDAY=TU;UNTIL=${untilFmt}`,
+    });
+    return `https://calendar.google.com/calendar/render?${params.toString()}`;
+  })();
+
+  const firstSessionLabel = (() => {
+    const d = new Date(session.startDate);
+    return `${d.toLocaleDateString('en-US', {
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric',
+    })} · ${d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}`;
+  })();
 
   const ogTitle = `Register — ${session.social.ogTitle}`;
   const ogDescription = `Register for ${session.social.ogTitle}. ${session.dateLabel} · ${session.location.venue}, ${session.location.city} ${session.location.state}. ${session.timeLabel}.`;
@@ -289,6 +384,126 @@ const ClassRegistration: React.FC<Props> = ({ legacyDefault = false }) => {
         @media(max-width:760px) {
           .dca-reg-page .picker { grid-template-columns:1fr; }
           .dca-reg-page .picker-detail { position:static; }
+        }
+
+        /* === Submit button busy state === */
+        .dca-reg-page .submit-btn[disabled] { opacity:.7; cursor:wait; transform:none; }
+        .dca-reg-page .submit-btn .spinner {
+          display:inline-block; width:14px; height:14px;
+          border:2px solid rgba(255,255,255,.35); border-top-color:white;
+          border-radius:50%; animation:dca-spin .8s linear infinite;
+          margin-right:8px; vertical-align:-2px;
+        }
+        @keyframes dca-spin { to { transform:rotate(360deg); } }
+
+        /* === Submission error inline banner === */
+        .dca-reg-page .submit-error {
+          background:#fbeaea; border:1.5px solid #e8b6b6; color:#9a2a2a;
+          border-radius:10px; padding:12px 14px;
+          font-size:13px; line-height:1.5;
+          margin-top:10px;
+          display:flex; gap:10px; align-items:flex-start;
+        }
+        .dca-reg-page .submit-error svg { flex-shrink:0; margin-top:1px; }
+
+        /* === Success modal === */
+        .dca-reg-page .modal-backdrop {
+          position:fixed; inset:0; z-index:9000;
+          background:rgba(20,18,15,.62);
+          backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+          display:flex; align-items:center; justify-content:center;
+          padding:20px;
+          animation:dca-backdrop-in .25s ease-out;
+        }
+        @keyframes dca-backdrop-in { from { opacity:0; } to { opacity:1; } }
+        .dca-reg-page .modal-card {
+          background:var(--cream);
+          border-radius:18px;
+          max-width:560px; width:100%;
+          max-height:calc(100vh - 40px);
+          overflow-y:auto;
+          position:relative;
+          box-shadow:0 30px 80px rgba(0,0,0,.4), 0 0 0 1px rgba(0,0,0,.04);
+          animation:dca-modal-in .35s cubic-bezier(.2,.9,.3,1.1);
+        }
+        @keyframes dca-modal-in {
+          from { opacity:0; transform:translateY(20px) scale(.96); }
+          to   { opacity:1; transform:translateY(0) scale(1); }
+        }
+        .dca-reg-page .modal-strip { height:4px; background:linear-gradient(90deg,#2d9b6e 0%, #c9913a 50%, #4a63d4 100%); border-radius:18px 18px 0 0; }
+        .dca-reg-page .modal-close {
+          position:absolute; top:14px; right:14px;
+          width:36px; height:36px; border-radius:50%;
+          background:rgba(0,0,0,.06); border:none; cursor:pointer;
+          display:flex; align-items:center; justify-content:center;
+          color:var(--ink); transition:background .15s, transform .12s;
+        }
+        .dca-reg-page .modal-close:hover { background:rgba(0,0,0,.12); transform:scale(1.05); }
+        .dca-reg-page .modal-body { padding:38px 36px 32px; }
+        .dca-reg-page .modal-icon {
+          width:64px; height:64px; border-radius:50%;
+          background:linear-gradient(135deg, var(--green-mid), var(--green));
+          color:white; display:flex; align-items:center; justify-content:center;
+          margin:0 auto 18px;
+          box-shadow:0 12px 28px rgba(45,155,110,.32);
+        }
+        .dca-reg-page .modal-title {
+          font-family:'Playfair Display',serif;
+          font-size:clamp(24px,3.4vw,30px);
+          font-weight:900;
+          color:var(--ink); line-height:1.1;
+          text-align:center;
+          letter-spacing:-.01em;
+          margin-bottom:8px;
+        }
+        .dca-reg-page .modal-title em { font-style:italic; color:var(--gold); }
+        .dca-reg-page .modal-sub {
+          text-align:center; font-size:14.5px; color:var(--mid);
+          line-height:1.6; margin-bottom:22px;
+        }
+        .dca-reg-page .modal-summary {
+          background:white; border:1px solid var(--rule); border-radius:12px;
+          padding:18px 20px; margin-bottom:18px;
+          display:flex; flex-direction:column; gap:12px;
+        }
+        .dca-reg-page .modal-summary-row { display:flex; gap:14px; font-size:13.5px; line-height:1.4; align-items:flex-start; }
+        .dca-reg-page .modal-summary-row svg { color:var(--green); flex-shrink:0; margin-top:1px; }
+        .dca-reg-page .modal-summary-label { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--mid); font-weight:600; margin-bottom:2px; }
+        .dca-reg-page .modal-summary-value { font-weight:600; color:var(--ink); }
+        .dca-reg-page .modal-summary-track {
+          display:inline-flex; align-items:baseline; gap:8px;
+        }
+        .dca-reg-page .modal-summary-track-price {
+          font-family:'Playfair Display',serif; color:var(--gold); font-weight:900;
+          font-size:18px; line-height:1;
+        }
+
+        .dca-reg-page .modal-next {
+          background:#fdf5e8; border:1px solid #e8d5a0; border-radius:12px;
+          padding:16px 18px; margin-bottom:22px;
+        }
+        .dca-reg-page .modal-next-label { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:#8a5d18; font-weight:700; margin-bottom:10px; }
+        .dca-reg-page .modal-next ul { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; }
+        .dca-reg-page .modal-next li { display:flex; gap:9px; font-size:13px; color:#5a4e30; line-height:1.5; align-items:flex-start; }
+        .dca-reg-page .modal-next li svg { color:var(--gold); flex-shrink:0; margin-top:2px; }
+
+        .dca-reg-page .modal-actions {
+          display:flex; flex-direction:column; gap:8px;
+        }
+        .dca-reg-page .modal-btn {
+          display:inline-flex; align-items:center; justify-content:center; gap:8px;
+          padding:13px 18px; border-radius:10px;
+          font-family:'DM Sans',sans-serif; font-weight:700; font-size:14px;
+          text-decoration:none; cursor:pointer; border:none;
+          transition:background .15s, transform .1s, box-shadow .15s;
+        }
+        .dca-reg-page .modal-btn-primary { background:var(--green); color:white; box-shadow:0 6px 18px rgba(45,155,110,.28); }
+        .dca-reg-page .modal-btn-primary:hover { background:#155a3c; transform:translateY(-1px); box-shadow:0 10px 24px rgba(45,155,110,.38); }
+        .dca-reg-page .modal-btn-secondary { background:white; color:var(--ink); border:1.5px solid var(--rule); }
+        .dca-reg-page .modal-btn-secondary:hover { background:var(--cream); border-color:var(--green-mid); }
+
+        @media(max-width:540px) {
+          .dca-reg-page .modal-body { padding:32px 22px 26px; }
         }
       `}</style>
 
@@ -731,7 +946,35 @@ const ClassRegistration: React.FC<Props> = ({ legacyDefault = false }) => {
               </label>
             </div>
 
-            <button type="submit" className="submit-btn">Complete Registration →</button>
+            <button
+              type="submit"
+              className="submit-btn"
+              disabled={submissionState === 'submitting'}
+            >
+              {submissionState === 'submitting' ? (
+                <>
+                  <span className="spinner" aria-hidden="true" />
+                  Submitting…
+                </>
+              ) : (
+                <>Complete Registration →</>
+              )}
+            </button>
+            {submissionState === 'error' && submissionError && (
+              <div className="submit-error" role="alert">
+                <AlertCircle size={16} />
+                <span>
+                  {submissionError} If this keeps happening, please email{' '}
+                  <a
+                    href={`mailto:${session.contact.email}`}
+                    style={{ color: 'inherit', fontWeight: 700, textDecoration: 'underline' }}
+                  >
+                    {session.contact.email}
+                  </a>
+                  .
+                </span>
+              </div>
+            )}
             <p className="submit-note">
               You'll receive a confirmation email after submitting.
               <br />
@@ -743,6 +986,175 @@ const ClassRegistration: React.FC<Props> = ({ legacyDefault = false }) => {
             </p>
           </div>
         </form>
+      </div>
+
+      {submissionState === 'success' && submissionData && (
+        <RegistrationSuccessModal
+          data={submissionData}
+          session={session}
+          calendarUrl={calendarUrl}
+          firstSessionLabel={firstSessionLabel}
+          onClose={() => setSubmissionState('idle')}
+        />
+      )}
+    </div>
+  );
+};
+
+interface SuccessModalProps {
+  data: {
+    firstName: string;
+    email: string;
+    participantName: string;
+    trackName: string;
+    trackPrice: string;
+  };
+  session: ClassSession;
+  calendarUrl: string;
+  firstSessionLabel: string;
+  onClose: () => void;
+}
+
+const RegistrationSuccessModal: React.FC<SuccessModalProps> = ({
+  data,
+  session,
+  calendarUrl,
+  firstSessionLabel,
+  onClose,
+}) => {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className="modal-backdrop"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="registration-success-title"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div className="modal-card">
+        <div className="modal-strip" />
+        <button
+          type="button"
+          className="modal-close"
+          onClick={onClose}
+          aria-label="Close confirmation"
+        >
+          <X size={18} />
+        </button>
+        <div className="modal-body">
+          <div className="modal-icon" aria-hidden="true">
+            <Check size={32} strokeWidth={3} />
+          </div>
+          <h2 className="modal-title" id="registration-success-title">
+            {data.firstName ? `Thanks, ${data.firstName}!` : 'Registration received'}{' '}
+            <em>You're in.</em>
+          </h2>
+          <p className="modal-sub">
+            We've got your registration for {data.participantName || 'the class'}. A
+            confirmation email is on its way to <strong>{data.email}</strong>.
+          </p>
+
+          <div className="modal-summary">
+            <div className="modal-summary-row">
+              <Gift size={15} />
+              <div>
+                <div className="modal-summary-label">Track</div>
+                <div className="modal-summary-track">
+                  {data.trackPrice && (
+                    <span className="modal-summary-track-price">{data.trackPrice}</span>
+                  )}
+                  <span className="modal-summary-value">{data.trackName}</span>
+                </div>
+              </div>
+            </div>
+            <div className="modal-summary-row">
+              <Clock size={15} />
+              <div>
+                <div className="modal-summary-label">First session</div>
+                <div className="modal-summary-value">{firstSessionLabel}</div>
+              </div>
+            </div>
+            <div className="modal-summary-row">
+              <MapPin size={15} />
+              <div>
+                <div className="modal-summary-label">Where</div>
+                <div className="modal-summary-value">
+                  {session.location.venue}, {session.location.city} {session.location.state}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="modal-next">
+            <div className="modal-next-label">What happens next</div>
+            <ul>
+              <li>
+                <Check size={13} strokeWidth={3} />
+                <span>Watch for a confirmation email with payment instructions.</span>
+              </li>
+              <li>
+                <Check size={13} strokeWidth={3} />
+                <span>We'll send a reminder 24 hours before your first session.</span>
+              </li>
+              <li>
+                <Check size={13} strokeWidth={3} />
+                <span>
+                  Sign up for{' '}
+                  <a
+                    href="https://claude.ai"
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{ color: '#8a5d18', fontWeight: 600 }}
+                  >
+                    Claude Pro
+                  </a>{' '}
+                  ($20/mo) before Week 1, and bring your laptop.
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          <div className="modal-actions">
+            <a
+              href={calendarUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="modal-btn modal-btn-primary"
+              onClick={() =>
+                trackCTAClick(`classes_calendar_add:${session.slug}`, 'classes_register_success')
+              }
+            >
+              <CalendarPlus size={16} />
+              Add all 8 sessions to Google Calendar
+            </a>
+            <a
+              href={`mailto:${session.contact.email}?subject=Question%20about%20${encodeURIComponent(
+                session.shortName,
+              )}`}
+              className="modal-btn modal-btn-secondary"
+              onClick={() =>
+                trackCTAClick(`classes_email_after_register:${session.slug}`, 'classes_register_success')
+              }
+            >
+              <Mail size={15} />
+              Email a question
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );

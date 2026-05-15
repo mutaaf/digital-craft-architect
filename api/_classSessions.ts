@@ -391,7 +391,7 @@ export const CLASS_SESSIONS: ClassSession[] = [
       'Google Search',
       'Other',
     ],
-    formspreeEndpoint: 'https://formspree.io/f/mzzrdzlr',
+    formspreeEndpoint: 'https://formspree.io/f/mojrgdad',
     contact: { email: 'mutaaf@digitalcraftai.com', phone: '(972) 900-0292' },
     social: {
       ogTitle: 'AI Classes at Valley Ranch Library — Summer 2026',
