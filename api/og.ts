@@ -1,6 +1,29 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { CLASS_SESSIONS } from '../src/data/classSessions';
 
 export const config = { maxDuration: 5 };
+
+/** Resolve dynamic OG data for /classes/<slug>(/register)? routes. */
+function resolveClassSessionOg(
+  path: string,
+  origin: string,
+): { title: string; description: string; image: string } | null {
+  const match = path.match(/^\/classes\/([^/]+)(\/register)?\/?$/);
+  if (!match) return null;
+  const slug = match[1];
+  const session = CLASS_SESSIONS.find((s) => s.slug === slug);
+  if (!session) return null;
+  const isRegister = !!match[2];
+  return {
+    title: isRegister
+      ? `Register — ${session.social.ogTitle}`
+      : `${session.social.ogTitle} | Digital Craft`,
+    description: isRegister
+      ? `Register for ${session.social.ogTitle}. ${session.dateLabel} · ${session.location.venue}, ${session.location.city} ${session.location.state}.`
+      : session.social.ogDescription,
+    image: `${origin}/api/og-image?slug=${session.slug}`,
+  };
+}
 
 /** OG meta tags per route — served to link preview crawlers */
 const OG_DATA: Record<string, { title: string; description: string; image?: string }> = {
@@ -59,8 +82,15 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
   const path = (req.query.path as string) || '/';
   const site = req.query.site as string | undefined;
 
+  const origin = `https://${req.headers.host || 'digitalcraftai.com'}`;
+
+  // /classes/<slug> and /classes/<slug>/register get per-session OG with a
+  // dynamically rendered image from /api/og-image.
+  const classOg = resolveClassSessionOg(path, origin);
+
   // Find the best match: exact first, then prefix
   const baseOg =
+    classOg ||
     OG_DATA[path] ||
     OG_DATA[Object.keys(OG_DATA).find((k) => path.startsWith(k + '/')) || ''] ||
     DEFAULT_OG;
@@ -78,7 +108,6 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
       }
     : baseOg;
 
-  const origin = `https://${req.headers.host || 'digitalcraftai.com'}`;
   const image = og.image || DEFAULT_OG.image;
   const fullImage = image?.startsWith('http') ? image : `${origin}${image}`;
   const fullUrl = site ? `${origin}${path}?site=${encodeURIComponent(site)}` : `${origin}${path}`;

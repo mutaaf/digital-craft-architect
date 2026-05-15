@@ -20,6 +20,7 @@ import ExitIntentPopup from '@/components/ExitIntentPopup';
 import LiveChatBubble from '@/components/LiveChatBubble';
 import SocialProofBar from '@/components/SocialProofBar';
 import ScrollProgress from '@/components/ScrollProgress';
+import ClassesPromoBanner from '@/components/ClassesPromoBanner';
 import { Link } from 'react-router-dom';
 import { Loader2, ArrowRight, Brain } from 'lucide-react';
 import { useAnalytics, trackCTAClick, useEngagementTracking } from '@/utils/analytics';
@@ -120,6 +121,7 @@ const Index = () => {
       <CountdownBanner />
       <ScrollProgress />
       <Hero data={content.hero} />
+      <ClassesPromoBanner />
       <div className="bg-primary/5 dark:bg-primary/10 py-3">
         <div className="container mx-auto px-4 text-center">
           <Link

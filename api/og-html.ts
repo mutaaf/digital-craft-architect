@@ -1,8 +1,32 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { readFileSync } from 'fs';
 import { join } from 'path';
+import { CLASS_SESSIONS } from '../src/data/classSessions';
 
 export const config = { maxDuration: 5 };
+
+/** Resolve dynamic OG data for /classes/<slug>(/register)? routes. */
+function resolveClassSessionOg(
+  path: string,
+  origin: string,
+): { t: string; d: string; i: string } | null {
+  const match = path.match(/^\/classes\/([^/]+)(\/register)?\/?$/);
+  if (!match) return null;
+  const slug = match[1];
+  const session = CLASS_SESSIONS.find((s) => s.slug === slug);
+  if (!session) return null;
+  const isRegister = !!match[2];
+  return {
+    t: isRegister
+      ? `Register — ${session.social.ogTitle}`
+      : `${session.social.ogTitle} | Digital Craft`,
+    d: isRegister
+      ? `Register for ${session.social.ogTitle}. ${session.dateLabel} · ${session.location.venue}, ${session.location.city} ${session.location.state}.`
+      : session.social.ogDescription,
+    // Already absolute — point straight at the dynamic image endpoint.
+    i: `${origin}/api/og-image?slug=${session.slug}`,
+  };
+}
 
 const OG: Record<string, { t: string; d: string; i: string }> = {
   '/construction': {
@@ -121,9 +145,15 @@ function getSpaHtml(): string {
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
   const path = (req.query.path as string) || '/';
+  const origin = `https://${req.headers.host || 'digitalcraftai.com'}`;
+
+  // /classes/<slug> + /classes/<slug>/register resolve to per-session OG that
+  // points at the dynamically-rendered /api/og-image endpoint.
+  const classOg = resolveClassSessionOg(path, origin);
 
   // Find best OG match
   const og =
+    classOg ||
     OG[path] ||
     OG[Object.keys(OG).find((k) => path.startsWith(k + '/')) || ''] ||
     null;
@@ -137,8 +167,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     return;
   }
 
-  const origin = `https://${req.headers.host || 'digitalcraftai.com'}`;
-  const fullImage = `${origin}${og.i}`;
+  const fullImage = og.i.startsWith('http') ? og.i : `${origin}${og.i}`;
   const fullUrl = `${origin}${path}`;
 
   // Replace static meta tags with route-specific ones

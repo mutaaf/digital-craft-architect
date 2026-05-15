@@ -33,6 +33,17 @@ function extractBlogSlugs(): string[] {
   return slugs;
 }
 
+function extractClassSessionSlugs(): string[] {
+  const content = readFile(join(SRC, "data", "classSessions.ts"));
+  const slugs: string[] = [];
+  const slugRegex = /slug:\s*['"]([^'"]+)['"]/g;
+  let match: RegExpExecArray | null;
+  while ((match = slugRegex.exec(content)) !== null) {
+    slugs.push(match[1]);
+  }
+  return slugs;
+}
+
 function getPriority(path: string): string {
   if (path === "/") return "1.0";
   if (path === "/ai-for-small-business") return "0.9";
@@ -52,10 +63,15 @@ function getChangefreq(path: string): string {
   return "weekly";
 }
 
-function generateSitemap(routes: string[], blogSlugs: string[]): string {
+function generateSitemap(
+  routes: string[],
+  blogSlugs: string[],
+  classSlugs: string[],
+): string {
   const allPaths = [
     ...routes,
     ...blogSlugs.map((slug) => `/blog/${slug}`),
+    ...classSlugs.flatMap((slug) => [`/classes/${slug}`, `/classes/${slug}/register`]),
   ];
 
   const seen = new Set<string>();
@@ -92,14 +108,15 @@ function run() {
   const appContent = readFile(join(SRC, "App.tsx"));
   const routes = extractStaticRoutes(appContent);
   const blogSlugs = extractBlogSlugs();
+  const classSlugs = extractClassSessionSlugs();
 
-  const sitemap = generateSitemap(routes, blogSlugs);
+  const sitemap = generateSitemap(routes, blogSlugs, classSlugs);
   const outPath = join(ROOT, "public", "sitemap.xml");
   writeFileSync(outPath, sitemap, "utf-8");
 
-  const totalUrls = routes.length + blogSlugs.length + 1; // +1 for CTO subdomain
+  const totalUrls = routes.length + blogSlugs.length + classSlugs.length * 2 + 1;
   console.log(
-    `✓ Sitemap generated with ${totalUrls} URLs (${routes.length} routes + ${blogSlugs.length} blog posts + 1 subdomain) → public/sitemap.xml`
+    `✓ Sitemap generated with ${totalUrls} URLs (${routes.length} routes + ${blogSlugs.length} blog posts + ${classSlugs.length} class sessions × 2 + 1 subdomain) → public/sitemap.xml`
   );
 }
 
