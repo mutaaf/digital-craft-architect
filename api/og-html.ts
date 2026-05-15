@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { readFileSync } from 'fs';
 import { join } from 'path';
-import { CLASS_SESSIONS } from './_classSessions';
+import { CLASS_SESSIONS } from './_classSessions.js';
 
 export const config = { maxDuration: 5 };
 
