@@ -5,11 +5,25 @@ import { CLASS_SESSIONS } from './_classSessions.js';
 
 export const config = { maxDuration: 5 };
 
-/** Resolve dynamic OG data for /classes/<slug>(/register)? routes. */
+/** Resolve dynamic OG data for /classes, /classes/<slug>, and
+ *  /classes/<slug>/register routes. */
 function resolveClassSessionOg(
   path: string,
   origin: string,
 ): { t: string; d: string; i: string } | null {
+  if (path === '/classes' || path === '/classes/') {
+    const upcoming = CLASS_SESSIONS.filter(
+      (s) => new Date(s.endDate).getTime() >= Date.now() && s.status !== 'closed',
+    ).length;
+    return {
+      t: 'AI Classes — In-Person Sessions for Kids, Teens & Adults | Digital Craft',
+      d:
+        upcoming > 0
+          ? `Hands-on, in-person AI classes from Digital Craft. ${upcoming} upcoming session${upcoming === 1 ? '' : 's'}. Taught in libraries and community spaces — youth, adult, and family tracks.`
+          : 'Hands-on, in-person AI classes from Digital Craft. Taught in libraries and community spaces — youth, adult, and family tracks. Sign up to hear about the next session.',
+      i: `${origin}/api/og-image?type=hub`,
+    };
+  }
   const match = path.match(/^\/classes\/([^/]+)(\/register)?\/?$/);
   if (!match) return null;
   const slug = match[1];
@@ -23,7 +37,6 @@ function resolveClassSessionOg(
     d: isRegister
       ? `Register for ${session.social.ogTitle}. ${session.dateLabel} · ${session.location.venue}, ${session.location.city} ${session.location.state}.`
       : session.social.ogDescription,
-    // Already absolute — point straight at the dynamic image endpoint.
     i: `${origin}/api/og-image?slug=${session.slug}`,
   };
 }

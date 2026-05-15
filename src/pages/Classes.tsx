@@ -30,9 +30,7 @@ const Classes: React.FC = () => {
   const upcoming = getUpcomingSessions();
   const past = getPastSessions();
   const hubUrl = `${CANONICAL_ORIGIN}/classes`;
-  const featuredOgImage = upcoming[0]
-    ? `${CANONICAL_ORIGIN}/api/og-image?slug=${upcoming[0].slug}`
-    : `${CANONICAL_ORIGIN}/og-default.png`;
+  const featuredOgImage = `${CANONICAL_ORIGIN}/api/og-image?type=hub`;
 
   useEffect(() => {
     trackCTAClick('classes_hub_view', 'classes_hub');
