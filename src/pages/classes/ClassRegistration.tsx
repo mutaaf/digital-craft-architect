@@ -112,7 +112,7 @@ const ClassRegistration: React.FC<Props> = ({ legacyDefault = false }) => {
         .dca-reg-page .top-band { height:4px; background:linear-gradient(90deg,#2d9b6e,#c9913a,#4a63d4); }
 
         .dca-reg-page .reg-header { background:var(--ink); color:white; padding:32px 40px 28px; position:relative; overflow:hidden; }
-        .dca-reg-page .reg-header::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 80% at 80% 50%, rgba(45,155,110,.15) 0%, transparent 70%); }
+        .dca-reg-page .reg-header::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 80% at 80% 50%, rgba(45,155,110,.15) 0%, transparent 70%); pointer-events:none; }
         .dca-reg-page .header-back { display:inline-flex; align-items:center; gap:6px; color:#c8c2ba; font-size:12px; text-decoration:none; margin-bottom:12px; position:relative; font-family:'DM Mono',monospace; letter-spacing:.08em; text-transform:uppercase; }
         .dca-reg-page .header-back:hover { color:var(--gold); }
         .dca-reg-page .header-tag { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; position:relative; }

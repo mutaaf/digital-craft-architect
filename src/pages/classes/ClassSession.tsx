@@ -128,8 +128,8 @@ const ClassSession: React.FC<Props> = ({ session: sessionProp }) => {
         .dca-classes-page .topbar-cta:hover { background:var(--green); color:white; }
 
         .dca-classes-page .hero { background:var(--ink); color:white; padding:64px 40px 72px; position:relative; overflow:hidden; }
-        .dca-classes-page .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 80% at 80% 50%, rgba(45,155,110,.15) 0%, transparent 70%); }
-        .dca-classes-page .hero::after { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 50% 60% at 10% 100%, rgba(201,145,58,.10) 0%, transparent 70%); }
+        .dca-classes-page .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 80% at 80% 50%, rgba(45,155,110,.15) 0%, transparent 70%); pointer-events:none; }
+        .dca-classes-page .hero::after { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 50% 60% at 10% 100%, rgba(201,145,58,.10) 0%, transparent 70%); pointer-events:none; }
         .dca-classes-page .hero-inner { max-width:980px; margin:0 auto; position:relative; }
         .dca-classes-page .hero-tag { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin-bottom:14px; }
         .dca-classes-page .hero-title { font-family:'Playfair Display',serif; font-size:clamp(34px,6vw,64px); font-weight:900; line-height:1.02; margin-bottom:18px; }
@@ -190,7 +190,7 @@ const ClassSession: React.FC<Props> = ({ session: sessionProp }) => {
 
         .dca-classes-page .cta-block { background:var(--ink); border-radius:18px; padding:48px 40px; text-align:center; color:white; position:relative; overflow:hidden; margin:48px 32px 64px; max-width:980px; }
         .dca-classes-page .cta-block.centered { margin-left:auto; margin-right:auto; }
-        .dca-classes-page .cta-block::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 80% at 80% 50%, rgba(45,155,110,.18) 0%, transparent 70%); }
+        .dca-classes-page .cta-block::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 80% at 80% 50%, rgba(45,155,110,.18) 0%, transparent 70%); pointer-events:none; }
         .dca-classes-page .cta-title { font-family:'Playfair Display',serif; font-size:clamp(24px,3.5vw,32px); font-weight:900; margin-bottom:10px; position:relative; }
         .dca-classes-page .cta-title em { color:var(--gold); font-style:italic; }
         .dca-classes-page .cta-sub { font-size:15px; color:#c8c2ba; max-width:520px; margin:0 auto 22px; line-height:1.6; position:relative; }

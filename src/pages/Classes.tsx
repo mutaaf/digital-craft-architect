@@ -81,7 +81,7 @@ const MultiSessionHub: React.FC = () => {
         .dca-classes-hub .brand em { color:var(--gold); font-style:italic; }
 
         .dca-classes-hub .hero { background:var(--ink); color:white; padding:72px 40px; position:relative; overflow:hidden; }
-        .dca-classes-hub .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 80% at 80% 50%, rgba(45,155,110,.15) 0%, transparent 70%); }
+        .dca-classes-hub .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 80% at 80% 50%, rgba(45,155,110,.15) 0%, transparent 70%); pointer-events:none; }
         .dca-classes-hub .hero-inner { max-width:980px; margin:0 auto; position:relative; }
         .dca-classes-hub .hero-eyebrow { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin-bottom:14px; }
         .dca-classes-hub .hero-title { font-family:'Playfair Display',serif; font-size:clamp(34px,6vw,60px); font-weight:900; line-height:1.05; }
