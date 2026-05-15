@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { CLASS_SESSIONS } from '../src/data/classSessions';
+import { CLASS_SESSIONS } from './_classSessions';
 
 export const config = { maxDuration: 5 };
 

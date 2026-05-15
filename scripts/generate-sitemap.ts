@@ -34,7 +34,9 @@ function extractBlogSlugs(): string[] {
 }
 
 function extractClassSessionSlugs(): string[] {
-  const content = readFile(join(SRC, "data", "classSessions.ts"));
+  // Canonical data lives in api/_classSessions.ts (kept under api/ so
+  // Vercel's serverless bundler can include it locally).
+  const content = readFile(join(ROOT, "api", "_classSessions.ts"));
   const slugs: string[] = [];
   const slugRegex = /slug:\s*['"]([^'"]+)['"]/g;
   let match: RegExpExecArray | null;

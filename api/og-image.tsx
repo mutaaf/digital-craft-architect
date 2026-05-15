@@ -1,5 +1,5 @@
 import { ImageResponse } from '@vercel/og';
-import { CLASS_SESSIONS } from '../src/data/classSessions';
+import { CLASS_SESSIONS } from './_classSessions';
 
 /**
  * Dynamic 1200x630 OG image for class sessions.
