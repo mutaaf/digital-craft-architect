@@ -34,16 +34,11 @@ function extractBlogSlugs(): string[] {
 }
 
 function extractClassSessionSlugs(): string[] {
-  // Canonical data lives in api/_classSessions.ts (kept under api/ so
-  // Vercel's serverless bundler can include it locally).
-  const content = readFile(join(ROOT, "api", "_classSessions.ts"));
-  const slugs: string[] = [];
-  const slugRegex = /slug:\s*['"]([^'"]+)['"]/g;
-  let match: RegExpExecArray | null;
-  while ((match = slugRegex.exec(content)) !== null) {
-    slugs.push(match[1]);
-  }
-  return slugs;
+  // Canonical class data lives in api/_classes.json — adding a session
+  // means appending one object there, no other code changes required.
+  const content = readFile(join(ROOT, "api", "_classes.json"));
+  const data = JSON.parse(content) as Array<{ slug?: string }>;
+  return data.filter((s) => typeof s?.slug === "string").map((s) => s.slug as string);
 }
 
 function getPriority(path: string): string {

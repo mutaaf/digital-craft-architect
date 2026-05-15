@@ -8,6 +8,7 @@
     "skipLibCheck": true,
     "strict": false,
     "noEmit": true,
+    "resolveJsonModule": true,
     "jsx": "react-jsx",
     "lib": ["ES2022", "DOM"],
     "types": ["node"]
