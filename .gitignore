@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Auto-generated from api/_classes.json by scripts/sync-classes-data.ts —
+# regenerated on every `npm run dev` and `npm run build` via the pre-hooks.
+api/_classesData.ts
+
 # Environment files — NEVER commit secrets
 .env
 .env.*

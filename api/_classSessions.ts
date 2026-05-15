@@ -24,9 +24,12 @@
  * React pages keep importing from `@/data/classSessions`.
  */
 
-// Node 22 ESM (Vercel's serverless runtime) requires explicit JSON import
-// attributes. Vite/esbuild on the React side also honors this syntax.
-import classesJson from './_classes.json' with { type: 'json' };
+// Imports from an auto-generated TS file that mirrors api/_classes.json —
+// see scripts/sync-classes-data.ts. We can't import the JSON directly here
+// because (a) Node 22 ESM requires `with { type: 'json' }` but (b) Vercel's
+// serverless bundler can't parse that attribute. A plain TS module sidesteps
+// both constraints.
+import { CLASS_SESSIONS_RAW } from './_classesData.js';
 
 export interface TrackOption {
   key: string;
@@ -116,7 +119,7 @@ export const CANONICAL_ORIGIN = 'https://digitalcraftai.com';
  * The cast is checked at runtime below for the few fields that matter most.
  */
 export const CLASS_SESSIONS: ClassSession[] = (() => {
-  const data = classesJson as unknown as ClassSession[];
+  const data = CLASS_SESSIONS_RAW as unknown as ClassSession[];
   if (!Array.isArray(data)) {
     throw new Error('api/_classes.json must be a JSON array of class sessions');
   }
