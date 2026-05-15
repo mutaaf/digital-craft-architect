@@ -37,6 +37,14 @@
     --ring: 196 80% 57%;
 
     --radius: 0.5rem;
+
+    /* Warm brand accents — used sparingly alongside the primary sky-blue.
+       Pulled in so the in-person AI Classes program (gold/cream/dark-ink
+       palette) doesn't read as a foreign system. */
+    --gold: 34 56% 51%;        /* #c9913a — primary warm accent */
+    --gold-soft: 32 64% 65%;   /* lighter warm accent for backgrounds */
+    --cream: 36 78% 97%;       /* #fdf8f2 — warm off-white */
+    --ink-warm: 24 12% 9%;     /* #1a1714 — warm dark ink */
   }
 
   .dark {

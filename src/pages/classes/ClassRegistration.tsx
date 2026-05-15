@@ -1,11 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, ArrowDown, Check, Clock, Users, Gift } from 'lucide-react';
 import { trackCTAClick, trackFormSubmission } from '@/utils/analytics';
 import {
   CANONICAL_ORIGIN,
   ClassSession,
+  CLASS_SESSIONS,
   getDefaultSession,
   getSessionBySlug,
 } from '@/data/classSessions';
@@ -120,7 +121,7 @@ const ClassRegistration: React.FC<Props> = ({ legacyDefault = false }) => {
         .dca-reg-page .header-meta { display:flex; flex-wrap:wrap; gap:12px; margin-top:16px; position:relative; }
         .dca-reg-page .meta-chip { display:inline-flex; align-items:center; gap:7px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12); border-radius:30px; padding:6px 14px; font-size:12px; color:#c8c2ba; }
 
-        .dca-reg-page .reg-body { max-width:780px; margin:0 auto; padding:36px 24px 60px; }
+        .dca-reg-page .reg-body { max-width:980px; margin:0 auto; padding:36px 24px 60px; }
 
         .dca-reg-page .pricing-summary { display:grid; grid-template-columns:repeat(auto-fill,minmax(155px,1fr)); gap:10px; margin-bottom:8px; }
         .dca-reg-page .ps-card { background:white; border:2px solid var(--rule); border-radius:12px; padding:14px 16px; cursor:pointer; transition:border-color .15s,box-shadow .15s; position:relative; display:block; }
@@ -198,6 +199,97 @@ const ClassRegistration: React.FC<Props> = ({ legacyDefault = false }) => {
           .dca-reg-page .pricing-summary { grid-template-columns:1fr 1fr; }
           .dca-reg-page .qr-section { flex-direction:column; align-items:flex-start; }
         }
+
+        /* === Session tabs === */
+        .dca-reg-page .session-tabs { display:flex; gap:6px; margin-bottom:20px; padding:5px; background:white; border:1px solid var(--rule); border-radius:12px; overflow-x:auto; }
+        .dca-reg-page .session-tab { display:flex; flex-direction:column; gap:2px; padding:10px 16px; border-radius:8px; text-decoration:none; color:var(--mid); white-space:nowrap; transition:background .15s,color .15s; cursor:pointer; border:none; background:transparent; font-family:inherit; text-align:left; flex-shrink:0; }
+        .dca-reg-page .session-tab:hover { background:var(--cream); color:var(--ink); }
+        .dca-reg-page .session-tab.active { background:var(--ink); color:white; }
+        .dca-reg-page .session-tab.active .session-tab-meta { color:rgba(255,255,255,.7); }
+        .dca-reg-page .session-tab-name { font-family:'DM Sans',sans-serif; font-weight:700; font-size:13px; letter-spacing:-.005em; }
+        .dca-reg-page .session-tab-meta { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--mid); }
+
+        /* === Interactive track picker === */
+        .dca-reg-page .picker {
+          display:grid;
+          grid-template-columns:minmax(260px, 320px) 1fr;
+          gap:18px;
+          align-items:start;
+        }
+        .dca-reg-page .picker-list { display:flex; flex-direction:column; gap:8px; }
+        .dca-reg-page .picker-card {
+          background:white;
+          border:2px solid var(--rule);
+          border-radius:11px;
+          padding:14px 16px;
+          cursor:pointer;
+          transition:border-color .15s, box-shadow .15s, transform .12s, background .15s;
+          text-align:left;
+          font-family:inherit;
+          position:relative;
+          display:flex;
+          gap:14px;
+          align-items:center;
+          width:100%;
+        }
+        .dca-reg-page .picker-card:hover { border-color:var(--green-mid); transform:translateY(-1px); }
+        .dca-reg-page .picker-card.selected { border-color:var(--green); background:#f8fdf9; box-shadow:0 0 0 3px rgba(45,155,110,.15); }
+        .dca-reg-page .picker-card-price { font-family:'Playfair Display',serif; font-size:22px; font-weight:900; color:var(--gold); line-height:1; min-width:62px; }
+        .dca-reg-page .picker-card-body { flex:1; min-width:0; }
+        .dca-reg-page .picker-card-name { font-size:13.5px; font-weight:700; color:var(--ink); line-height:1.2; }
+        .dca-reg-page .picker-card-sub { font-size:11.5px; color:var(--mid); margin-top:2px; line-height:1.35; }
+        .dca-reg-page .picker-card-badge { display:inline-block; font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.1em; text-transform:uppercase; background:var(--green); color:white; padding:2px 7px; border-radius:4px; margin-top:6px; font-weight:500; }
+        .dca-reg-page .picker-card-badge.gold { background:var(--gold); }
+        .dca-reg-page .picker-card-check { width:22px; height:22px; border-radius:50%; border:2px solid var(--rule); flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:border-color .15s, background .15s; }
+        .dca-reg-page .picker-card.selected .picker-card-check { border-color:var(--green); background:var(--green); }
+
+        .dca-reg-page .picker-detail {
+          background:linear-gradient(180deg, var(--cream) 0%, white 100%);
+          border:1.5px solid var(--rule);
+          border-radius:14px;
+          padding:24px 26px;
+          position:sticky;
+          top:18px;
+          animation:dca-detail-in .25s ease-out;
+        }
+        @keyframes dca-detail-in {
+          from { opacity:0; transform:translateY(6px); }
+          to { opacity:1; transform:translateY(0); }
+        }
+        .dca-reg-page .picker-detail-eyebrow { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); font-weight:600; margin-bottom:6px; }
+        .dca-reg-page .picker-detail-header { display:flex; flex-wrap:wrap; align-items:baseline; gap:12px; margin-bottom:6px; }
+        .dca-reg-page .picker-detail-price { font-family:'Playfair Display',serif; font-size:38px; font-weight:900; color:var(--gold); line-height:1; }
+        .dca-reg-page .picker-detail-name { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; color:var(--ink); line-height:1.15; }
+        .dca-reg-page .picker-detail-why { font-size:14px; color:var(--mid); line-height:1.6; margin:14px 0 18px; padding:14px 16px; background:white; border-left:3px solid var(--gold); border-radius:6px; }
+        .dca-reg-page .picker-detail-rows { display:flex; flex-direction:column; gap:10px; margin-bottom:18px; }
+        .dca-reg-page .picker-detail-row { display:flex; gap:11px; font-size:13px; color:var(--ink); line-height:1.5; align-items:flex-start; }
+        .dca-reg-page .picker-detail-row svg { color:var(--green); flex-shrink:0; margin-top:1px; }
+        .dca-reg-page .picker-detail-row-label { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--mid); margin-right:4px; }
+        .dca-reg-page .picker-detail-includes { background:white; border:1px solid var(--rule); border-radius:10px; padding:14px 16px; margin-bottom:18px; }
+        .dca-reg-page .picker-detail-includes-label { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--green); font-weight:600; margin-bottom:9px; }
+        .dca-reg-page .picker-detail-includes ul { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:7px; }
+        .dca-reg-page .picker-detail-includes li { display:flex; gap:9px; font-size:13px; color:var(--ink); line-height:1.5; align-items:flex-start; }
+        .dca-reg-page .picker-detail-includes li svg { color:var(--green); flex-shrink:0; margin-top:2px; }
+        .dca-reg-page .picker-detail-continue {
+          width:100%; background:var(--green); color:white; border:none;
+          border-radius:10px; padding:13px 16px; font-family:'DM Sans',sans-serif;
+          font-weight:700; font-size:14px; cursor:pointer; letter-spacing:.01em;
+          display:inline-flex; align-items:center; justify-content:center; gap:8px;
+          transition:background .15s,transform .1s;
+        }
+        .dca-reg-page .picker-detail-continue:hover { background:#155a3c; transform:translateY(-1px); }
+
+        .dca-reg-page .picker-empty {
+          background:white; border:1.5px dashed var(--rule); border-radius:14px;
+          padding:48px 24px; text-align:center; color:var(--mid);
+          font-size:14px; line-height:1.6;
+        }
+        .dca-reg-page .picker-empty-icon { font-size:30px; opacity:.4; margin-bottom:12px; }
+
+        @media(max-width:760px) {
+          .dca-reg-page .picker { grid-template-columns:1fr; }
+          .dca-reg-page .picker-detail { position:static; }
+        }
       `}</style>
 
       <div className="top-band" />
@@ -220,6 +312,26 @@ const ClassRegistration: React.FC<Props> = ({ legacyDefault = false }) => {
       </div>
 
       <div className="reg-body">
+        {CLASS_SESSIONS.length > 1 && (
+          <div className="session-tabs" role="tablist" aria-label="Switch session">
+            {CLASS_SESSIONS.map((s) => (
+              <Link
+                key={s.slug}
+                to={`/classes/${s.slug}/register`}
+                role="tab"
+                aria-selected={s.slug === session.slug}
+                className={`session-tab${s.slug === session.slug ? ' active' : ''}`}
+                onClick={() => trackCTAClick(`classes_register_session_tab:${s.slug}`, 'classes_register_tabs')}
+              >
+                <span className="session-tab-name">{s.shortName.replace(/^AI Classes — /, '')}</span>
+                <span className="session-tab-meta">
+                  {s.seasonLabel} · {s.location.city} {s.location.state}
+                </span>
+              </Link>
+            ))}
+          </div>
+        )}
+
         <div className="qr-section">
           <div className="qr-frame">
             <img src={qrSrc} alt={`QR code linking to the ${session.shortName} registration page`} />
@@ -244,41 +356,125 @@ const ClassRegistration: React.FC<Props> = ({ legacyDefault = false }) => {
             value={`New Registration — ${session.shortName}`}
           />
 
-          {/* STEP 1: TRACK */}
+          {/* STEP 1: TRACK — interactive two-column picker */}
           <div className="form-section">
             <div className="section-title">
               <div className="section-num">1</div>Choose Your Track &amp; Pricing
             </div>
-            <div className="pricing-summary" id="trackSelector">
-              {session.tracks.map((t) => (
-                <label
-                  key={t.key}
-                  className={`ps-card${selectedTrack === t.formLabel ? ' selected' : ''}`}
-                  onClick={() => {
-                    setSelectedTrack(t.formLabel);
-                    setTrackError(false);
-                  }}
-                >
-                  <input
-                    type="radio"
-                    name="_track_radio"
-                    value={t.name}
-                    checked={selectedTrack === t.formLabel}
-                    onChange={() => {
-                      setSelectedTrack(t.formLabel);
-                      setTrackError(false);
-                    }}
-                  />
-                  <div className="ps-price">{t.price}</div>
-                  <div className="ps-name">{t.name}</div>
-                  <div className="ps-note">{t.sub}</div>
-                  {t.badge && (
-                    <div className={`ps-badge${t.badge.tone === 'gold' ? ' gold' : ''}`}>
-                      {t.badge.label}
+            <p style={{ fontSize: 13.5, color: 'var(--mid)', marginTop: -8, marginBottom: 16, lineHeight: 1.6 }}>
+              Click a track on the left to see what's included. {session.tracks.length} options —
+              from drop-in to family.
+            </p>
+            <div className="picker" id="trackSelector">
+              <div className="picker-list" role="radiogroup" aria-label="Class track">
+                {session.tracks.map((t) => {
+                  const isSelected = selectedTrack === t.formLabel;
+                  return (
+                    <button
+                      key={t.key}
+                      type="button"
+                      role="radio"
+                      aria-checked={isSelected}
+                      className={`picker-card${isSelected ? ' selected' : ''}`}
+                      onClick={() => {
+                        setSelectedTrack(t.formLabel);
+                        setTrackError(false);
+                        trackCTAClick(`classes_track_pick:${t.key}`, 'classes_register_picker');
+                      }}
+                    >
+                      <div className="picker-card-price">{t.price}</div>
+                      <div className="picker-card-body">
+                        <div className="picker-card-name">{t.name}</div>
+                        <div className="picker-card-sub">{t.sub}</div>
+                        {t.badge && (
+                          <div className={`picker-card-badge${t.badge.tone === 'gold' ? ' gold' : ''}`}>
+                            {t.badge.label}
+                          </div>
+                        )}
+                      </div>
+                      <div className="picker-card-check" aria-hidden="true">
+                        {isSelected && <Check size={14} strokeWidth={3} color="white" />}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div>
+                {(() => {
+                  const selected = session.tracks.find((t) => t.formLabel === selectedTrack);
+                  if (!selected) {
+                    return (
+                      <div className="picker-empty">
+                        <div className="picker-empty-icon">👈</div>
+                        Pick a track on the left to see what's included, who it's for, and the
+                        full schedule.
+                      </div>
+                    );
+                  }
+                  return (
+                    <div className="picker-detail" key={selected.key}>
+                      <div className="picker-detail-eyebrow">You're choosing</div>
+                      <div className="picker-detail-header">
+                        <div className="picker-detail-price">{selected.price}</div>
+                        <div className="picker-detail-name">{selected.name}</div>
+                      </div>
+                      {selected.detail && (
+                        <>
+                          <div className="picker-detail-why">{selected.detail.whyThis}</div>
+                          <div className="picker-detail-rows">
+                            <div className="picker-detail-row">
+                              <Gift size={16} />
+                              <span>
+                                <span className="picker-detail-row-label">Best for</span>
+                                {selected.detail.bestFor}
+                              </span>
+                            </div>
+                            <div className="picker-detail-row">
+                              <Clock size={16} />
+                              <span>
+                                <span className="picker-detail-row-label">Schedule</span>
+                                {selected.detail.schedule}
+                              </span>
+                            </div>
+                            <div className="picker-detail-row">
+                              <Users size={16} />
+                              <span>
+                                <span className="picker-detail-row-label">Audience</span>
+                                {selected.detail.audience}
+                              </span>
+                            </div>
+                          </div>
+                          <div className="picker-detail-includes">
+                            <div className="picker-detail-includes-label">What's included</div>
+                            <ul>
+                              {selected.detail.includes.map((inc) => (
+                                <li key={inc}>
+                                  <Check size={14} strokeWidth={3} />
+                                  <span>{inc}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </>
+                      )}
+                      <button
+                        type="button"
+                        className="picker-detail-continue"
+                        onClick={() => {
+                          trackCTAClick(`classes_track_continue:${selected.key}`, 'classes_register_picker');
+                          document
+                            .getElementById('contactSection')
+                            ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }}
+                      >
+                        Continue with {selected.name}
+                        <ArrowDown size={15} />
+                      </button>
                     </div>
-                  )}
-                </label>
-              ))}
+                  );
+                })()}
+              </div>
             </div>
             {trackError && (
               <p style={{ color: 'var(--error)', fontSize: '12.5px', marginTop: 8 }}>
@@ -288,7 +484,7 @@ const ClassRegistration: React.FC<Props> = ({ legacyDefault = false }) => {
           </div>
 
           {/* STEP 2: CONTACT */}
-          <div className="form-section">
+          <div className="form-section" id="contactSection">
             <div className="section-title">
               <div className="section-num">2</div>Your Contact Information
             </div>

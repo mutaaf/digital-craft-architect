@@ -67,6 +67,19 @@ export default {
           soft: "#e89862",
         },
         smoke: "#8a847a",
+        // Warm-brand accents — used alongside skyblue/primary on the
+        // marketing site and as the canonical palette for /classes/*.
+        gold: {
+          DEFAULT: "#c9913a",
+          soft: "#e3b06b",
+          light: "#fdf5e8",
+          deep: "#8a5d18",
+        },
+        cream: {
+          DEFAULT: "#fdf8f2",
+          soft: "#fbf3e8",
+        },
+        "ink-warm": "#1a1714",
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -35,6 +35,19 @@ export interface TrackOption {
   formLabel: string;
   /** Whether this track spans the full width on landing/register grids. */
   feature?: boolean;
+  /** Detail content shown in the interactive picker on the register page. */
+  detail?: {
+    /** "Best for" callout line. */
+    bestFor: string;
+    /** Schedule line ("Tuesdays 5:30–6:30 PM · 8 weeks"). */
+    schedule: string;
+    /** Audience age / experience descriptor. */
+    audience: string;
+    /** What's included in this track. */
+    includes: string[];
+    /** Why someone should pick this track. */
+    whyThis: string;
+  };
 }
 
 export interface CurriculumWeek {
@@ -184,13 +197,151 @@ export const CLASS_SESSIONS: ClassSession[] = [
       },
     ],
     tracks: [
-      { key: 'youth-drop', price: '$30', name: 'Youth Drop-In', sub: 'Per session · Ages 10–18', note: 'Try a single Tuesday before committing to the full track.', formLabel: 'Youth Drop-In — $30/session' },
-      { key: 'youth-full', price: '$200', name: 'Youth Full Track', sub: 'All 8 sessions · Ages 10–18', note: 'Best progression — every session builds on the last.', formLabel: 'Youth Full Track — $200 / 8 sessions' },
-      { key: 'youth-eb', price: '$175', name: 'Youth Early Bird', sub: 'All 8 sessions · Limited spots', badge: { label: 'Limited', tone: 'gold' }, note: 'Save $25 when you commit early. First-come, first-served.', formLabel: 'Youth Early Bird — $175 / 8 sessions' },
-      { key: 'adult-drop', price: '$30', name: 'Adult Drop-In', sub: 'Per session', note: 'Sample the curriculum before deciding on a full track.', formLabel: 'Adult Drop-In — $30/session' },
-      { key: 'adult-full', price: '$200', name: 'Adult Full Track', sub: 'All 8 sessions', note: 'Designed for working professionals — bring your real workflows.', formLabel: 'Adult Full Track — $200 / 8 sessions' },
-      { key: 'adult-eb', price: '$175', name: 'Adult Early Bird', sub: 'All 8 sessions · Limited spots', badge: { label: 'Limited', tone: 'gold' }, note: 'Same content as the full track, $25 off for early registrations.', formLabel: 'Adult Early Bird — $175 / 8 sessions' },
-      { key: 'joint', price: '$300', name: 'Joint Track', sub: 'Both sessions · 8 weeks', badge: { label: 'Best for Families', tone: 'green' }, note: 'Parent and child learn side-by-side. Includes the 10% sibling discount when applicable.', formLabel: 'Joint Track (Youth + Adult) — $300 / 8 sessions', feature: true },
+      {
+        key: 'youth-drop',
+        price: '$30',
+        name: 'Youth Drop-In',
+        sub: 'Per session · Ages 10–18',
+        note: 'Try a single Tuesday before committing to the full track.',
+        formLabel: 'Youth Drop-In — $30/session',
+        detail: {
+          bestFor: 'Curious students testing the waters',
+          schedule: 'Tuesdays 5:30–6:30 PM · Pay per session',
+          audience: 'Ages 10–18 · No experience required',
+          includes: [
+            'One 60-minute session of your choice',
+            'Live, in-person instruction with hands-on activities',
+            'Take-home prompt sheet for that week',
+            'Pay only for the weeks you attend',
+          ],
+          whyThis: "Perfect if you're not sure yet whether the full 8 weeks is right for you. Show up, try it, decide after.",
+        },
+      },
+      {
+        key: 'youth-full',
+        price: '$200',
+        name: 'Youth Full Track',
+        sub: 'All 8 sessions · Ages 10–18',
+        note: 'Best progression — every session builds on the last.',
+        formLabel: 'Youth Full Track — $200 / 8 sessions',
+        detail: {
+          bestFor: 'Students serious about building real AI skills',
+          schedule: 'Tuesdays 5:30–6:30 PM · 8 weeks · June 16 – August 4',
+          audience: 'Ages 10–18 · No experience required',
+          includes: [
+            'All 8 sessions (60 min each)',
+            'Weekly take-home exercises with feedback',
+            'Capstone project + Week 8 showcase',
+            'Certificate of completion',
+            'Session recap notes if you miss a week',
+          ],
+          whyThis: "The curriculum is sequenced — Week 8 is only possible if you've done Weeks 1–7. Saves $40 vs. drop-in.",
+        },
+      },
+      {
+        key: 'youth-eb',
+        price: '$175',
+        name: 'Youth Early Bird',
+        sub: 'All 8 sessions · Limited spots',
+        badge: { label: 'Limited', tone: 'gold' },
+        note: 'Save $25 when you commit early. First-come, first-served.',
+        formLabel: 'Youth Early Bird — $175 / 8 sessions',
+        detail: {
+          bestFor: 'Families ready to commit before seats fill',
+          schedule: 'Tuesdays 5:30–6:30 PM · 8 weeks · June 16 – August 4',
+          audience: 'Ages 10–18 · No experience required',
+          includes: [
+            'Everything in the Full Track',
+            '$25 off — paid in full at registration',
+            'Priority seat selection if the class fills',
+          ],
+          whyThis: 'Same exact program as Full Track, $25 cheaper. Seats are limited and go in registration order — this price disappears when they fill.',
+        },
+      },
+      {
+        key: 'adult-drop',
+        price: '$30',
+        name: 'Adult Drop-In',
+        sub: 'Per session',
+        note: 'Sample the curriculum before deciding on a full track.',
+        formLabel: 'Adult Drop-In — $30/session',
+        detail: {
+          bestFor: 'Professionals scoping the program before committing',
+          schedule: 'Tuesdays 6:30–7:30 PM · Pay per session',
+          audience: 'Adults · All experience levels welcome',
+          includes: [
+            'One 60-minute session of your choice',
+            'Live, in-person instruction tailored to working professionals',
+            'Take-home prompt sheet for that week',
+            'Pay only for the weeks you attend',
+          ],
+          whyThis: "Good fit if your schedule is uncertain. Walk in, see if it's for you, register for the full track after if you want.",
+        },
+      },
+      {
+        key: 'adult-full',
+        price: '$200',
+        name: 'Adult Full Track',
+        sub: 'All 8 sessions',
+        note: 'Designed for working professionals — bring your real workflows.',
+        formLabel: 'Adult Full Track — $200 / 8 sessions',
+        detail: {
+          bestFor: 'Working professionals who want AI fluency for real work',
+          schedule: 'Tuesdays 6:30–7:30 PM · 8 weeks · June 16 – August 4',
+          audience: 'Adults · All experience levels welcome',
+          includes: [
+            'All 8 sessions (60 min each)',
+            'Weekly workflows you can apply to your job immediately',
+            'Capstone: an AI workflow built for your real work',
+            'Certificate of completion',
+            'Session recap notes if you miss a week',
+          ],
+          whyThis: 'Each week we take real tasks (email, research, scheduling, documents) and rebuild them with AI. By Week 8 you have working systems, not just notes.',
+        },
+      },
+      {
+        key: 'adult-eb',
+        price: '$175',
+        name: 'Adult Early Bird',
+        sub: 'All 8 sessions · Limited spots',
+        badge: { label: 'Limited', tone: 'gold' },
+        note: 'Same content as the full track, $25 off for early registrations.',
+        formLabel: 'Adult Early Bird — $175 / 8 sessions',
+        detail: {
+          bestFor: 'Adults who know they want in — committing early',
+          schedule: 'Tuesdays 6:30–7:30 PM · 8 weeks · June 16 – August 4',
+          audience: 'Adults · All experience levels welcome',
+          includes: [
+            'Everything in the Full Track',
+            '$25 off — paid in full at registration',
+            'Priority seat selection if the class fills',
+          ],
+          whyThis: 'Identical program to Full Track, $25 cheaper. Capped at a fixed number of seats — this price ends when those are claimed.',
+        },
+      },
+      {
+        key: 'joint',
+        price: '$300',
+        name: 'Joint Track',
+        sub: 'Both sessions · 8 weeks',
+        badge: { label: 'Best for Families', tone: 'green' },
+        note: 'Parent and child learn side-by-side. Includes the 10% sibling discount when applicable.',
+        formLabel: 'Joint Track (Youth + Adult) — $300 / 8 sessions',
+        feature: true,
+        detail: {
+          bestFor: 'Parent + child learning AI together',
+          schedule: 'Tuesdays 5:30–7:30 PM (back-to-back) · 8 weeks',
+          audience: 'One youth (10–18) + one adult, from the same family',
+          includes: [
+            'All 8 weeks of BOTH the youth and adult sessions',
+            'Two seats — one in each hour',
+            'Shared family take-home challenge each week',
+            '10% sibling discount applied automatically if you add a second youth',
+            'Two certificates of completion',
+          ],
+          whyThis: "The fastest way to make AI stick at home — when both generations speak the same language about it, kids actually use what they learn. Saves $100 vs. buying both Full Tracks separately.",
+        },
+      },
     ],
     curriculum: [
       { week: 'Week 1', title: 'Meet Your AI', body: "Set up Claude Pro on your laptop. Learn what AI actually does — and what it can't. First prompt, first project." },
