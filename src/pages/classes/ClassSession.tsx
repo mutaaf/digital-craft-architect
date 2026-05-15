@@ -7,6 +7,7 @@ import {
   ClassSession as ClassSessionData,
   getSessionBySlug,
 } from '@/data/classSessions';
+import AddToCalendar from '@/components/AddToCalendar';
 
 /**
  * Renders the public landing page for a single in-person class session.
@@ -324,6 +325,11 @@ const ClassSession: React.FC<Props> = ({ session: sessionProp }) => {
             </div>
           ))}
         </div>
+      </section>
+
+      {/* SAVE THE DATES — promotional touchpoint for soft conversion */}
+      <section className="section" style={{ paddingTop: 16, paddingBottom: 16 }}>
+        <AddToCalendar session={session} variant="promo" source="classes_landing_add_to_calendar" />
       </section>
 
       {/* REQUIREMENTS */}

@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { ArrowLeft, ArrowDown, Check, Clock, Users, Gift, CalendarPlus, X, Mail, MapPin, AlertCircle } from 'lucide-react';
+import { ArrowLeft, ArrowDown, Check, Clock, Users, Gift, X, Mail, MapPin, AlertCircle } from 'lucide-react';
+import AddToCalendar from '@/components/AddToCalendar';
 import { trackCTAClick, trackFormSubmission } from '@/utils/analytics';
 import {
   CANONICAL_ORIGIN,
@@ -130,30 +131,9 @@ const ClassRegistration: React.FC<Props> = ({ legacyDefault = false }) => {
     }
   };
 
-  // Plain computed values (called after the early-return guard above — so
-  // not wrapped in useMemo, which would have to live above the guard and
-  // violate rules-of-hooks).
-  const calendarUrl = (() => {
-    const fmt = (iso: string) =>
-      new Date(iso).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
-    const startDate = new Date(session.startDate);
-    const endTime = (session.scheduleEndTime ?? '19:30').split(':');
-    const firstSessionEnd = new Date(startDate);
-    firstSessionEnd.setHours(Number(endTime[0]), Number(endTime[1]), 0, 0);
-    const untilFmt = new Date(session.endDate)
-      .toISOString()
-      .replace(/[-:]/g, '')
-      .replace(/\.\d{3}/, '');
-    const params = new URLSearchParams({
-      action: 'TEMPLATE',
-      text: session.shortName,
-      dates: `${fmt(session.startDate)}/${fmt(firstSessionEnd.toISOString())}`,
-      details: `${session.social.ogDescription}\n\nDetails & schedule: ${CANONICAL_ORIGIN}/classes/${session.slug}`,
-      location: `${session.location.venue}, ${session.location.city}, ${session.location.state}`,
-      recur: `RRULE:FREQ=WEEKLY;BYDAY=TU;UNTIL=${untilFmt}`,
-    });
-    return `https://calendar.google.com/calendar/render?${params.toString()}`;
-  })();
+  // Add-to-calendar URLs now live in src/lib/calendarLinks.ts and are used
+  // by the multi-provider AddToCalendar component — no per-render URL math
+  // needed here anymore.
 
   const firstSessionLabel = (() => {
     const d = new Date(session.startDate);
@@ -992,7 +972,6 @@ const ClassRegistration: React.FC<Props> = ({ legacyDefault = false }) => {
         <RegistrationSuccessModal
           data={submissionData}
           session={session}
-          calendarUrl={calendarUrl}
           firstSessionLabel={firstSessionLabel}
           onClose={() => setSubmissionState('idle')}
         />
@@ -1010,7 +989,6 @@ interface SuccessModalProps {
     trackPrice: string;
   };
   session: ClassSession;
-  calendarUrl: string;
   firstSessionLabel: string;
   onClose: () => void;
 }
@@ -1018,7 +996,6 @@ interface SuccessModalProps {
 const RegistrationSuccessModal: React.FC<SuccessModalProps> = ({
   data,
   session,
-  calendarUrl,
   firstSessionLabel,
   onClose,
 }) => {
@@ -1129,18 +1106,11 @@ const RegistrationSuccessModal: React.FC<SuccessModalProps> = ({
           </div>
 
           <div className="modal-actions">
-            <a
-              href={calendarUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="modal-btn modal-btn-primary"
-              onClick={() =>
-                trackCTAClick(`classes_calendar_add:${session.slug}`, 'classes_register_success')
-              }
-            >
-              <CalendarPlus size={16} />
-              Add all 8 sessions to Google Calendar
-            </a>
+            <AddToCalendar
+              session={session}
+              variant="modal"
+              source="classes_register_success_calendar"
+            />
             <a
               href={`mailto:${session.contact.email}?subject=Question%20about%20${encodeURIComponent(
                 session.shortName,
