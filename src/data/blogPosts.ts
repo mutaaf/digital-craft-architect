@@ -52,6 +52,68 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'construction-roi-cut-response-time-92-percent-case-study',
+    title: 'Real ROI: How a Construction Company Cut Response Time by 92% With AI',
+    description: 'An anonymized case study of a regional contractor that slashed lead response time, recovered after-hours inquiries, and booked more estimates with AI automation.',
+    date: '2026-05-20',
+    author: 'DigitalCraft AI',
+    readTime: '6 min read',
+    tags: ['Construction', 'Case Study', 'Lead Response'],
+    content: `
+<p>This is a case study about a real problem, written with the numbers anonymized at the company's request. The business is a regional <a href="/construction">construction</a> firm doing residential remodels and light commercial work, roughly 30 employees, one office manager fielding inbound leads alongside a dozen other duties. The pattern they were stuck in is one we see in nearly every contractor we talk to: leads were coming in faster than anyone could answer them.</p>
+
+<h2>The Starting Point: A Three-Hour Hole</h2>
+
+<p>Before any automation, the company's blended first-response time, measured across web forms, missed calls, and email inquiries, averaged 3 hours and 8 minutes. That number hid a worse reality. Anything that arrived after 5pm or on a weekend often sat untouched until the next business morning. Roughly a third of their inbound volume landed outside office hours.</p>
+
+<p>The cost was not abstract. The office manager estimated the team was reaching about 4 in 10 new inquiries before the prospect had already called a competitor. Homeowners shopping a kitchen remodel do not wait. They fill out three forms, and whoever calls back first usually wins the estimate appointment.</p>
+
+<h2>What They Changed</h2>
+
+<p>They did not hire an evening shift or buy a bloated CRM. They put an AI lead responder in front of every inbound channel. The setup was deliberately narrow:</p>
+
+<ul>
+  <li>Every web form submission and missed call triggers an instant AI reply, by text and email, within seconds.</li>
+  <li>The assistant qualifies the lead in plain conversation: project type, rough budget range, timeline, and address for service area.</li>
+  <li>High-intent, in-area leads are offered a same-day or next-day estimate slot. Out-of-scope inquiries get a polite, helpful deflection so the human team never wastes time on them.</li>
+  <li>A clean summary of every qualified lead lands in the office manager's inbox, ready to action.</li>
+</ul>
+
+<p>You can try the same lead responder the firm uses on our <a href="/construction/demo/lead-responder">construction lead responder demo</a>, customized to your own company in a couple of minutes.</p>
+
+<h2>The Results After 90 Days</h2>
+
+<p>The headline metric: blended first-response time fell from 3 hours and 8 minutes to about 15 minutes, a reduction of roughly 92%. The AI itself acknowledges most leads in under a minute. The reason the blended average is 15 minutes and not 15 seconds is that complex commercial inquiries still route to a human, and those pull the average up. That tradeoff is intentional and honest.</p>
+
+<p>Three other numbers moved alongside it:</p>
+
+<ol>
+  <li><strong>After-hours capture.</strong> The roughly one-third of inquiries arriving outside business hours went from mostly cold the next morning to fully qualified and often pre-scheduled.</li>
+  <li><strong>Speed-to-contact rate.</strong> The share of leads reached before they engaged a competitor climbed from about 40% to the high 80s.</li>
+  <li><strong>Estimate bookings.</strong> With faster, consistent follow-up, booked estimates per 100 inbound leads rose by a little under a third.</li>
+</ol>
+
+<h2>Why the Math Works</h2>
+
+<p>Speed-to-lead is one of the most studied numbers in sales for a reason. The drop-off between a 5-minute response and a 1-hour response is steep, and it gets brutal past a few hours. For a contractor whose average job is worth thousands of dollars, recovering even a handful of lost estimates a month pays for the automation many times over.</p>
+
+<p>That is the part owners underestimate. This is not a cost-cutting play, it is a revenue-recovery play. The leads were already being paid for through ads, referrals, and reputation. They were simply leaking out the bottom of the funnel while the team was busy or asleep.</p>
+
+<h2>Run Your Own Numbers</h2>
+
+<p>The honest answer to "would this work for us" is that it depends on your lead volume, close rate, and average job value. So rather than ask you to trust this one company's results, plug your own figures into our <a href="/construction#roi-calculator">construction ROI calculator</a>. It will show you the hours saved and the added revenue at your scale, with no email required.</p>
+
+<p>If the numbers look compelling, the next step is a conversation about what your version of this would look like.</p>
+
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to plug the leak in your lead funnel?</strong>
+  <p style="margin: 8px 0;">See what instant, qualified lead response looks like for your construction business, personalized to your services, service area, and tone.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/construction/demo">Try Our Live Demos</a>
+</div>
+`,
+  },
+  {
     slug: 'ai-event-planners-after-hours-inquiry-capture-2026',
     title: 'Why Event Planners Lose 30% of Inquiries After 6pm (and How to Fix It)',
     description: 'Couples and corporate clients submit event inquiries late. AI captures, qualifies, and follow-up-books them while your team is off the clock.',

@@ -84,7 +84,7 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({ vertical = 'construction'
   ];
 
   return (
-    <section className="container-section">
+    <section id="roi-calculator" className="container-section">
       <div className="text-center mb-12 animate-fade-in">
         <div className="inline-flex items-center gap-2 bg-primary/10 dark:bg-primary/20 text-primary px-4 py-1.5 rounded-full text-sm font-medium mb-4">
           <Calculator className="w-4 h-4" />
