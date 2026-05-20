@@ -47,6 +47,7 @@ import SalonDemoHub from "./pages/salon/DemoHub";
 import AutoRepair from "./pages/AutoRepair";
 import AutoRepairDemoHub from "./pages/autorepair/DemoHub";
 import Industries from "./pages/Industries";
+import Glossary from "./pages/Glossary";
 import HubSpotComparison from "./pages/compare/HubSpot";
 import GoHighLevelComparison from "./pages/compare/GoHighLevel";
 import ZapierComparison from "./pages/compare/Zapier";
@@ -249,6 +250,7 @@ const App = () => (
               <Route path="/autorepair/demo/estimate" element={<DemoContextProvider vertical="autorepair"><EstimateGenerator /></DemoContextProvider>} />
               <Route path="/autorepair/demo/voice-reminder" element={<DemoContextProvider vertical="autorepair"><VoiceNegotiator /></DemoContextProvider>} />
               <Route path="/industries" element={<Industries />} />
+              <Route path="/glossary" element={<Glossary />} />
               <Route path="/compare/hubspot" element={<HubSpotComparison />} />
               <Route path="/compare/gohighlevel" element={<GoHighLevelComparison />} />
               <Route path="/compare/zapier" element={<ZapierComparison />} />
