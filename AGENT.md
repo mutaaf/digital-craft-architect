@@ -298,7 +298,7 @@ Each new vertical follows the established pattern: landing page (`src/pages/[Ver
 
 - [x] DEMO-LEAD-SCORING: Create `src/pages/construction/LeadScoring.tsx` — demo that lets user paste lead info (from a form submission) and scores it 1-100 with reasoning (budget fit, urgency signals, decision-maker status). Add to Construction DemoHub. Route: `/construction/demo/lead-scoring`. *(completed 2026-05-20)*
 
-- [ ] DEMO-VIDEO-PLACEHOLDERS: On each demo hub, add short placeholder video cards (30-60s explainer) above the interactive demos. Use `<video>` tag with poster image. Videos can be stub/coming-soon initially but card shape preserves layout for when real videos ship.
+- [x] DEMO-VIDEO-PLACEHOLDERS: On each demo hub, add short placeholder video cards (30-60s explainer) above the interactive demos. Use `<video>` tag with poster image. Videos can be stub/coming-soon initially but card shape preserves layout for when real videos ship. *(completed 2026-05-20)*
 
 ### TIER 9 — SEO + Content Expansion
 
