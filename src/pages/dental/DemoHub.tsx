@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { trackDemoClick, trackCTAClick } from '@/utils/analytics';
 import StickyCTA from '@/components/StickyCTA';
+import DemoVideoCards from '@/components/DemoVideoCards';
 
 const DentalDemoHub = () => {
   const { company, isCustomized, loadFromUrl, isLoading } = useDemoContext();
@@ -152,6 +153,8 @@ const DentalDemoHub = () => {
             </p>
           </div>
         </section>
+
+        <DemoVideoCards vertical="Dental" />
 
         <div className="grid gap-6">
           {demos.map((d, i) => (
