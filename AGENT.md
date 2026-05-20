@@ -10,20 +10,22 @@ You ship through pull requests, not direct pushes. `main` is protected; the PR i
 
 1. `git checkout main && git pull` so you start from the merged state.
 
-2. **Single-PR-at-a-time gate.** Check for an open agent PR:
+2. **Read LESSONS.md.** Every entry is a mistake a past run made and a rule to follow now. Apply every rule in this run — past mistakes do not repeat. The groomer agent maintains this file; you only read it.
+
+3. **Single-PR-at-a-time gate.** Check for an open agent PR:
    ```
    gh pr list --state open --label gtm-agent --json number,headRefName \
      --jq '[.[] | .number] | .[0] // empty'
    ```
    If non-empty, print "agent PR #N already open — exiting" and stop. Don't pick a new task; let the reviewer process the existing one first.
 
-3. **Self-healing first.** Run the full local check suite (step 6) on `main` *before* picking a task. If anything fails on `main`, your ONE task this run is to fix it — do not add features on top of broken main. Branch as `gtm/heal-<check-name>-$(date +%Y%m%d)`, fix, ship the heal PR, stop. If everything passes, proceed to step 4.
+4. **Self-healing first.** Run the full local check suite (step 7) on `main` *before* picking a task. If anything fails on `main`, your ONE task this run is to fix it — do not add features on top of broken main. Branch as `gtm/heal-<check-name>-$(date +%Y%m%d)`, fix, ship the heal PR, stop. If everything passes, proceed to step 5.
 
-4. Read this file — find the first unchecked `[ ]` item in the backlog. Create a working branch: `git checkout -b gtm/<TASK-ID>-$(date +%Y%m%d)`.
+5. Read this file — find the first unchecked `[ ]` item in the backlog. Create a working branch: `git checkout -b gtm/<TASK-ID>-$(date +%Y%m%d)`.
 
-5. Implement that item following the detailed description.
+6. Implement that item following the detailed description.
 
-6. Run the full local check suite — ALL must pass before you proceed:
+7. Run the full local check suite — ALL must pass before you proceed:
    - `npm run lint`
    - `npm run check-links`
    - `npm run check-images`
@@ -33,11 +35,11 @@ You ship through pull requests, not direct pushes. `main` is protected; the PR i
    - `npm run test:e2e` (smoke — every route loads with no uncaught JS error against the prod bundle)
 
    If any fail, fix the cause (not the check). If you genuinely cannot, mark the item `[~]` in this file, abandon the branch (`git checkout main && git branch -D <branch>`), and move to the next item.
-7. Mark the backlog item `[x]` in this file with today's date (`date +%Y-%m-%d`).
-8. Commit all changes (implementation + this file) with message: `gtm(TASK-ID): description`.
-9. Push the branch: `git push -u origin gtm/<TASK-ID>-$(date +%Y%m%d)`.
-10. **Run the Self-Review pass** (see "Self-Review" section below). If it returns `BLOCK`, fix the cited issues, re-run step 6's checks, amend or add commits, and re-run Self-Review. Only proceed when it returns `OK`.
-11. Open the PR:
+8. Mark the backlog item `[x]` in this file with today's date (`date +%Y-%m-%d`).
+9. Commit all changes (implementation + this file) with message: `gtm(TASK-ID): description`.
+10. Push the branch: `git push -u origin gtm/<TASK-ID>-$(date +%Y%m%d)`.
+11. **Run the Self-Review pass** (see "Self-Review" section below). If it returns `BLOCK`, fix the cited issues, re-run step 7's checks, amend or add commits, and re-run Self-Review. Only proceed when it returns `OK`.
+12. Open the PR:
     ```
     gh pr create --label gtm-agent \
       --title "gtm(<TASK-ID>): <description>" \
@@ -56,8 +58,8 @@ You ship through pull requests, not direct pushes. `main` is protected; the PR i
     BODY
     )"
     ```
-12. Wait for CI in-process: `gh pr checks --watch`
-13. Handoff to the reviewer agent:
+13. Wait for CI in-process: `gh pr checks --watch`
+14. Handoff to the reviewer agent:
     - If `gh pr checks --watch` exited non-zero (any check failed), comment on the PR with the failure summary, run `gh pr edit --add-label needs-human`, and stop. Do not delete the branch. Do not merge.
     - If CI is green, you are done. **Do NOT merge.** The `gtm-reviewer` scheduled agent runs ~30 minutes after you (`30 8 * * 1,3`); it reviews your PR with an independent rubric and either merges it or labels it `needs-human`. Do not poll for the reviewer's verdict; do not pick up another task this run; just stop.
 
