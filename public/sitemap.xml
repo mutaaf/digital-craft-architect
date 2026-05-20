@@ -36,6 +36,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://digitalcraftai.com/construction/demo/lead-scoring</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://digitalcraftai.com/construction/demo/reviews</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
