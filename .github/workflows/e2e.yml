@@ -4,8 +4,39 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: read
+  pull-requests: read
+
 jobs:
+  # Decide whether the smoke suite needs to run. Blog-only / docs-only PRs
+  # don't change any route, so they don't need a 1-2 min build + browser run.
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      runtime: ${{ steps.filter.outputs.runtime }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            runtime:
+              - 'src/**'
+              - '!src/data/blogPosts.ts'
+              - 'index.html'
+              - 'package.json'
+              - 'package-lock.json'
+              - 'vite.config.ts'
+              - 'tailwind.config.ts'
+              - 'tsconfig*.json'
+              - 'playwright.config.ts'
+              - 'tests/e2e/**'
+              - '.github/workflows/e2e.yml'
+
   smoke:
+    needs: changes
+    if: needs.changes.outputs.runtime == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -37,3 +68,19 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 7
+
+  # Make `smoke` a required check by giving non-runtime PRs a passing
+  # placeholder job under the same name umbrella. Branch protection can
+  # require `smoke-required` and it'll always exist.
+  smoke-required:
+    needs: [changes, smoke]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: gate
+        run: |
+          if [ "${{ needs.changes.outputs.runtime }}" = "true" ] && [ "${{ needs.smoke.result }}" != "success" ]; then
+            echo "smoke required but did not pass"
+            exit 1
+          fi
+          echo "smoke gate satisfied"
