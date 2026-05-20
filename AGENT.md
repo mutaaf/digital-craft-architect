@@ -339,7 +339,7 @@ Each new vertical follows the established pattern: landing page (`src/pages/[Ver
 
 - [ ] BLOG-POST-SETUP-TIME: Add blog post: "From Sign-Up to Live in 48 Hours: The DCA Implementation Playbook". Target keywords: "AI implementation", "fast AI setup", "AI deployment timeline". Link to `/contact` and `/industries`.
 
-- [ ] GLOSSARY-PAGE: Create `src/pages/Glossary.tsx` with definitions for 30+ AI + industry terms (LLM, RAG, Voice AI, Lead Scoring, CRM, Speed-to-Lead, etc.). Route: `/glossary`. Each term anchored with ID for deep linking. Adds SEO surface area.
+- [x] GLOSSARY-PAGE: Create `src/pages/Glossary.tsx` with definitions for 30+ AI + industry terms (LLM, RAG, Voice AI, Lead Scoring, CRM, Speed-to-Lead, etc.). Route: `/glossary`. Each term anchored with ID for deep linking. Adds SEO surface area. *(completed 2026-05-20)*
 
 - [ ] LOCATION-PAGES-TEXAS: Create `src/pages/locations/Texas.tsx` — Texas-specific construction + RE landing page with state-relevant stats, cities (Dallas, Houston, Austin), and local testimonial placeholders. Route: `/locations/texas`. Target keywords: "AI automation Texas", "construction AI Dallas", "Texas real estate AI".
 
