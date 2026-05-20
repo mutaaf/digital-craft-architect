@@ -296,7 +296,7 @@ Each new vertical follows the established pattern: landing page (`src/pages/[Ver
 
 - [x] DEMO-REVIEW-RESPONDER-V2: Enhance `src/pages/construction/ReviewSystem.tsx` to add a "Smart Reply Generator" mode — paste any review (positive or negative) and get 3 suggested responses in different tones (professional, warm, apologetic). Reuses existing GPT-4o proxy pattern. *(completed 2026-05-07)*
 
-- [ ] DEMO-LEAD-SCORING: Create `src/pages/construction/LeadScoring.tsx` — demo that lets user paste lead info (from a form submission) and scores it 1-100 with reasoning (budget fit, urgency signals, decision-maker status). Add to Construction DemoHub. Route: `/construction/demo/lead-scoring`.
+- [x] DEMO-LEAD-SCORING: Create `src/pages/construction/LeadScoring.tsx` — demo that lets user paste lead info (from a form submission) and scores it 1-100 with reasoning (budget fit, urgency signals, decision-maker status). Add to Construction DemoHub. Route: `/construction/demo/lead-scoring`. *(completed 2026-05-20)*
 
 - [ ] DEMO-VIDEO-PLACEHOLDERS: On each demo hub, add short placeholder video cards (30-60s explainer) above the interactive demos. Use `<video>` tag with poster image. Videos can be stub/coming-soon initially but card shape preserves layout for when real videos ship.
 

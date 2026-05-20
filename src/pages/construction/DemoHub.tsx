@@ -17,6 +17,7 @@ import {
   Phone,
   FileText,
   MessageCircle,
+  Gauge,
 } from 'lucide-react';
 import { trackDemoClick, trackCTAClick } from '@/utils/analytics';
 import StickyCTA from '@/components/StickyCTA';
@@ -87,6 +88,14 @@ const DemoHub = () => {
       description: `Enter a lead's name and project type — get a 5-message SMS drip sequence with timing, personalized for ${possessive} business.`,
       tags: ['GPT-4o', 'Lead Nurture'],
       color: 'bg-teal-50 dark:bg-teal-900/20 text-teal-600',
+    },
+    {
+      to: '/construction/demo/lead-scoring',
+      icon: <Gauge size={28} />,
+      title: 'AI Lead Scoring',
+      description: `Paste a lead from a form or voicemail and get an instant 1 to 100 priority score with reasoning on budget fit, urgency, and decision-maker status, so ${possessive} team calls the hottest leads first.`,
+      tags: ['GPT-4o', 'Lead Prioritization'],
+      color: 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600',
     },
     {
       to: '/construction/demo/property-negotiator',
