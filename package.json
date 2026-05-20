@@ -17,7 +17,9 @@
     "sitemap": "npx tsx scripts/generate-sitemap.ts",
     "check-meta": "npx tsx scripts/check-meta.ts",
     "check-blog-dates": "npx tsx scripts/check-blog-dates.ts",
-    "rss": "npx tsx scripts/generate-rss.ts"
+    "rss": "npx tsx scripts/generate-rss.ts",
+    "test:e2e": "playwright test",
+    "test:e2e:install": "playwright install chromium"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.0",
@@ -78,6 +80,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
+    "@playwright/test": "^1.60.0",
     "@tailwindcss/typography": "^0.5.15",
     "@types/node": "^22.5.5",
     "@types/react": "^18.3.3",
