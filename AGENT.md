@@ -341,7 +341,7 @@ Each new vertical follows the established pattern: landing page (`src/pages/[Ver
 
 - [x] GLOSSARY-PAGE: Create `src/pages/Glossary.tsx` with definitions for 30+ AI + industry terms (LLM, RAG, Voice AI, Lead Scoring, CRM, Speed-to-Lead, etc.). Route: `/glossary`. Each term anchored with ID for deep linking. Adds SEO surface area. *(completed 2026-05-20)*
 
-- [ ] LOCATION-PAGES-TEXAS: Create `src/pages/locations/Texas.tsx` — Texas-specific construction + RE landing page with state-relevant stats, cities (Dallas, Houston, Austin), and local testimonial placeholders. Route: `/locations/texas`. Target keywords: "AI automation Texas", "construction AI Dallas", "Texas real estate AI".
+- [x] LOCATION-PAGES-TEXAS: Create `src/pages/locations/Texas.tsx` — Texas-specific construction + RE landing page with state-relevant stats, cities (Dallas, Houston, Austin), and local testimonial placeholders. Route: `/locations/texas`. Target keywords: "AI automation Texas", "construction AI Dallas", "Texas real estate AI". *(completed 2026-05-20)*
 
 - [ ] CASE-STUDY-PAGES: Create `src/pages/case-studies/[slug].tsx` route structure and 3 individual case study pages (one per main vertical) with deeper detail than the existing CaseStudies carousel. Route: `/case-studies/:slug`. Link from homepage case studies section.
 
