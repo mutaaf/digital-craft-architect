@@ -19,6 +19,7 @@ import ParallaxBackground from '@/components/ParallaxBackground';
 import StickyCTA from '@/components/StickyCTA';
 import ExitIntentPopup from '@/components/ExitIntentPopup';
 import LiveChatBubble from '@/components/LiveChatBubble';
+import ReturnVisitorBanner from '@/components/ReturnVisitorBanner';
 import SocialProofBar from '@/components/SocialProofBar';
 import ScrollProgress from '@/components/ScrollProgress';
 import ClassesPromoBanner from '@/components/ClassesPromoBanner';
@@ -122,6 +123,7 @@ const Index = () => {
       <CountdownBanner />
       <ScrollProgress />
       <Hero data={content.hero} />
+      <ReturnVisitorBanner />
       <ClassesPromoBanner />
       <div className="bg-primary/5 dark:bg-primary/10 py-3">
         <div className="container mx-auto px-4 text-center">

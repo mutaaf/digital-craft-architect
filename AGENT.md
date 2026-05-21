@@ -347,7 +347,7 @@ Each new vertical follows the established pattern: landing page (`src/pages/[Ver
 
 ### TIER 10 — Personalization + Retention
 
-- [ ] RETURN-VISITOR-BANNER: Create `src/components/ReturnVisitorBanner.tsx` — detects repeat visitors via `dca_visit_count` localStorage key. On visit 2+, shows a soft banner: "Welcome back! Ready to go deeper? Book a free strategy call →". Dismissible. Track banner impression + click via `trackCTAClick`.
+- [x] RETURN-VISITOR-BANNER: Create `src/components/ReturnVisitorBanner.tsx` — detects repeat visitors via `dca_visit_count` localStorage key. On visit 2+, shows a soft banner: "Welcome back! Ready to go deeper? Book a free strategy call →". Dismissible. Track banner impression + click via `trackCTAClick`. *(completed 2026-05-20)*
 
 - [ ] UTM-PERSONALIZED-HERO: On Index.tsx, use `getUtmParams()` from `src/utils/utmTracker.ts` to personalize hero copy. If `utm_campaign` contains "construction", swap hero subheadline to construction-specific copy. Same for "realestate", "restaurant", etc. Falls back to default copy when no matching UTM.
 
