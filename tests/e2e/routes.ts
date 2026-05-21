@@ -81,6 +81,7 @@ export const ROUTES: readonly string[] = [
   '/quiz',
   '/setupclaw',
   '/ai-for-small-business',
+  '/locations/texas',
   '/blog',
   '/classes',
   '/classes/register',
