@@ -9,6 +9,7 @@ import Services from '@/components/Services';
 import PricingTiers from '@/components/PricingTiers';
 import Founder from '@/components/Founder';
 import CaseStudies from '@/components/CaseStudies';
+import { caseStudies } from '@/data/caseStudies';
 import Testimonials from '@/components/Testimonials';
 import ContactForm from '@/components/ContactForm';
 import Footer from '@/components/Footer';
@@ -145,6 +146,30 @@ const Index = () => {
       <CTOHeroSection />
       <Founder data={content.founder} />
       <CaseStudies data={content.caseStudies} />
+      {/* Deep-dive case study links */}
+      <section className="bg-gray-50 dark:bg-gray-900 pb-12">
+        <div className="container mx-auto px-4">
+          <p className="text-center text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-6">
+            Read the full stories
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+            {caseStudies.map((study) => (
+              <Link
+                key={study.slug}
+                to={`/case-studies/${study.slug}`}
+                onClick={() => trackCTAClick('view_case_study', `case_study_${study.slug}`)}
+                className="group flex items-center justify-between gap-2 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-5 hover:border-primary hover:shadow-md transition-all"
+              >
+                <span>
+                  <span className="block text-sm font-semibold text-gray-900 dark:text-white">{study.vertical}</span>
+                  <span className="block text-xs text-gray-500 dark:text-gray-400 mt-1">{study.heroStat.value} {study.heroStat.label}</span>
+                </span>
+                <ArrowRight size={18} className="text-primary shrink-0 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
       {/* CTA after case studies */}
       <section className="py-16 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-4 text-center max-w-2xl">

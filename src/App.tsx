@@ -57,6 +57,7 @@ import AIReadinessQuiz from "./pages/AIReadinessQuiz";
 import SetupClaw from "./pages/SetupClaw";
 import SmallBusiness from "./pages/SmallBusiness";
 import Texas from "./pages/locations/Texas";
+import CaseStudy from "./pages/case-studies/CaseStudy";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import Classes from "./pages/Classes";
@@ -261,6 +262,7 @@ const App = () => (
               <Route path="/setupclaw" element={<SetupClaw />} />
               <Route path="/ai-for-small-business" element={<SmallBusiness />} />
               <Route path="/locations/texas" element={<Texas />} />
+              <Route path="/case-studies/:slug" element={<CaseStudy />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/classes" element={<Classes />} />
