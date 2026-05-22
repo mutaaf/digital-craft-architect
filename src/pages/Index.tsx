@@ -26,6 +26,8 @@ import ClassesPromoBanner from '@/components/ClassesPromoBanner';
 import { Link } from 'react-router-dom';
 import { Loader2, ArrowRight, Brain } from 'lucide-react';
 import { useAnalytics, trackCTAClick, useEngagementTracking } from '@/utils/analytics';
+import { getUtmParams } from '@/utils/utmTracker';
+import { resolveHeroSubheadline } from '@/utils/heroPersonalization';
 import { Helmet } from 'react-helmet-async';
 
 const Index = () => {
@@ -88,7 +90,15 @@ const Index = () => {
   }
 
   const uiConfig = content.uiConfig;
-  
+
+  // Ticket 0001: swap the hero subheadline to vertical-specific copy when the
+  // visitor arrived from a vertical ad (utm_campaign keyword). No match or no
+  // UTM leaves the default content.json copy unchanged.
+  const heroData = {
+    ...content.hero,
+    subheadline: resolveHeroSubheadline(getUtmParams(), content.hero.subheadline),
+  };
+
   return (
     <ParallaxBackground 
       enabled={uiConfig?.parallaxEnabled ?? true} 
@@ -122,7 +132,7 @@ const Index = () => {
       <Navbar />
       <CountdownBanner />
       <ScrollProgress />
-      <Hero data={content.hero} />
+      <Hero data={heroData} />
       <ReturnVisitorBanner />
       <ClassesPromoBanner />
       <div className="bg-primary/5 dark:bg-primary/10 py-3">
