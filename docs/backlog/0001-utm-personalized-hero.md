@@ -1,7 +1,7 @@
 ---
 id: 0001
 title: UTM-personalized hero copy
-status: in-progress
+status: shipped
 priority: P1
 area: conversion
 created: 2026-05-22
@@ -60,3 +60,4 @@ the "show me" for scaling ad spend.
 - `Index.tsx` builds `heroData` by spreading `content.hero` and overriding only `subheadline`; dark mode is unchanged because the existing Hero `<p>` keeps its `dark:text-gray-300` variant.
 - Added `tests/e2e/utm-hero.spec.ts`: asserts default copy for no-UTM and non-matching UTM, and that each vertical swaps to distinct, keyword-matching, em-dash-free copy. All 6 specs green against the production build.
 - Full local gate green: lint (0 errors), check-links, check-images, check-meta, check-blog-dates, build, plus check-backlog.
+- Shipped in PR #28 (merged to main). Gating checks `build` and `smoke-required` both green; the only red was Vercel deployment rate-limit, which is non-gating. Status set to shipped here.
