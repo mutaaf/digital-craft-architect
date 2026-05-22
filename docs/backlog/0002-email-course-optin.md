@@ -1,7 +1,7 @@
 ---
 id: 0002
 title: 5-day AI implementation email course opt-in
-status: groomed
+status: in-progress
 priority: P1
 area: conversion
 created: 2026-05-22
@@ -53,4 +53,10 @@ the cheapest path from interest to booked call.
 
 ## Implementation log
 
-(Appended by implementation-dev during execution.)
+### 2026-05-22 — implementation-dev
+- Picked up ticket; branched `feat/0002-email-course-optin` off `origin/main`.
+- New `src/components/EmailCourseOptin.tsx`: compact one-field opt-in, client-side
+  email validation, Formspree POST with `_subject: [Email Course]`, success and
+  error states, light + dark variants, reuses `trackCTAClick` and `getUtmParams`.
+- Placed below the hero on `/industries` (`src/pages/Industries.tsx`) and added a
+  compact `footer` variant as a second opt-in in `src/components/Footer.tsx`.
