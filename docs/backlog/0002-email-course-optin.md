@@ -1,7 +1,7 @@
 ---
 id: 0002
 title: 5-day AI implementation email course opt-in
-status: in-progress
+status: shipped
 priority: P1
 area: conversion
 created: 2026-05-22
@@ -34,11 +34,11 @@ the cheapest path from interest to booked call.
 
 ## Acceptance criteria
 
-- [ ] `EmailCourseOptin` component renders a compact form with email validation.
-- [ ] Submits to Formspree with subject `[Email Course]`.
-- [ ] Placed below the hero on `/industries` and in the footer as a second opt-in.
-- [ ] Success and error states are shown; invalid email is rejected client-side.
-- [ ] Light + dark mode; no em-dash in copy.
+- [x] `EmailCourseOptin` component renders a compact form with email validation.
+- [x] Submits to Formspree with subject `[Email Course]`.
+- [x] Placed below the hero on `/industries` and in the footer as a second opt-in.
+- [x] Success and error states are shown; invalid email is rejected client-side.
+- [x] Light + dark mode; no em-dash in copy.
 
 ## Out of scope
 
@@ -60,3 +60,6 @@ the cheapest path from interest to booked call.
   error states, light + dark variants, reuses `trackCTAClick` and `getUtmParams`.
 - Placed below the hero on `/industries` (`src/pages/Industries.tsx`) and added a
   compact `footer` variant as a second opt-in in `src/components/Footer.tsx`.
+- Full local gate green (lint, check-links, check-images, check-meta,
+  check-blog-dates, check-backlog, build); shipped in PR #31 (`build` +
+  `smoke-required` green, squash-merged). Status flipped to shipped.
