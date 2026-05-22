@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { FooterSection } from '@/hooks/useContent';
 import { Linkedin, Calendar, Github, Twitter, Phone, Send } from 'lucide-react';
 import { trackCTAClick } from '@/utils/analytics';
+import EmailCourseOptin from '@/components/EmailCourseOptin';
 
 interface FooterProps {
   data: FooterSection;
@@ -132,6 +133,8 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
           </div>
           
           <FooterNewsletter />
+
+          <EmailCourseOptin variant="footer" location="footer" />
 
           <div className="border-t border-gray-800 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center">
