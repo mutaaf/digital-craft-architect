@@ -1,7 +1,7 @@
 ---
 id: 0005
 title: Add CI type-check gate (tsc --noEmit)
-status: in-progress
+status: shipped
 priority: P1
 area: infra
 created: 2026-05-22
