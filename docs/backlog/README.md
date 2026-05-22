@@ -11,7 +11,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 |----|-------|----------|--------|------|
 | 0001 | UTM-personalized hero copy | P1 | shipped | conversion |
 | 0002 | 5-day AI implementation email course opt-in | P1 | shipped | conversion |
-| 0003 | Route-aware dynamic pricing CTA | P2 | in-progress | conversion |
+| 0003 | Route-aware dynamic pricing CTA | P2 | shipped | conversion |
 | 0004 | Client logo marquee (placeholders) | P2 | groomed | trust |
 | 0005 | Add CI type-check gate (tsc --noEmit) | P1 | shipped | infra |
 | 0006 | Footer silently missing on Glossary, Industries, and comparison pages | P1 | proposed | conversion |

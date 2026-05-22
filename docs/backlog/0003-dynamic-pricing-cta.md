@@ -1,7 +1,7 @@
 ---
 id: 0003
 title: Route-aware dynamic pricing CTA
-status: in-progress
+status: shipped
 priority: P2
 area: conversion
 created: 2026-05-22
@@ -55,3 +55,7 @@ Started on branch `feat/0003-dynamic-pricing-cta`. Plan: `StickyCTA` reads
 `useLocation()`, maps the leading route segment to a vertical-specific CTA label
 with a default fallback for unknown routes. Label-only change, light + dark mode,
 no link or pricing-page changes.
+
+### 2026-05-22 — shipped
+Feat PR #37 merged to main (build + smoke-required green). Vertical CTA copy is
+live for all twelve verticals with a default fallback. Marking shipped.
