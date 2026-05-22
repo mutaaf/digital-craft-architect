@@ -1,7 +1,7 @@
 ---
 id: 0004
 title: Client logo marquee (placeholders)
-status: groomed
+status: in-progress
 priority: P2
 area: trust
 created: 2026-05-22
@@ -50,4 +50,11 @@ with honest placeholders avoids fake-testimonial risk.
 
 ## Implementation log
 
-(Appended by implementation-dev during execution.)
+### 2026-05-22 — implementation-dev (feat/0004-client-logo-marquee)
+- Picked up ticket; flipped status groomed -> in-progress.
+- Plan: new `src/components/ClientLogoMarquee.tsx` rendering 8 to 12 honest SVG
+  placeholder logos in a grayscale CSS marquee with a `prefers-reduced-motion`
+  guard and `dark:` variants. Placed below the hero on Index, Construction, and
+  RealEstate.
+- Test first: Playwright smoke assertion that the marquee renders below the hero
+  on all three pages with placeholder labels and no em-dash in its copy.
