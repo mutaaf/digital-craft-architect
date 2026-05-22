@@ -49,7 +49,7 @@ appends novel lessons.
   refresh, groom), `eng/` (engineering). NOTE: this replaces the legacy
   `gtm-agent` / `eng-agent` *label*-based detection — the kit detects by prefix.
 - **Local gate command** (heal/dev runs this before pushing; all must pass):
-  `npm run lint && npm run check-links && npm run check-images && npm run check-meta && npm run check-blog-dates && npm run build`
+  `npm run lint && npm run check-links && npm run check-images && npm run check-meta && npm run check-blog-dates && node scripts/check-backlog.mjs && npm run build`
 - **Subagents** (`.claude/agents/`): `implementation-dev`, `gtm-innovation`,
   `review`, `eng-dev`
 - **Backlog areas**: conversion | seo | content | trust | demos | infra | perf
