@@ -1,7 +1,7 @@
 ---
 id: 0006
 title: Footer silently missing on Glossary, Industries, and comparison pages
-status: in-progress
+status: shipped
 priority: P1
 area: conversion
 created: 2026-05-22
@@ -96,3 +96,7 @@ files are currently grandfathered with `// @ts-nocheck` (see the
   the footer with the `content?.footer` null-guard matching `Construction.tsx`,
   then remove the `// @ts-nocheck` + paired `eslint-disable` headers and run the
   full local gate.
+- 2026-05-22: Shipped in PR #41 (squash-merged to main, `build` +
+  `smoke-required` green). All four pages now render the footer via
+  `content?.footer`, and the four files type-check clean with the grandfathering
+  headers removed. This `chore/0006-ship-status` PR flips status to shipped.
