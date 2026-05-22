@@ -23,6 +23,7 @@ import ReturnVisitorBanner from '@/components/ReturnVisitorBanner';
 import SocialProofBar from '@/components/SocialProofBar';
 import ScrollProgress from '@/components/ScrollProgress';
 import ClassesPromoBanner from '@/components/ClassesPromoBanner';
+import ClientLogoMarquee from '@/components/ClientLogoMarquee';
 import { Link } from 'react-router-dom';
 import { Loader2, ArrowRight, Brain } from 'lucide-react';
 import { useAnalytics, trackCTAClick, useEngagementTracking } from '@/utils/analytics';
@@ -133,6 +134,7 @@ const Index = () => {
       <CountdownBanner />
       <ScrollProgress />
       <Hero data={heroData} />
+      <ClientLogoMarquee />
       <ReturnVisitorBanner />
       <ClassesPromoBanner />
       <div className="bg-primary/5 dark:bg-primary/10 py-3">

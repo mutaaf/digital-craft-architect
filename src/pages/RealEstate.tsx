@@ -10,6 +10,7 @@ import LiveChatBubble from '@/components/LiveChatBubble';
 import LeadMagnetSection from '@/components/LeadMagnetSection';
 import SocialProofBar from '@/components/SocialProofBar';
 import ScrollProgress from '@/components/ScrollProgress';
+import ClientLogoMarquee from '@/components/ClientLogoMarquee';
 import ROICalculator from '@/components/ROICalculator';
 import PricingFAQ from '@/components/PricingFAQ';
 import GuaranteeBadge from '@/components/GuaranteeBadge';
@@ -355,6 +356,8 @@ const RealEstate: React.FC = () => {
           </div>
         </div>
       </section>
+
+      <ClientLogoMarquee />
 
       <ReturnVisitorBanner />
 
