@@ -1,7 +1,7 @@
 ---
 id: 0003
 title: Route-aware dynamic pricing CTA
-status: groomed
+status: in-progress
 priority: P2
 area: conversion
 created: 2026-05-22
@@ -50,4 +50,8 @@ current static label.
 
 ## Implementation log
 
-(Appended by implementation-dev during execution.)
+### 2026-05-22 — implementation-dev
+Started on branch `feat/0003-dynamic-pricing-cta`. Plan: `StickyCTA` reads
+`useLocation()`, maps the leading route segment to a vertical-specific CTA label
+with a default fallback for unknown routes. Label-only change, light + dark mode,
+no link or pricing-page changes.
