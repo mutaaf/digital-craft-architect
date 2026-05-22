@@ -337,7 +337,7 @@ Each new vertical follows the established pattern: landing page (`src/pages/[Ver
 
 - [x] BLOG-POST-ROI-CASESTUDY: Add blog post: "Real ROI: How a Construction Company Cut Response Time by 92% With AI". Narrative case study format (anonymized). Target keywords: "construction CRM case study", "AI ROI construction", "lead response time case study". Link to `/construction` and ROI calculator. *(completed 2026-05-20)*
 
-- [ ] BLOG-POST-SETUP-TIME: Add blog post: "From Sign-Up to Live in 48 Hours: The DCA Implementation Playbook". Target keywords: "AI implementation", "fast AI setup", "AI deployment timeline". Link to `/contact` and `/industries`.
+- [x] BLOG-POST-SETUP-TIME: Add blog post: "From Sign-Up to Live in 48 Hours: The DCA Implementation Playbook". Target keywords: "AI implementation", "fast AI setup", "AI deployment timeline". Link to `/contact` and `/industries`. *(completed 2026-05-22)*
 
 - [x] GLOSSARY-PAGE: Create `src/pages/Glossary.tsx` with definitions for 30+ AI + industry terms (LLM, RAG, Voice AI, Lead Scoring, CRM, Speed-to-Lead, etc.). Route: `/glossary`. Each term anchored with ID for deep linking. Adds SEO surface area. *(completed 2026-05-20)*
 
