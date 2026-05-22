@@ -349,7 +349,7 @@ Each new vertical follows the established pattern: landing page (`src/pages/[Ver
 
 - [x] RETURN-VISITOR-BANNER: Create `src/components/ReturnVisitorBanner.tsx` — detects repeat visitors via `dca_visit_count` localStorage key. On visit 2+, shows a soft banner: "Welcome back! Ready to go deeper? Book a free strategy call →". Dismissible. Track banner impression + click via `trackCTAClick`. *(completed 2026-05-20)*
 
-- [ ] UTM-PERSONALIZED-HERO: On Index.tsx, use `getUtmParams()` from `src/utils/utmTracker.ts` to personalize hero copy. If `utm_campaign` contains "construction", swap hero subheadline to construction-specific copy. Same for "realestate", "restaurant", etc. Falls back to default copy when no matching UTM.
+- [x] UTM-PERSONALIZED-HERO: On Index.tsx, use `getUtmParams()` from `src/utils/utmTracker.ts` to personalize hero copy. If `utm_campaign` contains "construction", swap hero subheadline to construction-specific copy. Same for "realestate", "restaurant", etc. Falls back to default copy when no matching UTM. *(completed 2026-05-22)*
 
 - [ ] INDUSTRY-AUTO-REDIRECT-CTA: Create `src/components/IndustrySuggestionBanner.tsx` — after 15 seconds on Index.tsx, show a small banner: "Looking for something specific? Jump to AI for [Construction / Real Estate / ...]". Links to the 5 most-visited vertical pages. Session key `dca_industry_suggest_dismissed`.
 

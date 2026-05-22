@@ -1,6 +1,7 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useContent } from '@/hooks/useContent';
+import { getUtmParams } from '@/utils/utmTracker';
 import Navbar from '@/components/Navbar';
 import CountdownBanner from '@/components/CountdownBanner';
 import Hero from '@/components/Hero';
@@ -28,12 +29,42 @@ import { Loader2, ArrowRight, Brain } from 'lucide-react';
 import { useAnalytics, trackCTAClick, useEngagementTracking } from '@/utils/analytics';
 import { Helmet } from 'react-helmet-async';
 
+// Campaign-driven hero personalization. When a visitor arrives with a
+// `utm_campaign` that names a vertical, swap the hero subheadline for copy
+// that speaks directly to that audience. Keyword matching is done against the
+// campaign string with non-alphanumerics stripped, so "real-estate",
+// "real_estate" and "RealEstate" all match the "realestate" keyword.
+const HERO_SUBHEADLINE_BY_CAMPAIGN: { keyword: string; subheadline: string }[] = [
+  { keyword: 'construction', subheadline: 'AI that answers every lead, drafts estimates, and books jobs for your construction company - so you stop losing work to slow follow-up.' },
+  { keyword: 'realestate', subheadline: 'AI that qualifies leads, analyzes deals, and follows up with sellers - so you close more deals with less manual chasing.' },
+  { keyword: 'restaurant', subheadline: 'AI that handles reservations, catering inquiries, and reviews around the clock - so your team can focus on the dining room.' },
+  { keyword: 'homeservices', subheadline: 'AI that captures every service call, sends fast estimates, and follows up with customers - so no job slips through the cracks.' },
+  { keyword: 'healthcare', subheadline: 'AI that streamlines patient intake, scheduling, and reminders - so your front desk spends less time on the phone and more time on care.' },
+  { keyword: 'fitness', subheadline: 'AI that qualifies membership leads, follows up on trials, and re-engages lapsed members - so your studio fills classes and cuts churn.' },
+];
+
+function personalizedSubheadline(campaign: string | undefined): string | null {
+  if (!campaign) return null;
+  const normalized = campaign.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const match = HERO_SUBHEADLINE_BY_CAMPAIGN.find(({ keyword }) => normalized.includes(keyword));
+  return match ? match.subheadline : null;
+}
+
 const Index = () => {
   const { content, isLoading, error } = useContent();
   
   // Initialize Google Analytics with your specific GA ID
   useAnalytics('G-JQ53W917HT');
   useEngagementTracking();
+
+  // Personalize the hero subheadline based on the campaign the visitor came
+  // from (utm_campaign). Falls back to the default copy when there is no
+  // matching UTM campaign.
+  const personalizedHero = useMemo(() => {
+    if (!content?.hero) return content?.hero;
+    const subheadline = personalizedSubheadline(getUtmParams().utm_campaign);
+    return subheadline ? { ...content.hero, subheadline } : content.hero;
+  }, [content]);
 
   // Scroll to top on page load (unless arriving with a hash like #contact)
   useEffect(() => {
@@ -122,7 +153,7 @@ const Index = () => {
       <Navbar />
       <CountdownBanner />
       <ScrollProgress />
-      <Hero data={content.hero} />
+      <Hero data={personalizedHero ?? content.hero} />
       <ReturnVisitorBanner />
       <ClassesPromoBanner />
       <div className="bg-primary/5 dark:bg-primary/10 py-3">
