@@ -10,7 +10,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Globe, Loader2, CheckCircle2, Pencil, RotateCcw, AlertCircle } from 'lucide-react';
 import type { CompanyProfile } from '@/utils/websiteScraper';
 
-const VERTICAL_PLACEHOLDERS: Record<Vertical, string> = {
+const VERTICAL_PLACEHOLDERS: Partial<Record<Vertical, string>> = {
   construction: 'e.g. premierbuilds.com or Premier Builds',
   realestate: 'e.g. luxuryrealty.com or Luxury Realty Group',
   events: 'e.g. eliteeventsco.com or Elite Events Co',

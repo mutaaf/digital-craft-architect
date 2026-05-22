@@ -13,6 +13,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0002 | 5-day AI implementation email course opt-in | P1 | shipped | conversion |
 | 0003 | Route-aware dynamic pricing CTA | P2 | groomed | conversion |
 | 0004 | Client logo marquee (placeholders) | P2 | groomed | trust |
+| 0005 | Add CI type-check gate (tsc --noEmit) | P1 | in-progress | infra |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the

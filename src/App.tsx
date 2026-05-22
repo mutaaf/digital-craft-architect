@@ -111,7 +111,7 @@ const LandingRoot: React.FC = () => {
 };
 
 interface FallbackProps {
-  error: Error;
+  error: unknown;
   resetError: () => void;
   componentStack?: string;
   eventId?: string;
@@ -127,7 +127,7 @@ const ErrorFallback = ({ error, resetError, componentStack, eventId }: FallbackP
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 text-center">
       <h1 className="text-2xl font-bold text-red-600 mb-4">Something went wrong</h1>
-      <p className="mb-4 max-w-md mx-auto">{error.message || "An unexpected error occurred"}</p>
+      <p className="mb-4 max-w-md mx-auto">{(error instanceof Error ? error.message : String(error)) || "An unexpected error occurred"}</p>
       {eventId && (
         <p className="text-sm text-gray-500 mb-4">
           Error ID: {eventId}

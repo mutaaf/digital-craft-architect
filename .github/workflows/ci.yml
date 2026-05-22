@@ -41,6 +41,9 @@ jobs:
       - name: Check backlog integrity
         run: node scripts/check-backlog.mjs
 
+      - name: Type check
+        run: npm run typecheck
+
       - name: Build
         run: npm run build
 

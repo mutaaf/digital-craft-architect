@@ -56,3 +56,16 @@ stuck at `in-progress`.
 in-progress flip + code, (2) `chore/<id>-ship-status` flipping the ticket file
 AND its README index row to `shipped` together. Run `node scripts/check-backlog.mjs`
 before pushing the second PR so the file and index never drift mid-flip.
+
+## 2026-05-22 — `@ts-nocheck` is itself an ESLint error in this repo
+**Where:** PR for ticket 0005, src/pages/{Glossary,Industries,compare/HubSpot,
+compare/GoHighLevel,events/VoiceBookingAgent}.tsx
+**What went wrong:** Grandfathering type errors with a bare `// @ts-nocheck` made
+`npm run lint` fail: the typescript-eslint preset enables
+`@typescript-eslint/ban-ts-comment`, which flags `@ts-nocheck` as an ERROR (the
+repo's lint baseline is otherwise warnings-only). The typecheck gate passed but the
+existing lint gate broke.
+**Rule going forward:** When grandfathering a file with `// @ts-nocheck`, put
+`/* eslint-disable @typescript-eslint/ban-ts-comment */` on the line above it. tsc
+still honors `@ts-nocheck` with a leading comment. Always run the FULL local gate
+(lint included), not just the new check, before pushing.

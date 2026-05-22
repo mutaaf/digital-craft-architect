@@ -10,6 +10,7 @@
     "build": "npx tsx scripts/generate-sitemap.ts && vite build",
     "build:dev": "npx tsx scripts/sync-classes-data.ts && vite build --mode development",
     "sync:classes": "npx tsx scripts/sync-classes-data.ts",
+    "typecheck": "npm run sync:classes && tsc -p tsconfig.app.json --noEmit",
     "lint": "eslint .",
     "preview": "vite preview",
     "check-links": "npx tsx scripts/check-links.ts",
