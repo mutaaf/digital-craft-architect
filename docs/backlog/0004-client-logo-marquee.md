@@ -1,7 +1,7 @@
 ---
 id: 0004
 title: Client logo marquee (placeholders)
-status: in-progress
+status: shipped
 priority: P2
 area: trust
 created: 2026-05-22
@@ -58,3 +58,8 @@ with honest placeholders avoids fake-testimonial risk.
   RealEstate.
 - Test first: Playwright smoke assertion that the marquee renders below the hero
   on all three pages with placeholder labels and no em-dash in its copy.
+- Shipped in PR #39 (feat). `ClientLogoMarquee.tsx` renders ten honest SVG
+  placeholder badges in a grayscale CSS marquee with a prefers-reduced-motion
+  guard, hover-pause, and `dark:` variants; placed below the hero on Index,
+  Construction, and RealEstate. Full local gate green; all 94 e2e tests pass.
+- Status flipped to shipped in chore/0004-ship-status.
