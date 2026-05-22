@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import StickyCTA from '@/components/StickyCTA';
+import ReturnVisitorBanner from '@/components/ReturnVisitorBanner';
 import ExitIntentPopup from '@/components/ExitIntentPopup';
 import LiveChatBubble from '@/components/LiveChatBubble';
 import LeadMagnetSection from '@/components/LeadMagnetSection';
@@ -377,6 +378,8 @@ const Construction: React.FC = () => {
           </div>
         </div>
       </section>
+
+      <ReturnVisitorBanner />
 
       <SocialProofBar />
 
