@@ -52,6 +52,61 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'from-signup-to-live-in-48-hours-dca-implementation-playbook',
+    title: 'From Sign-Up to Live in 48 Hours: The DCA Implementation Playbook',
+    description: 'A step-by-step look at the AI implementation process behind a 48-hour AI deployment timeline, and why fast AI setup does not mean cutting corners.',
+    date: '2026-05-22',
+    author: 'DigitalCraft AI',
+    readTime: '6 min read',
+    tags: ['AI Implementation', 'Onboarding', 'Deployment'],
+    content: `
+<p>The most common objection we hear is not about price or capability. It is about time. Owners assume AI implementation means a six-month project, a roomful of consultants, and a system that is half-built when the budget runs out. That reputation is earned by enterprise software, not by the kind of focused automation we deploy. Our standard AI deployment timeline is 48 hours from sign-up to a live, branded system answering real inquiries. Here is exactly how that works, hour by hour, with nothing hidden.</p>
+
+<h2>Why 48 Hours Is the Target</h2>
+
+<p>Speed is not a marketing gimmick. Every day a business waits to go live is a day of leads still leaking out the bottom of the funnel. The faster the system is answering inquiries, the faster it pays for itself. A fast AI setup also keeps momentum high: the owner is engaged, the use case is fresh, and the team has not yet rebuilt the manual workarounds they were trying to escape. Drag the timeline out to weeks and adoption suffers. So we built our entire onboarding around compressing the AI implementation process without skipping the parts that actually matter.</p>
+
+<h2>Hours 0 to 4: Discovery and Scoping</h2>
+
+<p>The clock starts the moment you sign up. The first block is a focused discovery call, usually under 45 minutes, where we map one specific workflow worth automating first. Not ten. One. The fastest path to value is a narrow, high-impact use case: instant lead response, appointment booking, or after-hours inquiry capture. We pull your existing tone from your website, your typical questions, and your service area, so the assistant sounds like your business and not a generic bot.</p>
+
+<p>By the end of this block we have a written scope: what the AI handles, what it routes to a human, and the single metric we will judge success by.</p>
+
+<h2>Hours 4 to 24: Build and Brand Tuning</h2>
+
+<p>This is where most of the AI deployment timeline is spent, and almost none of it requires your time. We configure the assistant against the scoped workflow, load your services and pricing logic, and tune the conversation so it qualifies leads the way your best team member would. Dollar amounts, addresses, and industry terms are all handled so the system reads naturally to a real customer.</p>
+
+<p>If your use case maps to one of the verticals we already support, the build is faster still, because the scaffolding exists. You can see the range of prebuilt starting points on our <a href="/industries">AI by industry directory</a>, from construction and real estate to dental, fitness, and home services.</p>
+
+<h2>Hours 24 to 48: Testing and Go-Live</h2>
+
+<p>The final block is testing against real scenarios. We run the assistant through your trickiest inquiries, the edge cases that trip up scripts, and the after-hours messages that used to go cold. You review the transcripts, request tone adjustments, and sign off. Then we flip it live on your channels.</p>
+
+<p>That is the whole AI implementation process. Two days, one focused workflow, a system that is actually answering customers instead of sitting in a backlog.</p>
+
+<h2>Why Fast AI Setup Does Not Mean Cutting Corners</h2>
+
+<p>A 48-hour timeline works precisely because it is disciplined, not rushed. We deliberately ship one workflow first instead of trying to boil the ocean. That single live system starts generating data and revenue immediately, and every additional workflow after it is an iteration on a foundation that already works. Slow rollouts fail not because the work is hard, but because scope balloons before anything ships. We invert that order on purpose.</p>
+
+<h2>What You Need to Have Ready</h2>
+
+<ul>
+  <li><strong>One clear first workflow.</strong> The single most painful, repetitive task that touches revenue. We help you pick it on the discovery call if you are unsure.</li>
+  <li><strong>Access to your inbound channels.</strong> The web form, phone line, or inbox where leads currently arrive.</li>
+  <li><strong>A 30-minute review window on day two.</strong> The only meaningful time commitment after sign-up is reviewing the test transcripts and approving go-live.</li>
+</ul>
+
+<p>That is it. No new hires, no platform migration, no quarter-long project plan. If your business runs on inbound leads and you are tired of losing them to slow follow-up, the fastest way to find out what your version looks like is a short conversation. Tell us about your workflow on our <a href="/#contact">contact form</a> and we will scope your 48-hour build.</p>
+
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to go live in 48 hours?</strong>
+  <p style="margin: 8px 0;">Book a free AI audit and we will map your first workflow and walk you through the exact deployment timeline for your business.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/industries">Explore AI by Industry</a>
+</div>
+`,
+  },
+  {
     slug: 'construction-roi-cut-response-time-92-percent-case-study',
     title: 'Real ROI: How a Construction Company Cut Response Time by 92% With AI',
     description: 'An anonymized case study of a regional contractor that slashed lead response time, recovered after-hours inquiries, and booked more estimates with AI automation.',
