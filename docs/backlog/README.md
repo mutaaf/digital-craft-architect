@@ -9,7 +9,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 
 | id | title | priority | status | area |
 |----|-------|----------|--------|------|
-| 0001 | UTM-personalized hero copy | P1 | in-progress | conversion |
+| 0001 | UTM-personalized hero copy | P1 | shipped | conversion |
 | 0002 | 5-day AI implementation email course opt-in | P1 | groomed | conversion |
 | 0003 | Route-aware dynamic pricing CTA | P2 | groomed | conversion |
 | 0004 | Client logo marquee (placeholders) | P2 | groomed | trust |
