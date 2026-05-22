@@ -33,12 +33,14 @@ if [ -z "$ME" ]; then
   exit 1
 fi
 
-# Find open PRs with the gtm-agent label that we haven't reviewed yet.
+# Find open PRs from either agent (gtm-agent | eng-agent) that we haven't
+# reviewed yet. The two labels share one reviewer queue.
 UNREVIEWED=$(gh pr list --repo "$REPO" --state open --base main \
-  --label gtm-agent \
-  --json number,headRefName,reviews \
-  --jq "[.[] | select(.reviews | any(.author.login == \"$ME\") | not)
-            | .number] | .[]" 2>/dev/null)
+  --json number,headRefName,reviews,labels \
+  --jq "[.[]
+          | select((.labels | any(.name == \"gtm-agent\")) or (.labels | any(.name == \"eng-agent\")))
+          | select(.reviews | any(.author.login == \"$ME\") | not)
+          | .number] | .[]" 2>/dev/null)
 
 if [ -z "$UNREVIEWED" ]; then
   exit 0
