@@ -1,7 +1,7 @@
 ---
 id: 0001
 title: UTM-personalized hero copy
-status: groomed
+status: in-progress
 priority: P1
 area: conversion
 created: 2026-05-22
@@ -53,4 +53,10 @@ the "show me" for scaling ad spend.
 
 ## Implementation log
 
-(Appended by implementation-dev during execution.)
+### 2026-05-22 - implementation-dev
+- Branched `feat/0001-utm-personalized-hero` off origin/main; ticket set to in-progress.
+- Plan: pure typed map in `src/utils/heroPersonalization.ts` (campaign keyword to subheadline + default fallback constant); `src/pages/Index.tsx` reads `getUtmParams()` and overrides the hero subheadline; Playwright e2e covers the swap and the default.
+- Implemented `src/utils/heroPersonalization.ts` with `getHeroSubheadlineForUtm()` and `resolveHeroSubheadline()`. Keyword map covers construction, realestate, restaurant, and events; case-insensitive `includes` so values like `construction_spring_2026` match. No match or absent `utm_campaign` returns the content.json default.
+- `Index.tsx` builds `heroData` by spreading `content.hero` and overriding only `subheadline`; dark mode is unchanged because the existing Hero `<p>` keeps its `dark:text-gray-300` variant.
+- Added `tests/e2e/utm-hero.spec.ts`: asserts default copy for no-UTM and non-matching UTM, and that each vertical swaps to distinct, keyword-matching, em-dash-free copy. All 6 specs green against the production build.
+- Full local gate green: lint (0 errors), check-links, check-images, check-meta, check-blog-dates, build, plus check-backlog.
