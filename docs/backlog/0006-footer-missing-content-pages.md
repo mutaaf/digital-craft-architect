@@ -1,7 +1,7 @@
 ---
 id: 0006
 title: Footer silently missing on Glossary, Industries, and comparison pages
-status: proposed
+status: in-progress
 priority: P1
 area: conversion
 created: 2026-05-22
@@ -87,3 +87,12 @@ files are currently grandfathered with `// @ts-nocheck` (see the
   other latent type errors they surface (none expected beyond the `data`/`content`
   rename).
 - New deps: no. `/api/`: no. This is the feature loop's lane (visible behavior change).
+
+## Implementation log
+
+- 2026-05-22: Picked up by the Ship runner on branch
+  `feat/0006-footer-missing-content-pages`. Flipped status to in-progress.
+  Plan: rename `data` -> `content` from `useContent()` in the four pages, render
+  the footer with the `content?.footer` null-guard matching `Construction.tsx`,
+  then remove the `// @ts-nocheck` + paired `eslint-disable` headers and run the
+  full local gate.
