@@ -38,6 +38,9 @@ jobs:
       - name: Check blog dates
         run: npm run check-blog-dates
 
+      - name: Check backlog integrity
+        run: node scripts/check-backlog.mjs
+
       - name: Build
         run: npm run build
 
