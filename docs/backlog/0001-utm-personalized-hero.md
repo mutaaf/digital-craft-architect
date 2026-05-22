@@ -1,7 +1,7 @@
 ---
 id: 0001
 title: UTM-personalized hero copy
-status: groomed
+status: in-progress
 priority: P1
 area: conversion
 created: 2026-05-22
@@ -53,4 +53,6 @@ the "show me" for scaling ad spend.
 
 ## Implementation log
 
-(Appended by implementation-dev during execution.)
+### 2026-05-22 - implementation-dev
+- Branched `feat/0001-utm-personalized-hero` off origin/main; ticket set to in-progress.
+- Plan: pure typed map in `src/utils/heroPersonalization.ts` (campaign keyword to subheadline + default fallback constant); `src/pages/Index.tsx` reads `getUtmParams()` and overrides the hero subheadline; Playwright e2e covers the swap and the default.
