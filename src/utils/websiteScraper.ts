@@ -14,7 +14,7 @@ export interface CompanyProfile {
   primaryColor: string;
 }
 
-const VERTICAL_DEFAULTS: Record<Vertical, { services: string[]; tagline: string; avgJobValue: number; primaryColor: string }> = {
+const VERTICAL_DEFAULTS: Partial<Record<Vertical, { services: string[]; tagline: string; avgJobValue: number; primaryColor: string }>> = {
   construction: {
     services: ['Kitchen Remodeling', 'Bathroom Renovation', 'Home Additions', 'General Construction'],
     tagline: 'Quality Construction & Remodeling',
@@ -36,7 +36,7 @@ const VERTICAL_DEFAULTS: Record<Vertical, { services: string[]; tagline: string;
 };
 
 function buildDefaults(domain: string, vertical: Vertical): CompanyProfile {
-  const v = VERTICAL_DEFAULTS[vertical];
+  const v = VERTICAL_DEFAULTS[vertical]!;
   return {
     companyName: domain.replace(/^www\./, '').split('.')[0],
     ownerName: 'the team',
@@ -128,7 +128,7 @@ async function scrapeUrl(url: string): Promise<string | null> {
   }
 }
 
-const VERTICAL_EXTRACTION_PROMPTS: Record<Vertical, string> = {
+const VERTICAL_EXTRACTION_PROMPTS: Partial<Record<Vertical, string>> = {
   construction:
     'Extract construction/contractor company information from this website content. Return accurate data found on the site. For missing fields use sensible defaults: ownerName="the team", location="your area", phone="(555) 000-0000", email="info@domain.com", services=common construction services (e.g. Kitchen Remodeling, Bathroom Renovation), avgJobValue=35000, bookingUrl="", primaryColor="#0ea5e9".',
   realestate:
@@ -137,7 +137,7 @@ const VERTICAL_EXTRACTION_PROMPTS: Record<Vertical, string> = {
     'Extract event services company information from this website content. Return accurate data found on the site. For missing fields use sensible defaults: ownerName="the team", location="your area", phone="(555) 000-0000", email="info@domain.com", services=common event services (e.g. DJ / Entertainment, Catering, Decoration, Photography), avgJobValue=5000, bookingUrl="", primaryColor="#8b5cf6".',
 };
 
-const VERTICAL_LABELS: Record<Vertical, string> = {
+const VERTICAL_LABELS: Partial<Record<Vertical, string>> = {
   construction: 'a construction company',
   realestate: 'a real estate company',
   events: 'an event services company',
@@ -155,7 +155,7 @@ async function extractWithOpenAI(
       messages: [
         {
           role: 'system',
-          content: VERTICAL_EXTRACTION_PROMPTS[vertical],
+          content: VERTICAL_EXTRACTION_PROMPTS[vertical]!,
         },
         {
           role: 'user',
@@ -196,7 +196,7 @@ export async function scrapeWebsite(input: string, vertical: Vertical = 'constru
     const scraped = await scrapeUrl(fullUrl);
     content = scraped || `(Scraping failed — only the URL is available: ${fullUrl})`;
   } else {
-    content = `(No URL provided — company name only: "${input}". Infer reasonable data for ${VERTICAL_LABELS[vertical]} with this name.)`;
+    content = `(No URL provided — company name only: "${input}". Infer reasonable data for ${VERTICAL_LABELS[vertical]!} with this name.)`;
   }
 
   // Step 2: Extract structured data with OpenAI

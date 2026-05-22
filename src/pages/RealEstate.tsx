@@ -36,7 +36,6 @@ import {
   TrendingUp,
   Calendar,
   Play,
-  Phone,
 } from 'lucide-react';
 import {
   Accordion,

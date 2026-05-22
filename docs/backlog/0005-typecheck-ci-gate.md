@@ -103,4 +103,37 @@ New deps: no. Schema migration: no. Privacy/security surface change: no.
 
 ## Implementation log
 
-(Appended by eng-dev during execution.)
+### 2026-05-22 - eng-dev
+
+- Branch `eng/0005-typecheck-ci-gate`. First commit flips status groomed -> in-progress
+  in both the ticket frontmatter and the README index row (in sync).
+- Re-verified baseline: after `npm run sync:classes`,
+  `npx tsc -p tsconfig.app.json --noEmit` reports 11 errors across `src/`, matching the
+  Engineering notes exactly.
+- PROVE-FIRST (no committed fixture): temporarily added
+  `const __proveFirst: number = "this is a deliberate type error";` to `src/main.tsx`.
+  - `npm run build` -> EXIT 0 (`✓ built`), i.e. SWC transpiles the bad type silently.
+  - `npx tsc -p tsconfig.app.json --noEmit` -> FAILS:
+    `src/main.tsx(8,7): error TS2322: Type 'string' is not assignable to type 'number'.`
+  - Reverted the deliberate error; `git diff src/main.tsx` is empty. This demonstrates
+    the gap (build does not type-check) and that the new `typecheck` gate closes it.
+- FIXED (type-only, behavior-preserving): `src/pages/RealEstate.tsx` (dup `Phone`
+  import), `src/components/construction/CompanySetupForm.tsx`
+  (`Partial<Record<Vertical,string>>`), `src/App.tsx` (`error: unknown` +
+  `instanceof Error` narrowing, output identical), `src/utils/websiteScraper.ts`
+  (three maps -> `Partial<Record<...>>` + non-null assertions at the 4 access sites;
+  within the safety-valve budget, no behavior change).
+- GRANDFATHERED (`// @ts-nocheck` + TODO(eng) baseline comment, no runtime change;
+  user-facing bugs owned by the feature loop): `src/pages/Glossary.tsx`,
+  `src/pages/Industries.tsx`, `src/pages/compare/HubSpot.tsx`,
+  `src/pages/compare/GoHighLevel.tsx` (footer `data` vs `content`),
+  `src/pages/events/VoiceBookingAgent.tsx` (missing `sellerMotivation`).
+- Wiring: `package.json` `typecheck` script (no dep change), `ci.yml` "Type check"
+  step in the existing `build` job before "Build", AGENTS.md local gate, CLAUDE.md
+  Testing note corrected.
+- Gotcha: the typescript-eslint preset bans `@ts-nocheck`
+  (`@typescript-eslint/ban-ts-comment`), so a bare `// @ts-nocheck` turned 5 lint
+  WARNINGS-only files into lint ERRORS and broke `npm run lint`. Fixed by prefixing
+  each grandfathered file with `/* eslint-disable @typescript-eslint/ban-ts-comment */`
+  above the `// @ts-nocheck`. Verified tsc still honors `@ts-nocheck` with a leading
+  comment, and lint returns to its warnings-only baseline.

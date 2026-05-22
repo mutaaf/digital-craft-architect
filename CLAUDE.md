@@ -159,11 +159,12 @@ Push to `main` branch — Vercel auto-deploys. Environment variables must be set
 
 ## Testing
 
-No test framework is currently configured. The project relies on manual testing and the Vite build step for type checking.
+No test framework is currently configured. The project relies on manual testing plus the type-check gate. Note: `npm run build` uses Vite + SWC, which transpiles WITHOUT type-checking, so it does NOT catch type errors. Use `npm run typecheck` for that.
 
 ```bash
-npm run build        # TypeScript compilation catches type errors
+npm run typecheck    # tsc --noEmit catches type errors (SWC build does not)
 npm run lint         # ESLint catches code quality issues
+npm run build        # Vite production build (transpile only, no type-check)
 ```
 
 ---
