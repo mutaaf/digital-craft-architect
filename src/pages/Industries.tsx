@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ScrollProgress from '@/components/ScrollProgress';
+import EmailCourseOptin from '@/components/EmailCourseOptin';
 import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
 import {
@@ -131,6 +132,9 @@ const Industries: React.FC = () => {
           </p>
         </div>
       </section>
+
+      {/* Email course opt-in (below the hero) */}
+      <EmailCourseOptin location="industries_below_hero" />
 
       {/* Industry Grid */}
       <section className="py-16 bg-white dark:bg-gray-950">
