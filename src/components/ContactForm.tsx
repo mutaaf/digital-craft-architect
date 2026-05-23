@@ -410,13 +410,6 @@ const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
                     </button>
                   )}
                 </div>
-                
-                {import.meta.env.VITE_OPENAI_API_KEY ? null : (
-                  <div className="mt-4 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-md text-sm text-amber-700 dark:text-amber-300">
-                    <p className="font-medium">OpenAI API Key Required</p>
-                    <p className="mt-1">To enable the "Formalize with AI" feature, add your OpenAI API key as an environment variable named <code className="bg-amber-100 dark:bg-amber-800/30 px-1 py-0.5 rounded">VITE_OPENAI_API_KEY</code>.</p>
-                  </div>
-                )}
               </form>
             </Form>
           )}
