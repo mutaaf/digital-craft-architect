@@ -94,4 +94,31 @@ reason about.
 
 ## Implementation log
 
-(Appended by the eng-dev agent during execution.)
+### 2026-05-22 - eng-dev
+
+- Branch `eng/0007-tsconfig-strictness-ratchet`. First commit creates this ticket
+  file (status `in-progress`) + the README index row, in sync
+  (`node scripts/check-backlog.mjs` -> `✓ backlog integrity: 7 tickets, index in
+  sync.`).
+- Confirmed baseline on `main`: `npm run typecheck` exits 0 (after
+  `npm run sync:classes`, `tsc -p tsconfig.app.json --noEmit`).
+- Re-verified the per-flag measurement (after `npm run sync:classes`,
+  `tsc -p tsconfig.app.json --noEmit --<flag>`): `noImplicitAny` = 0,
+  `noFallthroughCasesInSwitch` = 0, and both together = 0 new errors. These are
+  the only two flags this ticket enables.
+- Change (config-only): `tsconfig.app.json` "Linting" block,
+  `noImplicitAny: false -> true` and `noFallthroughCasesInSwitch: false -> true`.
+  `npm run typecheck` still exits 0; the ONLY modified tracked file is
+  `tsconfig.app.json` (no source edits).
+- PROVE-FIRST (no committed fixture): with the flags ON, temporarily added to
+  `src/main.tsx` an untyped param `function __pf(x) { return x; }` plus a
+  deliberate `switch` fallthrough. `npm run typecheck` FAILED:
+  - `src/main.tsx(16,15): error TS7006: Parameter 'x' implicitly has an 'any' type.`
+  - `src/main.tsx(19,5): error TS7029: Fallthrough case in switch.`
+  Forcing the same flags OFF (`--noImplicitAny false
+  --noFallthroughCasesInSwitch false`, i.e. main's state today) produced NO
+  `src/main.tsx` errors — establishing the gap this ratchet closes. Then reverted
+  the scratch edit; `git diff src/main.tsx` is empty.
+- Ran the FULL local gate (lint, typecheck, check-links, check-images,
+  check-meta, check-blog-dates, check-backlog, build) — all green. No `/api/`,
+  `.env*`, `package.json`, or `package-lock.json` touched.
