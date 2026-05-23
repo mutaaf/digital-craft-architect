@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import DemoNavbar from '@/components/construction/DemoNavbar';
 import StepIndicator from '@/components/construction/estimate/StepIndicator';
@@ -11,6 +12,10 @@ import {
   EXTRAS,
   calculateEstimate,
 } from '@/data/estimatePricing';
+import {
+  decodeEstimateParams,
+  encodeEstimateParams,
+} from './estimateShareParams';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
@@ -21,14 +26,33 @@ import { ArrowLeft, ArrowRight, RotateCcw, Sparkles } from 'lucide-react';
 
 const STEP_LABELS = ['Project', 'Size', 'Finish', 'Extras'];
 
+const RESULT_STEP = 5;
+
 const EstimateGenerator = () => {
   const { company } = useDemoContext();
   const possessive = company?.companyName ? `${company.companyName}'s` : "DigitalCraft AI's";
-  const [step, setStep] = useState(1);
-  const [selectedTypeId, setSelectedTypeId] = useState<string | null>(null);
-  const [sqft, setSqft] = useState<number>(0);
-  const [selectedFinishId, setSelectedFinishId] = useState<string>('mid_range');
-  const [selectedExtraIds, setSelectedExtraIds] = useState<Set<string>>(new Set());
+  const [searchParams] = useSearchParams();
+
+  // Parse-safe rehydration: a valid share link jumps straight to the result
+  // view; anything malformed, absent, or out of range falls back to step 1.
+  const shared = useMemo(
+    () => decodeEstimateParams(searchParams),
+    // Read once on mount; later state changes do not re-derive from the URL.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
+  const [step, setStep] = useState(shared ? RESULT_STEP : 1);
+  const [selectedTypeId, setSelectedTypeId] = useState<string | null>(
+    shared?.selectedTypeId ?? null
+  );
+  const [sqft, setSqft] = useState<number>(shared?.sqft ?? 0);
+  const [selectedFinishId, setSelectedFinishId] = useState<string>(
+    shared?.selectedFinishId ?? 'mid_range'
+  );
+  const [selectedExtraIds, setSelectedExtraIds] = useState<Set<string>>(
+    new Set(shared?.selectedExtraIds ?? [])
+  );
 
   const projectType = PROJECT_TYPES.find((t) => t.id === selectedTypeId);
   const finish = FINISH_LEVELS.find((f) => f.id === selectedFinishId)!;
@@ -62,7 +86,21 @@ const EstimateGenerator = () => {
   };
 
   const selectedExtras = EXTRAS.filter((e) => selectedExtraIds.has(e.id));
-  const showEstimate = step === 5;
+  const showEstimate = step === RESULT_STEP;
+
+  // Build a same-origin, same-route share link from the current selection.
+  const buildShareUrl = () => {
+    if (!selectedTypeId) return window.location.href;
+    const params = encodeEstimateParams({
+      selectedTypeId,
+      sqft,
+      selectedFinishId,
+      selectedExtraIds: [...selectedExtraIds],
+    });
+    const url = new URL(window.location.href);
+    url.search = params.toString();
+    return url.toString();
+  };
 
   const extrasTotal = useMemo(
     () =>
@@ -248,6 +286,7 @@ const EstimateGenerator = () => {
               projectType={projectType}
               finish={finish}
               sqft={sqft}
+              buildShareUrl={buildShareUrl}
             />
             <div className="text-center mt-8 print:hidden">
               <Button variant="outline" onClick={reset} className="gap-2">
