@@ -69,3 +69,34 @@ existing lint gate broke.
 `/* eslint-disable @typescript-eslint/ban-ts-comment */` on the line above it. tsc
 still honors `@ts-nocheck` with a leading comment. Always run the FULL local gate
 (lint included), not just the new check, before pushing.
+
+## 2026-05-22 — Eng backlog has no groomer; bootstrap pre-authorized follow-ups instead of NOOPing
+**Where:** eng run after PR #42; ticket 0007 (PRs #43/#44), docs/backlog/0007-*.md
+**What went wrong:** The eng runner's PHASE 2 says "pick the highest-priority
+groomed engineering ticket," but nothing grooms the eng backlog (gtm-innovation
+grooms only conversion/seo/content/trust). After 0005 shipped, every ticket was
+`shipped` and no groomed eng ticket existed, so a strict reading makes the eng loop
+NOOP forever even though real eng work is queued in prior tickets' "Out of scope"
+sections (0005 explicitly named "tighten tsconfig strictness once the baseline is
+clean").
+**Rule going forward:** When no groomed eng ticket exists, do NOT invent unscoped
+work and do NOT NOOP; instead bootstrap the next follow-up that a prior *shipped*
+ticket explicitly pre-authorized. Author the new ticket file as the FIRST commit of the
+`eng/<id>` branch in `status: in-progress` with its README index row in sync (main
+is protected, so the file can't pre-land as `groomed`); ship still takes two PRs
+(eng/ then chore/ ship-status) per the 2026-05-22 two-PR lesson. If nothing is
+pre-authorized, NOOP and say so rather than self-grooming speculative work.
+
+## 2026-05-22 — Ratchet tsconfig strictness one zero-error flag at a time
+**Where:** ticket 0007, tsconfig.app.json (noImplicitAny, noFallthroughCasesInSwitch)
+**What went wrong:** N/A (technique, not a defect). `strict` was fully off; turning
+on the whole family at once would surface a large mixed batch (measured:
+strictNullChecks 9, strict 9, noUnusedLocals 11, noUnusedParameters 3) and force
+risky source edits into one PR.
+**Rule going forward:** Measure each strict-family flag in isolation first:
+`for f in noImplicitAny noFallthroughCasesInSwitch noUnusedLocals noUnusedParameters strictNullChecks strict; do npx tsc -p tsconfig.app.json --noEmit --$f 2>&1 | grep -c 'error TS'; done`
+(run the flag passes SEQUENTIALLY; concurrent tsc processes thrash and stall). Enable
+only the flags at 0 errors as a pure config-only guard (no source edits, behavior
+preserved by construction); defer non-zero flags to their own ticket. The typecheck
+gate already targets `tsconfig.app.json`, so no CI/workflow change is needed; the
+flag flip is self-enforcing.
