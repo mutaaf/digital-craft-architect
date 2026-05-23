@@ -1,7 +1,7 @@
 ---
 id: 0009
 title: Shareable branded estimate result link
-status: groomed
+status: in-progress
 priority: P1
 area: demos
 created: 2026-05-23
@@ -89,3 +89,13 @@ Files / patterns the dev should touch.
   opens it in a fresh context asserting the same totals render.
 - New deps: no. Schema migration: no. Privacy/security surface change: no (same
   origin, same route, no new hostnames, no PII serialized).
+
+## Implementation log
+
+- 2026-05-23 (implementation-dev): branch `feat/0009-shareable-estimate-link`.
+  Status flipped to in-progress (ticket file + README index together). Plan:
+  typed encode/decode helper `estimateShareParams.ts` co-located with the page,
+  parse-safe against `PROJECT_TYPES`/`FINISH_LEVELS`/`EXTRAS`; `useSearchParams`
+  rehydration in `EstimateGenerator.tsx`; "Copy share link" button in
+  `EstimateCard.tsx` with `dark:` + `print:hidden` treatment and a transient
+  "Copied" confirmation. Tests-first in `tests/e2e/`, one per acceptance box.
