@@ -15,7 +15,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0004 | Client logo marquee (placeholders) | P2 | shipped | trust |
 | 0005 | Add CI type-check gate (tsc --noEmit) | P1 | shipped | infra |
 | 0006 | Footer silently missing on Glossary, Industries, and comparison pages | P1 | shipped | conversion |
-| 0007 | Ratchet tsconfig strictness (zero-cost flags) | P1 | in-progress | infra |
+| 0007 | Ratchet tsconfig strictness (zero-cost flags) | P1 | shipped | infra |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the
