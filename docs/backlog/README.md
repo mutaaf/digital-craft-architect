@@ -16,6 +16,9 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0005 | Add CI type-check gate (tsc --noEmit) | P1 | shipped | infra |
 | 0006 | Footer silently missing on Glossary, Industries, and comparison pages | P1 | shipped | conversion |
 | 0007 | Ratchet tsconfig strictness (zero-cost flags) | P1 | shipped | infra |
+| 0009 | Shareable branded estimate result link | P1 | groomed | demos |
+| 0010 | Resumable demo session with "Continue your demo" prompt | P1 | groomed | demos |
+| 0011 | Crawlable /demos index hub with ItemList structured data | P2 | proposed | seo |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the
