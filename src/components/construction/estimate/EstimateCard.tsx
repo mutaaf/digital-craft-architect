@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
-import { Printer, Calendar, DollarSign } from 'lucide-react';
+import { Printer, Calendar, DollarSign, Link2, Check } from 'lucide-react';
 import { useDemoContext } from '@/contexts/DemoContext';
 import type { EstimateBreakdown, ProjectType, FinishLevel } from '@/data/estimatePricing';
 
@@ -11,6 +12,8 @@ interface EstimateCardProps {
   projectType: ProjectType;
   finish: FinishLevel;
   sqft: number;
+  // Builds a same-origin, same-route URL that rehydrates this estimate.
+  buildShareUrl?: () => string;
 }
 
 const fmt = (n: number) =>
@@ -24,7 +27,7 @@ const LineItem = ({ label, low, high }: { label: string; low: number; high: numb
   </TableRow>
 );
 
-const EstimateCard = ({ breakdown, projectType, finish, sqft }: EstimateCardProps) => {
+const EstimateCard = ({ breakdown, projectType, finish, sqft, buildShareUrl }: EstimateCardProps) => {
   const { company } = useDemoContext();
   const companyName = company?.companyName || 'DigitalCraft AI';
   const tagline = company?.tagline || 'DFW Construction & Remodeling';
@@ -32,7 +35,32 @@ const EstimateCard = ({ breakdown, projectType, finish, sqft }: EstimateCardProp
   const email = company?.email || 'mutaaf@digitalcraftai.com';
   const bookingUrl = company?.bookingUrl || 'https://calendly.com/mutaaf';
 
+  const [copied, setCopied] = useState(false);
+
   const handlePrint = () => window.print();
+
+  const handleCopyShareLink = async () => {
+    if (!buildShareUrl) return;
+    const url = buildShareUrl();
+    try {
+      await navigator.clipboard.writeText(url);
+    } catch {
+      // Older browsers / insecure contexts: fall back to a temp textarea.
+      const ta = document.createElement('textarea');
+      ta.value = url;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+      } finally {
+        document.body.removeChild(ta);
+      }
+    }
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <div className="max-w-2xl mx-auto print:max-w-none">
@@ -100,7 +128,7 @@ const EstimateCard = ({ breakdown, projectType, finish, sqft }: EstimateCardProp
               <DollarSign size={20} className="text-primary" />
               <span className="text-base sm:text-lg font-semibold">Estimated Range</span>
             </div>
-            <span className="text-xl sm:text-2xl font-bold text-primary">
+            <span data-testid="estimate-total" className="text-xl sm:text-2xl font-bold text-primary">
               {fmt(breakdown.totalLow)} – {fmt(breakdown.totalHigh)}
             </span>
           </div>
@@ -127,6 +155,28 @@ const EstimateCard = ({ breakdown, projectType, finish, sqft }: EstimateCardProp
             <Button onClick={handlePrint} variant="outline" className="flex-1 gap-2">
               <Printer size={16} /> Print Estimate
             </Button>
+            {buildShareUrl && (
+              <Button
+                data-testid="copy-share-link"
+                onClick={handleCopyShareLink}
+                variant="outline"
+                aria-live="polite"
+                className="flex-1 gap-2 dark:border-gray-700 dark:hover:bg-gray-800"
+              >
+                {copied ? (
+                  <span
+                    data-testid="copy-confirmation"
+                    className="flex items-center gap-2 text-green-600 dark:text-green-400"
+                  >
+                    <Check size={16} /> Copied
+                  </span>
+                ) : (
+                  <>
+                    <Link2 size={16} /> Copy share link
+                  </>
+                )}
+              </Button>
+            )}
             {bookingUrl && (
               <Button asChild className="flex-1 gap-2">
                 <a href={bookingUrl} target="_blank" rel="noopener noreferrer">
