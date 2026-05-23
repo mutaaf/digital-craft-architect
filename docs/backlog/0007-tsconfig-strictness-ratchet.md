@@ -1,7 +1,7 @@
 ---
 id: 0007
 title: Ratchet tsconfig strictness (zero-cost flags)
-status: in-progress
+status: shipped
 priority: P1
 area: infra
 created: 2026-05-22
@@ -122,3 +122,10 @@ reason about.
 - Ran the FULL local gate (lint, typecheck, check-links, check-images,
   check-meta, check-blog-dates, check-backlog, build) — all green. No `/api/`,
   `.env*`, `package.json`, or `package-lock.json` touched.
+- eng PR #43 opened (`--base main`), auto-merge (squash) enabled. CI gating
+  checks both green (`build` pass, `smoke-required` pass); Vercel preview failed
+  only on a deployment rate limit (informational, ignored per AGENTS.md). PR #43
+  squash-merged to main.
+- Ship PR `chore/0007-ship-status` flips this ticket frontmatter and its README
+  index row `in-progress -> shipped` together; `node scripts/check-backlog.mjs`
+  green before push.
