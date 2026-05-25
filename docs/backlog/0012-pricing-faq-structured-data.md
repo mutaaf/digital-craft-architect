@@ -1,7 +1,7 @@
 ---
 id: 0012
 title: Emit FAQPage structured data for the visible pricing FAQ
-status: in-progress
+status: shipped
 priority: P1
 area: seo
 created: 2026-05-25
@@ -116,3 +116,9 @@ Files / patterns the dev should touch.
 - All 12 specs (6 boxes x 2 pages) green against the production build. Full local
   gate green: lint (0 errors), typecheck, check-links, check-images, check-meta,
   check-blog-dates, check-backlog, build.
+
+### 2026-05-25 - shipped
+
+- Feat PR #53 squash-merged to main (commit 88924e9); `build` + `smoke-required`
+  both green. This `chore/0012-ship-status` PR flips the ticket frontmatter and
+  README index row to `shipped` together (check-backlog green).
