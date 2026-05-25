@@ -1,7 +1,7 @@
 ---
 id: 0011
 title: Crawlable /demos index hub with ItemList structured data
-status: proposed
+status: groomed
 priority: P2
 area: seo
 created: 2026-05-23
