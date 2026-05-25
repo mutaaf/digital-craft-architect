@@ -137,3 +137,24 @@ diverges them. Replacing an em-dash with a hyphen is punctuation repair, not
 rewording, so it respects an "out of scope: no rewording" rule. Treat the source
 fix as in-scope when it is the only way to satisfy a mirror-with-no-drift
 criterion plus a forbidden-character criterion at once.
+
+## 2026-05-25 - The index.html "SEO Pilot" script owns document.title; Helmet titles only win for routes in its table
+**Where:** ticket 0013 (feat PR #58), index.html SEO Pilot block, src/pages/Glossary.tsx Helmet
+**What went wrong:** N/A (gotcha discovered). A first test asserted
+`expect(page).toHaveTitle(/glossary/i)` for the glossary, mirroring the demos-hub
+test that does the same and passes. It failed: on `/glossary` `document.title`
+stays the homepage title even 10s after hydration. Root cause is an inline
+`index.html` "SEO Pilot" script with its own per-route `pages` table that rewrites
+the single `<title>` element on SPA navigation and runs after Helmet. Routes in
+that table (`/`, `/demos`, `/construction`, ...) get the right title; routes NOT in
+it (e.g. `/glossary`, which `check-meta` already flags as "missing explicit meta
+tags in index.html") fall back to the homepage title, overwriting Helmet's. The
+meta description is unaffected because Helmet APPENDS a second
+`meta[name="description"]` rather than overwriting one element, so the page's own
+description is still present (two description tags, the Helmet one is correct).
+**Rule going forward:** Do not assert `toHaveTitle`/`document.title` for a route
+unless that route is in the index.html SEO Pilot `pages` table; for routes driven
+only by react-helmet-async, assert the Helmet-managed head element directly (its
+own `meta[name="description"]` content, or its emitted JSON-LD) instead. Adding a
+route to the SEO Pilot table is its own SEO concern, out of scope for a
+structured-data ticket.
