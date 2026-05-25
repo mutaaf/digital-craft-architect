@@ -12,6 +12,12 @@ interface GlossaryTerm {
   term: string;
   slug: string;
   definition: React.ReactNode;
+  // Plain-text mirror of `definition`, required only when `definition` is a
+  // React node with inline links. When `definition` is already a string it is
+  // its own plain text and this is omitted. Keeping both on one item means the
+  // visible <dd> and the DefinedTermSet schema share a single source and cannot
+  // drift. The string must equal the rendered <dd> text exactly.
+  plainDefinition?: string;
 }
 
 // Plain-language definitions of the AI and automation terms that come up most
@@ -21,7 +27,7 @@ const TERMS: GlossaryTerm[] = [
   { term: 'AI Agent', slug: 'ai-agent', definition: 'Software that can understand a goal, make decisions, and take actions on its own, such as qualifying a lead or booking an appointment without step-by-step instructions.' },
   { term: 'API (Application Programming Interface)', slug: 'api', definition: 'A standard way for two software systems to talk to each other, used to connect your AI tools to your CRM, calendar, or phone system.' },
   { term: 'Artificial Intelligence (AI)', slug: 'artificial-intelligence', definition: 'Computer systems that perform tasks normally requiring human intelligence, such as understanding language, recognizing patterns, and making recommendations.' },
-  { term: 'Chatbot', slug: 'chatbot', definition: <>An automated assistant that holds a text conversation with website visitors to answer questions and capture lead details. See the <Link to="/construction/demo/lead-responder" className="text-primary hover:underline">AI lead responder demo</Link>.</> },
+  { term: 'Chatbot', slug: 'chatbot', definition: <>An automated assistant that holds a text conversation with website visitors to answer questions and capture lead details. See the <Link to="/construction/demo/lead-responder" className="text-primary hover:underline">AI lead responder demo</Link>.</>, plainDefinition: 'An automated assistant that holds a text conversation with website visitors to answer questions and capture lead details. See the AI lead responder demo.' },
   { term: 'Churn', slug: 'churn', definition: 'The rate at which customers stop doing business with you over a given period. Reducing churn is usually cheaper than acquiring new customers.' },
   { term: 'Conversational AI', slug: 'conversational-ai', definition: 'AI designed to hold natural, back-and-forth conversations by voice or text, rather than responding with rigid menus or scripted replies.' },
   { term: 'Conversion Rate', slug: 'conversion-rate', definition: 'The percentage of visitors or leads who take a desired action, such as booking a call or submitting a form.' },
@@ -35,26 +41,53 @@ const TERMS: GlossaryTerm[] = [
   { term: 'Knowledge Base', slug: 'knowledge-base', definition: 'A structured collection of your business information that an AI uses to answer questions accurately about your services, pricing, and policies.' },
   { term: 'Large Language Model (LLM)', slug: 'large-language-model', definition: 'An AI model trained on vast amounts of text that can understand and generate human-like language, powering chatbots and writing assistants.' },
   { term: 'Lead Qualification', slug: 'lead-qualification', definition: 'Determining whether a prospect is a good fit and ready to buy, based on budget, timeline, and need.' },
-  { term: 'Lead Scoring', slug: 'lead-scoring', definition: <>Ranking leads by how likely they are to convert, using signals like budget, urgency, and decision-making authority. Try the <Link to="/construction/demo/lead-scoring" className="text-primary hover:underline">lead scoring demo</Link>.</> },
+  { term: 'Lead Scoring', slug: 'lead-scoring', definition: <>Ranking leads by how likely they are to convert, using signals like budget, urgency, and decision-making authority. Try the <Link to="/construction/demo/lead-scoring" className="text-primary hover:underline">lead scoring demo</Link>.</>, plainDefinition: 'Ranking leads by how likely they are to convert, using signals like budget, urgency, and decision-making authority. Try the lead scoring demo.' },
   { term: 'Machine Learning (ML)', slug: 'machine-learning', definition: 'A branch of AI where systems learn patterns from data and improve over time without being explicitly programmed for every case.' },
   { term: 'Marketing Automation', slug: 'marketing-automation', definition: 'Using software to handle repetitive marketing tasks like follow-up emails, lead nurturing, and campaign tracking automatically.' },
   { term: 'Natural Language Processing (NLP)', slug: 'natural-language-processing', definition: 'The field of AI focused on understanding and generating human language, the foundation of chatbots and voice assistants.' },
   { term: 'No-Show', slug: 'no-show', definition: 'A scheduled appointment or call where the prospect does not appear. Automated reminders and confirmations reduce no-show rates.' },
   { term: 'Nurture Sequence', slug: 'nurture-sequence', definition: 'A planned series of follow-up messages that keep a lead engaged over time until they are ready to buy.' },
-  { term: 'Outbound Calling', slug: 'outbound-calling', definition: <>Proactively contacting leads or customers by phone. AI <Link to="/construction/demo/voice-negotiator" className="text-primary hover:underline">voice agents</Link> can place these calls at scale for reminders and follow-up.</> },
+  { term: 'Outbound Calling', slug: 'outbound-calling', definition: <>Proactively contacting leads or customers by phone. AI <Link to="/construction/demo/voice-negotiator" className="text-primary hover:underline">voice agents</Link> can place these calls at scale for reminders and follow-up.</>, plainDefinition: 'Proactively contacting leads or customers by phone. AI voice agents can place these calls at scale for reminders and follow-up.' },
   { term: 'Prompt Engineering', slug: 'prompt-engineering', definition: 'The practice of crafting the instructions given to an AI model to get accurate, useful, on-brand responses.' },
   { term: 'Retrieval-Augmented Generation (RAG)', slug: 'retrieval-augmented-generation', definition: 'A technique that lets an AI pull in your real, up-to-date business data before answering, instead of relying only on its training.' },
-  { term: 'Return on Investment (ROI)', slug: 'roi', definition: <>A measure of the profit generated relative to the cost of an investment, often used to justify automation spend. Estimate yours with the <Link to="/construction#roi-calculator" className="text-primary hover:underline">ROI calculator</Link>.</> },
+  { term: 'Return on Investment (ROI)', slug: 'roi', definition: <>A measure of the profit generated relative to the cost of an investment, often used to justify automation spend. Estimate yours with the <Link to="/construction#roi-calculator" className="text-primary hover:underline">ROI calculator</Link>.</>, plainDefinition: 'A measure of the profit generated relative to the cost of an investment, often used to justify automation spend. Estimate yours with the ROI calculator.' },
   { term: 'Sentiment Analysis', slug: 'sentiment-analysis', definition: 'Automatically detecting whether a message or review is positive, negative, or neutral, useful for prioritizing responses.' },
   { term: 'Speech-to-Text (STT)', slug: 'speech-to-text', definition: 'Technology that converts spoken words into written text, letting voice AI understand what a caller is saying.' },
   { term: 'Speed-to-Lead', slug: 'speed-to-lead', definition: 'How fast you respond to a new lead. Responding within minutes dramatically increases the odds of connecting and closing.' },
   { term: 'Text-to-Speech (TTS)', slug: 'text-to-speech', definition: 'Technology that converts written text into natural-sounding spoken audio, giving voice AI its voice.' },
   { term: 'Token', slug: 'token', definition: 'The small chunks of text an AI model reads and generates. AI usage and cost are often measured in tokens.' },
   { term: 'UTM Parameters', slug: 'utm-parameters', definition: 'Tags added to a URL that tell your analytics which campaign, source, or ad sent a visitor, so you can measure what works.' },
-  { term: 'Voice AI', slug: 'voice-ai', definition: <>AI that conducts spoken phone conversations, handling tasks like lead follow-up, appointment reminders, and negotiation. See the <Link to="/construction/demo/voice-negotiator" className="text-primary hover:underline">voice negotiator demo</Link>.</> },
+  { term: 'Voice AI', slug: 'voice-ai', definition: <>AI that conducts spoken phone conversations, handling tasks like lead follow-up, appointment reminders, and negotiation. See the <Link to="/construction/demo/voice-negotiator" className="text-primary hover:underline">voice negotiator demo</Link>.</>, plainDefinition: 'AI that conducts spoken phone conversations, handling tasks like lead follow-up, appointment reminders, and negotiation. See the voice negotiator demo.' },
   { term: 'Webhook', slug: 'webhook', definition: 'An automated message sent from one app to another when an event happens, used to trigger workflows in real time.' },
   { term: 'Workflow Automation', slug: 'workflow-automation', definition: 'Connecting tools and steps so a process runs automatically end to end, reducing manual handoffs and errors.' },
 ];
+
+// Single source for the glossary's name and description, reused by both the
+// Helmet meta description and the DefinedTermSet schema so they cannot drift.
+const GLOSSARY_NAME = 'AI & Automation Glossary';
+const GLOSSARY_DESCRIPTION =
+  'A plain-language glossary of AI and business automation terms like LLM, RAG, Voice AI, Lead Scoring, Speed-to-Lead, and CRM, explained for non-technical business owners.';
+
+// The plain-text description for a term: the explicit plainDefinition when the
+// definition is a React node with inline links, otherwise the definition string
+// itself. One source means the visible <dd> and the schema stay identical.
+const plainText = (t: GlossaryTerm): string =>
+  t.plainDefinition ?? (typeof t.definition === 'string' ? t.definition : '');
+
+// DefinedTermSet structured data built from the same TERMS the <dl> renders, so
+// the schema mirrors the visible content and can never drift. Emitted as one
+// inline application/ld+json block (same pattern as src/pages/Construction.tsx).
+const definedTermSetJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTermSet',
+  name: GLOSSARY_NAME,
+  description: GLOSSARY_DESCRIPTION,
+  hasDefinedTerm: TERMS.map((t) => ({
+    '@type': 'DefinedTerm',
+    name: t.term,
+    description: plainText(t),
+  })),
+};
 
 const Glossary: React.FC = () => {
   const { content } = useContent();
@@ -63,10 +96,8 @@ const Glossary: React.FC = () => {
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <Helmet>
         <title>AI & Automation Glossary | Key Terms Explained | DigitalCraft AI</title>
-        <meta
-          name="description"
-          content="A plain-language glossary of AI and business automation terms like LLM, RAG, Voice AI, Lead Scoring, Speed-to-Lead, and CRM, explained for non-technical business owners."
-        />
+        <meta name="description" content={GLOSSARY_DESCRIPTION} />
+        <script type="application/ld+json">{JSON.stringify(definedTermSetJsonLd)}</script>
       </Helmet>
       <Navbar />
       <ScrollProgress />
