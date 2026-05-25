@@ -20,36 +20,43 @@ interface DemoContextValue {
 
 const DemoContext = createContext<DemoContextValue | null>(null);
 
-function sessionKey(vertical: Vertical) {
+function storageKey(vertical: Vertical) {
   return `dca_demo_company_${vertical}`;
 }
 
-function loadFromSession(vertical: Vertical): CompanyProfile | null {
+// Persistence lives in localStorage so a personalized demo profile survives a new
+// browser session (ticket 0010). Key scoping stays per-vertical and reset clears
+// the same key; all access is guarded so storage being unavailable is non-fatal.
+function loadProfile(vertical: Vertical): CompanyProfile | null {
   try {
-    const raw = sessionStorage.getItem(sessionKey(vertical));
+    const raw = localStorage.getItem(storageKey(vertical));
     return raw ? JSON.parse(raw) : null;
   } catch {
     return null;
   }
 }
 
-function saveToSession(vertical: Vertical, profile: CompanyProfile | null) {
-  const key = sessionKey(vertical);
-  if (profile) {
-    sessionStorage.setItem(key, JSON.stringify(profile));
-  } else {
-    sessionStorage.removeItem(key);
+function saveProfile(vertical: Vertical, profile: CompanyProfile | null) {
+  try {
+    const key = storageKey(vertical);
+    if (profile) {
+      localStorage.setItem(key, JSON.stringify(profile));
+    } else {
+      localStorage.removeItem(key);
+    }
+  } catch {
+    /* storage unavailable - non-fatal */
   }
 }
 
 export function DemoContextProvider({ vertical = 'construction', children }: { vertical?: Vertical; children: ReactNode }) {
-  const [company, setCompany] = useState<CompanyProfile | null>(() => loadFromSession(vertical));
+  const [company, setCompany] = useState<CompanyProfile | null>(() => loadProfile(vertical));
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Persist to sessionStorage on change
+  // Persist to localStorage on change so the profile survives across sessions.
   useEffect(() => {
-    saveToSession(vertical, company);
+    saveProfile(vertical, company);
   }, [company, vertical]);
 
   const load = useCallback(async (input: string) => {
@@ -76,7 +83,7 @@ export function DemoContextProvider({ vertical = 'construction', children }: { v
   const reset = useCallback(() => {
     setCompany(null);
     setError(null);
-    sessionStorage.removeItem(sessionKey(vertical));
+    saveProfile(vertical, null);
   }, [vertical]);
 
   return (

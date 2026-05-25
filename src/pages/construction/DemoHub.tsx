@@ -22,6 +22,7 @@ import {
 import { trackDemoClick, trackCTAClick } from '@/utils/analytics';
 import StickyCTA from '@/components/StickyCTA';
 import DemoVideoCards from '@/components/DemoVideoCards';
+import ResumeDemoPrompt from '@/components/ResumeDemoPrompt';
 
 const DemoHub = () => {
   const { company, isCustomized, loadFromUrl, isLoading } = useDemoContext();
@@ -153,6 +154,8 @@ const DemoHub = () => {
             lead capture, estimating, reputation management, deal analysis, and voice negotiation.
           </p>
         </div>
+
+        <ResumeDemoPrompt />
 
         <CompanySetupForm />
 
