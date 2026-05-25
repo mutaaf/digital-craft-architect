@@ -177,3 +177,21 @@ different shard/parametrization (or passes), it is pre-existing flakiness that C
 the failing spec/files are outside your change, gate on the CI `build` +
 `smoke-required` result, and do not block your merge on it. (Quarantining or
 de-flaking that spec is its own eng concern, not a ship-run task.)
+
+## 2026-05-25 - When delegating ship to implementation-dev, finish the second (ship-status) PR in the SAME run
+**Where:** ticket 0015 (feat PR #63, ship-status PR #64), ship run delegating to the implementation-dev subagent
+**What went wrong:** N/A (orchestration technique). The implementation-dev subagent
+runs only PR 1: it branches `feat/<id>`, flips the ticket to `in-progress`, ships
+the code+tests, arms auto-merge, watches it squash-merge to main, then RETURNS. It
+does not open PR 2 (`chore/<id>-ship-status`). If the ship runner ends the run right
+after the subagent returns, the ticket is left at `in-progress` with its feat code
+already in main, the exact stuck state the 2026-05-25 missing-ship-status recovery
+lesson describes - except self-inflicted, deferring completion to a whole extra run.
+**Rule going forward:** A delegated ship is not done when implementation-dev returns
+"feat merged." In the SAME run, immediately complete PR 2 yourself: confirm the feat
+PR actually merged and landed all the ticket's files (`git show --stat <mergeCommit>`),
+branch `chore/<id>-ship-status` off fresh `origin/main`, flip the ticket frontmatter
+AND its README index row to `shipped` together, run `node scripts/check-backlog.mjs`
+(must be green), push, `gh pr create --fill`, `gh pr merge --auto --squash`, watch
+`build`+`smoke-required` to green. This is still ONE ship action (the two-PR budget of
+2026-05-22), not a second ticket - so it does not violate "heal OR ship, never both."
