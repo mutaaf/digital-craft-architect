@@ -1,10 +1,11 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import DemoNavbar from '@/components/construction/DemoNavbar';
 import StepIndicator from '@/components/construction/estimate/StepIndicator';
 import ProjectTypeSelector from '@/components/construction/estimate/ProjectTypeSelector';
 import EstimateCard from '@/components/construction/estimate/EstimateCard';
+import LastEstimateRecapCard from '@/components/construction/estimate/LastEstimateRecapCard';
 import { useDemoContext } from '@/contexts/DemoContext';
 import {
   PROJECT_TYPES,
@@ -16,6 +17,12 @@ import {
   decodeEstimateParams,
   encodeEstimateParams,
 } from './estimateShareParams';
+import {
+  saveLastEstimate,
+  loadLastEstimate,
+  clearLastEstimate,
+  lastEstimateDismissKey,
+} from './lastEstimateStore';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
@@ -29,7 +36,7 @@ const STEP_LABELS = ['Project', 'Size', 'Finish', 'Extras'];
 const RESULT_STEP = 5;
 
 const EstimateGenerator = () => {
-  const { company } = useDemoContext();
+  const { company, vertical } = useDemoContext();
   const possessive = company?.companyName ? `${company.companyName}'s` : "DigitalCraft AI's";
   const [searchParams] = useSearchParams();
 
@@ -41,6 +48,23 @@ const EstimateGenerator = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
+
+  // Ticket 0014 - the last completed estimate persisted for this vertical. Read
+  // once on mount, and only when no share link is present (a share link already
+  // jumps straight to a result, so the recap card would be redundant).
+  const storedEstimate = useMemo(
+    () => (shared ? null : loadLastEstimate(vertical)),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+  const [recapDismissed, setRecapDismissed] = useState<boolean>(() => {
+    try {
+      return sessionStorage.getItem(lastEstimateDismissKey(vertical)) === '1';
+    } catch {
+      return false;
+    }
+  });
+  const [recapCleared, setRecapCleared] = useState(false);
 
   const [step, setStep] = useState(shared ? RESULT_STEP : 1);
   const [selectedTypeId, setSelectedTypeId] = useState<string | null>(
@@ -116,6 +140,49 @@ const EstimateGenerator = () => {
       ? calculateEstimate(projectType, sqft, finish, selectedExtras)
       : null;
 
+  // Ticket 0014 - persist the completed inputs when the result view is reached so
+  // a later visit can re-offer this estimate. Browser-local only; the store
+  // round-trips the bundle through the 0009 helper, so only validated inputs land.
+  useEffect(() => {
+    if (showEstimate && selectedTypeId) {
+      saveLastEstimate(vertical, {
+        selectedTypeId,
+        sqft,
+        selectedFinishId,
+        selectedExtraIds: [...selectedExtraIds],
+      });
+    }
+  }, [showEstimate, selectedTypeId, sqft, selectedFinishId, selectedExtraIds, vertical]);
+
+  // Recap card actions (ticket 0014). Reopen rehydrates straight to the result
+  // view from the stored inputs; Start-new clears the stored estimate and keeps
+  // the normal wizard; Dismiss hides it for the session.
+  const showRecap =
+    step === 1 && !!storedEstimate && !recapDismissed && !recapCleared;
+
+  const reopenLastEstimate = () => {
+    if (!storedEstimate) return;
+    setSelectedTypeId(storedEstimate.selectedTypeId);
+    setSqft(storedEstimate.sqft);
+    setSelectedFinishId(storedEstimate.selectedFinishId);
+    setSelectedExtraIds(new Set(storedEstimate.selectedExtraIds));
+    setStep(RESULT_STEP);
+  };
+
+  const startNewEstimate = () => {
+    clearLastEstimate(vertical);
+    setRecapCleared(true);
+  };
+
+  const dismissRecap = () => {
+    setRecapDismissed(true);
+    try {
+      sessionStorage.setItem(lastEstimateDismissKey(vertical), '1');
+    } catch {
+      /* storage unavailable - non-fatal */
+    }
+  };
+
   const validationHint = () => {
     if (step === 1 && !selectedTypeId) return 'Select a project type to continue';
     if (step === 2 && sqft === 0) return 'Enter the square footage';
@@ -145,7 +212,7 @@ const EstimateGenerator = () => {
         </div>
 
         <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm leading-relaxed max-w-2xl mx-auto text-center mb-6">
-          This AI estimate generator demo shows how construction and remodeling companies can give prospects instant ballpark pricing. Select a project type — kitchen remodel, bathroom renovation, outdoor build, or full home renovation — enter the square footage, choose your finish level, and get a detailed cost breakdown in seconds. The estimate includes labor, materials, and optional add-ons like design consultations and permit assistance, all calculated from real contractor pricing. For construction business owners, this tool converts curious website visitors into qualified leads by giving them immediate value instead of a generic "request a quote" form. Try the AI construction cost calculator below and see how automated estimates help contractors close more jobs faster.
+          This AI estimate generator demo shows how construction and remodeling companies can give prospects instant ballpark pricing. Select a project type (kitchen remodel, bathroom renovation, outdoor build, or full home renovation), enter the square footage, choose your finish level, and get a detailed cost breakdown in seconds. The estimate includes labor, materials, and optional add-ons like design consultations and permit assistance, all calculated from real contractor pricing. For construction business owners, this tool converts curious website visitors into qualified leads by giving them immediate value instead of a generic "request a quote" form. Try the AI construction cost calculator below and see how automated estimates help contractors close more jobs faster.
         </p>
 
         {!showEstimate && (
@@ -155,6 +222,14 @@ const EstimateGenerator = () => {
         {/* Step 1: Project Type */}
         {step === 1 && (
           <div className="animate-fade-in">
+            {showRecap && storedEstimate && (
+              <LastEstimateRecapCard
+                estimate={storedEstimate}
+                onReopen={reopenLastEstimate}
+                onStartNew={startNewEstimate}
+                onDismiss={dismissRecap}
+              />
+            )}
             <h2 className="text-lg sm:text-xl font-semibold mb-4 text-center">What type of project?</h2>
             <ProjectTypeSelector
               types={PROJECT_TYPES}
@@ -246,8 +321,8 @@ const EstimateGenerator = () => {
             <h2 className="text-lg sm:text-xl font-semibold mb-2 text-center">Any add-ons?</h2>
             <p className="text-gray-400 text-center text-sm mb-6">
               {selectedExtraIds.size > 0
-                ? `${selectedExtraIds.size} add-on${selectedExtraIds.size > 1 ? 's' : ''} selected — $${extrasTotal.toLocaleString()}`
-                : 'Optional — skip if none apply'}
+                ? `${selectedExtraIds.size} add-on${selectedExtraIds.size > 1 ? 's' : ''} selected - $${extrasTotal.toLocaleString()}`
+                : 'Optional - skip if none apply'}
             </p>
             <div className="grid gap-4">
               {EXTRAS.map((e) => {
