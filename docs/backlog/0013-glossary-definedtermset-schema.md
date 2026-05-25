@@ -1,7 +1,7 @@
 ---
 id: 0013
 title: Add DefinedTermSet structured data to the AI glossary
-status: proposed
+status: in-progress
 priority: P2
 area: seo
 created: 2026-05-25
@@ -81,3 +81,12 @@ Files / patterns the dev should touch.
   `TERMS` entry, that names match, and that no description string contains an em-dash.
 - New deps: no. Schema migration: no. Privacy/security surface change: no (no new
   hostnames, content is static and already shipped).
+
+## Implementation log
+
+- 2026-05-25: Started on `feat/0013-glossary-definedtermset-schema`. Flipped status
+  to in-progress (ticket + README index together). Plan: derive a plain-text
+  description for each `TERMS` entry (add an optional `plainDefinition` only where
+  the definition is a React node with inline links) and emit one `DefinedTermSet`
+  JSON-LD block from that single source, with tests written first against each
+  acceptance box.
