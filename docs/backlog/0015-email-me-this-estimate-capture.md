@@ -1,7 +1,7 @@
 ---
 id: 0015
 title: "Email me this estimate" lead capture on the estimate result
-status: proposed
+status: in-progress
 priority: P2
 area: conversion
 created: 2026-05-25
@@ -90,3 +90,16 @@ Files / patterns the dev should touch.
 - New deps: no. Schema migration: no. Privacy/security surface change: no new
   hostname (Formspree already in use); the only data sent is the visitor-entered
   email plus the existing UTM params and the same-origin share link.
+
+## Implementation log
+
+- 2026-05-25 - Picked up on branch `feat/0015-email-me-this-estimate-capture`.
+  Flipped status proposed -> in-progress (README index row in sync). Plan: write
+  one e2e spec per acceptance box first in
+  `tests/e2e/email-me-this-estimate.spec.ts`, mocking the Formspree POST with
+  `page.route('https://formspree.io/f/xovekqqk', ...)`, then add an
+  `EmailEstimateCapture` control to `EstimateCard.tsx` inside the existing 0009
+  `print:hidden` action area. The control reuses the `EmailCourseOptin` pattern
+  (same `EMAIL_RE`, same Formspree endpoint, same `getUtmParams()`), posts the
+  entered email plus the 0009 share link with a distinct `_subject`, fires
+  `trackCTAClick` with a result-page location label, and ships `dark:` variants.
