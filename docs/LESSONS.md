@@ -116,3 +116,24 @@ PR (flip ticket frontmatter + README index row to `shipped` together, check-back
 green) — that IS the run's one ship action. Only skip an in-progress ticket whose
 feat PR is genuinely still open/unmerged (PHASE 1 tends that). Verify the feat diff
 actually landed all the ticket's files before flipping to shipped.
+
+## 2026-05-25 - Mirroring copy into structured data exposes pre-existing em-dashes; fix at the single source
+**Where:** ticket 0012 (feat PR #53), src/components/PricingFAQ.tsx FAQ_ITEMS
+**What went wrong:** N/A (technique). 0012 emits a FAQPage JSON-LD block built
+from the component's existing FAQ_ITEMS array, and an acceptance box required "no
+em-dash in any emitted question or answer string." Writing that test first
+revealed four FAQ_ITEMS answers had already shipped em-dashes in the visible copy
+(a standing brand-voice Hard NO violation that no check had caught, because the
+em-dash gate is only enforced by Self-Review on the diff, not by an automated
+check over already-merged source). The ticket also said schema must mirror the
+rendered accordion with no drift AND not reword any FAQ copy. Stripping the
+em-dash only in the schema would have created drift between the visible text and
+the schema.
+**Rule going forward:** When a ticket reflects existing on-page copy into a
+mirrored surface (JSON-LD, OG tags, sitemap titles, an email, etc.) and the spec
+forbids a character/pattern, fix it at the single shared source so the visible
+copy and the mirror stay identical, never with a one-sided transform that
+diverges them. Replacing an em-dash with a hyphen is punctuation repair, not
+rewording, so it respects an "out of scope: no rewording" rule. Treat the source
+fix as in-scope when it is the only way to satisfy a mirror-with-no-drift
+criterion plus a forbidden-character criterion at once.
