@@ -17,7 +17,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0006 | Footer silently missing on Glossary, Industries, and comparison pages | P1 | shipped | conversion |
 | 0007 | Ratchet tsconfig strictness (zero-cost flags) | P1 | shipped | infra |
 | 0009 | Shareable branded estimate result link | P1 | shipped | demos |
-| 0010 | Resumable demo session with "Continue your demo" prompt | P1 | in-progress | demos |
+| 0010 | Resumable demo session with "Continue your demo" prompt | P1 | shipped | demos |
 | 0011 | Crawlable /demos index hub with ItemList structured data | P2 | groomed | seo |
 | 0012 | Emit FAQPage structured data for the visible pricing FAQ | P1 | groomed | seo |
 | 0013 | Add DefinedTermSet structured data to the AI glossary | P2 | proposed | seo |

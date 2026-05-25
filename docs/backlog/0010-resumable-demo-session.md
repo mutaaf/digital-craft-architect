@@ -1,7 +1,7 @@
 ---
 id: 0010
 title: Resumable demo session with "Continue your demo" prompt
-status: in-progress
+status: shipped
 priority: P1
 area: demos
 created: 2026-05-23
@@ -97,3 +97,9 @@ Files / patterns the dev should touch.
   estate demo hubs, with a session-scoped dismissal key. e2e specs in
   `tests/e2e/resumable-demo-session.spec.ts` written first against the acceptance
   criteria.
+- 2026-05-25 (implementation-dev): Shipped in feat PR #51 (merged 38577bf).
+  `DemoContext` now persists to `localStorage` (per-vertical key, same reset
+  semantics, guarded). Reusable `ResumeDemoPrompt` renders on both the
+  construction and real estate hubs with Resume / Start-fresh actions and a
+  session-scoped per-vertical dismissal key. All 7 e2e scenarios green; full
+  local gate and CI (`build`, `smoke-required`) green. Marking shipped.
