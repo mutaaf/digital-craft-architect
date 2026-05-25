@@ -1,7 +1,7 @@
 ---
 id: 0014
 title: Persist and re-offer the visitor's last completed estimate
-status: in-progress
+status: shipped
 priority: P2
 area: demos
 created: 2026-05-25
@@ -118,3 +118,6 @@ Files / patterns the dev should touch.
   em-dashes in this file's intro/extras copy (punctuation repair, per the 2026-05-25
   lesson). Full local gate green; all 7 new e2e specs pass; full e2e suite green
   except a known-flaky 0012 pricing-FAQ accordion test (retries:1 in CI absorbs it).
+- 2026-05-25 - feat PR #60 merged to main green (build + smoke-required both pass).
+  Flipping status in-progress -> shipped via chore/0014-ship-status (PR 2 of 2),
+  ticket frontmatter and README index row moved together, check-backlog green.
