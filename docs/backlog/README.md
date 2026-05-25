@@ -18,7 +18,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0007 | Ratchet tsconfig strictness (zero-cost flags) | P1 | shipped | infra |
 | 0009 | Shareable branded estimate result link | P1 | shipped | demos |
 | 0010 | Resumable demo session with "Continue your demo" prompt | P1 | shipped | demos |
-| 0011 | Crawlable /demos index hub with ItemList structured data | P2 | in-progress | seo |
+| 0011 | Crawlable /demos index hub with ItemList structured data | P2 | shipped | seo |
 | 0012 | Emit FAQPage structured data for the visible pricing FAQ | P1 | shipped | seo |
 | 0013 | Add DefinedTermSet structured data to the AI glossary | P2 | proposed | seo |
 | 0014 | Persist and re-offer the visitor's last completed estimate | P2 | proposed | demos |

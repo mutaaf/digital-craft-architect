@@ -1,7 +1,7 @@
 ---
 id: 0011
 title: Crawlable /demos index hub with ItemList structured data
-status: in-progress
+status: shipped
 priority: P2
 area: seo
 created: 2026-05-23
@@ -93,3 +93,8 @@ Files / patterns the dev should touch.
   `Glossary.tsx`, a `<Route path="/demos">` registration in `src/App.tsx` (picks
   up sitemap automatically), and an inline `ItemList` JSON-LD block. Demo catalog
   sourced from the real `/.../demo/...` routes in `App.tsx`; no invented demos.
+- 2026-05-25: Shipped. feat PR #56 merged to main (gating checks `build` and
+  `smoke-required` both green). New `src/pages/Demos.tsx` + `/demos` route +
+  `ItemList` JSON-LD + `tests/e2e/demos-index-hub.spec.ts` (one scenario per
+  acceptance box). Flipping ticket frontmatter and the README index row to
+  `shipped` together in `chore/0011-ship-status`.
