@@ -19,6 +19,7 @@ import {
 import { trackDemoClick, trackCTAClick } from '@/utils/analytics';
 import StickyCTA from '@/components/StickyCTA';
 import DemoVideoCards from '@/components/DemoVideoCards';
+import ResumeDemoPrompt from '@/components/ResumeDemoPrompt';
 
 const RealEstateDemoHub = () => {
   const { company, isCustomized, loadFromUrl, isLoading } = useDemoContext();
@@ -122,6 +123,8 @@ const RealEstateDemoHub = () => {
             deal analysis, seller outreach, and lead qualification.
           </p>
         </div>
+
+        <ResumeDemoPrompt />
 
         <CompanySetupForm />
 
