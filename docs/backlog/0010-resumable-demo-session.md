@@ -1,7 +1,7 @@
 ---
 id: 0010
 title: Resumable demo session with "Continue your demo" prompt
-status: groomed
+status: in-progress
 priority: P1
 area: demos
 created: 2026-05-23
@@ -87,3 +87,13 @@ Files / patterns the dev should touch.
 - New deps: no. Schema migration: no (storage key shape unchanged, only the
   backing store moves from session to local). Privacy/security surface change: no
   (same data the scrape already stores, browser-only, no new hostnames).
+
+## Implementation log
+
+- 2026-05-25 (implementation-dev): Picked up. Branch `feat/0010-resumable-demo-session`.
+  Promoting `DemoContext` persistence from `sessionStorage` to `localStorage`
+  (same per-vertical key, same reset semantics, same try/catch guards). Adding a
+  reusable `ResumeDemoPrompt` component rendered on the construction and real
+  estate demo hubs, with a session-scoped dismissal key. e2e specs in
+  `tests/e2e/resumable-demo-session.spec.ts` written first against the acceptance
+  criteria.
