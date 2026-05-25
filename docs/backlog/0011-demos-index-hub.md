@@ -1,7 +1,7 @@
 ---
 id: 0011
 title: Crawlable /demos index hub with ItemList structured data
-status: groomed
+status: in-progress
 priority: P2
 area: seo
 created: 2026-05-23
@@ -84,3 +84,12 @@ Files / patterns the dev should touch.
   that the `ItemList` JSON-LD parses and is non-empty.
 - New deps: no. Schema migration: no. Privacy/security surface change: no (no new
   hostnames; links stay on the current origin).
+
+## Implementation log
+
+- 2026-05-25: Started on `feat/0011-demos-index-hub`. Flipped ticket to
+  in-progress (frontmatter + README index row together). Plan: e2e spec first
+  (one scenario per acceptance box), then `src/pages/Demos.tsx` modeled on
+  `Glossary.tsx`, a `<Route path="/demos">` registration in `src/App.tsx` (picks
+  up sitemap automatically), and an inline `ItemList` JSON-LD block. Demo catalog
+  sourced from the real `/.../demo/...` routes in `App.tsx`; no invented demos.
