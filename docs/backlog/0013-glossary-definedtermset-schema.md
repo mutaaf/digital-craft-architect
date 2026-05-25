@@ -1,7 +1,7 @@
 ---
 id: 0013
 title: Add DefinedTermSet structured data to the AI glossary
-status: in-progress
+status: shipped
 priority: P2
 area: seo
 created: 2026-05-25
@@ -90,3 +90,10 @@ Files / patterns the dev should touch.
   the definition is a React node with inline links) and emit one `DefinedTermSet`
   JSON-LD block from that single source, with tests written first against each
   acceptance box.
+- 2026-05-25: Shipped via feat PR #58 (squash-merged, build + smoke-required green).
+  `src/pages/Glossary.tsx` now emits one `DefinedTermSet` block with one
+  `DefinedTerm` per `TERMS` entry; link-bearing definitions carry a
+  `plainDefinition` equal to the rendered `<dd>` text so the visible list and the
+  schema share one source. Added `tests/e2e/glossary-definedtermset-schema.spec.ts`
+  (six tests, one per acceptance box). All boxes met. This commit flips the ticket
+  and README index to shipped.
