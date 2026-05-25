@@ -22,7 +22,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0012 | Emit FAQPage structured data for the visible pricing FAQ | P1 | shipped | seo |
 | 0013 | Add DefinedTermSet structured data to the AI glossary | P2 | shipped | seo |
 | 0014 | Persist and re-offer the visitor's last completed estimate | P2 | shipped | demos |
-| 0015 | "Email me this estimate" lead capture on the estimate result | P2 | proposed | conversion |
+| 0015 | "Email me this estimate" lead capture on the estimate result | P2 | in-progress | conversion |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the
