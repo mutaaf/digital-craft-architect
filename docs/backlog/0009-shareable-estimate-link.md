@@ -1,7 +1,7 @@
 ---
 id: 0009
 title: Shareable branded estimate result link
-status: in-progress
+status: shipped
 priority: P1
 area: demos
 created: 2026-05-23
@@ -99,3 +99,9 @@ Files / patterns the dev should touch.
   rehydration in `EstimateGenerator.tsx`; "Copy share link" button in
   `EstimateCard.tsx` with `dark:` + `print:hidden` treatment and a transient
   "Copied" confirmation. Tests-first in `tests/e2e/`, one per acceptance box.
+- 2026-05-25 (ship): feat PR #47 squash-merged to main (commit 596218f) with all
+  six files landed (`estimateShareParams.ts`, `EstimateCard.tsx`,
+  `EstimateGenerator.tsx`, e2e spec). Gating checks `build` + `smoke-required`
+  were green at merge. Ship PR `chore/0009-ship-status` flips this ticket
+  frontmatter and its README index row `in-progress -> shipped` together;
+  `node scripts/check-backlog.mjs` green before push.
