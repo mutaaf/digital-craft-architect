@@ -72,6 +72,7 @@ export const ROUTES: readonly string[] = [
   '/autorepair/demo/estimate',
   '/autorepair/demo/voice-reminder',
   '/industries',
+  '/demos',
   '/glossary',
   '/compare/hubspot',
   '/compare/gohighlevel',
