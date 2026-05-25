@@ -1,7 +1,7 @@
 ---
 id: 0014
 title: Persist and re-offer the visitor's last completed estimate
-status: proposed
+status: in-progress
 priority: P2
 area: demos
 created: 2026-05-25
@@ -96,3 +96,13 @@ Files / patterns the dev should touch.
 - New deps: no. Schema migration: no (new local key is additive and versioned).
   Privacy/security surface change: no (browser-local, no new hostnames, no PII; same
   inputs the visitor already typed into the wizard).
+
+## Implementation log
+
+- 2026-05-25 - Picked up on branch `feat/0014-persist-last-estimate-recap`. Flipped
+  status proposed -> in-progress (README index row in sync). Plan: write one e2e
+  spec per acceptance box in `tests/e2e/last-estimate-recap.spec.ts` first, then a
+  reusable `LastEstimateRecapCard` component plus a `lastEstimateStore.ts` util that
+  reuses the 0009 `EstimateShareState` shape and `decodeEstimateParams`-style
+  parse-safe validation, wired into `EstimateGenerator.tsx` (persist on result view,
+  read on step 1).
