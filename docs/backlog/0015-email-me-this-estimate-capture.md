@@ -1,7 +1,7 @@
 ---
 id: 0015
 title: "Email me this estimate" lead capture on the estimate result
-status: in-progress
+status: shipped
 priority: P2
 area: conversion
 created: 2026-05-25
