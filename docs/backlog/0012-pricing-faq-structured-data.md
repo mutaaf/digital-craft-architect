@@ -1,7 +1,7 @@
 ---
 id: 0012
 title: Emit FAQPage structured data for the visible pricing FAQ
-status: groomed
+status: in-progress
 priority: P1
 area: seo
 created: 2026-05-25
@@ -85,3 +85,20 @@ Files / patterns the dev should touch.
   `Question` per `FAQ_ITEMS` entry, and that names/answers match the array.
 - New deps: no. Schema migration: no. Privacy/security surface change: no (no new
   hostnames, no data collected, schema is built from static copy already shipped).
+
+## Implementation log
+
+### 2026-05-25 - implementation-dev
+
+- Branch `feat/0012-pricing-faq-structured-data` off main. First commit flips
+  status groomed -> in-progress in the ticket frontmatter and the README index
+  row together (check-backlog stays green).
+- Plan: emit one inline `<script type="application/ld+json">` FAQPage block from
+  `src/components/PricingFAQ.tsx`, built by mapping the component's existing
+  `FAQ_ITEMS` array into `mainEntity` Question/acceptedAnswer pairs. Single
+  source of truth, so the schema cannot drift from the visible accordion. Reuses
+  the inline JSON-LD pattern already in `src/pages/Construction.tsx`. No change
+  to the visible markup, the `dark:` styling, or the page-level FAQPage blocks.
+- Tests-first in `tests/e2e/pricing-faq-structured-data.spec.ts`, one per
+  acceptance-criteria box, run by the existing smoke suite against the
+  production build on both pages that mount PricingFAQ.
