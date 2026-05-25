@@ -106,3 +106,15 @@ Files / patterns the dev should touch.
   reuses the 0009 `EstimateShareState` shape and `decodeEstimateParams`-style
   parse-safe validation, wired into `EstimateGenerator.tsx` (persist on result view,
   read on step 1).
+- 2026-05-25 - Implemented. `lastEstimateStore.ts` persists/reads the single most
+  recent estimate per vertical under `dca_last_estimate_v1_${vertical}`, delegating
+  all validation to the 0009 encode/decode helper (no second serializer); a stale or
+  malformed bundle decodes to null and is treated as absent. `LastEstimateRecapCard`
+  (dark: variants, no em-dash) names the project type and ballpark range via the
+  shared `calculateEstimate`, with Reopen / Start-a-new-estimate / dismiss actions.
+  `EstimateGenerator` saves on entering the result view, renders the card on step 1
+  when no share link is present, and uses a session-scoped
+  `dca_last_estimate_dismissed_${vertical}` flag. Also repaired three pre-existing
+  em-dashes in this file's intro/extras copy (punctuation repair, per the 2026-05-25
+  lesson). Full local gate green; all 7 new e2e specs pass; full e2e suite green
+  except a known-flaky 0012 pricing-FAQ accordion test (retries:1 in CI absorbs it).
