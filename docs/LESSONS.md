@@ -158,3 +158,22 @@ only by react-helmet-async, assert the Helmet-managed head element directly (its
 own `meta[name="description"]` content, or its emitted JSON-LD) instead. Adding a
 route to the SEO Pilot table is its own SEO concern, out of scope for a
 structured-data ticket.
+
+## 2026-05-25 - The 0012 pricing-FAQ dark-mode e2e spec is flaky locally; do not red-flag your own PR over it
+**Where:** ticket 0014 (feat PR #60), tests/e2e/pricing-faq-structured-data.spec.ts:183
+**What went wrong:** N/A (false-alarm avoidance). Running the FULL local e2e suite
+during 0014, the 0012 spec "accordion renders in light and dark mode" timed out
+once on `/realestate`, then on a re-run timed out on a DIFFERENT parametrization
+(`/construction`) while everything else passed. The failure follows worker timing
+(readVisibleAccordion polling the open `[data-state="open"] [role="region"]`), not
+any code under test, and 0014 touches neither the FAQ accordion nor the pricing
+pages. CI's `retries: 1` (playwright.config.ts) absorbs it: the `smoke` and
+`smoke-required` jobs both went green on PR #60 and #61. A run that treats a single
+local full-suite failure as a regression would wrongly leave its own green PR open.
+**Rule going forward:** When the FULL local e2e suite shows exactly one failure in a
+spec your diff does not touch, re-run that spec in isolation; if it fails on a
+different shard/parametrization (or passes), it is pre-existing flakiness that CI
+`retries: 1` covers, not your regression. Confirm with `git diff main --stat` that
+the failing spec/files are outside your change, gate on the CI `build` +
+`smoke-required` result, and do not block your merge on it. (Quarantining or
+de-flaking that spec is its own eng concern, not a ship-run task.)
