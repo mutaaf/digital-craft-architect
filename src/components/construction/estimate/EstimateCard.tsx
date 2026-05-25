@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { Printer, Calendar, DollarSign, Link2, Check } from 'lucide-react';
 import { useDemoContext } from '@/contexts/DemoContext';
+import EmailEstimateCapture from './EmailEstimateCapture';
 import type { EstimateBreakdown, ProjectType, FinishLevel } from '@/data/estimatePricing';
 
 interface EstimateCardProps {
@@ -185,6 +186,9 @@ const EstimateCard = ({ breakdown, projectType, finish, sqft, buildShareUrl }: E
               </Button>
             )}
           </div>
+
+          {/* Ticket 0015 - email this estimate to the visitor (lead capture). */}
+          {buildShareUrl && <EmailEstimateCapture buildShareUrl={buildShareUrl} />}
         </div>
       </div>
     </div>
