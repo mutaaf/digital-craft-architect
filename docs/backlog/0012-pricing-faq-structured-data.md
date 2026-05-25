@@ -102,3 +102,17 @@ Files / patterns the dev should touch.
 - Tests-first in `tests/e2e/pricing-faq-structured-data.spec.ts`, one per
   acceptance-criteria box, run by the existing smoke suite against the
   production build on both pages that mount PricingFAQ.
+- Implemented: `faqPageJsonLd` built from `FAQ_ITEMS` and emitted as one inline
+  `<script type="application/ld+json">` at the top of the component. Visible
+  accordion markup and `dark:` classes untouched; page-level FAQPage blocks
+  untouched.
+- Acceptance box 3 ("no em-dash in any question or answer string") surfaced that
+  four existing `FAQ_ITEMS` answers already shipped em-dashes (`—`) in the
+  visible copy, which also violates the brand-voice Hard NO. Because the schema
+  must mirror the rendered accordion with no drift, the fix is at the single
+  source: replaced each `—` with a spaced hyphen (` - `) in `FAQ_ITEMS` itself.
+  Same words, no rewording (out-of-scope rule respected), so the visible copy and
+  the schema stay identical and both become em-dash-free.
+- All 12 specs (6 boxes x 2 pages) green against the production build. Full local
+  gate green: lint (0 errors), typecheck, check-links, check-images, check-meta,
+  check-blog-dates, check-backlog, build.
