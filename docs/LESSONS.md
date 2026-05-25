@@ -100,3 +100,19 @@ only the flags at 0 errors as a pure config-only guard (no source edits, behavio
 preserved by construction); defer non-zero flags to their own ticket. The typecheck
 gate already targets `tsconfig.app.json`, so no CI/workflow change is needed; the
 flag flip is self-enforcing.
+
+## 2026-05-25 — A ticket stuck at in-progress with its feat PR already merged needs the missing ship-status PR, not a skip
+**Where:** ticket 0009 (feat PR #47 merged 596218f), ship run with no open PRs; ship PR #49
+**What went wrong:** N/A (recovery technique). A prior ship run merged `feat/0009`
+but never opened the second `chore/0009-ship-status` PR, so 0009 sat at
+`in-progress` with its code already in main. PHASE 1 found no open PR to heal, and
+PHASE 2 step 3's literal instruction ("SKIP any whose file says ... in-progress")
+would skip 0009 forever and ship the next ticket — leaving 0009 permanently stuck
+because the feat code is already merged and every future run skips it identically.
+**Rule going forward:** Before applying PHASE 2's in-progress skip, check whether
+that ticket's `feat/<id>` PR has already merged (its code is in main) with no open
+PR. If so, the correct action is to COMPLETE the missing `chore/<id>-ship-status`
+PR (flip ticket frontmatter + README index row to `shipped` together, check-backlog
+green) — that IS the run's one ship action. Only skip an in-progress ticket whose
+feat PR is genuinely still open/unmerged (PHASE 1 tends that). Verify the feat diff
+actually landed all the ticket's files before flipping to shipped.
