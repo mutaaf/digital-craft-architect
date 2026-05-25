@@ -19,7 +19,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0009 | Shareable branded estimate result link | P1 | shipped | demos |
 | 0010 | Resumable demo session with "Continue your demo" prompt | P1 | shipped | demos |
 | 0011 | Crawlable /demos index hub with ItemList structured data | P2 | groomed | seo |
-| 0012 | Emit FAQPage structured data for the visible pricing FAQ | P1 | groomed | seo |
+| 0012 | Emit FAQPage structured data for the visible pricing FAQ | P1 | in-progress | seo |
 | 0013 | Add DefinedTermSet structured data to the AI glossary | P2 | proposed | seo |
 | 0014 | Persist and re-offer the visitor's last completed estimate | P2 | proposed | demos |
 | 0015 | "Email me this estimate" lead capture on the estimate result | P2 | proposed | conversion |
