@@ -195,3 +195,27 @@ AND its README index row to `shipped` together, run `node scripts/check-backlog.
 (must be green), push, `gh pr create --fill`, `gh pr merge --auto --squash`, watch
 `build`+`smoke-required` to green. This is still ONE ship action (the two-PR budget of
 2026-05-22), not a second ticket - so it does not violate "heal OR ship, never both."
+
+## 2026-05-26 - Re-measure strict-family flags on TODAY's main; a predecessor ticket's numbers drift fast
+**Where:** ticket 0008 (eng PR #66), tsconfig.app.json, follow-up to 0007 (PR #43)
+**What went wrong:** N/A (technique). 0007 measured the deferred strict-family flags
+on 2026-05-22 as: `strictNullChecks` 9, `strict` 9, `noUnusedParameters` 3,
+`noUnusedLocals` 11, and named ticket 0008 as the follow-up for the "higher-count"
+flags requiring source fixes. Trusting that table four days later would have scoped
+0008 as a noUnusedParameters fix-3-files job. Re-measuring on TODAY's main
+(`for f in noUnusedLocals noUnusedParameters strictNullChecks strict; do npx tsc -p tsconfig.app.json --noEmit --$f 2>&1 | grep -c 'error TS'; done`,
+sequentially) showed `strictNullChecks` and `strict` both at 0 - unrelated feature
+work in tickets 0009-0015 inadvertently closed all 9 null-check holes. That turned
+0008 from a source-edit ticket into a true zero-cost ratchet (config-only flip of
+the whole `strict` meta-flag, mirroring 0007's pattern). `noUnusedLocals` (11) and
+`noUnusedParameters` (3) are NOT in the `strict` family and stayed unchanged.
+**Rule going forward:** When bootstrapping a strict-family follow-up from a prior
+shipped ticket's "Out of scope" table, always re-run the isolated-flag
+measurement on today's `main` BEFORE scoping the new ticket. Predecessor numbers
+drift quickly when unrelated feature work edits source - both downward (your favor;
+re-scope to a bigger zero-cost batch) and upward (against you; re-scope smaller).
+Cite both the predecessor's table and today's table in the new ticket so the drift
+is auditable. The 2026-05-22 "one zero-error flag at a time" rule still holds;
+this lesson adds: the SET of zero-error flags is itself a moving target, so
+re-measurement is a precondition, not a courtesy.
+
