@@ -1,7 +1,7 @@
 ---
 id: 0008
 title: Enable strict tsconfig flag (zero-cost ratchet)
-status: in-progress
+status: shipped
 priority: P1
 area: infra
 created: 2026-05-26
