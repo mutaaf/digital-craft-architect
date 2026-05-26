@@ -117,4 +117,43 @@ the moment a flag goes to 0, ratchet it.
 
 ## Implementation log
 
-(Appended by eng-dev during execution.)
+### 2026-05-26 - eng-dev
+
+- Branch `eng/0008-strict-tsconfig-flag` off fresh `origin/main` (commit
+  7d8f834). First commit (`f1eb806`) creates this ticket file (status
+  `in-progress`) plus the README index row in sync;
+  `node scripts/check-backlog.mjs` -> `✓ backlog integrity: 15 tickets, index
+  in sync.`
+- Confirmed baseline on `main`: `npm run typecheck` exits 0 (after
+  `npm run sync:classes`, `tsc -p tsconfig.app.json --noEmit`).
+- Re-verified each strict-family flag in isolation, sequentially:
+  `strictNullChecks` 0, `strict` 0, `noUnusedParameters` 3, `noUnusedLocals`
+  11. Confirms the runner's pre-flight measurement and the 2026-05-22
+  zero-cost-ratchet rule applies cleanly to `strict`.
+- Second commit (config-only): `tsconfig.app.json` "Linting" block,
+  `"strict": false -> "strict": true`. Kept the existing
+  `"noImplicitAny": true` line in place (strict implies it, but removing
+  would be a behavior-neutral diff-widener that distracts from the single
+  meaningful flip). `npm run typecheck` still exits 0. The ONLY modified
+  tracked file is `tsconfig.app.json`.
+- PROVE-FIRST (no committed fixture): with `strict: true` ON, temporarily
+  added two scratch violations to `src/main.tsx`:
+  - `const __pf_nullcheck: string = null as unknown as null;`
+  - `class __PfInit { notInitialized: string; }`
+
+  `tsc -p tsconfig.app.json --noEmit` FAILED:
+  - `src/main.tsx(18,7): error TS2322: Type 'null' is not assignable to type 'string'.`
+  - `src/main.tsx(23,3): error TS2564: Property 'notInitialized' has no initializer and is not definitely assigned in the constructor.`
+
+  Forcing strict OFF with the same source (`tsc -p tsconfig.app.json --noEmit
+  --strict false`) produced NO errors on `src/main.tsx`, establishing the
+  gap this ratchet closes. Reverted the scratch edit;
+  `git diff src/main.tsx` is empty.
+- Ran the FULL local gate (lint, typecheck, check-links, check-images,
+  check-meta, check-blog-dates, check-backlog, build) - all green. Lint
+  reports 0 errors (23 pre-existing warnings, baseline-unchanged). No
+  `/api/`, `.env*`, `package.json`, or `package-lock.json` touched.
+- eng PR opened (`--base main`), auto-merge (squash) armed. Ship PR
+  `chore/0008-ship-status` flips this ticket frontmatter and its README
+  index row `in-progress -> shipped` together;
+  `node scripts/check-backlog.mjs` green before push.
