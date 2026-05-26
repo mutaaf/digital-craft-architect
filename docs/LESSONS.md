@@ -219,3 +219,34 @@ is auditable. The 2026-05-22 "one zero-error flag at a time" rule still holds;
 this lesson adds: the SET of zero-error flags is itself a moving target, so
 re-measurement is a precondition, not a courtesy.
 
+## 2026-05-26 - GitHub account suspension fails CI at checkout; escalate after 1 heal attempt, not 2
+**Where:** PR #69 (chore/gtm-20260526-1109), build job run 26447731932 / e2e run 26447731976
+**What went wrong:** PHASE 1 opened on PR #69 with mergeStateStatus BLOCKED and zero
+workflow runs at head 1h+ after open (gating checks `build` and `smoke-required`
+were both null in the rollup, only Vercel was present). The runbook's step (d)
+treats null gating checks as "mid-flight, exit" — but a workflow that has not
+fired after 1h is not mid-flight, it is stuck. The cheap, low-risk nudge
+(`gh pr close 69 && gh pr reopen 69`) did successfully fire both workflows, but the
+`build` job failed at the very first step (`actions/checkout@v4`) with
+`remote: Your account is suspended. Please visit https://support.github.com for more information.`
+and a 403. Same root cause as the original null-checks state: the repo owner's
+GitHub account is suspended, so the runner's ambient `GITHUB_TOKEN` cannot fetch
+the repo. The last successful CI on `main` was 2026-05-26 09:21 UTC, so the
+suspension landed between then and the heal run at 12:20 UTC. No source-level
+heal can recover this — a second `heal:` attempt would fail identically at
+checkout. (The agent's own personal git auth still worked, which is why this
+lesson could be pushed; the runner's token is what's suspended.)
+**Rule going forward:** When the `build` or `smoke-required` job fails at
+`actions/checkout@v4` with `remote: Your account is suspended` (or any 403 from
+github.com on the repo clone), STOP after one heal attempt — do not consume the
+second of the 2-attempt budget. Post a human-escalation PR comment naming
+the suspension, the failing run URL, and the last-known-good CI timestamp on
+`main`, then exit. Also extend the runbook step (d) reading: if gating checks
+are null AND the PR is >30 min old AND no workflow run exists at the head SHA
+(`gh api "repos/{owner}/{repo}/actions/runs?head_sha=<sha>" --jq .total_count`
+returns 0), this is NOT mid-flight — it is a trigger failure (most commonly an
+account suspension, less commonly an Actions outage). Diagnose by reopening to
+force a retrigger; if the new run also fails at checkout with the same 403,
+escalate. The "never freeze the loop on a stuck PR" principle does not require
+us to keep banging on something only a human can unblock.
+
