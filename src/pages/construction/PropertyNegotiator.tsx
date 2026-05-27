@@ -28,6 +28,7 @@ import VoiceCallSetup from '@/components/construction/negotiator/VoiceCallSetup'
 import VoiceCallLive from '@/components/construction/negotiator/VoiceCallLive';
 import VoiceCallSummary from '@/components/construction/negotiator/VoiceCallSummary';
 import ConversationHistory from '@/components/construction/negotiator/ConversationHistory';
+import DemoBreadcrumbs from '@/components/DemoBreadcrumbs';
 import { useVoiceCall } from '@/hooks/useVoiceCall';
 import { runAgentPipeline } from '@/utils/agentPipeline';
 import type { PropertyData, AgentStep, AgentResult } from '@/data/propertyNegotiation';
@@ -160,6 +161,7 @@ const PropertyNegotiator = () => {
         />
       </Helmet>
       <DemoNavbar />
+      <DemoBreadcrumbs />
 
       <div className="max-w-3xl mx-auto px-4 py-8 sm:py-12">
         {/* Header — always visible */}

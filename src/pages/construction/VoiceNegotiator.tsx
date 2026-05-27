@@ -18,6 +18,7 @@ import { runAgentPipeline } from '@/utils/agentPipeline';
 import type { PropertyData, AgentStep, AgentResult } from '@/data/propertyNegotiation';
 import type { BidRange } from '@/data/voiceNegotiation';
 import type { StoredConversation } from '@/utils/conversationStore';
+import DemoBreadcrumbs from '@/components/DemoBreadcrumbs';
 
 type Phase = 'input' | 'agent' | 'setup' | 'call' | 'summary';
 
@@ -149,6 +150,7 @@ const VoiceNegotiator = () => {
         />
       </Helmet>
       <DemoNavbar />
+      <DemoBreadcrumbs />
 
       <div className="max-w-3xl mx-auto px-4 py-8 sm:py-12">
         {/* Header */}

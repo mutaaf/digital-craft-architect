@@ -28,6 +28,7 @@ import { Card } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
+import DemoBreadcrumbs from '@/components/DemoBreadcrumbs';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, ArrowRight, RotateCcw, Sparkles } from 'lucide-react';
 
@@ -198,6 +199,7 @@ const EstimateGenerator = () => {
         <meta property="og:description" content="Generate branded construction estimates in under 60 seconds using AI-powered pricing." />
       </Helmet>
       <DemoNavbar />
+      <DemoBreadcrumbs />
 
       <div className="max-w-3xl mx-auto px-4 py-8 sm:py-10">
         {/* Header */}
