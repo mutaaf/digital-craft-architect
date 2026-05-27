@@ -1,7 +1,7 @@
 ---
 id: 0019
 title: Visible breadcrumbs and BreadcrumbList JSON-LD on every demo page
-status: in-progress
+status: shipped
 priority: P2
 area: conversion
 created: 2026-05-26
