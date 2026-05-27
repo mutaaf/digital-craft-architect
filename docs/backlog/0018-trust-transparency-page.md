@@ -1,7 +1,7 @@
 ---
 id: 0018
 title: How-the-demos-work transparency page at /trust
-status: in-progress
+status: shipped
 priority: P2
 area: trust
 created: 2026-05-26
