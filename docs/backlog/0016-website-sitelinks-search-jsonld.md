@@ -1,7 +1,7 @@
 ---
 id: 0016
 title: Emit WebSite + SiteNavigationElement JSON-LD for sitelinks search box
-status: proposed
+status: in-progress
 priority: P1
 area: seo
 created: 2026-05-26
@@ -117,7 +117,7 @@ Files / patterns the dev should touch.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0016-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/...`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-05-26 - branch `feat/0016-website-sitelinks-search-jsonld` opened; ticket
+  + README index flipped to `in-progress` in the first commit per the two-PR
+  ship contract (this PR carries the feat code; the ship-status flip is its own
+  follow-up PR owned by the ship runner).
