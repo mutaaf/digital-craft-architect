@@ -1,7 +1,7 @@
 ---
 id: 0016
 title: Emit WebSite + SiteNavigationElement JSON-LD for sitelinks search box
-status: in-progress
+status: shipped
 priority: P1
 area: seo
 created: 2026-05-26
