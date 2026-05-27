@@ -1,7 +1,7 @@
 ---
 id: 0016
 title: Emit WebSite + SiteNavigationElement JSON-LD for sitelinks search box
-status: proposed
+status: in-progress
 priority: P1
 area: seo
 created: 2026-05-26
@@ -117,7 +117,14 @@ Files / patterns the dev should touch.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0016-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/...`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-05-26 - branch `feat/0016-website-sitelinks-search-jsonld` opened; ticket
+  + README index flipped to `in-progress` in the first commit per the two-PR
+  ship contract (this PR carries the feat code; the ship-status flip is its own
+  follow-up PR owned by the ship runner).
+- 2026-05-26 - failing e2e added in `tests/e2e/website-sitelinks-jsonld.spec.ts`,
+  five assertions covering boxes 1, 2, 3, 4, 6 (box 5 is the existing CI gate).
+- 2026-05-26 - implementation landed: two static `<script type="application/ld+json">`
+  blocks appended after the Organization block in `index.html` (WebSite +
+  SearchAction targeting `/glossary?q={search_term_string}`, plus an array of
+  nine SiteNavigationElement entries). Organization block at lines 26-48 stays
+  byte-identical. Full local gate green; the new e2e spec passes 5/5 locally.

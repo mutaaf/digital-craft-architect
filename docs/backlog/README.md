@@ -24,7 +24,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0013 | Add DefinedTermSet structured data to the AI glossary | P2 | shipped | seo |
 | 0014 | Persist and re-offer the visitor's last completed estimate | P2 | shipped | demos |
 | 0015 | "Email me this estimate" lead capture on the estimate result | P2 | shipped | conversion |
-| 0016 | Emit WebSite + SiteNavigationElement JSON-LD for sitelinks search box | P1 | proposed | seo |
+| 0016 | Emit WebSite + SiteNavigationElement JSON-LD for sitelinks search box | P1 | in-progress | seo |
 | 0017 | AI-for-plumbers long-tail landing page funneling into home-services demos | P1 | proposed | content |
 | 0018 | How-the-demos-work transparency page at /trust | P2 | proposed | trust |
 | 0019 | Visible breadcrumbs and BreadcrumbList JSON-LD on every demo page | P2 | proposed | conversion |
