@@ -1,7 +1,7 @@
 ---
 id: 0019
 title: Visible breadcrumbs and BreadcrumbList JSON-LD on every demo page
-status: proposed
+status: in-progress
 priority: P2
 area: conversion
 created: 2026-05-26
@@ -133,7 +133,4 @@ Files / patterns the dev should touch.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0019-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/...`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-05-27 - branch `feat/0019-demo-breadcrumbs-jsonld` opened off origin/main; ticket flipped to in-progress with README index in sync.
