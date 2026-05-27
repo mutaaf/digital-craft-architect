@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { FooterSection } from '@/hooks/useContent';
 import { Linkedin, Calendar, Github, Twitter, Phone, Send } from 'lucide-react';
 import { trackCTAClick } from '@/utils/analytics';
@@ -149,7 +150,7 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
                 </p>
                 <div className="flex space-x-6">
                   <a href="/industries" className="text-gray-400 hover:text-skyblue text-sm">Industries</a>
-                  <a href="#" className="text-gray-400 hover:text-skyblue text-sm">Privacy Policy</a>
+                  <Link to="/trust" className="text-gray-400 hover:text-skyblue text-sm">Trust & Privacy</Link>
                   <a href="#" className="text-gray-400 hover:text-skyblue text-sm">Terms of Service</a>
                 </div>
               </div>

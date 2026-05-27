@@ -74,6 +74,7 @@ export const ROUTES: readonly string[] = [
   '/industries',
   '/demos',
   '/glossary',
+  '/trust',
   '/compare/hubspot',
   '/compare/gohighlevel',
   '/compare/zapier',
