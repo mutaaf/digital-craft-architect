@@ -1,7 +1,7 @@
 ---
 id: 0018
 title: How-the-demos-work transparency page at /trust
-status: proposed
+status: in-progress
 priority: P2
 area: trust
 created: 2026-05-26
@@ -134,7 +134,7 @@ Files / patterns the dev should touch.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0018-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/...`
+- 2026-05-27 - branch `feat/0018-trust-transparency-page` opened
+- YYYY-MM-DD - failing test added in `tests/e2e/trust-page.spec.ts`
 - YYYY-MM-DD - PR #N opened, CI [state]
 - YYYY-MM-DD - merged to main
