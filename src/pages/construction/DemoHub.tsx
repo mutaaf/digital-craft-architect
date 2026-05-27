@@ -23,6 +23,7 @@ import { trackDemoClick, trackCTAClick } from '@/utils/analytics';
 import StickyCTA from '@/components/StickyCTA';
 import DemoVideoCards from '@/components/DemoVideoCards';
 import ResumeDemoPrompt from '@/components/ResumeDemoPrompt';
+import DemoBreadcrumbs from '@/components/DemoBreadcrumbs';
 
 const DemoHub = () => {
   const { company, isCustomized, loadFromUrl, isLoading } = useDemoContext();
@@ -142,6 +143,7 @@ const DemoHub = () => {
         <meta name="twitter:image" content="/og-construction.png" />
       </Helmet>
       <DemoNavbar />
+      <DemoBreadcrumbs />
 
       <div className="max-w-4xl mx-auto px-4 py-10 sm:py-16">
         <div className="text-center mb-8 sm:mb-10 animate-fade-in">

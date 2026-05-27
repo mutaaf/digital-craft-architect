@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button';
 import { Sparkles, ClipboardList } from 'lucide-react';
 import { streamChat } from '@/utils/openaiChat';
 import type { ChatMessage } from '@/utils/openaiChat';
+import DemoBreadcrumbs from '@/components/DemoBreadcrumbs';
 
 function buildSystemPrompt(companyName: string, ownerName: string, services: string[]): string {
   const serviceLines = services
@@ -184,6 +185,7 @@ const LeadResponder = () => {
         <meta property="og:description" content="Chat with an AI lead responder that qualifies construction leads, extracts project details, and books consultations in real time." />
       </Helmet>
       <DemoNavbar />
+      <DemoBreadcrumbs />
 
       <div className="flex-1 max-w-6xl mx-auto w-full px-4 py-6 flex flex-col">
         {/* Header */}

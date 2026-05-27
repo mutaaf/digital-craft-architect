@@ -27,7 +27,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0016 | Emit WebSite + SiteNavigationElement JSON-LD for sitelinks search box | P1 | shipped | seo |
 | 0017 | AI-for-plumbers long-tail landing page funneling into home-services demos | P1 | shipped | content |
 | 0018 | How-the-demos-work transparency page at /trust | P2 | shipped | trust |
-| 0019 | Visible breadcrumbs and BreadcrumbList JSON-LD on every demo page | P2 | proposed | conversion |
+| 0019 | Visible breadcrumbs and BreadcrumbList JSON-LD on every demo page | P2 | in-progress | conversion |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the
