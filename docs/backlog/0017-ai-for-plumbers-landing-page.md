@@ -1,7 +1,7 @@
 ---
 id: 0017
 title: AI-for-plumbers long-tail landing page funneling into home-services demos
-status: proposed
+status: in-progress
 priority: P1
 area: content
 created: 2026-05-26
@@ -127,7 +127,7 @@ Files / patterns the dev should touch.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0017-...` opened
+- 2026-05-26 - branch `feat/0017-ai-for-plumbers-landing` opened by implementation-dev; ticket flipped to `in-progress` + README index row updated together (single commit, check-backlog green)
 - YYYY-MM-DD - failing test added in `tests/e2e/...`
 - YYYY-MM-DD - PR #N opened, CI [state]
 - YYYY-MM-DD - merged to main
