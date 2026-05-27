@@ -1,7 +1,7 @@
 ---
 id: 0017
 title: AI-for-plumbers long-tail landing page funneling into home-services demos
-status: proposed
+status: in-progress
 priority: P1
 area: content
 created: 2026-05-26
@@ -127,7 +127,6 @@ Files / patterns the dev should touch.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0017-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/...`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-05-26 - branch `feat/0017-ai-for-plumbers-landing` opened by implementation-dev; ticket flipped to `in-progress` + README index row updated together (single commit, check-backlog green)
+- 2026-05-26 - added `src/pages/AiForPlumbers.tsx` modeled on `src/pages/locations/Texas.tsx` (Helmet + Navbar + ScrollProgress + hero + stats + 3 plumbing-specific pain cards + 2 demo CTA cards routing to `/homeservices/demo/{lead-responder,estimate}` + why-now + final CTA + Footer + StickyCTA). Footer wired via `const { content } = useContent()` per ticket 0006. Emits BreadcrumbList (Home -> AI for Plumbers) and Service (`serviceType: "AI Automation for Plumbing Companies"`) JSON-LD. Route registered next to `/ai-for-small-business` in `src/App.tsx`; sitemap auto-picks via `path=` regex (verified `public/sitemap.xml` contains the URL). Added route to `tests/e2e/routes.ts` for smoke coverage.
+- 2026-05-26 - added `tests/e2e/ai-for-plumbers.spec.ts` with 6 specs mapping 1:1 to acceptance boxes. Per the 2026-05-25 lesson, `/ai-for-plumbers` is NOT in the `index.html` SEO Pilot `pages` table (out of scope), so the title assertion is delegated to the Helmet-driven surfaces (meta description, canonical, og:title appended by Helmet). The /api/ test restricts to first-party calls only (Sentry's ingest hits `/api/...` on its own hostname). Full local gate green (lint 0 errors, typecheck, check-links, check-images, check-meta, check-blog-dates, check-backlog, build). New spec passes 6/6.
