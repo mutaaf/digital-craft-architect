@@ -1,7 +1,7 @@
 ---
 id: 0022
 title: Emit lastmod timestamps in sitemap.xml so Google prioritizes recrawl of fresh routes
-status: groomed
+status: in-progress
 priority: P2
 area: seo
 created: 2026-05-28
@@ -132,7 +132,6 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0022-...` opened
-- YYYY-MM-DD - failing test added in `tests/unit/generate-sitemap.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-05-28 - branch `feat/0022-sitemap-lastmod` opened; ticket flipped to `in-progress`
+- 2026-05-28 - ADAPTATION: spec asked for Vitest, but this repo has no Vitest (only Playwright e2e at `tests/e2e/`) and AGENTS.md Hard NO forbids the GTM queue from touching `package.json`. Picked the "self-validation block inside `generate-sitemap.ts`" path: the generator runs as part of `npm run build` (which is in the local gate), so an in-script assertion after the write fails the build whenever the emitted XML violates the acceptance criteria. No new dependency, no `package.json` change, no new ungated check script. Acceptance test scenarios are encoded directly in the post-write assertions (every `<url>` has one `<lastmod>` in YYYY-MM-DD format, ordered before `<changefreq>` and `<priority>`; the CTO subdomain entry has one; the resolver returns a `git log -1 --format=%cs` value for known files; missing-file fallback returns today's date with a warn and does not throw).
+- 2026-05-28 - implemented `getLastmod()` + `resolveSourceFileForRoute()` + post-write `assertSitemapLastmodInvariants()` in `scripts/generate-sitemap.ts`
