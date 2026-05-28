@@ -1,7 +1,7 @@
 ---
 id: 0022
 title: Emit lastmod timestamps in sitemap.xml so Google prioritizes recrawl of fresh routes
-status: in-progress
+status: shipped
 priority: P2
 area: seo
 created: 2026-05-28
