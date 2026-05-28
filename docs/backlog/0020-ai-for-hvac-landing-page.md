@@ -1,7 +1,7 @@
 ---
 id: 0020
 title: AI-for-HVAC long-tail landing page funneling into home-services demos
-status: in-progress
+status: shipped
 priority: P1
 area: content
 created: 2026-05-28
@@ -137,5 +137,6 @@ to re-discover the architecture.
 
 - 2026-05-28 - branch `feat/0020-ai-for-hvac-landing-page` opened
 - 2026-05-28 - failing test added in `tests/e2e/ai-for-hvac.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-05-28 - PR #80 opened, CI green (`build` + `smoke-required`)
+- 2026-05-28 - merged to main at 9906f1b
+- 2026-05-28 - ship-status PR opened to flip ticket + index row to `shipped`
