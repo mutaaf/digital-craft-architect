@@ -1,7 +1,7 @@
 ---
 id: 0021
 title: Comparison page "Digital Craft vs Jobber" for high-intent home-services compares
-status: in-progress
+status: shipped
 priority: P1
 area: seo
 created: 2026-05-28
