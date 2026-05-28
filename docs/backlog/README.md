@@ -29,7 +29,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0018 | How-the-demos-work transparency page at /trust | P2 | shipped | trust |
 | 0019 | Visible breadcrumbs and BreadcrumbList JSON-LD on every demo page | P2 | shipped | conversion |
 | 0020 | AI-for-HVAC long-tail landing page funneling into home-services demos | P1 | shipped | content |
-| 0021 | Comparison page "Digital Craft vs Jobber" for high-intent home-services compares | P1 | groomed | seo |
+| 0021 | Comparison page "Digital Craft vs Jobber" for high-intent home-services compares | P1 | in-progress | seo |
 | 0022 | Emit lastmod timestamps in sitemap.xml so Google prioritizes recrawl of fresh routes | P2 | groomed | seo |
 | 0023 | Footer "AI providers we use" trust chip linking to /trust | P2 | groomed | trust |
 

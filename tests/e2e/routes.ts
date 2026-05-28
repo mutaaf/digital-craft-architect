@@ -80,6 +80,7 @@ export const ROUTES: readonly string[] = [
   '/compare/zapier',
   '/compare/make',
   '/compare/intercom',
+  '/compare/jobber',
   '/quiz',
   '/setupclaw',
   '/ai-for-small-business',
