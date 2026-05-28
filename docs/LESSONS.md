@@ -250,3 +250,27 @@ force a retrigger; if the new run also fails at checkout with the same 403,
 escalate. The "never freeze the loop on a stuck PR" principle does not require
 us to keep banging on something only a human can unblock.
 
+## 2026-05-28 - When a ticket spec asks for Vitest, encode the assertions in the gated script instead
+**Where:** ticket 0022 (feat PR for sitemap lastmod), scripts/generate-sitemap.ts
+**What went wrong:** N/A (adaptation technique). 0022's engineering notes asked
+for a `tests/unit/generate-sitemap.spec.ts` "using Vitest" mirroring the
+acceptance criteria, but this repo has no Vitest installed (`tests/e2e/` is
+Playwright only). AGENTS.md Hard NO forbids the GTM queue from touching
+`package.json` to add the dependency, and writing a `scripts/check-sitemap-lastmod.ts`
+verifier would only gate the build if it were wired into the CI workflow or one
+of the local-gate `npm run` scripts (also a `package.json` edit). The
+sustainable path: encode the acceptance invariants as a post-write assertion
+block inside the script the local gate already invokes. `npm run build`
+shells out to `npx tsx scripts/generate-sitemap.ts` before `vite build`, so
+throwing from the script fails both `npm run build` locally and the `build`
+gating CI job, with zero new files and zero `package.json` touch.
+**Rule going forward:** When a ticket asks for unit tests in a framework this
+repo does not install, do NOT touch `package.json` to add it (GTM queue Hard
+NO) and do NOT write an ungated standalone verifier. Inline the assertions
+into whatever script the local gate already runs (the sitemap generator, the
+RSS generator, a `check-*` script), exit non-zero on violation, and save the
+broken artifact (`*.broken`) alongside the real output for debugging. Cite
+this adaptation in the ticket's Implementation log so the deviation is
+auditable. This converts "needs a new test framework" into a zero-dependency
+fix-yourself-or-fail-the-build invariant.
+
