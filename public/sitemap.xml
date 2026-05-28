@@ -406,6 +406,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://digitalcraftai.com/ai-for-hvac</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://digitalcraftai.com/locations/texas</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>

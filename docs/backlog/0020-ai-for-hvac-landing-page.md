@@ -1,7 +1,7 @@
 ---
 id: 0020
 title: AI-for-HVAC long-tail landing page funneling into home-services demos
-status: groomed
+status: in-progress
 priority: P1
 area: content
 created: 2026-05-28
@@ -135,7 +135,7 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0020-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/ai-for-hvac.spec.ts`
+- 2026-05-28 - branch `feat/0020-ai-for-hvac-landing-page` opened
+- 2026-05-28 - failing test added in `tests/e2e/ai-for-hvac.spec.ts`
 - YYYY-MM-DD - PR #N opened, CI [state]
 - YYYY-MM-DD - merged to main
