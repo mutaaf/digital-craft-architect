@@ -55,6 +55,7 @@ import GoHighLevelComparison from "./pages/compare/GoHighLevel";
 import ZapierComparison from "./pages/compare/Zapier";
 import MakeComparison from "./pages/compare/Make";
 import IntercomComparison from "./pages/compare/Intercom";
+import JobberComparison from "./pages/compare/Jobber";
 import AIReadinessQuiz from "./pages/AIReadinessQuiz";
 import SetupClaw from "./pages/SetupClaw";
 import SmallBusiness from "./pages/SmallBusiness";
@@ -264,6 +265,7 @@ const App = () => (
               <Route path="/compare/zapier" element={<ZapierComparison />} />
               <Route path="/compare/make" element={<MakeComparison />} />
               <Route path="/compare/intercom" element={<IntercomComparison />} />
+              <Route path="/compare/jobber" element={<JobberComparison />} />
               <Route path="/quiz" element={<AIReadinessQuiz />} />
               <Route path="/setupclaw" element={<SetupClaw />} />
               <Route path="/ai-for-small-business" element={<SmallBusiness />} />
