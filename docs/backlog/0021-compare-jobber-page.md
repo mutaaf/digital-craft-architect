@@ -1,7 +1,7 @@
 ---
 id: 0021
 title: Comparison page "Digital Craft vs Jobber" for high-intent home-services compares
-status: groomed
+status: in-progress
 priority: P1
 area: seo
 created: 2026-05-28
@@ -161,7 +161,7 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0021-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/compare-jobber.spec.ts`
+- 2026-05-28 - branch `feat/0021-compare-jobber` opened, status flipped to in-progress
+- 2026-05-28 - new compare page `src/pages/compare/Jobber.tsx`, route registered in `src/App.tsx`, e2e spec `tests/e2e/compare-jobber.spec.ts` added
 - YYYY-MM-DD - PR #N opened, CI [state]
 - YYYY-MM-DD - merged to main
