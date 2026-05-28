@@ -10,6 +10,14 @@ interface FooterProps {
   data: FooterSection;
 }
 
+// Headline AI providers named in the footer trust chip. The chip text and
+// any test assertion read from this one array (mirror-source per the
+// 2026-05-25 lesson) so a future edit to the headline three providers
+// updates the chip and the test together. The chip is a strict subset of
+// the full provider list rendered on /trust (sourced from CLAUDE.md's
+// Tech Stack table).
+export const PROVIDERS = ['OpenAI', 'Vapi', 'ElevenLabs'] as const;
+
 const FooterNewsletter: React.FC = () => {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
@@ -147,6 +155,20 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
                   <span className="inline-block bg-gray-800 px-2 py-1 rounded">
                     Deployed: {formatDeployTime()}
                   </span>
+                </p>
+                <p className="text-gray-500 dark:text-gray-500 text-xs">
+                  <Link
+                    to="/trust"
+                    onClick={() => trackCTAClick('trust_providers_chip', 'footer')}
+                    className="hover:text-skyblue transition-colors"
+                  >
+                    <span
+                      data-testid="trust-providers-chip"
+                      className="inline-block bg-gray-800 dark:bg-gray-800 px-2 py-1 rounded"
+                    >
+                      Powered by {PROVIDERS.join(', ')} - see how
+                    </span>
+                  </Link>
                 </p>
                 <div className="flex space-x-6">
                   <a href="/industries" className="text-gray-400 hover:text-skyblue text-sm">Industries</a>
