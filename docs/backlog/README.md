@@ -31,7 +31,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0020 | AI-for-HVAC long-tail landing page funneling into home-services demos | P1 | shipped | content |
 | 0021 | Comparison page "Digital Craft vs Jobber" for high-intent home-services compares | P1 | shipped | seo |
 | 0022 | Emit lastmod timestamps in sitemap.xml so Google prioritizes recrawl of fresh routes | P2 | shipped | seo |
-| 0023 | Footer "AI providers we use" trust chip linking to /trust | P2 | in-progress | trust |
+| 0023 | Footer "AI providers we use" trust chip linking to /trust | P2 | shipped | trust |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the

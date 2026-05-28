@@ -1,7 +1,7 @@
 ---
 id: 0023
 title: Footer "AI providers we use" trust chip linking to /trust
-status: in-progress
+status: shipped
 priority: P2
 area: trust
 created: 2026-05-28
