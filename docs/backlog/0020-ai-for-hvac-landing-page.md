@@ -136,6 +136,6 @@ to re-discover the architecture.
 (Appended by the implementation-dev agent during execution.)
 
 - 2026-05-28 - branch `feat/0020-ai-for-hvac-landing-page` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/ai-for-hvac.spec.ts`
+- 2026-05-28 - failing test added in `tests/e2e/ai-for-hvac.spec.ts`
 - YYYY-MM-DD - PR #N opened, CI [state]
 - YYYY-MM-DD - merged to main
