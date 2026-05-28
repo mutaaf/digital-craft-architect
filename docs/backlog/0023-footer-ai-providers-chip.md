@@ -1,7 +1,7 @@
 ---
 id: 0023
 title: Footer "AI providers we use" trust chip linking to /trust
-status: groomed
+status: in-progress
 priority: P2
 area: trust
 created: 2026-05-28
@@ -146,7 +146,8 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0023-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/footer-providers-chip.spec.ts`
+- 2026-05-28 - branch `feat/0023-footer-ai-providers-chip` opened, status flipped to in-progress
+- 2026-05-28 - failing Playwright spec added in `tests/e2e/footer-providers-chip.spec.ts`
+- 2026-05-28 - chip implemented in `src/components/Footer.tsx`; PROVIDERS const at top, chip mirrors the Deployed chip styling
 - YYYY-MM-DD - PR #N opened, CI [state]
 - YYYY-MM-DD - merged to main
