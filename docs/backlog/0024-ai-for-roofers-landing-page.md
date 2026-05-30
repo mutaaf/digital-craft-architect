@@ -1,7 +1,7 @@
 ---
 id: 0024
 title: AI-for-roofers long-tail landing page funneling into home-services demos
-status: groomed
+status: in-progress
 priority: P1
 area: content
 created: 2026-05-30
@@ -185,7 +185,6 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0024-ai-for-roofers-landing-page` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/ai-for-roofers.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-05-30 - branch `feat/0024-ai-for-roofers-landing-page` opened off fresh `origin/main`; ticket flipped to `in-progress` (README index row stays at `groomed` and ships with the second PR per the 2026-05-22 two-PR lesson).
+- 2026-05-30 - failing e2e spec added at `tests/e2e/ai-for-roofers.spec.ts` (one assertion block per acceptance-criteria box), mirroring `tests/e2e/ai-for-hvac.spec.ts` line-for-line where they overlap.
+- 2026-05-30 - `src/pages/AiForRoofers.tsx` cloned from `src/pages/AiForHvac.tsx` with roofing-specific pain copy (storm-week call surges, inspection and claim-supplement quote follow-up, post-tear-off review timing). Route registered in `src/App.tsx` next to `/ai-for-hvac`; `/ai-for-roofers` added to `tests/e2e/routes.ts` so the smoke gate covers it. Deviation from engineering notes: the notes list `HardHat`/`Home` as roofing-trade hero icons AND simultaneously require "no new lucide icon imports beyond what AiForHvac.tsx already imports" - the two constraints conflict. The no-new-imports rule won; the hero chip reuses `Wrench` (already imported by AiForHvac) which still reads as a trade-tools marker. `PhoneOff`/`Calculator`/`Star` for pain icons all come from AiForHvac's existing import list as the notes specify.
