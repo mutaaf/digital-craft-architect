@@ -61,6 +61,7 @@ import SetupClaw from "./pages/SetupClaw";
 import SmallBusiness from "./pages/SmallBusiness";
 import AiForPlumbers from "./pages/AiForPlumbers";
 import AiForHvac from "./pages/AiForHvac";
+import AiForRoofers from "./pages/AiForRoofers";
 import Texas from "./pages/locations/Texas";
 import CaseStudy from "./pages/case-studies/CaseStudy";
 import Blog from "./pages/Blog";
@@ -271,6 +272,7 @@ const App = () => (
               <Route path="/ai-for-small-business" element={<SmallBusiness />} />
               <Route path="/ai-for-plumbers" element={<AiForPlumbers />} />
               <Route path="/ai-for-hvac" element={<AiForHvac />} />
+              <Route path="/ai-for-roofers" element={<AiForRoofers />} />
               <Route path="/locations/texas" element={<Texas />} />
               <Route path="/case-studies/:slug" element={<CaseStudy />} />
               <Route path="/blog" element={<Blog />} />
