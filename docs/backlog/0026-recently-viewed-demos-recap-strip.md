@@ -1,7 +1,7 @@
 ---
 id: 0026
 title: Recently viewed demos recap strip on the /demos hub
-status: groomed
+status: in-progress
 priority: P2
 area: demos
 created: 2026-05-30
@@ -210,7 +210,4 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0026-recently-viewed-demos-recap-strip` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/recent-demos-recap.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-05-30 - branch `feat/0026-recently-viewed-demos-recap-strip` opened off fresh `origin/main`; ticket file flipped to `in-progress` (README index row flips alongside in the feat code commit so `check-backlog.mjs` stays green at PR HEAD).
