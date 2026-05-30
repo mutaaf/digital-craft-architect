@@ -221,10 +221,14 @@ test('the new blocks parse as valid JSON and contain no em-dash', async ({ page 
   expect(errors).toEqual([]);
 });
 
-// Box 4: the existing Organization JSON-LD block stays intact. We can't easily
-// diff bytes from a test, but we CAN assert the post-change head still emits
-// exactly one Organization block whose canonical fields are unchanged - that
-// is what a byte-identical edit guarantees from a consumer's perspective.
+// Box 4: the original index.html Organization JSON-LD block stays intact.
+// We can't easily diff bytes from a test, but we CAN assert the post-change
+// head still emits an Organization block whose canonical fields are
+// unchanged - that is what a byte-identical edit guarantees from a consumer's
+// perspective. NOTE: ticket 0025 adds a SECOND Organization block (in the
+// homepage Helmet, with contactPoint + sameAs to LinkedIn/Calendly) that
+// coexists with the original. We identify the original by its unique
+// knowsAbout array (the new block does not carry knowsAbout).
 test('keeps the existing Organization JSON-LD block intact', async ({ page }) => {
   const errors = await gotoHome(page);
   const blocks = await readJsonLdBlocks(page);
@@ -244,9 +248,14 @@ test('keeps the existing Organization JSON-LD block intact', async ({ page }) =>
       b.data !== null &&
       (b.data as { '@type'?: unknown })['@type'] === 'Organization',
   );
-  expect(orgs, 'exactly one Organization block expected').toHaveLength(1);
+  // Two Organization blocks coexist: the original index.html one and the
+  // ticket 0025 Helmet-injected one. The original is the one carrying
+  // knowsAbout (a field exclusive to it).
+  expect(orgs.length, 'at least one Organization block expected').toBeGreaterThanOrEqual(1);
+  const originals = orgs.filter((b) => Array.isArray(b.data.knowsAbout));
+  expect(originals, 'exactly one original Organization block (with knowsAbout) expected').toHaveLength(1);
 
-  const org = orgs[0].data;
+  const org = originals[0].data;
   expect(org.name).toBe('DigitalCraft AI');
   expect(org.alternateName).toBe('DigitalCraft');
   expect(org.url).toBe(ORIGIN);
