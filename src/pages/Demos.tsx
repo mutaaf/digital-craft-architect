@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import ScrollProgress from '@/components/ScrollProgress';
 import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
+import { getRecentDemos, recordDemoVisit } from '@/utils/recentDemosStore';
 import { Sparkles, ArrowRight, Phone } from 'lucide-react';
 
 const SITE_URL = 'https://digitalcraftai.com';
@@ -153,6 +154,9 @@ const itemListJsonLd = {
 
 const Demos: React.FC = () => {
   const { content } = useContent();
+  // Snapshot read on mount; the recap is stable for the page lifetime since
+  // recordDemoVisit fires AFTER navigation away from /demos.
+  const recent = getRecentDemos();
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
@@ -202,6 +206,45 @@ const Demos: React.FC = () => {
         </div>
       </section>
 
+      {/* Recently viewed recap (returning visitors only) */}
+      {recent.length > 0 && (
+        <section
+          data-testid="recent-demos-recap"
+          className="py-10 bg-gray-50 dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800"
+        >
+          <div className="container mx-auto px-4 max-w-5xl">
+            <h2 className="text-xl font-bold mb-5 text-gray-900 dark:text-white">
+              Recently viewed
+            </h2>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {recent.map((entry) => (
+                <Link
+                  key={entry.path}
+                  to={entry.path}
+                  data-testid="recent-demo-card"
+                  onClick={() => trackCTAClick('recent_demo', 'demos_hub_recap')}
+                  className="group flex flex-col h-full rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-5 hover:border-primary dark:hover:border-primary hover:shadow-md transition-all"
+                >
+                  <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-1">
+                    {entry.title}
+                  </h3>
+                  <p className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-3">
+                    {entry.vertical}
+                  </p>
+                  <span className="mt-auto inline-flex items-center gap-1 text-sm font-medium text-primary">
+                    Try it again
+                    <ArrowRight
+                      size={16}
+                      className="transition-transform group-hover:translate-x-1"
+                    />
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Demo groups */}
       <section className="py-12 bg-white dark:bg-gray-950">
         <div className="container mx-auto px-4 max-w-5xl space-y-14">
@@ -217,7 +260,10 @@ const Demos: React.FC = () => {
                     <Link
                       key={demo.path}
                       to={demo.path}
-                      onClick={() => trackCTAClick('open_demo', `demos_hub_${anchor}`)}
+                      onClick={() => {
+                        trackCTAClick('open_demo', `demos_hub_${anchor}`);
+                        recordDemoVisit(demo.path, demo.title, group.vertical);
+                      }}
                       className="group flex flex-col h-full rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-5 hover:border-primary dark:hover:border-primary hover:shadow-md transition-all"
                     >
                       <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
