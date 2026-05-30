@@ -30,6 +30,7 @@ import { useAnalytics, trackCTAClick, useEngagementTracking } from '@/utils/anal
 import { getUtmParams } from '@/utils/utmTracker';
 import { resolveHeroSubheadline } from '@/utils/heroPersonalization';
 import { Helmet } from 'react-helmet-async';
+import { ORGANIZATION_SCHEMA } from '@/data/organizationSchema';
 
 const Index = () => {
   const { content, isLoading, error } = useContent();
@@ -128,6 +129,11 @@ const Index = () => {
           
           {/* Canonical URL */}
           <link rel="canonical" href={window.location.href} />
+
+          {/* Ticket 0025 - Organization JSON-LD with sameAs + contactPoint.
+              Description is wired from content.seo.description at render time
+              so a homepage copy edit propagates here in one render. */}
+          <script type="application/ld+json">{JSON.stringify({ ...ORGANIZATION_SCHEMA, description: content.seo.description })}</script>
         </Helmet>
       )}
       <Navbar />

@@ -1,7 +1,7 @@
 ---
 id: 0025
 title: Emit Organization JSON-LD with sameAs and contactPoint on the homepage
-status: groomed
+status: in-progress
 priority: P1
 area: seo
 created: 2026-05-30
@@ -196,7 +196,7 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0025-homepage-organization-jsonld` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/homepage-organization-jsonld.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-05-30 - branch `feat/0025-homepage-organization-jsonld` opened
+- 2026-05-30 - failing test added in `tests/e2e/homepage-organization-jsonld.spec.ts`
+- 2026-05-30 - PR #N opened, CI [pending]
+- 2026-05-30 - merged to main
