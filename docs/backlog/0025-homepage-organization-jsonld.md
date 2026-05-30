@@ -1,7 +1,7 @@
 ---
 id: 0025
 title: Emit Organization JSON-LD with sameAs and contactPoint on the homepage
-status: in-progress
+status: shipped
 priority: P1
 area: seo
 created: 2026-05-30

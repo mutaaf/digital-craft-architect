@@ -274,3 +274,8 @@ this adaptation in the ticket's Implementation log so the deviation is
 auditable. This converts "needs a new test framework" into a zero-dependency
 fix-yourself-or-fail-the-build invariant.
 
+## 2026-05-30 - Adding a second instance of a structured-data @type collides with a predecessor "exactly-one-of-this-@type" assertion
+**Where:** ticket 0025 (feat PR #91), tests/e2e/website-sitelinks-jsonld.spec.ts (ticket 0016's spec) vs new tests/e2e/homepage-organization-jsonld.spec.ts
+**What went wrong:** Ticket 0016 (WebSite + sitelinks search) had asserted "exactly one `Organization` JSON-LD block exists on `/`" against the pre-existing block in `index.html`. Ticket 0025 deliberately adds a SECOND `Organization` block (a richer one with `sameAs`/`contactPoint`/`logo` injected via Helmet), which immediately reds 0016's spec in CI even though 0025 is the spec's intended evolution. tsc/lint don't see it; only the Playwright run does.
+**Rule going forward:** When a ticket adds a second instance of a structured-data `@type` already emitted somewhere on the page, grep every existing `tests/e2e/*-jsonld.spec.ts` for `=== '<Type>'` and any "exactly one" / `toHaveLength(1)` / `.filter(b => b['@type'] === '<Type>')` predicate over the same @type BEFORE writing code. Rewrite the predecessor's assertion to identify its original block by a UNIQUE field on that block (e.g. the index.html Organization's `knowsAbout`), not by "the only Organization block." Update the predecessor spec in the SAME PR — don't ship a knowingly-red sibling test. Same mirror-source-fix family as 2026-05-25 (the predecessor's assertion is the source of truth that has to widen to admit the new sibling).
+
