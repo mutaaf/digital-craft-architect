@@ -1,6 +1,8 @@
 import { useState, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import DemoNavbar from '@/components/construction/DemoNavbar';
+import RelatedDemos from '@/components/RelatedDemos';
 import StepIndicator from '@/components/construction/estimate/StepIndicator';
 import ProposalCard from '@/components/events/proposal/ProposalCard';
 import { useDemoContext } from '@/contexts/DemoContext';
@@ -81,6 +83,7 @@ const ServiceTypeSelector = ({
 );
 
 const ProposalGenerator = () => {
+  const location = useLocation();
   const { company } = useDemoContext();
   const possessive = company?.companyName ? `${company.companyName}'s` : "DigitalCraft AI's";
   const [step, setStep] = useState(1);
@@ -335,6 +338,7 @@ const ProposalGenerator = () => {
           </div>
         )}
       </div>
+      <RelatedDemos currentPath={location.pathname} />
     </div>
   );
 };

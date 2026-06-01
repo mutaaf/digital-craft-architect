@@ -1,6 +1,8 @@
 import { useState, useCallback, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import DemoNavbar from '@/components/construction/DemoNavbar';
+import RelatedDemos from '@/components/RelatedDemos';
 import PhoneMockup from '@/components/construction/reviews/PhoneMockup';
 import SMSBubble from '@/components/construction/reviews/SMSBubble';
 import TimelineBar from '@/components/construction/reviews/TimelineBar';
@@ -62,6 +64,7 @@ function buildReviews(ownerName: string) {
 type Phase = 'initial' | 'rating' | 'positive' | 'negative' | 'feedback_sent' | 'day3' | 'day7';
 
 const ReviewSystem = () => {
+  const routeLocation = useLocation();
   const { company } = useDemoContext();
   const companyName = company?.companyName || 'DigitalCraft AI';
   const ownerName = company?.ownerName || 'Ro';
@@ -572,6 +575,7 @@ const ReviewSystem = () => {
           </div>
         </DialogContent>
       </Dialog>
+      <RelatedDemos currentPath={routeLocation.pathname} />
     </div>
   );
 };

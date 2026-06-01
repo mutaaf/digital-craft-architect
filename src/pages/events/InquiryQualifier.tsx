@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import DemoNavbar from '@/components/construction/DemoNavbar';
+import RelatedDemos from '@/components/RelatedDemos';
 import ChatBubble from '@/components/construction/chat/ChatBubble';
 import ChatInput from '@/components/construction/chat/ChatInput';
 import LeadSummaryPanel from '@/components/construction/chat/LeadSummaryPanel';
@@ -80,6 +82,7 @@ interface Message {
 }
 
 const InquiryQualifier = () => {
+  const location = useLocation();
   const { company } = useDemoContext();
   const companyName = company?.companyName || 'DigitalCraft AI';
   const ownerName = company?.ownerName || 'Ro';
@@ -268,6 +271,7 @@ const InquiryQualifier = () => {
           </div>
         </div>
       </div>
+      <RelatedDemos currentPath={location.pathname} />
     </div>
   );
 };
