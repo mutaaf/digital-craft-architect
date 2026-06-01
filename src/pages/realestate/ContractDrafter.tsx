@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import DemoNavbar from '@/components/construction/DemoNavbar';
+import RelatedDemos from '@/components/RelatedDemos';
 import { useDemoContext } from '@/contexts/DemoContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -19,6 +21,7 @@ import {
 } from 'lucide-react';
 
 const ContractDrafter = () => {
+  const location = useLocation();
   const { company } = useDemoContext();
   const companyName = company?.companyName || 'DigitalCraft AI';
 
@@ -222,6 +225,7 @@ Use formal legal language. Include placeholder signature lines with dates. This 
           )}
         </div>
       </div>
+      <RelatedDemos currentPath={location.pathname} />
     </div>
   );
 };

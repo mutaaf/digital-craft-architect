@@ -2,8 +2,10 @@
 // @ts-nocheck
 // TODO(eng): typecheck baseline, see docs/backlog/0005
 import { useState, useEffect, useCallback } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import DemoNavbar from '@/components/construction/DemoNavbar';
+import RelatedDemos from '@/components/RelatedDemos';
 import { useDemoContext } from '@/contexts/DemoContext';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
@@ -44,6 +46,7 @@ function buildPropertyStub(lead: EventLeadInput): PropertyData {
 }
 
 const VoiceBookingAgent = () => {
+  const location = useLocation();
   const { company } = useDemoContext();
   const name = company?.companyName || 'DigitalCraft AI';
 
@@ -427,6 +430,7 @@ const VoiceBookingAgent = () => {
           </Card>
         )}
       </div>
+      <RelatedDemos currentPath={location.pathname} />
     </div>
   );
 };

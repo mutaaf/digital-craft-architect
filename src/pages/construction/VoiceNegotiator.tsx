@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import DemoNavbar from '@/components/construction/DemoNavbar';
+import RelatedDemos from '@/components/RelatedDemos';
 import { useDemoContext } from '@/contexts/DemoContext';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
@@ -23,6 +25,7 @@ import DemoBreadcrumbs from '@/components/DemoBreadcrumbs';
 type Phase = 'input' | 'agent' | 'setup' | 'call' | 'summary';
 
 const VoiceNegotiator = () => {
+  const location = useLocation();
   const { company } = useDemoContext();
   const name = company?.companyName || 'DigitalCraft AI';
 
@@ -276,6 +279,7 @@ const VoiceNegotiator = () => {
           <ConversationHistory onCallAgain={handleCallAgain} />
         </div>
       </div>
+      <RelatedDemos currentPath={location.pathname} />
     </div>
   );
 };

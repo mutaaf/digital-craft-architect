@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import DemoNavbar from '@/components/construction/DemoNavbar';
 import StepIndicator from '@/components/construction/estimate/StepIndicator';
@@ -29,6 +29,7 @@ import { Slider } from '@/components/ui/slider';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import DemoBreadcrumbs from '@/components/DemoBreadcrumbs';
+import RelatedDemos from '@/components/RelatedDemos';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, ArrowRight, RotateCcw, Sparkles } from 'lucide-react';
 
@@ -37,6 +38,7 @@ const STEP_LABELS = ['Project', 'Size', 'Finish', 'Extras'];
 const RESULT_STEP = 5;
 
 const EstimateGenerator = () => {
+  const location = useLocation();
   const { company, vertical } = useDemoContext();
   const possessive = company?.companyName ? `${company.companyName}'s` : "DigitalCraft AI's";
   const [searchParams] = useSearchParams();
@@ -399,6 +401,7 @@ const EstimateGenerator = () => {
           </div>
         )}
       </div>
+      <RelatedDemos currentPath={location.pathname} />
     </div>
   );
 };

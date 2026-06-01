@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import DemoNavbar from '@/components/construction/DemoNavbar';
+import RelatedDemos from '@/components/RelatedDemos';
 import { useDemoContext } from '@/contexts/DemoContext';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -56,6 +58,7 @@ const ratingClasses: Record<Rating, string> = {
 };
 
 const LeadScoring = () => {
+  const location = useLocation();
   const { company } = useDemoContext();
   const companyName = company?.companyName || 'DigitalCraft AI';
 
@@ -284,6 +287,7 @@ Return ONLY a JSON object with these exact fields:
           </div>
         )}
       </div>
+      <RelatedDemos currentPath={location.pathname} />
     </div>
   );
 };

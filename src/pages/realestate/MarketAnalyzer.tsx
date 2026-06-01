@@ -1,6 +1,8 @@
 import { useState, useRef, useCallback } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import DemoNavbar from '@/components/construction/DemoNavbar';
+import RelatedDemos from '@/components/RelatedDemos';
 import { useDemoContext } from '@/contexts/DemoContext';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -48,6 +50,7 @@ RULES:
 }
 
 const MarketAnalyzer = () => {
+  const location = useLocation();
   const { company } = useDemoContext();
   const companyName = company?.companyName || 'DigitalCraft AI';
 
@@ -195,6 +198,7 @@ Include realistic estimated data for median prices, days on market, inventory, r
           </Card>
         ) : null}
       </main>
+      <RelatedDemos currentPath={location.pathname} />
     </div>
   );
 };

@@ -14,6 +14,8 @@ import { Sparkles, ClipboardList } from 'lucide-react';
 import { streamChat } from '@/utils/openaiChat';
 import type { ChatMessage } from '@/utils/openaiChat';
 import DemoBreadcrumbs from '@/components/DemoBreadcrumbs';
+import RelatedDemos from '@/components/RelatedDemos';
+import { useLocation } from 'react-router-dom';
 
 function buildSystemPrompt(companyName: string, ownerName: string, services: string[]): string {
   const serviceLines = services
@@ -66,6 +68,7 @@ interface Message {
 }
 
 const LeadResponder = () => {
+  const location = useLocation();
   const { company } = useDemoContext();
   const companyName = company?.companyName || 'DigitalCraft AI';
   const ownerName = company?.ownerName || 'Ro';
@@ -255,6 +258,7 @@ const LeadResponder = () => {
           </div>
         </div>
       </div>
+      <RelatedDemos currentPath={location.pathname} />
     </div>
   );
 };

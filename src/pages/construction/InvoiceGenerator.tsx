@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import DemoNavbar from '@/components/construction/DemoNavbar';
+import RelatedDemos from '@/components/RelatedDemos';
 import { useDemoContext } from '@/contexts/DemoContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -26,6 +28,7 @@ interface LineItem {
 const EMPTY_ITEM: LineItem = { description: '', qty: 1, rate: 0 };
 
 const InvoiceGenerator = () => {
+  const location = useLocation();
   const { company } = useDemoContext();
   const companyName = company?.companyName || 'DigitalCraft AI';
 
@@ -258,6 +261,7 @@ const InvoiceGenerator = () => {
           )}
         </div>
       </div>
+      <RelatedDemos currentPath={location.pathname} />
     </div>
   );
 };
