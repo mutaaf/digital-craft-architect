@@ -37,7 +37,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0026 | Recently viewed demos recap strip on the /demos hub | P2 | shipped | demos |
 | 0027 | "More like this" cross-vertical recommendations under each demo | P1 | shipped | demos |
 | 0028 | Comparison page "Digital Craft vs ServiceTitan" for high-intent field-service compares | P1 | shipped | seo |
-| 0029 | Shareable branded voice-call summary link | P2 | groomed | demos |
+| 0029 | Shareable branded voice-call summary link | P2 | in-progress | demos |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the
