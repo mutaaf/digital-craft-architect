@@ -1,7 +1,7 @@
 ---
 id: 0027
 title: "More like this" cross-vertical recommendations under each demo
-status: in-progress
+status: shipped
 priority: P1
 area: demos
 created: 2026-06-01
