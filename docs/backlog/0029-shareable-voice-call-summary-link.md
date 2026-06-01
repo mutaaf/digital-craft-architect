@@ -1,7 +1,7 @@
 ---
 id: 0029
 title: Shareable branded voice-call summary link
-status: in-progress
+status: shipped
 priority: P2
 area: demos
 created: 2026-06-01
