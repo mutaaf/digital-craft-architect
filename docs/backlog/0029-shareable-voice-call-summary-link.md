@@ -234,4 +234,79 @@ to re-discover the architecture.
 
 ## Implementation log
 
-(Appended by the implementation-dev agent during execution.)
+### 2026-06-01 - implementation-dev (PR1: feat)
+
+Branched `feat/0029-shareable-voice-call-summary-link` off fresh
+`origin/main`. Flipped ticket frontmatter AND README index row from
+`groomed` to `in-progress` in the first commit so `check-backlog.mjs`
+stays green (the validator requires file and index status to agree -
+the 2026-05-22 two-PR ship lesson governs the second flip to
+`shipped` after this PR squash-merges).
+
+Modeled the share encoder on `src/pages/construction/estimateShareParams.ts`
+(ticket 0009) and the share-button UX on
+`src/components/construction/estimate/EstimateCard.tsx` (data-testids
+`copy-share-link` and `copy-confirmation`, transient 2s "Copied" badge,
+`navigator.clipboard.writeText` with a temp-textarea fallback). The
+encoder uses `btoa(JSON.stringify(...))` with URL-safe replacement
+(`+`->`-`, `/`->`_`, strip `=`) and caps the payload at 1800 chars by
+truncating `keyInsights` and `recommendedNextSteps` to the first 5 entries
+each before re-encoding. The decoder mirrors the `isRecentDemo` parse-safe
+pattern in `src/utils/recentDemosStore.ts` (lines 93-103): every field is
+type-checked, an invalid `sentiment` value or missing field returns
+`null`, and the result is reconstructed from the allow-list (never spread)
+so injected `transcript` / `sellerName` / `sellerEmail` fields cannot
+survive into the render.
+
+`VoiceCallSummary.tsx` gets an `isSharedView?: boolean` prop. When true the
+component hides the Seller Contact card, the Follow-Up Actions card, the
+Full Transcript collapsible, and the New Call / Print action buttons; in
+their place a "Book Free Consultation" CTA card renders (data-testid
+`shared-voice-cta`, fires `trackCTAClick('book_free_consultation',
+'shared_voice_summary')`). The share button card is always rendered so the
+shared viewer can re-share too.
+
+`src/pages/construction/VoiceNegotiator.tsx` (used by BOTH the
+`/construction/demo/voice-negotiator` and `/realestate/demo/voice-negotiator`
+routes - they share one component file per `src/App.tsx` lines 203 and 210)
+gets a mount-time effect that reads `?v=` from `useLocation().search`, runs
+`decodeVoiceSummary`, and on a valid payload synthesizes a minimal
+`PropertyData` + `CallSummary` pair and jumps the `Phase` state machine
+straight to `summary`. A `useRef` guard ensures the
+`trackCTAClick('open_shared_voice_summary', 'voice_summary_card')` event
+fires exactly once even under React 18 strict-mode double-mount. The
+existing `dca_voice_agentResult` sessionStorage handoff from
+`PropertyNegotiator` is skipped on the shared path so a stale earlier
+session does not overwrite the shared summary. A missing or invalid
+`?v=` is a no-op; the normal `input` phase renders with no error UI.
+
+The 2026-05-25 mirror-source lesson was applied at the single shared
+source: `buildFollowUpEmail` on line 51 of `VoiceCallSummary.tsx` (subject
+line) and the SMS body string on the formerly-line-92 area both carried
+em-dash characters that violated the 2026-05-07 Hard NO. Replaced both
+with hyphens; this is punctuation repair, not rewording, so it is in scope
+by the mirror-source rule even though the visible email/SMS surfaces are
+not the primary surface this ticket adds.
+
+The 2026-05-25 "SEO Pilot owns document.title" lesson DOES apply here in
+the negative: neither voice-negotiator route is in the index.html SEO
+Pilot `pages` table (the index.html lookup hits only `/`, `/demos`,
+`/construction`, etc.), so the Playwright spec does NOT assert
+`document.title` for either route - only UI/DOM state.
+
+The 2026-05-30 "second @type instance" lesson was checked: this ticket
+emits NO new JSON-LD on either voice-negotiator route, so no predecessor
+`tests/e2e/*-jsonld.spec.ts` needs widening.
+
+`tests/e2e/voice-summary-share-link.spec.ts` (new, 9 specs) covers every
+acceptance-criteria box: encode/decode round-trip through the live share
+button, cold-open valid (construction + realestate), no-param fallback,
+malformed fallback, malicious-payload field stripping, copy + clipboard +
+analytics, dark-mode at 375px viewport, and same-origin no-`/api/`-call.
+All 9 pass locally against the preview production build.
+
+No new dependencies; no `/api/`, `.env*`, `package.json`, or
+`package-lock.json` touched. The shareable payload travels in the URL only;
+nothing is written to localStorage or sessionStorage by the share path.
+The `public/sitemap.xml` lastmod values regenerated from today's git
+history are committed per the ticket-0028 convention.

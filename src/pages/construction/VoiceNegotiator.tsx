@@ -18,11 +18,61 @@ import ConversationHistory from '@/components/construction/negotiator/Conversati
 import { useVoiceCall } from '@/hooks/useVoiceCall';
 import { runAgentPipeline } from '@/utils/agentPipeline';
 import type { PropertyData, AgentStep, AgentResult } from '@/data/propertyNegotiation';
-import type { BidRange } from '@/data/voiceNegotiation';
+import type { BidRange, CallSummary, TranscriptEntry } from '@/data/voiceNegotiation';
 import type { StoredConversation } from '@/utils/conversationStore';
 import DemoBreadcrumbs from '@/components/DemoBreadcrumbs';
+import { decodeVoiceSummary } from '@/utils/voiceSummaryShareLink';
+import { trackCTAClick } from '@/utils/analytics';
 
 type Phase = 'input' | 'agent' | 'setup' | 'call' | 'summary';
+
+// Ticket 0029 - synthesize a minimal PropertyData stub from a shared
+// payload's address so the existing VoiceCallSummary renderer (which expects
+// a PropertyData) is satisfied without inventing fields the visitor never
+// entered. askingPrice = 1 (non-zero sentinel) so the renderer's
+// `!askingPrice` "booking call" branch does NOT trigger - the shared
+// artifact is always a property-negotiation summary by construction (the
+// events voice booking agent is out of scope per the ticket).
+function buildSharedProperty(address: string): PropertyData {
+  return {
+    address,
+    askingPrice: 1,
+    bedrooms: null,
+    bathrooms: null,
+    sqft: null,
+    yearBuilt: null,
+    propertyType: '',
+    condition: '',
+    lotSize: '',
+    daysOnMarket: null,
+    listingSource: '',
+    notes: '',
+    acreage: null,
+    zoning: null,
+    utilities: null,
+    sellerMotivation: null,
+  };
+}
+
+// Ticket 0029 - synthesize a minimal CallSummary from a decoded shareable
+// payload. Fields the shareable payload does NOT carry (sellerPosition,
+// sellerMotivation, sellerEmail, sellerPhone) are blanked so the renderer's
+// optional gates keep them out of the DOM on the cold-open path.
+function buildSharedSummary(payload: ReturnType<typeof decodeVoiceSummary> & object): CallSummary {
+  return {
+    sellerPosition: '',
+    lowestAcceptable: payload.lowestAcceptable,
+    sellerTimeline: payload.sellerTimeline,
+    sellerMotivation: '',
+    keyInsights: payload.keyInsights,
+    recommendedNextSteps: payload.recommendedNextSteps,
+    agreedPrice: payload.agreedPrice,
+    callDurationSeconds: payload.durationSeconds,
+    overallSentiment: payload.sentiment,
+    sellerEmail: null,
+    sellerPhone: null,
+  };
+}
 
 const VoiceNegotiator = () => {
   const location = useLocation();
@@ -37,14 +87,49 @@ const VoiceNegotiator = () => {
   const [scrapeError, setScrapeError] = useState<string | null>(null);
   const [bidRange, setBidRange] = useState<BidRange | null>(null);
 
+  // Ticket 0029 - cold-open shared-summary state. Populated only when the
+  // URL carries a valid ?v= payload; nullish otherwise so the normal phase
+  // state machine runs.
+  const [sharedSummary, setSharedSummary] = useState<CallSummary | null>(null);
+  const [sharedProperty, setSharedProperty] = useState<PropertyData | null>(null);
+  // Guard against React 18 strict-mode double-mount so the analytics event
+  // fires exactly once per cold-open.
+  const sharedAnalyticsFiredRef = useRef(false);
+
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const startRef = useRef(0);
   const abortRef = useRef<AbortController | null>(null);
 
   const voice = useVoiceCall();
 
-  // Try to restore from sessionStorage (passed from PropertyNegotiator)
+  // Ticket 0029 - cold-open from a shared ?v= payload. Runs once on mount;
+  // a missing or invalid param does nothing (the normal input flow renders).
   useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const raw = params.get('v');
+    if (!raw) return;
+
+    const decoded = decodeVoiceSummary(raw);
+    if (!decoded) return;
+
+    setSharedProperty(buildSharedProperty(decoded.address));
+    setSharedSummary(buildSharedSummary(decoded));
+    setPhase('summary');
+
+    if (!sharedAnalyticsFiredRef.current) {
+      sharedAnalyticsFiredRef.current = true;
+      trackCTAClick('open_shared_voice_summary', 'voice_summary_card');
+    }
+    // location.search is the read-once trigger; later phase transitions
+    // (e.g. clicking "Start Over" in the live flow) must not re-fire this.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Try to restore from sessionStorage (passed from PropertyNegotiator).
+  // Skipped on the cold-open shared path so the shared summary is not
+  // overwritten by a stale handoff payload from an earlier session.
+  useEffect(() => {
+    if (sharedSummary) return;
     try {
       const stored = sessionStorage.getItem('dca_voice_agentResult');
       if (stored) {
@@ -56,7 +141,7 @@ const VoiceNegotiator = () => {
     } catch {
       // ignore
     }
-  }, []);
+  }, [sharedSummary]);
 
   // Elapsed timer during agent phase
   useEffect(() => {
@@ -250,7 +335,18 @@ const VoiceNegotiator = () => {
         )}
 
         {/* ── Summary Phase ── */}
-        {phase === 'summary' && voice.state.summary && agentResult && (
+        {/* Ticket 0029 - shared cold-open path renders first when present; the
+            live post-call summary path is unchanged. */}
+        {phase === 'summary' && sharedSummary && sharedProperty && (
+          <VoiceCallSummary
+            summary={sharedSummary}
+            transcript={[]}
+            property={sharedProperty}
+            onNewCall={reset}
+            isSharedView
+          />
+        )}
+        {phase === 'summary' && !sharedSummary && voice.state.summary && agentResult && (
           <VoiceCallSummary
             summary={voice.state.summary}
             transcript={voice.state.transcript}
