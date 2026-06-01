@@ -1,7 +1,7 @@
 ---
 id: 0028
 title: Comparison page "Digital Craft vs ServiceTitan" for high-intent field-service compares
-status: in-progress
+status: shipped
 priority: P1
 area: seo
 created: 2026-06-01
