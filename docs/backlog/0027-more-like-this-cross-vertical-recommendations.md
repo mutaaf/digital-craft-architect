@@ -1,7 +1,7 @@
 ---
 id: 0027
 title: "More like this" cross-vertical recommendations under each demo
-status: groomed
+status: in-progress
 priority: P1
 area: demos
 created: 2026-06-01
@@ -202,4 +202,26 @@ to re-discover the architecture.
 
 ## Implementation log
 
-(Appended by the implementation-dev agent during execution.)
+### 2026-06-01 - implementation-dev kickoff
+
+- Branched `feat/0027-related-demos` off `origin/main` and flipped this
+  ticket's frontmatter to `in-progress` as the first commit.
+- Mount choice: there is no shared `DemoLayout` wrapping demo pages
+  (verified by reading `src/App.tsx`; every demo route renders its
+  vertical-specific component directly). The 13 demo component files
+  (LeadResponder, EstimateGenerator, InvoiceGenerator, SMSSequence,
+  LeadScoring, ReviewSystem, PropertyNegotiator, VoiceNegotiator,
+  ContractDrafter, MarketAnalyzer, InquiryQualifier, ProposalGenerator,
+  VoiceBookingAgent) are reused across all 47 demo routes by
+  composition in `App.tsx`, so mounting `<RelatedDemos
+  currentPath={location.pathname} />` once per shared demo file (with
+  `useLocation()`) covers every per-vertical demo page with one import
+  + one JSX line per file. None of these files render a `<Footer />`
+  today (the demo pages have no footer), so the strip mounts at the
+  bottom of the component's outermost wrapper.
+- Catalog shape: option (a) from the engineering notes - a literal
+  `DEMO_CATALOG` array inside `src/utils/relatedDemos.ts` mirroring
+  `DEMO_GROUPS` from `src/pages/Demos.tsx`, with a module-load
+  assertion validating it against `KNOWN_PATHS` from
+  `src/utils/recentDemosStore.ts` in both directions. The duplication
+  is bounded (47 lines) and the assertion makes drift loud.
