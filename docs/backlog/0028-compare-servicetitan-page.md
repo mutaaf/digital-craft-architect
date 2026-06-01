@@ -1,7 +1,7 @@
 ---
 id: 0028
 title: Comparison page "Digital Craft vs ServiceTitan" for high-intent field-service compares
-status: groomed
+status: in-progress
 priority: P1
 area: seo
 created: 2026-06-01
@@ -199,4 +199,49 @@ to re-discover the architecture.
 
 ## Implementation log
 
-(Appended by the implementation-dev agent during execution.)
+### 2026-06-01 - implementation-dev (PR1: feat)
+
+Branched `feat/0028-compare-servicetitan` off fresh `origin/main`. Flipped
+ticket frontmatter from `groomed` to `in-progress`; README index row stays at
+`groomed` until the follow-up `chore/0028-ship-status` PR (per the 2026-05-22
+two-PR ship lesson).
+
+Modeled `src/pages/compare/ServiceTitan.tsx` directly on the cleanest peer,
+`src/pages/compare/Jobber.tsx` (ticket 0021): identical structure (Helmet +
+Navbar + ScrollProgress + visible breadcrumb + hero + 15-row FEATURES table +
+4 DIFFERENTIATORS cards + "When ServiceTitan Is the Better Fit" + SEO content +
+dual CTA + Footer + StickyCTA). Departures from peer:
+
+- Pricing row cites ServiceTitan as "high 3-figure / mo, custom-quoted*" with
+  the asterisk note pointing at servicetitan.com per the ticket's "do NOT
+  fabricate a per-seat number" Out-of-Scope rule. No invented per-seat figure.
+- All four DIFFERENTIATORS desc strings rewritten for ServiceTitan's footprint
+  (mature field-service CRM with dispatching, integrated payments, deep
+  accounting integrations as their honest wins). Grepped the diff for `—`
+  (em-dash); zero present (per the 2026-05-07 Hard NO).
+- BreadcrumbList JSON-LD built from a single typed `CRUMBS` array so visible
+  markup and schema cannot drift (per the 2026-05-25 mirror-source lesson).
+  No `Service` or `Product` JSON-LD added per the ticket's Out-of-Scope rule
+  (avoids the 2026-05-30 "second @type instance" risk - only `BreadcrumbList`
+  and `WebPage` are emitted, mirroring Jobber).
+
+Added `<Route path="/compare/servicetitan" element={<ServiceTitanComparison />} />`
+to `src/App.tsx` next to the existing `/compare/jobber` route so
+`scripts/generate-sitemap.ts` discovers it automatically.
+
+Added `/compare/servicetitan` to `tests/e2e/routes.ts` so the smoke-required
+gate exercises the new route. Wrote `tests/e2e/compare-servicetitan.spec.ts`
+with one test per acceptance-criteria box, asserting the Helmet
+`meta[name="description"]`, the visible H1, the JSON-LD, the breadcrumb
+mirror, dark-mode + 375px viewport render, the `compare_servicetitan_` CTA
+label, and no first-party `/api/` call.
+
+No predecessor `*-jsonld.spec.ts` hardcodes a list of `/compare/*` routes
+asserting "exactly one BreadcrumbList over all compare pages," so no
+predecessor spec needs widening in this PR (per the 2026-05-30 lesson's
+checklist). All existing "exactly one BreadcrumbList" assertions
+(`ai-for-plumbers`, `ai-for-hvac`, `ai-for-roofers`, `compare-jobber`,
+`demo-breadcrumbs`) scope to specific routes, not to the compare set.
+
+No new dependencies. No `/api/`, `.env*`, `package.json`, or
+`package-lock.json` touched.
