@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import NextDemoCTA from '@/components/NextDemoCTA';
 import {
   Collapsible,
   CollapsibleContent,
@@ -131,6 +133,11 @@ const VoiceCallSummary = ({
   const [transcriptOpen, setTranscriptOpen] = useState(false);
   const [copied, setCopied] = useState<'idle' | 'copied'>('idle');
   const sentiment = SENTIMENT_CONFIG[summary.overallSentiment] || SENTIMENT_CONFIG.neutral;
+  // Ticket 0031 - currentPath drives the pinned "Try next demo" CTA's
+  // recommender lookup. Sourced from useLocation() so the path is never
+  // hardcoded; the same hook is already used in the parent VoiceNegotiator
+  // page for the cold-open share parsing.
+  const location = useLocation();
 
   const email = buildFollowUpEmail(summary, property);
   const smsBody = buildFollowUpSMS(summary, property);
@@ -219,6 +226,14 @@ const VoiceCallSummary = ({
           </div>
         </div>
       </Card>
+
+      {/* Ticket 0031 - "Try the next demo" pinned CTA. Lives directly below
+          the agreed-price summary heading and above the "Copy share link"
+          row from ticket 0029. Gated to the live post-call view so it does
+          not compete with the shared-view "Book Free Consultation" CTA. */}
+      {!isSharedView && (
+        <NextDemoCTA currentPath={location.pathname} surface="voice_result" />
+      )}
 
       {/* Position / Interest */}
       <Card className="p-4">

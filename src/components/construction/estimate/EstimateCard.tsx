@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -6,6 +7,7 @@ import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { Printer, Calendar, DollarSign, Link2, Check } from 'lucide-react';
 import { useDemoContext } from '@/contexts/DemoContext';
 import EmailEstimateCapture from './EmailEstimateCapture';
+import NextDemoCTA from '@/components/NextDemoCTA';
 import type { EstimateBreakdown, ProjectType, FinishLevel } from '@/data/estimatePricing';
 
 interface EstimateCardProps {
@@ -37,6 +39,10 @@ const EstimateCard = ({ breakdown, projectType, finish, sqft, buildShareUrl }: E
   const bookingUrl = company?.bookingUrl || 'https://calendly.com/mutaaf';
 
   const [copied, setCopied] = useState(false);
+  // Ticket 0031 - currentPath drives the pinned "Try next demo" CTA's
+  // recommender lookup. Sourced from useLocation() so the path is never
+  // hardcoded.
+  const location = useLocation();
 
   const handlePrint = () => window.print();
 
@@ -185,6 +191,14 @@ const EstimateCard = ({ breakdown, projectType, finish, sqft, buildShareUrl }: E
                 </a>
               </Button>
             )}
+          </div>
+
+          {/* Ticket 0031 - "Try the next demo" pinned CTA. Lives directly
+              below the estimate total/actions and above the ticket 0015
+              email-capture row, framing ONE high-contrast next step at the
+              visual peak of attention. */}
+          <div className="mt-6 print:hidden">
+            <NextDemoCTA currentPath={location.pathname} surface="estimate_result" />
           </div>
 
           {/* Ticket 0015 - email this estimate to the visitor (lead capture). */}

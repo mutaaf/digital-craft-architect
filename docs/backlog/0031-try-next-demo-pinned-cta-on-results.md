@@ -227,6 +227,7 @@ to re-discover the architecture.
 (Appended by the implementation-dev agent during execution.)
 
 - 2026-06-03 - branch `feat/0031-try-next-demo-pinned-cta` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/next-demo-cta.spec.ts`
+- 2026-06-03 - failing test added in `tests/e2e/next-demo-cta.spec.ts` (8 boxes)
+- 2026-06-03 - NextDemoCTA component (62 lines) mounted on EstimateCard and VoiceCallSummary; all 8 boxes pass locally
 - YYYY-MM-DD - PR #N opened, CI [state]
 - YYYY-MM-DD - merged to main
