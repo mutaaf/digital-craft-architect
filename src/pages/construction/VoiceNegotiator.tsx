@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import DemoNavbar from '@/components/construction/DemoNavbar';
 import RelatedDemos from '@/components/RelatedDemos';
+import DataDisclosureChip from '@/components/DataDisclosureChip';
 import { useDemoContext } from '@/contexts/DemoContext';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
@@ -242,7 +243,8 @@ const VoiceNegotiator = () => {
 
       <div className="max-w-3xl mx-auto px-4 py-8 sm:py-12">
         {/* Header */}
-        <div className="text-center mb-8 animate-fade-in">
+        <div className="relative text-center mb-8 animate-fade-in">
+          <DataDisclosureChip demoPath={location.pathname} />
           <Badge variant="secondary" className="mb-4">
             <Sparkles size={14} className="mr-1" /> POC Demo
           </Badge>

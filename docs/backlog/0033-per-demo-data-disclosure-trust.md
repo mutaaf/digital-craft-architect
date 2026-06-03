@@ -1,7 +1,7 @@
 ---
 id: 0033
 title: Per-demo "what we store" disclosure chip linked to /trust
-status: groomed
+status: in-progress
 priority: P2
 area: trust
 created: 2026-06-03
@@ -216,7 +216,9 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0033-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/data-disclosure-chip.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-06-03 - branch `feat/0033-data-disclosure-chip` opened off fresh origin/main
+- 2026-06-03 - failing test added in `tests/e2e/data-disclosure-chip.spec.ts`
+- 2026-06-03 - implemented `src/components/DataDisclosureChip.tsx` + `src/data/demoDisclosures.ts`; mounted chip on the 13 demo files that already mount `<RelatedDemos />` (LeadResponder, EstimateGenerator, InvoiceGenerator, SMSSequence, LeadScoring, ReviewSystem, PropertyNegotiator, VoiceNegotiator, ContractDrafter, MarketAnalyzer, InquiryQualifier, ProposalGenerator, VoiceBookingAgent). These shared components serve every demo path in `KNOWN_PATHS` via per-vertical `App.tsx` routes (e.g. `/healthcare/demo/intake` resolves to `LeadResponder`, `/homeservices/demo/estimate` resolves to `EstimateGenerator`), so a single mount per shared file delivers the chip to all 4 representative routes the spec names.
+- 2026-06-03 - did NOT touch `src/pages/Trust.tsx`: every storage-key prefix (`dca_demo_company_`, `dca_deal_`) and every provider name (OpenAI, Vapi, ElevenLabs, Deepgram, Firecrawl, Jina, Formspree) used in `DEMO_DISCLOSURES` already appears in the rendered `/trust` body, so the mirror-source overlap holds without a Trust edit.
+- 2026-06-03 - PR #N opened, CI [state]
+- 2026-06-03 - merged to main

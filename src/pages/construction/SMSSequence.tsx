@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import DemoNavbar from '@/components/construction/DemoNavbar';
 import RelatedDemos from '@/components/RelatedDemos';
+import DataDisclosureChip from '@/components/DataDisclosureChip';
 import { useDemoContext } from '@/contexts/DemoContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -89,7 +90,8 @@ Make messages natural, conversational, and progressively more persuasive. First 
       </Helmet>
       <DemoNavbar />
 
-      <div className="max-w-2xl mx-auto px-4 py-8 sm:py-10">
+      <div className="relative max-w-2xl mx-auto px-4 py-8 sm:py-10">
+        <DataDisclosureChip demoPath={location.pathname} />
         <div className="text-center mb-8 animate-fade-in">
           <Badge variant="secondary" className="mb-3">
             <Sparkles size={14} className="mr-1" /> AI SMS Tool

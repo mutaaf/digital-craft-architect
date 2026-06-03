@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import DemoNavbar from '@/components/construction/DemoNavbar';
 import RelatedDemos from '@/components/RelatedDemos';
+import DataDisclosureChip from '@/components/DataDisclosureChip';
 import { useDemoContext } from '@/contexts/DemoContext';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -121,7 +122,8 @@ Include realistic estimated data for median prices, days on market, inventory, r
       <DemoNavbar />
 
       <main className="container mx-auto px-4 pt-24 pb-16 max-w-5xl">
-        <div className="mb-8">
+        <div className="relative mb-8">
+          <DataDisclosureChip demoPath={location.pathname} />
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
             AI Market Analyzer
           </h1>

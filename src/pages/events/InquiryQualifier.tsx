@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import DemoNavbar from '@/components/construction/DemoNavbar';
 import RelatedDemos from '@/components/RelatedDemos';
+import DataDisclosureChip from '@/components/DataDisclosureChip';
 import ChatBubble from '@/components/construction/chat/ChatBubble';
 import ChatInput from '@/components/construction/chat/ChatInput';
 import LeadSummaryPanel from '@/components/construction/chat/LeadSummaryPanel';
@@ -205,7 +206,8 @@ const InquiryQualifier = () => {
 
       <div className="flex-1 max-w-6xl mx-auto w-full px-4 py-6 flex flex-col">
         {/* Header */}
-        <div className="text-center mb-6 sm:mb-8">
+        <div className="relative text-center mb-6 sm:mb-8">
+          <DataDisclosureChip demoPath={location.pathname} />
           <Badge variant="secondary" className="mb-3">
             <Sparkles size={14} className="mr-1" /> POC Demo
           </Badge>

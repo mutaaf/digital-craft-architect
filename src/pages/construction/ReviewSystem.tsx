@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import DemoNavbar from '@/components/construction/DemoNavbar';
 import RelatedDemos from '@/components/RelatedDemos';
+import DataDisclosureChip from '@/components/DataDisclosureChip';
 import PhoneMockup from '@/components/construction/reviews/PhoneMockup';
 import SMSBubble from '@/components/construction/reviews/SMSBubble';
 import TimelineBar from '@/components/construction/reviews/TimelineBar';
@@ -193,7 +194,8 @@ const ReviewSystem = () => {
       </Helmet>
       <DemoNavbar />
 
-      <div className="max-w-6xl mx-auto px-4 py-8 sm:py-10">
+      <div className="relative max-w-6xl mx-auto px-4 py-8 sm:py-10">
+        <DataDisclosureChip demoPath={routeLocation.pathname} />
         {/* Header */}
         <div className="text-center mb-6">
           <Badge variant="secondary" className="mb-3">
