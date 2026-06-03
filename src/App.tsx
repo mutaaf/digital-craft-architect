@@ -50,6 +50,7 @@ import Industries from "./pages/Industries";
 import Demos from "./pages/Demos";
 import Glossary from "./pages/Glossary";
 import Trust from "./pages/Trust";
+import Changelog from "./pages/Changelog";
 import HubSpotComparison from "./pages/compare/HubSpot";
 import GoHighLevelComparison from "./pages/compare/GoHighLevel";
 import ZapierComparison from "./pages/compare/Zapier";
@@ -262,6 +263,7 @@ const App = () => (
               <Route path="/demos" element={<Demos />} />
               <Route path="/glossary" element={<Glossary />} />
               <Route path="/trust" element={<Trust />} />
+              <Route path="/changelog" element={<Changelog />} />
               <Route path="/compare/hubspot" element={<HubSpotComparison />} />
               <Route path="/compare/gohighlevel" element={<GoHighLevelComparison />} />
               <Route path="/compare/zapier" element={<ZapierComparison />} />

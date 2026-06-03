@@ -1,7 +1,7 @@
 ---
 id: 0032
 title: Public /changelog page surfacing weekly ship velocity to crawlers and repeat visitors
-status: groomed
+status: in-progress
 priority: P2
 area: content
 created: 2026-06-03
@@ -232,7 +232,21 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0032-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/changelog-page.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-06-03 - branch `feat/0032-public-changelog-page` opened; ticket flipped
+  to `in-progress` (file + README index in lockstep).
+- 2026-06-03 - build-chain decision: per AGENTS.md Hard NO, the GTM queue must
+  not edit `package.json`. The `build` script in `package.json` already runs
+  `npx tsx scripts/generate-sitemap.ts && vite build`, so the new
+  `generateChangelog()` function exported from `scripts/generate-changelog.ts`
+  is invoked from inside `scripts/generate-sitemap.ts` (an already-gated
+  script). This is the 2026-05-28 inline-assertion-in-the-gated-script
+  pattern: a malformed entry throws and fails `npm run build` and CI's
+  `build` job, with a `src/data/changelogEntries.ts.broken` artifact saved
+  alongside the real output for debugging. Zero `package.json` touch, zero
+  new gated checks, zero new dependencies.
+- 2026-06-03 - `src/data/changelogEntries.ts` is generated and COMMITTED (not
+  gitignored) so the typecheck gate sees a real typed import and CI does not
+  need a generator step to typecheck.
+- 2026-06-03 - failing e2e added in `tests/e2e/changelog-page.spec.ts` before
+  page code.
+- 2026-06-03 - PR #N opened, CI [pending]
