@@ -1,7 +1,7 @@
 ---
 id: 0030
 title: Emit SoftwareApplication JSON-LD on the /demos hub
-status: in-progress
+status: shipped
 priority: P1
 area: seo
 created: 2026-06-03
