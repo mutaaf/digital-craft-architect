@@ -1,7 +1,7 @@
 ---
 id: 0033
 title: Per-demo "what we store" disclosure chip linked to /trust
-status: in-progress
+status: shipped
 priority: P2
 area: trust
 created: 2026-06-03
