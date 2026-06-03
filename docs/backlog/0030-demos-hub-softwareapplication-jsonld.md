@@ -1,7 +1,7 @@
 ---
 id: 0030
 title: Emit SoftwareApplication JSON-LD on the /demos hub
-status: groomed
+status: in-progress
 priority: P1
 area: seo
 created: 2026-06-03
@@ -189,7 +189,7 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0030-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/demos-softwareapplication-jsonld.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-06-03 - branch `feat/0030-demos-softwareapplication-jsonld` opened
+- 2026-06-03 - failing test added in `tests/e2e/demos-softwareapplication-jsonld.spec.ts` (one assertion per acceptance box, modeled on `tests/e2e/homepage-organization-jsonld.spec.ts`)
+- 2026-06-03 - PR opened, CI [pending]
+- 2026-06-03 - merged to main
