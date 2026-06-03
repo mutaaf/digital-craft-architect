@@ -39,7 +39,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0028 | Comparison page "Digital Craft vs ServiceTitan" for high-intent field-service compares | P1 | shipped | seo |
 | 0029 | Shareable branded voice-call summary link | P2 | shipped | demos |
 | 0030 | Emit SoftwareApplication JSON-LD on the /demos hub | P1 | shipped | seo |
-| 0031 | "Try the next demo" pinned CTA on voice and estimate result screens | P1 | groomed | demos |
+| 0031 | "Try the next demo" pinned CTA on voice and estimate result screens | P1 | in-progress | demos |
 | 0032 | Public /changelog page surfacing weekly ship velocity to crawlers and repeat visitors | P2 | groomed | content |
 | 0033 | Per-demo "what we store" disclosure chip linked to /trust | P2 | groomed | trust |
 
