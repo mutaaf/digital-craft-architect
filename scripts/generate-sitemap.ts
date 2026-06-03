@@ -1,6 +1,7 @@
 import { execSync } from "child_process";
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import { join, relative } from "path";
+import { generateChangelog } from "./generate-changelog";
 
 const ROOT = join(import.meta.dirname, "..");
 const SRC = join(ROOT, "src");
@@ -351,6 +352,15 @@ function assertSitemapLastmodInvariants(xml: string, expectedUrlCount: number): 
 }
 
 function run() {
+  // Ticket 0032 - regenerate src/data/changelogEntries.ts from the shipped
+  // backlog frontmatter BEFORE we build the sitemap. The changelog generator
+  // has its own inline assertions (2026-05-28 pattern); a malformed entry
+  // throws here and fails the gated build, with a .broken artifact saved.
+  // Wiring this into the sitemap script keeps the GTM queue clear of any
+  // package.json edit (AGENTS.md Hard NO) while still gating it on every
+  // `npm run build` and CI `build` job.
+  generateChangelog();
+
   const appContent = readFile(APP_TSX);
   const routes = extractStaticRoutes(appContent);
   const blogSlugs = extractBlogSlugs();
