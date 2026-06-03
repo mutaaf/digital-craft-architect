@@ -1,7 +1,7 @@
 ---
 id: 0032
 title: Public /changelog page surfacing weekly ship velocity to crawlers and repeat visitors
-status: in-progress
+status: shipped
 priority: P2
 area: content
 created: 2026-06-03
@@ -249,4 +249,8 @@ to re-discover the architecture.
   need a generator step to typecheck.
 - 2026-06-03 - failing e2e added in `tests/e2e/changelog-page.spec.ts` before
   page code.
-- 2026-06-03 - PR #N opened, CI [pending]
+- 2026-06-03 - feat PR #107 opened, CI green (build + smoke-required),
+  squash-merged to main (76cb6b4).
+- 2026-06-03 - chore/0032-ship-status PR opened to flip the ticket
+  frontmatter AND README index row to `shipped` together (the 2026-05-22
+  two-PR-per-ship pattern).
