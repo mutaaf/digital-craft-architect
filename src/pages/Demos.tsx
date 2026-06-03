@@ -7,9 +7,17 @@ import ScrollProgress from '@/components/ScrollProgress';
 import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
 import { getRecentDemos, recordDemoVisit } from '@/utils/recentDemosStore';
+import { ORG_NAME, ORG_URL } from '@/data/organizationSchema';
 import { Sparkles, ArrowRight, Phone } from 'lucide-react';
 
 const SITE_URL = 'https://digitalcraftai.com';
+
+// Ticket 0030 - single source of truth for the Demos hub meta description.
+// Read by both the Helmet meta[name="description"] tag and the
+// SoftwareApplication JSON-LD description field below, so a future copy edit
+// cannot leave the schema stale (mirror-source rule per the 2026-05-25 lesson).
+const DEMOS_META_DESCRIPTION =
+  'Browse every live AI demo from DigitalCraft AI in one place: lead responders, smart estimates, deal analyzers, and voice agents across construction, real estate, healthcare, and more.';
 
 interface DemoLink {
   title: string;
@@ -152,6 +160,38 @@ const itemListJsonLd = {
   })),
 };
 
+// Ticket 0030 - SoftwareApplication structured data for the /demos hub. The
+// catalog already emits an ItemList; this restates it as a single software
+// application a buyer can evaluate free, which is the Google-preferred shape
+// for "free AI demo" rich-result eligibility. provider is an inline
+// Organization reference sourced from src/data/organizationSchema.ts so the
+// homepage Organization entity and this provider share one identity (no
+// duplicate literals, mirror-source rule per the 2026-05-25 lesson).
+// Built at module top so React does not re-stringify on every render; the
+// runtime-only description is spread in at render time below.
+const SOFTWARE_APPLICATION_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Digital Craft AI Demos',
+  url: `${SITE_URL}/demos`,
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web',
+  provider: {
+    '@type': 'Organization',
+    name: ORG_NAME,
+    url: ORG_URL,
+  },
+  offers: {
+    '@type': 'Offer',
+    // price is the string "0", not the number 0, so JSON-LD validators that
+    // require schema.org Number-as-string semantics accept it. The test
+    // explicitly asserts typeof === 'string'.
+    price: '0',
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
+  },
+} as const;
+
 const Demos: React.FC = () => {
   const { content } = useContent();
   // Snapshot read on mount; the recap is stable for the page lifetime since
@@ -162,12 +202,15 @@ const Demos: React.FC = () => {
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <Helmet>
         <title>All Live AI Demos | Try Every Tool by Industry | DigitalCraft AI</title>
-        <meta
-          name="description"
-          content="Browse every live AI demo from DigitalCraft AI in one place: lead responders, smart estimates, deal analyzers, and voice agents across construction, real estate, healthcare, and more."
-        />
+        <meta name="description" content={DEMOS_META_DESCRIPTION} />
         <link rel="canonical" href={`${SITE_URL}/demos`} />
         <script type="application/ld+json">{JSON.stringify(itemListJsonLd)}</script>
+        {/* Ticket 0030 - SoftwareApplication JSON-LD. description is spread in
+            at render time from DEMOS_META_DESCRIPTION so it mirrors the meta
+            description above; a copy edit propagates to both in one render. */}
+        <script type="application/ld+json">
+          {JSON.stringify({ ...SOFTWARE_APPLICATION_SCHEMA, description: DEMOS_META_DESCRIPTION })}
+        </script>
       </Helmet>
       <Navbar />
       <ScrollProgress />
