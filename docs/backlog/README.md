@@ -41,7 +41,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0030 | Emit SoftwareApplication JSON-LD on the /demos hub | P1 | shipped | seo |
 | 0031 | "Try the next demo" pinned CTA on voice and estimate result screens | P1 | shipped | demos |
 | 0032 | Public /changelog page surfacing weekly ship velocity to crawlers and repeat visitors | P2 | shipped | content |
-| 0033 | Per-demo "what we store" disclosure chip linked to /trust | P2 | in-progress | trust |
+| 0033 | Per-demo "what we store" disclosure chip linked to /trust | P2 | shipped | trust |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the
