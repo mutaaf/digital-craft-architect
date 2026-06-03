@@ -1,7 +1,7 @@
 ---
 id: 0031
 title: "Try the next demo" pinned CTA on voice and estimate result screens
-status: groomed
+status: in-progress
 priority: P1
 area: demos
 created: 2026-06-03
@@ -226,7 +226,8 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0031-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/next-demo-cta.spec.ts`
+- 2026-06-03 - branch `feat/0031-try-next-demo-pinned-cta` opened
+- 2026-06-03 - failing test added in `tests/e2e/next-demo-cta.spec.ts` (8 boxes)
+- 2026-06-03 - NextDemoCTA component (62 lines) mounted on EstimateCard and VoiceCallSummary; all 8 boxes pass locally
 - YYYY-MM-DD - PR #N opened, CI [state]
 - YYYY-MM-DD - merged to main
