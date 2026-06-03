@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import DemoNavbar from '@/components/construction/DemoNavbar';
 import RelatedDemos from '@/components/RelatedDemos';
+import DataDisclosureChip from '@/components/DataDisclosureChip';
 import StepIndicator from '@/components/construction/estimate/StepIndicator';
 import ProposalCard from '@/components/events/proposal/ProposalCard';
 import { useDemoContext } from '@/contexts/DemoContext';
@@ -154,7 +155,8 @@ const ProposalGenerator = () => {
 
       <div className="max-w-3xl mx-auto px-4 py-8 sm:py-10">
         {/* Header */}
-        <div className="text-center mb-8">
+        <div className="relative text-center mb-8">
+          <DataDisclosureChip demoPath={location.pathname} />
           <Badge variant="secondary" className="mb-3">
             <Sparkles size={14} className="mr-1" /> POC Demo
           </Badge>

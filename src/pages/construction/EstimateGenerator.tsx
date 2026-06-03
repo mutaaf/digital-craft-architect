@@ -30,6 +30,7 @@ import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import DemoBreadcrumbs from '@/components/DemoBreadcrumbs';
 import RelatedDemos from '@/components/RelatedDemos';
+import DataDisclosureChip from '@/components/DataDisclosureChip';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, ArrowRight, RotateCcw, Sparkles } from 'lucide-react';
 
@@ -203,7 +204,8 @@ const EstimateGenerator = () => {
       <DemoNavbar />
       <DemoBreadcrumbs />
 
-      <div className="max-w-3xl mx-auto px-4 py-8 sm:py-10">
+      <div className="relative max-w-3xl mx-auto px-4 py-8 sm:py-10">
+        <DataDisclosureChip demoPath={location.pathname} />
         {/* Header */}
         <div className="text-center mb-8">
           <Badge variant="secondary" className="mb-3">
