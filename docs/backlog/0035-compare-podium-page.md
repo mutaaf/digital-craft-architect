@@ -1,7 +1,7 @@
 ---
 id: 0035
 title: Comparison page "Digital Craft vs Podium" for high-intent SMS and review compares
-status: in-progress
+status: shipped
 priority: P1
 area: seo
 created: 2026-06-05
