@@ -43,7 +43,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0032 | Public /changelog page surfacing weekly ship velocity to crawlers and repeat visitors | P2 | shipped | content |
 | 0033 | Per-demo "what we store" disclosure chip linked to /trust | P2 | shipped | trust |
 | 0034 | AI-for-electricians long-tail landing page funneling into home-services demos | P1 | shipped | content |
-| 0035 | Comparison page "Digital Craft vs Podium" for high-intent SMS and review compares | P1 | groomed | seo |
+| 0035 | Comparison page "Digital Craft vs Podium" for high-intent SMS and review compares | P1 | in-progress | seo |
 | 0036 | Public /uptime page surfacing demo and serverless health for regulated-vertical buyers | P2 | groomed | trust |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
