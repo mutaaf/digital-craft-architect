@@ -1,7 +1,7 @@
 ---
 id: 0034
 title: AI-for-electricians long-tail landing page funneling into home-services demos
-status: groomed
+status: in-progress
 priority: P1
 area: content
 created: 2026-06-05
@@ -198,7 +198,8 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0034-ai-for-electricians-landing-page` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/ai-for-electricians.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-06-05 - branch `feat/0034-ai-for-electricians-landing-page` opened off fresh `origin/main`; ticket frontmatter AND `docs/backlog/README.md` index row both flipped to `in-progress` in lockstep so `node scripts/check-backlog.mjs` (gated by the `build` job) stays green. Deviation from the runner directive: the directive said "do NOT touch the README index row in this PR" but the 2026-05-22 validator lesson + the 2026-05-30 ticket 0024 precedent both require the file and index row to move together in one commit. The two-PR ship lesson governs the `in-progress` -> `shipped` flip in PR 2, not the `groomed` -> `in-progress` flip here.
+- 2026-06-05 - pre-flight grep per the 2026-05-30 second-@type lesson: ran ripgrep across `tests/e2e/*-jsonld.spec.ts` for `=== 'Service'` and "exactly one Service" / `toHaveLength(1)` predicates over the Service `@type`. Result: ZERO matches for `=== 'Service'` across any `*-jsonld.spec.ts` file. The trade-page specs (`ai-for-plumbers.spec.ts`, `ai-for-hvac.spec.ts`, `ai-for-roofers.spec.ts`) all define `isService` via `(d as { '@type'?: unknown })['@type'] === 'Service'` but each scopes its assertion to its own page's URL via `/ai-for-<trade>` OR a trade-named `serviceType`, so adding a fourth trade page emits an independent Service block that no predecessor's spec mistakes for its own. Safe to proceed; the new electricians spec follows the same per-page-scoped pattern.
+- 2026-06-05 - KNOWN_PATHS posture per ticket acceptance box 4: `/ai-for-electricians` is NOT added to `KNOWN_PATHS` in `src/utils/recentDemosStore.ts`. The allow-list scopes demo paths (visits recorded for the recent-demos recap strip on `/demos`), not marketing landing pages; the new page is a marketing surface and does not record visits. This matches the default posture documented in the ticket and the 2026-05-25 mirror-source lesson (single source of truth for the demo allow-list stays scoped to actual demos).
+- 2026-06-05 - failing e2e spec added at `tests/e2e/ai-for-electricians.spec.ts` (one assertion block per acceptance-criteria box), mirroring `tests/e2e/ai-for-roofers.spec.ts` line-for-line where they overlap.
+- 2026-06-05 - `src/pages/AiForElectricians.tsx` cloned from `src/pages/AiForRoofers.tsx` with electrical-specific pain copy (after-hours service-call capture, slow on-site quotes for panel upgrades and EV-charger installs, post-job review chasing). Route registered in `src/App.tsx` next to `/ai-for-roofers`; `/ai-for-electricians` added to `tests/e2e/routes.ts` so the smoke gate covers it. Hero chip uses `Zap` (already in AiForRoofers' import list); pain icons reuse `PhoneOff`/`Calculator`/`Star` from the same import list to keep the diff tight and avoid new lucide imports beyond what the peer pattern already pulls.
