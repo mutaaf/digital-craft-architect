@@ -20,6 +20,8 @@ export interface ChangelogEntry {
 }
 
 export const changelogEntries: readonly ChangelogEntry[] = [
+  { id: "0033", title: "Per-demo \"what we store\" disclosure chip linked to /trust", area: "trust", created: "2026-06-03" },
+  { id: "0032", title: "Public /changelog page surfacing weekly ship velocity to crawlers and repeat visitors", area: "content", created: "2026-06-03" },
   { id: "0031", title: "\"Try the next demo\" pinned CTA on voice and estimate result screens", area: "demos", created: "2026-06-03" },
   { id: "0030", title: "Emit SoftwareApplication JSON-LD on the /demos hub", area: "seo", created: "2026-06-03" },
   { id: "0029", title: "Shareable branded voice-call summary link", area: "demos", created: "2026-06-01" },
