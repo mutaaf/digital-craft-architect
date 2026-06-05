@@ -44,7 +44,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0033 | Per-demo "what we store" disclosure chip linked to /trust | P2 | shipped | trust |
 | 0034 | AI-for-electricians long-tail landing page funneling into home-services demos | P1 | shipped | content |
 | 0035 | Comparison page "Digital Craft vs Podium" for high-intent SMS and review compares | P1 | shipped | seo |
-| 0036 | Public /uptime page surfacing demo and serverless health for regulated-vertical buyers | P2 | groomed | trust |
+| 0036 | Public /uptime page surfacing demo and serverless health for regulated-vertical buyers | P2 | in-progress | trust |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the

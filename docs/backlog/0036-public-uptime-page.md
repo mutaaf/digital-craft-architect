@@ -1,7 +1,7 @@
 ---
 id: 0036
 title: Public /uptime page surfacing demo and serverless health for regulated-vertical buyers
-status: groomed
+status: in-progress
 priority: P2
 area: trust
 created: 2026-06-05
@@ -246,7 +246,9 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0036-public-uptime-page` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/uptime-page.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-06-05 - branch `feat/0036-public-uptime-page` opened off fresh `origin/main`; ticket flipped to `in-progress` (file + README index in sync per the 2026-05-22 two-PR lesson).
+- 2026-06-05 - failing e2e spec added at `tests/e2e/uptime-page.spec.ts` before any page code, with one assertion block per acceptance box (11 tests covering chip render, all-green probe path, 5xx degradation, empty-incidents copy, footer link, dark mode, no em-dash, no `\d+\.\d+%`, Helmet description, trustAnchor cross-resolve, and offline fallback). Probe routes selected after reading `/api/`: `/api/stream` (POST handler, probed via OPTIONS), `/api/scrape` (POST, probed via OPTIONS), `/api/vapi-status` (the only handler that explicitly accepts GET; probed via GET), `/api/call-summary` (POST, probed via OPTIONS). Per the ticket's "got a response at all counts as reachable" rule, the probe classification rubric is: 2xx-4xx -> green (the surface answered), 5xx -> yellow, network/abort/timeout/CORS -> red, pre-resolution -> unknown. Vercel returns 204 to OPTIONS preflights at the edge without invoking the upstream provider, so OPTIONS is the cleanest, side-effect-free reachability check for the POST routes.
+- 2026-06-05 - `useUptimeProbe` hook fires `Promise.allSettled` over all surfaces with `AbortController` + 3s timeout per probe, `credentials: 'omit'`, `cache: 'no-store'`, and a 60s `setInterval` cleared on unmount; no storage backend writes. The chip surfaces `data-status`, `data-surface-id`, and `data-trust-anchor` attributes so the e2e spec can assert per-chip state and validate the cross-page trust-anchor mirror without re-parsing copy.
+- 2026-06-05 - first iteration of the 5xx test used a stateful `firstSeen` capture inside the route handler; under Playwright parallelism with `Promise.allSettled` it raced and every chip ended up green. Rewrote the test to pin the degraded path to a known surface (`/api/vapi-status`, surfaceId `voice-infra`) instead of relying on first-observed ordering; this is the cleanest deterministic stub pattern for fan-out probe hooks. Not novel enough to merit a LESSONS.md entry on its own (it is a straightforward Playwright concurrency idiom), but noted here for the next implementer touching uptime-style hooks: prefer pinning the degraded surface by id, never by ordering.
+- 2026-06-05 - full local gate green: `npm run lint` (0 errors, 23 pre-existing warnings), `npm run typecheck` clean, `npm run check-links` 203/203, `npm run check-images` ok (2 unreferenced public/ images are pre-existing), `npm run check-meta` ok (warnings only, /uptime is intentionally not in the SEO Pilot table per the 2026-05-25 lesson), `npm run check-blog-dates` 27/27, `node scripts/check-backlog.mjs` 36 tickets in sync, `npm run build` ok (sitemap regenerated with /uptime entry at 124 total URLs). Full new e2e spec passes 11/11 under both serial and `--workers=2` (CI parallelism). Smoke spec passes for /uptime.
+
