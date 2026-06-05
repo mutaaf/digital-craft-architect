@@ -1,7 +1,7 @@
 ---
 id: 0036
 title: Public /uptime page surfacing demo and serverless health for regulated-vertical buyers
-status: groomed
+status: in-progress
 priority: P2
 area: trust
 created: 2026-06-05
@@ -246,7 +246,6 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0036-public-uptime-page` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/uptime-page.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-06-05 - branch `feat/0036-public-uptime-page` opened off fresh `origin/main`; ticket flipped to `in-progress` (file + README index in sync per the 2026-05-22 two-PR lesson).
+- 2026-06-05 - failing e2e spec added at `tests/e2e/uptime-page.spec.ts` before any page code, one assertion per acceptance box; probe routes selected after reading `/api/`: `/api/stream` (POST), `/api/scrape` (POST), `/api/vapi-status` (GET; the only handler that explicitly accepts GET; HEAD would still 405 but reachable counts), and `/api/call-summary` (POST). Per the ticket's "got a response at all counts as reachable" rule, all four are probed with the HTTP method the handler accepts (POST with an empty body for the POST routes, GET for vapi-status); the page treats 2xx, 4xx as green/yellow per the rubric (a 405 is impossible because we always send the right method, but if any future handler tightens to a different method, the chip degrades gracefully). For probe purposes the hook actually fires `OPTIONS` first (cheap, no body, no side effects); Vercel returns 204 to OPTIONS, which is the cleanest reachability check and never invokes the upstream provider (Vercel handles CORS preflight at the edge).
+
