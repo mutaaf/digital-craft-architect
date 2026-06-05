@@ -76,6 +76,7 @@ export const ROUTES: readonly string[] = [
   '/glossary',
   '/trust',
   '/changelog',
+  '/uptime',
   '/compare/hubspot',
   '/compare/gohighlevel',
   '/compare/zapier',

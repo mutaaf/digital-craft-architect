@@ -439,6 +439,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://digitalcraftai.com/uptime</loc>
+    <lastmod>2026-06-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://digitalcraftai.com/compare/hubspot</loc>
     <lastmod>2026-06-05</lastmod>
     <changefreq>weekly</changefreq>
