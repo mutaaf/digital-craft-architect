@@ -233,6 +233,7 @@ const ServiceTitanComparison: React.FC = () => {
                 {FEATURES.map((row, i) => (
                   <tr
                     key={row.feature}
+                    data-testid="compare-row"
                     className={
                       i % 2 === 0
                         ? 'bg-white dark:bg-gray-950'

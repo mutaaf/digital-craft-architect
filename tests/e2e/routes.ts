@@ -83,6 +83,7 @@ export const ROUTES: readonly string[] = [
   '/compare/intercom',
   '/compare/jobber',
   '/compare/servicetitan',
+  '/compare/podium',
   '/quiz',
   '/setupclaw',
   '/ai-for-small-business',

@@ -1,7 +1,7 @@
 ---
 id: 0035
 title: Comparison page "Digital Craft vs Podium" for high-intent SMS and review compares
-status: groomed
+status: in-progress
 priority: P1
 area: seo
 created: 2026-06-05
@@ -206,7 +206,7 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0035-compare-podium-page` opened
+- 2026-06-05 - branch `feat/0035-compare-podium-page` opened; ticket flipped to in-progress in lockstep with README index row.
 - YYYY-MM-DD - failing test added in `tests/e2e/compare-podium.spec.ts`
 - YYYY-MM-DD - PR #N opened, CI [state]
 - YYYY-MM-DD - merged to main
