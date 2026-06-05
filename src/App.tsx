@@ -58,6 +58,7 @@ import MakeComparison from "./pages/compare/Make";
 import IntercomComparison from "./pages/compare/Intercom";
 import JobberComparison from "./pages/compare/Jobber";
 import ServiceTitanComparison from "./pages/compare/ServiceTitan";
+import PodiumComparison from "./pages/compare/Podium";
 import AIReadinessQuiz from "./pages/AIReadinessQuiz";
 import SetupClaw from "./pages/SetupClaw";
 import SmallBusiness from "./pages/SmallBusiness";
@@ -272,6 +273,7 @@ const App = () => (
               <Route path="/compare/intercom" element={<IntercomComparison />} />
               <Route path="/compare/jobber" element={<JobberComparison />} />
               <Route path="/compare/servicetitan" element={<ServiceTitanComparison />} />
+              <Route path="/compare/podium" element={<PodiumComparison />} />
               <Route path="/quiz" element={<AIReadinessQuiz />} />
               <Route path="/setupclaw" element={<SetupClaw />} />
               <Route path="/ai-for-small-business" element={<SmallBusiness />} />
