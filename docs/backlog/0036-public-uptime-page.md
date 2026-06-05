@@ -1,7 +1,7 @@
 ---
 id: 0036
 title: Public /uptime page surfacing demo and serverless health for regulated-vertical buyers
-status: in-progress
+status: shipped
 priority: P2
 area: trust
 created: 2026-06-05
