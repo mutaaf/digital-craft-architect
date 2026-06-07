@@ -1,7 +1,7 @@
 ---
 id: 0038
 title: Comparison page "Digital Craft vs Housecall Pro" for high-intent field-service buyers
-status: groomed
+status: in-progress
 priority: P1
 area: seo
 created: 2026-06-07
@@ -214,7 +214,6 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0038-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/compare-housecallpro.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-06-07 - branch `feat/0038-compare-housecallpro-page` opened; ticket flipped to in-progress with README index row in the same commit.
+- 2026-06-07 - grep over `tests/e2e/*-jsonld.spec.ts` and `tests/e2e/compare-*.spec.ts` for `=== 'BreadcrumbList'` predicates: every match is scoped to its own URL (compare-jobber, compare-servicetitan, compare-podium, ai-for-{plumbers,hvac,roofers,electricians,painters}, demo-breadcrumbs). No "exactly one BreadcrumbList site-wide" assertion exists, so a ninth BreadcrumbList block does not collide. Safe to land.
+- 2026-06-07 - failing test added in `tests/e2e/compare-housecallpro.spec.ts`, then `src/pages/compare/HousecallPro.tsx` + `src/App.tsx` route + `tests/e2e/routes.ts` entry shipped to satisfy it.
