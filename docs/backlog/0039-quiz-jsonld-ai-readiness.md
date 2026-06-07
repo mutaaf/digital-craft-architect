@@ -1,7 +1,7 @@
 ---
 id: 0039
 title: Emit Quiz JSON-LD on the AI Readiness Quiz for question-rich-result eligibility
-status: in-progress
+status: shipped
 priority: P2
 area: seo
 created: 2026-06-07
