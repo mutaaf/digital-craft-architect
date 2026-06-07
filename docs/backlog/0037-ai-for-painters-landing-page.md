@@ -1,7 +1,7 @@
 ---
 id: 0037
 title: AI-for-painters long-tail landing page funneling into home-services demos
-status: groomed
+status: in-progress
 priority: P1
 area: content
 created: 2026-06-07
@@ -214,7 +214,10 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0037-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/ai-for-painters.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-06-07 - branch `feat/0037-ai-for-painters` opened off main (commit 42c9b2a). Status flipped groomed -> in-progress in this commit alongside the README index row.
+- 2026-06-07 - Per the 2026-05-30 second-@type lesson, grepped `tests/e2e/*-jsonld.spec.ts` and `tests/e2e/ai-for-*.spec.ts` for `=== 'Service'` and any `toHaveLength(1)` / "exactly one Service" predicate. Result: the four trade-quartet specs (`ai-for-plumbers`, `ai-for-hvac`, `ai-for-roofers`, `ai-for-electricians`) each filter Service blocks to their OWN URL via `(s.data.url ?? '').includes('/ai-for-<trade>')` OR a `serviceType` naming their own trade, so a new Service block on `/ai-for-painters` cannot reach those scoped assertions (each spec only navigates to its own URL). No spec asserts "exactly one Service" globally, on `/homeservices`, or on `/`. No predecessor spec edit required.
+- 2026-06-07 - Per the 2026-05-25 mirror-source lesson, HERO_H1, META_DESCRIPTION, SERVICE_DESCRIPTION declared as shared constants inside `src/pages/AiForPainters.tsx` so the visible hero text and the Service schema description cannot drift on a future copy edit.
+- 2026-06-07 - Per the 2026-05-25 SEO Pilot lesson, the e2e spec asserts the LAST `meta[name="description"]` content (the Helmet-appended one), NOT `page.toHaveTitle()`, because `/ai-for-painters` is intentionally NOT being added to the `index.html` SEO Pilot pages table in this ticket (a separate SEO-hygiene concern per Out of scope).
+- 2026-06-07 - Per the 0034 Implementation log precedent, `/ai-for-painters` is NOT added to `KNOWN_PATHS` in `src/utils/recentDemosStore.ts` - the allow-list scopes recap-strip demo paths under `/demos`, not marketing landing pages.
+- 2026-06-07 - lucide-react icons confirmed: `Brush` (brush.js) and `PaintBucket` (paint-bucket.js) both ship in the existing `lucide-react` package version, no new dep.
+- 2026-06-07 - PR #N opened, CI [pending]
