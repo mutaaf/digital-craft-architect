@@ -130,7 +130,7 @@ const TIERS: Record<Tier, { label: string; color: string; icon: React.ElementTyp
     label: 'Getting Started',
     color: 'text-amber-600 dark:text-amber-400',
     icon: Brain,
-    description: 'You have clear opportunities to benefit from AI automation. Start with one key workflow — like lead response — and build from there.',
+    description: 'You have clear opportunities to benefit from AI automation. Start with one key workflow - like lead response - and build from there.',
   },
   ready: {
     label: 'Ready for AI',
@@ -139,7 +139,7 @@ const TIERS: Record<Tier, { label: string; color: string; icon: React.ElementTyp
     description: 'Your business is well-positioned for AI automation. You have the volume and infrastructure to see fast ROI.',
   },
   advanced: {
-    label: 'Advanced — Ready to Scale',
+    label: 'Advanced - Ready to Scale',
     color: 'text-green-600 dark:text-green-400',
     icon: Rocket,
     description: 'You\'re primed for enterprise-grade AI. Consider a full-stack automation suite covering lead capture, estimates, follow-up, and voice AI.',
@@ -197,7 +197,7 @@ function computeDimensions(answers: Record<string, string>): Dimension[] {
   const speed = SPEED_DIM[answers.response_time] ?? 0.3;
   const team = TEAM_DIM[answers.team_size] ?? 0.3;
   const budget = BUDGET_DIM[answers.budget] ?? 0.3;
-  const label = (m: Record<string, string>, k: string) => m[k] ?? '—';
+  const label = (m: Record<string, string>, k: string) => m[k] ?? '-';
   const VOLLABEL: Record<string,string> = { '<10':'<10/mo','10-50':'10–50/mo','50-100':'50–100/mo','100+':'100+/mo' };
   const TOOLLABEL: Record<string,string> = { manual:'Manual', basic_crm:'Basic CRM', advanced_crm:'Advanced CRM', custom:'Custom' };
   const SPEEDLABEL: Record<string,string> = { '<1h':'<1h','1-4h':'1–4h','4-24h':'4–24h','24h+':'>24h' };
@@ -271,7 +271,7 @@ function buildRoadmap(tier: Tier, answers: Record<string, string>) {
       window: 'Weeks 3–6',
       title: `${tierPrefix}`,
       body: tier === 'getting_started'
-        ? `Add one more workflow — estimates or follow-up — and instrument it so you can see ROI in numbers.`
+        ? `Add one more workflow - estimates or follow-up - and instrument it so you can see ROI in numbers.`
         : `Bundle intake, estimates, and follow-up into a connected flow. Launch a pilot for voice AI on one channel.`,
     },
     {
@@ -291,7 +291,7 @@ function buildAIAnalysisPrompt(answers: Record<string, string>, tier: Tier) {
     : 'Getting Started';
   const summary = QUESTIONS.map((q) => {
     const opt = q.options.find((o) => o.value === answers[q.id]);
-    return `- ${q.question.replace(/\?$/, '')}: ${opt?.label || '—'}`;
+    return `- ${q.question.replace(/\?$/, '')}: ${opt?.label || '-'}`;
   }).join('\n');
 
   return [
@@ -302,7 +302,7 @@ function buildAIAnalysisPrompt(answers: Record<string, string>, tier: Tier) {
         "Write a personalized 2-3 paragraph analysis based on the quiz answers below. " +
         "Rules: be specific to their industry, lead volume, and current tools. Name the single biggest opportunity for them. " +
         "Recommend ONE concrete first step they could ship in the next 30 days. " +
-        "Prose only — no bullet points, no headings, no hedging, no generic platitudes. " +
+        "Prose only - no bullet points, no headings, no hedging, no generic platitudes. " +
         "Don't reference 'quiz' or 'answers'. Write as if you've just reviewed their operation. Under 180 words total.",
     },
     {
@@ -516,7 +516,7 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({
         ) : aiStatus === 'error' ? (
           <p className="text-sm text-gray-600 dark:text-gray-400">
             We couldn't generate a live analysis right now. Your readiness score and projections
-            below are still calibrated to your answers — and you can book a call to walk through
+            below are still calibrated to your answers - and you can book a call to walk through
             them with a real engineer.
           </p>
         ) : (
@@ -585,7 +585,7 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({
             </div>
           </div>
           <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.14em] text-gray-500 dark:text-gray-400">
-            Projections are directional — calibrated to your answers, typical industry AOV, and
+            Projections are directional - calibrated to your answers, typical industry AOV, and
             recovery rates we've observed on retainers.
           </p>
         </div>
@@ -675,6 +675,56 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({
       </div>
     </div>
   );
+};
+
+/* ───────────────── Head metadata (ticket 0039) ─────────────────
+ * Per the 2026-05-25 mirror-source rule, the meta description and the
+ * Quiz JSON-LD `description` field read from a single constant so the
+ * SERP snippet and the structured-data block can never drift. The
+ * Quiz schema's `hasPart` is built by mapping over QUESTIONS so the
+ * schema length always tracks the visible quiz length (today 7).
+ * Sibling BreadcrumbList block matches the trade-page pattern in
+ * src/pages/AiForRoofers.tsx and src/pages/AiForElectricians.tsx;
+ * no @graph wrapper - Google parses sibling script tags independently.
+ */
+const META_DESCRIPTION =
+  'Take our free 2-minute quiz to discover how ready your business is for AI automation and get personalized recommendations.';
+
+const QUIZ_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'Quiz',
+  name: 'AI Readiness Quiz',
+  description: META_DESCRIPTION,
+  educationalUse: 'Self-Assessment',
+  assesses: 'AI automation readiness for small business operations',
+  provider: {
+    '@type': 'Organization',
+    name: 'DigitalCraft AI',
+    url: 'https://digitalcraftai.com',
+  },
+  hasPart: QUESTIONS.map((q) => ({
+    '@type': 'Question',
+    name: q.question,
+    eduQuestionType: 'Multiple choice',
+    suggestedAnswer: q.options.map((o) => ({
+      '@type': 'Answer',
+      text: o.label,
+    })),
+  })),
+};
+
+const BREADCRUMB_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://digitalcraftai.com' },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'AI Readiness Quiz',
+      item: 'https://digitalcraftai.com/quiz',
+    },
+  ],
 };
 
 const AIReadinessQuiz: React.FC = () => {
@@ -773,7 +823,9 @@ const AIReadinessQuiz: React.FC = () => {
     <>
       <Helmet>
         <title>AI Readiness Quiz | DigitalCraft AI</title>
-        <meta name="description" content="Take our free 2-minute quiz to discover how ready your business is for AI automation and get personalized recommendations." />
+        <meta name="description" content={META_DESCRIPTION} />
+        <script type="application/ld+json">{JSON.stringify(QUIZ_SCHEMA)}</script>
+        <script type="application/ld+json">{JSON.stringify(BREADCRUMB_SCHEMA)}</script>
       </Helmet>
       <Navbar />
       <main className="min-h-screen pt-24 pb-16 bg-gray-50 dark:bg-gray-950">

@@ -1,7 +1,7 @@
 ---
 id: 0039
 title: Emit Quiz JSON-LD on the AI Readiness Quiz for question-rich-result eligibility
-status: groomed
+status: in-progress
 priority: P2
 area: seo
 created: 2026-06-07
@@ -204,7 +204,29 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0039-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/quiz-jsonld.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-06-07 - branch `feat/0039-quiz-jsonld` opened, ticket flipped to in-progress
+- 2026-06-07 - BreadcrumbList grep per the 2026-05-30 second-@type lesson:
+  `grep -rn "=== 'BreadcrumbList'" tests/e2e/` returned 14 matches across
+  ai-for-{electricians,hvac,painters,plumbers,roofers}.spec.ts,
+  compare-{podium,servicetitan,jobber,housecallpro}.spec.ts, and
+  demo-breadcrumbs.spec.ts. Every match is a per-URL `isBreadcrumb` type
+  guard or a per-route filter; none asserts "exactly one BreadcrumbList
+  site-wide." The new /quiz BreadcrumbList block is therefore safe to add
+  without rewriting any predecessor spec's predicate.
+- 2026-06-07 - failing test added in `tests/e2e/quiz-jsonld.spec.ts` (one
+  assertion per acceptance box); confirmed red against current main.
+- 2026-06-07 - source change: module-level `META_DESCRIPTION`,
+  `QUIZ_SCHEMA`, `BREADCRUMB_SCHEMA` constants added to
+  `src/pages/AIReadinessQuiz.tsx`; Helmet now emits two sibling
+  `<script type="application/ld+json">` tags (no `@graph`). Helmet's
+  `meta[name="description"]` and `QUIZ_SCHEMA.description` both read
+  `META_DESCRIPTION` (single mirror source). `QUIZ_SCHEMA.hasPart` is
+  `QUESTIONS.map(...)` so schema length tracks QUESTIONS.length
+  automatically.
+- 2026-06-07 - em-dash repair at the single source per the 2026-05-25
+  mirror-source-fix lesson: replaced 8 `U+2014` occurrences in
+  AIReadinessQuiz.tsx (tier description, tier label, fallback labels,
+  prompt copy, and inline result-panel copy) with hyphens. The visible
+  quiz and the JSON-LD mirror now both contain zero em-dash characters.
+- 2026-06-07 - PR opened, CI [state pending]
+- 2026-06-07 - merged to main
