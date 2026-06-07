@@ -48,7 +48,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0037 | AI-for-painters long-tail landing page funneling into home-services demos | P1 | shipped | content |
 | 0038 | Comparison page "Digital Craft vs Housecall Pro" for high-intent field-service buyers | P1 | shipped | seo |
 | 0039 | Emit Quiz JSON-LD on the AI Readiness Quiz for question-rich-result eligibility | P2 | shipped | seo |
-| 0040 | "What's new since you visited" delta strip on the /demos hub for week-2-and-beyond returners | P2 | in-progress | demos |
+| 0040 | "What's new since you visited" delta strip on the /demos hub for week-2-and-beyond returners | P2 | shipped | demos |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the

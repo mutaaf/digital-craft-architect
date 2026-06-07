@@ -1,7 +1,7 @@
 ---
 id: 0040
 title: "What's new since you visited" delta strip on the /demos hub for week-2-and-beyond returners
-status: in-progress
+status: shipped
 priority: P2
 area: demos
 created: 2026-06-07
