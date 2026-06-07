@@ -8,6 +8,7 @@ import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
 import { getRecentDemos, recordDemoVisit } from '@/utils/recentDemosStore';
 import { ORG_NAME, ORG_URL } from '@/data/organizationSchema';
+import WhatsNewSinceVisit from '@/components/WhatsNewSinceVisit';
 import { Sparkles, ArrowRight, Phone } from 'lucide-react';
 
 const SITE_URL = 'https://digitalcraftai.com';
@@ -248,6 +249,9 @@ const Demos: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Ticket 0040 - "What's new since you visited" delta strip */}
+      <WhatsNewSinceVisit />
 
       {/* Recently viewed recap (returning visitors only) */}
       {recent.length > 0 && (
