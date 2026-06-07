@@ -1,7 +1,7 @@
 ---
 id: 0038
 title: Comparison page "Digital Craft vs Housecall Pro" for high-intent field-service buyers
-status: in-progress
+status: shipped
 priority: P1
 area: seo
 created: 2026-06-07
