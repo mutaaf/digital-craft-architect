@@ -45,7 +45,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0034 | AI-for-electricians long-tail landing page funneling into home-services demos | P1 | shipped | content |
 | 0035 | Comparison page "Digital Craft vs Podium" for high-intent SMS and review compares | P1 | shipped | seo |
 | 0036 | Public /uptime page surfacing demo and serverless health for regulated-vertical buyers | P2 | shipped | trust |
-| 0037 | AI-for-painters long-tail landing page funneling into home-services demos | P1 | in-progress | content |
+| 0037 | AI-for-painters long-tail landing page funneling into home-services demos | P1 | shipped | content |
 | 0038 | Comparison page "Digital Craft vs Housecall Pro" for high-intent field-service buyers | P1 | groomed | seo |
 | 0039 | Emit Quiz JSON-LD on the AI Readiness Quiz for question-rich-result eligibility | P2 | groomed | seo |
 | 0040 | "What's new since you visited" delta strip on the /demos hub for week-2-and-beyond returners | P2 | groomed | demos |
