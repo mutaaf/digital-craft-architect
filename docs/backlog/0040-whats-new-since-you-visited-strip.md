@@ -1,7 +1,7 @@
 ---
 id: 0040
 title: "What's new since you visited" delta strip on the /demos hub for week-2-and-beyond returners
-status: groomed
+status: in-progress
 priority: P2
 area: demos
 created: 2026-06-07
@@ -215,7 +215,8 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0040-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/whats-new-since-visit.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-06-07 - branch `feat/0040-whats-new-strip` opened off origin/main
+- 2026-06-07 - flipped ticket to in-progress + README index row in sync
+- 2026-06-07 - failing spec added at `tests/e2e/whats-new-since-visit.spec.ts`
+- 2026-06-07 - implemented `src/components/WhatsNewSinceVisit.tsx` + wired into `src/pages/Demos.tsx`
+- 2026-06-07 - PR opened, CI watched to green
