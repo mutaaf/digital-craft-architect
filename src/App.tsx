@@ -61,6 +61,7 @@ import JobberComparison from "./pages/compare/Jobber";
 import ServiceTitanComparison from "./pages/compare/ServiceTitan";
 import PodiumComparison from "./pages/compare/Podium";
 import HousecallProComparison from "./pages/compare/HousecallPro";
+import BuildertrendComparison from "./pages/compare/Buildertrend";
 import AIReadinessQuiz from "./pages/AIReadinessQuiz";
 import SetupClaw from "./pages/SetupClaw";
 import SmallBusiness from "./pages/SmallBusiness";
@@ -280,6 +281,7 @@ const App = () => (
               <Route path="/compare/servicetitan" element={<ServiceTitanComparison />} />
               <Route path="/compare/podium" element={<PodiumComparison />} />
               <Route path="/compare/housecallpro" element={<HousecallProComparison />} />
+              <Route path="/compare/buildertrend" element={<BuildertrendComparison />} />
               <Route path="/quiz" element={<AIReadinessQuiz />} />
               <Route path="/setupclaw" element={<SetupClaw />} />
               <Route path="/ai-for-small-business" element={<SmallBusiness />} />
