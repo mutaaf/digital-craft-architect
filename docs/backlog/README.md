@@ -52,7 +52,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0041 | AI-for-landscapers long-tail landing page funneling into home-services demos | P1 | shipped | content |
 | 0042 | Comparison page "Digital Craft vs Buildertrend" for high-intent construction-software switchers | P1 | shipped | seo |
 | 0043 | Emit ItemList JSON-LD on /changelog so search engines can index individual ship entries | P1 | shipped | seo |
-| 0044 | Emit AboutPage + BreadcrumbList JSON-LD on /trust so the data-handling disclosure indexes as a canonical artifact | P2 | groomed | seo |
+| 0044 | Emit AboutPage + BreadcrumbList JSON-LD on /trust so the data-handling disclosure indexes as a canonical artifact | P2 | in-progress | seo |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the
