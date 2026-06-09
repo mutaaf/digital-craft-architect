@@ -1,7 +1,7 @@
 ---
 id: 0044
 title: Emit AboutPage + BreadcrumbList JSON-LD on /trust so the data-handling disclosure indexes as a canonical artifact
-status: in-progress
+status: shipped
 priority: P2
 area: seo
 created: 2026-06-09
