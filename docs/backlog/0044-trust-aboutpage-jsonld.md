@@ -1,7 +1,7 @@
 ---
 id: 0044
 title: Emit AboutPage + BreadcrumbList JSON-LD on /trust so the data-handling disclosure indexes as a canonical artifact
-status: groomed
+status: in-progress
 priority: P2
 area: seo
 created: 2026-06-09
@@ -258,7 +258,17 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0044-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/trust-aboutpage-jsonld.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-06-09 - branch `feat/0044-trust-aboutpage-jsonld` opened off fresh `origin/main` (c8753ee).
+- 2026-06-09 - pre-write grep per the 2026-05-30 second-@type lesson:
+  - `grep -rn "=== 'BreadcrumbList'" tests/e2e/*-jsonld.spec.ts` returns 4 matches across 2 files:
+    `tests/e2e/changelog-itemlist-jsonld.spec.ts:103` (isBreadcrumb predicate)
+    `tests/e2e/changelog-itemlist-jsonld.spec.ts:26` (comment in the file header)
+    `tests/e2e/quiz-jsonld.spec.ts:98` (isBreadcrumb predicate)
+    `tests/e2e/quiz-jsonld.spec.ts:22` (comment in the file header).
+    Both predicates are per-URL scoped: changelog uses `'exactly one BreadcrumbList block expected on /changelog'` (the gotoChangelog helper navigates only to `/changelog`); quiz uses `'exactly one BreadcrumbList block expected on /quiz'` (the gotoQuiz helper navigates only to `/quiz`). No predecessor spec asserts site-wide BreadcrumbList uniqueness; adding a /trust-scoped BreadcrumbList block is safe.
+  - `grep -rn "=== 'AboutPage'" tests/e2e/*-jsonld.spec.ts` returns 0 matches; AboutPage is new to the codebase as predicted by the line-20 comment in `src/pages/Trust.tsx`. No predecessor spec to widen.
+  - Also confirmed the inline `about: { '@type': 'Organization', name, url }` nested object inside the AboutPage block does NOT collide with `tests/e2e/homepage-organization-jsonld.spec.ts` (scoped to `/`, filters on TOP-level `@type === 'Organization'`, finds blocks with a non-undefined `contactPoint`) nor with `tests/e2e/website-sitelinks-jsonld.spec.ts` (scoped to `/`, filters by `knowsAbout` to identify the original index.html block). Neither runs on `/trust`, and both filter on TOP-level `@type`, so a nested `about` reference is invisible to them.
+- 2026-06-09 - failing test added in `tests/e2e/trust-aboutpage-jsonld.spec.ts` (one test per acceptance box, modeled on `tests/e2e/quiz-jsonld.spec.ts`).
+- 2026-06-09 - minimum code added in `src/pages/Trust.tsx`: two module-level constants (`TRUST_LAST_MODIFIED` set to today per the engineering-note static-constant approach, and `ABOUT_PAGE_SCHEMA` + `BREADCRUMB_SCHEMA`); the `mainContentOfPage.itemListElement` array is built by mapping over the existing `SECTIONS` constant so a future section add or remove updates the schema automatically. Two sibling `<script type="application/ld+json">` tags inserted inside the existing Helmet head; no `@graph` wrapper. `TRUST_DESCRIPTION` remains the single shared description source for both `meta[name="description"]` and `ABOUT_PAGE_SCHEMA.description`.
+- 2026-06-09 - PR #N opened, CI [state]
+- 2026-06-09 - merged to main

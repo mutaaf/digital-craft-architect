@@ -46,6 +46,17 @@ type Section = {
 const TRUST_DESCRIPTION =
   'How the Digital Craft AI demos handle your data. The third-party providers we use, where scraped website data and voice call audio actually go, what we never store on our servers, and how to request deletion.';
 
+// Single source for the page H1, reused by the Hero render and by the
+// AboutPage JSON-LD `name` field so they cannot drift.
+const TRUST_H1 = 'How Our Demos Handle Your Data';
+
+// Ticket 0044 - static dateModified for the AboutPage block. The
+// engineering-note picks a single module-level constant over a build-time
+// git-log read so the diff stays minimal (per the 2026-05-28 inline-
+// assertions lesson - the field is verified by the new spec, not by a new
+// build step). Bump this when the page substantively changes.
+const TRUST_LAST_MODIFIED = '2026-06-09';
+
 // Single source for the provider list. The visible card and the page narrative
 // both read from this array so they cannot drift, and the e2e spec checks each
 // expected name appears in the rendered body.
@@ -213,6 +224,55 @@ const SECTIONS: Section[] = [
   },
 ];
 
+// Ticket 0044 - AboutPage JSON-LD. mainContentOfPage.itemListElement is
+// built by mapping over the SAME SECTIONS array the visible jump-nav and
+// the visible body both read, so a future section add or remove updates
+// the schema automatically (the 2026-05-25 mirror-source rule). The
+// `about` field is intentionally minimal (name + url only) so the block
+// references the homepage Organization JSON-LD (ticket 0025) without
+// re-declaring it - declaring a full Organization here would trip the
+// 2026-05-30 second-@type collision risk against the homepage spec.
+const ABOUT_PAGE_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: TRUST_H1,
+  description: TRUST_DESCRIPTION,
+  url: 'https://digitalcraftai.com/trust',
+  inLanguage: 'en-US',
+  dateModified: TRUST_LAST_MODIFIED,
+  mainContentOfPage: {
+    '@type': 'ItemList',
+    itemListElement: SECTIONS.map((s, i) => ({
+      '@type': 'WebPageElement',
+      position: i + 1,
+      name: s.heading,
+      url: `https://digitalcraftai.com/trust#${s.id}`,
+    })),
+  },
+  about: {
+    '@type': 'Organization',
+    name: 'DigitalCraft AI',
+    url: 'https://digitalcraftai.com',
+  },
+};
+
+// Sibling BreadcrumbList (Home -> Trust) matching the pattern in
+// src/pages/AiForElectricians.tsx and src/pages/Changelog.tsx. No
+// @graph wrapper - Google parses sibling script tags independently.
+const BREADCRUMB_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://digitalcraftai.com' },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Trust',
+      item: 'https://digitalcraftai.com/trust',
+    },
+  ],
+};
+
 const Trust: React.FC = () => {
   const { content } = useContent();
 
@@ -222,6 +282,8 @@ const Trust: React.FC = () => {
         <title>How Our Demos Handle Your Data | Trust & Privacy | DigitalCraft AI</title>
         <meta name="description" content={TRUST_DESCRIPTION} />
         <link rel="canonical" href="https://digitalcraftai.com/trust" />
+        <script type="application/ld+json">{JSON.stringify(ABOUT_PAGE_SCHEMA)}</script>
+        <script type="application/ld+json">{JSON.stringify(BREADCRUMB_SCHEMA)}</script>
       </Helmet>
       <Navbar />
       <ScrollProgress />
