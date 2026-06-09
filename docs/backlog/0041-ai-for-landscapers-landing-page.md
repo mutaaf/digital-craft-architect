@@ -1,7 +1,7 @@
 ---
 id: 0041
 title: AI-for-landscapers long-tail landing page funneling into home-services demos
-status: groomed
+status: in-progress
 priority: P1
 area: content
 created: 2026-06-09
@@ -235,7 +235,8 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0041-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/ai-for-landscapers.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-06-09 - branch `feat/0041-ai-for-landscapers-landing-page` opened off fresh `origin/main`; status flipped to `in-progress` in the ticket and the README index together (`node scripts/check-backlog.mjs` green).
+- 2026-06-09 - per the 2026-05-30 second-@type lesson, greped every existing `tests/e2e/*-jsonld.spec.ts` AND `tests/e2e/ai-for-*.spec.ts` for `=== 'BreadcrumbList'` and `=== 'Service'` predicates. All "exactly one" assertions over both @types are per-URL scoped (each spec navigates to its own URL first, then asserts one matching block in that page's DOM); none assert "exactly one of either @type site-wide." Adding new BreadcrumbList and Service blocks on `/ai-for-landscapers` will not collide with any existing spec.
+- 2026-06-09 - failing test added in `tests/e2e/ai-for-landscapers.spec.ts`, modeled on `tests/e2e/ai-for-electricians.spec.ts`.
+- 2026-06-09 - implemented `src/pages/AiForLandscapers.tsx` plus route in `src/App.tsx` and `/ai-for-landscapers` in `src/data/routes.ts` (re-exported automatically by `tests/e2e/routes.ts`).
+- 2026-06-09 - full local gate green: lint, typecheck, check-links, check-images, check-meta, check-blog-dates, check-backlog, build.
