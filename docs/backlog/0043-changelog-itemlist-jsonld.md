@@ -1,7 +1,7 @@
 ---
 id: 0043
 title: Emit ItemList JSON-LD on /changelog so search engines can index individual ship entries
-status: groomed
+status: in-progress
 priority: P1
 area: seo
 created: 2026-06-09
@@ -237,7 +237,15 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0043-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/changelog-itemlist-jsonld.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-06-09 - branch `feat/0043-changelog-itemlist-jsonld` opened off fresh `origin/main` (5b0423c). Ticket flipped to `in-progress`; README index row flipped together in the same commit; `node scripts/check-backlog.mjs` green.
+- 2026-06-09 - Pre-write grep per the 2026-05-30 second-@type lesson, run against `tests/e2e/*-jsonld.spec.ts` AND the broader `tests/e2e/` directory:
+  - `=== 'ItemList'` matches:
+    - `tests/e2e/demos-softwareapplication-jsonld.spec.ts:73` - `isItemList` helper, scoped to `/demos`.
+    - `tests/e2e/demos-index-hub.spec.ts:60` - `isItemList` helper, scoped to `/demos`; spec asserts "exactly one ItemList block expected" but only after `goto('/demos')`, so the assertion is URL-scoped, not site-wide.
+    - `tests/e2e/website-sitelinks-jsonld.spec.ts:91` - `isItemList` helper, scoped to `/`; used only to unwrap SiteNavigationElement children from a possible ItemList wrapper, not to assert ItemList uniqueness.
+  - `=== 'BreadcrumbList'` matches: 14 hits across compare-*, ai-for-*, quiz-jsonld, demo-breadcrumbs specs; each is per-URL scoped (the spec navigates to a specific route then asserts exactly one BreadcrumbList block on that route). No spec asserts site-wide BreadcrumbList uniqueness.
+  - Conclusion: no existing spec asserts global uniqueness of either `ItemList` or `BreadcrumbList`. Adding both to `/changelog` is safe; no predecessor spec needs widening. The new `tests/e2e/changelog-itemlist-jsonld.spec.ts` is URL-scoped to `/changelog`, matching the convention.
+- 2026-06-09 - Em-dash audit per the 2026-05-25 mirror-source-fix lesson: `String.fromCharCode(8212)` count in `src/data/changelogEntries.ts` is 0; em-dash count in `docs/backlog/*.md` frontmatter `title:` lines is 0. No source repair required.
+- 2026-06-09 - failing test added in `tests/e2e/changelog-itemlist-jsonld.spec.ts`
+- 2026-06-09 - PR #N opened, CI [state]
+- 2026-06-09 - merged to main

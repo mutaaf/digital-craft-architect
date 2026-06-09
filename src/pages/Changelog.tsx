@@ -35,6 +35,47 @@ const VISIBLE_LIMIT = 36;
 const CHANGELOG_DESCRIPTION =
   'Recent ships from the Digital Craft AI team. Dated, grouped by month, sourced directly from the public backlog so you can see what we shipped this week without checking LinkedIn.';
 
+// Ticket 0043 - BreadcrumbList JSON-LD (Home -> Changelog) emitted inside the
+// existing Helmet head, matching the pattern in src/pages/AiForElectricians.tsx
+// and src/pages/compare/Podium.tsx. The block is a module-level constant
+// because the breadcrumb shape is fixed.
+const BREADCRUMB_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://digitalcraftai.com' },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Changelog',
+      item: 'https://digitalcraftai.com/changelog',
+    },
+  ],
+};
+
+// Ticket 0043 - Build an ItemList JSON-LD object from the SAME sliced array
+// the page renders, so the schema length tracks the rendered length exactly
+// (mirror-source rule from the 2026-05-25 lesson). Each ListItem derives its
+// name from entry.title and its url from the per-entry hash anchor on the
+// page (id={entry.id} on each row, added below). itemListOrder reflects the
+// newest-first order the generator emits and the page preserves.
+function buildItemListSchema(entries: readonly ChangelogEntry[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Digital Craft AI Changelog',
+    description: CHANGELOG_DESCRIPTION,
+    numberOfItems: entries.length,
+    itemListOrder: 'https://schema.org/ItemListOrderDescending',
+    itemListElement: entries.map((entry, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: entry.title,
+      url: `https://digitalcraftai.com/changelog#${entry.id}`,
+    })),
+  };
+}
+
 // Tailwind chip colors per area. Every variant carries a `dark:` pair
 // (AGENTS.md Hard NO). Areas are constrained to the seven values in the
 // generator's VALID_AREAS set, so this map is exhaustive.
@@ -117,6 +158,7 @@ const Changelog: React.FC = () => {
   const visible = changelogEntries.slice(0, VISIBLE_LIMIT);
   const groups = groupByMonth(visible);
   const totalShipped = visible.length;
+  const itemListSchema = buildItemListSchema(visible);
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
@@ -127,6 +169,8 @@ const Changelog: React.FC = () => {
         <meta property="og:title" content="Changelog | DigitalCraft AI" />
         <meta property="og:description" content={CHANGELOG_DESCRIPTION} />
         <meta property="og:url" content="https://digitalcraftai.com/changelog" />
+        <script type="application/ld+json">{JSON.stringify(itemListSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(BREADCRUMB_SCHEMA)}</script>
       </Helmet>
       <Navbar />
       <ScrollProgress />
@@ -183,8 +227,9 @@ const Changelog: React.FC = () => {
                       return (
                         <li
                           key={entry.id}
+                          id={entry.id}
                           data-testid="changelog-entry"
-                          className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4 p-4 rounded-lg border border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/40 hover:border-primary/40 dark:hover:border-primary/40 transition-colors"
+                          className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4 p-4 rounded-lg border border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/40 hover:border-primary/40 dark:hover:border-primary/40 transition-colors scroll-mt-28"
                         >
                           <div className="flex items-center gap-3 shrink-0 sm:w-44">
                             <code className="text-xs font-mono px-2 py-0.5 rounded bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300">

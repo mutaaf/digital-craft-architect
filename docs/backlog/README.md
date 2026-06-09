@@ -51,7 +51,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0040 | "What's new since you visited" delta strip on the /demos hub for week-2-and-beyond returners | P2 | shipped | demos |
 | 0041 | AI-for-landscapers long-tail landing page funneling into home-services demos | P1 | shipped | content |
 | 0042 | Comparison page "Digital Craft vs Buildertrend" for high-intent construction-software switchers | P1 | shipped | seo |
-| 0043 | Emit ItemList JSON-LD on /changelog so search engines can index individual ship entries | P1 | groomed | seo |
+| 0043 | Emit ItemList JSON-LD on /changelog so search engines can index individual ship entries | P1 | in-progress | seo |
 | 0044 | Emit AboutPage + BreadcrumbList JSON-LD on /trust so the data-handling disclosure indexes as a canonical artifact | P2 | groomed | seo |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
