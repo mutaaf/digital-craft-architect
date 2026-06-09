@@ -69,6 +69,7 @@ import AiForHvac from "./pages/AiForHvac";
 import AiForRoofers from "./pages/AiForRoofers";
 import AiForElectricians from "./pages/AiForElectricians";
 import AiForPainters from "./pages/AiForPainters";
+import AiForLandscapers from "./pages/AiForLandscapers";
 import Texas from "./pages/locations/Texas";
 import CaseStudy from "./pages/case-studies/CaseStudy";
 import Blog from "./pages/Blog";
@@ -287,6 +288,7 @@ const App = () => (
               <Route path="/ai-for-roofers" element={<AiForRoofers />} />
               <Route path="/ai-for-electricians" element={<AiForElectricians />} />
               <Route path="/ai-for-painters" element={<AiForPainters />} />
+              <Route path="/ai-for-landscapers" element={<AiForLandscapers />} />
               <Route path="/locations/texas" element={<Texas />} />
               <Route path="/case-studies/:slug" element={<CaseStudy />} />
               <Route path="/blog" element={<Blog />} />
