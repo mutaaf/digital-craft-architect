@@ -1,7 +1,7 @@
 ---
 id: 0042
 title: Comparison page "Digital Craft vs Buildertrend" for high-intent construction-software switchers
-status: groomed
+status: in-progress
 priority: P1
 area: seo
 created: 2026-06-09
@@ -246,7 +246,9 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0042-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/compare-buildertrend.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-06-09 - branch `feat/0042-compare-buildertrend` opened off `origin/main` (97a380f); ticket flipped groomed -> in-progress as the bootstrap commit (main is protected). README index row flipped in the same commit per the 2026-05-22 check-backlog rule.
+- 2026-06-09 - per the 2026-05-30 second-@type lesson, greppped every `tests/e2e/*-jsonld.spec.ts` AND every `tests/e2e/compare-*.spec.ts` for `=== 'BreadcrumbList'` and "exactly one BreadcrumbList" predicates. Every existing "exactly one BreadcrumbList" assertion is URL-scoped (e.g. `'exactly one BreadcrumbList block expected on /compare/housecallpro'`, `/compare/podium`, `/compare/jobber`, `/compare/servicetitan`, `/quiz`); no site-wide "only one BreadcrumbList anywhere" assertion exists. Adding a tenth BreadcrumbList on `/compare/buildertrend` is structurally safe.
+- 2026-06-09 - grepped `lazy(` in `src/App.tsx`: zero matches. Adjacent compare routes are not lazy-loaded; new route matches that convention.
+- 2026-06-09 - failing test added at `tests/e2e/compare-buildertrend.spec.ts` (one test per acceptance box, modeled on `compare-housecallpro.spec.ts`).
+- 2026-06-09 - implemented `src/pages/compare/Buildertrend.tsx` (under 220 lines), wired the route in `src/App.tsx`, added `/compare/buildertrend` to ROUTES in `src/data/routes.ts` (the canonical allow-list per the 2026-06-07 src-imports-tests lesson). The existing HousecallPro / Podium / Jobber / ServiceTitan rows already carry `data-testid="compare-row"`; no edit needed to those pages.
+- 2026-06-09 - PR #N opened, CI [pending].
