@@ -1,7 +1,7 @@
 ---
 id: 0042
 title: Comparison page "Digital Craft vs Buildertrend" for high-intent construction-software switchers
-status: in-progress
+status: shipped
 priority: P1
 area: seo
 created: 2026-06-09
