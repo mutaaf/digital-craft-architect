@@ -1,7 +1,7 @@
 ---
 id: 0043
 title: Emit ItemList JSON-LD on /changelog so search engines can index individual ship entries
-status: in-progress
+status: shipped
 priority: P1
 area: seo
 created: 2026-06-09
