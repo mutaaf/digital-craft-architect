@@ -635,6 +635,30 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({
         <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
           Ready to move? Pick your next step.
         </h3>
+        {/* Ticket 0046 - one outbound link to the standalone ROI
+            calculator so quiz-takers can produce a shareable annual
+            savings figure to send to a co-owner. Structural addition;
+            no other changes to this file. */}
+        <div className="mb-3">
+          <Link
+            to="/roi"
+            onClick={() => trackCTAClick('quiz_calculate_roi', 'ai_readiness_quiz')}
+            className="group flex items-center justify-between gap-3 rounded-xl border-2 border-primary/40 bg-white p-4 transition hover:border-primary dark:bg-gray-900"
+          >
+            <div className="min-w-0">
+              <div className="text-sm font-semibold text-gray-900 dark:text-white">
+                Calculate your ROI
+              </div>
+              <div className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+                Four inputs, visible math, a shareable savings link
+              </div>
+            </div>
+            <ArrowRight
+              size={18}
+              className="shrink-0 text-primary transition-transform group-hover:translate-x-1"
+            />
+          </Link>
+        </div>
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           <Link
             to={demoLink.path}

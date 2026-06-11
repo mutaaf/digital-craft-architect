@@ -54,7 +54,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0043 | Emit ItemList JSON-LD on /changelog so search engines can index individual ship entries | P1 | shipped | seo |
 | 0044 | Emit AboutPage + BreadcrumbList JSON-LD on /trust so the data-handling disclosure indexes as a canonical artifact | P2 | shipped | seo |
 | 0045 | Personalized /my visitor dashboard surfacing saved estimates, recent demos, and quiz persona | P1 | shipped | demos |
-| 0046 | Shareable AI ROI calculator producing a branded annual savings result link | P1 | groomed | conversion |
+| 0046 | Shareable AI ROI calculator producing a branded annual savings result link | P1 | in-progress | conversion |
 | 0047 | AI-for-property-managers long-tail landing page funneling into real-estate demos | P1 | groomed | content |
 | 0048 | Public /compare hub indexing every comparison page with CollectionPage and ItemList JSON-LD | P1 | groomed | seo |
 

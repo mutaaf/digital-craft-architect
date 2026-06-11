@@ -1,7 +1,7 @@
 ---
 id: 0046
 title: Shareable AI ROI calculator producing a branded annual savings result link
-status: groomed
+status: in-progress
 priority: P1
 area: conversion
 created: 2026-06-11
@@ -229,7 +229,11 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0046-shareable-roi-calculator` opened
-- YYYY-MM-DD - failing tests added in `tests/e2e/roi-calculator.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-06-11 - branch `feat/0046-shareable-roi-calculator` opened off fresh `origin/main` (HEAD 58c7804); ticket and README index flipped to `in-progress` in the same commit per the 2026-05-22 backlog-validator rule. PR 2 (chore/0046-ship-status flipping to shipped) is opened separately by the ship runner per the 2026-05-22 two-PR lesson.
+- 2026-06-11 - per the 2026-05-30 second-@type lesson, grepped every `tests/e2e/*-jsonld.spec.ts` for the three predicates BEFORE writing JSON-LD code:
+  - `=== 'BreadcrumbList'` - matches in `changelog-itemlist-jsonld.spec.ts:103`, `trust-aboutpage-jsonld.spec.ts:111`, `quiz-jsonld.spec.ts:98`. Every match is URL-scoped (each spec's `goto<Route>` helper navigates to its own route); none asserts "exactly one BreadcrumbList block site-wide", so adding a new BreadcrumbList block on `/roi` is safe.
+  - `=== 'WebApplication'` - zero matches across `tests/e2e/*-jsonld.spec.ts`. No predecessor predicate exists to collide with.
+  - `=== 'SoftwareApplication'` - one match in `demos-softwareapplication-jsonld.spec.ts:68`, asserted via `gotoDemos(page)` which navigates to `/demos` only. The "exactly one SoftwareApplication block expected on /demos" predicate (line 119) is strictly URL-scoped, so emitting a sibling `WebApplication` block on `/roi` does not collide (the spec never visits `/roi` and `WebApplication` is a subtype of `SoftwareApplication` only at the schema.org type-hierarchy level, not at the runtime `@type` string-equality level the spec uses).
+- 2026-06-11 - failing tests added in `tests/e2e/roi-calculator.spec.ts`
+- 2026-06-11 - PR #N opened, CI [state]
+- 2026-06-11 - merged to main
