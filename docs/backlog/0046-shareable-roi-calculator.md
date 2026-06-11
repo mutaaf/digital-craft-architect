@@ -1,7 +1,7 @@
 ---
 id: 0046
 title: Shareable AI ROI calculator producing a branded annual savings result link
-status: in-progress
+status: shipped
 priority: P1
 area: conversion
 created: 2026-06-11
