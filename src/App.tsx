@@ -64,6 +64,7 @@ import PodiumComparison from "./pages/compare/Podium";
 import HousecallProComparison from "./pages/compare/HousecallPro";
 import BuildertrendComparison from "./pages/compare/Buildertrend";
 import AIReadinessQuiz from "./pages/AIReadinessQuiz";
+import RoiCalculator from "./pages/RoiCalculator";
 import SetupClaw from "./pages/SetupClaw";
 import SmallBusiness from "./pages/SmallBusiness";
 import AiForPlumbers from "./pages/AiForPlumbers";
@@ -285,6 +286,7 @@ const App = () => (
               <Route path="/compare/housecallpro" element={<HousecallProComparison />} />
               <Route path="/compare/buildertrend" element={<BuildertrendComparison />} />
               <Route path="/quiz" element={<AIReadinessQuiz />} />
+              <Route path="/roi" element={<RoiCalculator />} />
               <Route path="/setupclaw" element={<SetupClaw />} />
               <Route path="/ai-for-small-business" element={<SmallBusiness />} />
               <Route path="/ai-for-plumbers" element={<AiForPlumbers />} />
