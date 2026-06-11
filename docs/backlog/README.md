@@ -56,7 +56,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0045 | Personalized /my visitor dashboard surfacing saved estimates, recent demos, and quiz persona | P1 | shipped | demos |
 | 0046 | Shareable AI ROI calculator producing a branded annual savings result link | P1 | shipped | conversion |
 | 0047 | AI-for-property-managers long-tail landing page funneling into real-estate demos | P1 | shipped | content |
-| 0048 | Public /compare hub indexing every comparison page with CollectionPage and ItemList JSON-LD | P1 | in-progress | seo |
+| 0048 | Public /compare hub indexing every comparison page with CollectionPage and ItemList JSON-LD | P1 | shipped | seo |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the
