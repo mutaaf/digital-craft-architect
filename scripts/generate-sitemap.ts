@@ -72,6 +72,15 @@ function maxDate(a: string, b: string): string {
   return a > b ? a : b;
 }
 
+// Routes intentionally excluded from sitemap.xml because they are
+// personalization surfaces - crawlers see an empty page because the
+// underlying data lives in the visitor's own localStorage, so indexing
+// the empty state would be misleading. Add a ticket id when extending
+// this list so a future editor does not accidentally re-add a route.
+const SITEMAP_EXCLUDED_ROUTES: ReadonlySet<string> = new Set([
+  "/my", // Ticket 0045 - personalized visitor dashboard, localStorage only.
+]);
+
 function extractStaticRoutes(appContent: string): string[] {
   const routes: string[] = [];
   const routeRegex = /path=["']([^"']+)["']/g;
@@ -79,6 +88,7 @@ function extractStaticRoutes(appContent: string): string[] {
   while ((match = routeRegex.exec(appContent)) !== null) {
     const path = match[1];
     if (path === "*" || path.includes(":")) continue;
+    if (SITEMAP_EXCLUDED_ROUTES.has(path)) continue;
     routes.push(path);
   }
   return routes;

@@ -48,6 +48,7 @@ import AutoRepair from "./pages/AutoRepair";
 import AutoRepairDemoHub from "./pages/autorepair/DemoHub";
 import Industries from "./pages/Industries";
 import Demos from "./pages/Demos";
+import MyDashboard from "./pages/MyDashboard";
 import Glossary from "./pages/Glossary";
 import Trust from "./pages/Trust";
 import Changelog from "./pages/Changelog";
@@ -268,6 +269,7 @@ const App = () => (
               <Route path="/autorepair/demo/voice-reminder" element={<DemoContextProvider vertical="autorepair"><VoiceNegotiator /></DemoContextProvider>} />
               <Route path="/industries" element={<Industries />} />
               <Route path="/demos" element={<Demos />} />
+              <Route path="/my" element={<MyDashboard />} />
               <Route path="/glossary" element={<Glossary />} />
               <Route path="/trust" element={<Trust />} />
               <Route path="/changelog" element={<Changelog />} />

@@ -80,6 +80,7 @@ export const ROUTES: readonly string[] = [
   '/autorepair/demo/voice-reminder',
   '/industries',
   '/demos',
+  '/my',
   '/glossary',
   '/trust',
   '/changelog',

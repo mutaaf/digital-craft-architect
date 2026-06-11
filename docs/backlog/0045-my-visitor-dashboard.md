@@ -240,7 +240,17 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0045-my-visitor-dashboard` opened
-- YYYY-MM-DD - failing tests added in `tests/e2e/my-dashboard.spec.ts`
+- 2026-06-11 - branch `feat/0045-my-visitor-dashboard` opened off fresh origin/main
+- 2026-06-11 - predecessor-spec grep per 2026-05-30 lesson:
+  `grep -E "=== 'BreadcrumbList'|=== 'WebPage'" tests/e2e/*-jsonld.spec.ts`
+  returned six BreadcrumbList matches across
+  `tests/e2e/changelog-itemlist-jsonld.spec.ts`,
+  `tests/e2e/quiz-jsonld.spec.ts`, and
+  `tests/e2e/trust-aboutpage-jsonld.spec.ts` (all URL-scoped to
+  /changelog, /quiz, /trust respectively - none run on /my, so a new
+  /my-scoped BreadcrumbList is safe) and zero matches for `=== 'WebPage'`
+  (this is the first WebPage block in the repo, so no predecessor
+  "exactly-one site-wide" predicate to widen).
+- 2026-06-11 - failing tests added in `tests/e2e/my-dashboard.spec.ts`
 - YYYY-MM-DD - PR #N opened, CI [state]
 - YYYY-MM-DD - merged to main

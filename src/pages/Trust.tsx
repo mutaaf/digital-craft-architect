@@ -154,6 +154,15 @@ const SECTIONS: Section[] = [
             next day. Clearing localStorage resets it.
           </li>
           <li>
+            <strong className="text-gray-900 dark:text-white">localStorage</strong>: your
+            AI Readiness Quiz tier label and completion timestamp, keyed under
+            <code className="mx-1 px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-sm">dca_quiz_persona_v1</code>.
+            This is what surfaces your readiness tier card on the
+            <Link to="/my" className="mx-1 text-primary hover:underline">/my</Link>
+            dashboard. The persona label and timestamp are the only fields stored: no
+            per-question answers, no ROI estimate. Clearing localStorage resets it.
+          </li>
+          <li>
             <strong className="text-gray-900 dark:text-white">sessionStorage</strong>: the
             AI response cache with the prefix
             <code className="mx-1 px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-sm">dca_deal_</code>
