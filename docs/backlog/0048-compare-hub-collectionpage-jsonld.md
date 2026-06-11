@@ -1,7 +1,7 @@
 ---
 id: 0048
 title: Public /compare hub indexing every comparison page with CollectionPage and ItemList JSON-LD
-status: in-progress
+status: shipped
 priority: P1
 area: seo
 created: 2026-06-11
