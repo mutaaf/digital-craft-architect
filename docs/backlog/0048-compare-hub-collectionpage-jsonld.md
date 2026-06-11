@@ -1,7 +1,7 @@
 ---
 id: 0048
 title: Public /compare hub indexing every comparison page with CollectionPage and ItemList JSON-LD
-status: groomed
+status: in-progress
 priority: P1
 area: seo
 created: 2026-06-11
@@ -235,7 +235,11 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0048-compare-hub-collectionpage-jsonld` opened
-- YYYY-MM-DD - failing tests added in `tests/e2e/compare-hub.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
+- 2026-06-11 - branch `feat/0048-compare-hub-collectionpage-jsonld` opened; frontmatter flipped to in-progress in lockstep with the docs/backlog/README.md index row (2026-05-22 backlog-validator lesson).
+- 2026-06-11 - 2026-05-30 second-@type lesson grep run before writing code:
+  - `grep -rn "=== 'CollectionPage'" tests/e2e/` -> No matches. /compare is the first CollectionPage emission site-wide; no predecessor "exactly one" predicate to widen.
+  - `grep -rn "=== 'ItemList'" tests/e2e/` -> matches in `demos-index-hub.spec.ts`, `demos-softwareapplication-jsonld.spec.ts`, `changelog-itemlist-jsonld.spec.ts`, `website-sitelinks-jsonld.spec.ts`. Each spec navigates to its own URL (`/demos`, `/changelog`, `/`) before asserting "exactly one" ItemList, so the new `/compare`-scoped ItemList does NOT collide with any predecessor predicate.
+  - `grep -rn "=== 'BreadcrumbList'" tests/e2e/` -> ten-plus matches (every `/compare/*` spec, every `/ai-for-*` spec, `/changelog`, `/trust`, `/my`, `/quiz`, `/roi`). Each spec is URL-scoped; the new `/compare`-scoped BreadcrumbList does NOT collide.
+- 2026-06-11 - failing tests added in `tests/e2e/compare-hub.spec.ts`
+- 2026-06-11 - PR #N opened, CI [state]
 - YYYY-MM-DD - merged to main

@@ -53,6 +53,7 @@ import Glossary from "./pages/Glossary";
 import Trust from "./pages/Trust";
 import Changelog from "./pages/Changelog";
 import Uptime from "./pages/Uptime";
+import CompareHub from "./pages/CompareHub";
 import HubSpotComparison from "./pages/compare/HubSpot";
 import GoHighLevelComparison from "./pages/compare/GoHighLevel";
 import ZapierComparison from "./pages/compare/Zapier";
@@ -276,6 +277,7 @@ const App = () => (
               <Route path="/trust" element={<Trust />} />
               <Route path="/changelog" element={<Changelog />} />
               <Route path="/uptime" element={<Uptime />} />
+              <Route path="/compare" element={<CompareHub />} />
               <Route path="/compare/hubspot" element={<HubSpotComparison />} />
               <Route path="/compare/gohighlevel" element={<GoHighLevelComparison />} />
               <Route path="/compare/zapier" element={<ZapierComparison />} />
