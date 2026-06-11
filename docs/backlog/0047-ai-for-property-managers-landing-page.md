@@ -1,7 +1,7 @@
 ---
 id: 0047
 title: AI-for-property-managers long-tail landing page funneling into real-estate demos
-status: groomed
+status: in-progress
 priority: P1
 area: content
 created: 2026-06-11
@@ -233,7 +233,8 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0047-ai-for-property-managers` opened
-- YYYY-MM-DD - failing tests added in `tests/e2e/ai-for-property-managers.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-06-11 - branch `feat/0047-ai-for-property-managers` opened off `origin/main`; ticket flipped from `groomed` to `in-progress` (frontmatter + README index row in the same commit per the 2026-05-22 two-PR lesson).
+- 2026-06-11 - 2026-05-30 second-@type grep (mandatory): ran `Grep === 'BreadcrumbList'` and `Grep === 'Service'` across `tests/e2e/*-jsonld.spec.ts` and `tests/e2e/ai-for-*.spec.ts`. Result: every "exactly one BreadcrumbList" predicate is scoped per-URL (e.g., `'exactly one BreadcrumbList block expected on /quiz'`, `on /trust`, `on /changelog`, `on /compare/*`) or lives inside a per-URL `goto`-scoped file (`ai-for-plumbers`, `ai-for-hvac`, `ai-for-roofers`, `ai-for-electricians`, `ai-for-painters`, `ai-for-landscapers`). No spec asserts "exactly one BreadcrumbList block site-wide" and NO spec contains any "exactly one Service" predicate at all. Collision risk for adding a 7th per-URL `BreadcrumbList` + `Service` pair on `/ai-for-property-managers` is structurally zero.
+- 2026-06-11 - failing tests added in `tests/e2e/ai-for-property-managers.spec.ts`
+- 2026-06-11 - PR #N opened, CI [state]
+- 2026-06-11 - merged to main
