@@ -1,7 +1,7 @@
 ---
 id: 0047
 title: AI-for-property-managers long-tail landing page funneling into real-estate demos
-status: in-progress
+status: shipped
 priority: P1
 area: content
 created: 2026-06-11
