@@ -9,6 +9,7 @@ import { trackCTAClick, trackFormSubmission } from '@/utils/analytics';
 import { getUtmParams } from '@/utils/utmTracker';
 import { useContent } from '@/hooks/useContent';
 import { streamChat } from '@/utils/openaiChat';
+import { setQuizPersona } from '@/utils/quizPersonaStore';
 import {
   ArrowRight,
   ArrowLeft,
@@ -752,6 +753,16 @@ const AIReadinessQuiz: React.FC = () => {
   const tierInfo = tier ? TIERS[tier] : null;
   const vertical = answers.business_type || 'other';
   const demoLink = VERTICAL_DEMOS[vertical] || VERTICAL_DEMOS.other;
+
+  // Ticket 0045 - persist the tier label + completion timestamp into the
+  // additive dca_quiz_persona_v1 store so the /my dashboard can surface
+  // it. Persona name and completedAt only; no per-question answers, no
+  // ROI estimate, so the /trust disclosure stays narrow.
+  useEffect(() => {
+    if (isQuizDone && tierInfo) {
+      setQuizPersona(tierInfo.label, Date.now());
+    }
+  }, [isQuizDone, tierInfo]);
 
   const selectAnswer = (questionId: string, value: string) => {
     setAnswers((prev) => ({ ...prev, [questionId]: value }));
