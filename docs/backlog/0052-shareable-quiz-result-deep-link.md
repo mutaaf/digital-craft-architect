@@ -1,7 +1,7 @@
 ---
 id: 0052
 title: Shareable AI Readiness Quiz result deep-link rendering the tier card from a /quiz?tier= URL
-status: groomed
+status: in-progress
 priority: P1
 area: conversion
 created: 2026-06-13
@@ -294,7 +294,11 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0052-...` opened
-- YYYY-MM-DD - failing test added in `tests/...`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-06-13 - branch `feat/0052-shareable-quiz-tier-deep-link` opened off fresh origin/main; ticket flipped to in-progress
+- 2026-06-13 - new e2e spec `tests/e2e/quiz-share-link.spec.ts` encodes the eight acceptance-criteria scenarios (baseline, ready, advanced, getting_started, malformed, copy, no-em-dash, dark-mode), modeled on tests/e2e/shareable-estimate-link.spec.ts and tests/e2e/roi-calculator.spec.ts; `permissions: ['clipboard-read', 'clipboard-write']` set on the describe.use({}) per the ticket 0046 pattern.
+- 2026-06-13 - new util `src/pages/quizTierShareParams.ts` (38 lines, pure - no React / no DOM / no Date) mirrors `src/pages/roiCalculatorParams.ts`: exports `encodeQuizTierParam(tier)` (returns the tier verbatim, already URL-safe) and `decodeQuizTierParam(searchParams)` validating against a frozen `Set<Tier>`; a missing param, empty param, or out-of-set value returns `null`.
+- 2026-06-13 - `src/pages/AIReadinessQuiz.tsx`: added `export` to the `type Tier = ...` declaration at line 127 so the new util can `import type { Tier }` without a circular runtime import (the quiz page does not import the util at module load - only the component body uses it at render time). Inside `ResultsPanel` (post-line-430): added ONE "Copy share link" button using lucide-react Copy/Check icons with try/catch around `navigator.clipboard.writeText` and an iOS-Safari `document.execCommand('copy')` textarea fallback; both paths fire `trackCTAClick('quiz_share_copy', 'quiz')`. In the top-level `AIReadinessQuiz` body: `const [sharedTier] = useState(() => decodeQuizTierParam(new URLSearchParams(window.location.search)))`, a `useRef` guard plus `useEffect` firing `trackCTAClick('quiz_share_open', 'quiz')` exactly once per mount when `sharedTier !== null`, and the new `<aside data-testid="quiz-shared-tier-banner">` above question 1 in the `!isQuizDone` branch conditioned on `sharedTier !== null && step === 0`, rendering `TIERS[sharedTier]` (icon, color, label, description) + Calendly CTA + the literal line "Shared result. Take the quiz yourself to see your own tier." Light + dark mode variants on every new element.
+- 2026-06-13 - per the 2026-05-30 second-@type lesson, the existing Quiz JSON-LD from ticket 0039 is NOT edited; this PR adds NO new JSON-LD `@type` so there is no collision risk with the predecessor's "exactly one Quiz block" assertion. The deep-link is structurally orthogonal to the structured-data surface.
+- 2026-06-13 - self-review grep over the diff confirms zero `String.fromCharCode(8212)` em-dash characters in copy or util. No `/api/`, no package.json, no QUESTIONS / computeTier / persona name / ROI / AI analysis / email-capture edits. Total added to AIReadinessQuiz.tsx well under the 80-line target; util well under 60.
+- 2026-06-13 - PR #N opened, CI [state]
+- 2026-06-13 - merged to main
