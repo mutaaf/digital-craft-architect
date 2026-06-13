@@ -1,7 +1,7 @@
 ---
 id: 0052
 title: Shareable AI Readiness Quiz result deep-link rendering the tier card from a /quiz?tier= URL
-status: in-progress
+status: shipped
 priority: P1
 area: conversion
 created: 2026-06-13
