@@ -57,7 +57,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0046 | Shareable AI ROI calculator producing a branded annual savings result link | P1 | shipped | conversion |
 | 0047 | AI-for-property-managers long-tail landing page funneling into real-estate demos | P1 | shipped | content |
 | 0048 | Public /compare hub indexing every comparison page with CollectionPage and ItemList JSON-LD | P1 | shipped | seo |
-| 0049 | Comparison page "Digital Craft vs Thumbtack" for high-intent lead-marketplace switchers | P1 | groomed | seo |
+| 0049 | Comparison page "Digital Craft vs Thumbtack" for high-intent lead-marketplace switchers | P1 | in-progress | seo |
 | 0050 | AI-for-cleaning-services long-tail landing page funneling into home-services demos | P1 | groomed | content |
 | 0051 | Emit LocalBusiness JSON-LD on /locations/texas so the state-level location page indexes as a local search artifact | P2 | groomed | seo |
 | 0052 | Shareable AI Readiness Quiz result deep-link rendering the tier card from a /quiz?tier= URL | P1 | groomed | conversion |

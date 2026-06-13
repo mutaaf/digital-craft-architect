@@ -1,7 +1,7 @@
 ---
 id: 0049
 title: Comparison page "Digital Craft vs Thumbtack" for high-intent lead-marketplace switchers
-status: groomed
+status: in-progress
 priority: P1
 area: seo
 created: 2026-06-13
@@ -265,7 +265,7 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0049-...` opened
-- YYYY-MM-DD - failing test added in `tests/...`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-06-13 - branch `feat/0049-compare-thumbtack-page` opened off fresh origin/main; ticket flipped to in-progress with README index row in sync (one commit, per the 2026-05-22 backlog-validator lesson).
+- 2026-06-13 - Per the 2026-05-30 second-@type lesson, grepped `tests/e2e/compare-*.spec.ts` and `tests/e2e/*-jsonld.spec.ts` for `=== 'BreadcrumbList'` and `=== 'WebPage'` predicates. Every predecessor predicate is URL-scoped to a different route (`/compare/<tool>`, `/demos`, `/changelog`, `/trust`, `/my`, `/quiz`, `/roi`, `/ai-for-*`) - none assert "exactly one site-wide", so a new `/compare/thumbtack`-scoped `BreadcrumbList` + `WebPage` pair does not collide.
+- 2026-06-13 - failing test added in `tests/e2e/compare-thumbtack.spec.ts`.
+- 2026-06-13 - new page `src/pages/compare/Thumbtack.tsx` + route in `src/App.tsx` + `/compare/thumbtack` appended to `ROUTES` in `src/data/routes.ts` + eleventh entry appended to `COMPARE_ENTRIES` in `src/data/compareEntries.ts`. The `/compare` hub picks up the new entry automatically via the mirror-source array.
