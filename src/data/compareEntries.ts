@@ -81,4 +81,10 @@ export const COMPARE_ENTRIES: readonly CompareEntry[] = [
     path: '/compare/buildertrend',
     tagline: 'Buildertrend is the residential-construction project-management platform. Digital Craft is the AI front-of-funnel layer that adds voice negotiation and included lead chat.',
   },
+  {
+    id: 'thumbtack',
+    tool: 'Thumbtack',
+    path: '/compare/thumbtack',
+    tagline: 'Thumbtack sells you leads. Digital Craft is the AI agent layer that books the leads you already have.',
+  },
 ];
