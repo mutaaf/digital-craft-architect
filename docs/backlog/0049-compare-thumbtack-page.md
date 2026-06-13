@@ -1,7 +1,7 @@
 ---
 id: 0049
 title: Comparison page "Digital Craft vs Thumbtack" for high-intent lead-marketplace switchers
-status: in-progress
+status: shipped
 priority: P1
 area: seo
 created: 2026-06-13
