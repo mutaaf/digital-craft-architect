@@ -91,6 +91,50 @@ const BREADCRUMB_SCHEMA = {
   ],
 };
 
+// Meta description extracted into a module-level constant so the
+// LocalBusiness JSON-LD block (below) can mirror the same string the
+// Helmet meta tag renders, per the 2026-05-25 mirror-source rule.
+const META_DESCRIPTION =
+  'AI automation for Texas construction and real estate businesses in Dallas, Houston, and Austin. Lead response, voice agents, and deal analysis built for Texas operators. Try live demos free.';
+
+// Minimal reference to the homepage Organization (ticket 0025). Carries
+// only `@type`, `name`, and `url` so a top-level `@type === 'Organization'`
+// filter cannot mistake this nested reference for the homepage block.
+const ORG_REF = {
+  '@type': 'Organization',
+  name: 'Digital Craft AI',
+  url: 'https://digitalcraftai.com',
+};
+
+// LocalBusiness schema for /locations/texas (ticket 0051). First
+// LocalBusiness emission site-wide; the shape established here is the
+// template a future /locations/california or /locations/florida page
+// would mirror. No address/geo/telephone/openingHours/priceRange/
+// aggregateRating/review fields per the AGENTS.md defensible-claims
+// rule (no single Texas storefront, no fixed price range, no published
+// per-location phone line). areaServed names the three metros the page
+// already covers in the CITIES constant plus the statewide entry.
+const LOCALBUSINESS_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'Digital Craft AI - Texas',
+  description: META_DESCRIPTION,
+  url: 'https://digitalcraftai.com/locations/texas',
+  areaServed: [
+    { '@type': 'City', name: 'Dallas-Fort Worth' },
+    { '@type': 'City', name: 'Houston' },
+    { '@type': 'City', name: 'Austin' },
+    { '@type': 'State', name: 'Texas' },
+  ],
+  serviceType: [
+    'AI Lead Response',
+    'AI Voice Agents',
+    'AI Estimate Generation',
+    'AI Deal Analysis',
+  ],
+  parentOrganization: ORG_REF,
+};
+
 const Texas: React.FC = () => {
   const { content } = useContent();
 
@@ -98,10 +142,7 @@ const Texas: React.FC = () => {
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <Helmet>
         <title>AI Automation in Texas | Construction AI Dallas & Texas Real Estate AI</title>
-        <meta
-          name="description"
-          content="AI automation for Texas construction and real estate businesses in Dallas, Houston, and Austin. Lead response, voice agents, and deal analysis built for Texas operators. Try live demos free."
-        />
+        <meta name="description" content={META_DESCRIPTION} />
         <meta property="og:title" content="AI Automation in Texas | DigitalCraft AI" />
         <meta
           property="og:description"
@@ -109,6 +150,7 @@ const Texas: React.FC = () => {
         />
         <link rel="canonical" href="https://digitalcraftai.com/locations/texas" />
         <script type="application/ld+json">{JSON.stringify(BREADCRUMB_SCHEMA)}</script>
+        <script type="application/ld+json">{JSON.stringify(LOCALBUSINESS_SCHEMA)}</script>
       </Helmet>
       <Navbar />
       <ScrollProgress />
