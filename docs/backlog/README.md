@@ -60,7 +60,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0049 | Comparison page "Digital Craft vs Thumbtack" for high-intent lead-marketplace switchers | P1 | shipped | seo |
 | 0050 | AI-for-cleaning-services long-tail landing page funneling into home-services demos | P1 | shipped | content |
 | 0051 | Emit LocalBusiness JSON-LD on /locations/texas so the state-level location page indexes as a local search artifact | P2 | groomed | seo |
-| 0052 | Shareable AI Readiness Quiz result deep-link rendering the tier card from a /quiz?tier= URL | P1 | in-progress | conversion |
+| 0052 | Shareable AI Readiness Quiz result deep-link rendering the tier card from a /quiz?tier= URL | P1 | shipped | conversion |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the
