@@ -10,6 +10,7 @@ import { getUtmParams } from '@/utils/utmTracker';
 import { useContent } from '@/hooks/useContent';
 import { streamChat } from '@/utils/openaiChat';
 import { setQuizPersona } from '@/utils/quizPersonaStore';
+import { decodeQuizTierParam, encodeQuizTierParam } from './quizTierShareParams';
 import {
   ArrowRight,
   ArrowLeft,
@@ -22,6 +23,8 @@ import {
   TrendingUp,
   Calendar,
   Activity,
+  Copy,
+  Check,
 } from 'lucide-react';
 
 interface QuizOption { label: string; value: string; points: number }
@@ -124,7 +127,8 @@ const VERTICAL_DEMOS: Record<string, { label: string; path: string }> = {
   other: { label: 'All Industry Demos', path: '/industries' },
 };
 
-type Tier = 'getting_started' | 'ready' | 'advanced';
+// Ticket 0052 - exported so quizTierShareParams can `import type { Tier }`.
+export type Tier = 'getting_started' | 'ready' | 'advanced';
 
 const TIERS: Record<Tier, { label: string; color: string; icon: React.ElementType; description: string }> = {
   getting_started: {
@@ -362,6 +366,25 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({
 }) => {
   const scorePct = score.max > 0 ? Math.round((score.total / score.max) * 100) : 0;
 
+  // Ticket 0052 - Copy share link. Mirrors ticket 0046 ROI pattern:
+  // window.location.origin at runtime + iOS-Safari execCommand fallback.
+  const [copied, setCopied] = useState(false);
+  const shareOrigin = typeof window === 'undefined' ? 'https://digitalcraftai.com' : window.location.origin;
+  const shareUrl = tier ? `${shareOrigin}/quiz?tier=${encodeQuizTierParam(tier)}` : '';
+  const handleCopyShareLink = async () => {
+    if (!tier) return;
+    trackCTAClick('quiz_share_copy', 'quiz');
+    const flash = () => { setCopied(true); setTimeout(() => setCopied(false), 2200); };
+    try { await navigator.clipboard.writeText(shareUrl); flash(); }
+    catch {
+      const ta = document.createElement('textarea');
+      ta.value = shareUrl; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); flash(); } catch { /* silent */ }
+      finally { document.body.removeChild(ta); }
+    }
+  };
+
   return (
     <div className="space-y-5">
       {/* ── Status bar ── */}
@@ -428,6 +451,24 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({
           </div>
         </div>
       </div>
+
+      {/* ── Ticket 0052 - Copy share link ── */}
+      {tier && (
+        <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-primary/30 bg-primary/5 p-4 shadow-sm dark:border-primary/40 dark:bg-primary/10">
+          <Button type="button" onClick={handleCopyShareLink} data-testid="quiz-copy-share-link" className="inline-flex items-center gap-2">
+            {copied ? <Check size={16} /> : <Copy size={16} />}
+            {copied ? 'Copied' : 'Copy share link'}
+          </Button>
+          <span className="text-xs text-gray-600 dark:text-gray-300">
+            Copies a /quiz?tier= link so a co-owner sees the same tier card.
+          </span>
+          {copied && (
+            <span data-testid="quiz-copy-confirmation" role="status" className="text-xs text-emerald-700 dark:text-emerald-300">
+              Share link copied to your clipboard
+            </span>
+          )}
+        </div>
+      )}
 
       {/* ── Dimensions ── */}
       <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
@@ -765,6 +806,21 @@ const AIReadinessQuiz: React.FC = () => {
   const aiAbortRef = useRef<AbortController | null>(null);
   const aiStartedRef = useRef(false);
 
+  // Ticket 0052 - shared-tier deep-link. Lazy initializer reads the URL
+  // once on mount; a missing / malformed value returns null. useRef guard
+  // fires quiz_share_open exactly once per mount.
+  const [sharedTier] = useState<Tier | null>(() =>
+    decodeQuizTierParam(new URLSearchParams(window.location.search)),
+  );
+  const sharedTierOpenedRef = useRef(false);
+  useEffect(() => {
+    if (sharedTier !== null && !sharedTierOpenedRef.current) {
+      sharedTierOpenedRef.current = true;
+      trackCTAClick('quiz_share_open', 'quiz');
+    }
+  }, [sharedTier]);
+  const sharedTierInfo = sharedTier ? TIERS[sharedTier] : null;
+
   // Reset scroll on SPA navigation into /quiz. Without this, entering
   // from the navbar while scrolled down on another page keeps you
   // pinned below the fold and the quiz looks broken.
@@ -886,7 +942,27 @@ const AIReadinessQuiz: React.FC = () => {
           </div>
 
           {!isQuizDone ? (
-            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 md:p-8">
+            <>
+              {/* Ticket 0052 - shared-tier banner; hidden once step > 0. */}
+              {sharedTier !== null && sharedTierInfo && step === 0 && (
+                <aside data-testid="quiz-shared-tier-banner" className="mb-6 rounded-2xl border border-primary/30 bg-white p-5 shadow-sm dark:border-primary/40 dark:bg-gray-900">
+                  <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-primary">Shared result</div>
+                  <div className="mt-3 flex items-start gap-4">
+                    <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800 ${sharedTierInfo.color}`}>
+                      <sharedTierInfo.icon className="h-6 w-6" />
+                    </div>
+                    <div className="min-w-0">
+                      <h2 className={`text-xl md:text-2xl font-bold ${sharedTierInfo.color}`}>{sharedTierInfo.label}</h2>
+                      <p className="mt-1.5 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{sharedTierInfo.description}</p>
+                    </div>
+                  </div>
+                  <p className="mt-4 text-sm text-gray-700 dark:text-gray-200">Shared result. Take the quiz yourself to see your own tier.</p>
+                  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer" onClick={() => trackCTAClick('quiz_share_book_call', 'quiz')} className="mt-3 inline-flex items-center gap-2 rounded-lg border-2 border-primary bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:brightness-105">
+                    Book a Strategy Call <ArrowRight size={14} />
+                  </a>
+                </aside>
+              )}
+              <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 md:p-8">
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
                 Question {step + 1} of {QUESTIONS.length}
               </p>
@@ -916,7 +992,8 @@ const AIReadinessQuiz: React.FC = () => {
                   <ArrowLeft size={14} /> Back
                 </button>
               )}
-            </div>
+              </div>
+            </>
           ) : !emailSubmitted ? (
             <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 md:p-8 text-center">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
