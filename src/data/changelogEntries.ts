@@ -20,6 +20,7 @@ export interface ChangelogEntry {
 }
 
 export const changelogEntries: readonly ChangelogEntry[] = [
+  { id: "0049", title: "Comparison page \"Digital Craft vs Thumbtack\" for high-intent lead-marketplace switchers", area: "seo", created: "2026-06-13" },
   { id: "0048", title: "Public /compare hub indexing every comparison page with CollectionPage and ItemList JSON-LD", area: "seo", created: "2026-06-11" },
   { id: "0047", title: "AI-for-property-managers long-tail landing page funneling into real-estate demos", area: "content", created: "2026-06-11" },
   { id: "0046", title: "Shareable AI ROI calculator producing a branded annual savings result link", area: "conversion", created: "2026-06-11" },
