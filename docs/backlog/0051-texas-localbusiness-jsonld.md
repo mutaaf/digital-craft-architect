@@ -1,7 +1,7 @@
 ---
 id: 0051
 title: Emit LocalBusiness JSON-LD on /locations/texas so the state-level location page indexes as a local search artifact
-status: groomed
+status: in-progress
 priority: P2
 area: seo
 created: 2026-06-13
@@ -251,7 +251,7 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0051-...` opened
-- YYYY-MM-DD - failing test added in `tests/...`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-06-13 - branch `feat/0051-texas-localbusiness-jsonld` opened off fresh `origin/main`; ticket flipped groomed -> in-progress in same commit as the README index row.
+- 2026-06-13 - pre-write grep per 2026-05-30 second-@type lesson on `tests/e2e/*-jsonld.spec.ts`: `=== 'LocalBusiness'` returns ZERO matches (first emission site-wide, no predecessor "exactly one LocalBusiness" predicate to widen); `=== 'Organization'` matches `tests/e2e/homepage-organization-jsonld.spec.ts:78` and `tests/e2e/website-sitelinks-jsonld.spec.ts:249`, both URL-scoped to `/` only (no collision with `/locations/texas`); `=== 'BreadcrumbList'` matches many specs, every match URL-scoped per ticket 0048 (none assert "exactly one BreadcrumbList site-wide"). Also confirmed `tests/e2e/homepage-organization-jsonld.spec.ts` contains no "no LocalBusiness block site-wide" predicate, so no predecessor widening required.
+- 2026-06-13 - confirmed no em-dash (`U+2014`) in `src/pages/locations/Texas.tsx` today (0 matches), so the mirror-source `META_DESCRIPTION` constant inherits hyphen-only copy and the 2026-05-25 mirror-source-fix lesson does not need to apply here.
+- 2026-06-13 - failing test added in `tests/e2e/texas-localbusiness-jsonld.spec.ts` modeled on `tests/e2e/trust-aboutpage-jsonld.spec.ts` (ticket 0044 peer). Seven boxes -> seven tests. Minimum source change in `src/pages/locations/Texas.tsx`: extracted the inline `<meta name="description">` into module-level `META_DESCRIPTION`, added `ORG_REF` + `LOCALBUSINESS_SCHEMA` constants near the existing `BREADCRUMB_SCHEMA`, and inserted ONE new `<script type="application/ld+json">{JSON.stringify(LOCALBUSINESS_SCHEMA)}</script>` immediately after the existing BreadcrumbList script tag. The existing `BREADCRUMB_SCHEMA` block and its emission tag stay byte-identical. Full local gate (`lint`, `typecheck`, `check-links`, `check-images`, `check-meta`, `check-blog-dates`, `check-backlog`, `build`) green. New spec: 7/7 passed against the production preview build.
