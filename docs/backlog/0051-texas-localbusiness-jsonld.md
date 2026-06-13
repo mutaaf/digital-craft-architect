@@ -1,7 +1,7 @@
 ---
 id: 0051
 title: Emit LocalBusiness JSON-LD on /locations/texas so the state-level location page indexes as a local search artifact
-status: in-progress
+status: shipped
 priority: P2
 area: seo
 created: 2026-06-13
