@@ -1,7 +1,7 @@
 ---
 id: 0050
 title: AI-for-cleaning-services long-tail landing page funneling into home-services demos
-status: in-progress
+status: shipped
 priority: P1
 area: content
 created: 2026-06-13
@@ -271,3 +271,4 @@ to re-discover the architecture.
 
 - 2026-06-13 - branch `feat/0050-ai-for-cleaning-services` opened; ticket flipped to in-progress in same commit as README index row.
 - 2026-06-13 - second-@type grep per 2026-05-30 lesson: ran `grep "=== 'BreadcrumbList'"` and `grep "=== 'Service'"` across `tests/e2e/*-jsonld.spec.ts` and `tests/e2e/ai-for-*.spec.ts`. Result: every existing `toHaveLength(1)` on BreadcrumbList/Service is scoped per-URL (each spec navigates to its own page before reading JSON-LD blocks). The new cleaning-services spec mirrors that per-URL scoping. No collision risk; no predecessor spec edit required.
+- 2026-06-13 - PR #148 merged to main (6a7ddc3); ticket + README index flipped to shipped via `chore/0050-ship-status`.
