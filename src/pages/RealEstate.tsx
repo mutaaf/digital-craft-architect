@@ -18,6 +18,7 @@ import CountdownBanner from '@/components/CountdownBanner';
 import { useContent } from '@/hooks/useContent';
 import { useAnalytics, trackCTAClick, useEngagementTracking } from '@/utils/analytics';
 import { getUtmParams } from '@/utils/utmTracker';
+import { submitLead } from '@/utils/submitLead';
 import {
   MessageSquare,
   Home,
@@ -204,14 +205,10 @@ const RealEstate: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const response = await fetch('https://formspree.io/f/xovekqqk', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          ...getUtmParams(),
-          _subject: `[Real Estate Lead] ${formData.company}`,
-        }),
+      const response = await submitLead({
+        ...formData,
+        ...getUtmParams(),
+        _subject: `[Real Estate Lead] ${formData.company}`,
       });
       if (response.ok) {
         setSubmitted(true);

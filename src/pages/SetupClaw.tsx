@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useContent } from '@/hooks/useContent';
 import { useAnalytics, trackFormSubmission, trackCTAClick } from '@/utils/analytics';
+import { submitLead } from '@/utils/submitLead';
 import {
   Check,
   Shield,
@@ -125,13 +126,9 @@ const SetupClaw: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const response = await fetch('https://formspree.io/f/xovekqqk', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          _subject: `[SetupClaw Lead] ${formData.company || formData.name} — ${formData.location}`,
-        }),
+      const response = await submitLead({
+        ...formData,
+        _subject: `[SetupClaw Lead] ${formData.company || formData.name} — ${formData.location}`,
       });
       if (response.ok) {
         trackFormSubmission('setupclaw_signup', formData.location);

@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { CheckCircle, Mail, Send } from 'lucide-react';
 import { trackCTAClick } from '@/utils/analytics';
 import { getUtmParams } from '@/utils/utmTracker';
+import { submitLead } from '@/utils/submitLead';
 
 type CaptureStatus = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -44,16 +45,12 @@ const EmailEstimateCapture = ({
     trackCTAClick('email_estimate_submit', location);
     const shareLink = buildShareUrl();
     try {
-      const res = await fetch('https://formspree.io/f/xovekqqk', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: value,
-          estimate_link: shareLink,
-          message: `Estimate share link: ${shareLink}`,
-          ...getUtmParams(),
-          _subject: '[Estimate] Demo estimate email request',
-        }),
+      const res = await submitLead({
+        email: value,
+        estimate_link: shareLink,
+        message: `Estimate share link: ${shareLink}`,
+        ...getUtmParams(),
+        _subject: '[Estimate] Demo estimate email request',
       });
       setStatus(res.ok ? 'success' : 'error');
       if (res.ok) setEmail('');

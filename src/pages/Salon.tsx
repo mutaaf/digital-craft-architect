@@ -13,6 +13,7 @@ import Testimonials from '@/components/Testimonials';
 import { useContent, TestimonialItem } from '@/hooks/useContent';
 import { useAnalytics, trackCTAClick, useEngagementTracking } from '@/utils/analytics';
 import { getUtmParams } from '@/utils/utmTracker';
+import { submitLead } from '@/utils/submitLead';
 import {
   MessageSquare,
   Calculator,
@@ -220,14 +221,10 @@ const Salon: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const response = await fetch('https://formspree.io/f/xovekqqk', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          ...getUtmParams(),
-          _subject: `[Salon Lead] ${formData.company}`,
-        }),
+      const response = await submitLead({
+        ...formData,
+        ...getUtmParams(),
+        _subject: `[Salon Lead] ${formData.company}`,
       });
       if (response.ok) {
         setSubmitted(true);

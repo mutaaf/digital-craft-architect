@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FooterSection } from '@/hooks/useContent';
 import { Linkedin, Calendar, Github, Twitter, Phone, Send } from 'lucide-react';
 import { trackCTAClick } from '@/utils/analytics';
+import { submitLead } from '@/utils/submitLead';
 import EmailCourseOptin from '@/components/EmailCourseOptin';
 
 interface FooterProps {
@@ -28,11 +29,7 @@ const FooterNewsletter: React.FC = () => {
     setStatus('submitting');
     trackCTAClick('newsletter_subscribe', 'footer');
     try {
-      const res = await fetch('https://formspree.io/f/xovekqqk', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, _subject: '[Newsletter] New subscriber' }),
-      });
+      const res = await submitLead({ email, _subject: '[Newsletter] New subscriber' });
       setStatus(res.ok ? 'success' : 'error');
       if (res.ok) setEmail('');
     } catch {
