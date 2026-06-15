@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Digital Craft AI Changelog</title>
+    <link>https://digitalcraftai.com/changelog</link>
+    <description>Recently shipped features and improvements on Digital Craft AI.</description>
+    <language>en-us</language>
+    <atom:link href="https://digitalcraftai.com/changelog/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>AI-for-pest-control long-tail landing page funneling into home-services demos</title>
+      <link>https://digitalcraftai.com/changelog#0056</link>
+      <description>Shipped 2026-06-15 in area: content.</description>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0056</guid>
+      <category>content</category>
+    </item>
+    <item>
+      <title>Emit Article JSON-LD on every /case-studies/:slug page so each case study indexes as a structured article artifact</title>
+      <link>https://digitalcraftai.com/changelog#0054</link>
+      <description>Shipped 2026-06-15 in area: seo.</description>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0054</guid>
+      <category>seo</category>
+    </item>
+    <item>
+      <title>Comparison page &quot;Digital Craft vs Angi&quot; for high-intent home-services lead-marketplace switchers</title>
+      <link>https://digitalcraftai.com/changelog#0053</link>
+      <description>Shipped 2026-06-15 in area: seo.</description>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0053</guid>
+      <category>seo</category>
+    </item>
+    <item>
+      <title>Shareable AI Readiness Quiz result deep-link rendering the tier card from a /quiz?tier= URL</title>
+      <link>https://digitalcraftai.com/changelog#0052</link>
+      <description>Shipped 2026-06-13 in area: conversion.</description>
+      <pubDate>Sat, 13 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0052</guid>
+      <category>conversion</category>
+    </item>
+    <item>
+      <title>Emit LocalBusiness JSON-LD on /locations/texas so the state-level location page indexes as a local search artifact</title>
+      <link>https://digitalcraftai.com/changelog#0051</link>
+      <description>Shipped 2026-06-13 in area: seo.</description>
+      <pubDate>Sat, 13 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0051</guid>
+      <category>seo</category>
+    </item>
+    <item>
+      <title>AI-for-cleaning-services long-tail landing page funneling into home-services demos</title>
+      <link>https://digitalcraftai.com/changelog#0050</link>
+      <description>Shipped 2026-06-13 in area: content.</description>
+      <pubDate>Sat, 13 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0050</guid>
+      <category>content</category>
+    </item>
+    <item>
+      <title>Comparison page &quot;Digital Craft vs Thumbtack&quot; for high-intent lead-marketplace switchers</title>
+      <link>https://digitalcraftai.com/changelog#0049</link>
+      <description>Shipped 2026-06-13 in area: seo.</description>
+      <pubDate>Sat, 13 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0049</guid>
+      <category>seo</category>
+    </item>
+    <item>
+      <title>Public /compare hub indexing every comparison page with CollectionPage and ItemList JSON-LD</title>
+      <link>https://digitalcraftai.com/changelog#0048</link>
+      <description>Shipped 2026-06-11 in area: seo.</description>
+      <pubDate>Thu, 11 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0048</guid>
+      <category>seo</category>
+    </item>
+    <item>
+      <title>AI-for-property-managers long-tail landing page funneling into real-estate demos</title>
+      <link>https://digitalcraftai.com/changelog#0047</link>
+      <description>Shipped 2026-06-11 in area: content.</description>
+      <pubDate>Thu, 11 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0047</guid>
+      <category>content</category>
+    </item>
+    <item>
+      <title>Shareable AI ROI calculator producing a branded annual savings result link</title>
+      <link>https://digitalcraftai.com/changelog#0046</link>
+      <description>Shipped 2026-06-11 in area: conversion.</description>
+      <pubDate>Thu, 11 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0046</guid>
+      <category>conversion</category>
+    </item>
+    <item>
+      <title>Personalized /my visitor dashboard surfacing saved estimates, recent demos, and quiz persona</title>
+      <link>https://digitalcraftai.com/changelog#0045</link>
+      <description>Shipped 2026-06-11 in area: demos.</description>
+      <pubDate>Thu, 11 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0045</guid>
+      <category>demos</category>
+    </item>
+    <item>
+      <title>Emit AboutPage + BreadcrumbList JSON-LD on /trust so the data-handling disclosure indexes as a canonical artifact</title>
+      <link>https://digitalcraftai.com/changelog#0044</link>
+      <description>Shipped 2026-06-09 in area: seo.</description>
+      <pubDate>Tue, 09 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0044</guid>
+      <category>seo</category>
+    </item>
+    <item>
+      <title>Emit ItemList JSON-LD on /changelog so search engines can index individual ship entries</title>
+      <link>https://digitalcraftai.com/changelog#0043</link>
+      <description>Shipped 2026-06-09 in area: seo.</description>
+      <pubDate>Tue, 09 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0043</guid>
+      <category>seo</category>
+    </item>
+    <item>
+      <title>Comparison page &quot;Digital Craft vs Buildertrend&quot; for high-intent construction-software switchers</title>
+      <link>https://digitalcraftai.com/changelog#0042</link>
+      <description>Shipped 2026-06-09 in area: seo.</description>
+      <pubDate>Tue, 09 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0042</guid>
+      <category>seo</category>
+    </item>
+    <item>
+      <title>AI-for-landscapers long-tail landing page funneling into home-services demos</title>
+      <link>https://digitalcraftai.com/changelog#0041</link>
+      <description>Shipped 2026-06-09 in area: content.</description>
+      <pubDate>Tue, 09 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0041</guid>
+      <category>content</category>
+    </item>
+    <item>
+      <title>&quot;What&apos;s new since you visited&quot; delta strip on the /demos hub for week-2-and-beyond returners</title>
+      <link>https://digitalcraftai.com/changelog#0040</link>
+      <description>Shipped 2026-06-07 in area: demos.</description>
+      <pubDate>Sun, 07 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0040</guid>
+      <category>demos</category>
+    </item>
+    <item>
+      <title>Emit Quiz JSON-LD on the AI Readiness Quiz for question-rich-result eligibility</title>
+      <link>https://digitalcraftai.com/changelog#0039</link>
+      <description>Shipped 2026-06-07 in area: seo.</description>
+      <pubDate>Sun, 07 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0039</guid>
+      <category>seo</category>
+    </item>
+    <item>
+      <title>Comparison page &quot;Digital Craft vs Housecall Pro&quot; for high-intent field-service buyers</title>
+      <link>https://digitalcraftai.com/changelog#0038</link>
+      <description>Shipped 2026-06-07 in area: seo.</description>
+      <pubDate>Sun, 07 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0038</guid>
+      <category>seo</category>
+    </item>
+    <item>
+      <title>AI-for-painters long-tail landing page funneling into home-services demos</title>
+      <link>https://digitalcraftai.com/changelog#0037</link>
+      <description>Shipped 2026-06-07 in area: content.</description>
+      <pubDate>Sun, 07 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0037</guid>
+      <category>content</category>
+    </item>
+    <item>
+      <title>Public /uptime page surfacing demo and serverless health for regulated-vertical buyers</title>
+      <link>https://digitalcraftai.com/changelog#0036</link>
+      <description>Shipped 2026-06-05 in area: trust.</description>
+      <pubDate>Fri, 05 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0036</guid>
+      <category>trust</category>
+    </item>
+    <item>
+      <title>Comparison page &quot;Digital Craft vs Podium&quot; for high-intent SMS and review compares</title>
+      <link>https://digitalcraftai.com/changelog#0035</link>
+      <description>Shipped 2026-06-05 in area: seo.</description>
+      <pubDate>Fri, 05 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0035</guid>
+      <category>seo</category>
+    </item>
+    <item>
+      <title>AI-for-electricians long-tail landing page funneling into home-services demos</title>
+      <link>https://digitalcraftai.com/changelog#0034</link>
+      <description>Shipped 2026-06-05 in area: content.</description>
+      <pubDate>Fri, 05 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0034</guid>
+      <category>content</category>
+    </item>
+    <item>
+      <title>Per-demo &quot;what we store&quot; disclosure chip linked to /trust</title>
+      <link>https://digitalcraftai.com/changelog#0033</link>
+      <description>Shipped 2026-06-03 in area: trust.</description>
+      <pubDate>Wed, 03 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0033</guid>
+      <category>trust</category>
+    </item>
+    <item>
+      <title>Public /changelog page surfacing weekly ship velocity to crawlers and repeat visitors</title>
+      <link>https://digitalcraftai.com/changelog#0032</link>
+      <description>Shipped 2026-06-03 in area: content.</description>
+      <pubDate>Wed, 03 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0032</guid>
+      <category>content</category>
+    </item>
+    <item>
+      <title>&quot;Try the next demo&quot; pinned CTA on voice and estimate result screens</title>
+      <link>https://digitalcraftai.com/changelog#0031</link>
+      <description>Shipped 2026-06-03 in area: demos.</description>
+      <pubDate>Wed, 03 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0031</guid>
+      <category>demos</category>
+    </item>
+    <item>
+      <title>Emit SoftwareApplication JSON-LD on the /demos hub</title>
+      <link>https://digitalcraftai.com/changelog#0030</link>
+      <description>Shipped 2026-06-03 in area: seo.</description>
+      <pubDate>Wed, 03 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0030</guid>
+      <category>seo</category>
+    </item>
+    <item>
+      <title>Shareable branded voice-call summary link</title>
+      <link>https://digitalcraftai.com/changelog#0029</link>
+      <description>Shipped 2026-06-01 in area: demos.</description>
+      <pubDate>Mon, 01 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0029</guid>
+      <category>demos</category>
+    </item>
+    <item>
+      <title>Comparison page &quot;Digital Craft vs ServiceTitan&quot; for high-intent field-service compares</title>
+      <link>https://digitalcraftai.com/changelog#0028</link>
+      <description>Shipped 2026-06-01 in area: seo.</description>
+      <pubDate>Mon, 01 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0028</guid>
+      <category>seo</category>
+    </item>
+    <item>
+      <title>&quot;More like this&quot; cross-vertical recommendations under each demo</title>
+      <link>https://digitalcraftai.com/changelog#0027</link>
+      <description>Shipped 2026-06-01 in area: demos.</description>
+      <pubDate>Mon, 01 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0027</guid>
+      <category>demos</category>
+    </item>
+    <item>
+      <title>Recently viewed demos recap strip on the /demos hub</title>
+      <link>https://digitalcraftai.com/changelog#0026</link>
+      <description>Shipped 2026-05-30 in area: demos.</description>
+      <pubDate>Sat, 30 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0026</guid>
+      <category>demos</category>
+    </item>
+    <item>
+      <title>Emit Organization JSON-LD with sameAs and contactPoint on the homepage</title>
+      <link>https://digitalcraftai.com/changelog#0025</link>
+      <description>Shipped 2026-05-30 in area: seo.</description>
+      <pubDate>Sat, 30 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0025</guid>
+      <category>seo</category>
+    </item>
+    <item>
+      <title>AI-for-roofers long-tail landing page funneling into home-services demos</title>
+      <link>https://digitalcraftai.com/changelog#0024</link>
+      <description>Shipped 2026-05-30 in area: content.</description>
+      <pubDate>Sat, 30 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0024</guid>
+      <category>content</category>
+    </item>
+    <item>
+      <title>Footer &quot;AI providers we use&quot; trust chip linking to /trust</title>
+      <link>https://digitalcraftai.com/changelog#0023</link>
+      <description>Shipped 2026-05-28 in area: trust.</description>
+      <pubDate>Thu, 28 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0023</guid>
+      <category>trust</category>
+    </item>
+    <item>
+      <title>Emit lastmod timestamps in sitemap.xml so Google prioritizes recrawl of fresh routes</title>
+      <link>https://digitalcraftai.com/changelog#0022</link>
+      <description>Shipped 2026-05-28 in area: seo.</description>
+      <pubDate>Thu, 28 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0022</guid>
+      <category>seo</category>
+    </item>
+    <item>
+      <title>Comparison page &quot;Digital Craft vs Jobber&quot; for high-intent home-services compares</title>
+      <link>https://digitalcraftai.com/changelog#0021</link>
+      <description>Shipped 2026-05-28 in area: seo.</description>
+      <pubDate>Thu, 28 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0021</guid>
+      <category>seo</category>
+    </item>
+    <item>
+      <title>AI-for-HVAC long-tail landing page funneling into home-services demos</title>
+      <link>https://digitalcraftai.com/changelog#0020</link>
+      <description>Shipped 2026-05-28 in area: content.</description>
+      <pubDate>Thu, 28 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0020</guid>
+      <category>content</category>
+    </item>
+    <item>
+      <title>Visible breadcrumbs and BreadcrumbList JSON-LD on every demo page</title>
+      <link>https://digitalcraftai.com/changelog#0019</link>
+      <description>Shipped 2026-05-26 in area: conversion.</description>
+      <pubDate>Tue, 26 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0019</guid>
+      <category>conversion</category>
+    </item>
+    <item>
+      <title>How-the-demos-work transparency page at /trust</title>
+      <link>https://digitalcraftai.com/changelog#0018</link>
+      <description>Shipped 2026-05-26 in area: trust.</description>
+      <pubDate>Tue, 26 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0018</guid>
+      <category>trust</category>
+    </item>
+    <item>
+      <title>AI-for-plumbers long-tail landing page funneling into home-services demos</title>
+      <link>https://digitalcraftai.com/changelog#0017</link>
+      <description>Shipped 2026-05-26 in area: content.</description>
+      <pubDate>Tue, 26 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0017</guid>
+      <category>content</category>
+    </item>
+    <item>
+      <title>Emit WebSite + SiteNavigationElement JSON-LD for sitelinks search box</title>
+      <link>https://digitalcraftai.com/changelog#0016</link>
+      <description>Shipped 2026-05-26 in area: seo.</description>
+      <pubDate>Tue, 26 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0016</guid>
+      <category>seo</category>
+    </item>
+    <item>
+      <title>Enable strict tsconfig flag (zero-cost ratchet)</title>
+      <link>https://digitalcraftai.com/changelog#0008</link>
+      <description>Shipped 2026-05-26 in area: infra.</description>
+      <pubDate>Tue, 26 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0008</guid>
+      <category>infra</category>
+    </item>
+    <item>
+      <title>&quot;Email me this estimate&quot; lead capture on the estimate result</title>
+      <link>https://digitalcraftai.com/changelog#0015</link>
+      <description>Shipped 2026-05-25 in area: conversion.</description>
+      <pubDate>Mon, 25 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0015</guid>
+      <category>conversion</category>
+    </item>
+    <item>
+      <title>Persist and re-offer the visitor&apos;s last completed estimate</title>
+      <link>https://digitalcraftai.com/changelog#0014</link>
+      <description>Shipped 2026-05-25 in area: demos.</description>
+      <pubDate>Mon, 25 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0014</guid>
+      <category>demos</category>
+    </item>
+    <item>
+      <title>Add DefinedTermSet structured data to the AI glossary</title>
+      <link>https://digitalcraftai.com/changelog#0013</link>
+      <description>Shipped 2026-05-25 in area: seo.</description>
+      <pubDate>Mon, 25 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0013</guid>
+      <category>seo</category>
+    </item>
+    <item>
+      <title>Emit FAQPage structured data for the visible pricing FAQ</title>
+      <link>https://digitalcraftai.com/changelog#0012</link>
+      <description>Shipped 2026-05-25 in area: seo.</description>
+      <pubDate>Mon, 25 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0012</guid>
+      <category>seo</category>
+    </item>
+    <item>
+      <title>Crawlable /demos index hub with ItemList structured data</title>
+      <link>https://digitalcraftai.com/changelog#0011</link>
+      <description>Shipped 2026-05-23 in area: seo.</description>
+      <pubDate>Sat, 23 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0011</guid>
+      <category>seo</category>
+    </item>
+    <item>
+      <title>Resumable demo session with &quot;Continue your demo&quot; prompt</title>
+      <link>https://digitalcraftai.com/changelog#0010</link>
+      <description>Shipped 2026-05-23 in area: demos.</description>
+      <pubDate>Sat, 23 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0010</guid>
+      <category>demos</category>
+    </item>
+    <item>
+      <title>Shareable branded estimate result link</title>
+      <link>https://digitalcraftai.com/changelog#0009</link>
+      <description>Shipped 2026-05-23 in area: demos.</description>
+      <pubDate>Sat, 23 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0009</guid>
+      <category>demos</category>
+    </item>
+    <item>
+      <title>Ratchet tsconfig strictness (zero-cost flags)</title>
+      <link>https://digitalcraftai.com/changelog#0007</link>
+      <description>Shipped 2026-05-22 in area: infra.</description>
+      <pubDate>Fri, 22 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0007</guid>
+      <category>infra</category>
+    </item>
+    <item>
+      <title>Footer silently missing on Glossary, Industries, and comparison pages</title>
+      <link>https://digitalcraftai.com/changelog#0006</link>
+      <description>Shipped 2026-05-22 in area: conversion.</description>
+      <pubDate>Fri, 22 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0006</guid>
+      <category>conversion</category>
+    </item>
+    <item>
+      <title>Add CI type-check gate (tsc --noEmit)</title>
+      <link>https://digitalcraftai.com/changelog#0005</link>
+      <description>Shipped 2026-05-22 in area: infra.</description>
+      <pubDate>Fri, 22 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0005</guid>
+      <category>infra</category>
+    </item>
+    <item>
+      <title>Client logo marquee (placeholders)</title>
+      <link>https://digitalcraftai.com/changelog#0004</link>
+      <description>Shipped 2026-05-22 in area: trust.</description>
+      <pubDate>Fri, 22 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0004</guid>
+      <category>trust</category>
+    </item>
+    <item>
+      <title>Route-aware dynamic pricing CTA</title>
+      <link>https://digitalcraftai.com/changelog#0003</link>
+      <description>Shipped 2026-05-22 in area: conversion.</description>
+      <pubDate>Fri, 22 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0003</guid>
+      <category>conversion</category>
+    </item>
+    <item>
+      <title>5-day AI implementation email course opt-in</title>
+      <link>https://digitalcraftai.com/changelog#0002</link>
+      <description>Shipped 2026-05-22 in area: conversion.</description>
+      <pubDate>Fri, 22 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0002</guid>
+      <category>conversion</category>
+    </item>
+    <item>
+      <title>UTM-personalized hero copy</title>
+      <link>https://digitalcraftai.com/changelog#0001</link>
+      <description>Shipped 2026-05-22 in area: conversion.</description>
+      <pubDate>Fri, 22 May 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0001</guid>
+      <category>conversion</category>
+    </item>
+  </channel>
+</rss>

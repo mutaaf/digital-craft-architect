@@ -361,7 +361,7 @@ function assertSitemapLastmodInvariants(xml: string, expectedUrlCount: number): 
   }
 }
 
-function run() {
+async function run() {
   // Ticket 0032 - regenerate src/data/changelogEntries.ts from the shipped
   // backlog frontmatter BEFORE we build the sitemap. The changelog generator
   // has its own inline assertions (2026-05-28 pattern); a malformed entry
@@ -369,7 +369,11 @@ function run() {
   // Wiring this into the sitemap script keeps the GTM queue clear of any
   // package.json edit (AGENTS.md Hard NO) while still gating it on every
   // `npm run build` and CI `build` job.
-  generateChangelog();
+  // Ticket 0055 - generateChangelog is now async because it also fires the
+  // sibling /changelog/rss.xml feed generator at the end of its body;
+  // awaiting here keeps the build order deterministic (changelog data
+  // written, then feed read, then sitemap emitted).
+  await generateChangelog();
 
   const appContent = readFile(APP_TSX);
   const routes = extractStaticRoutes(appContent);
@@ -388,4 +392,7 @@ function run() {
   assertSitemapLastmodInvariants(sitemap, totalUrls);
 }
 
-run();
+run().catch((err: unknown) => {
+  console.error(err instanceof Error ? err.message : String(err));
+  process.exit(1);
+});

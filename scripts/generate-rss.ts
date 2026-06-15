@@ -1,5 +1,6 @@
 import { readFileSync, writeFileSync } from "fs";
 import { join } from "path";
+import { escapeXml } from "./lib/escapeXml";
 
 const ROOT = join(import.meta.dirname, "..");
 const SRC = join(ROOT, "src");
@@ -37,15 +38,6 @@ function extractBlogPosts(): BlogEntry[] {
     posts.push({ slug: slugs[i], title: titles[i], description: descriptions[i], date: dates[i] });
   }
   return posts;
-}
-
-function escapeXml(str: string): string {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&apos;");
 }
 
 function toRfc822(dateStr: string): string {

@@ -166,6 +166,13 @@ const Changelog: React.FC = () => {
         <title>Changelog | Recent Ships | DigitalCraft AI</title>
         <meta name="description" content={CHANGELOG_DESCRIPTION} />
         <link rel="canonical" href="https://digitalcraftai.com/changelog" />
+        {/* Ticket 0055 - Auto-discovery for the /changelog/rss.xml feed. */}
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="Digital Craft AI Changelog"
+          href="/changelog/rss.xml"
+        />
         <meta property="og:title" content="Changelog | DigitalCraft AI" />
         <meta property="og:description" content={CHANGELOG_DESCRIPTION} />
         <meta property="og:url" content="https://digitalcraftai.com/changelog" />

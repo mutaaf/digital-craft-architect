@@ -179,7 +179,7 @@ export const changelogEntries: readonly ChangelogEntry[] = [
   return header + body + footer;
 }
 
-export function generateChangelog(): { count: number } {
+export async function generateChangelog(): Promise<{ count: number }> {
   const { entries, problems } = collectEntries();
 
   if (problems.length > 0) {
@@ -198,6 +198,14 @@ export function generateChangelog(): { count: number } {
   const out = renderModule(entries);
   writeFileSync(OUT_PATH, out, "utf-8");
   console.log(`✓ Changelog generated with ${entries.length} shipped entries → ${relative(ROOT, OUT_PATH)}`);
+
+  // Ticket 0055 - Regenerate public/changelog/rss.xml AFTER the changelog
+  // data is written; order matters (the feed reads the file we just wrote).
+  // Dynamic import keeps the new script's surface stable (default export) and
+  // avoids a static side-effect import that would couple module load order.
+  const { default: generateChangelogRss } = await import("./generate-changelog-rss");
+  await generateChangelogRss();
+
   return { count: entries.length };
 }
 
@@ -207,10 +215,8 @@ export function generateChangelog(): { count: number } {
 const invokedDirectly =
   process.argv[1] && process.argv[1].endsWith("generate-changelog.ts");
 if (invokedDirectly) {
-  try {
-    generateChangelog();
-  } catch (err) {
+  generateChangelog().catch((err: unknown) => {
     console.error(err instanceof Error ? err.message : String(err));
     process.exit(1);
-  }
+  });
 }
