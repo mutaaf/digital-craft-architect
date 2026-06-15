@@ -8,6 +8,36 @@ import { getCaseStudy } from '@/data/caseStudies';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, ArrowRight, MapPin, Building2, Quote } from 'lucide-react';
 
+// Ticket 0054 - Mirror-source constants for the Article JSON-LD block.
+// Both maps are tightly coupled to the structured-data emission below and
+// would be dead weight outside this file, so they live as module-level
+// constants per the 2026-05-25 mirror-source rule. The visible page copy
+// is the source of truth; these maps add only the SERP-side fields that
+// have no on-page surface (image asset, first-published date).
+
+// Maps the vertical label on each CaseStudyDetail to the existing
+// public/og-*.png asset shipped at repo root. Fallback to og-default.png
+// keeps the schema valid if a future case study introduces a new vertical
+// without a dedicated image.
+const IMAGE_BY_VERTICAL: Record<string, string> = {
+  Construction: '/og-construction.png',
+  'Real Estate': '/og-realestate.png',
+  Events: '/og-events.png',
+};
+
+// Anchored to the first-introduction date of each caseStudies entry, NOT
+// regenerated on every build, so dateModified does not churn. If a new
+// case-study entry is added to src/data/caseStudies.ts, the implementer
+// MUST add a matching PUBLISHED_DATES entry in the same PR. The
+// today-fallback below is a documented escape hatch; check-blog-dates
+// gates only blogPosts.ts, not this file, so an unmaintained slug
+// silently date-stamps to today on every build.
+const PUBLISHED_DATES: Record<string, string> = {
+  construction: '2025-09-01',
+  'real-estate': '2025-09-15',
+  events: '2025-10-01',
+};
+
 const CaseStudy = () => {
   const { slug } = useParams<{ slug: string }>();
   const { content } = useContent();
@@ -36,6 +66,24 @@ const CaseStudy = () => {
             { '@type': 'ListItem', position: 2, name: study.vertical, item: `https://digitalcraftai.com${study.verticalPath}` },
             { '@type': 'ListItem', position: 3, name: study.title, item: `https://digitalcraftai.com/case-studies/${study.slug}` },
           ],
+        })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Article',
+          headline: study.title,
+          description: study.summary,
+          author: { '@type': 'Organization', name: 'Digital Craft AI', url: 'https://digitalcraftai.com' },
+          publisher: {
+            '@type': 'Organization',
+            name: 'Digital Craft AI',
+            url: 'https://digitalcraftai.com',
+            logo: { '@type': 'ImageObject', url: 'https://digitalcraftai.com/favicon.svg' },
+          },
+          mainEntityOfPage: { '@type': 'WebPage', '@id': `https://digitalcraftai.com/case-studies/${study.slug}` },
+          about: { '@type': 'Thing', name: study.vertical },
+          image: `https://digitalcraftai.com${IMAGE_BY_VERTICAL[study.vertical] ?? '/og-default.png'}`,
+          datePublished: PUBLISHED_DATES[study.slug] ?? new Date().toISOString().slice(0, 10),
+          dateModified: PUBLISHED_DATES[study.slug] ?? new Date().toISOString().slice(0, 10),
         })}</script>
       </Helmet>
 
