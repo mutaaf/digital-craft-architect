@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { CheckCircle, FileText } from 'lucide-react';
 import { trackCTAClick } from '@/utils/analytics';
 import { getUtmParams } from '@/utils/utmTracker';
+import { submitLead } from '@/utils/submitLead';
 
 const LeadMagnetSection: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -16,14 +17,10 @@ const LeadMagnetSection: React.FC = () => {
 
     setIsSubmitting(true);
     try {
-      const response = await fetch('https://formspree.io/f/xovekqqk', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email,
-          ...getUtmParams(),
-          _subject: '[Lead Magnet] AI Readiness Checklist',
-        }),
+      const response = await submitLead({
+        email,
+        ...getUtmParams(),
+        _subject: '[Lead Magnet] AI Readiness Checklist',
       });
       if (response.ok) {
         setSubmitted(true);

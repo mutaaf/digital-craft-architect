@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { trackCTAClick, trackFormSubmission } from '@/utils/analytics';
 import { getUtmParams } from '@/utils/utmTracker';
+import { submitLead } from '@/utils/submitLead';
 import { useContent } from '@/hooks/useContent';
 import { streamChat } from '@/utils/openaiChat';
 import { setQuizPersona } from '@/utils/quizPersonaStore';
@@ -854,17 +855,13 @@ const AIReadinessQuiz: React.FC = () => {
     if (!email.trim()) return;
     setIsSubmitting(true);
     try {
-      const res = await fetch('https://formspree.io/f/xovekqqk', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email,
-          quiz_tier: tier,
-          quiz_business_type: vertical,
-          quiz_answers: JSON.stringify(answers),
-          ...getUtmParams(),
-          _subject: '[Quiz] AI Readiness',
-        }),
+      const res = await submitLead({
+        email,
+        quiz_tier: tier,
+        quiz_business_type: vertical,
+        quiz_answers: JSON.stringify(answers),
+        ...getUtmParams(),
+        _subject: '[Quiz] AI Readiness',
       });
       if (res.ok) {
         setEmailSubmitted(true);

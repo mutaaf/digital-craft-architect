@@ -7,6 +7,7 @@ import StickyCTA from '@/components/StickyCTA';
 import LiveChatBubble from '@/components/LiveChatBubble';
 import { useContent } from '@/hooks/useContent';
 import { useAnalytics } from '@/utils/analytics';
+import { submitLead } from '@/utils/submitLead';
 import {
   MessageSquare,
   FileText,
@@ -186,13 +187,9 @@ const Events: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const response = await fetch('https://formspree.io/f/xovekqqk', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          _subject: `[Events Lead] ${formData.company}`,
-        }),
+      const response = await submitLead({
+        ...formData,
+        _subject: `[Events Lead] ${formData.company}`,
       });
       if (response.ok) {
         setSubmitted(true);

@@ -30,6 +30,13 @@ async function gotoEstimate(page: import('@playwright/test').Page, query = '') {
     const msg = `pageerror: ${e.message}`;
     if (!isIgnorable(msg)) errors.push(msg);
   });
+  // Opt this test context out of the submitLead localhost block so the
+  // page.route() interception below actually sees the Formspree POST.
+  // The preview server runs on 127.0.0.1:4173 which would otherwise short-
+  // circuit the real fetch and return a synthetic 200.
+  await page.addInitScript(() => {
+    (window as Window & { __E2E__?: boolean }).__E2E__ = true;
+  });
   const response = await page.goto(`${ESTIMATE_ROUTE}${query}`, {
     waitUntil: 'domcontentloaded',
   });

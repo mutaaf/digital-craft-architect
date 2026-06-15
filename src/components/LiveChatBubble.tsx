@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { trackCTAClick } from '@/utils/analytics';
 import { getUtmParams } from '@/utils/utmTracker';
+import { submitLead } from '@/utils/submitLead';
 
 const STORAGE_KEY = 'dca_chat_bubble_dismissed';
 const DISMISS_DURATION_MS = 24 * 60 * 60 * 1000;
@@ -87,14 +88,10 @@ const LiveChatBubble: React.FC = () => {
 
     setIsSubmitting(true);
     try {
-      const response = await fetch('https://formspree.io/f/xovekqqk', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...updated,
-          ...getUtmParams(),
-          _subject: '[Chat Lead] ' + (updated.name || 'Website Visitor'),
-        }),
+      const response = await submitLead({
+        ...updated,
+        ...getUtmParams(),
+        _subject: '[Chat Lead] ' + (updated.name || 'Website Visitor'),
       });
       if (response.ok) {
         setSubmitted(true);

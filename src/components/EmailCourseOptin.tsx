@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { CheckCircle, Mail, Send } from 'lucide-react';
 import { trackCTAClick } from '@/utils/analytics';
 import { getUtmParams } from '@/utils/utmTracker';
+import { submitLead } from '@/utils/submitLead';
 
 type OptinStatus = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -35,14 +36,10 @@ const EmailCourseOptin: React.FC<EmailCourseOptinProps> = ({
     setStatus('submitting');
     trackCTAClick('email_course_optin_submit', location);
     try {
-      const res = await fetch('https://formspree.io/f/xovekqqk', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: value,
-          ...getUtmParams(),
-          _subject: '[Email Course] 5-day AI Implementation course signup',
-        }),
+      const res = await submitLead({
+        email: value,
+        ...getUtmParams(),
+        _subject: '[Email Course] 5-day AI Implementation course signup',
       });
       setStatus(res.ok ? 'success' : 'error');
       if (res.ok) setEmail('');
