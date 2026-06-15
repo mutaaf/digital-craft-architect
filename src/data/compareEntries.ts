@@ -87,4 +87,10 @@ export const COMPARE_ENTRIES: readonly CompareEntry[] = [
     path: '/compare/thumbtack',
     tagline: 'Thumbtack sells you leads. Digital Craft is the AI agent layer that books the leads you already have.',
   },
+  {
+    id: 'angi',
+    tool: 'Angi',
+    path: '/compare/angi',
+    tagline: 'Angi sells you shared leads. Digital Craft is the AI agent layer that books the leads you already have.',
+  },
 ];
