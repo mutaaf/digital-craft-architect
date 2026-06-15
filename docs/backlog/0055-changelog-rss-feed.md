@@ -1,7 +1,7 @@
 ---
 id: 0055
 title: Generate a public /changelog/rss.xml feed of shipped tickets so feed readers and SEO crawlers subscribe to the ship velocity
-status: in-progress
+status: shipped
 priority: P2
 area: content
 created: 2026-06-15
