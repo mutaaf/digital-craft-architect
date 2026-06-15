@@ -1,7 +1,7 @@
 ---
 id: 0053
 title: Comparison page "Digital Craft vs Angi" for high-intent home-services lead-marketplace switchers
-status: groomed
+status: in-progress
 priority: P1
 area: seo
 created: 2026-06-15
