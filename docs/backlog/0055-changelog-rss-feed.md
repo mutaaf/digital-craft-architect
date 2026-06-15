@@ -1,7 +1,7 @@
 ---
 id: 0055
 title: Generate a public /changelog/rss.xml feed of shipped tickets so feed readers and SEO crawlers subscribe to the ship velocity
-status: groomed
+status: in-progress
 priority: P2
 area: content
 created: 2026-06-15
@@ -278,3 +278,21 @@ to re-discover the architecture.
 ## Implementation log
 
 (Appended by the implementation-dev agent during execution.)
+
+### 2026-06-15 - implementation-dev starting
+
+- Branch: `feat/0055-changelog-rss-feed` off `origin/main`.
+- Plan: write the failing e2e spec FIRST (Box 7 of the AC), commit red,
+  then implement the script + helper + page edit + build-glue hookup
+  to drive it green. Helper extraction (AC #2) is attempted in the
+  same commit family; if it lands cleanly, `scripts/generate-rss.ts`
+  imports from `scripts/lib/escapeXml.ts`. The new generator is
+  invoked from the END of `scripts/generate-changelog.ts`'s exported
+  `generateChangelog()` so it runs AFTER `src/data/changelogEntries.ts`
+  is written - order matters per AC #4.
+- Per the 2026-05-28 lesson, the generator carries its own post-write
+  assertion block (empty file, missing required `<item>` child,
+  presence of `String.fromCharCode(8212)`); a violation saves
+  `public/changelog/rss.xml.broken` and exits code 1, gating
+  `npm run build` locally and the CI `build` job without adding a
+  new test framework.
