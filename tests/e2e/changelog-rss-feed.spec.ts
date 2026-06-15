@@ -76,9 +76,12 @@ test('channel block has title, link, description, language, and atom:link self',
   expect(channelMeta).toMatch(/<link>https:\/\/digitalcraftai\.com\/changelog<\/link>/);
   expect(channelMeta).toMatch(/<description>[^<]+<\/description>/);
   expect(channelMeta).toMatch(/<language>en-us<\/language>/);
-  expect(channelMeta).toMatch(
-    /<atom:link[^/>]*href="https:\/\/digitalcraftai\.com\/changelog\/rss\.xml"[^/>]*rel="self"[^/>]*\/>|<atom:link[^/>]*rel="self"[^/>]*href="https:\/\/digitalcraftai\.com\/changelog\/rss\.xml"[^/>]*\/>/,
-  );
+  // Atom self-link: tag must contain href to the feed URL AND rel="self".
+  // Order of attributes is not constrained by RSS.
+  const atomMatch = channelMeta.match(/<atom:link\b[^>]*\/>/);
+  expect(atomMatch, 'channel must contain a self-closing <atom:link/> tag').not.toBeNull();
+  expect(atomMatch![0]).toContain('href="https://digitalcraftai.com/changelog/rss.xml"');
+  expect(atomMatch![0]).toContain('rel="self"');
 });
 
 // Box 4: at least one <item> block; each <item> has all six required
@@ -159,12 +162,18 @@ test('/changelog HTML page advertises the RSS feed via <link rel="alternate">', 
     )
     .toBeGreaterThan(0);
 
-  const href = await page
+  // Read every matching href to handle the case where Helmet emits the tag
+  // more than once (the alternate link is additive, not deduped across
+  // navigations); the assertion succeeds as long as at least one points at
+  // the feed.
+  const hrefs = await page
     .locator('head link[rel="alternate"][type="application/rss+xml"]')
-    .first()
-    .getAttribute('href');
-  expect(href).not.toBeNull();
-  expect(href!.endsWith('/changelog/rss.xml')).toBe(true);
+    .evaluateAll((nodes) => nodes.map((n) => (n as HTMLLinkElement).getAttribute('href') ?? ''));
+  const pointsAtFeed = hrefs.some((h) => h.endsWith('/changelog/rss.xml'));
+  expect(
+    pointsAtFeed,
+    `expected a <link rel="alternate" type="application/rss+xml"> with href ending in /changelog/rss.xml; got ${JSON.stringify(hrefs)}`,
+  ).toBe(true);
 
   expect(errors).toEqual([]);
 });
