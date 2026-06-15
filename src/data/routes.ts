@@ -5,8 +5,10 @@
 // re-exports ROUTES from here verbatim and continues to own its own
 // IGNORABLE_ERROR_PATTERNS list (test-environment-only concern).
 //
-// All static routes from src/App.tsx. Dynamic-param routes (:slug etc.) are
-// excluded - add a dedicated test if you need to cover them with real slugs.
+// All static routes from src/App.tsx. Dynamic-param routes are excluded
+// unless the slug values are themselves a known finite set (the three
+// case-study slugs from src/data/caseStudies.ts are listed explicitly so
+// the smoke spec exercises them).
 // Keep this list in sync when adding new routes; the agent will fail the
 // smoke gate if it adds a route here without it actually rendering.
 export const ROUTES: readonly string[] = [
@@ -111,6 +113,9 @@ export const ROUTES: readonly string[] = [
   '/ai-for-property-managers',
   '/ai-for-cleaning-services',
   '/locations/texas',
+  '/case-studies/construction',
+  '/case-studies/real-estate',
+  '/case-studies/events',
   '/blog',
   '/classes',
   '/classes/register',

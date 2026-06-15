@@ -20,6 +20,7 @@ export interface ChangelogEntry {
 }
 
 export const changelogEntries: readonly ChangelogEntry[] = [
+  { id: "0053", title: "Comparison page \"Digital Craft vs Angi\" for high-intent home-services lead-marketplace switchers", area: "seo", created: "2026-06-15" },
   { id: "0052", title: "Shareable AI Readiness Quiz result deep-link rendering the tier card from a /quiz?tier= URL", area: "conversion", created: "2026-06-13" },
   { id: "0051", title: "Emit LocalBusiness JSON-LD on /locations/texas so the state-level location page indexes as a local search artifact", area: "seo", created: "2026-06-13" },
   { id: "0050", title: "AI-for-cleaning-services long-tail landing page funneling into home-services demos", area: "content", created: "2026-06-13" },
