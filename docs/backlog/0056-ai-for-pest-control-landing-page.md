@@ -1,7 +1,7 @@
 ---
 id: 0056
 title: AI-for-pest-control long-tail landing page funneling into home-services demos
-status: groomed
+status: in-progress
 priority: P1
 area: content
 created: 2026-06-15
@@ -302,4 +302,42 @@ to re-discover the architecture.
 
 ## Implementation log
 
-(Appended by the implementation-dev agent during execution.)
+### 2026-06-15 - implementation-dev pickup
+
+Branched `feat/0056-ai-for-pest-control` off fresh `origin/main` (last commit
+`b5acc57`, ticket 0054 ship-status). Flipped ticket frontmatter and the
+`docs/backlog/README.md` index row to `in-progress` together in the first
+commit per the 2026-05-22 two-PR lesson.
+
+### 2026-06-15 - mandatory grep audit (2026-05-30 second-@type lesson)
+
+Per the engineering note, ran:
+
+```
+grep -rn "=== 'BreadcrumbList'" tests/e2e
+grep -rn "exactly one BreadcrumbList" tests/e2e
+```
+
+Every `=== 'BreadcrumbList'` predicate is inside a per-URL spec that calls its
+own local goto helper (e.g. `gotoCleaningServices`, `gotoPlumbers`, etc.) before
+running the predicate, so the assertion is scoped to the page under test, not
+the whole site. The seven existing `tests/e2e/ai-for-*.spec.ts` "exactly one
+BreadcrumbList block expected" assertions are all of that per-URL shape; the
+new `/ai-for-pest-control` page emits exactly one BreadcrumbList on its own
+URL and cannot collide with any of them.
+
+`tests/e2e/demo-breadcrumbs.spec.ts` iterates a hard-coded `STARTER_ROUTES`
+list of demo hub/leaf routes (construction, realestate). It does NOT include
+`/ai-for-pest-control` and is not generalized by glob over `ROUTES`, so adding
+a new top-level trade page cannot regress it.
+
+No spec asserts "exactly one BreadcrumbList site-wide." The deviation budget
+is zero - the new page is safe to ship.
+
+### 2026-06-15 - TDD red phase
+
+Wrote `tests/e2e/ai-for-pest-control.spec.ts` first, modeled 1:1 on
+`tests/e2e/ai-for-cleaning-services.spec.ts` (the closest peer per the ticket).
+Ran the spec against the not-yet-implemented page; it failed at the H1 check
+as expected. Then shipped `src/pages/AiForPestControl.tsx` and registered the
+route in `src/App.tsx` + `src/data/routes.ts`.
