@@ -1,7 +1,7 @@
 ---
 id: 0053
 title: Comparison page "Digital Craft vs Angi" for high-intent home-services lead-marketplace switchers
-status: groomed
+status: in-progress
 priority: P1
 area: seo
 created: 2026-06-15
@@ -293,4 +293,39 @@ to re-discover the architecture.
 
 ## Implementation log
 
-(Appended by the implementation-dev agent during execution.)
+### 2026-06-15 - implementation-dev
+
+Mandatory pre-code grep per the 2026-05-30 second-@type lesson:
+`tests/e2e/compare-*.spec.ts` and `tests/e2e/*-jsonld.spec.ts` for
+`=== 'BreadcrumbList'` AND `=== 'WebPage'` predicates. Result: every
+`toHaveLength(1)` / "exactly one" predicate is URL-scoped to a
+different route (`/compare/jobber`, `/compare/servicetitan`,
+`/compare/podium`, `/compare/housecallpro`, `/compare/buildertrend`,
+`/compare/thumbtack`, `/compare` hub, `/my`, plus the `/demos`,
+`/changelog`, `/trust`, `/quiz`, `/roi`, `/ai-for-*` per-page
+specs). NONE assert "exactly one of either @type site-wide", so a
+new `/compare/angi`-scoped BreadcrumbList + WebPage pair does NOT
+collide with any predecessor spec. No predecessor spec rewrite
+needed; the 2026-05-30 mirror-source-fix family rule does not
+apply on this ticket.
+
+Files touched:
+- `src/pages/compare/Angi.tsx` (new, 313 lines, under the 320 cap)
+- `src/App.tsx` (one import, one Route, next to thumbtack)
+- `src/data/routes.ts` (one entry `/compare/angi`, after thumbtack)
+- `src/data/compareEntries.ts` (twelfth entry, id `angi`, tagline
+  mirrored from the hero positioning sentence per the 2026-05-25
+  mirror-source rule)
+- `tests/e2e/compare-angi.spec.ts` (new, mirrored on
+  `tests/e2e/compare-thumbtack.spec.ts`; nine boxes)
+- `docs/backlog/0053-compare-angi-page.md` (this log + status flip)
+- `docs/backlog/README.md` (index row status flip)
+
+Self-Review grep before push:
+- `grep -n "$(printf '—')" src/pages/compare/Angi.tsx
+  src/data/compareEntries.ts tests/e2e/compare-angi.spec.ts`: zero
+  matches (the em-dash Hard NO holds).
+- `grep -nE "BreadcrumbList|WebPage" src/pages/compare/Angi.tsx`:
+  exactly two `@type` declarations, both the canonical pair.
+- No `/api/` change, no `package.json` change, no edits to the
+  eleven predecessor compare pages or specs.
