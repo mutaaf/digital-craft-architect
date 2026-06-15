@@ -1,7 +1,7 @@
 ---
 id: 0054
 title: Emit Article JSON-LD on every /case-studies/:slug page so each case study indexes as a structured article artifact
-status: in-progress
+status: shipped
 priority: P1
 area: seo
 created: 2026-06-15
