@@ -1,7 +1,7 @@
 ---
 id: 0054
 title: Emit Article JSON-LD on every /case-studies/:slug page so each case study indexes as a structured article artifact
-status: groomed
+status: in-progress
 priority: P1
 area: seo
 created: 2026-06-15
@@ -272,3 +272,30 @@ to re-discover the architecture.
 ## Implementation log
 
 (Appended by the implementation-dev agent during execution.)
+
+### 2026-06-15 - implementation-dev pickup
+
+Branch: `feat/0054-case-study-article-jsonld`.
+
+Pre-write grep for the 2026-05-30 second-@type lesson, run BEFORE any
+code edits:
+
+- `rg "=== 'Article'" tests/e2e/*-jsonld.spec.ts tests/e2e/case-*.spec.ts`
+  returns ZERO matches today. The only `'Article'`-bearing strings in the
+  repo are the ticket file itself and an `og:type="article"` Helmet meta
+  on this page (string equality, not a JSON-LD `@type` predicate). The
+  new `Article` JSON-LD block therefore cannot collide with any existing
+  spec's "exactly-one-of-this-@type" assertion. No predecessor spec needs
+  widening as a precondition.
+- Existing JSON-LD specs reviewed for sibling collisions:
+  `homepage-organization-jsonld`, `website-sitelinks-jsonld`,
+  `demos-softwareapplication-jsonld`, `quiz-jsonld`,
+  `changelog-itemlist-jsonld`, `trust-aboutpage-jsonld`,
+  `texas-localbusiness-jsonld`. None target `/case-studies/:slug` and
+  none assert an `Article` predicate.
+- The pre-existing `BreadcrumbList` block on `/case-studies/:slug`
+  (CaseStudy.tsx lines 31-39) is per-URL scoped; no global "exactly one
+  BreadcrumbList site-wide" spec exists. The new Article block sits in
+  the same `<Helmet>` alongside it without touching its emission.
+
+
