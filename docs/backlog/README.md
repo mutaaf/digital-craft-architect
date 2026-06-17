@@ -65,7 +65,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0054 | Emit Article JSON-LD on every /case-studies/:slug page so each case study indexes as a structured article artifact | P1 | shipped | seo |
 | 0055 | Generate a public /changelog/rss.xml feed of shipped tickets so feed readers and SEO crawlers subscribe to the ship velocity | P2 | shipped | content |
 | 0056 | AI-for-pest-control long-tail landing page funneling into home-services demos | P1 | shipped | content |
-| 0057 | Public /case-studies index hub listing every detailed case study with CollectionPage and ItemList JSON-LD | P1 | groomed | seo |
+| 0057 | Public /case-studies index hub listing every detailed case study with CollectionPage and ItemList JSON-LD | P1 | in-progress | seo |
 | 0058 | AI-for-pool-service long-tail landing page funneling into home-services demos | P1 | groomed | content |
 | 0059 | Public /playbook methodology page describing how Digital Craft designs an AI deployment with HowTo JSON-LD | P1 | groomed | trust |
 | 0060 | Return-visit streak badge on /my dashboard surfacing a multi-day engagement signal | P2 | groomed | demos |
