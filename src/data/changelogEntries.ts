@@ -20,6 +20,7 @@ export interface ChangelogEntry {
 }
 
 export const changelogEntries: readonly ChangelogEntry[] = [
+  { id: "0059", title: "Public /playbook methodology page describing how Digital Craft designs an AI deployment with HowTo JSON-LD", area: "trust", created: "2026-06-17" },
   { id: "0058", title: "AI-for-pool-service long-tail landing page funneling into home-services demos", area: "content", created: "2026-06-17" },
   { id: "0057", title: "Public /case-studies index hub listing every detailed case study with CollectionPage and ItemList JSON-LD", area: "seo", created: "2026-06-17" },
   { id: "0056", title: "AI-for-pest-control long-tail landing page funneling into home-services demos", area: "content", created: "2026-06-15" },

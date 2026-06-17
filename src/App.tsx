@@ -96,6 +96,7 @@ import EasterEgg from "./components/EasterEgg";
 import { Analytics } from "@vercel/analytics/react";
 
 import { DemoContextProvider } from "./contexts/DemoContext";
+import { recordVisitToday } from "./utils/visitStreakStore";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -191,7 +192,18 @@ window.addEventListener('unhandledrejection', (event) => {
   });
 });
 
-const App = () => (
+const App = () => {
+  // Ticket 0060 - Record today's UTC date in the visit-day rolling-window
+  // store so /my can surface a return-visit streak badge. This effect
+  // sits on the top-level App component on purpose: it fires exactly once
+  // per app mount (not once per route change), so the count tracks
+  // distinct visit-days, not page-view chatter. Do NOT relocate this to
+  // a per-page mount - that would multi-count a session.
+  React.useEffect(() => {
+    recordVisitToday();
+  }, []);
+
+  return (
   <ErrorBoundary
     fallback={ErrorFallback}
     onError={(error, componentStack, eventId) => {
@@ -328,6 +340,7 @@ const App = () => (
       </HelmetProvider>
     </QueryClientProvider>
   </ErrorBoundary>
-);
+  );
+};
 
 export default App;

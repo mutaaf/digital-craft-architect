@@ -7,6 +7,14 @@
     <language>en-us</language>
     <atom:link href="https://digitalcraftai.com/changelog/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Public /playbook methodology page describing how Digital Craft designs an AI deployment with HowTo JSON-LD</title>
+      <link>https://digitalcraftai.com/changelog#0059</link>
+      <description>Shipped 2026-06-17 in area: trust.</description>
+      <pubDate>Wed, 17 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0059</guid>
+      <category>trust</category>
+    </item>
+    <item>
       <title>AI-for-pool-service long-tail landing page funneling into home-services demos</title>
       <link>https://digitalcraftai.com/changelog#0058</link>
       <description>Shipped 2026-06-17 in area: content.</description>

@@ -163,6 +163,16 @@ const SECTIONS: Section[] = [
             per-question answers, no ROI estimate. Clearing localStorage resets it.
           </li>
           <li>
+            <strong className="text-gray-900 dark:text-white">localStorage</strong>: a list
+            of distinct YYYY-MM-DD date strings for the days you visited the site over the
+            trailing 14 days, keyed under
+            <code className="mx-1 px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-sm">dca_visit_days_v1</code>.
+            This powers the small return-visit badge on the
+            <Link to="/my" className="mx-1 text-primary hover:underline">/my</Link>
+            dashboard. Date strings only; client-side only with no server-side write.
+            Clearing localStorage resets it.
+          </li>
+          <li>
             <strong className="text-gray-900 dark:text-white">sessionStorage</strong>: the
             AI response cache with the prefix
             <code className="mx-1 px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-sm">dca_deal_</code>
