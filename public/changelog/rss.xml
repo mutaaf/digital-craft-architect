@@ -15,6 +15,14 @@
       <category>content</category>
     </item>
     <item>
+      <title>Generate a public /changelog/rss.xml feed of shipped tickets so feed readers and SEO crawlers subscribe to the ship velocity</title>
+      <link>https://digitalcraftai.com/changelog#0055</link>
+      <description>Shipped 2026-06-15 in area: content.</description>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0055</guid>
+      <category>content</category>
+    </item>
+    <item>
       <title>Emit Article JSON-LD on every /case-studies/:slug page so each case study indexes as a structured article artifact</title>
       <link>https://digitalcraftai.com/changelog#0054</link>
       <description>Shipped 2026-06-15 in area: seo.</description>
