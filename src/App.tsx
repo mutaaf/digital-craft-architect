@@ -79,6 +79,7 @@ import AiForLandscapers from "./pages/AiForLandscapers";
 import AiForPropertyManagers from "./pages/AiForPropertyManagers";
 import AiForCleaningServices from "./pages/AiForCleaningServices";
 import AiForPestControl from "./pages/AiForPestControl";
+import AiForPoolService from "./pages/AiForPoolService";
 import Texas from "./pages/locations/Texas";
 import CaseStudiesHub from "./pages/case-studies/CaseStudiesHub";
 import CaseStudy from "./pages/case-studies/CaseStudy";
@@ -308,6 +309,7 @@ const App = () => (
               <Route path="/ai-for-property-managers" element={<AiForPropertyManagers />} />
               <Route path="/ai-for-cleaning-services" element={<AiForCleaningServices />} />
               <Route path="/ai-for-pest-control" element={<AiForPestControl />} />
+              <Route path="/ai-for-pool-service" element={<AiForPoolService />} />
               <Route path="/locations/texas" element={<Texas />} />
               <Route path="/case-studies" element={<CaseStudiesHub />} />
               <Route path="/case-studies/:slug" element={<CaseStudy />} />

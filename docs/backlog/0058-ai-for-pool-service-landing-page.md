@@ -1,7 +1,7 @@
 ---
 id: 0058
 title: AI-for-pool-service long-tail landing page funneling into home-services demos
-status: groomed
+status: in-progress
 priority: P1
 area: content
 created: 2026-06-17
@@ -315,7 +315,10 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0058-ai-for-pool-service-landing-page` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/ai-for-pool-service.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-06-17 - branch `feat/0058-ai-for-pool-service-landing-page` opened off fresh `origin/main`; ticket file + README index row flipped `groomed` -> `in-progress` in the same commit per the 2026-05-22 check-backlog gate.
+- 2026-06-17 - per the 2026-05-30 second-@type lesson, `grep -rn "=== 'BreadcrumbList'" tests/e2e/` and `grep -rn "exactly one BreadcrumbList" tests/e2e/` confirmed every existing `BreadcrumbList` predicate is per-URL scoped: each `ai-for-*.spec.ts`, `compare-*.spec.ts`, `*-jsonld.spec.ts` calls its local goto helper first, so a new `/ai-for-pool-service`-scoped block cannot collide. `demo-breadcrumbs.spec.ts` iterates a hard-coded STARTER_ROUTES list (construction/realestate demo paths only, no `/ai-for-*` routes). No spec asserts "exactly one BreadcrumbList site-wide." Safe to ship.
+- 2026-06-17 - failing test added in `tests/e2e/ai-for-pool-service.spec.ts` (modeled 1:1 on `tests/e2e/ai-for-pest-control.spec.ts`).
+- 2026-06-17 - `src/pages/AiForPoolService.tsx` (under 280 lines) modeled 1:1 on `src/pages/AiForPestControl.tsx`, swapped all pest-control strings for pool-service equivalents (peak-season green-pool and equipment-failure emergencies, weekly recurring-service skip notices, end-of-season closing appointments). Module-level mirror-source constants per the 2026-05-25 rule: META_DESCRIPTION used in both the Helmet meta tag and the JSON-LD copy paths. Demo CTAs route to `/homeservices/demo/lead-responder`, `/homeservices/demo/estimate`, `/homeservices/demo/voice-followup`. testid: `poolservice-demo-cta`. No em-dash anywhere.
+- 2026-06-17 - route registered in `src/App.tsx` next to `/ai-for-pest-control` (non-lazy convention preserved); `/ai-for-pool-service` added to `ROUTES` in `src/data/routes.ts` per the 2026-06-07 src-imports-tests lesson.
+- 2026-06-17 - PR #N opened, CI [state]
+- 2026-06-17 - merged to main
