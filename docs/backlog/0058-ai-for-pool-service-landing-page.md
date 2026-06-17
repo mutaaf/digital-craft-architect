@@ -1,7 +1,7 @@
 ---
 id: 0058
 title: AI-for-pool-service long-tail landing page funneling into home-services demos
-status: in-progress
+status: shipped
 priority: P1
 area: content
 created: 2026-06-17
