@@ -1,7 +1,7 @@
 ---
 id: 0057
 title: Public /case-studies index hub listing every detailed case study with CollectionPage and ItemList JSON-LD
-status: in-progress
+status: shipped
 priority: P1
 area: seo
 created: 2026-06-17
