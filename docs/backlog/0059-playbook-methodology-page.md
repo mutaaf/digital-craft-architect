@@ -1,7 +1,7 @@
 ---
 id: 0059
 title: Public /playbook methodology page describing how Digital Craft designs an AI deployment with HowTo JSON-LD
-status: in-progress
+status: shipped
 priority: P1
 area: trust
 created: 2026-06-17
