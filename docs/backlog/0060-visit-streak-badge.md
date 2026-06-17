@@ -1,7 +1,7 @@
 ---
 id: 0060
 title: Return-visit streak badge on /my dashboard surfacing a multi-day engagement signal
-status: in-progress
+status: shipped
 priority: P2
 area: demos
 created: 2026-06-17
