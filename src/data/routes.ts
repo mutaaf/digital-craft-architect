@@ -85,6 +85,7 @@ export const ROUTES: readonly string[] = [
   '/my',
   '/glossary',
   '/trust',
+  '/playbook',
   '/changelog',
   '/uptime',
   '/compare',
