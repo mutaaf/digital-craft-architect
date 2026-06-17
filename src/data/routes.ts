@@ -114,6 +114,7 @@ export const ROUTES: readonly string[] = [
   '/ai-for-cleaning-services',
   '/ai-for-pest-control',
   '/locations/texas',
+  '/case-studies',
   '/case-studies/construction',
   '/case-studies/real-estate',
   '/case-studies/events',

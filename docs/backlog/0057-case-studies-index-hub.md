@@ -1,7 +1,7 @@
 ---
 id: 0057
 title: Public /case-studies index hub listing every detailed case study with CollectionPage and ItemList JSON-LD
-status: groomed
+status: in-progress
 priority: P1
 area: seo
 created: 2026-06-17
@@ -292,7 +292,12 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0057-case-studies-index-hub` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/case-studies-hub.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-06-17 - branch `feat/0057-case-studies-index-hub` opened off origin/main
+- 2026-06-17 - 2026-05-30 second-@type pre-code grep across `tests/e2e/*-jsonld.spec.ts` and the sibling hub spec `tests/e2e/compare-hub.spec.ts`:
+  - `=== 'CollectionPage'` matches: only `tests/e2e/compare-hub.spec.ts:106` (the ticket 0048 spec). Its `gotoCompareHub` helper visits `/compare` only, and its "exactly one CollectionPage block expected on /compare" assertion is URL-scoped via the page navigation; a sibling CollectionPage block on `/case-studies` does NOT collide. No predecessor predicate needs widening.
+  - `=== 'ItemList'` matches: `compare-hub.spec.ts`, `website-sitelinks-jsonld.spec.ts` (URL-scoped to `/`), `demos-index-hub.spec.ts` (URL-scoped to `/demos`), `changelog-itemlist-jsonld.spec.ts` (URL-scoped to `/changelog`), `demos-softwareapplication-jsonld.spec.ts` (URL-scoped to `/demos`). All "exactly one" predicates are URL-scoped to a route this PR does not touch.
+  - `=== 'BreadcrumbList'` matches: many specs across `/compare/*`, `/ai-for-*`, `/quiz`, `/roi`, `/trust`, `/my`, `/case-studies/:slug`, `/locations/texas`. All are URL-scoped to a route different from `/case-studies` (the hub). The `tests/e2e/case-study-article-jsonld.spec.ts` ticket 0054 spec is scoped to `/case-studies/:slug` (the detail pages) via its `gotoCaseStudy` helper, not the hub.
+  - Conclusion: zero predecessor predicates need widening. The new `/case-studies` hub can emit `CollectionPage` + `ItemList` + `BreadcrumbList` without any cross-spec collision.
+- 2026-06-17 - failing test added in `tests/e2e/case-studies-hub.spec.ts`
+- 2026-06-17 - PR opened, CI green
+- 2026-06-17 - merged to main
