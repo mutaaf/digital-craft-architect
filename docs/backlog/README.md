@@ -68,7 +68,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0057 | Public /case-studies index hub listing every detailed case study with CollectionPage and ItemList JSON-LD | P1 | shipped | seo |
 | 0058 | AI-for-pool-service long-tail landing page funneling into home-services demos | P1 | shipped | content |
 | 0059 | Public /playbook methodology page describing how Digital Craft designs an AI deployment with HowTo JSON-LD | P1 | shipped | trust |
-| 0060 | Return-visit streak badge on /my dashboard surfacing a multi-day engagement signal | P2 | in-progress | demos |
+| 0060 | Return-visit streak badge on /my dashboard surfacing a multi-day engagement signal | P2 | shipped | demos |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the
