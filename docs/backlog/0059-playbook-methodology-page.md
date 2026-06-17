@@ -1,7 +1,7 @@
 ---
 id: 0059
 title: Public /playbook methodology page describing how Digital Craft designs an AI deployment with HowTo JSON-LD
-status: groomed
+status: in-progress
 priority: P1
 area: trust
 created: 2026-06-17
@@ -289,7 +289,9 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0059-playbook-methodology-page` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/playbook.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-06-17 - branch `feat/0059-playbook-methodology-page` opened.
+- 2026-06-17 - Pre-write JSON-LD predicate grep (per the 2026-05-30 second-@type lesson):
+  - `grep -rn "=== 'HowTo'" tests/e2e/` returned ZERO matches. `/playbook` is the first surface site-wide to emit a HowTo JSON-LD block, so no predecessor "exactly one HowTo block site-wide" predicate could collide.
+  - `grep -rn "=== 'BreadcrumbList'" tests/e2e/` returned many matches across `tests/e2e/*-jsonld.spec.ts` and other specs (trust-aboutpage-jsonld, changelog-itemlist-jsonld, quiz-jsonld, texas-localbusiness-jsonld, case-study-article-jsonld, the `ai-for-*` specs, the `compare/*` specs, my-dashboard, roi-calculator, demo-breadcrumbs, case-studies-hub, compare-hub). Each predecessor predicate is URL-scoped: the spec calls `page.goto('/trust')` or `/changelog` or `/quiz` or `/case-studies/...` etc. before counting BreadcrumbList blocks, so adding a new `/playbook`-scoped BreadcrumbList block cannot intercept any of them. The new spec is URL-scoped the same way (`page.goto('/playbook')`).
+- 2026-06-17 - failing test added in `tests/e2e/playbook.spec.ts`.
+- 2026-06-17 - feat PR opened, watching CI.
