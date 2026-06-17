@@ -1,7 +1,7 @@
 ---
 id: 0060
 title: Return-visit streak badge on /my dashboard surfacing a multi-day engagement signal
-status: groomed
+status: in-progress
 priority: P2
 area: demos
 created: 2026-06-17
@@ -276,7 +276,7 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0060-visit-streak-badge` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/visit-streak-badge.spec.ts`
+- 2026-06-17 - branch `feat/0060-visit-streak-badge` opened
+- 2026-06-17 - failing test added in `tests/e2e/visit-streak-badge.spec.ts`
 - YYYY-MM-DD - PR #N opened, CI [state]
 - YYYY-MM-DD - merged to main

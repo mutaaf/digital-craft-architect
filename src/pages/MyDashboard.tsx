@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Sparkles, ArrowRight, Calculator, ListChecks, Brain, Inbox } from 'lucide-react';
@@ -10,6 +10,7 @@ import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
 import { getRecentDemos, type RecentDemo } from '@/utils/recentDemosStore';
 import { getQuizPersona, type QuizPersona } from '@/utils/quizPersonaStore';
+import { getVisitStreak, recordVisitToday } from '@/utils/visitStreakStore';
 import { loadLastEstimate } from '@/pages/construction/lastEstimateStore';
 import { encodeEstimateParams, type EstimateShareState } from '@/pages/construction/estimateShareParams';
 import { PROJECT_TYPES, FINISH_LEVELS } from '@/data/estimatePricing';
@@ -75,14 +76,34 @@ const MyDashboard: React.FC = () => {
   const [estimate, setEstimate] = useState<EstimateShareState | null>(null);
   const [recent, setRecent] = useState<RecentDemo[]>([]);
   const [persona, setPersona] = useState<QuizPersona | null>(null);
+  const [streak, setStreak] = useState<ReturnType<typeof getVisitStreak> | null>(null);
   const [hydrated, setHydrated] = useState(false);
+  // Ticket 0060 - guard so React 18 strict-mode double-mount does not
+  // double-fire the streak_badge_view analytics event.
+  const streakViewTracked = useRef<boolean>(false);
 
   useEffect(() => {
+    // Ticket 0060 - The canonical recordVisitToday() call lives on the
+    // top-level App component, but React mounts children before parents
+    // so the child effect (this one) fires BEFORE the App effect on a
+    // cold load. Replay the record here so getVisitStreak() observes
+    // today's date on the first dashboard render. The store is
+    // idempotent (recording today twice in the same session writes
+    // the same Set, no multi-count).
+    safeRead(() => { recordVisitToday(); return null; }, null);
     setEstimate(safeRead(() => loadLastEstimate('construction'), null));
     setRecent(safeRead(() => getRecentDemos().slice(0, 3), []));
     setPersona(safeRead(() => getQuizPersona(), null));
+    setStreak(safeRead(() => getVisitStreak(), null));
     setHydrated(true);
   }, []);
+
+  useEffect(() => {
+    if (!streak || streak.daysInLast14 < 1) return;
+    if (streakViewTracked.current) return;
+    streakViewTracked.current = true;
+    trackCTAClick('streak_badge_view', 'mydashboard');
+  }, [streak]);
 
   const anyData = estimate !== null || recent.length > 0 || persona !== null;
 
@@ -118,6 +139,22 @@ const MyDashboard: React.FC = () => {
 
       <section className="py-10 bg-white dark:bg-gray-950">
         <div className="container mx-auto px-4 max-w-3xl space-y-6">
+          {hydrated && streak && streak.daysInLast14 >= 1 && (
+            <article data-testid="dashboard-streak-badge" className={CARD}>
+              <div className="flex items-start gap-4">
+                <div className={ICON}><Sparkles size={22} /></div>
+                <div className="min-w-0 flex-1">
+                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    {`Visiting ${streak.daysInLast14} ${streak.daysInLast14 === 1 ? 'day' : 'days'} in the last 14`}
+                  </h2>
+                  <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
+                    {streak.daysInLast14 >= 2 ? 'Welcome back.' : 'Glad you are here.'}
+                  </p>
+                </div>
+              </div>
+            </article>
+          )}
+
           {hydrated && estimate && (
             <article data-testid="dashboard-estimate-card" className={CARD}>
               <div className="flex items-start gap-4">
