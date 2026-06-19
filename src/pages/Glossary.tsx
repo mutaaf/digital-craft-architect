@@ -89,6 +89,26 @@ const definedTermSetJsonLd = {
   })),
 };
 
+// Ticket 0063 - BreadcrumbList JSON-LD (Home -> AI & Automation Glossary)
+// emitted inside the existing Helmet head, matching the shape in
+// src/pages/Changelog.tsx (the closest peer for a single-Helmet content page
+// emitting a BreadcrumbList block alongside another @type). The position-2
+// name reuses the GLOSSARY_NAME constant per the 2026-05-25 mirror-source
+// rule so the schema cannot drift from the visible hero badge.
+const BREADCRUMB_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://digitalcraftai.com' },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: GLOSSARY_NAME,
+      item: 'https://digitalcraftai.com/glossary',
+    },
+  ],
+};
+
 const Glossary: React.FC = () => {
   const { content } = useContent();
 
@@ -97,6 +117,7 @@ const Glossary: React.FC = () => {
       <Helmet>
         <title>AI & Automation Glossary | Key Terms Explained | DigitalCraft AI</title>
         <meta name="description" content={GLOSSARY_DESCRIPTION} />
+        <script type="application/ld+json">{JSON.stringify(BREADCRUMB_SCHEMA)}</script>
         <script type="application/ld+json">{JSON.stringify(definedTermSetJsonLd)}</script>
       </Helmet>
       <Navbar />
