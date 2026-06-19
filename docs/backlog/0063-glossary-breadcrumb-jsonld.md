@@ -1,7 +1,7 @@
 ---
 id: 0063
 title: Emit BreadcrumbList JSON-LD on /glossary so the AI glossary indexes as a navigable artifact
-status: groomed
+status: in-progress
 priority: P2
 area: seo
 created: 2026-06-19
@@ -281,7 +281,8 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0063-...` opened
-- YYYY-MM-DD - failing test added in `tests/...`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-06-19 - branch `feat/0063-glossary-breadcrumb-jsonld` opened off fresh origin/main; ticket flipped to in-progress with README index row in sync (`node scripts/check-backlog.mjs` green).
+- 2026-06-19 - pre-code grep per the 2026-05-30 second-@type lesson:
+  - `=== 'BreadcrumbList'` matches across `tests/e2e/case-study-article-jsonld.spec.ts:63`, `tests/e2e/changelog-itemlist-jsonld.spec.ts:103`, `tests/e2e/trust-aboutpage-jsonld.spec.ts:111`, `tests/e2e/texas-localbusiness-jsonld.spec.ts:116`, `tests/e2e/quiz-jsonld.spec.ts:98`. Every predicate is a per-URL `isBreadcrumb` filter scoped to that spec's `page.goto(...)` route (`/case-studies/...`, `/changelog`, `/trust`, `/`, `/quiz`), none scoped to `/glossary`, so emitting a new `/glossary`-scoped BreadcrumbList block cannot collide.
+  - `=== 'DefinedTermSet'` match only in `tests/e2e/glossary-definedtermset-schema.spec.ts:71` (the ticket 0013 spec). That spec's predicate is `findDefinedTermSet(blocks)` which filters by `@type === 'DefinedTermSet'` and asserts `.toHaveLength(1)` over the FILTERED set, not over all JSON-LD blocks on the page. Adding a sibling BreadcrumbList block leaves the DefinedTermSet count at 1, so the 0013 spec stays green without any predicate widening.
+
