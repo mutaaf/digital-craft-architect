@@ -14,6 +14,7 @@ import {
   decodeRoiParams,
   encodeRoiParams,
 } from './roiCalculatorParams';
+import { saveLastRoiResult } from '@/utils/roiResultStore';
 
 // Ticket 0046 - Shareable AI ROI calculator. Shell mirrors AIReadinessQuiz.
 // Module-level constants follow the 2026-05-25 mirror-source rule so the
@@ -115,6 +116,25 @@ const RoiCalculator: React.FC = () => {
     if (arrivedWithParams) trackCTAClick('roi_share_open', 'roi');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Ticket 0062 - Debounced persistence of the visitor's last ROI bundle so
+  // the /my dashboard can resurface it on a return visit. 800ms debounce
+  // because a visitor scrubbing the number inputs would otherwise write 40
+  // localStorage entries in five seconds; the saved value the visitor cares
+  // about is the one they stop on, not every interstitial keystroke. The
+  // differs-from-defaults guard prevents a bare /roi visit (no typing) from
+  // writing a placeholder bundle that would surface a fake saved card on /my.
+  useEffect(() => {
+    const t = setTimeout(() => {
+      const isDefault =
+        inputs.leads === DEFAULT_INPUTS.leads &&
+        inputs.minutes === DEFAULT_INPUTS.minutes &&
+        inputs.hourly === DEFAULT_INPUTS.hourly &&
+        inputs.afterhours === DEFAULT_INPUTS.afterhours;
+      if (!isDefault) saveLastRoiResult(inputs);
+    }, 800);
+    return () => clearTimeout(t);
+  }, [inputs]);
 
   return (
     <>

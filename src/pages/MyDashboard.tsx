@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Sparkles, ArrowRight, Calculator, ListChecks, Brain, Inbox } from 'lucide-react';
+import { Sparkles, ArrowRight, Calculator, ListChecks, Brain, Inbox, DollarSign } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ScrollProgress from '@/components/ScrollProgress';
@@ -11,8 +11,10 @@ import { trackCTAClick } from '@/utils/analytics';
 import { getRecentDemos, type RecentDemo } from '@/utils/recentDemosStore';
 import { getQuizPersona, type QuizPersona } from '@/utils/quizPersonaStore';
 import { getVisitStreak, recordVisitToday } from '@/utils/visitStreakStore';
+import { getLastRoiResult } from '@/utils/roiResultStore';
 import { loadLastEstimate } from '@/pages/construction/lastEstimateStore';
 import { encodeEstimateParams, type EstimateShareState } from '@/pages/construction/estimateShareParams';
+import { encodeRoiParams } from '@/pages/roiCalculatorParams';
 import { PROJECT_TYPES, FINISH_LEVELS } from '@/data/estimatePricing';
 
 // Ticket 0045 - Personalized /my visitor dashboard. Page shell mirrors
@@ -77,10 +79,13 @@ const MyDashboard: React.FC = () => {
   const [recent, setRecent] = useState<RecentDemo[]>([]);
   const [persona, setPersona] = useState<QuizPersona | null>(null);
   const [streak, setStreak] = useState<ReturnType<typeof getVisitStreak> | null>(null);
+  const [roiResult, setRoiResult] = useState<ReturnType<typeof getLastRoiResult>>(null);
   const [hydrated, setHydrated] = useState(false);
   // Ticket 0060 - guard so React 18 strict-mode double-mount does not
   // double-fire the streak_badge_view analytics event.
   const streakViewTracked = useRef<boolean>(false);
+  // Ticket 0062 - same double-fire guard for the new roi_card_view event.
+  const roiCardViewTracked = useRef<boolean>(false);
 
   useEffect(() => {
     // Ticket 0060 - The canonical recordVisitToday() call lives on the
@@ -95,6 +100,7 @@ const MyDashboard: React.FC = () => {
     setRecent(safeRead(() => getRecentDemos().slice(0, 3), []));
     setPersona(safeRead(() => getQuizPersona(), null));
     setStreak(safeRead(() => getVisitStreak(), null));
+    setRoiResult(safeRead(() => getLastRoiResult(), null));
     setHydrated(true);
   }, []);
 
@@ -105,7 +111,16 @@ const MyDashboard: React.FC = () => {
     trackCTAClick('streak_badge_view', 'mydashboard');
   }, [streak]);
 
-  const anyData = estimate !== null || recent.length > 0 || persona !== null;
+  // Ticket 0062 - fire roi_card_view exactly once when the saved ROI card
+  // first appears for this mount. Mirrors the streakViewTracked guard.
+  useEffect(() => {
+    if (!roiResult) return;
+    if (roiCardViewTracked.current) return;
+    roiCardViewTracked.current = true;
+    trackCTAClick('roi_card_view', 'mydashboard');
+  }, [roiResult]);
+
+  const anyData = estimate !== null || recent.length > 0 || persona !== null || roiResult !== null;
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
@@ -205,6 +220,33 @@ const MyDashboard: React.FC = () => {
                   </li>
                 ))}
               </ul>
+            </article>
+          )}
+
+          {hydrated && roiResult && (
+            <article data-testid="dashboard-roi-card" className={CARD}>
+              <div className="flex items-start gap-4">
+                <div className={ICON}><DollarSign size={22} /></div>
+                <div className="min-w-0 flex-1">
+                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Your last ROI estimate</h2>
+                  <p className="mt-1 text-2xl font-bold text-gray-900 dark:text-white">
+                    {`$${roiResult.outputs.annualSavings.toLocaleString('en-US')}`}
+                    <span className="ml-2 text-sm font-normal text-gray-500 dark:text-gray-400">per year</span>
+                  </p>
+                  <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
+                    {`${roiResult.inputs.leads} leads/week, ${roiResult.inputs.minutes} min/lead, $${roiResult.inputs.hourly}/hr fully-loaded, ${roiResult.inputs.afterhours}% after-hours.`}
+                  </p>
+                  <a
+                    data-testid="dashboard-roi-reopen"
+                    href={`/roi?${encodeRoiParams(roiResult.inputs).toString()}`}
+                    onClick={() => trackCTAClick('roi_card_reopen', 'mydashboard_roi_reopen')}
+                    className={`mt-4 ${PRIMARY_BTN}`}
+                  >
+                    Reopen result
+                    <ArrowRight size={16} />
+                  </a>
+                </div>
+              </div>
             </article>
           )}
 
