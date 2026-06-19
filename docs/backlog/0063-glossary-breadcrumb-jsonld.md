@@ -1,7 +1,7 @@
 ---
 id: 0063
 title: Emit BreadcrumbList JSON-LD on /glossary so the AI glossary indexes as a navigable artifact
-status: in-progress
+status: shipped
 priority: P2
 area: seo
 created: 2026-06-19
