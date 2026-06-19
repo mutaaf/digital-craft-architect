@@ -1,7 +1,7 @@
 ---
 id: 0062
 title: Persist the visitor's last ROI calculator result and surface it as a saved card on /my dashboard
-status: in-progress
+status: shipped
 priority: P1
 area: demos
 created: 2026-06-19
