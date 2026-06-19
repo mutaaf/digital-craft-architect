@@ -52,6 +52,7 @@ import MyDashboard from "./pages/MyDashboard";
 import Glossary from "./pages/Glossary";
 import Trust from "./pages/Trust";
 import Playbook from "./pages/Playbook";
+import QuestionsToAskAnAiVendor from "./pages/QuestionsToAskAnAiVendor";
 import Changelog from "./pages/Changelog";
 import Uptime from "./pages/Uptime";
 import CompareHub from "./pages/CompareHub";
@@ -295,6 +296,7 @@ const App = () => {
               <Route path="/glossary" element={<Glossary />} />
               <Route path="/trust" element={<Trust />} />
               <Route path="/playbook" element={<Playbook />} />
+              <Route path="/questions-to-ask-an-ai-vendor" element={<QuestionsToAskAnAiVendor />} />
               <Route path="/changelog" element={<Changelog />} />
               <Route path="/uptime" element={<Uptime />} />
               <Route path="/compare" element={<CompareHub />} />
