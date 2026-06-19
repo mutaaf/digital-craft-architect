@@ -1,7 +1,7 @@
 ---
 id: 0062
 title: Persist the visitor's last ROI calculator result and surface it as a saved card on /my dashboard
-status: groomed
+status: in-progress
 priority: P1
 area: demos
 created: 2026-06-19
@@ -351,7 +351,8 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0062-...` opened
-- YYYY-MM-DD - failing test added in `tests/...`
+- 2026-06-19 - branch `feat/0062-roi-card-my-dashboard` opened, ticket flipped to in-progress
+- 2026-06-19 - failing spec added at `tests/e2e/roi-card-on-dashboard.spec.ts`
+- 2026-06-19 - new util `src/utils/roiResultStore.ts`; additive edits to `src/pages/RoiCalculator.tsx`, `src/pages/MyDashboard.tsx`, `src/pages/Trust.tsx`
 - YYYY-MM-DD - PR #N opened, CI [state]
 - YYYY-MM-DD - merged to main

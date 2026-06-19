@@ -7,6 +7,14 @@
     <language>en-us</language>
     <atom:link href="https://digitalcraftai.com/changelog/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Public /questions-to-ask-an-ai-vendor buyer-side artifact with FAQPage JSON-LD</title>
+      <link>https://digitalcraftai.com/changelog#0061</link>
+      <description>Shipped 2026-06-19 in area: content.</description>
+      <pubDate>Fri, 19 Jun 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0061</guid>
+      <category>content</category>
+    </item>
+    <item>
       <title>Return-visit streak badge on /my dashboard surfacing a multi-day engagement signal</title>
       <link>https://digitalcraftai.com/changelog#0060</link>
       <description>Shipped 2026-06-17 in area: demos.</description>
