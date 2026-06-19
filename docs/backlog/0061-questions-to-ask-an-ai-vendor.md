@@ -1,7 +1,7 @@
 ---
 id: 0061
 title: Public /questions-to-ask-an-ai-vendor buyer-side artifact with FAQPage JSON-LD
-status: in-progress
+status: shipped
 priority: P1
 area: content
 created: 2026-06-19
