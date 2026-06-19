@@ -1,7 +1,7 @@
 ---
 id: 0061
 title: Public /questions-to-ask-an-ai-vendor buyer-side artifact with FAQPage JSON-LD
-status: groomed
+status: in-progress
 priority: P1
 area: content
 created: 2026-06-19
@@ -338,7 +338,8 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0061-...` opened
-- YYYY-MM-DD - failing test added in `tests/...`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-06-19 - branch `feat/0061-questions-to-ask-an-ai-vendor` opened off fresh `origin/main`; ticket flipped to in-progress and README index row updated in the same commit; `node scripts/check-backlog.mjs` green at start.
+- 2026-06-19 - Mandatory pre-write JSON-LD grep per the 2026-05-30 second-@type lesson:
+  - `grep -rn "=== 'FAQPage'" tests/e2e/` returned ONE match: `tests/e2e/pricing-faq-structured-data.spec.ts:88` — its `findComponentFaqPage` filter (lines 93-104) narrows by mainEntity question-set match (`mine` filter), and the spec only navigates to `/construction` and `/realestate` (PAGES constant on line 17). Per-URL scoped; not a site-wide-uniqueness predicate. No collision.
+  - `grep -rn "=== 'BreadcrumbList'" tests/e2e/` returned 30+ matches across `compare-hub`, `ai-for-*`, `compare-*`, `quiz-jsonld`, `roi-calculator`, `case-studies-hub`, `case-study-article-jsonld`, `changelog-itemlist-jsonld`, `trust-aboutpage-jsonld`, `my-dashboard`, `texas-localbusiness-jsonld`, `playbook`, and `demo-breadcrumbs`. Every match is preceded by a `page.goto(<that-page's-url>)` call, so each BreadcrumbList predicate is URL-scoped to its own page. None is "exactly one BreadcrumbList block site-wide." No collision.
+- 2026-06-19 - failing test added in `tests/e2e/questions-to-ask-an-ai-vendor.spec.ts`, confirmed red (page does not exist yet).

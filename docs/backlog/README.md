@@ -69,7 +69,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0058 | AI-for-pool-service long-tail landing page funneling into home-services demos | P1 | shipped | content |
 | 0059 | Public /playbook methodology page describing how Digital Craft designs an AI deployment with HowTo JSON-LD | P1 | shipped | trust |
 | 0060 | Return-visit streak badge on /my dashboard surfacing a multi-day engagement signal | P2 | shipped | demos |
-| 0061 | Public /questions-to-ask-an-ai-vendor buyer-side artifact with FAQPage JSON-LD | P1 | groomed | content |
+| 0061 | Public /questions-to-ask-an-ai-vendor buyer-side artifact with FAQPage JSON-LD | P1 | in-progress | content |
 | 0062 | Persist the visitor's last ROI calculator result and surface it as a saved card on /my dashboard | P1 | groomed | demos |
 | 0063 | Emit BreadcrumbList JSON-LD on /glossary so the AI glossary indexes as a navigable artifact | P2 | groomed | seo |
 
