@@ -52,6 +52,120 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'ai-roofing-contractors-storm-leads-estimates',
+    title: 'How Roofing Contractors Close More Jobs With AI',
+    description: 'AI lead response and estimate automation help roofing companies capture storm-damage leads faster and convert more of them without adding office staff.',
+    date: '2026-06-30',
+    author: 'DigitalCraft AI',
+    readTime: '5 min read',
+    tags: ['Roofing', 'Lead Response', 'Estimates', 'Trades'],
+    content: `
+<p>Roofing is one of the most competitive home services markets in the country. When a hail storm rolls through or high winds lift shingles off a neighborhood, every roofing company in the area is chasing the same leads at the same time. The companies that respond first, quote clearly, and follow up consistently win a disproportionate share of the work.</p>
+
+<p>AI helps with all three of those things, and the setup is simpler than most roofing owners expect.</p>
+
+<h2>Storm Leads Have a Short Window</h2>
+
+<p>A homeowner who fills out a contact form after discovering storm damage is not going to wait two days for a callback. They will fill out three more forms and go with whoever calls first. Speed is the entire game in the first 24 to 48 hours after a weather event.</p>
+
+<p>An AI lead responder picks up every inquiry within seconds, no matter what time it comes in. It greets the homeowner by name, asks what kind of damage they are dealing with, and either books an inspection or collects the details you need to prioritize. That happens at 11pm on a Sunday the same way it happens at 10am on a Tuesday.</p>
+
+<p>You do not need to be the cheapest roofer in town. You need to be the one who actually responds.</p>
+
+<h2>Estimates Take Too Long</h2>
+
+<p>Most roofing companies are running on two or three estimators who are also managing jobs. A backlog of unanswered quote requests is just money sitting on the table while your competitors schedule inspections.</p>
+
+<p>AI estimate tools do not replace your estimator's judgment. They take the information from an inquiry (roof size, damage type, home age, location) and produce a structured first-draft range the estimator can review and refine before it goes out. The estimator still approves everything. The part that used to take an hour, reviewing the inquiry, building the quote structure, formatting it, takes minutes instead.</p>
+
+<p>If you are already doing 10 estimates a week and could realistically handle 20, the bottleneck is not demand. It is throughput.</p>
+
+<h2>Follow-Up Is Where Closed Jobs Slip Away</h2>
+
+<p>Roofing sales cycles are longer than most owners want them to be. A homeowner gets your estimate, says they will think about it, and then life happens. Without a reliable follow-up sequence, that lead goes cold.</p>
+
+<p>Automated SMS follow-up changes the math here. After an estimate is sent, a follow-up can go out at 48 hours asking if they have questions, then again at five days with a note about scheduling before your next available inspection slot fills. Neither of those messages requires your office to remember anything. They go out automatically based on the lead's status.</p>
+
+<p>For insurance jobs, where the homeowner is waiting on an adjuster, AI can check in periodically and prompt them to reconnect when the adjuster approves the claim. That kind of persistence used to require a dedicated sales coordinator. Now it runs in the background.</p>
+
+<h2>Reviews After the Job</h2>
+
+<p>Roofing is a one-time-every-decade purchase for most homeowners, which means almost nobody is going to leave a review unless you ask. And most roofing companies do not have a reliable way to ask at scale.</p>
+
+<p>After a job closes, an automated SMS with a direct review link turns occasional reviews into a consistent stream. A company doing 50 jobs a year and getting 30 reviews out of them looks dramatically different in local search than one doing the same volume with three reviews from 2022.</p>
+
+<h2>Where to Start</h2>
+
+<p>The highest-leverage place to begin is usually lead response. If you are getting inquiries and losing them before a conversation even starts, that is the most immediate fix. Estimate automation and follow-up sequences can layer on top once the front door is working.</p>
+
+<p>Explore the <a href="/construction">AI tools built for contractors and trades businesses</a> or try the <a href="/construction/demo">live construction demos</a> to see lead response and estimate automation in action.</p>
+
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to close more roofing jobs without adding office staff?</strong>
+  <p style="margin: 8px 0;">AI lead response and estimate automation built for trades businesses, live in under a week.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/construction/demo">Try Our Live Demos</a>
+</div>
+`,
+  },
+  {
+    slug: 'ai-landscaping-estimates-scheduling-2026',
+    title: 'How Landscaping Businesses Win More Jobs With AI',
+    description: 'AI lead response, estimate automation, and smart follow-up help landscaping companies quote faster and close more jobs without adding headcount.',
+    date: '2026-06-22',
+    author: 'DigitalCraft AI',
+    readTime: '5 min read',
+    tags: ['Landscaping', 'Estimates', 'Lead Response', 'Home Services'],
+    content: `
+<p>Landscaping is a relationship business, but most of the work that actually lands jobs happens before the first shovel goes in the ground. You quote. You follow up. You answer questions about scope and pricing. That process eats time, and the companies that do it fastest tend to close more often.</p>
+
+<p>AI is changing three specific parts of this workflow: how fast you respond to new inquiries, how quickly you can produce a rough estimate, and whether your follow-up actually happens.</p>
+
+<h2>The Inquiry Window Is Real</h2>
+
+<p>When someone submits a contact form asking about lawn care, landscaping design, or irrigation, they have usually sent the same request to two or three competitors at the same time. The first company to respond with something useful, not just an auto-reply acknowledging receipt, has a real advantage.</p>
+
+<p>An AI lead responder can reply in under a minute with a message that mentions the job type, asks one or two qualifying questions (square footage, existing irrigation, fenced yard), and provides a rough service range. That is not replacing your sales process. It is starting the conversation while you are still on another job.</p>
+
+<h2>Estimates Are the Bottleneck</h2>
+
+<p>Most landscaping owners can produce an accurate estimate, but they cannot produce fifty of them a week and still manage crews. The owners who try end up with a backlog that kills conversion: by the time the quote arrives, the prospect has already hired someone else.</p>
+
+<p>AI estimate tools do not replace your expertise. They take the information from an inquiry, apply your pricing logic and service tiers, and produce a structured draft you can review and send in a few minutes rather than an hour. You still approve everything, but the first draft is no longer sitting in a queue.</p>
+
+<h2>Follow-Up Is Where Leads Go to Die</h2>
+
+<p>The average time between sending an estimate and following up is somewhere between "eventually" and "never." Owners are busy running crews. A quote that does not get a second touch within 48 hours closes at a much lower rate than one that does.</p>
+
+<p>Automated SMS sequences and AI voice follow-up handle this without you thinking about it. After an estimate goes out, a follow-up can go automatically at 24 and 48 hours, asking if they have questions or offering to schedule a walkthrough. None of that requires you to remember it.</p>
+
+<h2>What This Looks Like in Practice</h2>
+
+<p>A landscaping company that adds AI lead response and estimate automation typically sees a few early changes:</p>
+
+<ul>
+<li>Response time drops from hours or days to under five minutes on new inquiries.</li>
+<li>The number of estimates sent per week increases because the drafting step is no longer a bottleneck.</li>
+<li>Close rates improve not because prices dropped, but because prospects feel attended to and the follow-through is consistent.</li>
+</ul>
+
+<p>None of this requires a software team or a long implementation project. The setup pulls from your existing service list, pricing structure, and service area. A working system can be live in under a week.</p>
+
+<h2>Where to Start</h2>
+
+<p>If you are generating leads but losing them somewhere between inquiry and closed job, the estimate and follow-up stages are worth looking at first. Not a sweeping overhaul, just one targeted fix: faster quotes, automated follow-up, or both.</p>
+
+<p>You can explore the <a href="/ai-for-landscapers">AI tools built for landscaping companies</a> or try the <a href="/homeservices/demo">home services AI demos</a> to see how the lead and estimate flow works live.</p>
+
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to quote faster and follow up without thinking about it?</strong>
+  <p style="margin: 8px 0;">We set up AI lead response and estimate automation for landscaping businesses, branded to your company, live in under a week.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/homeservices/demo">Try Our Live Demos</a>
+</div>
+`,
+  },
+  {
     slug: 'from-signup-to-live-in-48-hours-dca-implementation-playbook',
     title: 'From Sign-Up to Live in 48 Hours: The DCA Implementation Playbook',
     description: 'A step-by-step look at the AI implementation process behind a 48-hour AI deployment timeline, and why fast AI setup does not mean cutting corners.',
