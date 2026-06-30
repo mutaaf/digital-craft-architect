@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -9,95 +9,102 @@ import Index from "./pages/Index";
 import IndexV2 from "./pages/IndexV2";
 import { isCTOHost } from "./utils/hostVariant";
 import { trackEvent } from "./utils/analytics";
-import Construction from "./pages/Construction";
-import RealEstate from "./pages/RealEstate";
-import RealEstateDemoHub from "./pages/realestate/RealEstateDemoHub";
-import DemoHub from "./pages/construction/DemoHub";
-import LeadResponder from "./pages/construction/LeadResponder";
-import EstimateGenerator from "./pages/construction/EstimateGenerator";
-import InvoiceGenerator from "./pages/construction/InvoiceGenerator";
-import ContractDrafter from "./pages/realestate/ContractDrafter";
-import MarketAnalyzer from "./pages/realestate/MarketAnalyzer";
-import SMSSequence from "./pages/construction/SMSSequence";
-import LeadScoring from "./pages/construction/LeadScoring";
-import ReviewSystem from "./pages/construction/ReviewSystem";
-import PropertyNegotiator from "./pages/construction/PropertyNegotiator";
-import VoiceNegotiator from "./pages/construction/VoiceNegotiator";
-import Events from "./pages/Events";
-import EventsDemoHub from "./pages/events/EventsDemoHub";
-import InquiryQualifier from "./pages/events/InquiryQualifier";
-import ProposalGenerator from "./pages/events/ProposalGenerator";
-import VoiceBookingAgent from "./pages/events/VoiceBookingAgent";
-import HomeServices from "./pages/HomeServices";
-import HomeServicesDemoHub from "./pages/homeservices/DemoHub";
-import Healthcare from "./pages/Healthcare";
-import HealthcareDemoHub from "./pages/healthcare/DemoHub";
-import Legal from "./pages/Legal";
-import LegalDemoHub from "./pages/legal/DemoHub";
-import Restaurant from "./pages/Restaurant";
-import RestaurantDemoHub from "./pages/restaurant/DemoHub";
-import KidsPlay from "./pages/KidsPlay";
-import KidsPlayDemoHub from "./pages/kidsplay/DemoHub";
-import Fitness from "./pages/Fitness";
-import FitnessDemoHub from "./pages/fitness/DemoHub";
-import Dental from "./pages/Dental";
-import DentalDemoHub from "./pages/dental/DemoHub";
-import Salon from "./pages/Salon";
-import SalonDemoHub from "./pages/salon/DemoHub";
-import AutoRepair from "./pages/AutoRepair";
-import AutoRepairDemoHub from "./pages/autorepair/DemoHub";
-import Industries from "./pages/Industries";
-import Demos from "./pages/Demos";
-import MyDashboard from "./pages/MyDashboard";
-import Glossary from "./pages/Glossary";
-import Trust from "./pages/Trust";
-import Playbook from "./pages/Playbook";
-import QuestionsToAskAnAiVendor from "./pages/QuestionsToAskAnAiVendor";
-import Changelog from "./pages/Changelog";
-import Uptime from "./pages/Uptime";
-import CompareHub from "./pages/CompareHub";
-import HubSpotComparison from "./pages/compare/HubSpot";
-import GoHighLevelComparison from "./pages/compare/GoHighLevel";
-import ZapierComparison from "./pages/compare/Zapier";
-import MakeComparison from "./pages/compare/Make";
-import IntercomComparison from "./pages/compare/Intercom";
-import JobberComparison from "./pages/compare/Jobber";
-import ServiceTitanComparison from "./pages/compare/ServiceTitan";
-import PodiumComparison from "./pages/compare/Podium";
-import HousecallProComparison from "./pages/compare/HousecallPro";
-import BuildertrendComparison from "./pages/compare/Buildertrend";
-import ThumbtackComparison from "./pages/compare/Thumbtack";
-import AngiComparison from "./pages/compare/Angi";
-import AIReadinessQuiz from "./pages/AIReadinessQuiz";
-import RoiCalculator from "./pages/RoiCalculator";
-import SetupClaw from "./pages/SetupClaw";
-import SmallBusiness from "./pages/SmallBusiness";
-import AiForPlumbers from "./pages/AiForPlumbers";
-import AiForHvac from "./pages/AiForHvac";
-import AiForRoofers from "./pages/AiForRoofers";
-import AiForElectricians from "./pages/AiForElectricians";
-import AiForPainters from "./pages/AiForPainters";
-import AiForLandscapers from "./pages/AiForLandscapers";
-import AiForPropertyManagers from "./pages/AiForPropertyManagers";
-import AiForCleaningServices from "./pages/AiForCleaningServices";
-import AiForPestControl from "./pages/AiForPestControl";
-import AiForPoolService from "./pages/AiForPoolService";
-import Texas from "./pages/locations/Texas";
-import CaseStudiesHub from "./pages/case-studies/CaseStudiesHub";
-import CaseStudy from "./pages/case-studies/CaseStudy";
-import Blog from "./pages/Blog";
-import BlogPost from "./pages/BlogPost";
-import Classes from "./pages/Classes";
-import ClassSession from "./pages/classes/ClassSession";
-import ClassRegistration from "./pages/classes/ClassRegistration";
-import NotFound from "./pages/NotFound";
 import { ErrorBoundary } from "@sentry/react";
 import { captureException } from "./utils/sentry";
 import EasterEgg from "./components/EasterEgg";
 import { Analytics } from "@vercel/analytics/react";
-
 import { DemoContextProvider } from "./contexts/DemoContext";
 import { recordVisitToday } from "./utils/visitStreakStore";
+
+// Route-level code-splitting (ticket: route-code-splitting). Every page below
+// the eagerly-loaded landing shell (Index / IndexV2) is lazy-loaded so the
+// initial bundle for "/" no longer ships all 84 page modules. Each route body
+// resolves on demand behind the single <Suspense> boundary in App. All page
+// modules use default exports, so the bare lazy(() => import(...)) form is
+// correct for every one; a named-export page would need .then(m => ({ default:
+// m.X })) instead.
+const Construction = lazy(() => import("./pages/Construction"));
+const RealEstate = lazy(() => import("./pages/RealEstate"));
+const RealEstateDemoHub = lazy(() => import("./pages/realestate/RealEstateDemoHub"));
+const DemoHub = lazy(() => import("./pages/construction/DemoHub"));
+const LeadResponder = lazy(() => import("./pages/construction/LeadResponder"));
+const EstimateGenerator = lazy(() => import("./pages/construction/EstimateGenerator"));
+const InvoiceGenerator = lazy(() => import("./pages/construction/InvoiceGenerator"));
+const ContractDrafter = lazy(() => import("./pages/realestate/ContractDrafter"));
+const MarketAnalyzer = lazy(() => import("./pages/realestate/MarketAnalyzer"));
+const SMSSequence = lazy(() => import("./pages/construction/SMSSequence"));
+const LeadScoring = lazy(() => import("./pages/construction/LeadScoring"));
+const ReviewSystem = lazy(() => import("./pages/construction/ReviewSystem"));
+const PropertyNegotiator = lazy(() => import("./pages/construction/PropertyNegotiator"));
+const VoiceNegotiator = lazy(() => import("./pages/construction/VoiceNegotiator"));
+const Events = lazy(() => import("./pages/Events"));
+const EventsDemoHub = lazy(() => import("./pages/events/EventsDemoHub"));
+const InquiryQualifier = lazy(() => import("./pages/events/InquiryQualifier"));
+const ProposalGenerator = lazy(() => import("./pages/events/ProposalGenerator"));
+const VoiceBookingAgent = lazy(() => import("./pages/events/VoiceBookingAgent"));
+const HomeServices = lazy(() => import("./pages/HomeServices"));
+const HomeServicesDemoHub = lazy(() => import("./pages/homeservices/DemoHub"));
+const Healthcare = lazy(() => import("./pages/Healthcare"));
+const HealthcareDemoHub = lazy(() => import("./pages/healthcare/DemoHub"));
+const Legal = lazy(() => import("./pages/Legal"));
+const LegalDemoHub = lazy(() => import("./pages/legal/DemoHub"));
+const Restaurant = lazy(() => import("./pages/Restaurant"));
+const RestaurantDemoHub = lazy(() => import("./pages/restaurant/DemoHub"));
+const KidsPlay = lazy(() => import("./pages/KidsPlay"));
+const KidsPlayDemoHub = lazy(() => import("./pages/kidsplay/DemoHub"));
+const Fitness = lazy(() => import("./pages/Fitness"));
+const FitnessDemoHub = lazy(() => import("./pages/fitness/DemoHub"));
+const Dental = lazy(() => import("./pages/Dental"));
+const DentalDemoHub = lazy(() => import("./pages/dental/DemoHub"));
+const Salon = lazy(() => import("./pages/Salon"));
+const SalonDemoHub = lazy(() => import("./pages/salon/DemoHub"));
+const AutoRepair = lazy(() => import("./pages/AutoRepair"));
+const AutoRepairDemoHub = lazy(() => import("./pages/autorepair/DemoHub"));
+const Industries = lazy(() => import("./pages/Industries"));
+const Demos = lazy(() => import("./pages/Demos"));
+const MyDashboard = lazy(() => import("./pages/MyDashboard"));
+const Glossary = lazy(() => import("./pages/Glossary"));
+const Trust = lazy(() => import("./pages/Trust"));
+const Playbook = lazy(() => import("./pages/Playbook"));
+const QuestionsToAskAnAiVendor = lazy(() => import("./pages/QuestionsToAskAnAiVendor"));
+const Changelog = lazy(() => import("./pages/Changelog"));
+const Uptime = lazy(() => import("./pages/Uptime"));
+const CompareHub = lazy(() => import("./pages/CompareHub"));
+const HubSpotComparison = lazy(() => import("./pages/compare/HubSpot"));
+const GoHighLevelComparison = lazy(() => import("./pages/compare/GoHighLevel"));
+const ZapierComparison = lazy(() => import("./pages/compare/Zapier"));
+const MakeComparison = lazy(() => import("./pages/compare/Make"));
+const IntercomComparison = lazy(() => import("./pages/compare/Intercom"));
+const JobberComparison = lazy(() => import("./pages/compare/Jobber"));
+const ServiceTitanComparison = lazy(() => import("./pages/compare/ServiceTitan"));
+const PodiumComparison = lazy(() => import("./pages/compare/Podium"));
+const HousecallProComparison = lazy(() => import("./pages/compare/HousecallPro"));
+const BuildertrendComparison = lazy(() => import("./pages/compare/Buildertrend"));
+const ThumbtackComparison = lazy(() => import("./pages/compare/Thumbtack"));
+const AngiComparison = lazy(() => import("./pages/compare/Angi"));
+const AIReadinessQuiz = lazy(() => import("./pages/AIReadinessQuiz"));
+const RoiCalculator = lazy(() => import("./pages/RoiCalculator"));
+const SetupClaw = lazy(() => import("./pages/SetupClaw"));
+const SmallBusiness = lazy(() => import("./pages/SmallBusiness"));
+const AiForPlumbers = lazy(() => import("./pages/AiForPlumbers"));
+const AiForHvac = lazy(() => import("./pages/AiForHvac"));
+const AiForRoofers = lazy(() => import("./pages/AiForRoofers"));
+const AiForElectricians = lazy(() => import("./pages/AiForElectricians"));
+const AiForPainters = lazy(() => import("./pages/AiForPainters"));
+const AiForLandscapers = lazy(() => import("./pages/AiForLandscapers"));
+const AiForPropertyManagers = lazy(() => import("./pages/AiForPropertyManagers"));
+const AiForCleaningServices = lazy(() => import("./pages/AiForCleaningServices"));
+const AiForPestControl = lazy(() => import("./pages/AiForPestControl"));
+const AiForPoolService = lazy(() => import("./pages/AiForPoolService"));
+const Texas = lazy(() => import("./pages/locations/Texas"));
+const CaseStudiesHub = lazy(() => import("./pages/case-studies/CaseStudiesHub"));
+const CaseStudy = lazy(() => import("./pages/case-studies/CaseStudy"));
+const Blog = lazy(() => import("./pages/Blog"));
+const BlogPost = lazy(() => import("./pages/BlogPost"));
+const Classes = lazy(() => import("./pages/Classes"));
+const ClassSession = lazy(() => import("./pages/classes/ClassSession"));
+const ClassRegistration = lazy(() => import("./pages/classes/ClassRegistration"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -171,6 +178,20 @@ const ErrorFallback = ({ error, resetError, componentStack, eventId }: FallbackP
   );
 };
 
+// Suspense fallback for lazy-loaded route bodies. Full-height and centered so
+// it occupies the same vertical space the page will, avoiding cumulative layout
+// shift (the project has a Lighthouse CLS budget) while a route chunk loads.
+const RouteFallback = () => (
+  <div
+    className="flex min-h-screen items-center justify-center bg-background"
+    role="status"
+    aria-label="Loading"
+  >
+    <div className="h-8 w-8 animate-spin rounded-full border-2 border-muted border-t-primary" />
+    <span className="sr-only">Loading</span>
+  </div>
+);
+
 window.onerror = (message, source, lineno, colno, error) => {
   if (error) {
     captureException(error, {
@@ -221,6 +242,7 @@ const App = () => {
           <Analytics />
           <EasterEgg />
           <BrowserRouter>
+            <Suspense fallback={<RouteFallback />}>
             <Routes>
               <Route path="/" element={<LandingRoot />} />
               <Route path="/construction" element={<Construction />} />
@@ -337,6 +359,7 @@ const App = () => {
               <Route path="/classes/:slug/register" element={<ClassRegistration />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
+            </Suspense>
           </BrowserRouter>
         </TooltipProvider>
       </HelmetProvider>
