@@ -1,8 +1,6 @@
 import { test, expect, type Page, type BrowserContext } from '@playwright/test';
-import { readFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { IGNORABLE_ERROR_PATTERNS, ROUTES } from './routes';
+import { parseChangelog, visitBeforeNewestEntry } from './changelog';
 
 // Ticket 0040 - "What's new since you visited" delta strip on the /demos hub.
 // Each test maps 1:1 to a scenario in acceptance box 6.
@@ -85,36 +83,6 @@ async function contextWithSeed(
   return { ctx, page, errors };
 }
 
-// Pull the build-time changelog entries directly from the generated source.
-// We parse the file rather than import so we stay aligned with whatever the
-// component renders without coupling our spec to a TS module loader.
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const REPO_ROOT = join(__dirname, '..', '..');
-const CHANGELOG_SRC = join(REPO_ROOT, 'src', 'data', 'changelogEntries.ts');
-
-interface ParsedEntry {
-  id: string;
-  title: string;
-  created: string;
-}
-
-function parseChangelog(): ParsedEntry[] {
-  const src = readFileSync(CHANGELOG_SRC, 'utf-8');
-  // Lines look like:
-  //   { id: "0038", title: "...", area: "seo", created: "2026-06-07" },
-  const re = /\{\s*id:\s*"([^"]+)",\s*title:\s*"((?:[^"\\]|\\.)*)",\s*area:\s*"[^"]+",\s*created:\s*"([^"]+)"\s*\}/g;
-  const out: ParsedEntry[] = [];
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(src)) !== null) {
-    out.push({
-      id: m[1],
-      title: m[2].replace(/\\"/g, '"'),
-      created: m[3],
-    });
-  }
-  return out;
-}
-
 test.describe("what's new since you visited strip", () => {
   // Scenario 1: first-time visitor (no history) sees nothing.
   test('first-time visitor sees no strip', async ({ browser }) => {
@@ -152,14 +120,16 @@ test.describe("what's new since you visited strip", () => {
   });
 
   // Scenario 3: two-week returner sees the strip with a "new since your last visit"
-  // header and at least one chip.
+  // header and at least one chip. The visit is seeded two weeks before the
+  // NEWEST changelog entry rather than two weeks before now, so the delta
+  // stays non-empty however long it has been since a ticket shipped.
   test('two-week returner sees the strip with a "new since your last visit" header', async ({
     browser,
   }) => {
-    const fourteenDaysAgo = Date.now() - 14 * 24 * 60 * 60 * 1000;
+    const staleVisit = visitBeforeNewestEntry(14);
     const { ctx, page, errors } = await contextWithSeed(
       browser,
-      JSON.stringify(seedWith(fourteenDaysAgo)),
+      JSON.stringify(seedWith(staleVisit)),
     );
     await gotoHub(page);
 
@@ -237,10 +207,10 @@ test.describe("what's new since you visited strip", () => {
 
   // Scenario 6: dark mode at 375px renders the strip cleanly.
   test('strip renders in dark mode on a 375px viewport', async ({ browser }) => {
-    const fourteenDaysAgo = Date.now() - 14 * 24 * 60 * 60 * 1000;
+    const staleVisit = visitBeforeNewestEntry(14);
     const { ctx, page, errors } = await contextWithSeed(
       browser,
-      JSON.stringify(seedWith(fourteenDaysAgo)),
+      JSON.stringify(seedWith(staleVisit)),
       { width: 375, height: 800 },
     );
     await gotoHub(page);
@@ -262,10 +232,10 @@ test.describe("what's new since you visited strip", () => {
 
   // Scenario 7: no em-dash anywhere in the rendered strip.
   test('rendered strip contains zero em-dash characters', async ({ browser }) => {
-    const fourteenDaysAgo = Date.now() - 14 * 24 * 60 * 60 * 1000;
+    const staleVisit = visitBeforeNewestEntry(14);
     const { ctx, page, errors } = await contextWithSeed(
       browser,
-      JSON.stringify(seedWith(fourteenDaysAgo)),
+      JSON.stringify(seedWith(staleVisit)),
     );
     await gotoHub(page);
 

@@ -1,5 +1,6 @@
 import { test, expect, type Page, type BrowserContext } from '@playwright/test';
 import { IGNORABLE_ERROR_PATTERNS } from './routes';
+import { visitBeforeNewestEntry } from './changelog';
 
 // Ticket 0045 - Personalized /my visitor dashboard surfacing saved estimates,
 // recent demos, and quiz persona. Each test maps 1:1 to a sub-scenario in
@@ -98,9 +99,12 @@ async function contextWithSeed(
 }
 
 function fullSeed(): SeedSpec {
-  // 14 days ago - old enough that the WhatsNewSinceVisit strip should pick
-  // up multiple shipped changelog entries between then and now.
-  const fourteenDaysAgo = Date.now() - 14 * 24 * 60 * 60 * 1000;
+  // Two weeks before the NEWEST changelog entry, not before now: the
+  // WhatsNewSinceVisit strip renders only when an entry is newer than the
+  // last visit, so anchoring to the wall clock made this seed go stale and
+  // fail once no ticket shipped for two weeks. See tests/e2e/changelog.ts.
+  // Nothing prunes recent demos by age, so an older timestamp is safe here.
+  const staleVisit = visitBeforeNewestEntry(14);
   return {
     estimate: {
       selectedTypeId: 'kitchen',
@@ -113,18 +117,18 @@ function fullSeed(): SeedSpec {
         path: '/construction/demo/voice-negotiator',
         title: 'Voice Negotiator',
         vertical: 'Construction',
-        viewedAt: fourteenDaysAgo,
+        viewedAt: staleVisit,
       },
       {
         path: '/construction/demo/estimate',
         title: 'Smart Estimate Generator',
         vertical: 'Construction',
-        viewedAt: fourteenDaysAgo - 60_000,
+        viewedAt: staleVisit - 60_000,
       },
     ],
     quizPersona: {
       persona: 'Ready for AI',
-      completedAt: fourteenDaysAgo,
+      completedAt: staleVisit,
     },
   };
 }
