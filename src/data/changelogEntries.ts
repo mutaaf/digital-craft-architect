@@ -20,6 +20,7 @@ export interface ChangelogEntry {
 }
 
 export const changelogEntries: readonly ChangelogEntry[] = [
+  { id: "0063", title: "Emit BreadcrumbList JSON-LD on /glossary so the AI glossary indexes as a navigable artifact", area: "seo", created: "2026-06-19" },
   { id: "0062", title: "Persist the visitor's last ROI calculator result and surface it as a saved card on /my dashboard", area: "demos", created: "2026-06-19" },
   { id: "0061", title: "Public /questions-to-ask-an-ai-vendor buyer-side artifact with FAQPage JSON-LD", area: "content", created: "2026-06-19" },
   { id: "0060", title: "Return-visit streak badge on /my dashboard surfacing a multi-day engagement signal", area: "demos", created: "2026-06-17" },
