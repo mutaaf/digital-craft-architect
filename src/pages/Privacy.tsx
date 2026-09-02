@@ -131,9 +131,14 @@ const Privacy: React.FC = () => {
 
       <Section id="game" title="The 18-0 game">
         <p>
-          <Link to="/" className="text-primary hover:underline">
+          <a
+            href="https://mutaaf.github.io/18-0"
+            rel="noopener noreferrer"
+            target="_blank"
+            className="text-primary hover:underline"
+          >
             18-0
-          </Link>{' '}
+          </a>{' '}
           is a football game published by DigitalCraft AI and available on the web and as a
           mobile app. It does not want your identity, and it is built so that it does not need
           one.
