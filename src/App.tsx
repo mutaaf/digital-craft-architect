@@ -33,6 +33,7 @@ import HomeServicesDemoHub from "./pages/homeservices/DemoHub";
 import Healthcare from "./pages/Healthcare";
 import HealthcareDemoHub from "./pages/healthcare/DemoHub";
 import Legal from "./pages/Legal";
+import Privacy from "./pages/Privacy";
 import LegalDemoHub from "./pages/legal/DemoHub";
 import Restaurant from "./pages/Restaurant";
 import RestaurantDemoHub from "./pages/restaurant/DemoHub";
@@ -255,6 +256,7 @@ const App = () => {
               <Route path="/healthcare/demo/intake" element={<DemoContextProvider vertical="healthcare"><LeadResponder /></DemoContextProvider>} />
               <Route path="/healthcare/demo/scheduler" element={<DemoContextProvider vertical="healthcare"><ProposalGenerator /></DemoContextProvider>} />
               <Route path="/healthcare/demo/voice-followup" element={<DemoContextProvider vertical="healthcare"><VoiceNegotiator /></DemoContextProvider>} />
+              <Route path="/privacy" element={<Privacy />} />
               <Route path="/legal" element={<Legal />} />
               <Route path="/legal/demo" element={<DemoContextProvider vertical="legal"><LegalDemoHub /></DemoContextProvider>} />
               <Route path="/legal/demo/intake" element={<DemoContextProvider vertical="legal"><LeadResponder /></DemoContextProvider>} />

@@ -170,6 +170,7 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
                 <div className="flex space-x-6">
                   <a href="/industries" className="text-gray-400 hover:text-skyblue text-sm">Industries</a>
                   <Link to="/trust" className="text-gray-400 hover:text-skyblue text-sm">Trust & Privacy</Link>
+                  <Link to="/privacy" className="text-gray-400 hover:text-skyblue text-sm">Privacy Policy</Link>
                   <Link
                     to="/changelog"
                     onClick={() => trackCTAClick('open_changelog', 'footer')}
