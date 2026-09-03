@@ -13,15 +13,15 @@ import { Shield } from 'lucide-react';
  * Everything on this page is a claim about what the code does, checked against
  * the code rather than written from a template. The website and the 18-0 game
  * are described separately because they behave very differently: the website
- * runs analytics, error monitoring and session replay, and the game runs none
- * of that. Collapsing them into one set of paragraphs would have made both
- * descriptions wrong.
+ * runs analytics, error monitoring and session replay, and the game runs the
+ * first of those and neither of the others. Collapsing them into one set of
+ * paragraphs would have made both descriptions wrong.
  *
  * The game section is also the URL given to Apple and Google at review, so it
  * has to keep matching the app.
  */
 
-const LAST_UPDATED = '2 September 2026';
+const LAST_UPDATED = '3 September 2026';
 const CONTACT = 'mutaaf@digitalcraftai.com';
 
 const DESCRIPTION =
@@ -82,7 +82,8 @@ const Privacy: React.FC = () => {
         <p>
           DigitalCraft AI operates this website and the products listed here. The website and
           the 18-0 game are described separately because they behave very differently. The
-          website runs analytics and error monitoring. The game runs neither.
+          website runs analytics, error monitoring and session replay. The game runs product
+          analytics only — no error monitoring, and no session replay.
         </p>
         <p>
           For how the interactive demos on this site handle a company website you enter, there
@@ -144,9 +145,10 @@ const Privacy: React.FC = () => {
           one.
         </p>
         <p>
-          There are no ads, no advertising identifiers, no third-party analytics, no tracking
-          across other apps or websites, and nothing is sold or shared with data brokers. The
-          error monitoring and session replay described above are not present in the game.
+          There are no ads, no advertising identifiers, no tracking across other apps or
+          websites, and nothing is sold or shared with data brokers. The error monitoring and
+          session replay described above are not present in the game. The game does send
+          gameplay analytics to one processor, described below.
         </p>
 
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white pt-2">
@@ -200,14 +202,55 @@ const Privacy: React.FC = () => {
           phone, that provider tells us the email address on the account. Apple lets you hide
           it behind a relay address, and that works here.
         </p>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white pt-2">
+          Gameplay analytics
+        </h3>
+        <p>
+          The game records how a session went — spins taken, which positions stall people, how
+          long a pick takes, which mode was played, whether a season was finished or abandoned —
+          so the game can be tuned. This is kept on your device and is also sent to{' '}
+          <a
+            href="https://posthog.com/privacy"
+            rel="noopener noreferrer"
+            target="_blank"
+            className="text-primary hover:underline"
+          >
+            PostHog
+          </a>
+          , a product analytics processor, on servers in the United States.
+        </p>
+        <ul className="list-disc pl-5 space-y-2 marker:text-primary">
+          <li>
+            <strong className="text-gray-900 dark:text-white">What is sent.</strong> Gameplay
+            events and their settings, the platform you played on, a random identifier generated
+            on your device, and — if you have set one — your display name. Ratings are sent as
+            bands such as <em>93–96</em>, never as exact values.
+          </li>
+          <li>
+            <strong className="text-gray-900 dark:text-white">What is never sent.</strong> Your
+            email address, the identity your Apple or Google account gave us, and the rosters
+            and players you picked.
+          </li>
+          <li>
+            <strong className="text-gray-900 dark:text-white">Why.</strong> To understand which
+            parts of the game work — whether people who try a mode come back, where a first
+            session ends, which screens people never reach. It is not used to advertise to you,
+            and it is not combined with anything from another app or website.
+          </li>
+          <li>
+            <strong className="text-gray-900 dark:text-white">Signing out.</strong> Signing out
+            clears the identifier on your device, so a later session on the same phone is not
+            attached to the account that left.
+          </li>
+        </ul>
         <Callout>
           <p className="text-gray-700 dark:text-gray-200">
             <strong className="text-gray-900 dark:text-white">
-              Gameplay statistics stay on your device.
+              This is first-party analytics, not tracking.
             </strong>{' '}
-            The game keeps a local record of how a session went, such as spins taken and which
-            positions stall people, so the game can be tuned. It is held on the device and is
-            not transmitted. There is no analytics service connected to the game.
+            It measures how this game is used and nothing else. There is no advertising network
+            involved, no identifier shared with one, and no profile of you assembled from other
+            apps or websites.
           </p>
         </Callout>
       </Section>
@@ -227,6 +270,18 @@ const Privacy: React.FC = () => {
           United States, playing ranked means that data is stored there.
         </p>
         <p>
+          Gameplay analytics from the game are held by{' '}
+          <a
+            href="https://posthog.com/privacy"
+            rel="noopener noreferrer"
+            target="_blank"
+            className="text-primary hover:underline"
+          >
+            PostHog
+          </a>
+          , also in the United States.
+        </p>
+        <p>
           This website is served by Vercel, and the web build of the game by GitHub Pages. Both
           receive the ordinary request information any web server does, including your IP
           address.
@@ -236,9 +291,10 @@ const Privacy: React.FC = () => {
       <Section id="deleting" title="Deleting it">
         <p>
           <strong className="text-gray-900 dark:text-white">Delete my account</strong> is inside
-          the game, on the leaderboard screen. It does not require contacting anyone. It
-          permanently removes your account, your display name, and every ranked game attached to
-          it. Your leaderboard entries go with them.
+          the game, on the Account screen. It does not require contacting anyone. It permanently
+          removes your account, your display name, and every ranked game attached to it. Your
+          leaderboard entries go with them, and the gameplay analytics attached to that account
+          are deleted from PostHog on the same request.
         </p>
         <Callout>
           <p className="text-gray-700 dark:text-gray-200">
