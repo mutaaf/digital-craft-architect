@@ -89,12 +89,24 @@ step "Sweeping stale git locks"
 if pgrep -x git >/dev/null 2>&1; then
   die "a git process is currently running; refusing to touch lock files"
 fi
+# Sweep every *.lock under .git rather than a fixed list.
+#
+# The fixed list used to be index.lock, HEAD.lock and objects/maintenance.lock.
+# On 2026-08-24 a crashed run left .git/packed-refs.lock and
+# .git/refs/heads/<branch>.lock behind instead, neither of which that list
+# covered, so the sweep reported "none found" while the repo stayed wedged.
+# Nothing shipped for the next nine days.
+#
+# The pgrep guard above already established that no git process is running, so
+# any lock still on disk at this point is stale by definition.
 found_lock=0
-for lock in .git/index.lock .git/HEAD.lock .git/objects/maintenance.lock; do
-  if [ -e "$lock" ]; then
-    rm -f "$lock" && note "removed stale $lock" && found_lock=1
-  fi
-done
+while IFS= read -r lock; do
+  [ -n "$lock" ] || continue
+  rm -f "$lock" && note "removed stale $lock"
+  found_lock=1
+done <<EOF
+$(find .git -name '*.lock' -type f 2>/dev/null)
+EOF
 [ "$found_lock" -eq 0 ] && note "none found"
 
 # ---------------------------------------------------------------------------

@@ -47,6 +47,7 @@ const HomeServicesDemoHub = lazy(() => import("./pages/homeservices/DemoHub"));
 const Healthcare = lazy(() => import("./pages/Healthcare"));
 const HealthcareDemoHub = lazy(() => import("./pages/healthcare/DemoHub"));
 const Legal = lazy(() => import("./pages/Legal"));
+const Privacy = lazy(() => import("./pages/Privacy"));
 const LegalDemoHub = lazy(() => import("./pages/legal/DemoHub"));
 const Restaurant = lazy(() => import("./pages/Restaurant"));
 const RestaurantDemoHub = lazy(() => import("./pages/restaurant/DemoHub"));
@@ -277,6 +278,7 @@ const App = () => {
               <Route path="/healthcare/demo/intake" element={<DemoContextProvider vertical="healthcare"><LeadResponder /></DemoContextProvider>} />
               <Route path="/healthcare/demo/scheduler" element={<DemoContextProvider vertical="healthcare"><ProposalGenerator /></DemoContextProvider>} />
               <Route path="/healthcare/demo/voice-followup" element={<DemoContextProvider vertical="healthcare"><VoiceNegotiator /></DemoContextProvider>} />
+              <Route path="/privacy" element={<Privacy />} />
               <Route path="/legal" element={<Legal />} />
               <Route path="/legal/demo" element={<DemoContextProvider vertical="legal"><LegalDemoHub /></DemoContextProvider>} />
               <Route path="/legal/demo/intake" element={<DemoContextProvider vertical="legal"><LeadResponder /></DemoContextProvider>} />
