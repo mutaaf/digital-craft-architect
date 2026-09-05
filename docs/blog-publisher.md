@@ -25,10 +25,29 @@ If you cannot complete the task, a clean repo plus a clear report is a *successf
 cd /Users/mutaafaziz/Desktop/projects/digital-craft-architect
 
 # 1a. Stale lock sweep. Only safe when no git process is actually running.
+#
+# Only touch a lock that actually EXISTS. `rm -f` on an absent
+# .git/index.lock still counts as a write to a sensitive path, and a
+# sandboxed unattended runner stops there for a permission prompt nobody can
+# answer. That stalled the cloud routine's very first run (2026-09-05), 20
+# seconds in. A fresh clone has no locks, so the common case must touch
+# nothing at all.
+#
+# Sweep whatever is present rather than a fixed list: a crash on 2026-08-24
+# left .git/packed-refs.lock and .git/refs/heads/<branch>.lock behind, neither
+# of which the old three-entry list covered, and the repo stayed wedged for
+# nine days. scripts/ship-blogs.sh sweeps the same way.
 if pgrep -x git >/dev/null 2>&1; then
   echo "git process running; wait and retry"
 else
-  rm -f .git/index.lock .git/HEAD.lock .git/objects/maintenance.lock
+  LOCKS="$(find .git -name '*.lock' -type f 2>/dev/null)"
+  if [ -n "$LOCKS" ]; then
+    printf '%s\n' "$LOCKS" | while IFS= read -r l; do
+      rm -f "$l" && echo "removed stale $l"
+    done
+  else
+    echo "no stale locks"
+  fi
 fi
 
 # 1b. Refuse to start on a dirty tree you did not create.
@@ -103,6 +122,8 @@ Insert ONE new post object at the TOP of the `blogPosts` array in `src/data/blog
 - **Zero em dashes.** Anywhere. Use commas, parentheses, or sentence breaks.
 - No filler openers. Short paragraphs, 2 to 4 sentences.
 - **Never invent statistics.** No made-up percentages, dollar figures, or "studies show" claims. If you want to make a quantitative point, either frame it as arithmetic the reader performs on their own numbers, or leave it out. An unsourced statistic is an automatic BLOCK at review and a liability on a marketing site.
+- **Never invent a customer.** No fabricated case studies, companies, cities, or testimonials. "A plumbing company in Phoenix cut their close rate from 22% to 31%" is banned even as illustration: a reader cannot tell an invented example from a real client, so on a marketing site it reads as a claim about our results. If you have no real, named, verifiable source, do not imply one exists. Write the mechanism instead of a fake proof point. This is an automatic BLOCK at review.
+  - Posts dated 2026-03-26 through 2026-05-20 predate this rule and several violate it. Do not copy their style, and do not treat them as precedent.
 - Internal links: at least one vertical landing page and one demo route. **Verify every href against a real `<Route path=...>` in `src/App.tsx`** before committing, and make the link topically relevant (a fitness post links to `/fitness`, not `/construction`).
 - Author is exactly `DigitalCraft AI`. Title under 65 chars. Description under 160 chars. 2 to 4 tags.
 
@@ -171,7 +192,7 @@ git push -u origin "gtm/blog-${SLUG}-$(date +%Y%m%d)"
 git diff origin/main...HEAD > /tmp/blog-publisher-diff.patch
 ```
 
-Give the sub-agent the rubric: date free and not future; slug unique; zero em dashes in added lines; no changes under `/api/`, `package.json`, `package-lock.json`, `.env*`; no invented statistics or fabricated testimonials; at least one vertical page and one demo link with every href resolving to a real route in `src/App.tsx`; 2 to 4 tags; 500 to 800 visible words; all required fields present; author exactly `DigitalCraft AI`. Tell it to verify with bash rather than trusting the diff, and to output either `OK` plus a summary, or `BLOCK:` lines with file:line.
+Give the sub-agent the rubric: date free and not future; slug unique; zero em dashes in added lines; no changes under `/api/`, `package.json`, `package-lock.json`, `.env*`; no invented statistics, fabricated case studies, invented companies or cities, or fabricated testimonials; at least one vertical page and one demo link with every href resolving to a real route in `src/App.tsx`; 2 to 4 tags; 500 to 800 visible words; all required fields present; author exactly `DigitalCraft AI`. Tell it to verify with bash rather than trusting the diff, and to output either `OK` plus a summary, or `BLOCK:` lines with file:line.
 
 If BLOCK: fix, re-run STEP 5, amend, re-push, re-review. Do not open the PR until `OK`.
 
