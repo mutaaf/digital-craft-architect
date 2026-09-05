@@ -111,6 +111,13 @@ async function gotoRoute(page: Page, path: string): Promise<string[]> {
       timeout: 10_000,
     })
     .toBeGreaterThan(500);
+  // Route bodies are lazy-loaded behind a Suspense boundary (App.tsx
+  // RouteFallback). The fallback alone can push root.innerHTML over the
+  // heuristic above, so wait for it to clear before probing DOM.
+  await page
+    .locator('[role="status"][aria-label="Loading"]')
+    .waitFor({ state: 'hidden', timeout: 10_000 })
+    .catch(() => {});
   return errors;
 }
 
