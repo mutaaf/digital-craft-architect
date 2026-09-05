@@ -52,6 +52,55 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'ai-contract-drafting-real-estate-agents',
+    title: 'How AI Speeds Up Real Estate Contract Drafting',
+    description: 'AI can draft a real estate purchase agreement in minutes from the deal terms you already have, cutting the lag between an accepted offer and a signed contract.',
+    date: '2026-09-05',
+    author: 'DigitalCraft AI',
+    readTime: '4 min read',
+    tags: ['Real Estate', 'Contract Automation', 'AI Automation'],
+    content: `
+<p>An accepted offer is not a done deal. It is the start of a paperwork sprint: pulling the purchase price, closing date, earnest money, and contingencies into a document both sides can sign before anyone changes their mind.</p>
+
+<p>Most agents handle this the same way they did ten years ago. Open a template, retype the fields you already collected during negotiation, double check every number by hand, and pass a PDF back and forth until everyone agrees on the wording. It works, but it is slow, and slow is exactly when deals fall apart.</p>
+
+<h2>What Actually Eats the Time</h2>
+
+<p>The information needed to draft a purchase agreement already exists somewhere: in your notes, your CRM, a text thread with the buyer's agent. The work is not figuring out the terms. It is transcribing them correctly into a formal document with the right sections in the right order: parties, property description, purchase price, earnest money, contingencies, closing, possession, default, and signatures.</p>
+
+<p>That transcription step is where mistakes creep in. A closing date off by a day, a purchase price with a missing zero, a contingency left out because it was only ever mentioned out loud. Every one of those is a call you do not want to make after the document is already out for signature.</p>
+
+<h2>How AI Contract Drafting Changes the Workflow</h2>
+
+<p>Instead of opening a blank template, you enter the deal terms once: buyer, seller, property address, purchase price, closing date, earnest money, and any contingencies or additional terms specific to the deal. An <a href="/realestate/demo/contract">AI contract drafter</a> assembles a complete, professionally formatted draft in the standard sections, with your numbers placed exactly where you typed them.</p>
+
+<p>You still review every line before anything goes to a client. The value is not skipping review, it is skipping the blank page and the manual formatting. You are checking a finished draft instead of building one from scratch.</p>
+
+<h2>The Math That Makes This Worth Trying</h2>
+
+<p>Think about how long a purchase agreement actually takes you today: pulling up the template, filling in every field, formatting the contingencies section, and proofreading the whole thing before it goes out. If that is 20 to 30 minutes per contract and you write two or three a week, that adds up to most of a full workday every month spent on formatting and data entry rather than on your clients.</p>
+
+<p>Cut that per-contract time in half by starting from a generated draft instead of a blank one, and you get a meaningful chunk of that time back for showing homes, prospecting, or negotiating the next deal instead of retyping fields you already know.</p>
+
+<h2>What It Does Not Replace</h2>
+
+<p>An AI-generated draft is a starting point, not a substitute for your brokerage's required forms or an attorney's review where your state requires one. Every jurisdiction has its own disclosure requirements and standard contract language, and nothing here changes that. The tool speeds up assembling a first draft. It does not replace the legal and compliance review that has to happen before a real contract goes out.</p>
+
+<h2>Getting Started</h2>
+
+<p>Start with a single deal type, standard residential purchase agreements, and see how the draft compares to what you would have written from scratch. If it saves you real time on paperwork you already generate every week, the case for using it on every deal makes itself.</p>
+
+<p><a href="/realestate">See how AI fits into your real estate business</a> or <a href="/realestate/demo">try the live demos</a>, including the contract drafter, with your own brokerage's details.</p>
+
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to close paperwork faster?</strong>
+  <p style="margin: 8px 0;">See how AI drafts your purchase agreements from the deal terms you already have.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/realestate/demo">Try Our Live Demos</a>
+</div>
+`,
+  },
+  {
     slug: 'ai-electricians-after-hours-emergency-calls',
     title: 'AI for Electricians: Capture After-Hours Emergency Calls',
     description: 'Electrical emergencies do not respect business hours. AI voice and text intake help electricians capture urgent calls, qualify the job, and quote faster.',
