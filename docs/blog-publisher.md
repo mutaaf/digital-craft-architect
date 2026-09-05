@@ -65,8 +65,13 @@ git ls-remote origin >/dev/null 2>&1 && echo "NET_OK"
 
 This determines which mode you are in. Do not discover a missing capability halfway through:
 
-- **Both OK → FULL mode.** Write, push, PR, watch CI, merge.
-- **Either missing → LOCAL mode.** Write the post, run every check you can, commit to a local branch, and stop. Report `LOCAL-ONLY: <slug> committed to <branch>; run scripts/ship-blogs.sh from a machine with gh + network`. This is a success, not a failure. Do NOT attempt to work around a missing network with curl, a browser, or any other tool.
+- **Both OK → FULL mode (gh transport).** Write, push, PR, arm auto-merge.
+- **`gh` missing but network OK → check for GitHub MCP** before giving up. If
+  `mcp__github__*` tools are available and `mcp__github__get_me` succeeds, that
+  is an equivalent transport: proceed in **FULL mode (MCP transport)** and use
+  the MCP branch of STEP 8. The cloud publisher routine runs in exactly this
+  shape, so this is the normal path there, not an exception.
+- **Network missing, or neither transport available → LOCAL mode.** Write the post, run every check you can, commit to a local branch, and stop. Report `LOCAL-ONLY: <slug> committed to <branch>; run scripts/ship-blogs.sh from a machine with gh + network`. This is a success, not a failure. Do NOT attempt to work around a missing network with curl, a browser, or any other tool.
 
 ```bash
 git checkout main
@@ -200,14 +205,42 @@ If BLOCK: fix, re-run STEP 5, amend, re-push, re-review. Do not open the PR unti
 
 ## STEP 8 — PR, CI, MERGE
 
+**Arm auto-merge; do not sit and watch.** CI takes 6+ minutes. A run that
+watches it can end before CI finishes and leave a green PR sitting open
+forever, which is what happened on 2026-09-05. GitHub auto-merge is armed in
+one call and lands the PR the moment the required checks (`build`,
+`smoke-required`) pass, whether or not this session is still alive.
+
+### FULL mode, gh transport
+
 ```bash
 gh pr create --label gtm-agent --title "gtm(BLOG-POST): Add ${SLUG}" --body "<task, summary, self-review output, checks>"
-gh pr checks --watch
+gh pr merge --auto --squash --delete-branch
 ```
 
-- Exit 0 (green): `gh pr merge --squash --delete-branch`, then `git checkout main && git pull origin main`.
-- Non-zero (red): comment the failure, `gh pr edit --add-label needs-human`, stop. Do not merge, do not delete the branch.
-- If `gh pr merge` fails: do NOT force. Comment, label `needs-human`, stop.
+- Auto-merge armed: report the PR url and stop. GitHub does the rest.
+- If arming fails (auto-merge disabled on the repo, or the PR is already
+  mergeable): fall back to `gh pr checks --watch`, then on green
+  `gh pr merge --squash --delete-branch`.
+- CI red: comment the failure, `gh pr edit --add-label needs-human`, stop. Do
+  not merge, do not delete the branch.
+- Never `--force`, never `--admin`, never merge with red or missing checks.
+
+### FULL mode, MCP transport
+
+`mcp__github__create_pull_request` to open it, then poll
+`mcp__github__pull_request_read` until the required checks conclude (allow up
+to ~15 minutes), then `mcp__github__merge_pull_request` with the squash method
+on green.
+
+If the session ends before CI concludes, that is safe and expected: the PR is
+open and green-or-not on its own, and `scripts/ship-blogs.sh` resolves any blog
+branch with an open PR and finishes the merge. Leaving a correct open PR is a
+successful outcome. Merging a red one is not.
+
+### Both transports
+
+After a merge lands, `git checkout main && git pull origin main`.
 
 ---
 
