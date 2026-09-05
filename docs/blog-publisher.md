@@ -25,10 +25,29 @@ If you cannot complete the task, a clean repo plus a clear report is a *successf
 cd /Users/mutaafaziz/Desktop/projects/digital-craft-architect
 
 # 1a. Stale lock sweep. Only safe when no git process is actually running.
+#
+# Only touch a lock that actually EXISTS. `rm -f` on an absent
+# .git/index.lock still counts as a write to a sensitive path, and a
+# sandboxed unattended runner stops there for a permission prompt nobody can
+# answer. That stalled the cloud routine's very first run (2026-09-05), 20
+# seconds in. A fresh clone has no locks, so the common case must touch
+# nothing at all.
+#
+# Sweep whatever is present rather than a fixed list: a crash on 2026-08-24
+# left .git/packed-refs.lock and .git/refs/heads/<branch>.lock behind, neither
+# of which the old three-entry list covered, and the repo stayed wedged for
+# nine days. scripts/ship-blogs.sh sweeps the same way.
 if pgrep -x git >/dev/null 2>&1; then
   echo "git process running; wait and retry"
 else
-  rm -f .git/index.lock .git/HEAD.lock .git/objects/maintenance.lock
+  LOCKS="$(find .git -name '*.lock' -type f 2>/dev/null)"
+  if [ -n "$LOCKS" ]; then
+    printf '%s\n' "$LOCKS" | while IFS= read -r l; do
+      rm -f "$l" && echo "removed stale $l"
+    done
+  else
+    echo "no stale locks"
+  fi
 fi
 
 # 1b. Refuse to start on a dirty tree you did not create.
