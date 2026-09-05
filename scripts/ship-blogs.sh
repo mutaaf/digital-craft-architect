@@ -27,9 +27,11 @@ usage() {
   cat <<USAGE
 Usage: bash scripts/ship-blogs.sh [--branch <name>] [--dry-run]
 
-  --branch <name>  Blog branch to ship. Defaults to the single branch matching
-                   $BRANCH_GLOB, local or on origin. If several match, the
-                   script refuses to guess and asks you to name one.
+  --branch <name>  Blog branch to ship. Defaults to the single blog branch with
+                   an open PR (covers the publisher routine's
+                   gtm/blog-<slug>-<date> naming), falling back to a branch
+                   matching $BRANCH_GLOB. If several match, the script refuses
+                   to guess and asks you to name one.
   --dry-run        Run every check, then stop before pushing.
 USAGE
 }
@@ -58,21 +60,38 @@ cd "$REPO" || die "repo not found at $REPO"
 # picking the "newest" of several candidates could ship an abandoned draft.
 resolve_branch() {
   local candidates count
-  candidates="$(
-    {
-      git for-each-ref --format='%(refname:short)' "refs/heads/$BRANCH_GLOB"
-      git for-each-ref --format='%(refname:short)' "refs/remotes/origin/$BRANCH_GLOB" \
-        | sed 's|^origin/||'
-    } | sort -u
-  )"
+
+  # Preferred signal: a blog branch with an OPEN PR against the base.
+  #
+  # The publisher routine names its branches gtm/blog-<slug>-<date>, not
+  # gtm/blog-catchup-*, so the name glob alone never finds them. Widening the
+  # glob to gtm/blog-* is worse: the repo carries ~11 abandoned blog branches
+  # from dead runs, so every resolve would hit the graveyard and refuse.
+  #
+  # An open PR is the precise "this branch is waiting to ship" marker, and it
+  # covers both producers: the routine opens one, and this script opens one.
+  candidates="$(gh pr list --state open --base "$BASE" --json headRefName \
+      --jq '.[] | select(.headRefName | startswith("gtm/blog-")) | .headRefName' \
+      2>/dev/null || true)"
+
+  # Fallback: the catch-up glob, for a branch committed before any PR exists.
+  if [ -z "$candidates" ]; then
+    candidates="$(
+      {
+        git for-each-ref --format='%(refname:short)' "refs/heads/$BRANCH_GLOB"
+        git for-each-ref --format='%(refname:short)' "refs/remotes/origin/$BRANCH_GLOB" \
+          | sed 's|^origin/||'
+      } | sort -u
+    )"
+  fi
   count="$(printf '%s\n' "$candidates" | grep -c . || true)"
   if [ "$count" -eq 0 ]; then
-    die "no branch matching $BRANCH_GLOB exists locally or on origin.
-     Name one explicitly with --branch <name>."
+    die "no blog branch has an open PR, and none matching $BRANCH_GLOB exists
+     locally or on origin. Name one explicitly with --branch <name>."
   fi
   if [ "$count" -gt 1 ]; then
     printf '%s\n' "$candidates" | sed 's/^/    /' >&2
-    die "$count branches match $BRANCH_GLOB; refusing to guess which one to merge.
+    die "$count blog branches are shippable; refusing to guess which one to merge.
      Name the one you want with --branch <name>."
   fi
   printf '%s' "$candidates"
