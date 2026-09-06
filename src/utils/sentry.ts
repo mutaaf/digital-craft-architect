@@ -57,7 +57,7 @@ export const initSentry = (
     normalizeDepth: 10,
     
     // Function to modify or block events before they're sent to Sentry
-    beforeSend(event, hint) {
+    beforeSend(event, _hint) {
       // Add additional context to all events
       if (event.exception) {
         event.tags = {
