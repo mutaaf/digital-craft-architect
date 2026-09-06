@@ -27,6 +27,10 @@ usage() {
   cat <<USAGE
 Usage: bash scripts/ship-blogs.sh [--branch <name>] [--dry-run]
 
+  --repo <dir>     Repository to operate in. Defaults to the interactive
+                   checkout. Scheduled runs MUST pass a dedicated clone: this
+                   script checks out and rebases branches, which would yank the
+                   ground out from under anyone editing in that directory.
   --branch <name>  Blog branch to ship. Defaults to the single blog branch with
                    an open PR (covers the publisher routine's
                    gtm/blog-<slug>-<date> naming), falling back to a branch
@@ -41,6 +45,8 @@ DRY_RUN=0
 while [ $# -gt 0 ]; do
   case "$1" in
     --dry-run)  DRY_RUN=1; shift ;;
+    --repo)     REPO="${2:-}"; [ -n "$REPO" ] || die "--repo needs a directory"; shift 2 ;;
+    --repo=*)   REPO="${1#--repo=}"; shift ;;
     --branch)   BRANCH="${2:-}"; [ -n "$BRANCH" ] || die "--branch needs a branch name"; shift 2 ;;
     --branch=*) BRANCH="${1#--branch=}"; shift ;;
     -h|--help)  usage; exit 0 ;;
