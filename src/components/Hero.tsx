@@ -7,7 +7,7 @@ interface HeroProps {
 }
 
 const Hero: React.FC<HeroProps> = ({ data }) => {
-  const [tapCount, setTapCount] = useState(0);
+  const [, setTapCount] = useState(0);
 
   const handleImageTap = () => {
     // Increment the tap count
@@ -22,7 +22,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
       }
       
       // Reset tap count after 2 seconds of inactivity
-      const resetTimer = setTimeout(() => {
+      setTimeout(() => {
         setTapCount(0);
       }, 2000);
       

@@ -149,4 +149,17 @@ reduces the surface a future refactor could silently reopen.
 
 ## Implementation log
 
-(Appended by the eng-dev agent during execution.)
+- 2026-09-06 - branch `eng/0068-nounused-locals-strict-flag` opened off fresh
+  `origin/main`; ticket file + README index row landed in-progress in one
+  commit (check-backlog green).
+- 2026-09-06 - prove-first: flipped `noUnusedLocals: false` -> `true` in
+  `tsconfig.app.json` and ran `npx tsc -p tsconfig.app.json --noEmit`. Output
+  was exactly the 12 named errors (11 TS6133 + 1 TS6196), matching the
+  measurement table above. Reverted the flag to `false` before applying any
+  source edits, confirming the failure appears only with the flag on.
+- 2026-09-06 - applied the 12 delete-only source edits per Engineering notes.
+  All 12 are dead-code removals (unused imports, unused type import, unused
+  local function, unused destructured value slot, unused setTimeout return
+  binding). No call sites touched.
+- 2026-09-06 - re-flipped `noUnusedLocals: false` -> `true`; typecheck exit 0.
+

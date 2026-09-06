@@ -16,7 +16,6 @@ import {
   Mic,
   Zap,
   Clock,
-  DollarSign,
   Building2,
   Users,
   Bot,

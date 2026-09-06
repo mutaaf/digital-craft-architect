@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useContent } from '@/hooks/useContent';
 import Navbar from '@/components/Navbar';
 import CountdownBanner from '@/components/CountdownBanner';

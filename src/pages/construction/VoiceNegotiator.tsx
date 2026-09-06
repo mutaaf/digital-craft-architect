@@ -19,7 +19,7 @@ import ConversationHistory from '@/components/construction/negotiator/Conversati
 import { useVoiceCall } from '@/hooks/useVoiceCall';
 import { runAgentPipeline } from '@/utils/agentPipeline';
 import type { PropertyData, AgentStep, AgentResult } from '@/data/propertyNegotiation';
-import type { BidRange, CallSummary, TranscriptEntry } from '@/data/voiceNegotiation';
+import type { BidRange, CallSummary } from '@/data/voiceNegotiation';
 import type { StoredConversation } from '@/utils/conversationStore';
 import DemoBreadcrumbs from '@/components/DemoBreadcrumbs';
 import { decodeVoiceSummary } from '@/utils/voiceSummaryShareLink';
