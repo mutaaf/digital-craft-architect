@@ -22,6 +22,18 @@
 #
 set -uo pipefail
 
+# launchd hands a job PATH=/usr/bin:/bin:/usr/sbin:/sbin and nothing else.
+# gh, npm and node all live in /opt/homebrew/bin on this machine, so under
+# launchd every one of them is simply absent. The first version of this script
+# discovered that the worst possible way: its PR query failed with "gh: command
+# not found", `|| echo 0` turned that into "0 open PRs", and the run reported
+# "nothing to ship" while PR #203 sat open in front of it.
+#
+# Set the PATH explicitly, then PROVE each tool is present. A scheduled job
+# that cannot tell "no work" from "I am broken" is the exact failure mode this
+# whole pipeline keeps being rebuilt to avoid.
+export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+
 REMOTE="https://github.com/mutaaf/digital-craft-architect.git"
 CACHE="$HOME/.cache/digitalcraft-blog-ship"
 CLONE="$CACHE/repo"
@@ -34,6 +46,21 @@ mkdir -p "$LOG_DIR"
 exec > >(tee -a "$LOG") 2>&1
 
 echo "=== blog-ship-runner $(date -u) ==="
+
+MISSING=""
+for tool in gh git npm node; do
+  command -v "$tool" >/dev/null 2>&1 || MISSING="$MISSING $tool"
+done
+if [ -n "$MISSING" ]; then
+  echo "FATAL: required tool(s) not on PATH:$MISSING"
+  echo "PATH=$PATH"
+  echo "This is a broken runner, NOT an empty queue. Fix the PATH above."
+  exit 1
+fi
+if ! gh auth status >/dev/null 2>&1; then
+  echo "FATAL: gh is present but not authenticated for this user context."
+  exit 1
+fi
 
 # The script this hands off to lives in the repo, so use the copy from the
 # clone rather than whatever happens to be on this machine's working tree.
@@ -58,11 +85,19 @@ git reset --hard --quiet origin/main || { echo "reset failed"; exit 1; }
 
 # Cheap exit when there is nothing waiting. Keeps an hourly schedule almost
 # free, and keeps the logs readable.
-OPEN_BLOG_PRS="$(gh pr list --repo mutaaf/digital-craft-architect \
+# Never collapse a failed query into "nothing to do". Capture the status
+# separately so a broken gh is reported as broken.
+if ! OPEN_BLOG_PRS="$(gh pr list --repo mutaaf/digital-craft-architect \
   --state open --base main --json headRefName \
-  --jq '[.[] | select(.headRefName | startswith("gtm/blog-"))] | length' 2>/dev/null || echo 0)"
+  --jq '[.[] | select(.headRefName | startswith("gtm/blog-"))] | length' 2>&1)"; then
+  echo "FATAL: could not query open PRs: $OPEN_BLOG_PRS"
+  exit 1
+fi
+case "$OPEN_BLOG_PRS" in
+  ''|*[!0-9]*) echo "FATAL: unexpected PR-count output: $OPEN_BLOG_PRS"; exit 1 ;;
+esac
 
-if [ "${OPEN_BLOG_PRS:-0}" -eq 0 ]; then
+if [ "$OPEN_BLOG_PRS" -eq 0 ]; then
   echo "no open blog PR; nothing to ship"
   exit 0
 fi
