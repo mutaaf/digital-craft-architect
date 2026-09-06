@@ -1,7 +1,7 @@
 ---
 id: 0067
 title: Printable AI vendor scorecard template at /questions-to-ask-an-ai-vendor/scorecard
-status: groomed
+status: in-progress
 priority: P1
 area: trust
 created: 2026-09-06
@@ -374,4 +374,66 @@ to re-discover the architecture.
 
 ## Implementation log
 
-(Appended by the implementation-dev agent during execution.)
+### 2026-09-06 — kickoff
+
+Pre-code grep results (per acceptance box 5, following the 2026-05-30
+second-@type lesson):
+
+- `=== 'FAQPage'` predicates in `tests/e2e/`:
+  - `tests/e2e/pricing-faq-structured-data.spec.ts:88` — filter reused by
+    `findComponentFaqPage` in the same file; only executed under
+    `/construction` and `/realestate` navigations. URL-scoped, no collision.
+  - `tests/e2e/questions-to-ask-an-ai-vendor.spec.ts:87` (ticket 0061) —
+    only executed under `/questions-to-ask-an-ai-vendor`. URL-scoped, no
+    collision.
+  - The scorecard page at `/questions-to-ask-an-ai-vendor/scorecard`
+    deliberately emits NO `FAQPage` block, so both predecessors remain
+    correct as-is.
+- `=== 'BreadcrumbList'` predicates in `tests/e2e/` — 30+ matches across
+  per-page specs; every one runs under a single URL navigation (compare-*,
+  ai-for-*, playbook, glossary, changelog, case-study, my-dashboard,
+  quiz-jsonld, roi-calculator, texas-localbusiness, trust-aboutpage,
+  case-studies-hub, and `questions-to-ask-an-ai-vendor.spec.ts:92`). Per the
+  ticket 0063 Implementation log every BreadcrumbList predicate is
+  URL-scoped, confirmed here. The new
+  `/questions-to-ask-an-ai-vendor/scorecard`-scoped BreadcrumbList block
+  cannot collide.
+- Em-dash audit on the `VENDOR_QUESTIONS` values in
+  `src/pages/QuestionsToAskAnAiVendor.tsx`: `chr(8212)` count = 0. The
+  mechanical extraction to `src/data/vendorQuestions.ts` preserves values
+  byte-identically (no hyphen-swap needed).
+
+### 2026-09-06 — implementation
+
+Files touched (matches the ticket engineering notes):
+
+1. NEW `src/data/vendorQuestions.ts` — mechanical extraction of the
+   `VENDOR_QUESTIONS` array + `VendorQuestion` type from
+   `src/pages/QuestionsToAskAnAiVendor.tsx`. Byte-identical values. Both
+   the sibling page and the new scorecard page import from here.
+2. NEW `src/pages/VendorScorecard.tsx` (under 260 lines) — mirrors the
+   `QuestionsToAskAnAiVendor.tsx` shell (Navbar + Footer + ScrollProgress +
+   Helmet). Emits ONE JSON-LD block (BreadcrumbList, three items:
+   Home -> Questions to Ask an AI Vendor -> Scorecard). No FAQPage block.
+   Inline `<style type="text/css" media="print">` inside Helmet hides
+   nav/footer/ScrollProgress/CTA and forces black-on-white printed
+   scorecard borders (`!important` to beat Tailwind specificity).
+   `trackCTAClick('vendor_scorecard_view', 'vendor_scorecard')` fires
+   once per mount (useRef bool guard);
+   `trackCTAClick('vendor_scorecard_print', 'vendor_scorecard')` fires
+   FIRST, then `window.print()` (order matters because the print dialog
+   blocks the event loop).
+3. NEW `tests/e2e/vendor-scorecard.spec.ts` — 12 cases per AC box 10.
+4. EDIT `src/App.tsx` — add
+   `<Route path="/questions-to-ask-an-ai-vendor/scorecard" element={<VendorScorecard />} />`
+   next to the sibling. Lazy-loaded via `React.lazy` to mirror the sibling
+   convention (all buyer-class pages use lazy per the 2026-09-05 route
+   code-splitting lesson).
+5. EDIT `src/data/routes.ts` — allow-list the scorecard path so the smoke
+   spec exercises it (2026-06-07 src-imports-tests lesson).
+6. EDIT `src/pages/QuestionsToAskAnAiVendor.tsx` — swap the module-local
+   `VENDOR_QUESTIONS` decl for
+   `import { VENDOR_QUESTIONS, type VendorQuestion } from '@/data/vendorQuestions'`
+   (byte-identical values) and add ONE small "Print the scoring sheet"
+   link in the hero routing to the new URL (under 6 added lines; no
+   existing copy edited).
