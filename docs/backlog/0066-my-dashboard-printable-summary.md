@@ -1,7 +1,7 @@
 ---
 id: 0066
 title: Printable "Your Digital Craft summary" recap on /my composing every persisted client-side artifact
-status: in-progress
+status: shipped
 priority: P1
 area: demos
 created: 2026-09-06
