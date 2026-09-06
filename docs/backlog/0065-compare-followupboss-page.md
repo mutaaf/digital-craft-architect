@@ -1,7 +1,7 @@
 ---
 id: 0065
 title: Comparison page "Digital Craft vs Follow Up Boss" for real-estate CRM switchers
-status: groomed
+status: in-progress
 priority: P1
 area: seo
 created: 2026-09-06
