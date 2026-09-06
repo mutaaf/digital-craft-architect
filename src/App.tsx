@@ -68,6 +68,7 @@ const Glossary = lazy(() => import("./pages/Glossary"));
 const Trust = lazy(() => import("./pages/Trust"));
 const Playbook = lazy(() => import("./pages/Playbook"));
 const QuestionsToAskAnAiVendor = lazy(() => import("./pages/QuestionsToAskAnAiVendor"));
+const VendorScorecard = lazy(() => import("./pages/VendorScorecard"));
 const Changelog = lazy(() => import("./pages/Changelog"));
 const Uptime = lazy(() => import("./pages/Uptime"));
 const CompareHub = lazy(() => import("./pages/CompareHub"));
@@ -322,6 +323,7 @@ const App = () => {
               <Route path="/trust" element={<Trust />} />
               <Route path="/playbook" element={<Playbook />} />
               <Route path="/questions-to-ask-an-ai-vendor" element={<QuestionsToAskAnAiVendor />} />
+              <Route path="/questions-to-ask-an-ai-vendor/scorecard" element={<VendorScorecard />} />
               <Route path="/changelog" element={<Changelog />} />
               <Route path="/uptime" element={<Uptime />} />
               <Route path="/compare" element={<CompareHub />} />
