@@ -76,7 +76,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0065 | Comparison page "Digital Craft vs Follow Up Boss" for real-estate CRM switchers | P1 | shipped | seo |
 | 0066 | Printable "Your Digital Craft summary" recap on /my composing every persisted client-side artifact | P1 | shipped | demos |
 | 0067 | Printable AI vendor scorecard template at /questions-to-ask-an-ai-vendor/scorecard | P1 | shipped | trust |
-| 0068 | Enable noUnusedLocals strict tsconfig flag (12 fixes) | P2 | in-progress | infra |
+| 0068 | Enable noUnusedLocals strict tsconfig flag (12 fixes) | P2 | shipped | infra |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the

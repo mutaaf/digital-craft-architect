@@ -1,7 +1,7 @@
 ---
 id: 0068
 title: Enable noUnusedLocals strict flag (12 fixes)
-status: in-progress
+status: shipped
 priority: P2
 area: infra
 created: 2026-09-06
