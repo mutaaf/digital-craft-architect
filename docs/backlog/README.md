@@ -73,6 +73,9 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0062 | Persist the visitor's last ROI calculator result and surface it as a saved card on /my dashboard | P1 | shipped | demos |
 | 0063 | Emit BreadcrumbList JSON-LD on /glossary so the AI glossary indexes as a navigable artifact | P2 | shipped | seo |
 | 0064 | Enable noUnusedParameters strict tsconfig flag (3 fixes) | P2 | shipped | infra |
+| 0065 | Comparison page "Digital Craft vs Follow Up Boss" for real-estate CRM switchers | P1 | groomed | seo |
+| 0066 | Printable "Your Digital Craft summary" recap on /my composing every persisted client-side artifact | P1 | groomed | demos |
+| 0067 | Printable AI vendor scorecard template at /questions-to-ask-an-ai-vendor/scorecard | P1 | groomed | trust |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the
