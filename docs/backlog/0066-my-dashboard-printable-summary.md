@@ -1,7 +1,7 @@
 ---
 id: 0066
 title: Printable "Your Digital Craft summary" recap on /my composing every persisted client-side artifact
-status: groomed
+status: in-progress
 priority: P1
 area: demos
 created: 2026-09-06
@@ -320,4 +320,11 @@ to re-discover the architecture.
 
 ## Implementation log
 
-(Appended by the implementation-dev agent during execution.)
+### 2026-09-06 - implementation-dev flipped to in-progress
+
+Branched `feat/0066-my-dashboard-printable-summary` off fresh
+`origin/main` and flipped the ticket frontmatter AND the README index
+row to `in-progress` together as the first commit (the validator
+requires them to match, per scripts/check-backlog.mjs step 3). The
+follow-up `chore/0066-ship-status` PR (per the 2026-05-22 two-PR ship
+lesson) will flip both file and index to `shipped` together.
