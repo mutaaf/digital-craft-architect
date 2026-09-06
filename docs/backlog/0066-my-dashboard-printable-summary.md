@@ -328,3 +328,109 @@ row to `in-progress` together as the first commit (the validator
 requires them to match, per scripts/check-backlog.mjs step 3). The
 follow-up `chore/0066-ship-status` PR (per the 2026-05-22 two-PR ship
 lesson) will flip both file and index to `shipped` together.
+
+### 2026-09-06 - implementation-dev completed feat PR
+
+Implemented the printable summary recap section in
+`src/pages/MyDashboard.tsx` per every acceptance box.
+
+Files touched:
+- `src/pages/MyDashboard.tsx` (edited) - added `SUMMARY_LINES`
+  constant + type + render functions, `summaryViewTracked` ref, a new
+  `summary_recap_view` fire-once effect, a `handleSummaryPrint`
+  handler that fires `trackCTAClick('summary_recap_print',
+  'mydashboard_summary_print')` BEFORE `window.print()`, a
+  `<style>` block carrying the `@media print` rules that hide every
+  on-screen card / nav / footer via data-testid selectors and force
+  the recap section to render dark-on-white, and the new
+  `<section data-testid="dashboard-summary-recap">` block below the
+  existing cards / above the empty-state.
+- `src/pages/mydashboardSummaryKeys.ts` (NEW) - a keys-only source
+  file exporting `SUMMARY_LINE_KEYS: readonly SummaryLineKey[]`.
+- `tests/e2e/summary-recap.spec.ts` (NEW) - nine tests mapping 1:1
+  to the ticket's box (6) sub-cases.
+
+Deviations, each cited:
+
+1. **`SUMMARY_LINE_KEYS` lives outside `MyDashboard.tsx`.** The
+   ticket's engineering notes said the constant should be exported
+   from `MyDashboard.tsx` directly. Attempting `import { SUMMARY_LINE_KEYS }
+   from '../../src/pages/MyDashboard'` in the spec fails at Playwright
+   spec-collection time with `SyntaxError: The requested module
+   'react-helmet-async' does not provide an export named 'Helmet'`
+   (react-helmet-async's CJS-only Helmet export is not statically
+   resolvable through Node's ESM loader that Playwright uses to load
+   the spec). Per the 2026-06-07 src-imports-tests lesson family, the
+   fix is to relocate the shared constant to a keys-only source file
+   with zero React/DOM imports and have both the page module and the
+   spec import from that file. `MyDashboard.tsx` now imports
+   `SUMMARY_LINE_KEYS` and re-uses it as the tuple key order source,
+   and a small runtime guard on module load warns if
+   `SUMMARY_LINES.map(l => l.key)` drifts from the shared constant.
+
+2. **Streak line requires `daysInLast14 >= 2`.** The ticket copy said
+   the streak line should render for `daysInLast14 >= 1`, but every
+   `/my` mount runs `recordVisitToday()` which sets today's date, so
+   `daysInLast14` is always at least 1 after mount. That would make
+   the ticket's own test (2) impossible: seeding ONLY the ROI store
+   would still show BOTH a ROI line and a "Visits: 1 day" line, yet
+   the ticket asserts "exactly ONE `<li>`". Requiring at least 2
+   distinct visit days for the streak line to appear preserves the
+   truthful "engagement history" intent of the summary (a first-time
+   visitor with no prior stored days should not see a fabricated
+   multi-visit signal) AND matches the ticket's own test assertion.
+
+3. **Recap render trigger uses `anyData` (the existing empty-state
+   trigger) rather than the ticket's expanded expression** including
+   `streak.daysInLast14 >= 1`. Same root cause as deviation 2: because
+   `recordVisitToday()` always sets today, including the streak in the
+   render trigger would make the ticket's own test (1) impossible
+   ("empty-state case clears localStorage ... asserts recap is NOT
+   visible"). Mirroring the existing `anyData` gate keeps the recap
+   and the empty-state mutually exclusive, which is the ticket's
+   visible-behavior intent.
+
+4. **Demos line format is `Recent demos explored: N (titles)`** rather
+   than the ticket's example `Demos tried: N of M`. The
+   `recent` state hook already lives on the page as `getRecentDemos().slice(0, 3)`;
+   the ticket forbids new store reads and forbids editing the recent-demos card
+   render, so the underlying N is capped at 3 and there is no faithful M
+   available without adding a new source read. "Recent demos explored: N (titles)"
+   is truthful given the existing state hook and avoids fabricating a denominator
+   (the no-fabricated-numbers criterion in acceptance box 2).
+
+5. **Estimate line has no `<savedAt>` because `lastEstimateStore`
+   never persisted one.** The ticket's example copy was
+   `Estimate saved on <savedAt>: $<total>`, but the 0014 store's
+   payload shape is exactly `EstimateShareState` (four wizard input
+   fields, no timestamp). The ticket forbids editing
+   `src/pages/construction/lastEstimateStore.ts`, so the line
+   format is `Estimate saved: $<mid> (<project>, <sqft> sq ft, <finish> finish)`;
+   the dollar figure is the midpoint of `calculateEstimate().totalLow`
+   and `.totalHigh` (the same helper the on-screen estimate result
+   uses), no fabrication.
+
+6. **Print stylesheet is inlined as a `<style>` element in the JSX
+   tree, not inside `<Helmet>`.** The ticket said either location was
+   acceptable ("or inline a single-file `<style>` element if no
+   existing pattern exists"); inline avoids Helmet's tag-deduplication
+   edge cases with raw `<style>` content and loads synchronously with
+   the markup it targets.
+
+Gates run and green:
+- `npm run lint` (0 errors, 23 warnings - baseline)
+- `npm run typecheck`
+- `npm run check-links`
+- `npm run check-images`
+- `npm run check-meta`
+- `npm run check-blog-dates`
+- `node scripts/check-backlog.mjs`
+- `npm run build`
+- `npx playwright test tests/e2e/summary-recap.spec.ts` (9/9 pass)
+- Regression: `npx playwright test tests/e2e/my-dashboard.spec.ts
+  tests/e2e/visit-streak-badge.spec.ts
+  tests/e2e/roi-card-on-dashboard.spec.ts
+  tests/e2e/last-estimate-recap.spec.ts` (30/30 pass)
+
+Self-review: `git diff main | grep '$(printf "\\u2014")'` returned
+zero matches (2026-05-07 em-dash Hard NO).
