@@ -1,7 +1,7 @@
 ---
 id: 0064
 title: Enable noUnusedParameters strict flag (3 fixes)
-status: in-progress
+status: shipped
 priority: P2
 area: infra
 created: 2026-09-06
