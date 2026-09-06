@@ -25,7 +25,6 @@ import {
   Sparkles,
   Mic,
   Zap,
-  Clock,
   MessageSquare,
   Star,
   Calendar,

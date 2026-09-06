@@ -194,15 +194,6 @@ const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
   const totalSteps = fieldSteps.length;
   const isMultiStep = totalSteps > 1;
 
-  const canAdvance = () => {
-    const currentFields = fieldSteps[step];
-    return currentFields.every((field) => {
-      const fieldId = field.toLowerCase().replace(/\s+/g, '-');
-      const val = form.getValues(fieldId);
-      return val && val.length >= 2;
-    });
-  };
-
   const handleNext = async () => {
     const currentFieldIds = fieldSteps[step].map((f) =>
       f.toLowerCase().replace(/\s+/g, '-')

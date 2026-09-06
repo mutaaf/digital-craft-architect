@@ -12,7 +12,6 @@ import {
   X,
   Minus,
   Phone,
-  ArrowRight,
   Sparkles,
   Mic,
   Zap,

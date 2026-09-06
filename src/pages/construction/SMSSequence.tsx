@@ -11,7 +11,6 @@ import { Badge } from '@/components/ui/badge';
 import { streamChat } from '@/utils/openaiChat';
 import {
   MessageCircle,
-  ArrowRight,
   RotateCcw,
   Sparkles,
   Loader2,
