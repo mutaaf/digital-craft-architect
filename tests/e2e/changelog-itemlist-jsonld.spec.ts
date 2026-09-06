@@ -52,6 +52,15 @@ async function gotoChangelog(page: Page): Promise<string[]> {
       timeout: 10_000,
     })
     .toBeGreaterThan(500);
+  // /changelog is a lazy route (App.tsx Suspense with RouteFallback). The
+  // fallback's own markup satisfies the innerHTML.length poll above, so the
+  // subsequent non-retrying .count() / .$$eval reads can fire before the real
+  // chunk hydrates. Wait for the RouteFallback (role="status" aria-label="Loading")
+  // to detach before returning. Per the 2026-09-05 lesson on route-level React.lazy.
+  await page
+    .locator('[role="status"][aria-label="Loading"]')
+    .waitFor({ state: 'hidden', timeout: 10_000 })
+    .catch(() => {});
   return errors;
 }
 
@@ -282,19 +291,48 @@ test('renders in light/dark on mobile and emits no em-dash in the JSON-LD', asyn
 });
 
 // Box 7: no copy regression. The H1 still reads the documented literal, and
-// the demo-link resolver still emits at least one "Try the demo" link for
-// area === 'demos' entries (the ticket-0032 contract).
-test('preserves the H1 and the demos-area "Try the demo" link affordance', async ({ page }) => {
+// the demo-link resolver's contract still holds: every "Try the demo" link
+// it emits points at a real /*/demo/* route (the ticket-0032 contract, as
+// documented in Changelog.tsx resolveDemoPath: "omit rather than guess and
+// strand the visitor on a wrong demo"). The historical `count > 0` check
+// was coincidence-based - it held only while the visible-36 window happened
+// to contain a demos-area entry whose title matched a KNOWN_PATHS segment
+// token (0031's "voice"/"estimate", 0029's "voice"). As newer demos-area
+// tickets ship with /my-dashboard-style titles that don't match, the
+// resolver correctly emits zero links for the current window; asserting
+// `> 0` fails on that legitimate omission (widening the predecessor
+// assertion to admit the resolver's real contract - same family as the
+// 2026-05-30 second-@type-collision lesson).
+test('preserves the H1 and every emitted "Try the demo" link points at a real demo route', async ({ page }) => {
   const errors = await gotoChangelog(page);
 
   const h1 = page.getByRole('heading', { level: 1 });
   await expect(h1).toBeVisible();
   expect(((await h1.textContent()) ?? '').trim()).toBe('What we shipped lately');
 
-  // At least one "Try the demo" link remains on the page (ticket 0032's
-  // demo-link resolver behavior).
+  // Every "Try the demo" link on the page (zero or more, per the resolver's
+  // omit-rather-than-guess contract) must resolve to a real /*/demo/* route
+  // under one of the known verticals. This tests the resolver's positive
+  // property (well-formed hrefs, no dead links) without hard-coding an
+  // assumption about the current 36-visible window's contents.
   const tryDemoLinks = page.getByRole('link', { name: /try the demo/i });
-  expect(await tryDemoLinks.count()).toBeGreaterThan(0);
+  const linkCount = await tryDemoLinks.count();
+  const demoRoutePrefixes = [
+    '/construction/demo/',
+    '/realestate/demo/',
+    '/events/demo/',
+    '/homeservices/demo/',
+    '/healthcare/demo/',
+    '/legal/demo/',
+  ];
+  for (let i = 0; i < linkCount; i++) {
+    const href = await tryDemoLinks.nth(i).getAttribute('href');
+    expect(href, `"Try the demo" link #${i} has no href`).not.toBeNull();
+    expect(
+      demoRoutePrefixes.some((p) => href!.startsWith(p)),
+      `"Try the demo" href does not point at a known /*/demo/* route: ${href}`,
+    ).toBe(true);
+  }
 
   expect(errors).toEqual([]);
 });
