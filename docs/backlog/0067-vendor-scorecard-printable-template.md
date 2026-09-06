@@ -1,7 +1,7 @@
 ---
 id: 0067
 title: Printable AI vendor scorecard template at /questions-to-ask-an-ai-vendor/scorecard
-status: in-progress
+status: shipped
 priority: P1
 area: trust
 created: 2026-09-06
