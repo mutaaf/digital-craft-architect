@@ -1,7 +1,7 @@
 ---
 id: 0065
 title: Comparison page "Digital Craft vs Follow Up Boss" for real-estate CRM switchers
-status: groomed
+status: in-progress
 priority: P1
 area: seo
 created: 2026-09-06
@@ -290,3 +290,47 @@ to re-discover the architecture.
 ## Implementation log
 
 (Appended by the implementation-dev agent during execution.)
+
+### 2026-09-06 - implementation-dev
+
+Executed the 2026-05-30 second-`@type` grep BEFORE writing code. Ran
+`grep -n "=== 'BreadcrumbList'"` and `grep -n "=== 'WebPage'"` across
+every `tests/e2e/compare-*.spec.ts` and `tests/e2e/*-jsonld.spec.ts`.
+Every `toHaveLength(1)` / "exactly one" predicate over `BreadcrumbList`
+and `WebPage` is URL-scoped to its own route
+(`/compare/{jobber,servicetitan,podium,housecallpro,buildertrend,thumbtack,angi}`,
+`/compare`, `/changelog`, `/trust`, `/glossary`, `/case-studies/*`,
+`/quiz`, `/locations/texas`, `/`). None asserts "exactly one of either
+@type site-wide", so the new `/compare/followupboss`-scoped
+BreadcrumbList + WebPage pair cannot collide with any predecessor. No
+predecessor widening was needed.
+
+Compare routes are lazy-loaded via `React.lazy(() =>
+import("./pages/compare/*"))` in `src/App.tsx` behind the single
+`<Suspense fallback={<RouteFallback />}>` boundary. Per the 2026-09-05
+route-code-splitting lesson the new spec avoids `root.innerHTML.length >
+N` as the ready signal (that would satisfy on the RouteFallback spinner)
+and instead waits for the H1 to be visible; every count assertion uses
+`await expect(locator).toHaveCount(N)` rather than one-shot
+`.count()` / `.allTextContents()`. The pre-existing
+`compare-thumbtack.spec.ts` uses the older one-shot `.count()` pattern
+and flaked once during the local peer run (0 CTAs visible on the first
+attempt, 3 on isolated re-run); documented per the 2026-05-25 flakiness
+lesson, not a regression from this diff, and CI `retries: 1` covers it.
+
+Local gate: `npm run lint` (0 errors, 23 pre-existing warnings),
+`npm run typecheck`, `npm run check-links`, `npm run check-images`,
+`npm run check-meta`, `npm run check-blog-dates`,
+`node scripts/check-backlog.mjs`, `npm run build` all green. The 9-test
+`tests/e2e/compare-followupboss.spec.ts` passes locally against the
+preview build; peer specs (`compare-hub`, `compare-angi`) also green.
+
+Nuance for the ship runner: the file is 313 lines, under the ticket's
+320-line cap (achieved by mirroring the Angi.tsx compressed layout, not
+the longer Thumbtack.tsx frame). No `/api/` edits, no `package.json` /
+`package-lock.json` edits, no em-dash characters in diff (the only
+`String.fromCharCode(8212)` reference is the EM_DASH sentinel in the
+new spec file used to assert absence). Route added to `ROUTES` and to
+`COMPARE_ENTRIES` (thirteenth entry). Per the 2026-05-22 two-PR ship
+lesson, a `chore/0065-ship-status` PR is required after this feat PR
+merges to flip the ticket + README index to `shipped`.

@@ -7,6 +7,14 @@
     <language>en-us</language>
     <atom:link href="https://digitalcraftai.com/changelog/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Enable noUnusedParameters strict flag (3 fixes)</title>
+      <link>https://digitalcraftai.com/changelog#0064</link>
+      <description>Shipped 2026-09-06 in area: infra.</description>
+      <pubDate>Sun, 06 Sep 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0064</guid>
+      <category>infra</category>
+    </item>
+    <item>
       <title>Emit BreadcrumbList JSON-LD on /glossary so the AI glossary indexes as a navigable artifact</title>
       <link>https://digitalcraftai.com/changelog#0063</link>
       <description>Shipped 2026-06-19 in area: seo.</description>
