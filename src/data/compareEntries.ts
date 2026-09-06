@@ -93,4 +93,10 @@ export const COMPARE_ENTRIES: readonly CompareEntry[] = [
     path: '/compare/angi',
     tagline: 'Angi sells you shared leads. Digital Craft is the AI agent layer that books the leads you already have.',
   },
+  {
+    id: 'followupboss',
+    tool: 'Follow Up Boss',
+    path: '/compare/followupboss',
+    tagline: 'Follow Up Boss stores your leads. Digital Craft is the AI agent layer that answers them the moment they arrive.',
+  },
 ];
