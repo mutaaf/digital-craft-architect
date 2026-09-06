@@ -72,6 +72,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0061 | Public /questions-to-ask-an-ai-vendor buyer-side artifact with FAQPage JSON-LD | P1 | shipped | content |
 | 0062 | Persist the visitor's last ROI calculator result and surface it as a saved card on /my dashboard | P1 | shipped | demos |
 | 0063 | Emit BreadcrumbList JSON-LD on /glossary so the AI glossary indexes as a navigable artifact | P2 | shipped | seo |
+| 0064 | Enable noUnusedParameters strict tsconfig flag (3 fixes) | P2 | in-progress | infra |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the
