@@ -52,6 +52,54 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'ai-auto-repair-shops-review-management-2026',
+    title: 'How Auto Repair Shops Turn Every Completed Job Into a Review',
+    description: 'Auto repair shops lose reviews to busy front desks, not unhappy customers. Automated post-service follow-up fixes the timing problem.',
+    date: '2026-09-07',
+    author: 'DigitalCraft AI',
+    readTime: '5 min read',
+    tags: ['Auto Repair', 'Reviews', 'AI Automation'],
+    content: `
+<p>Most auto repair shops do good work and get thanked in person, then never see that gratitude turn into a review. The car gets picked up, the invoice gets paid, and everyone moves on with their day. Nobody asks, so nobody posts.</p>
+
+<p>That gap is not a customer satisfaction problem. It is a timing and follow-through problem, and it is one of the easiest things in the shop to automate.</p>
+
+<h2>Why the Ask Gets Skipped</h2>
+
+<p>Picture a normal afternoon at the counter. Three cars are ready, two customers are waiting, and the phone is ringing about a fourth. The service advisor hands over keys, runs the card, and says goodbye. Asking for a review is the first thing that gets cut when the front desk is slammed, and the front desk is slammed most afternoons.</p>
+
+<p>Even shops that try a sign by the register or a line on the receipt are relying on the customer to remember and follow through later, after the urgency of "my car is fixed" has faded. By the next morning, most people have moved on.</p>
+
+<h2>The Timing That Actually Works</h2>
+
+<p>The best moment to ask is right after pickup, while the car is running well and the relief of having it fixed is still fresh. That window closes fast. A text or call that goes out the same day, once the repair order is marked complete, catches customers when they are most likely to say something positive.</p>
+
+<p>An <a href="/autorepair/demo/voice-reminder">automated voice or text follow-up</a> can check in first: how does the car feel, was the pickup experience smooth, is there anything still off. That single question does two things at once. It surfaces a problem before the customer vents about it online, and it identifies the happy customers who are worth pointing toward a review link.</p>
+
+<h2>Run the Math on Your Own Shop</h2>
+
+<p>You do not need an industry statistic to see the opportunity here. You already know your own numbers. Take how many repair orders your shop closes in an average week, then estimate how many of those customers currently get asked for a review, whether by a person at the counter or a printed reminder.</p>
+
+<p>If that number is low, and for most shops it is, the fix is not working harder at the counter. It is making the ask happen automatically, the same way, every single time a car goes out the door. Consistency is what a manual process cannot deliver during a busy week, and consistency is the whole game with review volume.</p>
+
+<h2>Catching Problems Before They Go Public</h2>
+
+<p>A satisfaction check built into the follow-up protects the shop as much as it helps it. A customer who has a complaint gets a private channel to raise it, routed to whoever handles service recovery, instead of a public review left in frustration weeks later.</p>
+
+<p>By the time an unhappy customer posts online without warning, the shop has already lost the chance to fix it quietly. Asking first, before pushing anyone toward a public review, keeps that chance open.</p>
+
+<h2>Keeping It Simple</h2>
+
+<p>None of this requires new software layered on top of your point-of-sale system. It requires a trigger (repair order marked complete), a short message sent on a consistent schedule, and a clear path to a review link for the customers who are satisfied. The <a href="/autorepair">auto repair</a> shops that get the most reviews are not the ones doing the best work. They are the ones asking every time, not just when someone remembers.</p>
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to turn completed jobs into reviews automatically?</strong>
+  <p style="margin: 8px 0;">See how AI follow-up calls and texts check in with every customer after pickup.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/autorepair/demo">Try Our Live Demos</a>
+</div>
+`,
+  },
+  {
     slug: 'ai-handyman-home-repair-missed-calls-booked-jobs',
     title: 'Handyman Businesses: Turning Missed Calls Into Booked Jobs',
     description: 'Handyman and home repair companies lose jobs to voicemail every day. AI lead response and quoting fill the gap without adding office staff.',
