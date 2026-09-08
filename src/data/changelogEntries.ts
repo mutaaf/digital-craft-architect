@@ -20,6 +20,7 @@ export interface ChangelogEntry {
 }
 
 export const changelogEntries: readonly ChangelogEntry[] = [
+  { id: "0069", title: "Public /subprocessors data recipients page listing every third-party AI and infrastructure vendor with structured columns and CollectionPage JSON-LD", area: "trust", created: "2026-09-08" },
   { id: "0068", title: "Enable noUnusedLocals strict flag (12 fixes)", area: "infra", created: "2026-09-06" },
   { id: "0067", title: "Printable AI vendor scorecard template at /questions-to-ask-an-ai-vendor/scorecard", area: "trust", created: "2026-09-06" },
   { id: "0066", title: "Printable \"Your Digital Craft summary\" recap on /my composing every persisted client-side artifact", area: "demos", created: "2026-09-06" },
