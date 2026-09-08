@@ -1,7 +1,7 @@
 ---
 id: 0070
 title: Generate a public /case-studies/rss.xml feed of shipped case studies so feed readers and SEO crawlers subscribe to the case-study cadence
-status: in-progress
+status: shipped
 priority: P2
 area: seo
 created: 2026-09-08
