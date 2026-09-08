@@ -317,16 +317,25 @@ test('renders in dark mode', async ({ page }) => {
 });
 
 // Case 11 - no-em-dash case: read page.textContent('body') and assert no
-// String.fromCharCode(8212) anywhere on the rendered page. Also spot-check
-// every emitted JSON-LD block string.
-test('no em-dash characters on the subprocessors page or its JSON-LD', async ({ page }) => {
+// String.fromCharCode(8212) anywhere on the rendered visible page. Then
+// spot-check the two JSON-LD blocks THIS PAGE emits (BreadcrumbList +
+// CollectionPage). Deliberately does NOT loop over every JSON-LD block on
+// the DOM because index.html ships a homepage Organization block (ticket
+// 0025) whose description contains a legitimate em-dash - that block is
+// injected globally and is not something this page owns or edits.
+test('no em-dash characters on the subprocessors page or the blocks it emits', async ({ page }) => {
   const errors = await gotoPage(page);
   const bodyText = (await page.locator('body').textContent()) ?? '';
   expect(bodyText.length, 'body should have text content').toBeGreaterThan(100);
   expect(bodyText, 'no em-dash allowed in visible copy').not.toContain(EM_DASH);
   const blocks = await readJsonLdBlocks(page);
-  for (const b of blocks) {
-    expect(b.raw, 'no em-dash allowed in emitted JSON-LD').not.toContain(EM_DASH);
+  const owned = blocks.filter((b) => isBreadcrumb(b.data) || isCollectionPage(b.data));
+  expect(
+    owned.length,
+    'BreadcrumbList + CollectionPage blocks emitted by /subprocessors must both render',
+  ).toBe(2);
+  for (const b of owned) {
+    expect(b.raw, 'no em-dash allowed in a /subprocessors-owned JSON-LD block').not.toContain(EM_DASH);
   }
   expect(errors).toEqual([]);
 });
