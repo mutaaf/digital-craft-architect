@@ -90,6 +90,7 @@ const AIReadinessQuiz = lazy(() => import("./pages/AIReadinessQuiz"));
 const RoiCalculator = lazy(() => import("./pages/RoiCalculator"));
 const SetupClaw = lazy(() => import("./pages/SetupClaw"));
 const SmallBusiness = lazy(() => import("./pages/SmallBusiness"));
+const AiForHospitality = lazy(() => import("./pages/AiForHospitality"));
 const AiForPlumbers = lazy(() => import("./pages/AiForPlumbers"));
 const AiForHvac = lazy(() => import("./pages/AiForHvac"));
 const AiForRoofers = lazy(() => import("./pages/AiForRoofers"));
@@ -346,6 +347,7 @@ const App = () => {
               <Route path="/roi" element={<RoiCalculator />} />
               <Route path="/setupclaw" element={<SetupClaw />} />
               <Route path="/ai-for-small-business" element={<SmallBusiness />} />
+              <Route path="/ai-for-hospitality" element={<AiForHospitality />} />
               <Route path="/ai-for-plumbers" element={<AiForPlumbers />} />
               <Route path="/ai-for-hvac" element={<AiForHvac />} />
               <Route path="/ai-for-roofers" element={<AiForRoofers />} />
