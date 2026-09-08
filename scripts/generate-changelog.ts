@@ -206,6 +206,16 @@ export async function generateChangelog(): Promise<{ count: number }> {
   const { default: generateChangelogRss } = await import("./generate-changelog-rss");
   await generateChangelogRss();
 
+  // Ticket 0070 - Also regenerate public/case-studies/rss.xml alongside the
+  // changelog feed. The case-studies feed reads a static data constant
+  // (src/data/caseStudies.ts) so it does not depend on changelog output;
+  // chaining here keeps a single `npm run build` covering both RSS surfaces
+  // and avoids a new npm-run entry in package.json (GTM queue Hard NO).
+  const { default: generateCaseStudiesRss } = await import(
+    "./generate-case-studies-rss"
+  );
+  await generateCaseStudiesRss();
+
   return { count: entries.length };
 }
 

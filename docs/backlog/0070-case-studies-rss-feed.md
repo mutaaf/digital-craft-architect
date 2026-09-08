@@ -337,3 +337,46 @@ to re-discover the architecture.
   security surface change: no - the feed contains
   the same case-study data already public on the
   detail pages and the hub.
+
+## Implementation log
+
+### 2026-09-08 - Wired case-studies RSS into the existing build chain
+
+- New `scripts/generate-case-studies-rss.ts` mirrors
+  `scripts/generate-changelog-rss.ts` (ticket 0055): default-
+  exported `generateCaseStudiesRss()`, direct-CLI guard on the
+  `generate-case-studies-rss.ts` argv suffix, shared
+  `escapeXml` helper from `scripts/lib/escapeXml.ts`, pre-write
+  inline assertions per the 2026-05-28 lesson (channel-block
+  count, item-count equals `caseStudies.length`, required
+  child tags per item, no U+2014, no unescaped ampersands).
+  Chained via a dynamic `await import("./generate-case-studies-rss")`
+  from `scripts/generate-changelog.ts` right after the existing
+  changelog-RSS chain, so the same `npm run build` covers both
+  feeds without adding a new npm-run script (GTM Hard NO).
+- pubDate strategy: the case-study data has no per-entry created
+  date, so every `<pubDate>` and the channel `<lastBuildDate>`
+  anchor on today's build date at noon UTC. Documented here
+  per the acceptance-criteria clause that asks the choice be
+  recorded.
+- JSON-LD grep per 2026-05-30 second-@type lesson: no new
+  JSON-LD blocks added. The only Helmet surface change on the
+  hub is an additive `<link rel="alternate" type="application/rss+xml">`
+  auto-discovery tag; ticket 0057's `case-studies-hub.spec.ts`
+  does not assert "no additional Helmet children," so this is
+  safe. The sibling-hub regression case in the new spec re-runs
+  the ticket 0057 H1, card-count, CollectionPage, and ItemList
+  numberOfItems assertions to prove no drift.
+- No `caseStudies` entry `title` or `summary` contained a
+  U+2014 em-dash, so the 2026-05-25 mirror-source-fix rule did
+  not require a source edit.
+- No `vercel.json` change: `/changelog/rss.xml` (ticket 0055)
+  ships today with the Vercel default MIME for `.xml` and no
+  explicit header rule; the same default covers the new
+  `/case-studies/rss.xml` path.
+- No `src/data/routes.ts` change: `/case-studies/rss.xml` is a
+  static asset served from `public/`, not a React SPA route
+  (the smoke spec fetches it via `request.get(...)`, not
+  `page.goto(...)`). Per the 2026-05-25 SEO Pilot lesson the
+  feed URL is NOT added to the `index.html` SEO Pilot pages
+  table for the same reason.
