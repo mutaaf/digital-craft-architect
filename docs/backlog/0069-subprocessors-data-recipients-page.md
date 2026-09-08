@@ -1,7 +1,7 @@
 ---
 id: 0069
 title: Public /subprocessors data recipients page listing every third-party AI and infrastructure vendor with structured columns and CollectionPage JSON-LD
-status: groomed
+status: in-progress
 priority: P1
 area: trust
 created: 2026-09-08
@@ -181,6 +181,67 @@ list before writing code.
   A region / retention column can be added later once a
   contract-review pass has produced sourced values,
   under its own ticket.
+
+## Implementation log
+
+### 2026-09-08 - kickoff
+
+Pre-code grep results (per acceptance box 6, following the 2026-05-30
+second-@type lesson):
+
+- `=== 'CollectionPage'` predicates in `tests/e2e/`:
+  - `tests/e2e/compare-hub.spec.ts:106` (ticket 0048) - `isCollectionPage`
+    filter only invoked after `gotoCompareHub` navigates to `/compare`;
+    URL-scoped, no collision with the new `/subprocessors`-scoped block.
+  - `tests/e2e/case-studies-hub.spec.ts:111` (ticket 0057) - `isCollectionPage`
+    filter only invoked after `gotoCaseStudiesHub` navigates to `/case-studies`;
+    URL-scoped, no collision.
+- `=== 'ItemList'` predicates in `tests/e2e/`:
+  - `tests/e2e/compare-hub.spec.ts:101` (ticket 0048), URL-scoped to `/compare`.
+  - `tests/e2e/case-studies-hub.spec.ts:106` (ticket 0057), URL-scoped to `/case-studies`.
+  - `tests/e2e/website-sitelinks-jsonld.spec.ts:91` (ticket 0016), URL-scoped to `/`.
+  - `tests/e2e/demos-index-hub.spec.ts:60` (ticket 0011), URL-scoped to `/demos`.
+  - `tests/e2e/demos-softwareapplication-jsonld.spec.ts:73` (ticket 0030), URL-scoped to `/demos`.
+  - `tests/e2e/changelog-itemlist-jsonld.spec.ts:107` (ticket 0043), URL-scoped to `/changelog`.
+  - All five predecessor predicates run only after their spec navigates to a
+    URL other than `/subprocessors`, so a new `/subprocessors`-scoped ItemList
+    embedded inside the CollectionPage cannot collide.
+- `=== 'BreadcrumbList'` predicates in `tests/e2e/` - 30+ matches; every match
+  runs only after its spec's `goto<X>` helper navigates to a single URL other
+  than `/subprocessors`. Per the ticket 0063 Implementation log every existing
+  BreadcrumbList predicate is URL-scoped; confirmed here.
+- Em-dash audit on the current `PROVIDERS` `purpose` values in
+  `src/pages/Trust.tsx`: `chr(8212)` count = 0. The mechanical extraction to
+  `src/data/subprocessors.ts` preserves `name` + `purpose` byte-identically
+  (no hyphen swap needed).
+- Zero predecessor predicates need widening in this PR.
+
+### 2026-09-08 - implementation
+
+Files touched (matches the ticket engineering notes):
+
+1. NEW `src/data/subprocessors.ts` - mechanical extraction of the `PROVIDERS`
+   constant plus additive `category` + `publicTrustUrl` columns. Exports
+   `SUBPROCESSORS: readonly Subprocessor[]` and the `Subprocessor` type.
+2. NEW `src/pages/Subprocessors.tsx` - mirrors the `VendorScorecard.tsx` shell
+   (Navbar + Footer + ScrollProgress + Helmet). Emits TWO JSON-LD blocks:
+   BreadcrumbList (Home -> Sub-Processors) and CollectionPage with an embedded
+   ItemList (`hasPart`) derived from `SUBPROCESSORS`. Inline print stylesheet
+   inside Helmet hides site chrome via `display: none !important;`. Print button
+   fires `subprocessors_print` beacon FIRST, then `window.print()`. View beacon
+   fires once per mount via `useRef<boolean>` guard.
+3. EDIT `src/pages/Trust.tsx` - replaces the module-local `PROVIDERS` decl with
+   `import { SUBPROCESSORS } from '@/data/subprocessors'` and rebinds the
+   narrative-render loop to `SUBPROCESSORS.map(({ name, purpose }) => ...)`
+   (visible DOM byte-identical because it reads only `name` and `purpose`).
+   Adds ONE small "See the full sub-processor list" link routing to
+   `/subprocessors`.
+4. EDIT `src/App.tsx` - adds `<Route path="/subprocessors" element={<Subprocessors />} />`
+   next to `/trust`, lazy-loaded via `React.lazy` (mirrors the `/trust`
+   convention per the 2026-09-05 route code-splitting lesson).
+5. EDIT `src/data/routes.ts` - allow-lists `/subprocessors` so the smoke spec
+   exercises it (2026-06-07 src-imports-tests lesson).
+6. NEW `tests/e2e/subprocessors.spec.ts` - 11 cases per AC box 10.
 - A downloadable PDF export of the table. The browser's
   native print-to-PDF dialog is the shipping mechanism;
   adding a heavy PDF library (jsPDF or similar) violates
