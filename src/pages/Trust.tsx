@@ -7,6 +7,7 @@ import ScrollProgress from '@/components/ScrollProgress';
 import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
 import { ShieldCheck, ArrowRight, Phone } from 'lucide-react';
+import { SUBPROCESSORS } from '@/data/subprocessors';
 
 // Ticket 0018 - How-the-demos-work transparency page at /trust.
 //
@@ -57,20 +58,13 @@ const TRUST_H1 = 'How Our Demos Handle Your Data';
 // build step). Bump this when the page substantively changes.
 const TRUST_LAST_MODIFIED = '2026-06-09';
 
-// Single source for the provider list. The visible card and the page narrative
-// both read from this array so they cannot drift, and the e2e spec checks each
-// expected name appears in the rendered body.
-const PROVIDERS: { name: string; purpose: string }[] = [
-  { name: 'OpenAI', purpose: 'GPT-4o powers chat, vision, and streaming completions across every demo.' },
-  { name: 'Vapi', purpose: 'Voice infrastructure for browser WebRTC calls and outbound phone calls in the voice negotiator demo.' },
-  { name: 'ElevenLabs', purpose: 'Neural text-to-speech (Cassidy voice, Turbo v2.5) used inside Vapi for the AI voice.' },
-  { name: 'Deepgram', purpose: 'Speech-to-text (Nova-2) used inside Vapi to transcribe what callers say.' },
-  { name: 'Firecrawl', purpose: 'Primary web scraper for the "enter your website" demo personalization flow.' },
-  { name: 'Jina', purpose: 'Reader-mode fallback when Firecrawl is unavailable; same purpose, same flow.' },
-  { name: 'Formspree', purpose: 'Receives newsletter sign-ups, the 5-day email course opt-in, and "email me this estimate" submissions.' },
-  { name: 'Sentry', purpose: 'Error tracking for browser-side exceptions so we can fix bugs visitors hit.' },
-  { name: 'Google Analytics', purpose: 'Aggregated page-view and CTA-click counts (property G-JQ53W917HT).' },
-];
+// Single source for the provider list. Now lives in `src/data/subprocessors.ts`
+// per ticket 0069 (and the 2026-06-07 src-imports-tests lesson) so both the
+// `/trust` narrative and the `/subprocessors` structured table read from one
+// array and cannot drift. The narrative render below reads only `name` and
+// `purpose`, so the visible /trust DOM stays byte-identical after the
+// extraction (the two additive columns `category` and `publicTrustUrl` are
+// used only by /subprocessors).
 
 const SECTIONS: Section[] = [
   {
@@ -365,7 +359,7 @@ const Trust: React.FC = () => {
               not sending your data to it.
             </p>
             <ul className="space-y-3">
-              {PROVIDERS.map((p) => (
+              {SUBPROCESSORS.map((p) => (
                 <li
                   key={p.name}
                   className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3"
@@ -382,6 +376,15 @@ const Trust: React.FC = () => {
             <p className="mt-6 text-sm text-gray-500 dark:text-gray-400">
               Every AI provider key listed here lives in a Vercel serverless function, not
               the browser. The page you are reading right now made zero API calls to load.
+            </p>
+            <p className="mt-3 text-sm">
+              <Link
+                to="/subprocessors"
+                data-testid="trust-subprocessors-link"
+                className="text-primary hover:underline font-medium"
+              >
+                See the full sub-processor list
+              </Link>
             </p>
           </div>
         </div>

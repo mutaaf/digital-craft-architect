@@ -7,6 +7,38 @@
     <language>en-us</language>
     <atom:link href="https://digitalcraftai.com/changelog/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Enable noUnusedLocals strict flag (12 fixes)</title>
+      <link>https://digitalcraftai.com/changelog#0068</link>
+      <description>Shipped 2026-09-06 in area: infra.</description>
+      <pubDate>Sun, 06 Sep 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0068</guid>
+      <category>infra</category>
+    </item>
+    <item>
+      <title>Printable AI vendor scorecard template at /questions-to-ask-an-ai-vendor/scorecard</title>
+      <link>https://digitalcraftai.com/changelog#0067</link>
+      <description>Shipped 2026-09-06 in area: trust.</description>
+      <pubDate>Sun, 06 Sep 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0067</guid>
+      <category>trust</category>
+    </item>
+    <item>
+      <title>Printable &quot;Your Digital Craft summary&quot; recap on /my composing every persisted client-side artifact</title>
+      <link>https://digitalcraftai.com/changelog#0066</link>
+      <description>Shipped 2026-09-06 in area: demos.</description>
+      <pubDate>Sun, 06 Sep 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0066</guid>
+      <category>demos</category>
+    </item>
+    <item>
+      <title>Comparison page &quot;Digital Craft vs Follow Up Boss&quot; for real-estate CRM switchers</title>
+      <link>https://digitalcraftai.com/changelog#0065</link>
+      <description>Shipped 2026-09-06 in area: seo.</description>
+      <pubDate>Sun, 06 Sep 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0065</guid>
+      <category>seo</category>
+    </item>
+    <item>
       <title>Enable noUnusedParameters strict flag (3 fixes)</title>
       <link>https://digitalcraftai.com/changelog#0064</link>
       <description>Shipped 2026-09-06 in area: infra.</description>

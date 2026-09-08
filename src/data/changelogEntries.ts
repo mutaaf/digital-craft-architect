@@ -20,6 +20,10 @@ export interface ChangelogEntry {
 }
 
 export const changelogEntries: readonly ChangelogEntry[] = [
+  { id: "0068", title: "Enable noUnusedLocals strict flag (12 fixes)", area: "infra", created: "2026-09-06" },
+  { id: "0067", title: "Printable AI vendor scorecard template at /questions-to-ask-an-ai-vendor/scorecard", area: "trust", created: "2026-09-06" },
+  { id: "0066", title: "Printable \"Your Digital Craft summary\" recap on /my composing every persisted client-side artifact", area: "demos", created: "2026-09-06" },
+  { id: "0065", title: "Comparison page \"Digital Craft vs Follow Up Boss\" for real-estate CRM switchers", area: "seo", created: "2026-09-06" },
   { id: "0064", title: "Enable noUnusedParameters strict flag (3 fixes)", area: "infra", created: "2026-09-06" },
   { id: "0063", title: "Emit BreadcrumbList JSON-LD on /glossary so the AI glossary indexes as a navigable artifact", area: "seo", created: "2026-06-19" },
   { id: "0062", title: "Persist the visitor's last ROI calculator result and surface it as a saved card on /my dashboard", area: "demos", created: "2026-06-19" },
