@@ -7,7 +7,7 @@ import ScrollProgress from '@/components/ScrollProgress';
 import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
 import { caseStudies } from '@/data/caseStudies';
-import { BookOpen, ArrowRight } from 'lucide-react';
+import { BookOpen, ArrowRight, Rss } from 'lucide-react';
 
 // Ticket 0057 - Public /case-studies index hub listing every detailed
 // case study with CollectionPage + ItemList + BreadcrumbList JSON-LD.
@@ -94,6 +94,14 @@ const CaseStudiesHub: React.FC = () => {
         <title>Case Studies | DigitalCraft AI</title>
         <meta name="description" content={META_DESCRIPTION} />
         <link rel="canonical" href={`${SITE_URL}/case-studies`} />
+        {/* Ticket 0070 - RSS auto-discovery for feedreader browser extensions.
+            Additive only; no new JSON-LD block is emitted here. */}
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="Digital Craft AI Case Studies"
+          href={`${SITE_URL}/case-studies/rss.xml`}
+        />
         <script type="application/ld+json">{JSON.stringify(BREADCRUMB_SCHEMA)}</script>
         <script type="application/ld+json">{JSON.stringify(COLLECTION_PAGE_SCHEMA)}</script>
         <script type="application/ld+json">{JSON.stringify(ITEM_LIST_SCHEMA)}</script>
@@ -116,6 +124,15 @@ const CaseStudiesHub: React.FC = () => {
             pattern across construction, real estate, and events - the challenge, the AI solution
             we deployed, and the measured results.
           </p>
+          {/* Ticket 0070 - visible subscribe link mirroring the /changelog RSS pattern. */}
+          <a
+            href="/case-studies/rss.xml"
+            data-testid="case-studies-rss-link"
+            className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline dark:text-primary"
+          >
+            <Rss size={14} aria-hidden="true" />
+            Subscribe (RSS)
+          </a>
         </div>
       </section>
 
