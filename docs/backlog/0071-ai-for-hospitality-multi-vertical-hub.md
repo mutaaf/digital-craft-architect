@@ -1,7 +1,7 @@
 ---
 id: 0071
 title: AI-for-hospitality multi-vertical hub page indexing events, restaurant, kidsplay, salon, and fitness demos with CollectionPage JSON-LD
-status: groomed
+status: in-progress
 priority: P1
 area: content
 created: 2026-09-08
@@ -397,3 +397,37 @@ to re-discover the architecture.
   The `/trust` page disclosure list does NOT
   need an edit because no new persistent store
   is added.
+
+## Implementation log
+
+### 2026-09-08 - Pre-code grep per 2026-05-30 second-@type lesson
+
+Ran `grep -rn "=== 'CollectionPage'" tests/e2e/`,
+`grep -rn "=== 'ItemList'" tests/e2e/`, and
+`grep -rn "=== 'BreadcrumbList'" tests/e2e/`. Results:
+
+- `CollectionPage`: three matches - `compare-hub.spec.ts`,
+  `case-studies-hub.spec.ts`, `subprocessors.spec.ts`. Every
+  `.toHaveLength(1)` predicate for CollectionPage runs inside a
+  test body that opens the page via a URL-scoped
+  `gotoCompareHub` / `gotoCaseStudiesHub` /
+  `gotoSubprocessors` helper (each navigates only to its own
+  `/compare`, `/case-studies`, or `/subprocessors` route). No
+  predecessor `CollectionPage` predicate is site-wide, so a
+  new `/ai-for-hospitality`-scoped CollectionPage block
+  cannot collide with any of them.
+- `ItemList`: matches in `compare-hub.spec.ts`,
+  `case-studies-hub.spec.ts`, `demos-index-hub.spec.ts`,
+  `demos-softwareapplication-jsonld.spec.ts`,
+  `changelog-itemlist-jsonld.spec.ts`,
+  `website-sitelinks-jsonld.spec.ts`. Every "exactly one"
+  ItemList predicate is URL-scoped (the compare and
+  case-studies hubs to their own path, the demos ones to
+  `/demos`, changelog to `/changelog`, website-sitelinks to
+  `/`). A new `/ai-for-hospitality`-scoped ItemList cannot
+  collide.
+- `BreadcrumbList`: many matches, every one URL-scoped per
+  ticket 0063; new `/ai-for-hospitality` BreadcrumbList is
+  additive and non-colliding.
+
+No predecessor predicate needs widening in this PR.
