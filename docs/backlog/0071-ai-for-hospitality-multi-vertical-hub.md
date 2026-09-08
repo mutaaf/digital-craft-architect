@@ -1,7 +1,7 @@
 ---
 id: 0071
 title: AI-for-hospitality multi-vertical hub page indexing events, restaurant, kidsplay, salon, and fitness demos with CollectionPage JSON-LD
-status: in-progress
+status: shipped
 priority: P1
 area: content
 created: 2026-09-08
