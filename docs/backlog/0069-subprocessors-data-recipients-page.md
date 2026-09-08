@@ -1,7 +1,7 @@
 ---
 id: 0069
 title: Public /subprocessors data recipients page listing every third-party AI and infrastructure vendor with structured columns and CollectionPage JSON-LD
-status: in-progress
+status: shipped
 priority: P1
 area: trust
 created: 2026-09-08
