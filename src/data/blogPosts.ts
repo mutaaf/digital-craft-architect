@@ -52,6 +52,51 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'ai-hospitality-guest-inquiry-response',
+    title: 'AI for Hospitality: Answering Guest Inquiries After Hours',
+    description: 'Restaurants, event venues, salons, and gyms all lose bookings the same way: a guest inquiry lands after hours and nobody replies until it is too late.',
+    date: '2026-09-09',
+    author: 'DigitalCraft AI',
+    readTime: '5 min read',
+    tags: ['Hospitality', 'Lead Response', 'AI Automation'],
+    content: `
+<p>A guest looking for a table, a party venue, a salon slot, or a gym trial does not check your business hours before they reach out. They message when they think of it, which is often on a commute, during a lunch break, or late at night after they have finally settled on a plan.</p>
+
+<p>If that message sits until your front desk opens the next morning, you are not competing against your service quality. You are competing against whoever replies first, and in most hospitality categories the guest has three or four other options open in other tabs.</p>
+
+<h2>The Pattern Repeats Across Every Hospitality Vertical</h2>
+
+<p>Restaurants lose large-party reservations to whoever confirms the date first. Event venues lose inquiries because a bride comparing five spaces books a tour with the one that answered same day. Salons lose new-client bookings when a text about availability goes unread for a shift. Gyms lose trial sign-ups when someone asks about a class schedule and gets silence.</p>
+
+<p>The businesses are different, but the failure point is identical: a real, ready-to-book guest sends a message outside staffed hours, and by the time someone sees it, that guest has already booked somewhere else or lost the impulse entirely.</p>
+
+<h2>Why Adding Staff Does Not Fix This</h2>
+
+<p>The instinct is to have someone check messages more often, but front-of-house staff are hired to run the floor, not monitor three inboxes between tables. Even a dedicated evening host can only watch one channel at a time, and guest inquiries come in through the website, text, social DMs, and phone voicemail all at once.</p>
+
+<p>What actually closes the gap is a system that reads the inquiry, asks the two or three questions your staff would ask anyway (date, party size, service needed, budget range), and gets a real answer back to the guest within minutes, at any hour. An <a href="/events/demo/inquiry">automated inquiry qualifier</a> can handle that first exchange on its own. When a human needs to step in, whether to confirm a custom package or negotiate a date, the conversation is already qualified and ready for them the next morning.</p>
+
+<h2>Run the Math for Your Own Business</h2>
+
+<p>Pull up your inquiry log for the last month, whether that is a booking form, a text thread, or a shared inbox. Count how many messages arrived outside your open hours. Then count how many of those got a reply within an hour of your doors opening versus later that day or the next.</p>
+
+<p>Every inquiry in that second group is a guest who was ready to book and had to wait on you. Some will still convert. Some already booked elsewhere by the time you replied. You do not need an industry benchmark to know which bucket you would rather be in, you just need your own numbers from last month.</p>
+
+<h2>What This Looks Like in Practice</h2>
+
+<p>A restaurant handles a same-day catering inquiry that comes in at 9pm, gets the headcount and date confirmed before the guest goes to bed, and has a deposit link waiting when the kitchen opens. An event venue answers a Saturday-night tour request within minutes instead of Monday morning. A salon confirms a new client's first appointment while the client is still in the mindset of wanting one.</p>
+
+<p>None of that requires a bigger front-of-house team. It requires the after-hours window to stop being dead time for inquiries that are, in every other respect, ready to convert.</p>
+
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to stop losing after-hours inquiries?</strong>
+  <p style="margin: 8px 0;">See how AI-powered guest response works across restaurants, events, salons, fitness, and kids-play businesses.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/ai-for-hospitality">Explore the Hospitality Hub</a>
+</div>
+`,
+  },
+  {
     slug: 'ai-auto-repair-shops-review-management-2026',
     title: 'How Auto Repair Shops Turn Every Completed Job Into a Review',
     description: 'Auto repair shops lose reviews to busy front desks, not unhappy customers. Automated post-service follow-up fixes the timing problem.',
