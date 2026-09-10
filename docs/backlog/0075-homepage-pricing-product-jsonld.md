@@ -1,7 +1,7 @@
 ---
 id: 0075
 title: Emit Product plus Offer JSON-LD on the homepage pricing tiers section so the AI-services offer indexes as a structured artifact
-status: in-progress
+status: shipped
 priority: P2
 area: seo
 created: 2026-09-10
