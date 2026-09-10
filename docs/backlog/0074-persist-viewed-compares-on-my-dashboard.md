@@ -1,7 +1,7 @@
 ---
 id: 0074
 title: Persist the visitor's viewed comparison pages and surface a "Comparisons you're weighing" card on /my dashboard
-status: groomed
+status: in-progress
 priority: P1
 area: demos
 created: 2026-09-10
@@ -370,7 +370,8 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0074-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/recent-compares-recap.spec.ts`
+- 2026-09-10 - branch `feat/0074-persist-viewed-compares-on-my-dashboard` opened
+- 2026-09-10 - grep for new JSON-LD blocks: no-op (this ticket adds no JSON-LD)
+- 2026-09-10 - failing test added in `tests/e2e/recent-compares-recap.spec.ts`
 - YYYY-MM-DD - PR #N opened, CI [state]
 - YYYY-MM-DD - merged to main
