@@ -32,6 +32,13 @@ import { resolveHeroSubheadline } from '@/utils/heroPersonalization';
 import { Helmet } from 'react-helmet-async';
 import { ORGANIZATION_SCHEMA } from '@/data/organizationSchema';
 
+// Ticket 0075 - Product JSON-LD name is a module-level constant so the e2e
+// spec's unique-field selector (`name === PRODUCT_NAME`) has one source of
+// truth. Hyphen-only per the em-dash Hard NO.
+const PRODUCT_NAME = 'Digital Craft AI Automation';
+const PRODUCT_BRAND_NAME = 'Digital Craft AI';
+const PRODUCT_URL = 'https://digitalcraftai.com';
+
 const Index = () => {
   const { content, isLoading, error } = useContent();
   
@@ -134,6 +141,34 @@ const Index = () => {
               Description is wired from content.seo.description at render time
               so a homepage copy edit propagates here in one render. */}
           <script type="application/ld+json">{JSON.stringify({ ...ORGANIZATION_SCHEMA, description: content.seo.description })}</script>
+
+          {/* Ticket 0075 - Product + nested Offers JSON-LD for the homepage
+              pricing tiers. Guarded by content.pricingTiers so a stub
+              content.json without pricing emits nothing (matching the
+              visible PricingTiers render guard below). Every Offer field is
+              derived byte-identically from content.pricingTiers.tiers so a
+              tier edit flows through to both the visible card and the
+              structured data in one render. */}
+          {content.pricingTiers && (
+            <script type="application/ld+json">{JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Product',
+              name: PRODUCT_NAME,
+              description: content.pricingTiers.subheadline,
+              brand: { '@type': 'Brand', name: PRODUCT_BRAND_NAME },
+              url: PRODUCT_URL,
+              offers: content.pricingTiers.tiers.map((tier) => ({
+                '@type': 'Offer',
+                name: tier.name,
+                description: tier.description,
+                price: String(tier.price),
+                priceCurrency: 'USD',
+                availability: 'https://schema.org/InStock',
+                url: tier.ctaLink,
+                category: tier.period,
+              })),
+            })}</script>
+          )}
         </Helmet>
       )}
       <Navbar />
