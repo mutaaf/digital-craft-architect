@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Navbar from '@/components/Navbar';
@@ -7,6 +7,7 @@ import StickyCTA from '@/components/StickyCTA';
 import ScrollProgress from '@/components/ScrollProgress';
 import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
+import { recordCompareVisit } from '@/utils/recentComparesStore';
 import {
   Check,
   X,
@@ -159,9 +160,20 @@ function CellIcon({ value }: { value: string }) {
   return <span className="text-sm text-gray-700 dark:text-gray-300">{value}</span>;
 }
 
+// Ticket 0074 - tool name mirrors the H1 "DigitalCraft AI vs Podium" and
+// the COMPARE_ENTRIES.tool value; used by recordCompareVisit for the /my
+// RecentComparesCard.
+const TOOL_NAME = 'Podium';
+
 const PodiumComparison: React.FC = () => {
   const { content } = useContent();
   const lastCrumb = CRUMBS.length - 1;
+
+  // Ticket 0074 - record this compare-page visit for the /my dashboard's
+  // RecentComparesCard. Empty dep array so the effect fires once per mount.
+  useEffect(() => {
+    recordCompareVisit(window.location.pathname, TOOL_NAME);
+  }, []);
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">

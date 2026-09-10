@@ -8,6 +8,7 @@ import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
 import { ShieldCheck, ArrowRight, Phone } from 'lucide-react';
 import { SUBPROCESSORS } from '@/data/subprocessors';
+import { NEW_PERSISTENT_STORES } from '@/data/demoDisclosures';
 
 // Ticket 0018 - How-the-demos-work transparency page at /trust.
 //
@@ -183,6 +184,26 @@ const SECTIONS: Section[] = [
             and a 30-minute TTL, so re-running the same deal analyzer step inside the same
             tab is instant and does not re-bill an OpenAI call. Closing the tab clears it.
           </li>
+          {/* Ticket 0074 - additive persistent-store entries sourced from
+              src/data/demoDisclosures.ts so the /trust disclosure text and
+              the consuming feature stay in one source (2026-05-25 mirror-source
+              rule). Predecessor stores above are hand-rendered because each
+              carries a unique inline link to /my; new stores use this shared
+              rendering to keep the diff additive. */}
+          {NEW_PERSISTENT_STORES.map((store) => (
+            <li key={store.storageKey} data-testid={`trust-store-${store.storageKey}`}>
+              <strong className="text-gray-900 dark:text-white">localStorage</strong>:{' '}
+              stored under
+              <code className="mx-1 px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-sm">
+                {store.storageKey}
+              </code>
+              with the shape
+              <code className="mx-1 px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-sm">
+                {store.shape}
+              </code>
+              . {store.purpose}
+            </li>
+          ))}
         </ul>
         <p className="mt-3">
           No third-party tracker writes these entries. You can inspect them yourself in
