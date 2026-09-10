@@ -1,7 +1,7 @@
 ---
 id: 0074
 title: Persist the visitor's viewed comparison pages and surface a "Comparisons you're weighing" card on /my dashboard
-status: in-progress
+status: shipped
 priority: P1
 area: demos
 created: 2026-09-10
