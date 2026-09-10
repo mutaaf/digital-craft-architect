@@ -1,7 +1,7 @@
 ---
 id: 0072
 title: AI-for-restoration-services long-tail landing page funneling into home-services demos
-status: in-progress
+status: shipped
 priority: P1
 area: content
 created: 2026-09-10
