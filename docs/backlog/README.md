@@ -83,7 +83,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0072 | AI-for-restoration-services long-tail landing page funneling into home-services demos | P1 | shipped | content |
 | 0073 | Comparison page "Digital Craft vs JobTread" for high-intent construction-management switchers | P1 | shipped | seo |
 | 0074 | Persist the visitor's viewed comparison pages and surface a "Comparisons you're weighing" card on /my dashboard | P1 | shipped | demos |
-| 0075 | Emit Product plus Offer JSON-LD on the homepage pricing tiers section so the AI-services offer indexes as a structured artifact | P2 | in-progress | seo |
+| 0075 | Emit Product plus Offer JSON-LD on the homepage pricing tiers section so the AI-services offer indexes as a structured artifact | P2 | shipped | seo |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the
