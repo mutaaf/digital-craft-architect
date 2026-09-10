@@ -1,7 +1,7 @@
 ---
 id: 0073
 title: Comparison page "Digital Craft vs JobTread" for high-intent construction-management switchers
-status: in-progress
+status: shipped
 priority: P1
 area: seo
 created: 2026-09-10
