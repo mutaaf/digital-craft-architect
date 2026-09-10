@@ -80,7 +80,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0069 | Public /subprocessors data recipients page listing every third-party AI and infrastructure vendor with structured columns and CollectionPage JSON-LD | P1 | shipped | trust |
 | 0070 | Generate a public /case-studies/rss.xml feed of shipped case studies so feed readers and SEO crawlers subscribe to the case-study cadence | P2 | shipped | seo |
 | 0071 | AI-for-hospitality multi-vertical hub page indexing events, restaurant, kidsplay, salon, and fitness demos with CollectionPage JSON-LD | P1 | shipped | content |
-| 0072 | AI-for-restoration-services long-tail landing page funneling into home-services demos | P1 | in-progress | content |
+| 0072 | AI-for-restoration-services long-tail landing page funneling into home-services demos | P1 | shipped | content |
 | 0073 | Comparison page "Digital Craft vs JobTread" for high-intent construction-management switchers | P1 | groomed | seo |
 | 0074 | Persist the visitor's viewed comparison pages and surface a "Comparisons you're weighing" card on /my dashboard | P1 | groomed | demos |
 | 0075 | Emit Product plus Offer JSON-LD on the homepage pricing tiers section so the AI-services offer indexes as a structured artifact | P2 | groomed | seo |
