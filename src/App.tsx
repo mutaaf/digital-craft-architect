@@ -86,6 +86,7 @@ const BuildertrendComparison = lazy(() => import("./pages/compare/Buildertrend")
 const ThumbtackComparison = lazy(() => import("./pages/compare/Thumbtack"));
 const AngiComparison = lazy(() => import("./pages/compare/Angi"));
 const FollowUpBossComparison = lazy(() => import("./pages/compare/FollowUpBoss"));
+const JobTreadComparison = lazy(() => import("./pages/compare/JobTread"));
 const AIReadinessQuiz = lazy(() => import("./pages/AIReadinessQuiz"));
 const RoiCalculator = lazy(() => import("./pages/RoiCalculator"));
 const SetupClaw = lazy(() => import("./pages/SetupClaw"));
@@ -344,6 +345,7 @@ const App = () => {
               <Route path="/compare/thumbtack" element={<ThumbtackComparison />} />
               <Route path="/compare/angi" element={<AngiComparison />} />
               <Route path="/compare/followupboss" element={<FollowUpBossComparison />} />
+              <Route path="/compare/jobtread" element={<JobTreadComparison />} />
               <Route path="/quiz" element={<AIReadinessQuiz />} />
               <Route path="/roi" element={<RoiCalculator />} />
               <Route path="/setupclaw" element={<SetupClaw />} />

@@ -99,4 +99,10 @@ export const COMPARE_ENTRIES: readonly CompareEntry[] = [
     path: '/compare/followupboss',
     tagline: 'Follow Up Boss stores your leads. Digital Craft is the AI agent layer that answers them the moment they arrive.',
   },
+  {
+    id: 'jobtread',
+    tool: 'JobTread',
+    path: '/compare/jobtread',
+    tagline: 'JobTread runs your job records, financials, and schedules. Digital Craft is the AI agent layer that answers the leads a PM platform never gets around to.',
+  },
 ];
