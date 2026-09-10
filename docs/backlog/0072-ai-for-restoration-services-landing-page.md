@@ -1,7 +1,7 @@
 ---
 id: 0072
 title: AI-for-restoration-services long-tail landing page funneling into home-services demos
-status: groomed
+status: in-progress
 priority: P1
 area: content
 created: 2026-09-10
@@ -321,7 +321,6 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0072-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/ai-for-restoration-services.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-09-10 - branch `feat/0072-ai-for-restoration-services-landing-page` opened off fresh origin/main; ticket flipped groomed to in-progress with README index row flipped in lockstep so `node scripts/check-backlog.mjs` stays green.
+- 2026-09-10 - grepped `tests/e2e/ai-for-*.spec.ts` for `=== 'BreadcrumbList'`: every predecessor predicate is per-URL scoped (each spec calls its local goto helper first before iterating JSON-LD blocks), so a new `/ai-for-restoration-services`-scoped BreadcrumbList block cannot collide with any existing spec. `demo-breadcrumbs.spec.ts` iterates a hard-coded STARTER_ROUTES list that does not include the new route, so it is unaffected.
+- 2026-09-10 - failing spec added in `tests/e2e/ai-for-restoration-services.spec.ts` modeled 1:1 on `tests/e2e/ai-for-pool-service.spec.ts`; new page `src/pages/AiForRestorationServices.tsx` added (copy of `AiForPoolService.tsx` with restoration-specific strings, under 280 lines), route registered in `src/App.tsx` next to `/ai-for-pool-service` and in the `ROUTES` allow-list in `src/data/routes.ts`.
