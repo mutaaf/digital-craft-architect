@@ -20,6 +20,8 @@ export interface ChangelogEntry {
 }
 
 export const changelogEntries: readonly ChangelogEntry[] = [
+  { id: "0071", title: "AI-for-hospitality multi-vertical hub page indexing events, restaurant, kidsplay, salon, and fitness demos with CollectionPage JSON-LD", area: "content", created: "2026-09-08" },
+  { id: "0070", title: "Generate a public /case-studies/rss.xml feed of shipped case studies so feed readers and SEO crawlers subscribe to the case-study cadence", area: "seo", created: "2026-09-08" },
   { id: "0069", title: "Public /subprocessors data recipients page listing every third-party AI and infrastructure vendor with structured columns and CollectionPage JSON-LD", area: "trust", created: "2026-09-08" },
   { id: "0068", title: "Enable noUnusedLocals strict flag (12 fixes)", area: "infra", created: "2026-09-06" },
   { id: "0067", title: "Printable AI vendor scorecard template at /questions-to-ask-an-ai-vendor/scorecard", area: "trust", created: "2026-09-06" },
