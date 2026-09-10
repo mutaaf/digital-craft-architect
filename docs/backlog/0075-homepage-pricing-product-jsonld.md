@@ -1,7 +1,7 @@
 ---
 id: 0075
 title: Emit Product plus Offer JSON-LD on the homepage pricing tiers section so the AI-services offer indexes as a structured artifact
-status: groomed
+status: in-progress
 priority: P2
 area: seo
 created: 2026-09-10
@@ -377,7 +377,9 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0075-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/homepage-pricing-product-jsonld.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-09-10 - branch `feat/0075-homepage-pricing-product-jsonld` opened from `origin/main`; ticket flipped groomed to in-progress in both frontmatter and `docs/backlog/README.md` in the same commit so `check-backlog.mjs` stays green.
+- 2026-09-10 - pre-code grep of `tests/e2e/*-jsonld.spec.ts` and `tests/e2e/homepage-*.spec.ts` for `=== 'Product'` and `=== 'Offer'` predicates: ZERO matches. Broader `grep "Product\|Offer"` shows only `tests/e2e/demos-softwareapplication-jsonld.spec.ts` (scoped to `/demos`, filters via `SoftwareApplication.offers` field) and `tests/e2e/roi-calculator.spec.ts` (scoped to `/roi-calculator`, filters via `SoftwareApplication.offers`). Neither is a homepage predicate, neither is a site-wide "exactly one Product/Offer" assertion. No predecessor widening required. Existing homepage specs filter by unique fields already: Organization by `contactPoint` or `knowsAbout`, WebSite by `potentialAction`, SiteNavigationElement by `@type` scoped to nav blocks - so a new sibling `Product` block on `/` cannot collide.
+- 2026-09-10 - content.json inspection: `pricingTiers.subheadline` = "Keep your AI systems running smoothly with ongoing support" (no em-dash); each tier `name`, `description` hyphen-only; three tiers (Basic, Plus, Premium); mirror-source em-dash fix NOT required.
+- 2026-09-10 - failing spec added at `tests/e2e/homepage-pricing-product-jsonld.spec.ts` (one test per acceptance box), then Helmet edit landed in `src/pages/Index.tsx` (new `PRODUCT_NAME` constant plus one JSON-LD script tag, guarded by `content.pricingTiers &&`). No-pricing-content regression case uses Playwright's `page.route` to intercept `/content.json` and return a copy with `pricingTiers` deleted.
+- 2026-09-10 - PR #N opened, CI [state]
+- 2026-09-10 - merged to main
