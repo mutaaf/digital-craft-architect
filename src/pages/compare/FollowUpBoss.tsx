@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Navbar from '@/components/Navbar';
@@ -7,6 +7,7 @@ import StickyCTA from '@/components/StickyCTA';
 import ScrollProgress from '@/components/ScrollProgress';
 import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
+import { recordCompareVisit } from '@/utils/recentComparesStore';
 import { Phone, ChevronRight, Sparkles, Mic, Zap, MessageSquare, Users, Calendar } from 'lucide-react';
 
 // Ticket 0065 - "Digital Craft vs Follow Up Boss" comparison page for
@@ -109,9 +110,20 @@ const WEBPAGE_SCHEMA = {
   isPartOf: { '@type': 'WebSite', url: SITE_URL },
 };
 
+// Ticket 0074 - tool name derived from PAGE_H1 per the 2026-05-25
+// mirror-source rule; used by recordCompareVisit for the /my
+// RecentComparesCard.
+const TOOL_NAME = PAGE_H1.split(' vs ')[1];
+
 const FollowUpBossComparison: React.FC = () => {
   const { content } = useContent();
   const lastCrumb = CRUMBS.length - 1;
+
+  // Ticket 0074 - record this compare-page visit for the /my dashboard's
+  // RecentComparesCard. Empty dep array so the effect fires once per mount.
+  useEffect(() => {
+    recordCompareVisit(window.location.pathname, TOOL_NAME);
+  }, []);
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">

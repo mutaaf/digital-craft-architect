@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Sparkles, ArrowRight, Calculator, ListChecks, Brain, Inbox, DollarSign, Printer } from 'lucide-react';
+import { Sparkles, ArrowRight, Calculator, ListChecks, Brain, Inbox, DollarSign, Printer, GitCompare } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ScrollProgress from '@/components/ScrollProgress';
@@ -9,6 +9,12 @@ import WhatsNewSinceVisit from '@/components/WhatsNewSinceVisit';
 import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
 import { getRecentDemos, type RecentDemo } from '@/utils/recentDemosStore';
+import {
+  getRecentCompares,
+  suggestNextCompare,
+  type RecentCompare,
+} from '@/utils/recentComparesStore';
+import type { CompareEntry } from '@/data/compareEntries';
 import { getQuizPersona, type QuizPersona } from '@/utils/quizPersonaStore';
 import { getVisitStreak, recordVisitToday, type VisitStreak } from '@/utils/visitStreakStore';
 import { getLastRoiResult } from '@/utils/roiResultStore';
@@ -151,6 +157,7 @@ const PRINT_STYLESHEET = `
   [data-testid="dashboard-streak-badge"],
   [data-testid="dashboard-estimate-card"],
   [data-testid="dashboard-recent-demos-card"],
+  [data-testid="recent-compares-card"],
   [data-testid="dashboard-roi-card"],
   [data-testid="dashboard-quiz-persona-card"],
   [data-testid="dashboard-empty-state"],
@@ -207,6 +214,10 @@ const MyDashboard: React.FC = () => {
   const [persona, setPersona] = useState<QuizPersona | null>(null);
   const [streak, setStreak] = useState<ReturnType<typeof getVisitStreak> | null>(null);
   const [roiResult, setRoiResult] = useState<ReturnType<typeof getLastRoiResult>>(null);
+  // Ticket 0074 - hydrate the /compare/<tool> visit history for the
+  // RecentComparesCard rendered above the existing dashboard cards.
+  const [recentCompares, setRecentCompares] = useState<RecentCompare[]>([]);
+  const [nextCompare, setNextCompare] = useState<CompareEntry | null>(null);
   const [hydrated, setHydrated] = useState(false);
   // Ticket 0060 - guard so React 18 strict-mode double-mount does not
   // double-fire the streak_badge_view analytics event.
@@ -234,6 +245,12 @@ const MyDashboard: React.FC = () => {
     setPersona(safeRead(() => getQuizPersona(), null));
     setStreak(safeRead(() => getVisitStreak(), null));
     setRoiResult(safeRead(() => getLastRoiResult(), null));
+    // Ticket 0074 - read the /compare/<tool> visit history and the next
+    // suggested unvisited comparison. Both are pure, allow-list-validated
+    // reads at src/utils/recentComparesStore.ts; safeRead swallows any
+    // storage exception per the standing dashboard hydration pattern.
+    setRecentCompares(safeRead(() => getRecentCompares(), []));
+    setNextCompare(safeRead(() => suggestNextCompare(), null));
     setHydrated(true);
   }, []);
 
@@ -253,7 +270,12 @@ const MyDashboard: React.FC = () => {
     trackCTAClick('roi_card_view', 'mydashboard');
   }, [roiResult]);
 
-  const anyData = estimate !== null || recent.length > 0 || persona !== null || roiResult !== null;
+  const anyData =
+    estimate !== null ||
+    recent.length > 0 ||
+    persona !== null ||
+    roiResult !== null ||
+    recentCompares.length > 0;
 
   // Ticket 0066 - fire summary_recap_view exactly once when the recap first
   // renders for this mount. Mirrors the streakViewTracked / roiCardViewTracked
@@ -319,6 +341,65 @@ const MyDashboard: React.FC = () => {
 
       <section className="py-10 bg-white dark:bg-gray-950">
         <div className="container mx-auto px-4 max-w-3xl space-y-6">
+          {/* Ticket 0074 - Comparisons you're weighing. Rendered above the
+              existing saved-estimate / saved-ROI / recent-demos cards per
+              the ticket 0062 vertical-order precedent (top-of-dashboard
+              retention artifacts first). Hidden entirely for a first-time
+              visitor with no compare history (no empty state, no nag). */}
+          {hydrated && recentCompares.length > 0 && (
+            <article data-testid="recent-compares-card" className={CARD}>
+              <div className="flex items-start gap-4 mb-4">
+                <div className={ICON}><GitCompare size={22} /></div>
+                <div className="min-w-0 flex-1">
+                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    Comparisons you're weighing
+                  </h2>
+                  <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
+                    Pick up the head-to-head you were reading.
+                  </p>
+                </div>
+              </div>
+              <ul className="space-y-2">
+                {recentCompares.map((entry) => (
+                  <li key={entry.path} data-testid="recent-compare-row">
+                    <Link
+                      to={entry.path}
+                      onClick={() => trackCTAClick('my_compare_reopen', 'my_dashboard')}
+                      className="group flex items-center justify-between gap-3 rounded-lg border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 px-4 py-3 hover:border-primary dark:hover:border-primary transition-colors"
+                    >
+                      <div className="min-w-0">
+                        <div className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                          {entry.tool}
+                        </div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                          {`Viewed ${formatRelative(entry.viewedAt)}`}
+                        </div>
+                      </div>
+                      <span className="text-sm font-medium text-primary shrink-0 inline-flex items-center gap-1">
+                        Reopen comparison
+                        <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              {nextCompare && (
+                <div className="mt-4 flex flex-wrap items-center gap-2 text-xs">
+                  <span className="text-gray-500 dark:text-gray-400">You might also compare us to</span>
+                  <Link
+                    to={nextCompare.path}
+                    data-testid="compare-suggest-chip"
+                    onClick={() => trackCTAClick('my_compare_suggest', 'my_dashboard')}
+                    className="inline-flex items-center gap-1 rounded-full border border-gray-200 dark:border-gray-700 px-3 py-1 text-primary hover:border-primary dark:hover:border-primary transition-colors"
+                  >
+                    {nextCompare.tool}
+                    <ArrowRight size={12} />
+                  </Link>
+                </div>
+              )}
+            </article>
+          )}
+
           {hydrated && streak && streak.daysInLast14 >= 1 && (
             <article data-testid="dashboard-streak-badge" className={CARD}>
               <div className="flex items-start gap-4">

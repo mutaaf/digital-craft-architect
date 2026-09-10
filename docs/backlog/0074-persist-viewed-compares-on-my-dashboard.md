@@ -372,6 +372,12 @@ to re-discover the architecture.
 
 - 2026-09-10 - branch `feat/0074-persist-viewed-compares-on-my-dashboard` opened
 - 2026-09-10 - grep for new JSON-LD blocks: no-op (this ticket adds no JSON-LD)
-- 2026-09-10 - failing test added in `tests/e2e/recent-compares-recap.spec.ts`
+- 2026-09-10 - failing test added in `tests/e2e/recent-compares-recap.spec.ts` (11 boxes, 1 per acceptance criterion)
+- 2026-09-10 - new store `src/utils/recentComparesStore.ts` under 130 lines, allow-list from COMPARE_ENTRIES
+- 2026-09-10 - 14 compare pages gain `TOOL_NAME` constant + one-line `useEffect` (H1-derived for the 4 pages with `PAGE_H1`, string constant for the other 10)
+- 2026-09-10 - RecentComparesCard block added to `src/pages/MyDashboard.tsx` above existing cards
+- 2026-09-10 - `dca_recent_compares_v1` disclosure entry added to `src/data/demoDisclosures.ts` and rendered on `/trust` via shared `NEW_PERSISTENT_STORES` source
+- 2026-09-10 - full local gate green: lint, typecheck, check-links, check-images, check-meta, check-blog-dates, check-backlog, build
+- 2026-09-10 - new spec (11 tests) green; predecessor specs (my-dashboard, recent-demos-recap, trust-page, compare-*) green single-worker (2 pre-existing parallel-worker flakes in trust-page and compare-hub CollectionPage tests are covered by CI retries: 1 per the 2026-09-05 route-fallback lesson)
 - YYYY-MM-DD - PR #N opened, CI [state]
 - YYYY-MM-DD - merged to main

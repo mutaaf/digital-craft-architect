@@ -20,6 +20,33 @@ export interface DemoDisclosure {
   neverStored: string[];
 }
 
+// Ticket 0074 - shared source of truth for the /trust "What we keep in your
+// browser storage" list. Each entry names a persistent localStorage key
+// surfaced on /my (or on a demo page) so the /trust disclosure and the
+// consuming feature never drift (the 2026-05-25 mirror-source rule). This
+// list stays additive: predecessor stores (dca_demo_company_<vertical>,
+// dca_quiz_persona_v1, dca_visit_days_v1, dca_last_roi_result_v1, and the
+// sessionStorage dca_deal_ prefix) remain hand-rendered on /trust as they
+// have since ticket 0018 / 0033 / 0045 / 0060 / 0062; this constant is the
+// entry point for NEW persistent stores from this ticket forward.
+export interface PersistentStoreDisclosure {
+  /** localStorage key or key pattern (e.g. dca_demo_company_<vertical>). */
+  storageKey: string;
+  /** Human-readable one-line shape of the stored value. */
+  shape: string;
+  /** Sentence about what the store powers and where the surface lives. */
+  purpose: string;
+}
+
+export const NEW_PERSISTENT_STORES: readonly PersistentStoreDisclosure[] = [
+  {
+    storageKey: 'dca_recent_compares_v1',
+    shape: 'path + tool + viewedAt',
+    purpose:
+      'The list of /compare/<tool> pages you have opened, capped at the five most recent, so the "Comparisons you\'re weighing" card on /my can reopen the exact comparison you were reading. Client-side only, never leaves your browser. Clearing localStorage resets it.',
+  },
+];
+
 // Shared disclosure for chat-style lead-qualification demos (LeadResponder).
 // Browser-only chat thread, GPT-4o via our serverless proxy, scraped company
 // profile lives in localStorage under a per-vertical key.
