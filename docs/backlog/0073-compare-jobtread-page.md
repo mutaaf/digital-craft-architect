@@ -1,7 +1,7 @@
 ---
 id: 0073
 title: Comparison page "Digital Craft vs JobTread" for high-intent construction-management switchers
-status: groomed
+status: in-progress
 priority: P1
 area: seo
 created: 2026-09-10
@@ -341,7 +341,9 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0073-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/compare-jobtread.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-09-10 - branch `feat/0073-compare-jobtread` opened; status flipped groomed -> in-progress.
+- 2026-09-10 - mandatory 2026-05-30 second-@type grep run:
+  - `grep -n "=== 'BreadcrumbList'" tests/e2e/*.spec.ts`: matches in ai-for-*.spec.ts, case-*.spec.ts, changelog-*.spec.ts, compare-*.spec.ts (jobber, servicetitan, podium, housecallpro, buildertrend, thumbtack, angi, followupboss, hub), glossary-*, my-dashboard, playbook, quiz-*, questions-to-ask, subprocessors, texas-*, vendor-scorecard, trust-*, roi-*. Every predicate is URL-scoped to its own route.
+  - `grep -n "=== 'WebPage'" tests/e2e/*.spec.ts`: matches only in tests/e2e/compare-*.spec.ts (angi, followupboss, thumbtack; buildertrend/jobber/podium/housecallpro/servicetitan via the `t === 'BreadcrumbList' || t === 'WebPage'` count-guard) and my-dashboard.spec.ts (URL-scoped to /my). Every compare predicate is URL-scoped to its own /compare/<tool> route.
+  - Conclusion: a fourteenth `/compare/jobtread`-scoped BreadcrumbList + WebPage pair cannot collide with any predecessor URL-scoped "exactly one" assertion.
+- 2026-09-10 - failing test added in `tests/e2e/compare-jobtread.spec.ts` (modeled 1:1 on compare-followupboss.spec.ts).
