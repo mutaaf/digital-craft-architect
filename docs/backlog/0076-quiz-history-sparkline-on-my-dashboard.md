@@ -1,7 +1,7 @@
 ---
 id: 0076
 title: Persist every AI Readiness Quiz completion and surface a "Your readiness trend" sparkline card on /my dashboard
-status: in-progress
+status: shipped
 priority: P1
 area: demos
 created: 2026-09-12
