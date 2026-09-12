@@ -20,6 +20,9 @@ export interface ChangelogEntry {
 }
 
 export const changelogEntries: readonly ChangelogEntry[] = [
+  { id: "0075", title: "Emit Product plus Offer JSON-LD on the homepage pricing tiers section so the AI-services offer indexes as a structured artifact", area: "seo", created: "2026-09-10" },
+  { id: "0074", title: "Persist the visitor's viewed comparison pages and surface a \"Comparisons you're weighing\" card on /my dashboard", area: "demos", created: "2026-09-10" },
+  { id: "0073", title: "Comparison page \"Digital Craft vs JobTread\" for high-intent construction-management switchers", area: "seo", created: "2026-09-10" },
   { id: "0072", title: "AI-for-restoration-services long-tail landing page funneling into home-services demos", area: "content", created: "2026-09-10" },
   { id: "0071", title: "AI-for-hospitality multi-vertical hub page indexing events, restaurant, kidsplay, salon, and fitness demos with CollectionPage JSON-LD", area: "content", created: "2026-09-08" },
   { id: "0070", title: "Generate a public /case-studies/rss.xml feed of shipped case studies so feed readers and SEO crawlers subscribe to the case-study cadence", area: "seo", created: "2026-09-08" },

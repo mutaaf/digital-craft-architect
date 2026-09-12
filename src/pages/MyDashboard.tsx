@@ -23,6 +23,7 @@ import { encodeEstimateParams, type EstimateShareState } from '@/pages/construct
 import { encodeRoiParams } from '@/pages/roiCalculatorParams';
 import { PROJECT_TYPES, FINISH_LEVELS, EXTRAS, calculateEstimate } from '@/data/estimatePricing';
 import { SUMMARY_LINE_KEYS, type SummaryLineKey } from '@/pages/mydashboardSummaryKeys';
+import QuizHistoryCard from '@/components/QuizHistoryCard';
 
 // Ticket 0045 - Personalized /my visitor dashboard. Page shell mirrors
 // src/pages/Demos.tsx and joins four pre-existing browser-local sources
@@ -517,6 +518,13 @@ const MyDashboard: React.FC = () => {
               </div>
             </article>
           )}
+
+          {/* Ticket 0076 - Quiz readiness trend card. Rendered BELOW the
+              readiness snapshot card (ticket 0045) and ABOVE the printable
+              summary recap block (ticket 0066). Returns null when the
+              history store has zero entries so a first-time visitor sees
+              nothing. Card owns its own hydration and view-beacon guard. */}
+          {hydrated && <QuizHistoryCard />}
 
           {hydrated && anyData && (
             <section

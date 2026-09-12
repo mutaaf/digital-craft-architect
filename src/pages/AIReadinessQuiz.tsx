@@ -11,6 +11,7 @@ import { submitLead } from '@/utils/submitLead';
 import { useContent } from '@/hooks/useContent';
 import { streamChat } from '@/utils/openaiChat';
 import { setQuizPersona } from '@/utils/quizPersonaStore';
+import { appendQuizHistory, type QuizPersonaLabel } from '@/utils/quizHistoryStore';
 import { decodeQuizTierParam, encodeQuizTierParam } from './quizTierShareParams';
 import {
   ArrowRight,
@@ -841,7 +842,14 @@ const AIReadinessQuiz: React.FC = () => {
   // ROI estimate, so the /trust disclosure stays narrow.
   useEffect(() => {
     if (isQuizDone && tierInfo) {
-      setQuizPersona(tierInfo.label, Date.now());
+      // Ticket 0076 - the persona snapshot store (ticket 0045) and the
+      // additive history store both receive the same (label, timestamp)
+      // tuple so their LATEST-entry values are byte-identical. The
+      // history store's KNOWN_PERSONAS allow-list mirrors the same
+      // TIERS labels via the 2026-05-25 mirror-source rule.
+      const completedAt = Date.now();
+      setQuizPersona(tierInfo.label, completedAt);
+      appendQuizHistory({ persona: tierInfo.label as QuizPersonaLabel, completedAt });
     }
   }, [isQuizDone, tierInfo]);
 
