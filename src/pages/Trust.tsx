@@ -429,6 +429,28 @@ const Trust: React.FC = () => {
         </div>
       </section>
 
+      {/* Ticket 0077 - cross-link chip to /ethics. Sits at the bottom of the
+          page as the sibling public-trust-artifact pointer (the /ethics page
+          is a passive dated hard-NO list; the CTA is the URL itself, which a
+          compliance reviewer forwards to a procurement file). One chip only;
+          the existing sections, disclosure list, providers card, and JSON-LD
+          blocks above are byte-identical to the ticket 0044 shipped state. */}
+      <section className="py-8 bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-800">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <div className="flex flex-wrap gap-3 justify-center">
+            <Link
+              to="/ethics"
+              data-testid="trust-ethics-link"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/60 text-sm text-gray-700 dark:text-gray-300 hover:border-primary hover:text-primary dark:hover:border-primary dark:hover:text-primary transition-colors"
+              onClick={() => trackCTAClick('ethics_from_trust', 'trust_footer')}
+            >
+              What we won't do
+              <ArrowRight size={14} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-16 bg-gray-50 dark:bg-gray-900">
         <div className="container mx-auto px-4 text-center max-w-2xl">

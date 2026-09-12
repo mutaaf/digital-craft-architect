@@ -1,7 +1,7 @@
 ---
 id: 0077
 title: Public /ethics "What we won't do" commitments page listing dated hard-NO stances as a defensible trust artifact
-status: proposed
+status: in-progress
 priority: P2
 area: trust
 created: 2026-09-12
@@ -368,7 +368,16 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0077-ethics-what-we-wont-do-page` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/ethics-page.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-09-12 - branch `feat/0077-ethics-what-we-wont-do-page` opened off fresh `origin/main` (parent 27b0170).
+- 2026-09-12 - failing e2e spec landed at `tests/e2e/ethics-page.spec.ts` (commit 1a1ac25); imports `ETHICS_COMMITMENTS` from `src/data/ethicsCommitments.ts` which does not yet exist, so `tsc` and Playwright both red at import time until the data + page files land.
+- 2026-09-12 - grep result per 2026-05-30 second-@type lesson: `grep -rln "'BreadcrumbList'" tests/e2e/` returns 36 spec files. Every match is URL-scoped: each spec first navigates to its own page and asserts `expect(breadcrumbs).toHaveLength(1)` on the blocks emitted by THAT page. Sample verified: `tests/e2e/subprocessors.spec.ts:220` asserts exactly one BreadcrumbList on `/subprocessors`; `tests/e2e/case-studies-hub.spec.ts`, `tests/e2e/compare-hub.spec.ts`, `tests/e2e/vendor-scorecard.spec.ts`, and every `tests/e2e/ai-for-*.spec.ts` follow the same URL-first pattern. The new `/ethics`-scoped BreadcrumbList cannot collide with any predecessor block because no predecessor spec loads `/ethics`.
+- 2026-09-12 - `sinceDate` anchor citations for the eight commitments (documented in `src/data/ethicsCommitments.ts` leading comments as well):
+  - `no-fabricated-testimonials` (2026-05-22): AGENTS.md non-negotiable #3 lives in the AGENTS.md file first added on 2026-05-22 as the fleet-standard successor to AGENT.md; anchored to the earliest datestamp in `docs/LESSONS.md`.
+  - `no-invented-case-study-numbers` (2026-05-22): AGENTS.md conservative-claims rule, same anchor as above.
+  - `no-dark-pattern-email-capture` (2026-05-25): ticket 0018 /trust page copy ("no legalese, no popup, no claim that isn't already true in the code") first shipped in the 2026-05-25 window; the ticket 0036 /uptime "no fourth capture form" close is a later reinforcement.
+  - `no-hidden-client-side-retention` (2026-05-25): ticket 0018 /trust "what we never store on Digital Craft servers" enumeration.
+  - `no-persona-misrepresentation-on-voice` (2026-06-05): voice-negotiator prompt template ships the "AI must identify itself as AI" rule in `src/utils/voicePromptGenerator.ts` from the original voice-demo ticket window (predates ticket 0029 shareable summary).
+  - `no-scraped-data-resale` (2026-09-04): ticket 0069 /subprocessors shipped, publishing the full data-recipient table; adding a data broker requires editing that table first.
+  - `no-auto-enrolled-email-sequences` (2026-05-23): ticket 0002 5-day email course opt-in first codified the double-opt-in pattern.
+  - `no-marketing-use-of-visitor-uploads` (2026-05-25): ticket 0018 /trust "what we never store" section.
+- 2026-09-12 - trust-page.spec.ts flake note: two h2-count assertions in `tests/e2e/trust-page.spec.ts` (lines 71 and 156) intermittently red on the first attempt because they use only the `root.innerHTML.length > 500` readiness poll, which trips on the Suspense RouteFallback per the 2026-09-05 lesson. Confirmed pre-existing (reproduces on `origin/main` with the Trust.tsx cross-link chip stashed); CI `retries: 1` covers the flake and both attempts pass on the second try. Not a regression from this ticket's Trust.tsx edit (which adds a chip-only section between the sections list and the CTA, no h2 change).
