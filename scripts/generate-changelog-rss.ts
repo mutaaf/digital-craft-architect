@@ -97,6 +97,15 @@ export default async function generateChangelogRss(): Promise<{ count: number }>
   writeFileSync(OUT_PATH, xml, "utf-8");
   assertWrittenFeed(xml, changelogEntries);
   console.log(`✓ RSS feed generated with ${changelogEntries.length} entries -> ${relative(ROOT, OUT_PATH)}`);
+
+  // Ticket 0078 - After the RSS feed lands, generate the JSON Feed 1.1
+  // sibling at public/changelog.json from the same changelogEntries
+  // constant. Dynamic import keeps the new script's surface stable
+  // (default export) and avoids a static side-effect import that would
+  // couple module load order across the build chain.
+  const { default: generateChangelogJson } = await import("./generate-changelog-json");
+  await generateChangelogJson();
+
   return { count: changelogEntries.length };
 }
 

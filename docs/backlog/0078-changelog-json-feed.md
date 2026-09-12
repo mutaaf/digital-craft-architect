@@ -1,7 +1,7 @@
 ---
 id: 0078
 title: Generate a public /changelog.json machine-readable JSON Feed of shipped tickets so buyers and analysts can subscribe programmatically to ship velocity
-status: proposed
+status: in-progress
 priority: P2
 area: content
 created: 2026-09-12
@@ -366,7 +366,65 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0078-changelog-json-feed` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/changelog-json-feed.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+### 2026-09-12 - implementation-dev starting
+
+- Branch: `feat/0078-changelog-json-feed` off `origin/main`.
+- Plan: write the failing e2e spec FIRST (mirrors ticket 0055's
+  `tests/e2e/changelog-rss-feed.spec.ts`), commit red, then add
+  `scripts/generate-changelog-json.ts` + wire it as the final step
+  of `scripts/generate-changelog-rss.ts`'s exported `generateChangelogRss()`
+  so the RSS generator, JSON generator, and case-studies RSS all chain
+  from the same `scripts/generate-changelog.ts` entry point (already in
+  the `npm run build` chain via `scripts/generate-sitemap.ts`). No
+  package.json edit required.
+- Predecessor JSON-LD grep (2026-05-30 second-@type lesson): searched
+  `tests/e2e/*-jsonld.spec.ts` for changelog-scoped predicates.
+  `tests/e2e/changelog-itemlist-jsonld.spec.ts` asserts "exactly one
+  ItemList block" on `/changelog`. This ticket adds NO new JSON-LD
+  block (JSON Feed autodiscovery uses `<link rel="alternate">`, not
+  JSON-LD, per its spec), so no predecessor spec needs to widen. Grep
+  is a no-op for auditability.
+- Em-dash source scan (2026-05-25 mirror-source rule): scanned every
+  shipped ticket's frontmatter `title:` in `docs/backlog/*.md` for
+  U+2014 and scanned the generated `src/data/changelogEntries.ts`.
+  Zero em-dashes. No source-fix needed at the ticket layer.
+- Existing RSS chip inspection: `src/pages/Changelog.tsx` currently
+  emits the `<link rel="alternate" type="application/rss+xml">` tag
+  from ticket 0055 but no visible RSS subscribe chip in the render
+  tree - only a "Recent ships" pill with the `Rss` icon at the top
+  of the hero. Per the 2026-09-12 "code beats prose" lesson, the new
+  JSON Feed chip is introduced as a self-contained subscribe row
+  under the hero description, styled to match the neighboring
+  filter-chip pattern; a future ticket can add a matching visible
+  RSS subscribe chip if desired without touching this one.
+- Wiring decision: the JSON generator is invoked at the END of
+  `generate-changelog-rss.ts`'s exported main via a `default` import
+  of `./generate-changelog-json`, mirroring the ticket 0055 chain
+  that already imports the case-studies RSS generator from the
+  parent `generate-changelog.ts`. `npm run build` -> tsx
+  `scripts/generate-sitemap.ts` -> `generateChangelog()` ->
+  `generateChangelogRss()` -> `generateChangelogJson()`. Confirmed
+  no package.json edit needed.
+- vercel.json header override decision: Vercel serves `.json` files
+  with `Content-Type: application/json` by default. The JSON Feed
+  1.1 spec RECOMMENDS `application/feed+json` but every conforming
+  reader (Feedbin, NetNewsWire, Reeder) also accepts
+  `application/json` when the URL is subscribed manually; the
+  autodiscovery `<link>` tag carries the strict MIME type. The spec
+  test asserts EITHER `application/feed+json` OR `application/json`
+  per AC #6, so the vercel.json edit is deferred (keeps the diff
+  additive; the SPA rewrites stay byte-identical).
+- Local gate: `npm run lint` (0 errors, 24 pre-existing warnings),
+  `npm run typecheck`, `check-links`, `check-images`, `check-meta`,
+  `check-blog-dates`, `check-backlog.mjs`, `npm run build` all
+  green. Build emits `public/changelog.json` (77 items, 30106
+  bytes) and copies to `dist/changelog.json`; both verified as
+  U+2014-free.
+- Local Playwright: the new spec at
+  `tests/e2e/changelog-json-feed.spec.ts` passes 13 / 13 in
+  isolation (all AC #8 boxes). The predecessor changelog specs
+  (0032 page, 0043 ItemList, 0055 RSS) show pre-existing flakiness
+  per the 2026-05-25 lesson - different specs fail on different
+  full-suite runs (RSS-alternate Helmet timing on one run, dark
+  mode entry-count on another, homepage footer link on a third),
+  none in files this diff touches. CI `retries: 1` covers these.

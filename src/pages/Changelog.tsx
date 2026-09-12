@@ -8,7 +8,7 @@ import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
 import { KNOWN_PATHS } from '@/utils/recentDemosStore';
 import { changelogEntries, type ChangelogEntry, type ChangelogArea } from '@/data/changelogEntries';
-import { Rss, ArrowRight } from 'lucide-react';
+import { Rss, ArrowRight, Code2 } from 'lucide-react';
 
 // Ticket 0032 - Public /changelog page surfacing weekly ship velocity.
 //
@@ -173,6 +173,13 @@ const Changelog: React.FC = () => {
           title="Digital Craft AI Changelog"
           href="/changelog/rss.xml"
         />
+        {/* Ticket 0078 - Auto-discovery for the /changelog.json JSON Feed 1.1 sibling. */}
+        <link
+          rel="alternate"
+          type="application/feed+json"
+          title="Digital Craft AI Changelog (JSON Feed)"
+          href="/changelog.json"
+        />
         <meta property="og:title" content="Changelog | DigitalCraft AI" />
         <meta property="og:description" content={CHANGELOG_DESCRIPTION} />
         <meta property="og:url" content="https://digitalcraftai.com/changelog" />
@@ -196,6 +203,26 @@ const Changelog: React.FC = () => {
               Every row is a real ticket from our public backlog with a date
               you can verify. The latest {totalShipped} ships, grouped by month.
             </p>
+            {/* Ticket 0078 - Subscribe-chip surface for the JSON Feed 1.1
+                sibling at /changelog.json. Programmatic buyers and JSON-
+                Feed-native readers (Feedbin, NetNewsWire, Reeder) copy this
+                URL into their stack; the click fires the
+                changelog_json_subscribe beacon so subscribe intent is
+                measurable in GA. Dark-mode variants inherit the neighboring
+                filter-chip pattern. */}
+            <div className="mt-6 flex flex-wrap gap-2 justify-center">
+              <a
+                href="/changelog.json"
+                data-testid="changelog-json-subscribe-chip"
+                onClick={() =>
+                  trackCTAClick('changelog_json_subscribe', 'changelog_header')
+                }
+                className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 hover:border-primary hover:text-primary dark:hover:border-primary dark:hover:text-primary transition-colors"
+              >
+                <Code2 size={14} aria-hidden="true" />
+                Subscribe via JSON Feed
+              </a>
+            </div>
           </div>
         </section>
 

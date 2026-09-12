@@ -7,6 +7,14 @@
     <language>en-us</language>
     <atom:link href="https://digitalcraftai.com/changelog/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Public /ethics &quot;What we won&apos;t do&quot; commitments page listing dated hard-NO stances as a defensible trust artifact</title>
+      <link>https://digitalcraftai.com/changelog#0077</link>
+      <description>Shipped 2026-09-12 in area: trust.</description>
+      <pubDate>Sat, 12 Sep 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0077</guid>
+      <category>trust</category>
+    </item>
+    <item>
       <title>Persist every AI Readiness Quiz completion and surface a &quot;Your readiness trend&quot; sparkline card on /my dashboard</title>
       <link>https://digitalcraftai.com/changelog#0076</link>
       <description>Shipped 2026-09-12 in area: demos.</description>
