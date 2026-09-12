@@ -1,7 +1,7 @@
 ---
 id: 0076
 title: Persist every AI Readiness Quiz completion and surface a "Your readiness trend" sparkline card on /my dashboard
-status: proposed
+status: in-progress
 priority: P1
 area: demos
 created: 2026-09-12
@@ -372,7 +372,6 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0076-quiz-history-sparkline-on-my-dashboard` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/quiz-history-card.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-09-12 - branch `feat/0076-quiz-history-sparkline-on-my-dashboard` opened; ticket flipped to in-progress (README index stays at `proposed` for the feat PR per the 2026-05-22 two-PR ship lesson; the follow-up chore PR flips both to `shipped` together).
+- 2026-09-12 - no new JSON-LD blocks added (per the 2026-05-30 second-@type lesson pre-code grep; /my emits BreadcrumbList + WebPage per ticket 0045, /quiz emits Quiz + BreadcrumbList per ticket 0039, /trust unchanged).
+- 2026-09-12 - mirror-source deviation: the ticket copy names the persona allow-list as `'Just Starting' | 'Getting Smart' | 'AI-Ready'`, but the actual TIERS labels in `src/pages/AIReadinessQuiz.tsx` (the ticket 0045 source of truth `quizPersonaStore.setQuizPersona(tierInfo.label, ...)` writes) are `'Getting Started' | 'Ready for AI' | 'Advanced - Ready to Scale'`. Per the ticket's own 2026-05-25 mirror-source rule ("do NOT invent new names") plus its byte-identical requirement ("the LATEST entry in the history array is byte-identical to the value in the `dca_quiz_persona_v1` snapshot"), `KNOWN_PERSONAS` uses the REAL tier labels from the code, not the placeholder names in the ticket prose. `tierValue()` maps them 1/2/3 in the natural readiness order.
