@@ -362,7 +362,10 @@ test('ethics_view beacon fires exactly once per mount', async ({ page }) => {
     win.gtag = (_command, _action, params) => {
       const label =
         params && typeof params.event_label === 'string' ? params.event_label : '';
-      if (label === 'ethics_view') win.__viewEvents.push(label);
+      // trackCTAClick emits `${ctaName} - ${location}` (see
+      // src/utils/analytics.ts:80), so filter by substring rather than a
+      // strict equality check.
+      if (label.includes('ethics_view')) win.__viewEvents.push(label);
     };
   });
   const errors = await gotoEthics(page);
