@@ -1,7 +1,7 @@
 ---
 id: 0078
 title: Generate a public /changelog.json machine-readable JSON Feed of shipped tickets so buyers and analysts can subscribe programmatically to ship velocity
-status: in-progress
+status: shipped
 priority: P2
 area: content
 created: 2026-09-12
