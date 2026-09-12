@@ -1,7 +1,7 @@
 ---
 id: 0077
 title: Public /ethics "What we won't do" commitments page listing dated hard-NO stances as a defensible trust artifact
-status: in-progress
+status: shipped
 priority: P2
 area: trust
 created: 2026-09-12
