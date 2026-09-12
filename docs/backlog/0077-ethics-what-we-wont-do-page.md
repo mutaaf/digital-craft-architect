@@ -1,7 +1,7 @@
 ---
 id: 0077
 title: Public /ethics "What we won't do" commitments page listing dated hard-NO stances as a defensible trust artifact
-status: proposed
+status: in-progress
 priority: P2
 area: trust
 created: 2026-09-12
@@ -368,7 +368,4 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0077-ethics-what-we-wont-do-page` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/ethics-page.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-09-12 - branch `feat/0077-ethics-what-we-wont-do-page` opened off fresh `origin/main` (parent 27b0170).
