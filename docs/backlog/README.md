@@ -84,6 +84,9 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0073 | Comparison page "Digital Craft vs JobTread" for high-intent construction-management switchers | P1 | shipped | seo |
 | 0074 | Persist the visitor's viewed comparison pages and surface a "Comparisons you're weighing" card on /my dashboard | P1 | shipped | demos |
 | 0075 | Emit Product plus Offer JSON-LD on the homepage pricing tiers section so the AI-services offer indexes as a structured artifact | P2 | shipped | seo |
+| 0076 | Persist every AI Readiness Quiz completion and surface a "Your readiness trend" sparkline card on /my dashboard | P1 | proposed | demos |
+| 0077 | Public /ethics "What we won't do" commitments page listing dated hard-NO stances as a defensible trust artifact | P2 | proposed | trust |
+| 0078 | Generate a public /changelog.json machine-readable JSON Feed of shipped tickets so buyers and analysts can subscribe programmatically to ship velocity | P2 | proposed | content |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the
