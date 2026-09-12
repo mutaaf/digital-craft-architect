@@ -1,0 +1,780 @@
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": "Digital Craft AI Changelog",
+  "home_page_url": "https://digitalcraftai.com/changelog",
+  "feed_url": "https://digitalcraftai.com/changelog.json",
+  "description": "Recent ships from the Digital Craft AI team. Dated, grouped by month, sourced directly from the public backlog so you can see what we shipped this week without checking LinkedIn.",
+  "language": "en-US",
+  "items": [
+    {
+      "id": "0077",
+      "url": "https://digitalcraftai.com/changelog#0077",
+      "title": "Public /ethics \"What we won't do\" commitments page listing dated hard-NO stances as a defensible trust artifact",
+      "content_text": "Public /ethics \"What we won't do\" commitments page listing dated hard-NO stances as a defensible trust artifact",
+      "date_published": "2026-09-12T12:00:00.000Z",
+      "tags": [
+        "trust"
+      ]
+    },
+    {
+      "id": "0076",
+      "url": "https://digitalcraftai.com/changelog#0076",
+      "title": "Persist every AI Readiness Quiz completion and surface a \"Your readiness trend\" sparkline card on /my dashboard",
+      "content_text": "Persist every AI Readiness Quiz completion and surface a \"Your readiness trend\" sparkline card on /my dashboard",
+      "date_published": "2026-09-12T12:00:00.000Z",
+      "tags": [
+        "demos"
+      ]
+    },
+    {
+      "id": "0075",
+      "url": "https://digitalcraftai.com/changelog#0075",
+      "title": "Emit Product plus Offer JSON-LD on the homepage pricing tiers section so the AI-services offer indexes as a structured artifact",
+      "content_text": "Emit Product plus Offer JSON-LD on the homepage pricing tiers section so the AI-services offer indexes as a structured artifact",
+      "date_published": "2026-09-10T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "0074",
+      "url": "https://digitalcraftai.com/changelog#0074",
+      "title": "Persist the visitor's viewed comparison pages and surface a \"Comparisons you're weighing\" card on /my dashboard",
+      "content_text": "Persist the visitor's viewed comparison pages and surface a \"Comparisons you're weighing\" card on /my dashboard",
+      "date_published": "2026-09-10T12:00:00.000Z",
+      "tags": [
+        "demos"
+      ]
+    },
+    {
+      "id": "0073",
+      "url": "https://digitalcraftai.com/changelog#0073",
+      "title": "Comparison page \"Digital Craft vs JobTread\" for high-intent construction-management switchers",
+      "content_text": "Comparison page \"Digital Craft vs JobTread\" for high-intent construction-management switchers",
+      "date_published": "2026-09-10T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "0072",
+      "url": "https://digitalcraftai.com/changelog#0072",
+      "title": "AI-for-restoration-services long-tail landing page funneling into home-services demos",
+      "content_text": "AI-for-restoration-services long-tail landing page funneling into home-services demos",
+      "date_published": "2026-09-10T12:00:00.000Z",
+      "tags": [
+        "content"
+      ]
+    },
+    {
+      "id": "0071",
+      "url": "https://digitalcraftai.com/changelog#0071",
+      "title": "AI-for-hospitality multi-vertical hub page indexing events, restaurant, kidsplay, salon, and fitness demos with CollectionPage JSON-LD",
+      "content_text": "AI-for-hospitality multi-vertical hub page indexing events, restaurant, kidsplay, salon, and fitness demos with CollectionPage JSON-LD",
+      "date_published": "2026-09-08T12:00:00.000Z",
+      "tags": [
+        "content"
+      ]
+    },
+    {
+      "id": "0070",
+      "url": "https://digitalcraftai.com/changelog#0070",
+      "title": "Generate a public /case-studies/rss.xml feed of shipped case studies so feed readers and SEO crawlers subscribe to the case-study cadence",
+      "content_text": "Generate a public /case-studies/rss.xml feed of shipped case studies so feed readers and SEO crawlers subscribe to the case-study cadence",
+      "date_published": "2026-09-08T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "0069",
+      "url": "https://digitalcraftai.com/changelog#0069",
+      "title": "Public /subprocessors data recipients page listing every third-party AI and infrastructure vendor with structured columns and CollectionPage JSON-LD",
+      "content_text": "Public /subprocessors data recipients page listing every third-party AI and infrastructure vendor with structured columns and CollectionPage JSON-LD",
+      "date_published": "2026-09-08T12:00:00.000Z",
+      "tags": [
+        "trust"
+      ]
+    },
+    {
+      "id": "0068",
+      "url": "https://digitalcraftai.com/changelog#0068",
+      "title": "Enable noUnusedLocals strict flag (12 fixes)",
+      "content_text": "Enable noUnusedLocals strict flag (12 fixes)",
+      "date_published": "2026-09-06T12:00:00.000Z",
+      "tags": [
+        "infra"
+      ]
+    },
+    {
+      "id": "0067",
+      "url": "https://digitalcraftai.com/changelog#0067",
+      "title": "Printable AI vendor scorecard template at /questions-to-ask-an-ai-vendor/scorecard",
+      "content_text": "Printable AI vendor scorecard template at /questions-to-ask-an-ai-vendor/scorecard",
+      "date_published": "2026-09-06T12:00:00.000Z",
+      "tags": [
+        "trust"
+      ]
+    },
+    {
+      "id": "0066",
+      "url": "https://digitalcraftai.com/changelog#0066",
+      "title": "Printable \"Your Digital Craft summary\" recap on /my composing every persisted client-side artifact",
+      "content_text": "Printable \"Your Digital Craft summary\" recap on /my composing every persisted client-side artifact",
+      "date_published": "2026-09-06T12:00:00.000Z",
+      "tags": [
+        "demos"
+      ]
+    },
+    {
+      "id": "0065",
+      "url": "https://digitalcraftai.com/changelog#0065",
+      "title": "Comparison page \"Digital Craft vs Follow Up Boss\" for real-estate CRM switchers",
+      "content_text": "Comparison page \"Digital Craft vs Follow Up Boss\" for real-estate CRM switchers",
+      "date_published": "2026-09-06T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "0064",
+      "url": "https://digitalcraftai.com/changelog#0064",
+      "title": "Enable noUnusedParameters strict flag (3 fixes)",
+      "content_text": "Enable noUnusedParameters strict flag (3 fixes)",
+      "date_published": "2026-09-06T12:00:00.000Z",
+      "tags": [
+        "infra"
+      ]
+    },
+    {
+      "id": "0063",
+      "url": "https://digitalcraftai.com/changelog#0063",
+      "title": "Emit BreadcrumbList JSON-LD on /glossary so the AI glossary indexes as a navigable artifact",
+      "content_text": "Emit BreadcrumbList JSON-LD on /glossary so the AI glossary indexes as a navigable artifact",
+      "date_published": "2026-06-19T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "0062",
+      "url": "https://digitalcraftai.com/changelog#0062",
+      "title": "Persist the visitor's last ROI calculator result and surface it as a saved card on /my dashboard",
+      "content_text": "Persist the visitor's last ROI calculator result and surface it as a saved card on /my dashboard",
+      "date_published": "2026-06-19T12:00:00.000Z",
+      "tags": [
+        "demos"
+      ]
+    },
+    {
+      "id": "0061",
+      "url": "https://digitalcraftai.com/changelog#0061",
+      "title": "Public /questions-to-ask-an-ai-vendor buyer-side artifact with FAQPage JSON-LD",
+      "content_text": "Public /questions-to-ask-an-ai-vendor buyer-side artifact with FAQPage JSON-LD",
+      "date_published": "2026-06-19T12:00:00.000Z",
+      "tags": [
+        "content"
+      ]
+    },
+    {
+      "id": "0060",
+      "url": "https://digitalcraftai.com/changelog#0060",
+      "title": "Return-visit streak badge on /my dashboard surfacing a multi-day engagement signal",
+      "content_text": "Return-visit streak badge on /my dashboard surfacing a multi-day engagement signal",
+      "date_published": "2026-06-17T12:00:00.000Z",
+      "tags": [
+        "demos"
+      ]
+    },
+    {
+      "id": "0059",
+      "url": "https://digitalcraftai.com/changelog#0059",
+      "title": "Public /playbook methodology page describing how Digital Craft designs an AI deployment with HowTo JSON-LD",
+      "content_text": "Public /playbook methodology page describing how Digital Craft designs an AI deployment with HowTo JSON-LD",
+      "date_published": "2026-06-17T12:00:00.000Z",
+      "tags": [
+        "trust"
+      ]
+    },
+    {
+      "id": "0058",
+      "url": "https://digitalcraftai.com/changelog#0058",
+      "title": "AI-for-pool-service long-tail landing page funneling into home-services demos",
+      "content_text": "AI-for-pool-service long-tail landing page funneling into home-services demos",
+      "date_published": "2026-06-17T12:00:00.000Z",
+      "tags": [
+        "content"
+      ]
+    },
+    {
+      "id": "0057",
+      "url": "https://digitalcraftai.com/changelog#0057",
+      "title": "Public /case-studies index hub listing every detailed case study with CollectionPage and ItemList JSON-LD",
+      "content_text": "Public /case-studies index hub listing every detailed case study with CollectionPage and ItemList JSON-LD",
+      "date_published": "2026-06-17T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "0056",
+      "url": "https://digitalcraftai.com/changelog#0056",
+      "title": "AI-for-pest-control long-tail landing page funneling into home-services demos",
+      "content_text": "AI-for-pest-control long-tail landing page funneling into home-services demos",
+      "date_published": "2026-06-15T12:00:00.000Z",
+      "tags": [
+        "content"
+      ]
+    },
+    {
+      "id": "0055",
+      "url": "https://digitalcraftai.com/changelog#0055",
+      "title": "Generate a public /changelog/rss.xml feed of shipped tickets so feed readers and SEO crawlers subscribe to the ship velocity",
+      "content_text": "Generate a public /changelog/rss.xml feed of shipped tickets so feed readers and SEO crawlers subscribe to the ship velocity",
+      "date_published": "2026-06-15T12:00:00.000Z",
+      "tags": [
+        "content"
+      ]
+    },
+    {
+      "id": "0054",
+      "url": "https://digitalcraftai.com/changelog#0054",
+      "title": "Emit Article JSON-LD on every /case-studies/:slug page so each case study indexes as a structured article artifact",
+      "content_text": "Emit Article JSON-LD on every /case-studies/:slug page so each case study indexes as a structured article artifact",
+      "date_published": "2026-06-15T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "0053",
+      "url": "https://digitalcraftai.com/changelog#0053",
+      "title": "Comparison page \"Digital Craft vs Angi\" for high-intent home-services lead-marketplace switchers",
+      "content_text": "Comparison page \"Digital Craft vs Angi\" for high-intent home-services lead-marketplace switchers",
+      "date_published": "2026-06-15T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "0052",
+      "url": "https://digitalcraftai.com/changelog#0052",
+      "title": "Shareable AI Readiness Quiz result deep-link rendering the tier card from a /quiz?tier= URL",
+      "content_text": "Shareable AI Readiness Quiz result deep-link rendering the tier card from a /quiz?tier= URL",
+      "date_published": "2026-06-13T12:00:00.000Z",
+      "tags": [
+        "conversion"
+      ]
+    },
+    {
+      "id": "0051",
+      "url": "https://digitalcraftai.com/changelog#0051",
+      "title": "Emit LocalBusiness JSON-LD on /locations/texas so the state-level location page indexes as a local search artifact",
+      "content_text": "Emit LocalBusiness JSON-LD on /locations/texas so the state-level location page indexes as a local search artifact",
+      "date_published": "2026-06-13T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "0050",
+      "url": "https://digitalcraftai.com/changelog#0050",
+      "title": "AI-for-cleaning-services long-tail landing page funneling into home-services demos",
+      "content_text": "AI-for-cleaning-services long-tail landing page funneling into home-services demos",
+      "date_published": "2026-06-13T12:00:00.000Z",
+      "tags": [
+        "content"
+      ]
+    },
+    {
+      "id": "0049",
+      "url": "https://digitalcraftai.com/changelog#0049",
+      "title": "Comparison page \"Digital Craft vs Thumbtack\" for high-intent lead-marketplace switchers",
+      "content_text": "Comparison page \"Digital Craft vs Thumbtack\" for high-intent lead-marketplace switchers",
+      "date_published": "2026-06-13T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "0048",
+      "url": "https://digitalcraftai.com/changelog#0048",
+      "title": "Public /compare hub indexing every comparison page with CollectionPage and ItemList JSON-LD",
+      "content_text": "Public /compare hub indexing every comparison page with CollectionPage and ItemList JSON-LD",
+      "date_published": "2026-06-11T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "0047",
+      "url": "https://digitalcraftai.com/changelog#0047",
+      "title": "AI-for-property-managers long-tail landing page funneling into real-estate demos",
+      "content_text": "AI-for-property-managers long-tail landing page funneling into real-estate demos",
+      "date_published": "2026-06-11T12:00:00.000Z",
+      "tags": [
+        "content"
+      ]
+    },
+    {
+      "id": "0046",
+      "url": "https://digitalcraftai.com/changelog#0046",
+      "title": "Shareable AI ROI calculator producing a branded annual savings result link",
+      "content_text": "Shareable AI ROI calculator producing a branded annual savings result link",
+      "date_published": "2026-06-11T12:00:00.000Z",
+      "tags": [
+        "conversion"
+      ]
+    },
+    {
+      "id": "0045",
+      "url": "https://digitalcraftai.com/changelog#0045",
+      "title": "Personalized /my visitor dashboard surfacing saved estimates, recent demos, and quiz persona",
+      "content_text": "Personalized /my visitor dashboard surfacing saved estimates, recent demos, and quiz persona",
+      "date_published": "2026-06-11T12:00:00.000Z",
+      "tags": [
+        "demos"
+      ]
+    },
+    {
+      "id": "0044",
+      "url": "https://digitalcraftai.com/changelog#0044",
+      "title": "Emit AboutPage + BreadcrumbList JSON-LD on /trust so the data-handling disclosure indexes as a canonical artifact",
+      "content_text": "Emit AboutPage + BreadcrumbList JSON-LD on /trust so the data-handling disclosure indexes as a canonical artifact",
+      "date_published": "2026-06-09T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "0043",
+      "url": "https://digitalcraftai.com/changelog#0043",
+      "title": "Emit ItemList JSON-LD on /changelog so search engines can index individual ship entries",
+      "content_text": "Emit ItemList JSON-LD on /changelog so search engines can index individual ship entries",
+      "date_published": "2026-06-09T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "0042",
+      "url": "https://digitalcraftai.com/changelog#0042",
+      "title": "Comparison page \"Digital Craft vs Buildertrend\" for high-intent construction-software switchers",
+      "content_text": "Comparison page \"Digital Craft vs Buildertrend\" for high-intent construction-software switchers",
+      "date_published": "2026-06-09T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "0041",
+      "url": "https://digitalcraftai.com/changelog#0041",
+      "title": "AI-for-landscapers long-tail landing page funneling into home-services demos",
+      "content_text": "AI-for-landscapers long-tail landing page funneling into home-services demos",
+      "date_published": "2026-06-09T12:00:00.000Z",
+      "tags": [
+        "content"
+      ]
+    },
+    {
+      "id": "0040",
+      "url": "https://digitalcraftai.com/changelog#0040",
+      "title": "\"What's new since you visited\" delta strip on the /demos hub for week-2-and-beyond returners",
+      "content_text": "\"What's new since you visited\" delta strip on the /demos hub for week-2-and-beyond returners",
+      "date_published": "2026-06-07T12:00:00.000Z",
+      "tags": [
+        "demos"
+      ]
+    },
+    {
+      "id": "0039",
+      "url": "https://digitalcraftai.com/changelog#0039",
+      "title": "Emit Quiz JSON-LD on the AI Readiness Quiz for question-rich-result eligibility",
+      "content_text": "Emit Quiz JSON-LD on the AI Readiness Quiz for question-rich-result eligibility",
+      "date_published": "2026-06-07T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "0038",
+      "url": "https://digitalcraftai.com/changelog#0038",
+      "title": "Comparison page \"Digital Craft vs Housecall Pro\" for high-intent field-service buyers",
+      "content_text": "Comparison page \"Digital Craft vs Housecall Pro\" for high-intent field-service buyers",
+      "date_published": "2026-06-07T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "0037",
+      "url": "https://digitalcraftai.com/changelog#0037",
+      "title": "AI-for-painters long-tail landing page funneling into home-services demos",
+      "content_text": "AI-for-painters long-tail landing page funneling into home-services demos",
+      "date_published": "2026-06-07T12:00:00.000Z",
+      "tags": [
+        "content"
+      ]
+    },
+    {
+      "id": "0036",
+      "url": "https://digitalcraftai.com/changelog#0036",
+      "title": "Public /uptime page surfacing demo and serverless health for regulated-vertical buyers",
+      "content_text": "Public /uptime page surfacing demo and serverless health for regulated-vertical buyers",
+      "date_published": "2026-06-05T12:00:00.000Z",
+      "tags": [
+        "trust"
+      ]
+    },
+    {
+      "id": "0035",
+      "url": "https://digitalcraftai.com/changelog#0035",
+      "title": "Comparison page \"Digital Craft vs Podium\" for high-intent SMS and review compares",
+      "content_text": "Comparison page \"Digital Craft vs Podium\" for high-intent SMS and review compares",
+      "date_published": "2026-06-05T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "0034",
+      "url": "https://digitalcraftai.com/changelog#0034",
+      "title": "AI-for-electricians long-tail landing page funneling into home-services demos",
+      "content_text": "AI-for-electricians long-tail landing page funneling into home-services demos",
+      "date_published": "2026-06-05T12:00:00.000Z",
+      "tags": [
+        "content"
+      ]
+    },
+    {
+      "id": "0033",
+      "url": "https://digitalcraftai.com/changelog#0033",
+      "title": "Per-demo \"what we store\" disclosure chip linked to /trust",
+      "content_text": "Per-demo \"what we store\" disclosure chip linked to /trust",
+      "date_published": "2026-06-03T12:00:00.000Z",
+      "tags": [
+        "trust"
+      ]
+    },
+    {
+      "id": "0032",
+      "url": "https://digitalcraftai.com/changelog#0032",
+      "title": "Public /changelog page surfacing weekly ship velocity to crawlers and repeat visitors",
+      "content_text": "Public /changelog page surfacing weekly ship velocity to crawlers and repeat visitors",
+      "date_published": "2026-06-03T12:00:00.000Z",
+      "tags": [
+        "content"
+      ]
+    },
+    {
+      "id": "0031",
+      "url": "https://digitalcraftai.com/changelog#0031",
+      "title": "\"Try the next demo\" pinned CTA on voice and estimate result screens",
+      "content_text": "\"Try the next demo\" pinned CTA on voice and estimate result screens",
+      "date_published": "2026-06-03T12:00:00.000Z",
+      "tags": [
+        "demos"
+      ]
+    },
+    {
+      "id": "0030",
+      "url": "https://digitalcraftai.com/changelog#0030",
+      "title": "Emit SoftwareApplication JSON-LD on the /demos hub",
+      "content_text": "Emit SoftwareApplication JSON-LD on the /demos hub",
+      "date_published": "2026-06-03T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "0029",
+      "url": "https://digitalcraftai.com/changelog#0029",
+      "title": "Shareable branded voice-call summary link",
+      "content_text": "Shareable branded voice-call summary link",
+      "date_published": "2026-06-01T12:00:00.000Z",
+      "tags": [
+        "demos"
+      ]
+    },
+    {
+      "id": "0028",
+      "url": "https://digitalcraftai.com/changelog#0028",
+      "title": "Comparison page \"Digital Craft vs ServiceTitan\" for high-intent field-service compares",
+      "content_text": "Comparison page \"Digital Craft vs ServiceTitan\" for high-intent field-service compares",
+      "date_published": "2026-06-01T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "0027",
+      "url": "https://digitalcraftai.com/changelog#0027",
+      "title": "\"More like this\" cross-vertical recommendations under each demo",
+      "content_text": "\"More like this\" cross-vertical recommendations under each demo",
+      "date_published": "2026-06-01T12:00:00.000Z",
+      "tags": [
+        "demos"
+      ]
+    },
+    {
+      "id": "0026",
+      "url": "https://digitalcraftai.com/changelog#0026",
+      "title": "Recently viewed demos recap strip on the /demos hub",
+      "content_text": "Recently viewed demos recap strip on the /demos hub",
+      "date_published": "2026-05-30T12:00:00.000Z",
+      "tags": [
+        "demos"
+      ]
+    },
+    {
+      "id": "0025",
+      "url": "https://digitalcraftai.com/changelog#0025",
+      "title": "Emit Organization JSON-LD with sameAs and contactPoint on the homepage",
+      "content_text": "Emit Organization JSON-LD with sameAs and contactPoint on the homepage",
+      "date_published": "2026-05-30T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "0024",
+      "url": "https://digitalcraftai.com/changelog#0024",
+      "title": "AI-for-roofers long-tail landing page funneling into home-services demos",
+      "content_text": "AI-for-roofers long-tail landing page funneling into home-services demos",
+      "date_published": "2026-05-30T12:00:00.000Z",
+      "tags": [
+        "content"
+      ]
+    },
+    {
+      "id": "0023",
+      "url": "https://digitalcraftai.com/changelog#0023",
+      "title": "Footer \"AI providers we use\" trust chip linking to /trust",
+      "content_text": "Footer \"AI providers we use\" trust chip linking to /trust",
+      "date_published": "2026-05-28T12:00:00.000Z",
+      "tags": [
+        "trust"
+      ]
+    },
+    {
+      "id": "0022",
+      "url": "https://digitalcraftai.com/changelog#0022",
+      "title": "Emit lastmod timestamps in sitemap.xml so Google prioritizes recrawl of fresh routes",
+      "content_text": "Emit lastmod timestamps in sitemap.xml so Google prioritizes recrawl of fresh routes",
+      "date_published": "2026-05-28T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "0021",
+      "url": "https://digitalcraftai.com/changelog#0021",
+      "title": "Comparison page \"Digital Craft vs Jobber\" for high-intent home-services compares",
+      "content_text": "Comparison page \"Digital Craft vs Jobber\" for high-intent home-services compares",
+      "date_published": "2026-05-28T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "0020",
+      "url": "https://digitalcraftai.com/changelog#0020",
+      "title": "AI-for-HVAC long-tail landing page funneling into home-services demos",
+      "content_text": "AI-for-HVAC long-tail landing page funneling into home-services demos",
+      "date_published": "2026-05-28T12:00:00.000Z",
+      "tags": [
+        "content"
+      ]
+    },
+    {
+      "id": "0019",
+      "url": "https://digitalcraftai.com/changelog#0019",
+      "title": "Visible breadcrumbs and BreadcrumbList JSON-LD on every demo page",
+      "content_text": "Visible breadcrumbs and BreadcrumbList JSON-LD on every demo page",
+      "date_published": "2026-05-26T12:00:00.000Z",
+      "tags": [
+        "conversion"
+      ]
+    },
+    {
+      "id": "0018",
+      "url": "https://digitalcraftai.com/changelog#0018",
+      "title": "How-the-demos-work transparency page at /trust",
+      "content_text": "How-the-demos-work transparency page at /trust",
+      "date_published": "2026-05-26T12:00:00.000Z",
+      "tags": [
+        "trust"
+      ]
+    },
+    {
+      "id": "0017",
+      "url": "https://digitalcraftai.com/changelog#0017",
+      "title": "AI-for-plumbers long-tail landing page funneling into home-services demos",
+      "content_text": "AI-for-plumbers long-tail landing page funneling into home-services demos",
+      "date_published": "2026-05-26T12:00:00.000Z",
+      "tags": [
+        "content"
+      ]
+    },
+    {
+      "id": "0016",
+      "url": "https://digitalcraftai.com/changelog#0016",
+      "title": "Emit WebSite + SiteNavigationElement JSON-LD for sitelinks search box",
+      "content_text": "Emit WebSite + SiteNavigationElement JSON-LD for sitelinks search box",
+      "date_published": "2026-05-26T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "0008",
+      "url": "https://digitalcraftai.com/changelog#0008",
+      "title": "Enable strict tsconfig flag (zero-cost ratchet)",
+      "content_text": "Enable strict tsconfig flag (zero-cost ratchet)",
+      "date_published": "2026-05-26T12:00:00.000Z",
+      "tags": [
+        "infra"
+      ]
+    },
+    {
+      "id": "0015",
+      "url": "https://digitalcraftai.com/changelog#0015",
+      "title": "\"Email me this estimate\" lead capture on the estimate result",
+      "content_text": "\"Email me this estimate\" lead capture on the estimate result",
+      "date_published": "2026-05-25T12:00:00.000Z",
+      "tags": [
+        "conversion"
+      ]
+    },
+    {
+      "id": "0014",
+      "url": "https://digitalcraftai.com/changelog#0014",
+      "title": "Persist and re-offer the visitor's last completed estimate",
+      "content_text": "Persist and re-offer the visitor's last completed estimate",
+      "date_published": "2026-05-25T12:00:00.000Z",
+      "tags": [
+        "demos"
+      ]
+    },
+    {
+      "id": "0013",
+      "url": "https://digitalcraftai.com/changelog#0013",
+      "title": "Add DefinedTermSet structured data to the AI glossary",
+      "content_text": "Add DefinedTermSet structured data to the AI glossary",
+      "date_published": "2026-05-25T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "0012",
+      "url": "https://digitalcraftai.com/changelog#0012",
+      "title": "Emit FAQPage structured data for the visible pricing FAQ",
+      "content_text": "Emit FAQPage structured data for the visible pricing FAQ",
+      "date_published": "2026-05-25T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "0011",
+      "url": "https://digitalcraftai.com/changelog#0011",
+      "title": "Crawlable /demos index hub with ItemList structured data",
+      "content_text": "Crawlable /demos index hub with ItemList structured data",
+      "date_published": "2026-05-23T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "0010",
+      "url": "https://digitalcraftai.com/changelog#0010",
+      "title": "Resumable demo session with \"Continue your demo\" prompt",
+      "content_text": "Resumable demo session with \"Continue your demo\" prompt",
+      "date_published": "2026-05-23T12:00:00.000Z",
+      "tags": [
+        "demos"
+      ]
+    },
+    {
+      "id": "0009",
+      "url": "https://digitalcraftai.com/changelog#0009",
+      "title": "Shareable branded estimate result link",
+      "content_text": "Shareable branded estimate result link",
+      "date_published": "2026-05-23T12:00:00.000Z",
+      "tags": [
+        "demos"
+      ]
+    },
+    {
+      "id": "0007",
+      "url": "https://digitalcraftai.com/changelog#0007",
+      "title": "Ratchet tsconfig strictness (zero-cost flags)",
+      "content_text": "Ratchet tsconfig strictness (zero-cost flags)",
+      "date_published": "2026-05-22T12:00:00.000Z",
+      "tags": [
+        "infra"
+      ]
+    },
+    {
+      "id": "0006",
+      "url": "https://digitalcraftai.com/changelog#0006",
+      "title": "Footer silently missing on Glossary, Industries, and comparison pages",
+      "content_text": "Footer silently missing on Glossary, Industries, and comparison pages",
+      "date_published": "2026-05-22T12:00:00.000Z",
+      "tags": [
+        "conversion"
+      ]
+    },
+    {
+      "id": "0005",
+      "url": "https://digitalcraftai.com/changelog#0005",
+      "title": "Add CI type-check gate (tsc --noEmit)",
+      "content_text": "Add CI type-check gate (tsc --noEmit)",
+      "date_published": "2026-05-22T12:00:00.000Z",
+      "tags": [
+        "infra"
+      ]
+    },
+    {
+      "id": "0004",
+      "url": "https://digitalcraftai.com/changelog#0004",
+      "title": "Client logo marquee (placeholders)",
+      "content_text": "Client logo marquee (placeholders)",
+      "date_published": "2026-05-22T12:00:00.000Z",
+      "tags": [
+        "trust"
+      ]
+    },
+    {
+      "id": "0003",
+      "url": "https://digitalcraftai.com/changelog#0003",
+      "title": "Route-aware dynamic pricing CTA",
+      "content_text": "Route-aware dynamic pricing CTA",
+      "date_published": "2026-05-22T12:00:00.000Z",
+      "tags": [
+        "conversion"
+      ]
+    },
+    {
+      "id": "0002",
+      "url": "https://digitalcraftai.com/changelog#0002",
+      "title": "5-day AI implementation email course opt-in",
+      "content_text": "5-day AI implementation email course opt-in",
+      "date_published": "2026-05-22T12:00:00.000Z",
+      "tags": [
+        "conversion"
+      ]
+    },
+    {
+      "id": "0001",
+      "url": "https://digitalcraftai.com/changelog#0001",
+      "title": "UTM-personalized hero copy",
+      "content_text": "UTM-personalized hero copy",
+      "date_published": "2026-05-22T12:00:00.000Z",
+      "tags": [
+        "conversion"
+      ]
+    }
+  ]
+}

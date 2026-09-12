@@ -414,3 +414,17 @@ to re-discover the architecture.
   test asserts EITHER `application/feed+json` OR `application/json`
   per AC #6, so the vercel.json edit is deferred (keeps the diff
   additive; the SPA rewrites stay byte-identical).
+- Local gate: `npm run lint` (0 errors, 24 pre-existing warnings),
+  `npm run typecheck`, `check-links`, `check-images`, `check-meta`,
+  `check-blog-dates`, `check-backlog.mjs`, `npm run build` all
+  green. Build emits `public/changelog.json` (77 items, 30106
+  bytes) and copies to `dist/changelog.json`; both verified as
+  U+2014-free.
+- Local Playwright: the new spec at
+  `tests/e2e/changelog-json-feed.spec.ts` passes 13 / 13 in
+  isolation (all AC #8 boxes). The predecessor changelog specs
+  (0032 page, 0043 ItemList, 0055 RSS) show pre-existing flakiness
+  per the 2026-05-25 lesson - different specs fail on different
+  full-suite runs (RSS-alternate Helmet timing on one run, dark
+  mode entry-count on another, homepage footer link on a third),
+  none in files this diff touches. CI `retries: 1` covers these.
