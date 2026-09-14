@@ -52,6 +52,57 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'ai-restoration-companies-after-hours-emergency-calls',
+    title: 'Water and Fire Restoration: Why the First Call Back Wins the Job',
+    description: 'Restoration companies lose mitigation jobs to whoever answers the 2am emergency call first. Here is how AI closes that gap without a night dispatcher.',
+    date: '2026-09-14',
+    author: 'DigitalCraft AI',
+    readTime: '5 min read',
+    tags: ['Home Services', 'Voice AI', 'Lead Response'],
+    content: `
+<p>A pipe bursts at midnight, or a kitchen fire leaves a family standing outside their own house at 2am. Either way, the homeowner is not going to wait until business hours to find someone to call. They are searching on their phone right now, and they are calling the first number that picks up.</p>
+
+<p>That is the entire competitive dynamic in water and fire restoration. The job rarely goes to the best crew in town. It goes to whoever answered the phone, showed up, and started extraction or board-up before the next company even called back.</p>
+
+<h2>The Answering Service Gap</h2>
+
+<p>Most restoration companies route after-hours calls to a generic answering service or a rotating on-call cell phone. Both have the same failure mode. The answering service can take a message but cannot tell a panicked homeowner whether their policy covers structural drying or explain the difference between category 1 and category 3 water. The on-call phone rings a technician who was asleep thirty seconds ago and has to fumble for a notepad while the caller is already dialing your competitor as a backup.</p>
+
+<p>Neither gets the caller what they actually need in the first two minutes: confirmation that someone is coming, a rough sense of what happens next, and enough triage detail (loss type, affected rooms, whether the power is on) that the crew shows up ready instead of guessing.</p>
+
+<h2>What the Homeowner Is Actually Asking</h2>
+
+<p>Emergency restoration calls follow a predictable pattern. Is this covered by insurance? How fast can someone get here? Is it safe to stay in the house tonight? Do I need to move my things? A trained office manager answers these in their sleep during the day. The problem is entirely about coverage at 2am, not knowledge.</p>
+
+<p>A <a href="/homeservices/demo/lead-responder">voice or chat responder built for restoration intake</a> can ask the same triage questions your office manager already asks: what got wet or burned, how long ago, which rooms, whether there is an insurance claim already open. It gives the homeowner a real answer and a dispatch window instead of a hold message, and it hands your on-call technician a filled-out summary instead of a cold callback.</p>
+
+<h2>The Insurance Question Makes or Breaks the Call</h2>
+
+<p>Restoration is unusual among home services because most jobs run through an insurance claim, and the homeowner's first real question is almost always about coverage. Whoever can speak intelligently about category of water damage, scope of mitigation versus reconstruction, and what the adjuster will likely ask for builds trust immediately. Whoever says "someone will call you back" loses that trust, and often the job, in the same sentence.</p>
+
+<p>An <a href="/homeservices/demo/estimate">estimate tool built around loss type and affected square footage</a> lets you give a homeowner a defensible range on the spot, the kind of number their adjuster can start working from immediately, rather than making them wait for a walk-through just to get a ballpark.</p>
+
+<h2>Run the Math on Your Own Missed Calls</h2>
+
+<p>Pull your call log for the last month and separate calls that came in outside business hours. Count how many connected to a live person within two rings versus how many rolled to voicemail or a generic message. Then think about how many of those callers had already dialed a second restoration company before your callback landed.</p>
+
+<p>You do not need an industry study to know which bucket costs you jobs. It is the one where the phone rang and nobody who could actually help picked it up in time.</p>
+
+<h2>Review Timing Matters Too</h2>
+
+<p>The other place restoration companies leave money on the table is after the job, not before it. A homeowner who just got their house dried out and their claim settled is relieved and grateful the day the crew finishes, not two weeks later when someone finally remembers to send a review request. Following up the hour a mitigation job wraps, while the homeowner is still standing in the restored room, catches that gratitude while it is fresh instead of after it has faded into "I should probably do that at some point."</p>
+
+<p>None of this requires hiring a night shift. It requires the after-hours window and the day-of-completion window to stop being blind spots in an otherwise well-run operation.</p>
+
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to stop losing emergency calls to voicemail?</strong>
+  <p style="margin: 8px 0;">See how AI-powered intake, estimating, and follow-up work for restoration and other home service companies.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/ai-for-restoration-services">See AI for Restoration Companies</a> · <a href="/homeservices/demo">Try Our Live Demos</a>
+</div>
+`,
+  },
+  {
     slug: 'ai-hospitality-guest-inquiry-response',
     title: 'AI for Hospitality: Answering Guest Inquiries After Hours',
     description: 'Restaurants, event venues, salons, and gyms all lose bookings the same way: a guest inquiry lands after hours and nobody replies until it is too late.',
