@@ -1,7 +1,7 @@
 ---
 id: 0079
 title: Emit CollectionPage plus ItemList plus BreadcrumbList JSON-LD on the /blog index so the blog indexes as a canonical article collection
-status: in-progress
+status: shipped
 priority: P1
 area: seo
 created: 2026-09-15
