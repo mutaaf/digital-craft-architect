@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { FooterSection } from '@/hooks/useContent';
 import { Linkedin, Calendar, Github, Twitter, Phone, Send } from 'lucide-react';
 import { trackCTAClick } from '@/utils/analytics';
@@ -69,6 +69,32 @@ const FooterNewsletter: React.FC = () => {
         </form>
       )}
     </div>
+  );
+};
+
+// Ticket 0081 - "Security posture" trust chip. Fires
+// trackCTAClick('footer_security_chip', <current-route>) synchronously
+// before the SPA navigation so the beacon flushes even on a fast route
+// swap. useLocation is imported at the top so the current-route argument
+// is derived, not hard-coded. Sibling to the ticket 0023 PROVIDERS chip
+// and the ticket 0069 sub-processor chip pattern.
+const FooterSecurityChip: React.FC = () => {
+  const location = useLocation();
+  return (
+    <p className="text-gray-500 dark:text-gray-500 text-xs">
+      <Link
+        to="/security"
+        onClick={() => trackCTAClick('footer_security_chip', location.pathname)}
+        className="hover:text-skyblue transition-colors"
+      >
+        <span
+          data-testid="footer-security-chip"
+          className="inline-block bg-gray-800 dark:bg-gray-800 px-2 py-1 rounded"
+        >
+          Security posture
+        </span>
+      </Link>
+    </p>
   );
 };
 
@@ -167,6 +193,7 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
                     </span>
                   </Link>
                 </p>
+                <FooterSecurityChip />
                 <div className="flex space-x-6">
                   <a href="/industries" className="text-gray-400 hover:text-skyblue text-sm">Industries</a>
                   <Link to="/trust" className="text-gray-400 hover:text-skyblue text-sm">Trust & Privacy</Link>
