@@ -1,7 +1,7 @@
 ---
 id: 0080
 title: AI-for-moving-companies long-tail landing page funneling into home-services demos
-status: groomed
+status: in-progress
 priority: P1
 area: content
 created: 2026-09-15
@@ -317,3 +317,45 @@ to re-discover the architecture.
 ## Implementation log
 
 (Appended by the implementation-dev agent during execution.)
+
+### 2026-09-15 - implementation-dev
+
+Pre-code grep for the 2026-05-30 second-@type collision lesson.
+Ran `grep -rn "=== 'Service'\|=== 'BreadcrumbList'\|=== 'FAQPage'\|toHaveLength(1)\|exactly one" tests/e2e/*.spec.ts`
+across every file. Every predecessor trade-page `toHaveLength(1)` assertion
+over Service or BreadcrumbList sits inside a spec whose first action is its
+own local `gotoX` helper navigating to its own trade path
+(`ai-for-plumbers.spec.ts`, `ai-for-hvac.spec.ts`, `ai-for-roofers.spec.ts`,
+`ai-for-electricians.spec.ts`, `ai-for-painters.spec.ts`,
+`ai-for-landscapers.spec.ts`, `ai-for-property-managers.spec.ts`,
+`ai-for-cleaning-services.spec.ts`, `ai-for-pest-control.spec.ts`,
+`ai-for-pool-service.spec.ts`, `ai-for-restoration-services.spec.ts`).
+No existing spec asserts `toHaveLength(1)` on any @type after visiting
+`/ai-for-moving-companies`, so the sibling instance on the new page cannot
+collide. No existing spec asserts anything at all about a FAQPage on the
+trade-page family (the eleven predecessors emit BreadcrumbList and Service
+only; ticket 0080 is the first trade-page to add a FAQPage block per its
+acceptance criteria box for three JSON-LD blocks).
+
+Structural deviation from ticket 0072 noted per the 2026-09-12 "code beats
+prose" lesson: `AiForRestorationServices.tsx` only emits BreadcrumbList
+(no Service, no FAQPage), yet ticket 0080's acceptance criteria explicitly
+require three JSON-LD blocks (Service, BreadcrumbList, FAQPage) with a
+visible FAQ card section mirroring the FAQPage byte-for-byte per the
+2026-05-25 mirror-source rule. Following the explicit acceptance criteria,
+the new page adds a Service block (mirroring the ticket 0034 electricians
+Service shape), a BreadcrumbList block (mirroring the 0072 shape), and a
+new FAQPage block whose `mainEntity` questions and answers read from the
+same module-level `FAQ_ITEMS` array the visible cards render from
+(single source of truth).
+
+Alphabetical vs chronological placement in `src/data/routes.ts`: the file's
+existing convention for the `/ai-for-*` cluster is chronological
+(ticket-order, matching the App.tsx lazy import order), not alphabetical -
+new route appended to the end of that cluster in line with the eleven
+predecessors.
+
+The sitemap auto-generates from `src/data/routes.ts` via
+`scripts/generate-sitemap.ts`, so adding the route entry auto-emits the
+sitemap row on the next `npm run build`. Confirmed via `grep` of
+`dist/sitemap.xml` after `npm run build`.
