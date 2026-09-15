@@ -8,6 +8,84 @@ import { blogPosts } from '@/data/blogPosts';
 import { ArrowRight, Calendar, Clock, Rss } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
+// Ticket 0079 - CollectionPage + ItemList + BreadcrumbList JSON-LD on
+// the /blog index. Emission pattern mirrored from
+// `src/pages/case-studies/CaseStudiesHub.tsx` (ticket 0057), the
+// closest peer for "hub page emitting the same three-block triple over
+// a shared data constant".
+//
+// 2026-05-25 mirror-source rule: META_DESCRIPTION is the single string
+// the Helmet `<meta name="description">` AND the CollectionPage
+// JSON-LD `description` both read from, so a future copy edit
+// propagates to both surfaces in one render. The new e2e spec asserts
+// the two match byte-for-byte.
+//
+// 2026-05-07 em-dash Hard NO: every string in this module - the H1,
+// supporting paragraph, RSS chip label, meta description, JSON-LD
+// strings - uses hyphens, not the U+2014 em-dash character. Per-post
+// titles are read verbatim from `src/data/blogPosts.ts`; a pre-code
+// grep confirmed no shipped title carries U+2014.
+
+const SITE_URL = 'https://digitalcraftai.com';
+const BLOG_URL = `${SITE_URL}/blog`;
+const ITEM_LIST_ID = `${BLOG_URL}#posts`;
+
+const META_DESCRIPTION =
+  'Insights on AI automation for construction, real estate, and event planning businesses. Learn how AI is transforming traditional industries.';
+
+const BREADCRUMB_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: BLOG_URL },
+  ],
+};
+
+const COLLECTION_PAGE_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Digital Craft AI Blog',
+  url: BLOG_URL,
+  description: META_DESCRIPTION,
+  inLanguage: 'en-US',
+  isPartOf: { '@type': 'WebSite', url: SITE_URL },
+  mainEntity: { '@id': ITEM_LIST_ID },
+};
+
+// ItemList built by mapping over the shared `blogPosts` constant so a
+// future post appended there surfaces automatically in both the grid
+// and the schema. Each ListItem.url is an absolute
+// https://digitalcraftai.com URL; item is nested as BlogPosting with
+// datePublished and Organization author (the same author the leaf
+// BlogPosting from src/pages/BlogPost.tsx emits).
+const ITEM_LIST_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  '@id': ITEM_LIST_ID,
+  name: 'Digital Craft AI Blog Posts',
+  itemListOrder: 'https://schema.org/ItemListOrderDescending',
+  numberOfItems: blogPosts.length,
+  itemListElement: blogPosts.map((post, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    url: `${SITE_URL}/blog/${post.slug}`,
+    name: post.title,
+    item: {
+      '@type': 'BlogPosting',
+      '@id': `${SITE_URL}/blog/${post.slug}`,
+      headline: post.title,
+      url: `${SITE_URL}/blog/${post.slug}`,
+      datePublished: post.date,
+      author: {
+        '@type': 'Organization',
+        name: post.author,
+        url: SITE_URL,
+      },
+    },
+  })),
+};
+
 const Blog = () => {
   const { content } = useContent();
   useAnalytics('G-JQ53W917HT');
@@ -16,10 +94,13 @@ const Blog = () => {
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <Helmet>
         <title>Blog | DigitalCraft AI</title>
-        <meta name="description" content="Insights on AI automation for construction, real estate, and event planning businesses. Learn how AI is transforming traditional industries." />
+        <meta name="description" content={META_DESCRIPTION} />
         <meta property="og:title" content="Blog | DigitalCraft AI" />
         <meta property="og:description" content="Insights on AI automation for construction, real estate, and event planning businesses." />
-        <link rel="canonical" href="https://digitalcraftai.com/blog" />
+        <link rel="canonical" href={BLOG_URL} />
+        <script type="application/ld+json">{JSON.stringify(COLLECTION_PAGE_SCHEMA)}</script>
+        <script type="application/ld+json">{JSON.stringify(BREADCRUMB_SCHEMA)}</script>
+        <script type="application/ld+json">{JSON.stringify(ITEM_LIST_SCHEMA)}</script>
       </Helmet>
 
       <Navbar />
