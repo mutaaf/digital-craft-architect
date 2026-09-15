@@ -89,7 +89,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0078 | Generate a public /changelog.json machine-readable JSON Feed of shipped tickets so buyers and analysts can subscribe programmatically to ship velocity | P2 | shipped | content |
 | 0079 | Emit CollectionPage plus ItemList plus BreadcrumbList JSON-LD on the /blog index so the blog indexes as a canonical article collection | P1 | shipped | seo |
 | 0080 | AI-for-moving-companies long-tail landing page funneling into home-services demos | P1 | shipped | content |
-| 0081 | Public /security page listing dated infrastructure and application security controls as a defensible buyer-side trust artifact | P1 | groomed | trust |
+| 0081 | Public /security page listing dated infrastructure and application security controls as a defensible buyer-side trust artifact | P1 | in-progress | trust |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the
