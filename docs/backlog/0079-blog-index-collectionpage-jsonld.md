@@ -1,7 +1,7 @@
 ---
 id: 0079
 title: Emit CollectionPage plus ItemList plus BreadcrumbList JSON-LD on the /blog index so the blog indexes as a canonical article collection
-status: groomed
+status: in-progress
 priority: P1
 area: seo
 created: 2026-09-15
@@ -309,4 +309,41 @@ to re-discover the architecture.
 
 ## Implementation log
 
-(Appended by the implementation-dev agent during execution.)
+### 2026-09-15 - kickoff (feat/0079-blog-collectionpage-jsonld)
+
+Pre-code JSON-LD collision grep across `tests/e2e/*.spec.ts` for
+`=== 'CollectionPage'`, `=== 'ItemList'`, `=== 'BreadcrumbList'` predicates
+and every `toHaveLength(1)` / "exactly one" assertion over those three
+@types (per the 2026-05-30 second-@type lesson). Every predecessor
+"exactly one" predicate is URL-scoped to a route this PR does NOT touch:
+
+- `CollectionPage`: `compare-hub.spec.ts:195` (URL `/compare` via
+  `gotoCompareHub`), `case-studies-hub.spec.ts:334` (URL `/case-studies`
+  via `gotoCaseStudiesHub`), `subprocessors.spec.ts:183,383` (URL
+  `/subprocessors`), `ai-for-hospitality.spec.ts:277,459` (URL
+  `/ai-for-hospitality`), plus `case-studies-rss-feed.spec.ts:289`
+  (reads the hub during the RSS feed spec, still `/case-studies`).
+- `ItemList`: predecessors in `compare-hub.spec.ts`, `case-studies-hub.spec.ts`,
+  `demos-index-hub.spec.ts`, `demos-softwareapplication-jsonld.spec.ts`,
+  `changelog-itemlist-jsonld.spec.ts`, `ai-for-hospitality.spec.ts`,
+  `case-studies-rss-feed.spec.ts` - each URL-scoped to a route this PR
+  does NOT touch.
+- `BreadcrumbList`: predecessors across `/compare/*`, `/ai-for-*`,
+  `/quiz`, `/roi`, `/trust`, `/my`, `/case-studies/:slug`,
+  `/glossary`, `/ethics`, `/playbook`, `/vendor-scorecard`,
+  `/changelog`, `/subprocessors` - all URL-scoped to their own route.
+
+Zero predecessor predicates need widening. No spec asserts anything
+about `/blog` today, and no spec touches `/` while checking that
+CollectionPage / ItemList / BreadcrumbList with a `/blog` URL is
+absent (regression box 12 in this ticket will be the first).
+
+Blog index route is `lazy(() => import("./pages/Blog"))` in `src/App.tsx:110`,
+so per the 2026-09-05 route-fallback and 2026-09-10 mount-signal lessons
+the new `gotoBlogIndex` helper polls innerHTML length, waits for the
+RouteFallback to detach, then waits for the first `article` card to be
+visible before reading JSON-LD.
+
+Verified no shipped blog post `title` in `src/data/blogPosts.ts` carries
+a U+2014 em-dash (grepped with Python; zero matches), so no mirror-source
+fix is required at the single source.
