@@ -7,6 +7,26 @@
   "language": "en-US",
   "items": [
     {
+      "id": "0079",
+      "url": "https://digitalcraftai.com/changelog#0079",
+      "title": "Emit CollectionPage plus ItemList plus BreadcrumbList JSON-LD on the /blog index so the blog indexes as a canonical article collection",
+      "content_text": "Emit CollectionPage plus ItemList plus BreadcrumbList JSON-LD on the /blog index so the blog indexes as a canonical article collection",
+      "date_published": "2026-09-15T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "0078",
+      "url": "https://digitalcraftai.com/changelog#0078",
+      "title": "Generate a public /changelog.json machine-readable JSON Feed of shipped tickets so buyers and analysts can subscribe programmatically to ship velocity",
+      "content_text": "Generate a public /changelog.json machine-readable JSON Feed of shipped tickets so buyers and analysts can subscribe programmatically to ship velocity",
+      "date_published": "2026-09-12T12:00:00.000Z",
+      "tags": [
+        "content"
+      ]
+    },
+    {
       "id": "0077",
       "url": "https://digitalcraftai.com/changelog#0077",
       "title": "Public /ethics \"What we won't do\" commitments page listing dated hard-NO stances as a defensible trust artifact",
