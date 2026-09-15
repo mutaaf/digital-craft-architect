@@ -67,6 +67,7 @@ const MyDashboard = lazy(() => import("./pages/MyDashboard"));
 const Glossary = lazy(() => import("./pages/Glossary"));
 const Trust = lazy(() => import("./pages/Trust"));
 const Subprocessors = lazy(() => import("./pages/Subprocessors"));
+const Security = lazy(() => import("./pages/Security"));
 const Ethics = lazy(() => import("./pages/Ethics"));
 const Playbook = lazy(() => import("./pages/Playbook"));
 const QuestionsToAskAnAiVendor = lazy(() => import("./pages/QuestionsToAskAnAiVendor"));
@@ -328,6 +329,7 @@ const App = () => {
               <Route path="/glossary" element={<Glossary />} />
               <Route path="/trust" element={<Trust />} />
               <Route path="/subprocessors" element={<Subprocessors />} />
+              <Route path="/security" element={<Security />} />
               <Route path="/ethics" element={<Ethics />} />
               <Route path="/playbook" element={<Playbook />} />
               <Route path="/questions-to-ask-an-ai-vendor" element={<QuestionsToAskAnAiVendor />} />

@@ -7,6 +7,14 @@
     <language>en-us</language>
     <atom:link href="https://digitalcraftai.com/changelog/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>AI-for-moving-companies long-tail landing page funneling into home-services demos</title>
+      <link>https://digitalcraftai.com/changelog#0080</link>
+      <description>Shipped 2026-09-15 in area: content.</description>
+      <pubDate>Tue, 15 Sep 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0080</guid>
+      <category>content</category>
+    </item>
+    <item>
       <title>Emit CollectionPage plus ItemList plus BreadcrumbList JSON-LD on the /blog index so the blog indexes as a canonical article collection</title>
       <link>https://digitalcraftai.com/changelog#0079</link>
       <description>Shipped 2026-09-15 in area: seo.</description>

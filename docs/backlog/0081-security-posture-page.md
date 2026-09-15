@@ -374,3 +374,91 @@ to re-discover the architecture.
 ## Implementation log
 
 (Appended by the implementation-dev agent during execution.)
+
+### 2026-09-15 - Implementation
+
+**Pre-code grep (2026-05-30 second-@type lesson).** Grepped every
+`tests/e2e/*.spec.ts` for `=== 'CollectionPage'` and `=== 'BreadcrumbList'`
+predicates and any `toHaveLength(1)` / "exactly one" assertions over those
+`@type`s. Predecessor CollectionPage specs (URL-scoped, cannot collide with
+a sibling /security block):
+
+- `tests/e2e/compare-hub.spec.ts` -> navigates to `/compare` before its
+  CollectionPage predicate.
+- `tests/e2e/case-studies-hub.spec.ts` -> navigates to `/case-studies` before
+  its CollectionPage predicate.
+- `tests/e2e/subprocessors.spec.ts` -> navigates to `/subprocessors` before
+  its `toHaveLength(1)` CollectionPage assertion.
+- `tests/e2e/ai-for-hospitality.spec.ts` -> navigates to
+  `/ai-for-hospitality` before its "exactly one CollectionPage" assertion
+  (line 266).
+- `tests/e2e/blog-collectionpage-jsonld.spec.ts` -> navigates to `/blog`
+  before its "exactly one CollectionPage" assertion (line 217).
+- `tests/e2e/case-studies-rss-feed.spec.ts` -> parses the RSS XML feed,
+  not a page DOM; the CollectionPage filter is scoped to the feed
+  document, not any HTML route.
+
+Predecessor BreadcrumbList specs are all URL-scoped in the same fashion
+(`ethics-page.spec.ts`, `subprocessors.spec.ts`, `changelog-itemlist-jsonld.spec.ts`,
+every `compare-*.spec.ts`, every `ai-for-*.spec.ts`, `blog-collectionpage-jsonld.spec.ts`,
+etc.). None assert "exactly one BreadcrumbList on the entire site"; all
+navigate to their own path first.
+
+Conclusion: a new /security-scoped CollectionPage + BreadcrumbList pair
+cannot collide with any predecessor "exactly-one" assertion. No
+predecessor spec needed widening; no source edits outside this ticket.
+
+**Sitemap generator source.** The sitemap generator at
+`scripts/generate-sitemap.ts` reads routes from `src/App.tsx` (via a
+`path=["']` regex over the App.tsx source), not from `src/data/routes.ts`.
+AC #5's phrasing "picks up the new route from `src/data/routes.ts`" is a
+groomer-prose paraphrase per the 2026-09-12 code-beats-prose lesson;
+the code's real source is App.tsx. Both files carry the new `/security`
+entry in the same PR so the ROUTES allow-list (consumed by the smoke
+spec and `WhatsNewSinceVisit`) stays in sync alongside the App.tsx
+route definition. `dist/sitemap.xml` after `npm run build` confirmed
+to include `<loc>https://digitalcraftai.com/security</loc>`.
+
+**Em-dash JSON-LD filter (2026-09-08 lesson).** The new spec's em-dash
+case filters the block list down to blocks THIS PAGE emits
+(CollectionPage + BreadcrumbList) before iterating; it does NOT loop
+over every `application/ld+json` block on the DOM. The homepage
+Organization block from `index.html` (ticket 0025) carries a
+legitimate historical em-dash and is not this page's to edit.
+
+**Mount-signal helper (2026-09-05 + 2026-09-10 lessons).**
+`gotoSecurity` waits for the RouteFallback (`role="status"
+aria-label="Loading"`) to detach AND for the H1 to be visible before
+reading page state. Both waits use `.catch(() => {})` where safe so
+they do not break on routes without the exact signal.
+
+**Footer chip beacon assertion.** Initial spec used `page.addInitScript`
+to stub gtag before load; that failed once because the Google Analytics
+loader script overwrote the stub after mount. Switched to the ticket 0023
+`footer-providers-chip.spec.ts` pattern: stub gtag via `page.evaluate`
+AFTER page load, then suppress the click's default navigation once so
+the captured events survive past the click. All 13 spec cases pass.
+
+**Sibling flake note.** During the sibling trust-family regression pass
+`tests/e2e/trust-page.spec.ts` line 163 timed out once with zero
+`lightHeadings`; re-running the spec in isolation passed. This is the
+2026-09-05 RouteFallback timing race on the trust page's dark-mode
+heading measurement, pre-existing and covered by CI `retries: 1`. My
+diff does not touch `src/pages/Trust.tsx`.
+
+**Data source (2026-09-12 code-beats-prose lesson).** The `SecurityControl`
+interface was authored fresh to match AC #1's shape rather than mirrored
+from `Subprocessor` because the two rows carry different columns
+(status enum + lastReviewed date + optional seeAlso cross-link vs.
+category + publicTrustUrl). Names, descriptions, and status tags are
+all defensible per AGENTS.md: no invented certifications (SOC 2 /
+ISO 27001 / PCI-DSS / HIPAA are not claimed), no invented compliance
+frameworks, no invented insurance coverage claims. The aspirational
+row (`third-party-penetration-testing`) is explicitly labeled
+aspirational per AC #8's "no fake certifications" constraint.
+
+The list ships nine rows rather than the eight-row minimum: the extra
+row (`ethics-hard-nos`) cross-links back to `/ethics` so an
+IT-security reviewer can reach the sibling public commitment page
+without having to know it exists. AC #1's minimum is >= 8; this
+satisfies it with a defensible ninth entry.
