@@ -1,7 +1,7 @@
 ---
 id: 0081
 title: Public /security page listing dated infrastructure and application security controls as a defensible buyer-side trust artifact
-status: in-progress
+status: shipped
 priority: P1
 area: trust
 created: 2026-09-15
