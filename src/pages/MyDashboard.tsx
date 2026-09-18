@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Sparkles, ArrowRight, Calculator, ListChecks, Brain, Inbox, DollarSign, Printer, GitCompare } from 'lucide-react';
+import { Sparkles, ArrowRight, Calculator, ListChecks, Brain, Inbox, DollarSign, Printer, GitCompare, Download } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ScrollProgress from '@/components/ScrollProgress';
@@ -24,6 +24,10 @@ import { encodeRoiParams } from '@/pages/roiCalculatorParams';
 import { PROJECT_TYPES, FINISH_LEVELS, EXTRAS, calculateEstimate } from '@/data/estimatePricing';
 import { SUMMARY_LINE_KEYS, type SummaryLineKey } from '@/pages/mydashboardSummaryKeys';
 import QuizHistoryCard from '@/components/QuizHistoryCard';
+import {
+  buildEvaluationDossier,
+  dossierDownloadFilename,
+} from '@/utils/evaluationDossier';
 
 // Ticket 0045 - Personalized /my visitor dashboard. Page shell mirrors
 // src/pages/Demos.tsx and joins four pre-existing browser-local sources
@@ -163,7 +167,8 @@ const PRINT_STYLESHEET = `
   [data-testid="dashboard-quiz-persona-card"],
   [data-testid="dashboard-empty-state"],
   [data-testid="whats-new-strip"],
-  [data-testid="dashboard-summary-print"] {
+  [data-testid="dashboard-summary-print"],
+  [data-testid="dashboard-dossier-download"] {
     display: none !important;
   }
   [data-testid="dashboard-summary-recap"] {
@@ -302,6 +307,40 @@ const MyDashboard: React.FC = () => {
     trackCTAClick('summary_recap_print', 'mydashboard_summary_print');
     if (typeof window !== 'undefined' && typeof window.print === 'function') {
       window.print();
+    }
+  };
+
+  // Ticket 0082 - JSON dossier download handler. trackCTAClick MUST fire
+  // BEFORE the Blob is created (mirroring the ticket 0023 beacon-before-
+  // navigate pattern) so the beacon still lands if a browser policy
+  // blocks the download itself. The composer, the serializer, the Blob,
+  // and the anchor click are all synchronous and same-origin; no network
+  // round-trip, no new hostname. The object URL is revoked after a 100ms
+  // timeout so the browser has time to consume it before it is freed.
+  const handleDossierDownload = () => {
+    trackCTAClick('dashboard_dossier_download', 'my_dashboard_recap');
+    if (typeof window === 'undefined' || typeof URL === 'undefined' || typeof URL.createObjectURL !== 'function') {
+      return;
+    }
+    try {
+      const dossier = buildEvaluationDossier();
+      const json = JSON.stringify(dossier, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const filename = dossierDownloadFilename();
+      const anchor = document.createElement('a');
+      anchor.href = url;
+      anchor.download = filename;
+      anchor.rel = 'noopener';
+      anchor.style.display = 'none';
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
+      window.setTimeout(() => {
+        try { URL.revokeObjectURL(url); } catch { /* revoke failure - non-fatal */ }
+      }, 100);
+    } catch {
+      /* Blob or anchor failure - non-fatal; beacon already fired */
     }
   };
 
@@ -554,15 +593,32 @@ const MyDashboard: React.FC = () => {
                   <p className="mt-4 text-xs text-gray-500 dark:text-gray-400">
                     {formatGeneratedAt(generatedAt)}
                   </p>
-                  <button
-                    type="button"
-                    data-testid="dashboard-summary-print"
-                    onClick={handleSummaryPrint}
-                    className={`mt-4 ${PRIMARY_BTN}`}
-                  >
-                    <Printer size={16} />
-                    Print this summary
-                  </button>
+                  <div className="mt-4 flex flex-col sm:flex-row gap-2">
+                    <button
+                      type="button"
+                      data-testid="dashboard-summary-print"
+                      onClick={handleSummaryPrint}
+                      className={PRIMARY_BTN}
+                    >
+                      <Printer size={16} />
+                      Print this summary
+                    </button>
+                    {/* Ticket 0082 - Download the same dossier as a
+                        machine-readable JSON file. Full-width on 375px
+                        mobile (flex-col), inline on tablet/desktop
+                        (sm:flex-row); every color class carries a
+                        dark: variant mirroring the print button's
+                        secondary-outline treatment. */}
+                    <button
+                      type="button"
+                      data-testid="dashboard-dossier-download"
+                      onClick={handleDossierDownload}
+                      className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 hover:border-primary dark:hover:border-primary hover:text-primary dark:hover:text-primary transition-colors"
+                    >
+                      <Download size={16} />
+                      Download JSON
+                    </button>
+                  </div>
                 </div>
               </div>
             </section>
