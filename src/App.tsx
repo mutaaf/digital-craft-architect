@@ -70,6 +70,7 @@ const Subprocessors = lazy(() => import("./pages/Subprocessors"));
 const Security = lazy(() => import("./pages/Security"));
 const Ethics = lazy(() => import("./pages/Ethics"));
 const Playbook = lazy(() => import("./pages/Playbook"));
+const HowWeShip = lazy(() => import("./pages/HowWeShip"));
 const QuestionsToAskAnAiVendor = lazy(() => import("./pages/QuestionsToAskAnAiVendor"));
 const VendorScorecard = lazy(() => import("./pages/VendorScorecard"));
 const Changelog = lazy(() => import("./pages/Changelog"));
@@ -332,6 +333,7 @@ const App = () => {
               <Route path="/security" element={<Security />} />
               <Route path="/ethics" element={<Ethics />} />
               <Route path="/playbook" element={<Playbook />} />
+              <Route path="/how-we-ship" element={<HowWeShip />} />
               <Route path="/questions-to-ask-an-ai-vendor" element={<QuestionsToAskAnAiVendor />} />
               <Route path="/questions-to-ask-an-ai-vendor/scorecard" element={<VendorScorecard />} />
               <Route path="/changelog" element={<Changelog />} />

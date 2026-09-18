@@ -20,6 +20,8 @@ export interface ChangelogEntry {
 }
 
 export const changelogEntries: readonly ChangelogEntry[] = [
+  { id: "0082", title: "Downloadable JSON evaluation dossier export from /my composing every persisted client-side artifact as a portable machine-readable file", area: "demos", created: "2026-09-18" },
+  { id: "0081", title: "Public /security page listing dated infrastructure and application security controls as a defensible buyer-side trust artifact", area: "trust", created: "2026-09-15" },
   { id: "0080", title: "AI-for-moving-companies long-tail landing page funneling into home-services demos", area: "content", created: "2026-09-15" },
   { id: "0079", title: "Emit CollectionPage plus ItemList plus BreadcrumbList JSON-LD on the /blog index so the blog indexes as a canonical article collection", area: "seo", created: "2026-09-15" },
   { id: "0078", title: "Generate a public /changelog.json machine-readable JSON Feed of shipped tickets so buyers and analysts can subscribe programmatically to ship velocity", area: "content", created: "2026-09-12" },

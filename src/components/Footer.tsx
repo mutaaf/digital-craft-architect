@@ -72,6 +72,31 @@ const FooterNewsletter: React.FC = () => {
   );
 };
 
+// Ticket 0083 - "How we ship" trust chip. Fires
+// trackCTAClick('footer_how_we_ship_chip', <current-route>) synchronously
+// before the SPA navigation so the beacon flushes even on a fast route
+// swap. Placed alphabetically ahead of the ticket 0081 Security posture
+// chip in the trust-chip row per the ticket's ordering note.
+const FooterHowWeShipChip: React.FC = () => {
+  const location = useLocation();
+  return (
+    <p className="text-gray-500 dark:text-gray-500 text-xs">
+      <Link
+        to="/how-we-ship"
+        onClick={() => trackCTAClick('footer_how_we_ship_chip', location.pathname)}
+        className="hover:text-skyblue transition-colors"
+      >
+        <span
+          data-testid="footer-how-we-ship-chip"
+          className="inline-block bg-gray-800 dark:bg-gray-800 px-2 py-1 rounded"
+        >
+          How we ship
+        </span>
+      </Link>
+    </p>
+  );
+};
+
 // Ticket 0081 - "Security posture" trust chip. Fires
 // trackCTAClick('footer_security_chip', <current-route>) synchronously
 // before the SPA navigation so the beacon flushes even on a fast route
@@ -193,6 +218,7 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
                     </span>
                   </Link>
                 </p>
+                <FooterHowWeShipChip />
                 <FooterSecurityChip />
                 <div className="flex space-x-6">
                   <a href="/industries" className="text-gray-400 hover:text-skyblue text-sm">Industries</a>
