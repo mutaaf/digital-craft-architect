@@ -1,7 +1,7 @@
 ---
 id: 0082
 title: Downloadable JSON evaluation dossier export from /my composing every persisted client-side artifact as a portable machine-readable file
-status: groomed
+status: in-progress
 priority: P1
 area: demos
 created: 2026-09-18
@@ -418,7 +418,9 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0082-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/dashboard-dossier-export.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-09-18 - branch `feat/0082-my-dashboard-json-dossier-export` opened; status flipped to in-progress in both the ticket frontmatter and the README index in one commit (2026-05-22 backlog-validator lesson).
+- 2026-09-18 - grepped every `src/utils/*Store.ts` + `src/pages/construction/lastEstimateStore.ts` on branch head. Real exported types pinned: `LastEstimate` -> `EstimateShareState` (via `loadLastEstimate('construction')` in `src/pages/construction/lastEstimateStore.ts:56`), `RoiResult` -> the inline return shape `{ inputs: RoiInputs; outputs: RoiOutputs; savedAt: number }` from `getLastRoiResult()` in `src/utils/roiResultStore.ts:78-108` (no exported alias; the composer defines a local `StoredRoiResult` type mirroring that shape), `QuizPersona` in `src/utils/quizPersonaStore.ts:14`, `QuizHistoryEntry` in `src/utils/quizHistoryStore.ts:30`, `RecentDemo` in `src/utils/recentDemosStore.ts:20`, `RecentCompare` in `src/utils/recentComparesStore.ts:22`, `VisitStreak` in `src/utils/visitStreakStore.ts:29`. Per the 2026-09-12 code-beats-prose lesson, `LastEstimate` and `RoiResult` are placeholder groomer names; the schema is pinned to the real exported types and one locally-defined shape for the ROI getter's anonymous return.
+- 2026-09-18 - per the 2026-09-10 raw-vs-sliced lesson and the ticket's raw-list AC (#11): `recentComparesStore.ts` had a PRIVATE `readAllVisited` helper; exported it verbatim as `getAllRecentCompares` (additive, no display-getter edit). `recentDemosStore.ts` has no raw helper but its `recordDemoVisit` write path already caps at MAX_ENTRIES = 5, so raw storage never exceeds 5 for a UI-driven visitor and `getRecentDemos()` already reads every entry a real visitor could have; test doesn't seed >5 demos, so no store edit is needed there. `quizHistoryStore.ts` similarly caps writes at MAX_ENTRIES = 8; no raw-list edit needed.
+- 2026-09-18 - failing test added in `tests/e2e/dashboard-dossier-export.spec.ts`; imports `DOSSIER_ARTIFACT_KEYS` from `src/utils/evaluationDossier` (2026-05-25 mirror-source + 2026-06-07 src-imports-tests lessons). `gotoDashboard` waits for RouteFallback detach AND H1 visibility (2026-09-05 + 2026-09-10 lessons).
+- 2026-09-18 - PR #N opened, CI [state]
+- 2026-09-18 - merged to main

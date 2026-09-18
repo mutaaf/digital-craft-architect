@@ -53,8 +53,13 @@ function isRecentCompare(value: unknown): value is RecentCompare {
  * WITHOUT the display-limit slice. Used by `suggestNextCompare` so the
  * unvisited-entry search considers every stored visit, not just the top
  * MAX_ENTRIES that surface on the dashboard.
+ *
+ * Also consumed by ticket 0082's evaluation-dossier composer per the
+ * 2026-09-10 raw-vs-sliced lesson: the JSON dossier exports every entry
+ * a visitor has viewed, not the display-sliced view. Additive-only
+ * public surface change; the existing display getter is untouched.
  */
-function readAllVisited(): RecentCompare[] {
+export function readAllVisited(): RecentCompare[] {
   let raw: string | null;
   try {
     raw = localStorage.getItem(STORAGE_KEY);
