@@ -90,7 +90,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0079 | Emit CollectionPage plus ItemList plus BreadcrumbList JSON-LD on the /blog index so the blog indexes as a canonical article collection | P1 | shipped | seo |
 | 0080 | AI-for-moving-companies long-tail landing page funneling into home-services demos | P1 | shipped | content |
 | 0081 | Public /security page listing dated infrastructure and application security controls as a defensible buyer-side trust artifact | P1 | shipped | trust |
-| 0082 | Downloadable JSON evaluation dossier export from /my composing every persisted client-side artifact as a portable machine-readable file | P1 | in-progress | demos |
+| 0082 | Downloadable JSON evaluation dossier export from /my composing every persisted client-side artifact as a portable machine-readable file | P1 | shipped | demos |
 | 0083 | Public /how-we-ship transparency page describing the autonomous-agent ship loop as a defensible moat artifact | P1 | groomed | trust |
 | 0084 | AI-for-solar-installers long-tail landing page funneling into home-services demos | P1 | groomed | content |
 
