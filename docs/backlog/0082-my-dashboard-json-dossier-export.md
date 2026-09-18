@@ -1,7 +1,7 @@
 ---
 id: 0082
 title: Downloadable JSON evaluation dossier export from /my composing every persisted client-side artifact as a portable machine-readable file
-status: in-progress
+status: shipped
 priority: P1
 area: demos
 created: 2026-09-18
