@@ -1,7 +1,7 @@
 ---
 id: 0083
 title: Public /how-we-ship transparency page describing the autonomous-agent ship loop as a defensible moat artifact
-status: in-progress
+status: shipped
 priority: P1
 area: trust
 created: 2026-09-18
