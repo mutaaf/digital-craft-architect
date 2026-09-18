@@ -1,7 +1,7 @@
 ---
 id: 0084
 title: AI-for-solar-installers long-tail landing page funneling into home-services demos
-status: in-progress
+status: shipped
 priority: P1
 area: content
 created: 2026-09-18
