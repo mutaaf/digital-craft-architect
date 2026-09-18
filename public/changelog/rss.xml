@@ -7,6 +7,14 @@
     <language>en-us</language>
     <atom:link href="https://digitalcraftai.com/changelog/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Public /how-we-ship transparency page describing the autonomous-agent ship loop as a defensible moat artifact</title>
+      <link>https://digitalcraftai.com/changelog#0083</link>
+      <description>Shipped 2026-09-18 in area: trust.</description>
+      <pubDate>Fri, 18 Sep 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0083</guid>
+      <category>trust</category>
+    </item>
+    <item>
       <title>Downloadable JSON evaluation dossier export from /my composing every persisted client-side artifact as a portable machine-readable file</title>
       <link>https://digitalcraftai.com/changelog#0082</link>
       <description>Shipped 2026-09-18 in area: demos.</description>

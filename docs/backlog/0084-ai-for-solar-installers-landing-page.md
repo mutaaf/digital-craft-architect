@@ -1,7 +1,7 @@
 ---
 id: 0084
 title: AI-for-solar-installers long-tail landing page funneling into home-services demos
-status: groomed
+status: in-progress
 priority: P1
 area: content
 created: 2026-09-18
@@ -411,7 +411,9 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0084-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/ai-for-solar-installers.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
+- 2026-09-18 - branch `feat/0084-ai-for-solar-installers` opened off fresh `origin/main`; ticket flipped to `in-progress` (README index row stays at `groomed` until the follow-up `chore/0084-ship-status` PR per the 2026-05-22 two-PR lesson).
+- 2026-09-18 - per the 2026-05-30 second-@type lesson, grepped every `tests/e2e/*-jsonld.spec.ts` plus every `tests/e2e/ai-for-*.spec.ts` for `=== 'Service'`, `=== 'BreadcrumbList'`, `=== 'FAQPage'` predicates and `toHaveLength(1)`. Every predecessor assertion is URL-scoped (each spec calls its local goto helper first navigating to its own trade path), so a new `/ai-for-solar-installers`-scoped `Service`, `BreadcrumbList`, or `FAQPage` block cannot collide with any predecessor's exactly-one assertion. Sibling on `/ai-for-solar-installers` is safe.
+- 2026-09-18 - failing spec added in `tests/e2e/ai-for-solar-installers.spec.ts` (modeled 1:1 on `ai-for-moving-companies.spec.ts`).
+- 2026-09-18 - implementation `src/pages/AiForSolarInstallers.tsx` (under 200 lines, mirror of `AiForMovingCompanies.tsx`), route entry in `src/App.tsx` (lazy + Suspense), route entry in `src/data/routes.ts`, sitemap auto-inclusion via `scripts/generate-sitemap.ts` on `npm run build` (grepped `dist/sitemap.xml` for `/ai-for-solar-installers` after build).
+- 2026-09-18 - PR #N opened, CI [state]
 - YYYY-MM-DD - merged to main
