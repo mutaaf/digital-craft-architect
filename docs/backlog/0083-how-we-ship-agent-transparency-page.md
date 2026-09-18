@@ -1,7 +1,7 @@
 ---
 id: 0083
 title: Public /how-we-ship transparency page describing the autonomous-agent ship loop as a defensible moat artifact
-status: groomed
+status: in-progress
 priority: P1
 area: trust
 created: 2026-09-18
@@ -458,7 +458,14 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0083-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/how-we-ship.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-09-18 - branch `feat/0083-how-we-ship` opened off `origin/main`; ticket flipped to `in-progress` with README index row in sync.
+- 2026-09-18 - Pre-code grep results (2026-05-30 second-@type lesson):
+  - `grep -rn "'TechArticle'" tests/e2e/ src/ index.html` returned zero matches. `/how-we-ship` is the first site-wide TechArticle emitter, so no predecessor "exactly one" TechArticle assertion can collide.
+  - `grep -rn "=== 'BreadcrumbList'" tests/e2e/` returned 30+ matches across the trust, compare, ai-for-*, blog, glossary, quiz, and my-dashboard specs; every predicate is invoked AFTER the spec's own `gotoX` helper navigates to that spec's page, so each predicate is URL-scoped in practice. No predecessor asserts "exactly one BreadcrumbList site-wide" without first navigating. A new `/how-we-ship`-scoped BreadcrumbList sibling cannot intercept any of them.
+- 2026-09-18 - AGENTS.md mirror-source anchors (2026-09-12 code-beats-prose lesson):
+  - Loop diagram lives at AGENTS.md:27-32 ("The loop" fenced block). Stage names, order, and cadences (`daily`, `hourly`, `every 15m`) pinned from that block. `auto-merge` cadence rendered as "on green + no block" (verbatim from the "GitHub auto-merges on green + no block" clause in the diagram).
+  - Gate names live at AGENTS.md:45-48 ("Gating checks"): `build` and `smoke-required`. Both pinned verbatim.
+  - Hard NOs live at AGENTS.md:59-71. AGENTS.md has SEVEN bullets, not six as the ticket prose enumerated. Per the 2026-09-12 code-beats-prose rule, `SHIP_LOOP_HARD_NOS` mirrors all seven with each `statement` derived from the real AGENTS.md bullet text. The single em-dash inside the seventh bullet ("Never exceed 2 heal: attempts on one PR - escalate...") is normalized to a hyphen per the 2026-05-07 em-dash Hard NO (punctuation repair, not rewording, per the 2026-05-25 lesson). The 2026-05-22 first-appearance date of AGENTS.md is the shared `sinceDate` anchor for all seven bullets (git log shows AGENTS.md first landed 2026-05-22 in commit f8ac986 and the Hard NOs section has not moved since).
+- 2026-09-18 - failing test added in `tests/e2e/how-we-ship.spec.ts`
+- 2026-09-18 - PR #N opened, CI [state]
+- 2026-09-18 - merged to main
