@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-nocheck
-// TODO(eng): typecheck baseline, see docs/backlog/0005
 import { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
@@ -43,6 +40,7 @@ function buildPropertyStub(lead: EventLeadInput): PropertyData {
     acreage: null,
     zoning: null,
     utilities: null,
+    sellerMotivation: null,
   };
 }
 

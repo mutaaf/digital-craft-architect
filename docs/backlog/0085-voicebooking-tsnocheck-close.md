@@ -141,3 +141,38 @@ output change and no dependency touch.
   `check-backlog.mjs` stays green from commit 1 onward.
 
 ## Implementation log
+
+### 2026-09-19 — prove-first + fix (eng-dev)
+
+Branch: `eng/0085-voicebooking-tsnocheck-close` off fresh `origin/main`
+(HEAD `8f670e2`).
+
+**Bootstrap commit** (`881840c`): authored this ticket file +
+`docs/backlog/README.md` row (`0085 | ... | P2 | in-progress | infra`) as
+the first commit on the branch, per the 2026-05-22 "bootstrap
+pre-authorized follow-ups" LESSON. `node scripts/check-backlog.mjs` green
+before push (`✓ backlog integrity: 85 tickets, index in sync.`).
+
+**Prove-first** (Node 20.19.0 + `npm run sync:classes`, then removed the
+3-line header block from `src/pages/events/VoiceBookingAgent.tsx` WITHOUT
+adding `sellerMotivation: null` yet, then `npx tsc -p tsconfig.app.json
+--noEmit`):
+
+```
+src/pages/events/VoiceBookingAgent.tsx(27,3): error TS2741: Property 'sellerMotivation' is missing in type '{ address: string; askingPrice: number; bedrooms: null; bathrooms: null; sqft: null; yearBuilt: null; propertyType: string; condition: string; lotSize: string; daysOnMarket: null; listingSource: string; notes: string; acreage: null; zoning: null; utilities: null; }' but required in type 'PropertyData'.
+```
+
+Exactly one TS2741 error at line 27 col 3 (the `return {` opening of
+`buildPropertyStub`) naming `sellerMotivation`. No other errors surfaced,
+so the safety valve ("if any additional error surfaces beyond the one
+TS2741, STOP and re-scope") does NOT trip.
+
+**Fix**: added `sellerMotivation: null,` to `buildPropertyStub`'s returned
+`PropertyData` object, slotted immediately after `utilities: null,` to
+match `emptyProperty()` ordering in
+`src/data/propertyNegotiation.ts:123-124`.
+
+**Post-fix typecheck** (`npm run typecheck`): exits 0.
+
+**Verification**: `grep -rn "@ts-nocheck" src/` returns zero matches; the
+0005 baseline grandfathering is now fully closed.
