@@ -1,7 +1,7 @@
 ---
 id: 0085
 title: Remove @ts-nocheck from VoiceBookingAgent.tsx (close 0005 grandfathering)
-status: in-progress
+status: shipped
 priority: P2
 area: infra
 created: 2026-09-19
