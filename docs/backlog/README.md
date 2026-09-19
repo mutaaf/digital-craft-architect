@@ -93,6 +93,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0082 | Downloadable JSON evaluation dossier export from /my composing every persisted client-side artifact as a portable machine-readable file | P1 | shipped | demos |
 | 0083 | Public /how-we-ship transparency page describing the autonomous-agent ship loop as a defensible moat artifact | P1 | shipped | trust |
 | 0084 | AI-for-solar-installers long-tail landing page funneling into home-services demos | P1 | shipped | content |
+| 0085 | Remove @ts-nocheck from VoiceBookingAgent.tsx (close 0005 grandfathering) | P2 | in-progress | infra |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the
