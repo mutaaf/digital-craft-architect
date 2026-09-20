@@ -1,7 +1,7 @@
 ---
 id: 0088
 title: Public /model-card AI model provenance page listing every third-party model with dated intended-use and limitation rows as a defensible trust artifact
-status: in-progress
+status: shipped
 priority: P2
 area: trust
 created: 2026-09-20
