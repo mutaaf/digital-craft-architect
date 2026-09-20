@@ -447,6 +447,19 @@ const Trust: React.FC = () => {
               What we won't do
               <ArrowRight size={14} />
             </Link>
+            {/* Ticket 0088 - additive sibling-link chip pointing at
+                /model-card (the AI provenance page). Additive-only: no
+                reordering of the /ethics chip above and no visible-text
+                change to any existing element. */}
+            <Link
+              to="/model-card"
+              data-testid="trust-model-card-link"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/60 text-sm text-gray-700 dark:text-gray-300 hover:border-primary hover:text-primary dark:hover:border-primary dark:hover:text-primary transition-colors"
+              onClick={() => trackCTAClick('model_card_from_trust', 'trust_footer')}
+            >
+              Model card
+              <ArrowRight size={14} />
+            </Link>
           </div>
         </div>
       </section>

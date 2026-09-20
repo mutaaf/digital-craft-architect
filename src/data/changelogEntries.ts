@@ -20,6 +20,7 @@ export interface ChangelogEntry {
 }
 
 export const changelogEntries: readonly ChangelogEntry[] = [
+  { id: "0087", title: "AI-for-window-installers long-tail landing page funneling into home-services demos", area: "content", created: "2026-09-20" },
   { id: "0086", title: "Comparison page \"Digital Craft vs kvCORE\" for real-estate high-intent CRM switchers", area: "seo", created: "2026-09-20" },
   { id: "0085", title: "Remove @ts-nocheck from VoiceBookingAgent.tsx (close 0005 grandfathering)", area: "infra", created: "2026-09-19" },
   { id: "0084", title: "AI-for-solar-installers long-tail landing page funneling into home-services demos", area: "content", created: "2026-09-18" },
