@@ -1,7 +1,7 @@
 ---
 id: 0086
 title: Comparison page "Digital Craft vs kvCORE" for real-estate high-intent CRM switchers
-status: groomed
+status: in-progress
 priority: P1
 area: seo
 created: 2026-09-20
@@ -417,7 +417,9 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0086-compare-kvcore` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/compare-kvcore.spec.ts`
+- 2026-09-20 - branch `feat/0086-compare-kvcore` opened; ticket flipped to in-progress on branch (main branch protected).
+- 2026-09-20 - Pre-code grep per the 2026-05-30 second-@type lesson. `grep -rn "=== 'BreadcrumbList'" tests/e2e/compare-*.spec.ts tests/e2e/*-jsonld.spec.ts` and `grep -rn "=== 'WebPage'" tests/e2e/compare-*.spec.ts tests/e2e/*-jsonld.spec.ts`. Every predecessor "exactly one" predicate over `BreadcrumbList` or `WebPage` is URL-scoped to a different route (`/compare/{buildertrend,housecallpro,jobber,podium,jobtread,angi,thumbtack,servicetitan,followupboss}`, `/compare`, `/changelog`, `/trust`, `/texas`, `/quiz`, `/glossary`, per-case-study, blog collection). None assert "exactly one of either `@type` site-wide"; a new `/compare/kvcore`-scoped pair does NOT collide.
+- 2026-09-20 - Failing test added in `tests/e2e/compare-kvcore.spec.ts` (ten boxes, one per AC). Modeled on `tests/e2e/compare-followupboss.spec.ts`. `gotoKvCore` waits for RouteFallback detach AND H1 visibility (2026-09-05 + 2026-09-10). Em-dash check filters to `BreadcrumbList` + `WebPage` blocks this page emits (2026-09-08). Sibling-hub-regression case polls until at least one `CollectionPage.name` equals `Digital Craft Comparisons` before reading the ItemList (2026-09-08).
+- 2026-09-20 - Feature landed: new `src/pages/compare/KvCore.tsx` (mirror of `FollowUpBoss.tsx`, swap FUB->kvCORE, dimensions Lead capture / First response / Qualification / Voice negotiation). Appended kvcore row to `src/data/compareEntries.ts`. Registered `/compare/kvcore` lazy route in `src/App.tsx` and `ROUTES` in `src/data/routes.ts`. Local gate green: lint, typecheck, check-links, check-images, check-meta, check-blog-dates, check-backlog, build.
 - YYYY-MM-DD - PR #N opened, CI [state]
 - YYYY-MM-DD - merged to main
