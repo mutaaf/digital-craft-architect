@@ -84,6 +84,7 @@ export const ROUTES: readonly string[] = [
   '/demos',
   '/my',
   '/glossary',
+  '/model-card',
   '/trust',
   '/subprocessors',
   '/security',
