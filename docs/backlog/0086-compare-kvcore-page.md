@@ -1,7 +1,7 @@
 ---
 id: 0086
 title: Comparison page "Digital Craft vs kvCORE" for real-estate high-intent CRM switchers
-status: in-progress
+status: shipped
 priority: P1
 area: seo
 created: 2026-09-20
