@@ -1,7 +1,7 @@
 ---
 id: 0088
 title: Public /model-card AI model provenance page listing every third-party model with dated intended-use and limitation rows as a defensible trust artifact
-status: groomed
+status: in-progress
 priority: P2
 area: trust
 created: 2026-09-20
@@ -567,7 +567,48 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0088-model-card-ai-provenance-page` opened
+- 2026-09-20 - branch `feat/0088-model-card-ai-provenance-page` opened; status flipped to in-progress.
+- 2026-09-20 - Predecessor JSON-LD grep (2026-05-30 second-@type lesson):
+  `grep -rn "=== 'CollectionPage'" tests/e2e/` returned 10 matches across
+  `tests/e2e/compare-hub.spec.ts`, `case-studies-hub.spec.ts`,
+  `case-studies-rss-feed.spec.ts`, `subprocessors.spec.ts`,
+  `security-posture-page.spec.ts`, `ai-for-hospitality.spec.ts`,
+  `blog-collectionpage-jsonld.spec.ts`, `compare-kvcore.spec.ts` - every
+  "exactly one CollectionPage" assertion is URL-scoped to its own page
+  (`on /compare`, `on /case-studies`, `on /security`, etc.), so a new
+  /model-card-scoped CollectionPage does not collide. Same URL-scoped
+  isolation holds for the 30+ `=== 'BreadcrumbList'` matches. No
+  predecessor asserts "exactly one CollectionPage site-wide" or filters
+  without URL scoping. Result: the /model-card sibling CollectionPage +
+  BreadcrumbList blocks are safe additions.
+- 2026-09-20 - Model-name literal grep (2026-09-12 code-beats-prose lesson):
+  `grep -rniE "gpt-4o|nova-?2|firecrawl|jina|vapi|elevenlabs|cassidy|deepgram" src/utils/ api/ CLAUDE.md KNOWLEDGE_BASE.md`
+  showed the models actually called on branch head are:
+  (1) `gpt-4o` (OpenAI) at `api/chat.ts:19`, `api/stream.ts:25`,
+  `api/vapi-assistant.ts:28`, `api/call-summary.ts:29`;
+  (2) `eleven_turbo_v2_5` (ElevenLabs Turbo v2.5) with the Cassidy voice
+  id `56AoDkrOh6qfVPDXZ7Pt` at `api/vapi-assistant.ts:36`;
+  (3) `nova-2` (Deepgram Nova-2) at `api/vapi-assistant.ts:53`;
+  (4) Vapi voice orchestration layer at `api/vapi-call.ts`, `vapi-call-status.ts`,
+  `vapi-call-end.ts`, `vapi-assistant.ts`;
+  (5) Firecrawl scraper at `api/scrape.ts:19`;
+  (6) Jina Reader fallback at `api/scrape.ts:42`.
+  This matches the ticket's inline enumeration verbatim; the initial
+  MODEL_CARD_ROWS list pins to these six vendors with no deviation.
+- 2026-09-20 - Subprocessor domain overlap grep: every candidate
+  `vendorPolicyUrl` (openai.com, vapi.ai, elevenlabs.io, deepgram.com,
+  firecrawl.dev, jina.ai) has a matching row in `src/data/subprocessors.ts`
+  under `publicTrustUrl`, so no new outbound hostname is introduced.
+- 2026-09-20 - Trust.tsx chip strip inspection: the current strip contains
+  a single chip (`trust-ethics-link` -> /ethics with text "What we won't do")
+  at src/pages/Trust.tsx:438-452. The ticket prose names four existing
+  chips (/subprocessors, /uptime, /ethics, /security) but the code only
+  has the ethics one plus an inline paragraph link (`trust-subprocessors-link`)
+  higher up. Per the 2026-09-12 code-beats-prose rule, the additive edit
+  appends only the /model-card chip and the spec's regression case
+  asserts the /ethics chip stays unchanged (the only existing chip to
+  guard against reordering); the /subprocessors inline link is also
+  asserted unchanged.
 - YYYY-MM-DD - failing test added in `tests/e2e/model-card-page.spec.ts`
 - YYYY-MM-DD - PR #N opened, CI [state]
 - YYYY-MM-DD - merged to main
