@@ -7,6 +7,14 @@
     <language>en-us</language>
     <atom:link href="https://digitalcraftai.com/changelog/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Comparison page &quot;Digital Craft vs kvCORE&quot; for real-estate high-intent CRM switchers</title>
+      <link>https://digitalcraftai.com/changelog#0086</link>
+      <description>Shipped 2026-09-20 in area: seo.</description>
+      <pubDate>Sun, 20 Sep 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0086</guid>
+      <category>seo</category>
+    </item>
+    <item>
       <title>Remove @ts-nocheck from VoiceBookingAgent.tsx (close 0005 grandfathering)</title>
       <link>https://digitalcraftai.com/changelog#0085</link>
       <description>Shipped 2026-09-19 in area: infra.</description>
