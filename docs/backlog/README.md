@@ -95,7 +95,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0084 | AI-for-solar-installers long-tail landing page funneling into home-services demos | P1 | shipped | content |
 | 0085 | Remove @ts-nocheck from VoiceBookingAgent.tsx (close 0005 grandfathering) | P2 | shipped | infra |
 | 0086 | Comparison page "Digital Craft vs kvCORE" for real-estate high-intent CRM switchers | P1 | shipped | seo |
-| 0087 | AI-for-window-installers long-tail landing page funneling into home-services demos | P1 | groomed | content |
+| 0087 | AI-for-window-installers long-tail landing page funneling into home-services demos | P1 | in-progress | content |
 | 0088 | Public /model-card AI model provenance page listing every third-party model with dated intended-use and limitation rows as a defensible trust artifact | P2 | groomed | trust |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in

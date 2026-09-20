@@ -1,7 +1,7 @@
 ---
 id: 0087
 title: AI-for-window-installers long-tail landing page funneling into home-services demos
-status: groomed
+status: in-progress
 priority: P1
 area: content
 created: 2026-09-20
@@ -448,7 +448,9 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0087-ai-for-window-installers` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/ai-for-window-installers.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-09-20 - branch `feat/0087-ai-for-window-installers` opened off fresh `origin/main`; ticket frontmatter and README index row flipped to `in-progress` in the first commit per the 2026-05-22 two-PR ship lesson (the ship-status flip rides a follow-up `chore/0087-ship-status` PR after this feat PR merges).
+- 2026-09-20 - Pre-code greps per the 2026-05-30 second-@type lesson: `grep -rn "'Service'\|'BreadcrumbList'\|'FAQPage'" tests/e2e/*-jsonld.spec.ts tests/e2e/ai-for-*.spec.ts | grep "toHaveLength(1)\|exactly one"` returns hits ONLY inside `tests/e2e/ai-for-*.spec.ts` files (plumbers, HVAC, roofers, electricians, painters, landscapers, property-managers, cleaning-services, pest-control, pool-service, restoration-services, moving-companies, solar-installers, hospitality) and each hit is preceded by a URL-scoped `goto<Vertical>(page)` helper that navigates to its own trade path first. A separate grep across `tests/e2e/*-jsonld.spec.ts` (blog CollectionPage, changelog ItemList, case-study Article, glossary Breadcrumb, quiz, Texas LocalBusiness, trust AboutPage) shows their `toHaveLength(1)` predicates are all scoped to their own routes and none assert exactly-one `Service` at the site level. Conclusion: a sibling instance of `Service`, `BreadcrumbList`, or `FAQPage` on `/ai-for-window-installers` cannot collide with any predecessor exactly-one assertion.
+- 2026-09-20 - Pre-code confirmation per the 2026-06-07 src-imports-tests lesson: `tests/e2e/routes.ts` re-exports `ROUTES` from `../../src/data/routes`; the new route entry lands in `src/data/routes.ts` alphabetically between `/ai-for-solar-installers` and `/case-studies` (and after the other `/ai-for-*` entries).
+- 2026-09-20 - Failing test added in `tests/e2e/ai-for-window-installers.spec.ts` modeled 1:1 on `tests/e2e/ai-for-solar-installers.spec.ts`; new page at `src/pages/AiForWindowInstallers.tsx` modeled 1:1 on `src/pages/AiForSolarInstallers.tsx`; `src/App.tsx` gains a lazy import + Route entry next to `/ai-for-solar-installers`; `src/data/routes.ts` gains the alphabetical entry. Post-build grep on `dist/sitemap.xml` confirms auto-inclusion of `/ai-for-window-installers` per the ticket 0022 sitemap generator.
+- 2026-09-20 - PR #N opened, CI [state]
+- 2026-09-20 - merged to main
