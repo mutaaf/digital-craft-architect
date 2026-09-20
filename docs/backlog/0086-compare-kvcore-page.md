@@ -1,7 +1,7 @@
 ---
 id: 0086
 title: Comparison page "Digital Craft vs kvCORE" for real-estate high-intent CRM switchers
-status: groomed
+status: in-progress
 priority: P1
 area: seo
 created: 2026-09-20
@@ -417,7 +417,8 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0086-compare-kvcore` opened
+- 2026-09-20 - branch `feat/0086-compare-kvcore` opened; ticket flipped to in-progress on branch (main branch protected).
+- 2026-09-20 - Pre-code grep per the 2026-05-30 second-@type lesson. `grep -rn "=== 'BreadcrumbList'" tests/e2e/compare-*.spec.ts tests/e2e/*-jsonld.spec.ts` and `grep -rn "=== 'WebPage'" tests/e2e/compare-*.spec.ts tests/e2e/*-jsonld.spec.ts`. Every predecessor "exactly one" predicate over `BreadcrumbList` or `WebPage` is URL-scoped to a different route (`/compare/{buildertrend,housecallpro,jobber,podium,jobtread,angi,thumbtack,servicetitan,followupboss}`, `/compare`, `/changelog`, `/trust`, `/texas`, `/quiz`, `/glossary`, per-case-study, blog collection). None assert "exactly one of either `@type` site-wide"; a new `/compare/kvcore`-scoped pair does NOT collide.
 - YYYY-MM-DD - failing test added in `tests/e2e/compare-kvcore.spec.ts`
 - YYYY-MM-DD - PR #N opened, CI [state]
 - YYYY-MM-DD - merged to main
