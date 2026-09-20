@@ -7,6 +7,16 @@
   "language": "en-US",
   "items": [
     {
+      "id": "0086",
+      "url": "https://digitalcraftai.com/changelog#0086",
+      "title": "Comparison page \"Digital Craft vs kvCORE\" for real-estate high-intent CRM switchers",
+      "content_text": "Comparison page \"Digital Craft vs kvCORE\" for real-estate high-intent CRM switchers",
+      "date_published": "2026-09-20T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
       "id": "0085",
       "url": "https://digitalcraftai.com/changelog#0085",
       "title": "Remove @ts-nocheck from VoiceBookingAgent.tsx (close 0005 grandfathering)",
