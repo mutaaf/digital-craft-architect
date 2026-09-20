@@ -105,4 +105,10 @@ export const COMPARE_ENTRIES: readonly CompareEntry[] = [
     path: '/compare/jobtread',
     tagline: 'JobTread runs your job records, financials, and schedules. Digital Craft is the AI agent layer that answers the leads a PM platform never gets around to.',
   },
+  {
+    id: 'kvcore',
+    tool: 'kvCORE',
+    path: '/compare/kvcore',
+    tagline: 'kvCORE bundles your IDX website, squeeze pages, and CRM. Digital Craft is the AI agent layer that answers the buyer leads a CRM never gets around to.',
+  },
 ];

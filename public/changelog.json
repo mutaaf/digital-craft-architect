@@ -7,6 +7,26 @@
   "language": "en-US",
   "items": [
     {
+      "id": "0085",
+      "url": "https://digitalcraftai.com/changelog#0085",
+      "title": "Remove @ts-nocheck from VoiceBookingAgent.tsx (close 0005 grandfathering)",
+      "content_text": "Remove @ts-nocheck from VoiceBookingAgent.tsx (close 0005 grandfathering)",
+      "date_published": "2026-09-19T12:00:00.000Z",
+      "tags": [
+        "infra"
+      ]
+    },
+    {
+      "id": "0084",
+      "url": "https://digitalcraftai.com/changelog#0084",
+      "title": "AI-for-solar-installers long-tail landing page funneling into home-services demos",
+      "content_text": "AI-for-solar-installers long-tail landing page funneling into home-services demos",
+      "date_published": "2026-09-18T12:00:00.000Z",
+      "tags": [
+        "content"
+      ]
+    },
+    {
       "id": "0083",
       "url": "https://digitalcraftai.com/changelog#0083",
       "title": "Public /how-we-ship transparency page describing the autonomous-agent ship loop as a defensible moat artifact",

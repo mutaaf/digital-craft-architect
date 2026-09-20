@@ -7,6 +7,22 @@
     <language>en-us</language>
     <atom:link href="https://digitalcraftai.com/changelog/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Remove @ts-nocheck from VoiceBookingAgent.tsx (close 0005 grandfathering)</title>
+      <link>https://digitalcraftai.com/changelog#0085</link>
+      <description>Shipped 2026-09-19 in area: infra.</description>
+      <pubDate>Sat, 19 Sep 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0085</guid>
+      <category>infra</category>
+    </item>
+    <item>
+      <title>AI-for-solar-installers long-tail landing page funneling into home-services demos</title>
+      <link>https://digitalcraftai.com/changelog#0084</link>
+      <description>Shipped 2026-09-18 in area: content.</description>
+      <pubDate>Fri, 18 Sep 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0084</guid>
+      <category>content</category>
+    </item>
+    <item>
       <title>Public /how-we-ship transparency page describing the autonomous-agent ship loop as a defensible moat artifact</title>
       <link>https://digitalcraftai.com/changelog#0083</link>
       <description>Shipped 2026-09-18 in area: trust.</description>
