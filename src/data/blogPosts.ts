@@ -52,6 +52,51 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'ai-solar-installers-permit-interconnection-followup',
+    title: "Solar Installers: Don't Lose the Sale After You Win It",
+    description: 'The rooftop assessment call and the permit-to-interconnection wait are where solar installers lose homeowners. Here is how AI covers both gaps.',
+    date: '2026-09-21',
+    author: 'DigitalCraft AI',
+    readTime: '5 min read',
+    tags: ['Home Services', 'Solar', 'Lead Response', 'AI Automation'],
+    content: `
+<p>A homeowner who just got a utility bill that made them wince is not going to sit on that feeling. They pull up their phone, search for a few installers, and call the ones that look credible. If your office is mid-site-survey and the call rolls to voicemail, that homeowner is already dialing the next name on the list.</p>
+
+<p>Solar has two moments where deals quietly slip, and neither one is the sales pitch. The first is the inbound call itself. The second is everything that happens between the signed contract and the day the system actually gets turned on.</p>
+
+<h2>The Rooftop Assessment Call Nobody Is Free to Take</h2>
+
+<p>Your best people are usually out on a site visit, on the roof, or deep in a system-sizing conversation with someone else. That is exactly when the next inbound call comes in, and it is rarely a simple one. A homeowner calling about solar wants to know roof orientation and shading, what their system size should roughly be, whether a battery add-on makes sense, and how financing compares between cash, loan, and lease. A dispatcher who is not free to think through all of that in real time either rushes the caller or lets it go to voicemail.</p>
+
+<p>A <a href="/homeservices/demo/lead-responder">lead responder built for home services intake</a> asks the same qualifying questions your best rep would (roof type, monthly usage, shade windows, financing preference) and hands off a filled-in lead instead of a missed call. The homeowner gets an answer in the moment they are motivated, not two days later when the utility bill sting has faded.</p>
+
+<h2>A Defensible Number Beats a Callback Promise</h2>
+
+<p>Homeowners shopping solar are almost always comparing two or three installers side by side, and the one who gives a real number first has an edge. An <a href="/homeservices/demo/estimate">estimate tool built around home size, usage, and financing preference</a> walks the caller through the same intake logic your estimator uses and returns a ballpark system size and range your team can confirm on the actual site survey. That is not a substitute for the survey. It is what keeps the homeowner engaged until the survey happens instead of signing with whoever called back first.</p>
+
+<h2>Run the Math on Your Own Permit-to-PTO Gap</h2>
+
+<p>Pull your job log and look at the average number of days between contract signature and permission to operate. Now count how many of those days involve zero outbound contact with the homeowner, no update on the permit status, no heads-up before the install crew shows up, nothing between the interconnection filing and the utility's sign-off.</p>
+
+<p>Every one of those silent days is a day the homeowner is free to wonder if they made the right call, and a quiet customer is a customer who is not sending you their neighbor's number. You do not need a study to know that a homeowner who hears nothing for three weeks refers fewer people than one who gets a status update at every gate.</p>
+
+<h2>Following Up at Every Gate, Not Just the First One</h2>
+
+<p>The permit-to-interconnection stretch has real milestones: the permit gets filed, the panels go on the roof, the city inspection happens, the utility signs off on net metering. Each one is a natural, low-effort reason to reach out, but most offices only have the bandwidth to call when something goes wrong.</p>
+
+<p>A <a href="/homeservices/demo/voice-followup">voice follow-up built for milestone check-ins</a> can call the homeowner the day the permit is filed, the day the panels are installed, the day the inspection lands, and the day the utility approves net metering, walking through a short, friendly update each time. If a milestone slips, the same system flags the delay to your operations lead before the homeowner has to call in and ask what is going on.</p>
+
+<p>None of this replaces your sales team or your install crews. It closes the two windows where a real solar company loses ground to a slower competitor or a silent stretch of paperwork: the call that comes in while everyone is busy, and the weeks after signing when the homeowner has nothing to go on but faith.</p>
+
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to stop losing rooftop leads to voicemail?</strong>
+  <p style="margin: 8px 0;">See how AI-powered intake, sizing, and milestone follow-up work for solar installers and other home service businesses.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/ai-for-solar-installers">See AI for Solar Installers</a> · <a href="/homeservices/demo">Try Our Live Demos</a>
+</div>
+`,
+  },
+  {
     slug: 'ai-moving-companies-quote-response-review-timing',
     title: 'Moving Companies: The Fastest Quote Wins the Job',
     description: 'Moving companies lose walk-in estimates to whoever answers first. Here is how AI captures the call, quotes the job, and asks for the review at the right time.',
