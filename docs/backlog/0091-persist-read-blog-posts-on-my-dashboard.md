@@ -1,7 +1,7 @@
 ---
 id: 0091
 title: Persist the visitor's read blog posts and surface an "Articles you've read" card on /my dashboard
-status: in-progress
+status: shipped
 priority: P1
 area: demos
 created: 2026-09-22
