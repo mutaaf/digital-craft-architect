@@ -51,6 +51,12 @@ export const NEW_PERSISTENT_STORES: readonly PersistentStoreDisclosure[] = [
     purpose:
       'The history of your AI Readiness Quiz completions, capped at the eight most recent, so the "Your AI readiness trend" card on /my can plot your tier trajectory as a sparkline and dated list. Client-side only, never leaves your browser. Clearing localStorage resets it.',
   },
+  {
+    storageKey: 'dca_recent_blog_posts_v1',
+    shape: 'slug + title + tags + readAt (bounded to 5 entries)',
+    purpose:
+      'The list of /blog/<slug> long-form articles you have opened, capped at the five most recent, so the "Articles you have read" card on /my can reopen the exact article you were reading and suggest a same-topic follow-up. Client-side only, never leaves your browser. Clearing localStorage resets it.',
+  },
 ];
 
 // Shared disclosure for chat-style lead-qualification demos (LeadResponder).

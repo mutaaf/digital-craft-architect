@@ -24,6 +24,7 @@ import { encodeRoiParams } from '@/pages/roiCalculatorParams';
 import { PROJECT_TYPES, FINISH_LEVELS, EXTRAS, calculateEstimate } from '@/data/estimatePricing';
 import { SUMMARY_LINE_KEYS, type SummaryLineKey } from '@/pages/mydashboardSummaryKeys';
 import QuizHistoryCard from '@/components/QuizHistoryCard';
+import RecentBlogPostsCard from '@/components/RecentBlogPostsCard';
 import {
   buildEvaluationDossier,
   dossierDownloadFilename,
@@ -381,6 +382,15 @@ const MyDashboard: React.FC = () => {
 
       <section className="py-10 bg-white dark:bg-gray-950">
         <div className="container mx-auto px-4 max-w-3xl space-y-6">
+          {/* Ticket 0091 - Articles you've read. Rendered above the
+              existing top-of-dashboard retention cluster (recent-compares,
+              streak badge, saved estimate, saved ROI, recent demos)
+              because a returning content-qualified visitor's most likely
+              intent on /my is reopening the article they were reading.
+              The card owns its own hydration and returns null when the
+              read history is empty (no empty state, no nag). */}
+          {hydrated && <RecentBlogPostsCard />}
+
           {/* Ticket 0074 - Comparisons you're weighing. Rendered above the
               existing saved-estimate / saved-ROI / recent-demos cards per
               the ticket 0062 vertical-order precedent (top-of-dashboard
