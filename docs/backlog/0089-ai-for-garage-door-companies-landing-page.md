@@ -1,7 +1,7 @@
 ---
 id: 0089
 title: AI-for-garage-door-companies long-tail landing page funneling into home-services demos
-status: groomed
+status: in-progress
 priority: P1
 area: content
 created: 2026-09-22
@@ -584,3 +584,12 @@ to re-discover the architecture.
 ## Implementation log
 
 (Appended by the implementation-dev agent during execution.)
+
+### 2026-09-22 - Ship start (implementation-dev)
+
+- Branched `feat/0089-ai-for-garage-door-companies` off fresh `origin/main` at 4f0284a. Flipped ticket frontmatter AND `docs/backlog/README.md` index row for 0089 from `groomed` to `in-progress` in the same commit per the 2026-05-22 backlog-validator lesson.
+- Confirmed the predecessor pattern by reading `src/pages/AiForWindowInstallers.tsx` and `tests/e2e/ai-for-window-installers.spec.ts` (ticket 0087, freshest in the trade-page family). Copied file structure 1:1 with garage-door-specific copy in every string slot; every href in the DEMO_CARDS array is byte-identical to the predecessor (`/homeservices/demo/lead-responder`, `/homeservices/demo/estimate`, `/homeservices/demo/voice-followup`).
+- 2026-05-30 second-@type grep: `git grep -n "=== 'Service'\|=== 'BreadcrumbList'\|=== 'FAQPage'" tests/e2e/` returned only the per-trade-page specs (0017-0087) plus the ticket 0012 pricing-FAQ spec. Each predecessor spec calls its own `goto<Vertical>` helper first, so every exactly-one assertion is URL-scoped and cannot collide with the new sibling instance on `/ai-for-garage-door-companies`.
+- Route allow-list ordering: `src/data/routes.ts` and `src/App.tsx` do NOT actually sort ai-for-* routes alphabetically; they append chronologically (per 2026-09-12 code-beats-prose lesson: verified with a read of the file). Appended `/ai-for-garage-door-companies` at the end of the trade-page block (after `/ai-for-window-installers`, before `/locations/texas`) to match the existing convention.
+- Sitemap: per ticket 0022 and the generator's `extractStaticRoutes`, `public/sitemap.xml` regenerates from `src/App.tsx` on every `npm run build`. Confirmed the new URL landed at `https://digitalcraftai.com/ai-for-garage-door-companies` by grepping `public/sitemap.xml` post-build.
+- Em-dash self-review: `git diff main --unified=0 | grep -F "$(printf '—')"` returned no matches across the diff (page, spec, JSON-LD, ticket file).
