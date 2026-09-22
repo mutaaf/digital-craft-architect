@@ -1,7 +1,7 @@
 ---
 id: 0091
 title: Persist the visitor's read blog posts and surface an "Articles you've read" card on /my dashboard
-status: groomed
+status: in-progress
 priority: P1
 area: demos
 created: 2026-09-22
@@ -724,4 +724,26 @@ to re-discover the architecture.
 
 ## Implementation log
 
-(Appended by the implementation-dev agent during execution.)
+### 2026-09-22 - in-progress flip
+
+Branched `feat/0091-recent-blog-posts` off fresh `origin/main`. Flipped ticket
+frontmatter and `docs/backlog/README.md` index row to `in-progress` together
+in the same commit; `node scripts/check-backlog.mjs` stays green.
+
+### 2026-09-22 - blog-post count deviation from groomer prose
+
+The groomer prose cites "the 46 blog posts shipped as of 2026-09-22" but the
+real source at `src/data/blogPosts.ts` exports a `blogPosts` array of length
+43 (`grep -c "^  {" src/data/blogPosts.ts` reports 29 top-level entry braces
+because some entries are indented deeper; the authoritative signal is the
+runtime `blogPosts.length` observed via `tsx`). Per the 2026-09-12 code-beats-
+prose lesson the implementation pins to `blogPosts.length === 43` at
+`src/data/blogPosts.ts:53` and the "every post has been read" spec case
+seeds every real slug from the array rather than a fabricated count.
+
+### 2026-09-22 - no new JSON-LD blocks (audit trail)
+
+Per the 2026-05-30 second-@type lesson, this ticket adds zero new JSON-LD
+blocks. `/my` still emits BreadcrumbList + WebPage (ticket 0045);
+`BlogPost.tsx` still emits BlogPosting + BreadcrumbList. The pre-code grep
+for JSON-LD predicate collisions is a no-op.

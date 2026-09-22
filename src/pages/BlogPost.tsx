@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Navbar from '@/components/Navbar';
@@ -5,6 +6,7 @@ import Footer from '@/components/Footer';
 import { useContent } from '@/hooks/useContent';
 import { useAnalytics } from '@/utils/analytics';
 import { getBlogPost, blogPosts } from '@/data/blogPosts';
+import { recordBlogPostRead } from '@/utils/recentBlogPostsStore';
 import { ArrowLeft, Calendar, Clock, ArrowRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
@@ -14,6 +16,21 @@ const BlogPost = () => {
   useAnalytics('G-JQ53W917HT');
 
   const post = slug ? getBlogPost(slug) : undefined;
+
+  // Ticket 0091 - persist the read blog post to localStorage so the /my
+  // dashboard can render the "Articles you've read" card. The effect
+  // fires once per distinct slug view; `post` is a deterministic function
+  // of `slug` (blogPosts.find returns the same array-element reference
+  // across renders when slug is unchanged), so listing both in the
+  // dependency array keeps eslint react-hooks/exhaustive-deps happy
+  // without causing spurious re-fires on the same slug. The effect is a
+  // no-op when `post` is undefined; the render below returns
+  // <Navigate to="/blog" replace /> for that case.
+  useEffect(() => {
+    if (post) {
+      recordBlogPostRead(post.slug, post.title, post.tags);
+    }
+  }, [post?.slug, post]);
 
   if (!post) {
     return <Navigate to="/blog" replace />;
