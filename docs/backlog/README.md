@@ -97,6 +97,9 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0086 | Comparison page "Digital Craft vs kvCORE" for real-estate high-intent CRM switchers | P1 | shipped | seo |
 | 0087 | AI-for-window-installers long-tail landing page funneling into home-services demos | P1 | shipped | content |
 | 0088 | Public /model-card AI model provenance page listing every third-party model with dated intended-use and limitation rows as a defensible trust artifact | P2 | shipped | trust |
+| 0089 | AI-for-garage-door-companies long-tail landing page funneling into home-services demos | P1 | groomed | content |
+| 0090 | Public /agent-fleet AI-labor transparency page listing every autonomous agent with dated intended-use, guardrails, and cadence rows as a defensible moat artifact | P1 | groomed | trust |
+| 0091 | Persist the visitor's read blog posts and surface an "Articles you've read" card on /my dashboard | P1 | groomed | demos |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the
