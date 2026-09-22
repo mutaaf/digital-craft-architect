@@ -166,6 +166,30 @@ const HowWeShip: React.FC = () => {
         </div>
       </section>
 
+      {/* Ticket 0090 - additive sibling-link strip pointing at /agent-fleet.
+          Placed as its own section so `EVIDENCE_CHIPS` above stays at three
+          entries (its e2e Box 9 asserts toHaveCount(3)) and no existing chip
+          is reordered or edited. Dark: variants per the AGENTS.md Hard NO. */}
+      <section className="py-10 bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-800">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <div className="text-center mb-4">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+              Sibling trust surfaces
+            </h2>
+          </div>
+          <div className="flex flex-wrap gap-2 justify-center">
+            <Link
+              to="/agent-fleet"
+              data-testid="how-we-ship-agent-fleet-chip"
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-950 text-sm text-gray-700 dark:text-gray-300 hover:border-primary hover:text-primary dark:hover:border-primary dark:hover:text-primary transition-colors"
+              onClick={() => trackCTAClick('how_we_ship_agent_fleet_chip', 'how_we_ship')}
+            >
+              Agent fleet
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section className="py-16 bg-white dark:bg-gray-950">
         <div className="container mx-auto px-4 text-center max-w-2xl">
           <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900 dark:text-white">Confirm the rhythm on a discovery call</h2>

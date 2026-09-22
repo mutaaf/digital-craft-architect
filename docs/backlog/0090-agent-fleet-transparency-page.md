@@ -1,7 +1,7 @@
 ---
 id: 0090
 title: Public /agent-fleet AI-labor transparency page listing every autonomous agent with dated intended-use, guardrails, and cadence rows as a defensible moat artifact
-status: groomed
+status: in-progress
 priority: P1
 area: trust
 created: 2026-09-22
@@ -736,3 +736,33 @@ to re-discover the architecture.
 ## Implementation log
 
 (Appended by the implementation-dev agent during execution.)
+
+### 2026-09-22 - implementation-dev picked up ticket 0090
+
+Branched `feat/0090-agent-fleet-page` off `origin/main` (6ed3059 - `chore(0089): flip status to shipped`). First commit flips this ticket's frontmatter `status: groomed` -> `status: in-progress` together with the docs/backlog/README.md index row so `node scripts/check-backlog.mjs` stays green through the run.
+
+#### Agent inventory pin (2026-09-12 code-beats-prose lesson)
+
+The ticket's inline enumeration (User section) names six roles: "the gtm-innovation groomer, the implementation-dev ship agent, the review agent, the eng-dev agent, the blog-innovation agent, the validation and heal runners." Grep of the real inventory on branch head:
+
+- `ls .claude/agents/` -> `eng-dev.md gtm-innovation.md implementation-dev.md review.md validation.md` (five agent definition files).
+- `AGENTS.md:53-54` names `implementation-dev`, `gtm-innovation`, `review`, `eng-dev` under "Subagents". `validation` is a fifth subagent defined only in `.claude/agents/validation.md` and not enumerated in AGENTS.md line 53-54.
+- `AGENTS.md:48-50` names the branch prefixes: `feat/` (features, ship), `chore/gtm-` (backlog refresh, groom), `eng/` (engineering). The `chore/<id>-ship-status` and `chore/<id>` flip commits are opened by the same `implementation-dev` shipper as a second PR per the 2026-05-22 two-PR lesson.
+- `git log --format='%s' -n 30 origin/main` shows `feat(N)`, `chore(N): flip status to shipped`, `GTM: backlog update YYYY-MM-DD`, and `gtm(BLOG-POST): Add <slug>` prefixes on branch head. The `gtm(BLOG-POST)` prefix is emitted by the same `gtm-innovation` agent when it grooms content (blog authorship is one of its two jobs per `.claude/agents/gtm-innovation.md`).
+- There is NO `.claude/agents/blog-innovation.md` file, and NO `heal` agent file. The "heal" mode is a run-mode of the existing shipper/groomer/eng runners bounded by AGENTS.md's "Never exceed 2 heal: attempts on one PR" Hard NO, not a distinct agent. The "blog-innovation" role in the ticket's inline enumeration is a subset of the `gtm-innovation` agent's remit today.
+
+Per the 2026-09-12 code-beats-prose rule, `AGENT_FLEET_ROWS` pins to the five agents actually defined in `.claude/agents/` on branch head: `gtm-innovation`, `implementation-dev`, `review`, `eng-dev`, `validation`. Five rows satisfies the ticket's "5 to 8 rows" acceptance bound. The deviation from the ticket's inline six-role enumeration is documented here.
+
+#### JSON-LD predecessor grep (2026-05-30 second-@type lesson)
+
+Grepped every `tests/e2e/*.spec.ts` for `=== 'CollectionPage'` and `=== 'BreadcrumbList'` predicates, and any `toHaveLength(1)` / "exactly one" / `toHaveCount(1)` assertions over those `@type`s. Findings:
+
+- `CollectionPage` type-guards live in: `compare-hub.spec.ts:106`, `case-studies-hub.spec.ts:111`, `case-studies-rss-feed.spec.ts:288`, `subprocessors.spec.ts:112`, `security-posture-page.spec.ts:77`, `ai-for-hospitality.spec.ts:146`, `compare-kvcore.spec.ts:118`, `blog-collectionpage-jsonld.spec.ts:190`, `model-card-page.spec.ts:85`. Every predecessor navigates first to its own URL (`/compare`, `/case-studies`, `/subprocessors`, `/security`, `/ai-for-hospitality`, `/compare/kvcore`, `/blog`, `/model-card`) via a dedicated goto helper, so the "exactly one CollectionPage" assertion each spec makes is scoped to that URL's rendered head. A sibling `/agent-fleet`-scoped CollectionPage cannot collide with any of them.
+- `BreadcrumbList` type-guards are used throughout the trust family (`ethics-page.spec.ts`, `subprocessors.spec.ts`, `security-posture-page.spec.ts`, `model-card-page.spec.ts`, `how-we-ship.spec.ts`, `playbook.spec.ts`, `trust-aboutpage-jsonld.spec.ts`, `changelog-itemlist-jsonld.spec.ts`, `glossary-breadcrumb-jsonld.spec.ts`, `quiz-jsonld.spec.ts`, `texas-localbusiness-jsonld.spec.ts`, etc.). Every predecessor "exactly one BreadcrumbList" assertion is URL-scoped by its own goto helper. A sibling `/agent-fleet`-scoped BreadcrumbList cannot collide.
+
+Grep result documented per the 2026-05-30 rule.
+
+#### Additive-edit budget for the two cross-link chips
+
+- `src/pages/HowWeShip.tsx` Box 9 asserts `page.locator('[data-testid="ship-loop-evidence-chip"]').toHaveCount(3)`. Appending a fourth chip to `EVIDENCE_CHIPS` would red-flag that box. Per the ticket's "existing 'See it for yourself' strip or the closing sibling-link row" clause, the additive edit adds a NEW closing sibling-link section (single chip pointing at `/agent-fleet`, own `data-testid`), leaving `EVIDENCE_CHIPS` at three unchanged entries.
+- `src/pages/ModelCard.tsx` has no sibling-chip count assertion (`tests/e2e/model-card-page.spec.ts` iterates only individual `data-testid="model-card-sibling-*"` locators). Appending "Agent fleet" as an 8th entry to `SIBLING_CHIPS` is safe and does not reorder or edit any existing chip.
