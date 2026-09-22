@@ -7,6 +7,14 @@
     <language>en-us</language>
     <atom:link href="https://digitalcraftai.com/changelog/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Public /model-card AI model provenance page listing every third-party model with dated intended-use and limitation rows as a defensible trust artifact</title>
+      <link>https://digitalcraftai.com/changelog#0088</link>
+      <description>Shipped 2026-09-20 in area: trust.</description>
+      <pubDate>Sun, 20 Sep 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0088</guid>
+      <category>trust</category>
+    </item>
+    <item>
       <title>AI-for-window-installers long-tail landing page funneling into home-services demos</title>
       <link>https://digitalcraftai.com/changelog#0087</link>
       <description>Shipped 2026-09-20 in area: content.</description>

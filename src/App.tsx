@@ -111,6 +111,7 @@ const AiForRestorationServices = lazy(() => import("./pages/AiForRestorationServ
 const AiForMovingCompanies = lazy(() => import("./pages/AiForMovingCompanies"));
 const AiForSolarInstallers = lazy(() => import("./pages/AiForSolarInstallers"));
 const AiForWindowInstallers = lazy(() => import("./pages/AiForWindowInstallers"));
+const AiForGarageDoorCompanies = lazy(() => import("./pages/AiForGarageDoorCompanies"));
 const Texas = lazy(() => import("./pages/locations/Texas"));
 const CaseStudiesHub = lazy(() => import("./pages/case-studies/CaseStudiesHub"));
 const CaseStudy = lazy(() => import("./pages/case-studies/CaseStudy"));
@@ -378,6 +379,7 @@ const App = () => {
               <Route path="/ai-for-moving-companies" element={<AiForMovingCompanies />} />
               <Route path="/ai-for-solar-installers" element={<AiForSolarInstallers />} />
               <Route path="/ai-for-window-installers" element={<AiForWindowInstallers />} />
+              <Route path="/ai-for-garage-door-companies" element={<AiForGarageDoorCompanies />} />
               <Route path="/locations/texas" element={<Texas />} />
               <Route path="/case-studies" element={<CaseStudiesHub />} />
               <Route path="/case-studies/:slug" element={<CaseStudy />} />

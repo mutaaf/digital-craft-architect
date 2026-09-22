@@ -7,6 +7,16 @@
   "language": "en-US",
   "items": [
     {
+      "id": "0088",
+      "url": "https://digitalcraftai.com/changelog#0088",
+      "title": "Public /model-card AI model provenance page listing every third-party model with dated intended-use and limitation rows as a defensible trust artifact",
+      "content_text": "Public /model-card AI model provenance page listing every third-party model with dated intended-use and limitation rows as a defensible trust artifact",
+      "date_published": "2026-09-20T12:00:00.000Z",
+      "tags": [
+        "trust"
+      ]
+    },
+    {
       "id": "0087",
       "url": "https://digitalcraftai.com/changelog#0087",
       "title": "AI-for-window-installers long-tail landing page funneling into home-services demos",
