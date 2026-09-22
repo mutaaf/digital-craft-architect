@@ -1,7 +1,7 @@
 ---
 id: 0089
 title: AI-for-garage-door-companies long-tail landing page funneling into home-services demos
-status: in-progress
+status: shipped
 priority: P1
 area: content
 created: 2026-09-22
