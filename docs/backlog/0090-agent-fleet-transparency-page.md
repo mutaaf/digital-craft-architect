@@ -1,7 +1,7 @@
 ---
 id: 0090
 title: Public /agent-fleet AI-labor transparency page listing every autonomous agent with dated intended-use, guardrails, and cadence rows as a defensible moat artifact
-status: in-progress
+status: shipped
 priority: P1
 area: trust
 created: 2026-09-22
