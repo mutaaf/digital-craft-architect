@@ -52,6 +52,52 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'ai-garage-door-companies-emergency-calls-followup',
+    title: "Garage Door Companies: Don't Let the 9PM Call Go to Voicemail",
+    description: 'Broken springs do not wait for business hours. Here is how AI captures the emergency call, triages the repair, and follows up before the technician arrives.',
+    date: '2026-09-23',
+    author: 'DigitalCraft AI',
+    readTime: '5 min read',
+    tags: ['Home Services', 'Garage Doors', 'Lead Response', 'AI Automation'],
+    content: `
+<p>A snapped torsion spring does not check the clock before it lets go. It happens at 9pm on a Tuesday, the car is trapped inside or outside the garage, and the homeowner is standing in the driveway with a phone in her hand and three garage door companies pulled up in a browser tab. She is calling all three. She is booking whichever one answers.</p>
+
+<p>If your trucks are both mid-job and nobody is covering the office phone, that call rolls to voicemail, and you never even know you lost it. The homeowner does not leave a message and wait until morning. She calls the next name on the list.</p>
+
+<h2>The After-Hours Call Nobody Is Standing By For</h2>
+
+<p>Garage door emergencies cluster outside business hours because that is when people actually use their garages, load the car for a trip, or notice the door will not budge. Your office is closed, your techs are wrapping up the last job of the day, and the call still comes in.</p>
+
+<p>A <a href="/homeservices/demo/lead-responder">lead responder built for home services intake</a> picks up every time, day or night, and asks the same questions a good dispatcher would: single or double door, the opener brand, whether the spring is torsion or extension, and what actually happened, snapped spring, dead opener, cable off the drum, or panel damage from a car. It books the earliest emergency slot on your calendar instead of leaving the homeowner to keep dialing.</p>
+
+<h2>Spec Questions a Tired Dispatcher Cannot Answer From Memory</h2>
+
+<p>Garage door triage is more specific than most home service calls. A homeowner with a 16 by 7 double door, a LiftMaster opener that still runs but strains, and a question about whether the whole door needs replacing after a car backed into it needs someone who can weigh door size, opener brand, and spring type against what is actually on the truck.</p>
+
+<p>An <a href="/homeservices/demo/estimate">estimate tool built around the same intake questions</a> walks the caller through door size, spring type, opener brand, and panel condition, then returns a defensible ballpark for the repair or the full replacement that your technician confirms on arrival. That is not a final quote. It is enough of a real number that the homeowner stops calling around and waits for your truck.</p>
+
+<h2>Run the Math on Your Own Slipped Appointments</h2>
+
+<p>Pull your dispatch log for the last month and count how many next-day appointments had zero contact between the booking call and the technician showing up. No confirmation the night before, no heads-up when the truck is running, nothing.</p>
+
+<p>Now count how many of those homeowners called your office asking where the technician was. Every one of those calls is time your front desk spends explaining a delay instead of booking the next emergency. That is the cost of silence between booking and arrival, and you do not need a study to see it in your own call log.</p>
+
+<h2>Closing the Gap Between Booking and the Truck Showing Up</h2>
+
+<p>A confirmed repair has two natural check-in points: the evening before, to confirm the appointment window, and the morning of, when the technician is actually heading out. Most offices skip both because whoever would make those calls is already on the phone with the next emergency.</p>
+
+<p>A <a href="/homeservices/demo/voice-followup">voice follow-up built for appointment and technician-on-the-way calls</a> handles both automatically, then calls once more after the repair to ask for a review while your technician's name is still fresh in the homeowner's mind. If a technician is running behind, the same system flags the delay to your dispatcher before the homeowner has to call in and ask.</p>
+
+<p>None of this replaces your technicians or the judgment they bring to a torsion spring under load. It closes the two gaps where a real garage door company loses ground: the call that hits voicemail because both trucks are out, and the silence between a booked appointment and the truck actually pulling up.</p>
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to stop losing after-hours emergencies to voicemail?</strong>
+  <p style="margin: 8px 0;">See how AI-powered call capture, quoting, and appointment follow-up work for garage door companies and other home service businesses.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/ai-for-garage-door-companies">See AI for Garage Door Companies</a> · <a href="/homeservices/demo">Try Our Live Demos</a>
+</div>
+`,
+  },
+  {
     slug: 'ai-solar-installers-permit-interconnection-followup',
     title: "Solar Installers: Don't Lose the Sale After You Win It",
     description: 'The rooftop assessment call and the permit-to-interconnection wait are where solar installers lose homeowners. Here is how AI covers both gaps.',
