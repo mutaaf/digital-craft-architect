@@ -1,7 +1,7 @@
 ---
 id: 0092
 title: AI-for-tree-services long-tail landing page funneling into home-services demos
-status: groomed
+status: in-progress
 priority: P1
 area: content
 created: 2026-09-24
@@ -610,7 +610,7 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0092-ai-for-tree-services` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/ai-for-tree-services.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-09-24 - branch `feat/0092-ai-for-tree-services-landing-page` opened; flipped ticket + README row to in-progress in the same first commit.
+- 2026-09-24 - grep of every `tests/e2e/*-jsonld.spec.ts` and every `tests/e2e/ai-for-*.spec.ts` confirmed every `=== 'Service'` / `=== 'BreadcrumbList'` / `=== 'FAQPage'` predicate is URL-scoped via its own local goto helper. A sibling `/ai-for-tree-services`-scoped instance of each block cannot collide with any predecessor's exactly-one assertion.
+- 2026-09-24 - Route placement in `src/App.tsx` and `src/data/routes.ts`: the file's actual convention on branch head is shipping order (garage-door-companies at the end of the ai-for-* run after solar and window), NOT strict alphabetical. Per the 2026-09-12 code-beats-prose lesson I mirrored the real convention and appended `/ai-for-tree-services` after `/ai-for-garage-door-companies` instead of inserting between solar and window as the ticket prose suggested.
+- 2026-09-24 - failing test added in `tests/e2e/ai-for-tree-services.spec.ts` (modeled 1:1 on ticket 0089's `tests/e2e/ai-for-garage-door-companies.spec.ts`).

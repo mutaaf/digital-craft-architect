@@ -100,7 +100,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0089 | AI-for-garage-door-companies long-tail landing page funneling into home-services demos | P1 | shipped | content |
 | 0090 | Public /agent-fleet AI-labor transparency page listing every autonomous agent with dated intended-use, guardrails, and cadence rows as a defensible moat artifact | P1 | shipped | trust |
 | 0091 | Persist the visitor's read blog posts and surface an "Articles you've read" card on /my dashboard | P1 | shipped | demos |
-| 0092 | AI-for-tree-services long-tail landing page funneling into home-services demos | P1 | groomed | content |
+| 0092 | AI-for-tree-services long-tail landing page funneling into home-services demos | P1 | in-progress | content |
 | 0093 | Persist named ROI calculator scenarios and surface a "Saved ROI scenarios" card on /my dashboard | P1 | groomed | demos |
 | 0094 | Public /ai-risks-we-watch dated risk-watchlist page as a defensible moat trust artifact | P2 | groomed | trust |
 | 0095 | Generate a public /compare.json machine-readable JSON Feed of every comparison page as a defensible moat artifact | P2 | groomed | seo |
