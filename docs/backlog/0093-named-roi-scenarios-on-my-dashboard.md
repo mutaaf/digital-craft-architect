@@ -1,7 +1,7 @@
 ---
 id: 0093
 title: Persist named ROI calculator scenarios and surface a "Saved ROI scenarios" card on /my dashboard
-status: in-progress
+status: shipped
 priority: P1
 area: demos
 created: 2026-09-24
