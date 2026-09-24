@@ -1,7 +1,7 @@
 ---
 id: 0092
 title: AI-for-tree-services long-tail landing page funneling into home-services demos
-status: groomed
+status: in-progress
 priority: P1
 area: content
 created: 2026-09-24
@@ -610,7 +610,10 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0092-ai-for-tree-services` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/ai-for-tree-services.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-09-24 - branch `feat/0092-ai-for-tree-services-landing-page` opened; flipped ticket + README row to in-progress in the same first commit.
+- 2026-09-24 - grep of every `tests/e2e/*-jsonld.spec.ts` and every `tests/e2e/ai-for-*.spec.ts` confirmed every `=== 'Service'` / `=== 'BreadcrumbList'` / `=== 'FAQPage'` predicate is URL-scoped via its own local goto helper. A sibling `/ai-for-tree-services`-scoped instance of each block cannot collide with any predecessor's exactly-one assertion.
+- 2026-09-24 - Route placement in `src/App.tsx` and `src/data/routes.ts`: the file's actual convention on branch head is shipping order (garage-door-companies at the end of the ai-for-* run after solar and window), NOT strict alphabetical. Per the 2026-09-12 code-beats-prose lesson I mirrored the real convention and appended `/ai-for-tree-services` after `/ai-for-garage-door-companies` instead of inserting between solar and window as the ticket prose suggested.
+- 2026-09-24 - failing test added in `tests/e2e/ai-for-tree-services.spec.ts` (modeled 1:1 on ticket 0089's `tests/e2e/ai-for-garage-door-companies.spec.ts`).
+- 2026-09-24 - `src/pages/AiForTreeServices.tsx` implemented as a flat copy-replace of ticket 0089's `AiForGarageDoorCompanies.tsx`, dark: variants preserved throughout, TreePine lucide icon substituted for DoorOpen, tree-service copy (species, canopy, drop-zone, bucket-truck, chipper backup path, storm-damage) substituted in every string slot.
+- 2026-09-24 - Sitemap auto-inclusion confirmed: after `npm run build`, `grep 'ai-for-tree-services' dist/sitemap.xml` returns `<loc>https://digitalcraftai.com/ai-for-tree-services</loc>` per the generator's routes.ts enumeration - no manual XML edit required.
+- 2026-09-24 - Full local gate green: lint (0 errors), typecheck, check-links, check-images, check-meta, check-blog-dates, check-backlog, build all pass.

@@ -7,6 +7,26 @@
   "language": "en-US",
   "items": [
     {
+      "id": "0091",
+      "url": "https://digitalcraftai.com/changelog#0091",
+      "title": "Persist the visitor's read blog posts and surface an \"Articles you've read\" card on /my dashboard",
+      "content_text": "Persist the visitor's read blog posts and surface an \"Articles you've read\" card on /my dashboard",
+      "date_published": "2026-09-22T12:00:00.000Z",
+      "tags": [
+        "demos"
+      ]
+    },
+    {
+      "id": "0090",
+      "url": "https://digitalcraftai.com/changelog#0090",
+      "title": "Public /agent-fleet AI-labor transparency page listing every autonomous agent with dated intended-use, guardrails, and cadence rows as a defensible moat artifact",
+      "content_text": "Public /agent-fleet AI-labor transparency page listing every autonomous agent with dated intended-use, guardrails, and cadence rows as a defensible moat artifact",
+      "date_published": "2026-09-22T12:00:00.000Z",
+      "tags": [
+        "trust"
+      ]
+    },
+    {
       "id": "0089",
       "url": "https://digitalcraftai.com/changelog#0089",
       "title": "AI-for-garage-door-companies long-tail landing page funneling into home-services demos",
