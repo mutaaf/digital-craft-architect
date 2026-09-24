@@ -25,6 +25,7 @@ import { PROJECT_TYPES, FINISH_LEVELS, EXTRAS, calculateEstimate } from '@/data/
 import { SUMMARY_LINE_KEYS, type SummaryLineKey } from '@/pages/mydashboardSummaryKeys';
 import QuizHistoryCard from '@/components/QuizHistoryCard';
 import RecentBlogPostsCard from '@/components/RecentBlogPostsCard';
+import SavedRoiScenariosCard from '@/components/SavedRoiScenariosCard';
 import {
   buildEvaluationDossier,
   dossierDownloadFilename,
@@ -545,6 +546,12 @@ const MyDashboard: React.FC = () => {
               </div>
             </article>
           )}
+
+          {/* Ticket 0093 - "Saved ROI scenarios" card. Rendered directly
+              under the ticket 0062 last-ROI card in the top-of-dashboard
+              retention cluster. Card owns its own hydration and returns
+              null when the store is empty (no empty state, no nag). */}
+          {hydrated && <SavedRoiScenariosCard />}
 
           {hydrated && persona && (
             <article data-testid="dashboard-quiz-persona-card" className={CARD}>

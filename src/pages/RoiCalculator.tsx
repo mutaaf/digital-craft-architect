@@ -6,7 +6,7 @@ import Footer from '@/components/Footer';
 import ScrollProgress from '@/components/ScrollProgress';
 import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
-import { ArrowRight, Calculator, Copy, Check, DollarSign, Clock } from 'lucide-react';
+import { ArrowRight, Calculator, Copy, Check, DollarSign, Clock, BookmarkPlus } from 'lucide-react';
 import {
   DEFAULT_INPUTS,
   type RoiInputs,
@@ -15,6 +15,7 @@ import {
   encodeRoiParams,
 } from './roiCalculatorParams';
 import { saveLastRoiResult } from '@/utils/roiResultStore';
+import { saveRoiScenario, ROI_SCENARIOS_CONSTANTS } from '@/utils/roiScenariosStore';
 
 // Ticket 0046 - Shareable AI ROI calculator. Shell mirrors AIReadinessQuiz.
 // Module-level constants follow the 2026-05-25 mirror-source rule so the
@@ -67,6 +68,13 @@ const RoiCalculator: React.FC = () => {
   const initial = useMemo(() => decodeRoiParams(searchParams), [searchParams]);
   const [inputs, setInputs] = useState<RoiInputs>(initial);
   const [copied, setCopied] = useState(false);
+  // Ticket 0093 - "Save this scenario" inline input state. `saveOpen` toggles
+  // the name input next to the share-link row; `saveHint` renders a small
+  // feedback line (dedup match, invalid name, or "Replaced oldest scenario"
+  // per the FIFO evict contract) that auto-clears after 3 seconds.
+  const [saveOpen, setSaveOpen] = useState(false);
+  const [scenarioName, setScenarioName] = useState('');
+  const [saveHint, setSaveHint] = useState<string | null>(null);
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
@@ -107,6 +115,33 @@ const RoiCalculator: React.FC = () => {
       catch { /* silent */ }
       finally { document.body.removeChild(ta); }
     }
+  };
+
+  // Ticket 0093 - Save the current scenario under a visitor-supplied name.
+  // Delegates validation (both the input round-trip AND the name-length /
+  // dedup / FIFO-evict contract) to src/utils/roiScenariosStore.ts so the
+  // page never duplicates the store's own guards.
+  const handleSaveScenario = () => {
+    trackCTAClick('roi_save_scenario', 'roi_calculator');
+    const result = saveRoiScenario(scenarioName, inputs);
+    if (result.status === 'invalid-name') {
+      setSaveHint('Add a scenario name between 1 and 40 characters.');
+    } else if (result.status === 'invalid-inputs') {
+      setSaveHint('Adjust the inputs to fall within the calculator range.');
+    } else if (result.evicted) {
+      setSaveHint(`Replaced oldest scenario ("${result.evicted.name}").`);
+      setSaveOpen(false);
+      setScenarioName('');
+    } else if (result.wasDedup) {
+      setSaveHint('This name is already saved. Updated in place.');
+      setSaveOpen(false);
+      setScenarioName('');
+    } else {
+      setSaveHint(`Saved "${result.scenario?.name ?? scenarioName.trim()}".`);
+      setSaveOpen(false);
+      setScenarioName('');
+    }
+    window.setTimeout(() => setSaveHint(null), 3000);
   };
 
   // Fire roi_share_open exactly once on mount when the visitor arrived via
@@ -240,6 +275,18 @@ const RoiCalculator: React.FC = () => {
                 {copied ? <Check size={16} /> : <Copy size={16} />}
                 {copied ? 'Copied' : 'Copy share link'}
               </button>
+              {/* Ticket 0093 - "Save this scenario" inline button next to
+                  the existing "Share this result" button. Fires an inline
+                  name input row below on click; no new modal library. */}
+              <button
+                type="button"
+                onClick={() => { setSaveOpen((v) => !v); setSaveHint(null); }}
+                data-testid="roi-save-scenario-button"
+                className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-primary/40 bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 transition hover:border-primary dark:bg-gray-900 dark:text-white"
+              >
+                <BookmarkPlus size={16} />
+                Save this scenario
+              </button>
               {copied && (
                 <span data-testid="roi-copy-confirmation" role="status" className="text-sm text-emerald-700 dark:text-emerald-300">
                   Share link copied to your clipboard
@@ -251,6 +298,42 @@ const RoiCalculator: React.FC = () => {
                 className="flex-1 min-w-0 rounded-lg border border-gray-300 bg-white px-3 py-2 text-xs text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
               />
             </div>
+
+            {/* Ticket 0093 - Inline name input for the "Save this scenario"
+                flow. Rendered only when the visitor opens the input; keeps
+                the base action row unchanged for non-savers. */}
+            {saveOpen && (
+              <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-center">
+                <input
+                  type="text"
+                  value={scenarioName}
+                  maxLength={ROI_SCENARIOS_CONSTANTS.MAX_NAME_LENGTH}
+                  onChange={(e) => setScenarioName(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === 'Enter') handleSaveScenario(); }}
+                  placeholder="Name this scenario"
+                  aria-label="Scenario name"
+                  data-testid="roi-save-scenario-input"
+                  className="flex-1 min-w-0 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                />
+                <button
+                  type="button"
+                  onClick={handleSaveScenario}
+                  data-testid="roi-save-scenario-submit"
+                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:brightness-105"
+                >
+                  Save
+                </button>
+              </div>
+            )}
+            {saveHint && (
+              <p
+                data-testid={saveHint.startsWith('Replaced oldest') ? 'roi-save-scenario-evict-hint' : 'roi-save-scenario-hint'}
+                role="status"
+                className="mt-2 text-xs text-gray-600 dark:text-gray-300"
+              >
+                {saveHint}
+              </p>
+            )}
 
             <p className="mt-4 text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
               Defaults reflect publicly-cited SMB medians: 50 weekly inbound leads (HubSpot State
