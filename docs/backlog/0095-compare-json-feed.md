@@ -1,7 +1,7 @@
 ---
 id: 0095
 title: Generate a public /compare.json machine-readable JSON Feed of every comparison page as a defensible moat artifact
-status: in-progress
+status: shipped
 priority: P2
 area: seo
 created: 2026-09-24
