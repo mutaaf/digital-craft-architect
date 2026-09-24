@@ -1,7 +1,7 @@
 ---
 id: 0094
 title: Public /ai-risks-we-watch dated risk-watchlist page as a defensible moat trust artifact
-status: groomed
+status: in-progress
 priority: P2
 area: trust
 created: 2026-09-24
@@ -791,7 +791,9 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0094-ai-risks-we-watch` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/ai-risks-we-watch.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-09-24 - branch `feat/0094-ai-risks-we-watch` opened off fresh origin/main; ticket + README flipped to in-progress in the same commit (check-backlog green).
+- 2026-09-24 - predecessor JSON-LD grep per AC #6: `rg "=== 'CollectionPage'|=== 'BreadcrumbList'|=== 'ItemList'|toHaveLength\(1\)" tests/e2e/*jsonld*.spec.ts` returned hits in `blog-collectionpage-jsonld.spec.ts`, `case-study-article-jsonld.spec.ts`, `changelog-itemlist-jsonld.spec.ts`, `demos-softwareapplication-jsonld.spec.ts`, `glossary-breadcrumb-jsonld.spec.ts`, `homepage-organization-jsonld.spec.ts`, `homepage-pricing-product-jsonld.spec.ts`, `texas-localbusiness-jsonld.spec.ts`, `trust-aboutpage-jsonld.spec.ts`, and `website-sitelinks-jsonld.spec.ts`. Every "exactly one Foo" / `toHaveLength(1)` predicate is URL-scoped: each spec navigates to its own hub (`/blog`, `/case-studies`, `/changelog`, `/demos`, `/glossary`, `/`, `/locations/texas`, `/trust`) and asserts blocks emitted on THAT route. The sibling /ai-risks-we-watch CollectionPage + BreadcrumbList blocks are only mounted when Helmet swaps on this new route, so they cannot land in any predecessor spec's block list. No predecessor assertion needs widening.
+- 2026-09-24 - failing test added in `tests/e2e/ai-risks-we-watch.spec.ts` (mirrors `tests/e2e/security-posture-page.spec.ts`).
+- 2026-09-24 - sitemap auto-inclusion confirmed by grepping `dist/sitemap.xml` post-build for `/ai-risks-we-watch`; hit found on the same shape as the /ethics row (priority 0.8, weekly, appLastmod-driven date). Sitemap is generated from App.tsx route table, so no manual public/sitemap.xml edit needed.
+- 2026-09-24 - PR #N opened, CI [state]
+- 2026-09-24 - merged to main
