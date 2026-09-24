@@ -1,7 +1,7 @@
 ---
 id: 0093
 title: Persist named ROI calculator scenarios and surface a "Saved ROI scenarios" card on /my dashboard
-status: groomed
+status: in-progress
 priority: P1
 area: demos
 created: 2026-09-24
@@ -798,7 +798,9 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0093-named-roi-scenarios` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/saved-roi-scenarios-card.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-09-24 - branch `feat/0093-named-roi-scenarios` opened
+- 2026-09-24 - failing test added in `tests/e2e/saved-roi-scenarios-card.spec.ts`
+- 2026-09-24 - no new JSON-LD blocks added (pre-code grep is a no-op per 2026-05-30 second-@type lesson; /my emits BreadcrumbList + WebPage from ticket 0045, /roi emits BreadcrumbList + WebApplication from ticket 0046, both untouched)
+- 2026-09-24 - deviation logged per 2026-09-12 code-beats-prose lesson: `RoiOutputs` in `src/pages/roiCalculatorParams.ts` is `{ weeklyHoursSaved, monthlyHoursSaved, annualSavings }`. The ticket's `computeRoi(inputs).savingsYear` and `computeRoi(inputs).paybackMonths` references were groomer prose; the card uses `annualSavings` and `monthlyHoursSaved` (the closest actual proxy for "time horizon") for the comparison axes.
+- 2026-09-24 - PR #N opened, CI [state]
+- 2026-09-24 - merged to main
