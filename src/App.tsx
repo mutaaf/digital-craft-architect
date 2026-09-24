@@ -70,6 +70,7 @@ const Subprocessors = lazy(() => import("./pages/Subprocessors"));
 const Security = lazy(() => import("./pages/Security"));
 const ModelCard = lazy(() => import("./pages/ModelCard"));
 const Ethics = lazy(() => import("./pages/Ethics"));
+const AiRisksWeWatch = lazy(() => import("./pages/AiRisksWeWatch"));
 const Playbook = lazy(() => import("./pages/Playbook"));
 const HowWeShip = lazy(() => import("./pages/HowWeShip"));
 const AgentFleet = lazy(() => import("./pages/AgentFleet"));
@@ -340,6 +341,7 @@ const App = () => {
               <Route path="/security" element={<Security />} />
               <Route path="/model-card" element={<ModelCard />} />
               <Route path="/ethics" element={<Ethics />} />
+              <Route path="/ai-risks-we-watch" element={<AiRisksWeWatch />} />
               <Route path="/playbook" element={<Playbook />} />
               <Route path="/how-we-ship" element={<HowWeShip />} />
               <Route path="/agent-fleet" element={<AgentFleet />} />
