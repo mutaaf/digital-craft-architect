@@ -7,6 +7,16 @@
   "language": "en-US",
   "items": [
     {
+      "id": "0094",
+      "url": "https://digitalcraftai.com/changelog#0094",
+      "title": "Public /ai-risks-we-watch dated risk-watchlist page as a defensible moat trust artifact",
+      "content_text": "Public /ai-risks-we-watch dated risk-watchlist page as a defensible moat trust artifact",
+      "date_published": "2026-09-24T12:00:00.000Z",
+      "tags": [
+        "trust"
+      ]
+    },
+    {
       "id": "0093",
       "url": "https://digitalcraftai.com/changelog#0093",
       "title": "Persist named ROI calculator scenarios and surface a \"Saved ROI scenarios\" card on /my dashboard",

@@ -375,6 +375,16 @@ async function run() {
   // written, then feed read, then sitemap emitted).
   await generateChangelog();
 
+  // Ticket 0095 - Regenerate public/compare.json from the shipped
+  // src/data/compareEntries.ts constant. Independent of changelog data,
+  // so it runs alongside the changelog chain rather than inside it.
+  // Dynamic import keeps the new script's default-export surface stable
+  // and mirrors the ticket 0055/0070/0078 pattern of one-import-per-hook.
+  const { default: generateCompareJson } = await import(
+    "./generate-compare-json"
+  );
+  await generateCompareJson();
+
   const appContent = readFile(APP_TSX);
   const routes = extractStaticRoutes(appContent);
   const blogSlugs = extractBlogSlugs();

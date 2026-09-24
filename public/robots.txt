@@ -2,3 +2,8 @@ User-agent: *
 Allow: /
 
 Sitemap: https://digitalcraftai.com/sitemap.xml
+
+# Ticket 0095 - Comparison JSON Feed 1.1 at /compare.json (mirrors
+# COMPARE_ENTRIES in src/data/compareEntries.ts; subscribable by any
+# JSON Feed reader or competitive-intelligence platform).
+# Comparison JSON Feed: /compare.json

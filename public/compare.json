@@ -1,0 +1,129 @@
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": "Digital Craft AI comparison feed",
+  "home_page_url": "https://digitalcraftai.com/compare",
+  "feed_url": "https://digitalcraftai.com/compare.json",
+  "description": "Every Digital Craft AI comparison page in one machine-readable feed. Subscribe to get diffs when a new head-to-head ships, without scraping HTML.",
+  "items": [
+    {
+      "id": "https://digitalcraftai.com/compare/hubspot",
+      "url": "https://digitalcraftai.com/compare/hubspot",
+      "title": "Digital Craft vs HubSpot",
+      "content_text": "HubSpot is the all-in-one marketing platform. Digital Craft is the specialized AI automation layer for service businesses.",
+      "date_published": "2026-06-11T12:00:00Z",
+      "date_modified": "2026-06-11T12:00:00Z"
+    },
+    {
+      "id": "https://digitalcraftai.com/compare/gohighlevel",
+      "url": "https://digitalcraftai.com/compare/gohighlevel",
+      "title": "Digital Craft vs GoHighLevel",
+      "content_text": "GoHighLevel is the all-in-one agency CRM. Digital Craft is the pre-built AI agent stack for service-industry owners.",
+      "date_published": "2026-06-11T12:00:00Z",
+      "date_modified": "2026-06-11T12:00:00Z"
+    },
+    {
+      "id": "https://digitalcraftai.com/compare/zapier",
+      "url": "https://digitalcraftai.com/compare/zapier",
+      "title": "Digital Craft vs Zapier",
+      "content_text": "Zapier wires systems together for technical users. Digital Craft ships pre-built AI agents that work on day one.",
+      "date_published": "2026-06-11T12:00:00Z",
+      "date_modified": "2026-06-11T12:00:00Z"
+    },
+    {
+      "id": "https://digitalcraftai.com/compare/make",
+      "url": "https://digitalcraftai.com/compare/make",
+      "title": "Digital Craft vs Make",
+      "content_text": "Make is a visual automation builder. Digital Craft is the pre-built AI agent layer that handles the work workflows cannot.",
+      "date_published": "2026-06-11T12:00:00Z",
+      "date_modified": "2026-06-11T12:00:00Z"
+    },
+    {
+      "id": "https://digitalcraftai.com/compare/intercom",
+      "url": "https://digitalcraftai.com/compare/intercom",
+      "title": "Digital Craft vs Intercom",
+      "content_text": "Intercom is built for SaaS support teams. Digital Craft is built for service businesses where most leads still come in by phone.",
+      "date_published": "2026-06-11T12:00:00Z",
+      "date_modified": "2026-06-11T12:00:00Z"
+    },
+    {
+      "id": "https://digitalcraftai.com/compare/jobber",
+      "url": "https://digitalcraftai.com/compare/jobber",
+      "title": "Digital Craft vs Jobber",
+      "content_text": "Jobber is the SMB field-service CRM. Digital Craft is the AI agent layer that captures and qualifies the leads Jobber was never built to handle.",
+      "date_published": "2026-06-11T12:00:00Z",
+      "date_modified": "2026-06-11T12:00:00Z"
+    },
+    {
+      "id": "https://digitalcraftai.com/compare/servicetitan",
+      "url": "https://digitalcraftai.com/compare/servicetitan",
+      "title": "Digital Craft vs ServiceTitan",
+      "content_text": "ServiceTitan is the high-end field-service CRM with dispatch and payments. Digital Craft is the AI conversation layer that answers and qualifies leads.",
+      "date_published": "2026-06-11T12:00:00Z",
+      "date_modified": "2026-06-11T12:00:00Z"
+    },
+    {
+      "id": "https://digitalcraftai.com/compare/podium",
+      "url": "https://digitalcraftai.com/compare/podium",
+      "title": "Digital Craft vs Podium",
+      "content_text": "Podium is the SMS, review, and inbox platform for local businesses. Digital Craft is the AI agent layer that adds voice answering and included lead chat.",
+      "date_published": "2026-06-11T12:00:00Z",
+      "date_modified": "2026-06-11T12:00:00Z"
+    },
+    {
+      "id": "https://digitalcraftai.com/compare/housecallpro",
+      "url": "https://digitalcraftai.com/compare/housecallpro",
+      "title": "Digital Craft vs Housecall Pro",
+      "content_text": "Housecall Pro is the field-service platform with dispatch and a real technician mobile app. Digital Craft is the AI agent layer that adds voice answering and included lead chat.",
+      "date_published": "2026-06-11T12:00:00Z",
+      "date_modified": "2026-06-11T12:00:00Z"
+    },
+    {
+      "id": "https://digitalcraftai.com/compare/buildertrend",
+      "url": "https://digitalcraftai.com/compare/buildertrend",
+      "title": "Digital Craft vs Buildertrend",
+      "content_text": "Buildertrend is the residential-construction project-management platform. Digital Craft is the AI front-of-funnel layer that adds voice negotiation and included lead chat.",
+      "date_published": "2026-06-11T12:00:00Z",
+      "date_modified": "2026-06-11T12:00:00Z"
+    },
+    {
+      "id": "https://digitalcraftai.com/compare/thumbtack",
+      "url": "https://digitalcraftai.com/compare/thumbtack",
+      "title": "Digital Craft vs Thumbtack",
+      "content_text": "Thumbtack sells you leads. Digital Craft is the AI agent layer that books the leads you already have.",
+      "date_published": "2026-06-11T12:00:00Z",
+      "date_modified": "2026-06-11T12:00:00Z"
+    },
+    {
+      "id": "https://digitalcraftai.com/compare/angi",
+      "url": "https://digitalcraftai.com/compare/angi",
+      "title": "Digital Craft vs Angi",
+      "content_text": "Angi sells you shared leads. Digital Craft is the AI agent layer that books the leads you already have.",
+      "date_published": "2026-06-11T12:00:00Z",
+      "date_modified": "2026-06-11T12:00:00Z"
+    },
+    {
+      "id": "https://digitalcraftai.com/compare/followupboss",
+      "url": "https://digitalcraftai.com/compare/followupboss",
+      "title": "Digital Craft vs Follow Up Boss",
+      "content_text": "Follow Up Boss stores your leads. Digital Craft is the AI agent layer that answers them the moment they arrive.",
+      "date_published": "2026-06-11T12:00:00Z",
+      "date_modified": "2026-06-11T12:00:00Z"
+    },
+    {
+      "id": "https://digitalcraftai.com/compare/jobtread",
+      "url": "https://digitalcraftai.com/compare/jobtread",
+      "title": "Digital Craft vs JobTread",
+      "content_text": "JobTread runs your job records, financials, and schedules. Digital Craft is the AI agent layer that answers the leads a PM platform never gets around to.",
+      "date_published": "2026-06-11T12:00:00Z",
+      "date_modified": "2026-06-11T12:00:00Z"
+    },
+    {
+      "id": "https://digitalcraftai.com/compare/kvcore",
+      "url": "https://digitalcraftai.com/compare/kvcore",
+      "title": "Digital Craft vs kvCORE",
+      "content_text": "kvCORE bundles your IDX website, squeeze pages, and CRM. Digital Craft is the AI agent layer that answers the buyer leads a CRM never gets around to.",
+      "date_published": "2026-06-11T12:00:00Z",
+      "date_modified": "2026-06-11T12:00:00Z"
+    }
+  ]
+}
