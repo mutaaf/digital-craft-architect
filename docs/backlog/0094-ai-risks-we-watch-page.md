@@ -1,7 +1,7 @@
 ---
 id: 0094
 title: Public /ai-risks-we-watch dated risk-watchlist page as a defensible moat trust artifact
-status: in-progress
+status: shipped
 priority: P2
 area: trust
 created: 2026-09-24
