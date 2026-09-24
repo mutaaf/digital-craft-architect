@@ -20,6 +20,8 @@ export interface ChangelogEntry {
 }
 
 export const changelogEntries: readonly ChangelogEntry[] = [
+  { id: "0091", title: "Persist the visitor's read blog posts and surface an \"Articles you've read\" card on /my dashboard", area: "demos", created: "2026-09-22" },
+  { id: "0090", title: "Public /agent-fleet AI-labor transparency page listing every autonomous agent with dated intended-use, guardrails, and cadence rows as a defensible moat artifact", area: "trust", created: "2026-09-22" },
   { id: "0089", title: "AI-for-garage-door-companies long-tail landing page funneling into home-services demos", area: "content", created: "2026-09-22" },
   { id: "0088", title: "Public /model-card AI model provenance page listing every third-party model with dated intended-use and limitation rows as a defensible trust artifact", area: "trust", created: "2026-09-20" },
   { id: "0087", title: "AI-for-window-installers long-tail landing page funneling into home-services demos", area: "content", created: "2026-09-20" },

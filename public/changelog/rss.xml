@@ -7,6 +7,22 @@
     <language>en-us</language>
     <atom:link href="https://digitalcraftai.com/changelog/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Persist the visitor&apos;s read blog posts and surface an &quot;Articles you&apos;ve read&quot; card on /my dashboard</title>
+      <link>https://digitalcraftai.com/changelog#0091</link>
+      <description>Shipped 2026-09-22 in area: demos.</description>
+      <pubDate>Tue, 22 Sep 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0091</guid>
+      <category>demos</category>
+    </item>
+    <item>
+      <title>Public /agent-fleet AI-labor transparency page listing every autonomous agent with dated intended-use, guardrails, and cadence rows as a defensible moat artifact</title>
+      <link>https://digitalcraftai.com/changelog#0090</link>
+      <description>Shipped 2026-09-22 in area: trust.</description>
+      <pubDate>Tue, 22 Sep 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0090</guid>
+      <category>trust</category>
+    </item>
+    <item>
       <title>AI-for-garage-door-companies long-tail landing page funneling into home-services demos</title>
       <link>https://digitalcraftai.com/changelog#0089</link>
       <description>Shipped 2026-09-22 in area: content.</description>
