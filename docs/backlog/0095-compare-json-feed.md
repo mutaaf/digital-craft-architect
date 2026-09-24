@@ -1,7 +1,7 @@
 ---
 id: 0095
 title: Generate a public /compare.json machine-readable JSON Feed of every comparison page as a defensible moat artifact
-status: groomed
+status: in-progress
 priority: P2
 area: seo
 created: 2026-09-24
@@ -1021,7 +1021,11 @@ to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0095-compare-json-feed` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/compare-json-feed.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
+- 2026-09-24 - branch `feat/0095-compare-json-feed` opened; ticket + README index flipped to in-progress in the same commit per the 2026-05-22 backlog-validator lesson.
+- 2026-09-24 - Pre-code grep of COMPARE_ENTRIES shape (per the 2026-09-12 code-beats-prose lesson): the real fields on `src/data/compareEntries.ts` are `id | tool | path | tagline`. The ticket prose named `entry.slug`, `entry.title`, `entry.description` (placeholder prose from the groomer). Mirror-source deviation: `id` maps to `entry.id`, item.title derives as `"Digital Craft vs " + entry.tool` (byte-identical to the H2 rendered on the hub AND to the ItemList JSON-LD `name` field), and item.content_text mirrors `entry.tagline` verbatim. There is no per-entry ship date field, so `date_published` uses the ticket 0048 hub ship date constant `2026-06-11T12:00:00Z` per AC #2's stated fallback.
+- 2026-09-24 - Pre-code grep for JSON-LD `@type` collisions on `/compare` (per the 2026-05-30 second-@type lesson): NO-OP by construction; this ticket adds ZERO new JSON-LD blocks (the CompareHub footer chip is a plain `<a>` anchor). The ticket 0048 BreadcrumbList + CollectionPage + ItemList blocks stay byte-identical.
+- 2026-09-24 - Sitemap AC deviation (per the 2026-09-12 code-beats-prose lesson): AC #5 says "mirror the ticket 0078 `/changelog.json` sitemap row"; grepping `public/sitemap.xml` at branch head shows NO row for `/changelog.json`. Ticket 0078 ships without a sitemap row (feed discovery is via `<link rel="alternate">` and Vercel default static serving from `public/`). Mirroring 0078 verbatim: no sitemap row added for `/compare.json` either. Crawlers discover the feed via the CompareHub footer chip and the new `robots.txt` comment line.
+- 2026-09-24 - Vercel routing AC deviation (per the 2026-09-12 code-beats-prose lesson): AC #3 says grep for a specific `/changelog.json` routing entry in `vercel.json`; the grep returns zero matches for any `changelog.json` / `compare.json` / `.json` header rule. Ticket 0078 relies on Vercel default static serving of `dist/*.json` with `application/json`. Mirroring verbatim: no `vercel.json` edit. Playwright spec assertion allows `application/feed+json` OR `application/json`.
+- 2026-09-24 - failing test added in `tests/e2e/compare-json-feed.spec.ts`
+- 2026-09-24 - PR #N opened, CI [state]
 - YYYY-MM-DD - merged to main
