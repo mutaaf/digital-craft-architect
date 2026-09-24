@@ -103,7 +103,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0092 | AI-for-tree-services long-tail landing page funneling into home-services demos | P1 | shipped | content |
 | 0093 | Persist named ROI calculator scenarios and surface a "Saved ROI scenarios" card on /my dashboard | P1 | shipped | demos |
 | 0094 | Public /ai-risks-we-watch dated risk-watchlist page as a defensible moat trust artifact | P2 | shipped | trust |
-| 0095 | Generate a public /compare.json machine-readable JSON Feed of every comparison page as a defensible moat artifact | P2 | in-progress | seo |
+| 0095 | Generate a public /compare.json machine-readable JSON Feed of every comparison page as a defensible moat artifact | P2 | shipped | seo |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the
