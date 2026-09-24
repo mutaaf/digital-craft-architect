@@ -7,6 +7,22 @@
     <language>en-us</language>
     <atom:link href="https://digitalcraftai.com/changelog/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Persist named ROI calculator scenarios and surface a &quot;Saved ROI scenarios&quot; card on /my dashboard</title>
+      <link>https://digitalcraftai.com/changelog#0093</link>
+      <description>Shipped 2026-09-24 in area: demos.</description>
+      <pubDate>Thu, 24 Sep 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0093</guid>
+      <category>demos</category>
+    </item>
+    <item>
+      <title>AI-for-tree-services long-tail landing page funneling into home-services demos</title>
+      <link>https://digitalcraftai.com/changelog#0092</link>
+      <description>Shipped 2026-09-24 in area: content.</description>
+      <pubDate>Thu, 24 Sep 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0092</guid>
+      <category>content</category>
+    </item>
+    <item>
       <title>Persist the visitor&apos;s read blog posts and surface an &quot;Articles you&apos;ve read&quot; card on /my dashboard</title>
       <link>https://digitalcraftai.com/changelog#0091</link>
       <description>Shipped 2026-09-22 in area: demos.</description>

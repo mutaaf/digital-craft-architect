@@ -7,6 +7,26 @@
   "language": "en-US",
   "items": [
     {
+      "id": "0093",
+      "url": "https://digitalcraftai.com/changelog#0093",
+      "title": "Persist named ROI calculator scenarios and surface a \"Saved ROI scenarios\" card on /my dashboard",
+      "content_text": "Persist named ROI calculator scenarios and surface a \"Saved ROI scenarios\" card on /my dashboard",
+      "date_published": "2026-09-24T12:00:00.000Z",
+      "tags": [
+        "demos"
+      ]
+    },
+    {
+      "id": "0092",
+      "url": "https://digitalcraftai.com/changelog#0092",
+      "title": "AI-for-tree-services long-tail landing page funneling into home-services demos",
+      "content_text": "AI-for-tree-services long-tail landing page funneling into home-services demos",
+      "date_published": "2026-09-24T12:00:00.000Z",
+      "tags": [
+        "content"
+      ]
+    },
+    {
       "id": "0091",
       "url": "https://digitalcraftai.com/changelog#0091",
       "title": "Persist the visitor's read blog posts and surface an \"Articles you've read\" card on /my dashboard",

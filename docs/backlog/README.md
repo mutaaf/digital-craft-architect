@@ -102,7 +102,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0091 | Persist the visitor's read blog posts and surface an "Articles you've read" card on /my dashboard | P1 | shipped | demos |
 | 0092 | AI-for-tree-services long-tail landing page funneling into home-services demos | P1 | shipped | content |
 | 0093 | Persist named ROI calculator scenarios and surface a "Saved ROI scenarios" card on /my dashboard | P1 | shipped | demos |
-| 0094 | Public /ai-risks-we-watch dated risk-watchlist page as a defensible moat trust artifact | P2 | groomed | trust |
+| 0094 | Public /ai-risks-we-watch dated risk-watchlist page as a defensible moat trust artifact | P2 | in-progress | trust |
 | 0095 | Generate a public /compare.json machine-readable JSON Feed of every comparison page as a defensible moat artifact | P2 | groomed | seo |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
