@@ -1,7 +1,7 @@
 ---
 id: 0096
 title: AI-for-fencing-contractors long-tail landing page funneling into home-services demos
-status: groomed
+status: in-progress
 priority: P1
 area: content
 created: 2026-09-26
@@ -390,7 +390,6 @@ have to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0096-ai-for-fencing-contractors-landing-page` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/ai-for-fencing-contractors.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-09-26 - branch `feat/0096-ai-for-fencing-contractors-landing-page` opened off origin/main; ticket status flipped to `in-progress` alongside its README index row in the same commit per the 2026-05-22 check-backlog rule.
+- 2026-09-26 - Grepped every `tests/e2e/*-jsonld.spec.ts` and every `tests/e2e/ai-for-*.spec.ts` for `=== 'Service'`, `=== 'BreadcrumbList'`, and `=== 'FAQPage'` predicates plus `toHaveLength(1)` assertions over those `@type`s. Every predecessor trade-page assertion is URL-scoped (each spec calls its own `goto*` helper first navigating to its own `/ai-for-*` path), so a sibling instance on `/ai-for-fencing-contractors` cannot collide with any predecessor's `.toHaveLength(1)` filter over `Service`, `BreadcrumbList`, or `FAQPage`.
+- 2026-09-26 - Wrote failing e2e spec `tests/e2e/ai-for-fencing-contractors.spec.ts` FIRST (modeled 1:1 on `tests/e2e/ai-for-tree-services.spec.ts`), then shipped the minimum page code at `src/pages/AiForFencingContractors.tsx` (mirrors `AiForTreeServices.tsx`), lazy-imported into `src/App.tsx` after the tree-services route, appended `/ai-for-fencing-contractors` to `src/data/routes.ts` after `/ai-for-tree-services` per the 2026-09-12 code-beats-prose convention. Confirmed `scripts/generate-sitemap.ts` auto-emits the new URL by grepping `dist/sitemap.xml` after `npm run build`.
