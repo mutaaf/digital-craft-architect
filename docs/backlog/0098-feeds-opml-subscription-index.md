@@ -1,7 +1,7 @@
 ---
 id: 0098
 title: Generate a public /feeds.opml subscription index aggregating every RSS and JSON Feed the site publishes as a one-click feed-reader import artifact
-status: groomed
+status: in-progress
 priority: P2
 area: content
 created: 2026-09-26
@@ -416,7 +416,30 @@ have to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0098-feeds-opml-subscription-index` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/feeds-opml-subscription-index.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
+- 2026-09-26 - branch `feat/0098-feeds-opml-subscription-index` opened
+- 2026-09-26 - grepped generator scripts + `public/` to pin
+  `PUBLISHED_FEEDS` per 2026-09-12 code-beats-prose: shipped feeds are
+  `/rss.xml` (blog, `scripts/generate-rss.ts` writes to `public/rss.xml`;
+  ticket prose said `/blog/rss.xml`, code is authoritative),
+  `/changelog/rss.xml` (0055), `/changelog.json` (0078),
+  `/case-studies/rss.xml` (0070), `/compare.json` (0095). Deviation:
+  blog feed URL is `/rss.xml`, not `/blog/rss.xml`.
+- 2026-09-26 - `package.json` has no `prebuild` iteration; per the AC #1
+  fallback, hooked `scripts/generate-feeds-opml.ts` into
+  `scripts/generate-sitemap.ts`'s `run()` alongside the ticket 0095
+  `generateCompareJson()` dynamic import. `package.json` byte-identical.
+- 2026-09-26 - JSON-LD grep no-op (per AC): no new JSON-LD block on any
+  HTML page (chip is a plain `<a>`). Recorded for auditability.
+- 2026-09-26 - failing test added in
+  `tests/e2e/feeds-opml-subscription-index.spec.ts` (one assertion per
+  acceptance box, imports `PUBLISHED_FEEDS` per 2026-06-07 mirror rule,
+  uses `[^>]*` per 2026-06-15 attribute-list regex lesson).
+- 2026-09-26 - PR #282 opened, `build` green, `smoke` red on case 1
+  (`Content-Type: ""` from Vite `npm run preview`; `mrmime` MIME table
+  under `sirv` knows `.xml`/`.json` but not `.opml`).
+- 2026-09-26 - heal: added a `configureServer` +
+  `configurePreviewServer` Vite plugin in `vite.config.ts` that sets
+  `application/xml; charset=utf-8` on any `*.opml` request; added a
+  matching `vercel.json` `headers` rule so production Vercel returns
+  the same content-type. Novel lesson appended to `docs/LESSONS.md`.
 - YYYY-MM-DD - merged to main

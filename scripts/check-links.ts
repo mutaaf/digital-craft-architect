@@ -93,7 +93,7 @@ function extractLinks(files: string[]): LinkInfo[] {
         if (!link.startsWith("/")) continue;
 
         const ext = link.split("?")[0].split("#")[0].split(".").pop();
-        const assetExts = ["svg", "ico", "png", "jpg", "jpeg", "gif", "webp", "css", "js", "xml", "txt", "pdf", "woff", "woff2", "ttf", "eot", "map", "json"];
+        const assetExts = ["svg", "ico", "png", "jpg", "jpeg", "gif", "webp", "css", "js", "xml", "txt", "pdf", "woff", "woff2", "ttf", "eot", "map", "json", "opml"];
         if (ext && assetExts.includes(ext)) continue;
 
         const type = toRegex.test(match[0]) ? "to" : "href";

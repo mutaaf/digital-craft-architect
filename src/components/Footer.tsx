@@ -180,6 +180,35 @@ const FooterAccessibilityStatementChip: React.FC = () => {
   );
 };
 
+// Ticket 0098 - "Subscribe (OPML)" chip linking to the OPML 2.0
+// subscription index at /feeds.opml (generated at build time by
+// scripts/generate-feeds-opml.ts from src/data/publishedFeeds.ts).
+// Placed next to the ticket 0097 accessibility-statement chip in the
+// trust-chip row per the ticket 0055/0078 footer-feed-chip pattern.
+// Fires trackCTAClick('feeds_opml_subscribe', 'footer') synchronously
+// before the browser follows the plain <a href> so the beacon flushes.
+// Uses a plain <a> (not <Link>) because /feeds.opml is a static XML
+// artifact served by Vercel, not an SPA route.
+const FOOTER_OPML_LABEL = 'Subscribe (OPML)';
+const FooterFeedsOpmlChip: React.FC = () => {
+  return (
+    <p className="text-gray-500 dark:text-gray-500 text-xs">
+      <a
+        href="/feeds.opml"
+        onClick={() => trackCTAClick('feeds_opml_subscribe', 'footer')}
+        className="hover:text-skyblue transition-colors"
+        data-testid="feeds-opml-link"
+      >
+        <span
+          className="inline-block bg-gray-800 dark:bg-gray-800 px-2 py-1 rounded"
+        >
+          {FOOTER_OPML_LABEL}
+        </span>
+      </a>
+    </p>
+  );
+};
+
 const Footer: React.FC<FooterProps> = ({ data }) => {
   // Get the actual build timestamp (when the app was compiled)
   // This will be replaced with the actual time during the build process
@@ -279,6 +308,7 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
                 <FooterSecurityChip />
                 <FooterAiRisksChip />
                 <FooterAccessibilityStatementChip />
+                <FooterFeedsOpmlChip />
                 <div className="flex space-x-6">
                   <a href="/industries" className="text-gray-400 hover:text-skyblue text-sm">Industries</a>
                   <Link to="/trust" className="text-gray-400 hover:text-skyblue text-sm">Trust & Privacy</Link>

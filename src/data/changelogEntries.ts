@@ -20,6 +20,8 @@ export interface ChangelogEntry {
 }
 
 export const changelogEntries: readonly ChangelogEntry[] = [
+  { id: "0099", title: "Comparison page \"Digital Craft vs BoldTrail\" for real-estate CRM lead-generation switchers", area: "seo", created: "2026-09-26" },
+  { id: "0097", title: "Public /accessibility-statement page with dated WCAG conformance level and remediation log as a defensible trust artifact", area: "trust", created: "2026-09-26" },
   { id: "0096", title: "AI-for-fencing-contractors long-tail landing page funneling into home-services demos", area: "content", created: "2026-09-26" },
   { id: "0095", title: "Generate a public /compare.json machine-readable JSON Feed of every comparison page as a defensible moat artifact", area: "seo", created: "2026-09-24" },
   { id: "0094", title: "Public /ai-risks-we-watch dated risk-watchlist page as a defensible moat trust artifact", area: "trust", created: "2026-09-24" },
