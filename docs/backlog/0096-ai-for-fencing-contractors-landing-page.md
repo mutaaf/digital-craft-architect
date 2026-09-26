@@ -1,7 +1,7 @@
 ---
 id: 0096
 title: AI-for-fencing-contractors long-tail landing page funneling into home-services demos
-status: in-progress
+status: shipped
 priority: P1
 area: content
 created: 2026-09-26
