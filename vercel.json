@@ -1,4 +1,12 @@
 {
+  "headers": [
+    {
+      "source": "/feeds.opml",
+      "headers": [
+        { "key": "Content-Type", "value": "application/xml; charset=utf-8" }
+      ]
+    }
+  ],
   "rewrites": [
     { "source": "/api/:path*", "destination": "/api/:path*" },
     {

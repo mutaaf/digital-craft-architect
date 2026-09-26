@@ -434,5 +434,12 @@ have to re-discover the architecture.
   `tests/e2e/feeds-opml-subscription-index.spec.ts` (one assertion per
   acceptance box, imports `PUBLISHED_FEEDS` per 2026-06-07 mirror rule,
   uses `[^>]*` per 2026-06-15 attribute-list regex lesson).
-- 2026-09-26 - PR #N opened, CI [state]
+- 2026-09-26 - PR #282 opened, `build` green, `smoke` red on case 1
+  (`Content-Type: ""` from Vite `npm run preview`; `mrmime` MIME table
+  under `sirv` knows `.xml`/`.json` but not `.opml`).
+- 2026-09-26 - heal: added a `configureServer` +
+  `configurePreviewServer` Vite plugin in `vite.config.ts` that sets
+  `application/xml; charset=utf-8` on any `*.opml` request; added a
+  matching `vercel.json` `headers` rule so production Vercel returns
+  the same content-type. Novel lesson appended to `docs/LESSONS.md`.
 - YYYY-MM-DD - merged to main
