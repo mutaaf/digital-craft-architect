@@ -1,7 +1,7 @@
 ---
 id: 0099
 title: Comparison page "Digital Craft vs BoldTrail" for real-estate CRM lead-generation switchers
-status: groomed
+status: in-progress
 priority: P1
 area: seo
 created: 2026-09-26
@@ -417,7 +417,17 @@ have to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0099-compare-boldtrail-page` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/compare-boldtrail.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-09-26 - branch `feat/0099-compare-boldtrail-page` opened
+- 2026-09-26 - grepped `tests/e2e/compare-*.spec.ts` and `tests/e2e/*-jsonld.spec.ts`
+  for `=== 'BreadcrumbList'` and `=== 'WebPage'` predicates per the
+  2026-05-30 second-@type lesson. Result: every predecessor compare-page
+  predicate over either @type is URL-scoped to its own `/compare/<tool>`
+  route; the `*-jsonld.spec.ts` files (blog-collectionpage, case-study-
+  article, changelog-itemlist, glossary-breadcrumb, homepage-organization,
+  homepage-pricing-product, demos-softwareapplication, quiz, texas-
+  localbusiness, trust-aboutpage, website-sitelinks) are each route-
+  scoped to a non-compare page. A sixteenth `/compare/boldtrail`-scoped
+  pair cannot collide with any existing predicate.
+- 2026-09-26 - failing test added in `tests/e2e/compare-boldtrail.spec.ts`
+- 2026-09-26 - PR #N opened, CI [state]
+- 2026-09-26 - merged to main
