@@ -460,6 +460,21 @@ const Trust: React.FC = () => {
               Model card
               <ArrowRight size={14} />
             </Link>
+            {/* Ticket 0097 - additive sibling-link chip pointing at
+                /accessibility-statement (the dated WCAG conformance and
+                remediation-log artifact). Additive-only: no reordering of
+                the two chips above and no visible-text change to any
+                existing element. The shipped ticket 0044 AboutPage + ticket
+                0018 BreadcrumbList JSON-LD blocks stay byte-identical. */}
+            <Link
+              to="/accessibility-statement"
+              data-testid="trust-accessibility-statement-link"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/60 text-sm text-gray-700 dark:text-gray-300 hover:border-primary hover:text-primary dark:hover:border-primary dark:hover:text-primary transition-colors"
+              onClick={() => trackCTAClick('accessibility_statement_from_trust', 'trust_footer')}
+            >
+              Accessibility Statement
+              <ArrowRight size={14} />
+            </Link>
           </div>
         </div>
       </section>

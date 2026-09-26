@@ -150,6 +150,36 @@ const FooterAiRisksChip: React.FC = () => {
   );
 };
 
+// Ticket 0097 - "Accessibility Statement" trust chip. Fires
+// trackCTAClick('footer_accessibility_statement_chip', <current-route>)
+// synchronously before the SPA navigation. Placed next to the ticket 0094
+// AI-risks-we-watch chip in the trust-chip row per the ticket's placement
+// note ("next to the existing /trust, /ethics, /security, /model-card,
+// /agent-fleet, /ai-risks-we-watch links"). The label is authored once here
+// as the shipped constant per the 2026-05-25 mirror-source rule.
+const FOOTER_ACCESSIBILITY_LABEL = 'Accessibility Statement';
+const FooterAccessibilityStatementChip: React.FC = () => {
+  const location = useLocation();
+  return (
+    <p className="text-gray-500 dark:text-gray-500 text-xs">
+      <Link
+        to="/accessibility-statement"
+        onClick={() =>
+          trackCTAClick('footer_accessibility_statement_chip', location.pathname)
+        }
+        className="hover:text-skyblue transition-colors"
+      >
+        <span
+          data-testid="footer-accessibility-statement-chip"
+          className="inline-block bg-gray-800 dark:bg-gray-800 px-2 py-1 rounded"
+        >
+          {FOOTER_ACCESSIBILITY_LABEL}
+        </span>
+      </Link>
+    </p>
+  );
+};
+
 const Footer: React.FC<FooterProps> = ({ data }) => {
   // Get the actual build timestamp (when the app was compiled)
   // This will be replaced with the actual time during the build process
@@ -248,6 +278,7 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
                 <FooterHowWeShipChip />
                 <FooterSecurityChip />
                 <FooterAiRisksChip />
+                <FooterAccessibilityStatementChip />
                 <div className="flex space-x-6">
                   <a href="/industries" className="text-gray-400 hover:text-skyblue text-sm">Industries</a>
                   <Link to="/trust" className="text-gray-400 hover:text-skyblue text-sm">Trust & Privacy</Link>
