@@ -104,7 +104,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0093 | Persist named ROI calculator scenarios and surface a "Saved ROI scenarios" card on /my dashboard | P1 | shipped | demos |
 | 0094 | Public /ai-risks-we-watch dated risk-watchlist page as a defensible moat trust artifact | P2 | shipped | trust |
 | 0095 | Generate a public /compare.json machine-readable JSON Feed of every comparison page as a defensible moat artifact | P2 | shipped | seo |
-| 0096 | AI-for-fencing-contractors long-tail landing page funneling into home-services demos | P1 | groomed | content |
+| 0096 | AI-for-fencing-contractors long-tail landing page funneling into home-services demos | P1 | in-progress | content |
 | 0097 | Public /accessibility-statement page with dated WCAG conformance level and remediation log as a defensible trust artifact | P1 | groomed | trust |
 | 0098 | Generate a public /feeds.opml subscription index aggregating every RSS and JSON Feed the site publishes as a one-click feed-reader import artifact | P2 | groomed | content |
 | 0099 | Comparison page "Digital Craft vs BoldTrail" for real-estate CRM lead-generation switchers | P1 | groomed | seo |
