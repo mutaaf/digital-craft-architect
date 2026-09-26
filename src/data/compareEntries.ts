@@ -111,4 +111,10 @@ export const COMPARE_ENTRIES: readonly CompareEntry[] = [
     path: '/compare/kvcore',
     tagline: 'kvCORE bundles your IDX website, squeeze pages, and CRM. Digital Craft is the AI agent layer that answers the buyer leads a CRM never gets around to.',
   },
+  {
+    id: 'boldtrail',
+    tool: 'BoldTrail',
+    path: '/compare/boldtrail',
+    tagline: 'BoldTrail bundles your IDX website, paid-lead capture, and CRM under the Inside Real Estate umbrella. Digital Craft is the AI agent layer that answers the buyer leads a CRM never gets around to.',
+  },
 ];
