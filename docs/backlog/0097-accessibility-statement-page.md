@@ -1,7 +1,7 @@
 ---
 id: 0097
 title: Public /accessibility-statement page with dated WCAG conformance level and remediation log as a defensible trust artifact
-status: groomed
+status: in-progress
 priority: P1
 area: trust
 created: 2026-09-26
@@ -450,7 +450,26 @@ have to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0097-accessibility-statement-page` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/accessibility-statement.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-09-26 - branch `feat/0097-accessibility-statement-page` opened; ticket
+  flipped to `in-progress` in the ticket file frontmatter AND the
+  `docs/backlog/README.md` index row in the same commit
+  (`node scripts/check-backlog.mjs` green).
+- 2026-09-26 - grepped every `tests/e2e/*-jsonld.spec.ts` and
+  `tests/e2e/*.spec.ts` for `=== 'CollectionPage'`, `=== 'BreadcrumbList'`,
+  `toHaveLength(1)` predicates over CollectionPage / BreadcrumbList per the
+  2026-05-30 second-@type lesson. Every predecessor is URL-scoped to its own
+  page path (`/compare` ticket 0048, `/case-studies` ticket 0057,
+  `/subprocessors` ticket 0069, `/ai-for-hospitality` ticket 0071,
+  `/ethics` ticket 0077, `/blog` ticket 0079, `/model-card` ticket 0088,
+  `/agent-fleet` ticket 0090, `/ai-risks-we-watch` ticket 0094), so the
+  sibling `/accessibility-statement`-scoped blocks cannot collide.
+- 2026-09-26 - failing test added in
+  `tests/e2e/accessibility-statement.spec.ts` per the 2026-05-30 write-tests-
+  before-code convention.
+- 2026-09-26 - page + data file + route + Trust chip + Footer chip shipped;
+  dark-mode variants mirror `AiRisksWeWatch.tsx` verbatim; every remediation
+  row cites a real dated shipped change in the last 90 days grepable from
+  `git log --since="2026-06-28"`.
+- 2026-09-26 - `dist/sitemap.xml` confirmed to include `/accessibility-statement`
+  after a local `npm run build` (auto-emitted by `scripts/generate-sitemap.ts`
+  from the `<Route path=".../>` scan; no manual XML edit).

@@ -7,6 +7,22 @@
     <language>en-us</language>
     <atom:link href="https://digitalcraftai.com/changelog/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>AI-for-fencing-contractors long-tail landing page funneling into home-services demos</title>
+      <link>https://digitalcraftai.com/changelog#0096</link>
+      <description>Shipped 2026-09-26 in area: content.</description>
+      <pubDate>Sat, 26 Sep 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0096</guid>
+      <category>content</category>
+    </item>
+    <item>
+      <title>Generate a public /compare.json machine-readable JSON Feed of every comparison page as a defensible moat artifact</title>
+      <link>https://digitalcraftai.com/changelog#0095</link>
+      <description>Shipped 2026-09-24 in area: seo.</description>
+      <pubDate>Thu, 24 Sep 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0095</guid>
+      <category>seo</category>
+    </item>
+    <item>
       <title>Public /ai-risks-we-watch dated risk-watchlist page as a defensible moat trust artifact</title>
       <link>https://digitalcraftai.com/changelog#0094</link>
       <description>Shipped 2026-09-24 in area: trust.</description>

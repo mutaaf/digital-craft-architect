@@ -91,6 +91,7 @@ export const ROUTES: readonly string[] = [
   '/security',
   '/ethics',
   '/ai-risks-we-watch',
+  '/accessibility-statement',
   '/playbook',
   '/how-we-ship',
   '/questions-to-ask-an-ai-vendor',
