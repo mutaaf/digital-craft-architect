@@ -107,7 +107,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0096 | AI-for-fencing-contractors long-tail landing page funneling into home-services demos | P1 | shipped | content |
 | 0097 | Public /accessibility-statement page with dated WCAG conformance level and remediation log as a defensible trust artifact | P1 | shipped | trust |
 | 0098 | Generate a public /feeds.opml subscription index aggregating every RSS and JSON Feed the site publishes as a one-click feed-reader import artifact | P2 | groomed | content |
-| 0099 | Comparison page "Digital Craft vs BoldTrail" for real-estate CRM lead-generation switchers | P1 | in-progress | seo |
+| 0099 | Comparison page "Digital Craft vs BoldTrail" for real-estate CRM lead-generation switchers | P1 | shipped | seo |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the

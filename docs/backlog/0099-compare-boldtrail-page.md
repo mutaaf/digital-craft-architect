@@ -1,7 +1,7 @@
 ---
 id: 0099
 title: Comparison page "Digital Craft vs BoldTrail" for real-estate CRM lead-generation switchers
-status: in-progress
+status: shipped
 priority: P1
 area: seo
 created: 2026-09-26
