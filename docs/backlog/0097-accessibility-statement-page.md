@@ -1,7 +1,7 @@
 ---
 id: 0097
 title: Public /accessibility-statement page with dated WCAG conformance level and remediation log as a defensible trust artifact
-status: in-progress
+status: shipped
 priority: P1
 area: trust
 created: 2026-09-26
