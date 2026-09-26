@@ -1,7 +1,7 @@
 ---
 id: 0098
 title: Generate a public /feeds.opml subscription index aggregating every RSS and JSON Feed the site publishes as a one-click feed-reader import artifact
-status: in-progress
+status: shipped
 priority: P2
 area: content
 created: 2026-09-26
