@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="2.0">
+  <head>
+    <title>Digital Craft AI Feeds</title>
+    <dateCreated>2026-09-26T16:32:02.177Z</dateCreated>
+  </head>
+  <body>
+    <outline type="rss" text="Digital Craft AI Blog" title="Digital Craft AI Blog" xmlUrl="https://digitalcraftai.com/rss.xml" htmlUrl="https://digitalcraftai.com/blog"/>
+    <outline type="rss" text="Digital Craft AI Changelog" title="Digital Craft AI Changelog" xmlUrl="https://digitalcraftai.com/changelog/rss.xml" htmlUrl="https://digitalcraftai.com/changelog"/>
+    <outline type="json" text="Digital Craft AI Changelog (JSON Feed)" title="Digital Craft AI Changelog (JSON Feed)" xmlUrl="https://digitalcraftai.com/changelog.json" htmlUrl="https://digitalcraftai.com/changelog"/>
+    <outline type="rss" text="Digital Craft AI Case Studies" title="Digital Craft AI Case Studies" xmlUrl="https://digitalcraftai.com/case-studies/rss.xml" htmlUrl="https://digitalcraftai.com/case-studies"/>
+    <outline type="json" text="Digital Craft AI Comparisons (JSON Feed)" title="Digital Craft AI Comparisons (JSON Feed)" xmlUrl="https://digitalcraftai.com/compare.json" htmlUrl="https://digitalcraftai.com/compare"/>
+  </body>
+</opml>

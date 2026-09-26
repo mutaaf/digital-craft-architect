@@ -285,6 +285,18 @@ function generateSitemap(
     <priority>1.0</priority>
   </url>`);
 
+  // Ticket 0098 - /feeds.opml subscription index (built by
+  // scripts/generate-feeds-opml.ts alongside the sitemap). Priority 0.3
+  // per AC #4 (below /compare.json's 0.4 because OPML is a discovery
+  // aid, not a canonical content surface). lastmod tracks the build
+  // date since the OPML is regenerated on every build.
+  entries.push(`  <url>
+    <loc>${BASE_URL}/feeds.opml</loc>
+    <lastmod>${todayYmd()}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.3</priority>
+  </url>`);
+
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${entries.join("\n")}
@@ -385,6 +397,17 @@ async function run() {
   );
   await generateCompareJson();
 
+  // Ticket 0098 - Regenerate public/feeds.opml (OPML 2.0 subscription
+  // index) from the shipped src/data/publishedFeeds.ts constant.
+  // Hooked in alongside generateCompareJson per the ticket 0095
+  // Implementation-log fallback pattern (package.json has no `prebuild`
+  // iteration over scripts/generate-*.ts, so the new generator invokes
+  // from here to keep the GTM queue's package.json Hard NO intact).
+  const { default: generateFeedsOpml } = await import(
+    "./generate-feeds-opml"
+  );
+  await generateFeedsOpml();
+
   const appContent = readFile(APP_TSX);
   const routes = extractStaticRoutes(appContent);
   const blogSlugs = extractBlogSlugs();
@@ -394,9 +417,10 @@ async function run() {
   const outPath = join(ROOT, "public", "sitemap.xml");
   writeFileSync(outPath, sitemap, "utf-8");
 
-  const totalUrls = routes.length + blogSlugs.length + classSlugs.length * 2 + 1;
+  // +1 CTO subdomain, +1 /feeds.opml (ticket 0098).
+  const totalUrls = routes.length + blogSlugs.length + classSlugs.length * 2 + 2;
   console.log(
-    `✓ Sitemap generated with ${totalUrls} URLs (${routes.length} routes + ${blogSlugs.length} blog posts + ${classSlugs.length} class sessions × 2 + 1 subdomain) → public/sitemap.xml`
+    `✓ Sitemap generated with ${totalUrls} URLs (${routes.length} routes + ${blogSlugs.length} blog posts + ${classSlugs.length} class sessions × 2 + 1 subdomain + 1 opml) → public/sitemap.xml`
   );
 
   assertSitemapLastmodInvariants(sitemap, totalUrls);
