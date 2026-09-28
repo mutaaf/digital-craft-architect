@@ -108,6 +108,9 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0097 | Public /accessibility-statement page with dated WCAG conformance level and remediation log as a defensible trust artifact | P1 | shipped | trust |
 | 0098 | Generate a public /feeds.opml subscription index aggregating every RSS and JSON Feed the site publishes as a one-click feed-reader import artifact | P2 | shipped | content |
 | 0099 | Comparison page "Digital Craft vs BoldTrail" for real-estate CRM lead-generation switchers | P1 | shipped | seo |
+| 0100 | Persist visited AI-for-vertical landing pages and surface a "Verticals you're evaluating" card on /my dashboard | P1 | groomed | demos |
+| 0101 | Pre-filled "Book a strategy call" mailto CTA on /my composing the visitor's persisted dossier into the email body | P1 | groomed | conversion |
+| 0102 | Public /hallucination-safeguards page listing per-demo grounding, known failure modes, and dated safeguards as a defensible trust artifact | P1 | groomed | trust |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the
