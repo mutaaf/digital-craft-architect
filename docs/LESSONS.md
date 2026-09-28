@@ -19,6 +19,67 @@ add a new entry citing the old one rather than editing it.
 
 ---
 
+<!-- DRAFT: reviewer send-back, PR #285, 2026-09-28 -->
+## 2026-09-28 — DRAFT — Blocking: `smoke-required` gating check is RED — merge cannot proceed per AGEN
+
+(From review of PR #285 — promote or delete.)
+
+Blocking: `smoke-required` gating check is RED — merge cannot proceed per AGENTS.md Hard NOs ("never merge with a red gating check").
+
+## What is red
+
+Job `smoke` in run 36422440907 fails deterministically (both attempts) on:
+
+- `tests/e2e/recent-verticals-card.spec.ts:222` — `FIFO evict: sixth visit evicts the oldest entry`
+
+Job `smoke-required` fails as the derived gate. Non-gating `Vercel`, `changes`, and `build` are green; a separate `trust-page.spec.ts:156` case is marked `1 flaky` (passed on retry) and is not itself gating.
+
+## Root cause of the FIFO failure
+
+The failing case seeds `dca_recent_verticals_v1` with 5 rows via `contextWithSeed()` (tests/e2e/recent-verticals-card.spec.ts:87-105), then navigates `/my` -> `/ai-for-plumbers` -> `/my` and expects the sixth visit to evict `/ai-for-landscapers` and prepend `/ai-for-plumbers`. Playwright reports the final localStorage still holding the untouched original 5-row seed:
+
+```
+Expected value: "/ai-for-plumbers"
+Received array: ["/ai-for-hvac", "/ai-for-roofers", "/ai-for-electricians", "/ai-for-painters", "/ai-for-landscapers"]
+```
+
+`contextWithSeed()` seeds through `ctx.addInitScript` (spec line 90-99). Playwright's `addInitScript` re-executes on every navigation, so the actual sequence is:
+
+1. `page.goto('/my')` -> init script re-writes seed -> card renders 5 rows (assertion passes).
+2. `page.goto('/ai-for-plumbers')` -> init script RE-WRITES the seed BACK to the original 5 rows -> the AiForPlumbers mount effect fires `recordVerticalVisit`, correctly prepending `/ai-for-plumbers` and evicting `/ai-for-landscapers`.
+3. `page.goto('/my')` -> init script RE-WRITES the seed BACK to the original 5 rows AGAIN, wiping the mount-effect write from step 2.
+
+The store code itself (src/utils/recentVerticalsStore.ts) is correct — Boxes 4 (write-through), 5 (dedup), and 7 (allow-list) all exercise `recordVerticalVisit` from fresh contexts with no `addInitScript` and pass. The bug is entirely in Box 6's seeding strategy.
+
+## Fix options for the dev to pick
+
+- **Seed once, not on every navigation.** Replace `ctx.addInitScript` with a one-shot `await page.evaluate((args) => localStorage.setItem(args[0], args[1]), [STORAGE_KEY, raw])` fired AFTER the first `page.goto('/my')` (or after any pre-seed navigation that establishes the origin). The seed is written a single time and subsequent navigations preserve the mount-effect write.
+- **Or make the init script idempotent.** Guard the init-script body on `!window.localStorage.getItem(STORAGE_KEY)` so it only seeds when storage is empty. The mount-effect write in step 2 populates the key, so the init script on step 3's navigation becomes a no-op.
+
+Either fix keeps Boxes 1-5 and 7-9 passing (they either don't need cross-navigation persistence or exercise fresh contexts).
+
+## Everything else
+
+Ticket 0100 is otherwise well-aligned with AGENTS.md and the ticket spec:
+
+- Every one of the 9 acceptance-criteria boxes has a 1:1 spec case (Boxes 1-9 in the spec map to tests at lines 165, 176, 197, 221, 254, 287, 304 — count matches).
+- No `/api/`, `.env*`, `package.json`, or dependency edits; no new hostname; no new JSON-LD block.
+- Every touched TS/TSX file grep is em-dash-free (U+2014 in the spec uses `String.fromCharCode(8212)` correctly per the 2026-05-07 rule).
+- `RecentVerticalsCard.tsx` ships `dark:` variants on every colored class; the ROI-card sibling pattern is honored.
+- Mirror-source discipline is right: `VERTICAL_LABELS` lives at `src/data/verticalLabels.ts` and is imported by BOTH the 17 vertical pages AND the spec — no duplicated label strings.
+- ROUTES allow-list validation happens at both write (recentVerticalsStore.ts:44-46) and read (recentVerticalsStore.ts:66-84), so a stale or forged path can never render a dead link (Box 7 verifies).
+- `readAllVerticals()` is private and `getRecentVerticals()` slices on top of it (recentVerticalsStore.ts:67-95) — the 2026-09-10 raw-vs-sliced lesson is honored.
+- `useRecordVerticalVisit` fires exactly once via `useEffect(..., [])` per the 2026-09-10 mount-signal lesson.
+- The `dca_recent_verticals_v1` disclosure entry in `NEW_PERSISTENT_STORES` is present (src/data/demoDisclosures.ts:66-71) — the 2026-05-25 honesty rule is honored.
+- Ticket file frontmatter and `docs/backlog/README.md` row are both flipped to `in-progress` in the same commit — the 2026-05-22 check-backlog rule is honored.
+
+Fix the FIFO seed strategy, re-run smoke, and this ships.
+
+## LESSON
+
+`addInitScript` in Playwright fires on EVERY page navigation, not just the first. When a seed-then-navigate-then-read test needs the page's own mount-effect write to persist across a follow-up `page.goto`, the seed must be written with a one-shot `page.evaluate` after the first navigation, or the init script must guard on `!localStorage.getItem(STORAGE_KEY)` so it does not clobber the on-mount write. Same "seed vs derived state" family as the 2026-09-10 raw-vs-sliced lesson: what the test can see at read time is not what the code wrote at mount time, because a repeat init script overwrote it in between. Prefer `page.evaluate` for storage seeds that must coexist with page-mount writes across two or more navigations in the same test.
+<!-- /DRAFT -->
+
 ## 2026-05-07 — Em-dashes in body copy slipped past Self-Review
 **Where:** AGENT.md workflow (Phase 2 handoff note)
 **What went wrong:** A worker shipped copy containing em-dashes (`—`); the
