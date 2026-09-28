@@ -63,6 +63,12 @@ export const NEW_PERSISTENT_STORES: readonly PersistentStoreDisclosure[] = [
     purpose:
       'Named ROI calculator scenarios you have saved with the "Save this scenario" button on /roi, capped at the five most recent, so the "Saved ROI scenarios" card on /my can reopen each scenario and stack the top two side by side. Client-side only, never leaves your browser. Clearing localStorage resets it.',
   },
+  {
+    storageKey: 'dca_recent_verticals_v1',
+    shape: 'path + label + lastVisitedAt (bounded to 5 entries)',
+    purpose:
+      'The list of /ai-for-<vertical> landing pages you have opened, capped at the five most recent, so the "Verticals you\'re evaluating" card on /my can reopen the exact vertical page you were reading. Client-side only, never leaves your browser. Clearing localStorage resets it.',
+  },
 ];
 
 // Shared disclosure for chat-style lead-qualification demos (LeadResponder).
