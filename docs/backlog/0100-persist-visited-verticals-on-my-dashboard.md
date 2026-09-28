@@ -1,7 +1,7 @@
 ---
 id: 0100
 title: Persist visited AI-for-vertical landing pages and surface a "Verticals you're evaluating" card on /my dashboard
-status: in-progress
+status: shipped
 priority: P1
 area: demos
 created: 2026-09-28
