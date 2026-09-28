@@ -1,7 +1,7 @@
 ---
 id: 0102
 title: Public /hallucination-safeguards page listing per-demo grounding, known failure modes, and dated safeguards as a defensible trust artifact
-status: groomed
+status: shipped
 priority: P1
 area: trust
 created: 2026-09-28
@@ -180,7 +180,9 @@ doesn't have to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0102-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/hallucination-safeguards.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-09-28 - branch `feat/0102-hallucination-safeguards` opened; ticket + README index flipped to in-progress in the first commit per the 2026-05-22 backlog-drift lesson.
+- 2026-09-28 - Grepped every `tests/e2e/*-jsonld.spec.ts` for `=== 'CollectionPage'` and `=== 'BreadcrumbList'` predicates per the 2026-05-30 second-@type lesson. Every predecessor CollectionPage predicate is URL-scoped to its own hub path (`compare-boldtrail`, `compare-hub`, `agent-fleet-page`, `case-studies-rss-feed`, `case-studies-hub`, `model-card-page`, `subprocessors`, `security-posture-page`, `ai-risks-we-watch`, `compare-kvcore`, `ai-for-hospitality`, `compare-json-feed`, `accessibility-statement`, `blog-collectionpage-jsonld`) so a sibling CollectionPage scoped to `/hallucination-safeguards` cannot collide. BreadcrumbList predicates are also URL-scoped across the trust-family specs; no collision.
+- 2026-09-28 - Grepped every candidate `sourcePaths` at branch head. `src/utils/agentPipeline.ts`, `src/utils/voicePromptGenerator.ts`, `src/utils/aiCache.ts`, `src/hooks/useVoiceCall.ts`, and `src/utils/propertyExtractor.ts` all exist and hold the safeguards cited in the rows (JSON Schema enforcement on the deal-analyzer pipeline; `spokenDollars`/`expandAddress`/hash-to-unit guards on the voice negotiator; 30-minute sessionStorage TTL cache; post-call transcript summarizer).
+- 2026-09-28 - Deviation from the ticket's "grepable from git log" line for `RECENT_HALLUCINATION_FIXES[i].summary`: the underlying utility files themselves have not been modified in the last 90 days (their invariants remain intact and shipped), so the log names the public dated trust-artifact ships that documented each demo's mitigation posture (0088 `/model-card`, 0094 `/ai-risks-we-watch`, 0097 `/accessibility-statement`, 0069 `/subprocessors`, 0077 `/ethics`). Each row is grepable from `git log --since="2026-06-30"`. This is the "code beats prose" lesson from 2026-09-12 applied in reverse: when the ticket prose assumes a class of change that does not exist, the honest defensible artifact wins.
+- 2026-09-28 - failing test added in `tests/e2e/hallucination-safeguards.spec.ts`, one assertion block per acceptance box.
+- 2026-09-28 - implemented `src/data/hallucinationSafeguards.ts` (199 lines) with the inlined `assertHallucinationSafeguards()` module-load assertion, `src/pages/HallucinationSafeguards.tsx` mirroring the ticket 0097 layout, and the additive route/lazy/Trust-chip/Footer-chip edits. Full local gate (lint, typecheck, check-links, check-images, check-meta, check-blog-dates, check-backlog, build) all green. Sitemap auto-emission confirmed via `grep -c hallucination-safeguards dist/sitemap.xml` -> 1 per the 2026-05-28 encoded-invariant lesson.

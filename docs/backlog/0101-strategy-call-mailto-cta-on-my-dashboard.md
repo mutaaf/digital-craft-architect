@@ -1,7 +1,7 @@
 ---
 id: 0101
 title: Pre-filled "Book a strategy call" mailto CTA on /my composing the visitor's persisted dossier into the email body
-status: groomed
+status: shipped
 priority: P1
 area: conversion
 created: 2026-09-28
@@ -166,7 +166,8 @@ doesn't have to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0101-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/book-strategy-call-cta.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-09-28 - branch `feat/0101-strategy-call-mailto-cta` opened; status flipped groomed -> in-progress
+- 2026-09-28 - recipient mirror-source: grepped `src/pages/Trust.tsx` (line 257, 260) and `src/pages/AccessibilityStatement.tsx` (line 44) at branch head; the shipped contact address is `mutaaf@digitalcraftai.com`, NOT `hello@digitalcraftai.com` as the ticket prose named. Per the 2026-09-12 code-beats-prose lesson, `STRATEGY_CALL_RECIPIENT` mirrors the real code (`mutaaf@digitalcraftai.com`); ticket prose is treated as placeholder.
+- 2026-09-28 - no new JSON-LD blocks added on /my (per 2026-05-30 pre-code grep; noted for auditability).
+- 2026-09-28 - failing test added in `tests/e2e/book-strategy-call-cta.spec.ts`
+- 2026-09-28 - PR opened, CI green, merged to main

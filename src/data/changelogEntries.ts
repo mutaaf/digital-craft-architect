@@ -20,7 +20,10 @@ export interface ChangelogEntry {
 }
 
 export const changelogEntries: readonly ChangelogEntry[] = [
+  { id: "0101", title: "Pre-filled \"Book a strategy call\" mailto CTA on /my composing the visitor's persisted dossier into the email body", area: "conversion", created: "2026-09-28" },
+  { id: "0100", title: "Persist visited AI-for-vertical landing pages and surface a \"Verticals you're evaluating\" card on /my dashboard", area: "demos", created: "2026-09-28" },
   { id: "0099", title: "Comparison page \"Digital Craft vs BoldTrail\" for real-estate CRM lead-generation switchers", area: "seo", created: "2026-09-26" },
+  { id: "0098", title: "Generate a public /feeds.opml subscription index aggregating every RSS and JSON Feed the site publishes as a one-click feed-reader import artifact", area: "content", created: "2026-09-26" },
   { id: "0097", title: "Public /accessibility-statement page with dated WCAG conformance level and remediation log as a defensible trust artifact", area: "trust", created: "2026-09-26" },
   { id: "0096", title: "AI-for-fencing-contractors long-tail landing page funneling into home-services demos", area: "content", created: "2026-09-26" },
   { id: "0095", title: "Generate a public /compare.json machine-readable JSON Feed of every comparison page as a defensible moat artifact", area: "seo", created: "2026-09-24" },

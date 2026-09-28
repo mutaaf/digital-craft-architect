@@ -475,6 +475,21 @@ const Trust: React.FC = () => {
               Accessibility Statement
               <ArrowRight size={14} />
             </Link>
+            {/* Ticket 0102 - additive sibling-link chip pointing at
+                /hallucination-safeguards (the dated per-demo grounding and
+                mitigation-log artifact). Additive-only: no reordering of
+                the four chips above and no visible-text change to any
+                existing element. The shipped ticket 0044 AboutPage + ticket
+                0018 BreadcrumbList JSON-LD blocks stay byte-identical. */}
+            <Link
+              to="/hallucination-safeguards"
+              data-testid="trust-hallucination-safeguards-link"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/60 text-sm text-gray-700 dark:text-gray-300 hover:border-primary hover:text-primary dark:hover:border-primary dark:hover:text-primary transition-colors"
+              onClick={() => trackCTAClick('hallucination_safeguards_from_trust', 'trust_footer')}
+            >
+              Hallucination Safeguards
+              <ArrowRight size={14} />
+            </Link>
           </div>
         </div>
       </section>

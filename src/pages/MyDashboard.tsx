@@ -27,6 +27,7 @@ import QuizHistoryCard from '@/components/QuizHistoryCard';
 import RecentBlogPostsCard from '@/components/RecentBlogPostsCard';
 import SavedRoiScenariosCard from '@/components/SavedRoiScenariosCard';
 import RecentVerticalsCard from '@/components/RecentVerticalsCard';
+import BookStrategyCallCTA from '@/components/BookStrategyCallCTA';
 import {
   buildEvaluationDossier,
   dossierDownloadFilename,
@@ -384,6 +385,14 @@ const MyDashboard: React.FC = () => {
 
       <section className="py-10 bg-white dark:bg-gray-950">
         <div className="container mx-auto px-4 max-w-3xl space-y-6">
+          {/* Ticket 0101 - "Book a strategy call" mailto CTA rendered
+              above the retention cluster so a high-intent returning
+              visitor's one-tap path to a conversation is the FIRST card
+              on the dashboard. Component owns its own hydration and
+              renders with a fallback single-line body on a first-time
+              visit; the shipped cards below stay byte-identical. */}
+          <BookStrategyCallCTA />
+
           {/* Ticket 0091 - Articles you've read. Rendered above the
               existing top-of-dashboard retention cluster (recent-compares,
               streak badge, saved estimate, saved ROI, recent demos)
