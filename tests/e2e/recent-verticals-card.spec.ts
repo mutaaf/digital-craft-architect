@@ -218,10 +218,14 @@ test.describe('recent verticals card on /my', () => {
   });
 
   // Box (6): when the store holds 5 entries and a sixth vertical is visited,
-  // the oldest entry is evicted (FIFO evict case).
+  // the oldest entry is evicted (FIFO evict case). Seeded via `page.evaluate`
+  // after the first navigation (rather than via `addInitScript`) so a
+  // subsequent same-context navigation does not overwrite the store's own
+  // write with the pre-load seed script.
   test('FIFO evict: sixth visit evicts the oldest entry', async ({ browser }) => {
-    // Seed exactly 5 valid entries most-recent-first, then visit a sixth
-    // vertical page. The evicted entry should be the oldest seed.
+    // Five valid entries most-recent-first. After seeding, visit a sixth
+    // vertical page whose on-mount hook writes to the store. The evicted
+    // entry should be the oldest seed.
     const fiveSeed: SeedEntry[] = [
       { path: '/ai-for-hvac', label: VERTICAL_LABELS['/ai-for-hvac'], lastVisitedAt: 1_730_000_005_000 },
       { path: '/ai-for-roofers', label: VERTICAL_LABELS['/ai-for-roofers'], lastVisitedAt: 1_730_000_004_000 },
@@ -229,11 +233,29 @@ test.describe('recent verticals card on /my', () => {
       { path: '/ai-for-painters', label: VERTICAL_LABELS['/ai-for-painters'], lastVisitedAt: 1_730_000_002_000 },
       { path: '/ai-for-landscapers', label: VERTICAL_LABELS['/ai-for-landscapers'], lastVisitedAt: 1_730_000_001_000 },
     ];
-    const { ctx, page, errors } = await contextWithSeed(browser, JSON.stringify(fiveSeed));
 
+    const ctx = await browser.newContext();
+    const page = await ctx.newPage();
+    const errors = trackErrors(page);
+
+    // First, navigate to /my so we can write to same-origin localStorage.
+    await gotoPath(page, DASHBOARD_URL);
+    await page.evaluate(
+      ([key, value]) => {
+        try {
+          window.localStorage.setItem(key, value);
+        } catch {
+          /* storage unavailable - non-fatal */
+        }
+      },
+      [STORAGE_KEY, JSON.stringify(fiveSeed)] as const,
+    );
+
+    // Re-hit /my to confirm the seeded five render as expected.
     await gotoPath(page, DASHBOARD_URL);
     await expect(page.getByTestId('recent-vertical-row')).toHaveCount(5);
 
+    // Visit a sixth vertical whose mount effect writes to the same store.
     await gotoPath(page, '/ai-for-plumbers');
     await gotoPath(page, DASHBOARD_URL);
 
