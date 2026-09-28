@@ -7,6 +7,8 @@ import StickyCTA from '@/components/StickyCTA';
 import ScrollProgress from '@/components/ScrollProgress';
 import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
+import { useRecordVerticalVisit } from '@/hooks/useRecordVerticalVisit';
+import { VERTICAL_LABELS } from '@/data/verticalLabels';
 import {
   TreePine,
   PhoneOff,
@@ -115,6 +117,7 @@ const SERVICE_SCHEMA = {
 
 const AiForLandscapers: React.FC = () => {
   const { content } = useContent();
+  useRecordVerticalVisit({ path: '/ai-for-landscapers', label: VERTICAL_LABELS['/ai-for-landscapers'] });
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">

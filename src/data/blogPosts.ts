@@ -52,6 +52,52 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'ai-tree-services-storm-damage-emergency-calls',
+    title: 'Tree Services: Stop Losing Storm-Damage Calls to Voicemail',
+    description: 'A fallen limb on the roof does not wait for morning. Here is how AI captures the after-hours call, triages the job, and follows through to crew arrival.',
+    date: '2026-09-28',
+    author: 'DigitalCraft AI',
+    readTime: '5 min read',
+    tags: ['Home Services', 'Tree Services', 'Lead Response', 'AI Automation'],
+    content: `
+<p>A thunderstorm rolls through, a limb comes down across the fence, and the homeowner is standing in the yard at 8pm with a flashlight and a phone. She is not going to leave a voicemail and wait until Monday. She is calling every tree company she can find, and she is booking whichever one picks up.</p>
+
+<p>If both your crews are wrapping up the last removal of the day and nobody is covering the office line, that call rings out. You never even see it. The homeowner does not wait around for a callback, she moves to the next name on her list.</p>
+
+<h2>Storm Damage Does Not Wait for Business Hours</h2>
+
+<p>Fallen limbs and storm damage cluster right after the weather clears, which is almost always outside a normal office window. Your crews are mid-job or already home, and the calls keep coming in anyway.</p>
+
+<p>An <a href="/homeservices/demo/lead-responder">AI lead responder built for home services intake</a> answers every time, day or night, and asks what a good dispatcher would ask: what kind of tree, roughly how big around, whether it is resting on the house or a fence or a car, and whether it is anywhere near a power line. It books the earliest slot on your calendar instead of leaving the homeowner to keep dialing down her list.</p>
+
+<h2>Triage Questions a Dispatcher Cannot Answer Without Seeing the Tree</h2>
+
+<p>Tree work is not one-size-fits-all. A caller with a leaning oak over a two-story roof, a snapped pine hanging near a power line, or a stump left over from last year's removal needs someone who can sort a same-day emergency from a job that can wait for the regular schedule, and route each one to the right crew.</p>
+
+<p>An <a href="/homeservices/demo/estimate">estimate tool built around the same intake questions</a> walks the caller through species, trunk size, and what the tree is resting on, then returns a defensible ballpark for pruning, full removal, or stump grinding that your crew confirms on site. It is not a final number. It is enough of a real range that the homeowner stops calling around and waits for your truck.</p>
+
+<h2>Run the Math on Your Own Missed Calls</h2>
+
+<p>Pull your call log from the last storm that came through your area. Count how many calls came in after 6pm and how many of those you actually answered live versus how many went to voicemail.</p>
+
+<p>Now think about how many of those voicemails you called back the next morning, and how many of those homeowners had already booked someone else by then. That gap between when the limb came down and when you called back is exactly where a competitor picks up the job. You do not need outside data to see it, it is sitting in your own missed-call list.</p>
+
+<h2>Closing the Gap Between Booking and the Crew Showing Up</h2>
+
+<p>A confirmed removal has two natural check-in points: the evening before, to confirm the arrival window, and the morning of, when the crew is actually heading out. Most shops skip both because whoever would make those calls is already dispatching the next emergency.</p>
+
+<p>A <a href="/homeservices/demo/voice-followup">voice follow-up built for appointment and crew-on-the-way calls</a> handles both automatically, then calls once more after the job to ask for a review while your crew's work is still fresh in the homeowner's mind. If a crew is running behind, the same system can flag the delay before the homeowner has to call in and ask where the truck is.</p>
+
+<p>None of this replaces the judgment your climbers bring to a leaning oak over a roofline. It closes the two gaps where a real tree service loses ground: the after-hours call that rings out because both crews are on the last job of the day, and the silence between a booked removal and the truck actually pulling up.</p>
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to stop losing storm-damage calls to voicemail?</strong>
+  <p style="margin: 8px 0;">See how AI-powered call capture, quoting, and appointment follow-up work for tree services and other home service businesses.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/ai-for-tree-services">See AI for Tree Services</a> · <a href="/homeservices/demo">Try Our Live Demos</a>
+</div>
+`,
+  },
+  {
     slug: 'ai-garage-door-companies-emergency-calls-followup',
     title: "Garage Door Companies: Don't Let the 9PM Call Go to Voicemail",
     description: 'Broken springs do not wait for business hours. Here is how AI captures the emergency call, triages the repair, and follows up before the technician arrives.',

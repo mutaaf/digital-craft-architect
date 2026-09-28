@@ -7,6 +7,8 @@ import StickyCTA from '@/components/StickyCTA';
 import ScrollProgress from '@/components/ScrollProgress';
 import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
+import { useRecordVerticalVisit } from '@/hooks/useRecordVerticalVisit';
+import { VERTICAL_LABELS } from '@/data/verticalLabels';
 import { Truck, PhoneOff, Clock, MessageSquare, ArrowRight, Phone, Calculator, Star, Mic, Boxes } from 'lucide-react';
 
 // Ticket 0080 - long-tail landing page for the "AI for moving companies"
@@ -146,6 +148,7 @@ const FAQ_SCHEMA = {
 
 const AiForMovingCompanies: React.FC = () => {
   const { content } = useContent();
+  useRecordVerticalVisit({ path: '/ai-for-moving-companies', label: VERTICAL_LABELS['/ai-for-moving-companies'] });
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">

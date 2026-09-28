@@ -7,6 +7,8 @@ import ScrollProgress from '@/components/ScrollProgress';
 import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
 import { ROUTES } from '@/data/routes';
+import { useRecordVerticalVisit } from '@/hooks/useRecordVerticalVisit';
+import { VERTICAL_LABELS } from '@/data/verticalLabels';
 import { Hotel, ArrowRight, ShieldCheck, BookOpen, ClipboardList } from 'lucide-react';
 
 // Ticket 0071 - Public /ai-for-hospitality multi-vertical hub indexing the
@@ -128,6 +130,7 @@ const ITEM_LIST_SCHEMA = {
 
 const AiForHospitality: React.FC = () => {
   const { content } = useContent();
+  useRecordVerticalVisit({ path: '/ai-for-hospitality', label: VERTICAL_LABELS['/ai-for-hospitality'] });
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
