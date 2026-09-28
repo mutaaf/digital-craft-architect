@@ -7,6 +7,26 @@
   "language": "en-US",
   "items": [
     {
+      "id": "0101",
+      "url": "https://digitalcraftai.com/changelog#0101",
+      "title": "Pre-filled \"Book a strategy call\" mailto CTA on /my composing the visitor's persisted dossier into the email body",
+      "content_text": "Pre-filled \"Book a strategy call\" mailto CTA on /my composing the visitor's persisted dossier into the email body",
+      "date_published": "2026-09-28T12:00:00.000Z",
+      "tags": [
+        "conversion"
+      ]
+    },
+    {
+      "id": "0100",
+      "url": "https://digitalcraftai.com/changelog#0100",
+      "title": "Persist visited AI-for-vertical landing pages and surface a \"Verticals you're evaluating\" card on /my dashboard",
+      "content_text": "Persist visited AI-for-vertical landing pages and surface a \"Verticals you're evaluating\" card on /my dashboard",
+      "date_published": "2026-09-28T12:00:00.000Z",
+      "tags": [
+        "demos"
+      ]
+    },
+    {
       "id": "0099",
       "url": "https://digitalcraftai.com/changelog#0099",
       "title": "Comparison page \"Digital Craft vs BoldTrail\" for real-estate CRM lead-generation switchers",
@@ -14,6 +34,16 @@
       "date_published": "2026-09-26T12:00:00.000Z",
       "tags": [
         "seo"
+      ]
+    },
+    {
+      "id": "0098",
+      "url": "https://digitalcraftai.com/changelog#0098",
+      "title": "Generate a public /feeds.opml subscription index aggregating every RSS and JSON Feed the site publishes as a one-click feed-reader import artifact",
+      "content_text": "Generate a public /feeds.opml subscription index aggregating every RSS and JSON Feed the site publishes as a one-click feed-reader import artifact",
+      "date_published": "2026-09-26T12:00:00.000Z",
+      "tags": [
+        "content"
       ]
     },
     {
