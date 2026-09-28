@@ -1,7 +1,7 @@
 ---
 id: 0102
 title: Public /hallucination-safeguards page listing per-demo grounding, known failure modes, and dated safeguards as a defensible trust artifact
-status: in-progress
+status: shipped
 priority: P1
 area: trust
 created: 2026-09-28
