@@ -7,12 +7,36 @@
     <language>en-us</language>
     <atom:link href="https://digitalcraftai.com/changelog/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Pre-filled &quot;Book a strategy call&quot; mailto CTA on /my composing the visitor&apos;s persisted dossier into the email body</title>
+      <link>https://digitalcraftai.com/changelog#0101</link>
+      <description>Shipped 2026-09-28 in area: conversion.</description>
+      <pubDate>Mon, 28 Sep 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0101</guid>
+      <category>conversion</category>
+    </item>
+    <item>
+      <title>Persist visited AI-for-vertical landing pages and surface a &quot;Verticals you&apos;re evaluating&quot; card on /my dashboard</title>
+      <link>https://digitalcraftai.com/changelog#0100</link>
+      <description>Shipped 2026-09-28 in area: demos.</description>
+      <pubDate>Mon, 28 Sep 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0100</guid>
+      <category>demos</category>
+    </item>
+    <item>
       <title>Comparison page &quot;Digital Craft vs BoldTrail&quot; for real-estate CRM lead-generation switchers</title>
       <link>https://digitalcraftai.com/changelog#0099</link>
       <description>Shipped 2026-09-26 in area: seo.</description>
       <pubDate>Sat, 26 Sep 2026 12:00:00 GMT</pubDate>
       <guid isPermaLink="true">https://digitalcraftai.com/changelog#0099</guid>
       <category>seo</category>
+    </item>
+    <item>
+      <title>Generate a public /feeds.opml subscription index aggregating every RSS and JSON Feed the site publishes as a one-click feed-reader import artifact</title>
+      <link>https://digitalcraftai.com/changelog#0098</link>
+      <description>Shipped 2026-09-26 in area: content.</description>
+      <pubDate>Sat, 26 Sep 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0098</guid>
+      <category>content</category>
     </item>
     <item>
       <title>Public /accessibility-statement page with dated WCAG conformance level and remediation log as a defensible trust artifact</title>
