@@ -1,7 +1,7 @@
 ---
 id: 0101
 title: Pre-filled "Book a strategy call" mailto CTA on /my composing the visitor's persisted dossier into the email body
-status: in-progress
+status: shipped
 priority: P1
 area: conversion
 created: 2026-09-28
