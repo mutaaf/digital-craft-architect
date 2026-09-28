@@ -7,6 +7,8 @@ import StickyCTA from '@/components/StickyCTA';
 import ScrollProgress from '@/components/ScrollProgress';
 import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
+import { useRecordVerticalVisit } from '@/hooks/useRecordVerticalVisit';
+import { VERTICAL_LABELS } from '@/data/verticalLabels';
 import { Sun, PhoneOff, Clock, MessageSquare, ArrowRight, Phone, Calculator, Star, Mic, ClipboardList } from 'lucide-react';
 
 // Ticket 0084 - long-tail landing page for the "AI for solar installers"
@@ -145,6 +147,7 @@ const FAQ_SCHEMA = {
 
 const AiForSolarInstallers: React.FC = () => {
   const { content } = useContent();
+  useRecordVerticalVisit({ path: '/ai-for-solar-installers', label: VERTICAL_LABELS['/ai-for-solar-installers'] });
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">

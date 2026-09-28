@@ -7,6 +7,8 @@ import StickyCTA from '@/components/StickyCTA';
 import ScrollProgress from '@/components/ScrollProgress';
 import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
+import { useRecordVerticalVisit } from '@/hooks/useRecordVerticalVisit';
+import { VERTICAL_LABELS } from '@/data/verticalLabels';
 import { Sparkles, PhoneOff, Clock, MessageSquare, ArrowRight, Phone, Calculator, Star, Mic, FileText } from 'lucide-react';
 
 // Ticket 0072 - long-tail landing page for the "AI for restoration services"
@@ -94,6 +96,7 @@ const BREADCRUMB_SCHEMA = {
 
 const AiForRestorationServices: React.FC = () => {
   const { content } = useContent();
+  useRecordVerticalVisit({ path: '/ai-for-restoration-services', label: VERTICAL_LABELS['/ai-for-restoration-services'] });
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">

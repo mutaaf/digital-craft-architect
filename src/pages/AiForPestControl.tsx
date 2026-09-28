@@ -7,6 +7,8 @@ import StickyCTA from '@/components/StickyCTA';
 import ScrollProgress from '@/components/ScrollProgress';
 import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
+import { useRecordVerticalVisit } from '@/hooks/useRecordVerticalVisit';
+import { VERTICAL_LABELS } from '@/data/verticalLabels';
 import { Sparkles, PhoneOff, Clock, MessageSquare, ArrowRight, Phone, Calculator, Star, Mic, RefreshCcw } from 'lucide-react';
 
 // Ticket 0056 - long-tail landing page for the "AI for pest control" query
@@ -93,6 +95,7 @@ const BREADCRUMB_SCHEMA = {
 
 const AiForPestControl: React.FC = () => {
   const { content } = useContent();
+  useRecordVerticalVisit({ path: '/ai-for-pest-control', label: VERTICAL_LABELS['/ai-for-pest-control'] });
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">

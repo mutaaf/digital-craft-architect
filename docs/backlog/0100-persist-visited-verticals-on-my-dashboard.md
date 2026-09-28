@@ -1,7 +1,7 @@
 ---
 id: 0100
 title: Persist visited AI-for-vertical landing pages and surface a "Verticals you're evaluating" card on /my dashboard
-status: groomed
+status: in-progress
 priority: P1
 area: demos
 created: 2026-09-28
@@ -158,7 +158,7 @@ doesn't have to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0100-...` opened
+- 2026-09-28 - branch `feat/0100-persist-visited-verticals-on-my-dashboard` opened, status flipped to `in-progress`.
 - YYYY-MM-DD - failing test added in `tests/e2e/recent-verticals-card.spec.ts`
 - YYYY-MM-DD - PR #N opened, CI [state]
 - YYYY-MM-DD - merged to main

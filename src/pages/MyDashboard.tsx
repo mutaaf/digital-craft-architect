@@ -26,6 +26,7 @@ import { SUMMARY_LINE_KEYS, type SummaryLineKey } from '@/pages/mydashboardSumma
 import QuizHistoryCard from '@/components/QuizHistoryCard';
 import RecentBlogPostsCard from '@/components/RecentBlogPostsCard';
 import SavedRoiScenariosCard from '@/components/SavedRoiScenariosCard';
+import RecentVerticalsCard from '@/components/RecentVerticalsCard';
 import {
   buildEvaluationDossier,
   dossierDownloadFilename,
@@ -552,6 +553,14 @@ const MyDashboard: React.FC = () => {
               retention cluster. Card owns its own hydration and returns
               null when the store is empty (no empty state, no nag). */}
           {hydrated && <SavedRoiScenariosCard />}
+
+          {/* Ticket 0100 - "Verticals you're evaluating" card. Rendered
+              directly under the ticket 0093 saved-ROI-scenarios card so
+              the returning multi-vertical operator sees the /ai-for-*
+              landing pages they scoped last week alongside their saved
+              scenarios. Card owns its own hydration and returns null
+              when the store is empty (no empty state, no nag). */}
+          {hydrated && <RecentVerticalsCard />}
 
           {hydrated && persona && (
             <article data-testid="dashboard-quiz-persona-card" className={CARD}>

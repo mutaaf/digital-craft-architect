@@ -7,6 +7,8 @@ import StickyCTA from '@/components/StickyCTA';
 import ScrollProgress from '@/components/ScrollProgress';
 import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
+import { useRecordVerticalVisit } from '@/hooks/useRecordVerticalVisit';
+import { VERTICAL_LABELS } from '@/data/verticalLabels';
 import {
   Brush,
   PhoneOff,
@@ -115,6 +117,7 @@ const SERVICE_SCHEMA = {
 
 const AiForPainters: React.FC = () => {
   const { content } = useContent();
+  useRecordVerticalVisit({ path: '/ai-for-painters', label: VERTICAL_LABELS['/ai-for-painters'] });
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
