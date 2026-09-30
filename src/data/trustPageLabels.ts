@@ -33,6 +33,10 @@ export const TRUST_PAGE_LABELS = {
   '/ai-risks-we-watch': 'AI Risks We Watch',
   '/accessibility-statement': 'Accessibility Statement',
   '/hallucination-safeguards': 'Hallucination Safeguards',
+  // Ticket 0105 - additive entry so the reviewed-trust-pages store from
+  // ticket 0104 transitively picks up /data-retention and the /my dashboard
+  // "Compliance you've reviewed" card renders a visit to it.
+  '/data-retention': 'Data Retention',
 } as const;
 
 export type TrustPagePath = keyof typeof TRUST_PAGE_LABELS;

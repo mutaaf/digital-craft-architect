@@ -209,6 +209,35 @@ const FooterHallucinationSafeguardsChip: React.FC = () => {
   );
 };
 
+// Ticket 0105 - "Data Retention" trust chip. Fires
+// trackCTAClick('footer_data_retention_chip', <current-route>) synchronously
+// before the SPA navigation. Placed next to the ticket 0102 hallucination-
+// safeguards chip in the trust-chip row per the ticket's placement note.
+// Label authored once here as the shipped constant per the 2026-05-25
+// mirror-source rule.
+const FOOTER_DATA_RETENTION_LABEL = 'Data Retention';
+const FooterDataRetentionChip: React.FC = () => {
+  const location = useLocation();
+  return (
+    <p className="text-gray-500 dark:text-gray-500 text-xs">
+      <Link
+        to="/data-retention"
+        onClick={() =>
+          trackCTAClick('footer_data_retention_chip', location.pathname)
+        }
+        className="hover:text-skyblue transition-colors"
+      >
+        <span
+          data-testid="footer-data-retention-chip"
+          className="inline-block bg-gray-800 dark:bg-gray-800 px-2 py-1 rounded"
+        >
+          {FOOTER_DATA_RETENTION_LABEL}
+        </span>
+      </Link>
+    </p>
+  );
+};
+
 // Ticket 0098 - "Subscribe (OPML)" chip linking to the OPML 2.0
 // subscription index at /feeds.opml (generated at build time by
 // scripts/generate-feeds-opml.ts from src/data/publishedFeeds.ts).
@@ -338,6 +367,7 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
                 <FooterAiRisksChip />
                 <FooterAccessibilityStatementChip />
                 <FooterHallucinationSafeguardsChip />
+                <FooterDataRetentionChip />
                 <FooterFeedsOpmlChip />
                 <div className="flex space-x-6">
                   <a href="/industries" className="text-gray-400 hover:text-skyblue text-sm">Industries</a>

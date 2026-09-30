@@ -20,6 +20,8 @@ export interface ChangelogEntry {
 }
 
 export const changelogEntries: readonly ChangelogEntry[] = [
+  { id: "0104", title: "Persist visited trust-family pages and surface a \"Compliance you've reviewed\" card on /my dashboard", area: "demos", created: "2026-09-30" },
+  { id: "0103", title: "Emit SoftwareApplication JSON-LD on each individual demo page so every demo indexes as a standalone rich-result artifact", area: "seo", created: "2026-09-30" },
   { id: "0102", title: "Public /hallucination-safeguards page listing per-demo grounding, known failure modes, and dated safeguards as a defensible trust artifact", area: "trust", created: "2026-09-28" },
   { id: "0101", title: "Pre-filled \"Book a strategy call\" mailto CTA on /my composing the visitor's persisted dossier into the email body", area: "conversion", created: "2026-09-28" },
   { id: "0100", title: "Persist visited AI-for-vertical landing pages and surface a \"Verticals you're evaluating\" card on /my dashboard", area: "demos", created: "2026-09-28" },
