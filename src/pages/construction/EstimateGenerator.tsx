@@ -31,6 +31,15 @@ import { Checkbox } from '@/components/ui/checkbox';
 import DemoBreadcrumbs from '@/components/DemoBreadcrumbs';
 import RelatedDemos from '@/components/RelatedDemos';
 import DataDisclosureChip from '@/components/DataDisclosureChip';
+import {
+  buildDemoSoftwareApplicationSchema,
+  getDemoApplicationByRoute,
+} from '@/data/perDemoSoftwareApplications';
+
+// Ticket 0103 - per-demo SoftwareApplication JSON-LD, row looked up
+// via getDemoApplicationByRoute (mirror-source per 2026-05-25).
+const DEMO_APP_ROW = getDemoApplicationByRoute('/construction/demo/estimate');
+const DEMO_APP_SCHEMA = DEMO_APP_ROW ? buildDemoSoftwareApplicationSchema(DEMO_APP_ROW) : null;
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, ArrowRight, RotateCcw, Sparkles } from 'lucide-react';
 
@@ -200,6 +209,9 @@ const EstimateGenerator = () => {
         <meta name="description" content="Generate branded construction estimates in under 60 seconds. Enter project type and square footage for an instant ballpark estimate." />
         <meta property="og:title" content="Smart Estimate Generator Demo | DigitalCraft AI" />
         <meta property="og:description" content="Generate branded construction estimates in under 60 seconds using AI-powered pricing." />
+        {DEMO_APP_SCHEMA && (
+          <script type="application/ld+json">{JSON.stringify(DEMO_APP_SCHEMA)}</script>
+        )}
       </Helmet>
       <DemoNavbar />
       <DemoBreadcrumbs />

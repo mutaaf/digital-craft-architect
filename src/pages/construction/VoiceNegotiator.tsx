@@ -24,6 +24,15 @@ import type { StoredConversation } from '@/utils/conversationStore';
 import DemoBreadcrumbs from '@/components/DemoBreadcrumbs';
 import { decodeVoiceSummary } from '@/utils/voiceSummaryShareLink';
 import { trackCTAClick } from '@/utils/analytics';
+import {
+  buildDemoSoftwareApplicationSchema,
+  getDemoApplicationByRoute,
+} from '@/data/perDemoSoftwareApplications';
+
+// Ticket 0103 - per-demo SoftwareApplication JSON-LD, row looked up
+// via getDemoApplicationByRoute (mirror-source per 2026-05-25).
+const DEMO_APP_ROW = getDemoApplicationByRoute('/construction/demo/voice-negotiator');
+const DEMO_APP_SCHEMA = DEMO_APP_ROW ? buildDemoSoftwareApplicationSchema(DEMO_APP_ROW) : null;
 
 type Phase = 'input' | 'agent' | 'setup' | 'call' | 'summary';
 
@@ -237,6 +246,9 @@ const VoiceNegotiator = () => {
           name="description"
           content="AI-powered voice negotiation for real estate deals. The AI calls sellers, negotiates pricing, and provides a full call summary."
         />
+        {DEMO_APP_SCHEMA && (
+          <script type="application/ld+json">{JSON.stringify(DEMO_APP_SCHEMA)}</script>
+        )}
       </Helmet>
       <DemoNavbar />
       <DemoBreadcrumbs />

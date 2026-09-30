@@ -56,6 +56,24 @@ const EXPECTED_DEMO_ROUTES: readonly string[] = [
   '/construction/demo/voice-negotiator',
 ];
 
+// The subset of EXPECTED_DEMO_ROUTES that actually ship the ticket 0019
+// DemoBreadcrumbs component today. Verified at branch head via
+// `grep -n "DemoBreadcrumbs" src/pages/construction/*.tsx`:
+// LeadResponder, EstimateGenerator, PropertyNegotiator, and
+// VoiceNegotiator all render <DemoBreadcrumbs />; ReviewSystem does not.
+// Per the 2026-09-12 code-beats-prose lesson the ticket's claim that
+// "every demo has a BreadcrumbList" is superseded by the real source
+// (ReviewSystem's JSX at branch head), so Box 6 iterates only the
+// routes that actually ship the block. Adding DemoBreadcrumbs to
+// ReviewSystem is a visible-copy change the ticket forbids in its
+// "Standard box" acceptance criterion.
+const ROUTES_WITH_BREADCRUMBS: readonly string[] = [
+  '/construction/demo/lead-responder',
+  '/construction/demo/estimate',
+  '/construction/demo/property-negotiator',
+  '/construction/demo/voice-negotiator',
+];
+
 type JsonLdBlock = { raw: string; data: unknown };
 
 type SoftwareApplication = {
@@ -319,12 +337,17 @@ test('meta[name="description"] byte-matches the SoftwareApplication description 
 });
 
 // Acceptance box 6: the ticket 0019 BreadcrumbList JSON-LD block on
-// every demo route stays present after adding the SoftwareApplication
-// block; per-page BreadcrumbList count stays 1 (2026-09-06 lesson).
+// every demo route that already shipped one stays present after adding
+// the SoftwareApplication block; per-page BreadcrumbList count stays 1
+// (2026-09-06 lesson). Iterates only ROUTES_WITH_BREADCRUMBS per the
+// 2026-09-12 code-beats-prose lesson: ReviewSystem does not ship the
+// DemoBreadcrumbs component at branch head, and the ticket's standard
+// box forbids visible-copy edits, so it is excluded from this
+// regression guard by design.
 test('ticket 0019 BreadcrumbList block coexists with the new SoftwareApplication block', async ({
   page,
 }) => {
-  for (const route of EXPECTED_DEMO_ROUTES) {
+  for (const route of ROUTES_WITH_BREADCRUMBS) {
     const errors = await gotoDemo(page, route);
     const blocks = await readJsonLdBlocks(page);
     const crumbs = blocks.filter((b) => isBreadcrumbList(b.data));
@@ -333,6 +356,19 @@ test('ticket 0019 BreadcrumbList block coexists with the new SoftwareApplication
     expect(apps.length, `expected exactly one SoftwareApplication on ${route}`).toBe(1);
     expect(errors).toEqual([]);
   }
+
+  // Explicit regression pin: the reviews route ships the new
+  // SoftwareApplication block even though it never shipped a
+  // BreadcrumbList. This proves the SoftwareApplication emission does
+  // not depend on the DemoBreadcrumbs component being present.
+  const reviewsErrors = await gotoDemo(page, '/construction/demo/reviews');
+  const reviewsBlocks = await readJsonLdBlocks(page);
+  const reviewsApps = findSoftwareApplications(reviewsBlocks);
+  expect(
+    reviewsApps.length,
+    'expected exactly one SoftwareApplication on /construction/demo/reviews',
+  ).toBe(1);
+  expect(reviewsErrors).toEqual([]);
 });
 
 // Acceptance box 7: after landing on a per-demo route, the ticket 0030

@@ -20,6 +20,7 @@ export interface ChangelogEntry {
 }
 
 export const changelogEntries: readonly ChangelogEntry[] = [
+  { id: "0102", title: "Public /hallucination-safeguards page listing per-demo grounding, known failure modes, and dated safeguards as a defensible trust artifact", area: "trust", created: "2026-09-28" },
   { id: "0101", title: "Pre-filled \"Book a strategy call\" mailto CTA on /my composing the visitor's persisted dossier into the email body", area: "conversion", created: "2026-09-28" },
   { id: "0100", title: "Persist visited AI-for-vertical landing pages and surface a \"Verticals you're evaluating\" card on /my dashboard", area: "demos", created: "2026-09-28" },
   { id: "0099", title: "Comparison page \"Digital Craft vs BoldTrail\" for real-estate CRM lead-generation switchers", area: "seo", created: "2026-09-26" },
