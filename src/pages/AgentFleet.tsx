@@ -14,6 +14,8 @@ import {
   PAGE_H1,
   PAGE_URL,
 } from '@/data/agentFleet';
+import { TRUST_PAGE_LABELS } from '@/data/trustPageLabels';
+import { useRecordTrustPageVisit } from '@/hooks/useRecordTrustPageVisit';
 
 // Ticket 0090 - /agent-fleet AI-labor transparency page. Mirrors
 // `src/pages/ModelCard.tsx` (ticket 0088) end-to-end: the direct
@@ -102,6 +104,7 @@ const SIBLING_CHIPS: readonly { label: string; href: string }[] = [
 
 const AgentFleet: React.FC = () => {
   const { content } = useContent();
+  useRecordTrustPageVisit({ path: '/agent-fleet', label: TRUST_PAGE_LABELS['/agent-fleet'] });
   const viewFiredRef = React.useRef<boolean>(false);
 
   React.useEffect(() => {

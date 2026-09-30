@@ -8,6 +8,8 @@ import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
 import { ShieldCheck, ArrowRight, Phone, Printer, ExternalLink } from 'lucide-react';
 import { SUBPROCESSORS } from '@/data/subprocessors';
+import { TRUST_PAGE_LABELS } from '@/data/trustPageLabels';
+import { useRecordTrustPageVisit } from '@/hooks/useRecordTrustPageVisit';
 
 // Ticket 0069 - /subprocessors data recipients page. A printable structured
 // table of every third-party service Digital Craft routes customer or
@@ -133,6 +135,7 @@ const humanizeTrustUrl = (url: string): string => {
 
 const Subprocessors: React.FC = () => {
   const { content } = useContent();
+  useRecordTrustPageVisit({ path: '/subprocessors', label: TRUST_PAGE_LABELS['/subprocessors'] });
   const viewFiredRef = React.useRef<boolean>(false);
 
   // Ticket 0060 / 0062 / 0067 pattern: one telemetry beacon per mount,

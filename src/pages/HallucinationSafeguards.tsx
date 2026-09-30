@@ -12,6 +12,8 @@ import {
   PER_DEMO_SAFEGUARDS,
   RECENT_HALLUCINATION_FIXES,
 } from '@/data/hallucinationSafeguards';
+import { TRUST_PAGE_LABELS } from '@/data/trustPageLabels';
+import { useRecordTrustPageVisit } from '@/hooks/useRecordTrustPageVisit';
 
 // Ticket 0102 - /hallucination-safeguards dated per-demo grounding and
 // mitigation-log page. Mirrors `src/pages/AccessibilityStatement.tsx`
@@ -62,6 +64,7 @@ const CHIP_CLASS =
 
 const HallucinationSafeguards: React.FC = () => {
   const { content } = useContent();
+  useRecordTrustPageVisit({ path: '/hallucination-safeguards', label: TRUST_PAGE_LABELS['/hallucination-safeguards'] });
   const viewFiredRef = React.useRef<boolean>(false);
   React.useEffect(() => {
     if (viewFiredRef.current) return;

@@ -8,6 +8,8 @@ import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
 import { ShieldCheck, ArrowRight, Phone } from 'lucide-react';
 import { AI_RISKS_WATCHLIST } from '@/data/aiRisksWatchlist';
+import { TRUST_PAGE_LABELS } from '@/data/trustPageLabels';
+import { useRecordTrustPageVisit } from '@/hooks/useRecordTrustPageVisit';
 
 // Ticket 0094 - /ai-risks-we-watch dated risk-watchlist page. Mirrors the
 // visual shell of `src/pages/Security.tsx` (ticket 0081, the closest
@@ -87,6 +89,7 @@ const COLLECTION_PAGE_SCHEMA = {
 
 const AiRisksWeWatch: React.FC = () => {
   const { content } = useContent();
+  useRecordTrustPageVisit({ path: '/ai-risks-we-watch', label: TRUST_PAGE_LABELS['/ai-risks-we-watch'] });
   const viewFiredRef = React.useRef<boolean>(false);
 
   // Ticket 0060 / 0062 / 0077 pattern: one telemetry beacon per mount,

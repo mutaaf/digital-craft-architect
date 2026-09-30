@@ -8,6 +8,8 @@ import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
 import { Rocket, ArrowRight, Phone } from 'lucide-react';
 import { SHIP_LOOP_STAGES, SHIP_LOOP_GATES, SHIP_LOOP_HARD_NOS } from '@/data/shipLoopStages';
+import { TRUST_PAGE_LABELS } from '@/data/trustPageLabels';
+import { useRecordTrustPageVisit } from '@/hooks/useRecordTrustPageVisit';
 
 // Ticket 0083 - /how-we-ship transparency page. Mirrors Security.tsx (0081)
 // and the "In effect since" chip pattern from Ethics.tsx (0077). Pre-write
@@ -56,6 +58,7 @@ const EVIDENCE_CHIPS: readonly { href: string; label: string }[] = [
 
 const HowWeShip: React.FC = () => {
   const { content } = useContent();
+  useRecordTrustPageVisit({ path: '/how-we-ship', label: TRUST_PAGE_LABELS['/how-we-ship'] });
   const viewFiredRef = React.useRef<boolean>(false);
 
   React.useEffect(() => {

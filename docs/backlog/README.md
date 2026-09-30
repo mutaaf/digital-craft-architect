@@ -112,7 +112,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0101 | Pre-filled "Book a strategy call" mailto CTA on /my composing the visitor's persisted dossier into the email body | P1 | shipped | conversion |
 | 0102 | Public /hallucination-safeguards page listing per-demo grounding, known failure modes, and dated safeguards as a defensible trust artifact | P1 | shipped | trust |
 | 0103 | Emit SoftwareApplication JSON-LD on each individual demo page so every demo indexes as a standalone rich-result artifact | P1 | shipped | seo |
-| 0104 | Persist visited trust-family pages and surface a "Compliance you've reviewed" card on /my dashboard | P1 | groomed | demos |
+| 0104 | Persist visited trust-family pages and surface a "Compliance you've reviewed" card on /my dashboard | P1 | in-progress | demos |
 | 0105 | Public /data-retention dated per-storage-key retention policy page as a defensible trust artifact | P2 | groomed | trust |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
