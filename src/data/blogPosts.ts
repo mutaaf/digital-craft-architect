@@ -52,6 +52,52 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'ai-window-installers-quote-response-review-timing',
+    title: 'Window Installers: Win the Job Before Quote Comparisons Start',
+    description: 'Homeowners request window quotes from three or four companies at once. Here is how AI wins the response-speed race and times the review ask right.',
+    date: '2026-09-30',
+    author: 'DigitalCraft AI',
+    readTime: '5 min read',
+    tags: ['Home Services', 'Window Installers', 'Lead Response', 'AI Automation'],
+    content: `
+<p>A homeowner decides her windows are drafty and starts pricing replacements. She does not call one company and wait. She fills out three or four quote forms in the same afternoon, sometimes on the same website, and whoever answers first with a real number gets the walk-through appointment.</p>
+
+<p>If your office manager is out at a job site measuring a different house, or it is after 5pm and the form just sits in an inbox until morning, you are not competing on price or craftsmanship. You are just late, and the homeowner has already booked a walk-through with someone else by the time you call back.</p>
+
+<h2>The Quote Request Is a Timed Race, Not a Queue</h2>
+
+<p>Window replacement is a considered purchase. Homeowners research first, then request quotes from several installers within a short window, often the same day. The company that responds fastest with something concrete gets the first walk-through slot, and the first walk-through has a real advantage because it sets the anchor price the homeowner compares everything else against.</p>
+
+<p>An <a href="/homeservices/demo/lead-responder">AI lead responder built for home services intake</a> answers the moment the form comes in or the phone rings, and asks what a good sales rep would ask: how many windows, what style (double-hung, casement, sliding), single or double pane, and whether it is a full-frame or pocket replacement. It books the walk-through before the homeowner even finishes checking her other tabs.</p>
+
+<h2>A Ballpark Beats a Callback Every Time</h2>
+
+<p>Nobody expects a firm number before someone has measured the openings. But a wide range based on window count and style tells the homeowner whether your company is even in her budget, and that matters more than people admit when they are comparing four quotes at once.</p>
+
+<p>An <a href="/homeservices/demo/estimate">estimate tool built around the same intake questions</a> walks the caller through window count, style, and frame material, then returns a defensible range your estimator confirms on the actual measure. It is not a final quote. It is enough of a real number that the homeowner stops filling out more forms and waits for your appointment.</p>
+
+<h2>Run the Math on Your Own Lead Sheet</h2>
+
+<p>Look back at your last month of quote requests. Count how many came in after your office closed or on a weekend, and how many of those got a same-day response versus a callback the next business day or later.</p>
+
+<p>Now think about how many of those delayed callbacks turned into a booked walk-through. If the answer is close to zero, that is not a sales problem, it is a timing problem, and it is sitting in your own lead sheet without needing any outside data to prove it.</p>
+
+<h2>Ask for the Review When the New Windows Are Still the Story</h2>
+
+<p>Installation day is disruptive: old windows come out, new ones go in, there is caulk and trim work and a crew in the house for hours. The homeowner is relieved when it is done, and that relief fades fast once the house goes back to normal and the windows just become part of the wall.</p>
+
+<p>A <a href="/homeservices/demo/voice-followup">voice follow-up built for appointment and completion calls</a> confirms the install date ahead of time, then calls again within a day or two of the crew finishing to check that everything is sealed and operating right, and to ask for a review while the new windows are still the thing the homeowner is telling her neighbors about. Waiting two weeks to ask means competing with whatever else has happened in her life since.</p>
+
+<p>None of this replaces the measuring and craftsmanship your crew brings to an odd-sized bay window or a historic frame. It closes the two gaps where installers lose jobs they should have won: the quote request that sits unanswered while a competitor's form gets filled out first, and the review that never gets asked for once the crew has moved on to the next house.</p>
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to win more window replacement quotes?</strong>
+  <p style="margin: 8px 0;">See how AI-powered call and form response, instant estimates, and review timing work for window installers and other home service businesses.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/ai-for-window-installers">See AI for Window Installers</a> · <a href="/homeservices/demo">Try Our Live Demos</a>
+</div>
+`,
+  },
+  {
     slug: 'ai-tree-services-storm-damage-emergency-calls',
     title: 'Tree Services: Stop Losing Storm-Damage Calls to Voicemail',
     description: 'A fallen limb on the roof does not wait for morning. Here is how AI captures the after-hours call, triages the job, and follows through to crew arrival.',
