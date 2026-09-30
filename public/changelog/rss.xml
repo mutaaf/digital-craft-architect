@@ -7,6 +7,22 @@
     <language>en-us</language>
     <atom:link href="https://digitalcraftai.com/changelog/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Persist visited trust-family pages and surface a &quot;Compliance you&apos;ve reviewed&quot; card on /my dashboard</title>
+      <link>https://digitalcraftai.com/changelog#0104</link>
+      <description>Shipped 2026-09-30 in area: demos.</description>
+      <pubDate>Wed, 30 Sep 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0104</guid>
+      <category>demos</category>
+    </item>
+    <item>
+      <title>Emit SoftwareApplication JSON-LD on each individual demo page so every demo indexes as a standalone rich-result artifact</title>
+      <link>https://digitalcraftai.com/changelog#0103</link>
+      <description>Shipped 2026-09-30 in area: seo.</description>
+      <pubDate>Wed, 30 Sep 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0103</guid>
+      <category>seo</category>
+    </item>
+    <item>
       <title>Public /hallucination-safeguards page listing per-demo grounding, known failure modes, and dated safeguards as a defensible trust artifact</title>
       <link>https://digitalcraftai.com/changelog#0102</link>
       <description>Shipped 2026-09-28 in area: trust.</description>

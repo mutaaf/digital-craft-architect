@@ -7,6 +7,26 @@
   "language": "en-US",
   "items": [
     {
+      "id": "0104",
+      "url": "https://digitalcraftai.com/changelog#0104",
+      "title": "Persist visited trust-family pages and surface a \"Compliance you've reviewed\" card on /my dashboard",
+      "content_text": "Persist visited trust-family pages and surface a \"Compliance you've reviewed\" card on /my dashboard",
+      "date_published": "2026-09-30T12:00:00.000Z",
+      "tags": [
+        "demos"
+      ]
+    },
+    {
+      "id": "0103",
+      "url": "https://digitalcraftai.com/changelog#0103",
+      "title": "Emit SoftwareApplication JSON-LD on each individual demo page so every demo indexes as a standalone rich-result artifact",
+      "content_text": "Emit SoftwareApplication JSON-LD on each individual demo page so every demo indexes as a standalone rich-result artifact",
+      "date_published": "2026-09-30T12:00:00.000Z",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
       "id": "0102",
       "url": "https://digitalcraftai.com/changelog#0102",
       "title": "Public /hallucination-safeguards page listing per-demo grounding, known failure modes, and dated safeguards as a defensible trust artifact",

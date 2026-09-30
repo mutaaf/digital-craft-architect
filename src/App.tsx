@@ -73,6 +73,7 @@ const Ethics = lazy(() => import("./pages/Ethics"));
 const AiRisksWeWatch = lazy(() => import("./pages/AiRisksWeWatch"));
 const AccessibilityStatement = lazy(() => import("./pages/AccessibilityStatement"));
 const HallucinationSafeguards = lazy(() => import("./pages/HallucinationSafeguards"));
+const DataRetention = lazy(() => import("./pages/DataRetention"));
 const Playbook = lazy(() => import("./pages/Playbook"));
 const HowWeShip = lazy(() => import("./pages/HowWeShip"));
 const AgentFleet = lazy(() => import("./pages/AgentFleet"));
@@ -348,6 +349,7 @@ const App = () => {
               <Route path="/ai-risks-we-watch" element={<AiRisksWeWatch />} />
               <Route path="/accessibility-statement" element={<AccessibilityStatement />} />
               <Route path="/hallucination-safeguards" element={<HallucinationSafeguards />} />
+              <Route path="/data-retention" element={<DataRetention />} />
               <Route path="/playbook" element={<Playbook />} />
               <Route path="/how-we-ship" element={<HowWeShip />} />
               <Route path="/agent-fleet" element={<AgentFleet />} />
