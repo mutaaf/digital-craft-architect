@@ -1,7 +1,7 @@
 ---
 id: 0105
 title: Public /data-retention dated per-storage-key retention policy page as a defensible trust artifact
-status: groomed
+status: in-progress
 priority: P2
 area: trust
 created: 2026-09-30
@@ -191,7 +191,12 @@ doesn't have to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0105-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/data-retention.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-09-30 - branch `feat/0105-data-retention-policy-page` opened; status flipped to in-progress in ticket frontmatter and docs/backlog/README.md row in one commit (2026-05-22 rule).
+- 2026-09-30 - grepped `src/data/demoDisclosures.ts` at branch head for NEW_PERSISTENT_STORES (2026-09-12 code-beats-prose): 6 storage keys enumerated - `dca_recent_compares_v1`, `dca_quiz_history_v1`, `dca_recent_blog_posts_v1`, `dca_roi_scenarios_v1`, `dca_recent_verticals_v1`, `dca_reviewed_trust_pages_v1`. Ticket 0104 shipped `dca_reviewed_trust_pages_v1` (bounded to 6 entries) after ticket 0105 was authored; RETENTION_POLICIES mirrors the real 6-row set, not the ticket prose's older enumeration.
+- 2026-09-30 - `ls src/utils/*Store.ts` confirms real files at branch head: `recentComparesStore.ts`, `quizHistoryStore.ts`, `recentBlogPostsStore.ts`, `roiScenariosStore.ts`, `recentVerticalsStore.ts`, `reviewedTrustPagesStore.ts`. Every RETENTION_POLICIES sourcePath points at a real file.
+- 2026-09-30 - grepped every `tests/e2e/*.spec.ts` for `=== 'CollectionPage'` and `=== 'BreadcrumbList'` predicates (2026-05-30 second-@type). Every predecessor CollectionPage predicate is URL-scoped to its own hub path (`/agent-fleet`, `/model-card`, `/subprocessors`, `/security`, `/ai-risks-we-watch`, `/hallucination-safeguards`, `/accessibility-statement`, `/ai-for-hospitality`, `/blog`, `/compare/*`, `/case-studies*`). The sibling scoped to `/data-retention` cannot collide.
+- 2026-09-30 - no new static-file extension shipped by this ticket; the 2026-09-26 static-file MIME-shim lesson is not applicable.
+- 2026-09-30 - failing test added in `tests/e2e/data-retention.spec.ts`
+- 2026-09-30 - `/data-retention` confirmed in `dist/sitemap.xml` after `npm run build` (auto-emission per ticket 0022).
+- 2026-09-30 - PR #N opened, CI [state]
+- 2026-09-30 - merged to main
