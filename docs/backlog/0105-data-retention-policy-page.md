@@ -1,7 +1,7 @@
 ---
 id: 0105
 title: Public /data-retention dated per-storage-key retention policy page as a defensible trust artifact
-status: in-progress
+status: shipped
 priority: P2
 area: trust
 created: 2026-09-30
