@@ -11,6 +11,8 @@ import {
   CONFORMANCE_TARGET,
   RECENT_REMEDIATIONS,
 } from '@/data/accessibilityStatement';
+import { TRUST_PAGE_LABELS } from '@/data/trustPageLabels';
+import { useRecordTrustPageVisit } from '@/hooks/useRecordTrustPageVisit';
 
 // Ticket 0097 - /accessibility-statement dated WCAG conformance + remediation
 // log page. Mirrors the file structure of `src/pages/AiRisksWeWatch.tsx`
@@ -75,6 +77,7 @@ const COLLECTION_PAGE_SCHEMA = {
 
 const AccessibilityStatement: React.FC = () => {
   const { content } = useContent();
+  useRecordTrustPageVisit({ path: '/accessibility-statement', label: TRUST_PAGE_LABELS['/accessibility-statement'] });
   const viewFiredRef = React.useRef<boolean>(false);
 
   React.useEffect(() => {

@@ -27,6 +27,7 @@ import QuizHistoryCard from '@/components/QuizHistoryCard';
 import RecentBlogPostsCard from '@/components/RecentBlogPostsCard';
 import SavedRoiScenariosCard from '@/components/SavedRoiScenariosCard';
 import RecentVerticalsCard from '@/components/RecentVerticalsCard';
+import ReviewedTrustPagesCard from '@/components/ReviewedTrustPagesCard';
 import BookStrategyCallCTA from '@/components/BookStrategyCallCTA';
 import {
   buildEvaluationDossier,
@@ -570,6 +571,15 @@ const MyDashboard: React.FC = () => {
               scenarios. Card owns its own hydration and returns null
               when the store is empty (no empty state, no nag). */}
           {hydrated && <RecentVerticalsCard />}
+
+          {/* Ticket 0104 - "Compliance you've reviewed" card. Rendered
+              directly under the ticket 0100 recent-verticals card so
+              the returning compliance-driven buyer sees the /trust
+              family artifacts they reviewed last week alongside the
+              vertical pages they scoped. Card owns its own hydration
+              and returns null when the store is empty (no empty state,
+              no nag). */}
+          {hydrated && <ReviewedTrustPagesCard />}
 
           {hydrated && persona && (
             <article data-testid="dashboard-quiz-persona-card" className={CARD}>

@@ -69,6 +69,12 @@ export const NEW_PERSISTENT_STORES: readonly PersistentStoreDisclosure[] = [
     purpose:
       'The list of /ai-for-<vertical> landing pages you have opened, capped at the five most recent, so the "Verticals you\'re evaluating" card on /my can reopen the exact vertical page you were reading. Client-side only, never leaves your browser. Clearing localStorage resets it.',
   },
+  {
+    storageKey: 'dca_reviewed_trust_pages_v1',
+    shape: 'path + label + lastVisitedAt (bounded to 6 entries)',
+    purpose:
+      'The list of trust-family pages you have opened (Trust, Uptime, Subprocessors, Ethics, Security, How We Ship, Model Card, Agent Fleet, AI Risks We Watch, Accessibility Statement, Hallucination Safeguards), capped at the six most recent, so the "Compliance you\'ve reviewed" card on /my can reopen the exact compliance artifact you were reading. Client-side only, never leaves your browser. Clearing localStorage resets it.',
+  },
 ];
 
 // Shared disclosure for chat-style lead-qualification demos (LeadResponder).

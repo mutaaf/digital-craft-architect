@@ -10,6 +10,8 @@ import { Activity, ArrowRight } from 'lucide-react';
 import { UPTIME_SURFACES, type UptimeStatus } from '@/data/uptimeSurfaces';
 import { INCIDENTS } from '@/data/uptimeIncidents';
 import { useUptimeProbe } from '@/hooks/useUptimeProbe';
+import { TRUST_PAGE_LABELS } from '@/data/trustPageLabels';
+import { useRecordTrustPageVisit } from '@/hooks/useRecordTrustPageVisit';
 
 // Ticket 0036 - Public /uptime page. Mirrors the Trust + Changelog shell
 // (Helmet, Navbar, ScrollProgress, Footer). Chip state comes from the
@@ -39,6 +41,7 @@ function formatChecked(d: Date): string {
 
 const Uptime: React.FC = () => {
   const { content } = useContent();
+  useRecordTrustPageVisit({ path: '/uptime', label: TRUST_PAGE_LABELS['/uptime'] });
   const statuses = useUptimeProbe(UPTIME_SURFACES);
   const [checkedAt, setCheckedAt] = React.useState<Date>(() => new Date());
 

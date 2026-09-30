@@ -8,6 +8,8 @@ import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
 import { ShieldCheck, ArrowRight } from 'lucide-react';
 import { ETHICS_COMMITMENTS } from '@/data/ethicsCommitments';
+import { TRUST_PAGE_LABELS } from '@/data/trustPageLabels';
+import { useRecordTrustPageVisit } from '@/hooks/useRecordTrustPageVisit';
 
 // Ticket 0077 - /ethics "What we won't do" public commitments page. Mirrors
 // the visual shell of `src/pages/Trust.tsx` (ticket 0018) and
@@ -63,6 +65,7 @@ const BREADCRUMB_SCHEMA = {
 
 const Ethics: React.FC = () => {
   const { content } = useContent();
+  useRecordTrustPageVisit({ path: '/ethics', label: TRUST_PAGE_LABELS['/ethics'] });
   const ethicsViewTracked = React.useRef<boolean>(false);
 
   // Ticket 0060 / 0062 / 0069 pattern: one telemetry beacon per mount,

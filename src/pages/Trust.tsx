@@ -9,6 +9,8 @@ import { trackCTAClick } from '@/utils/analytics';
 import { ShieldCheck, ArrowRight, Phone } from 'lucide-react';
 import { SUBPROCESSORS } from '@/data/subprocessors';
 import { NEW_PERSISTENT_STORES } from '@/data/demoDisclosures';
+import { TRUST_PAGE_LABELS } from '@/data/trustPageLabels';
+import { useRecordTrustPageVisit } from '@/hooks/useRecordTrustPageVisit';
 
 // Ticket 0018 - How-the-demos-work transparency page at /trust.
 //
@@ -319,6 +321,7 @@ const BREADCRUMB_SCHEMA = {
 
 const Trust: React.FC = () => {
   const { content } = useContent();
+  useRecordTrustPageVisit({ path: '/trust', label: TRUST_PAGE_LABELS['/trust'] });
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">

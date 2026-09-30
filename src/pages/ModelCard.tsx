@@ -8,6 +8,8 @@ import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
 import { Cpu, ExternalLink } from 'lucide-react';
 import { MODEL_CARD_ROWS } from '@/data/modelCard';
+import { TRUST_PAGE_LABELS } from '@/data/trustPageLabels';
+import { useRecordTrustPageVisit } from '@/hooks/useRecordTrustPageVisit';
 
 // Ticket 0088 - /model-card AI provenance page. Mirrors `src/pages/Security.tsx`
 // (ticket 0081) end-to-end: the direct structural peer for a trust-family
@@ -95,6 +97,7 @@ const SIBLING_CHIPS: readonly { label: string; href: string }[] = [
 
 const ModelCard: React.FC = () => {
   const { content } = useContent();
+  useRecordTrustPageVisit({ path: '/model-card', label: TRUST_PAGE_LABELS['/model-card'] });
   const viewFiredRef = React.useRef<boolean>(false);
 
   React.useEffect(() => {

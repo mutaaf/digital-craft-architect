@@ -8,6 +8,8 @@ import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
 import { ShieldCheck, ArrowRight, Phone } from 'lucide-react';
 import { securityControls, type SecurityControlStatus } from '@/data/securityControls';
+import { TRUST_PAGE_LABELS } from '@/data/trustPageLabels';
+import { useRecordTrustPageVisit } from '@/hooks/useRecordTrustPageVisit';
 
 // Ticket 0081 - /security posture page. Mirrors the visual shell of
 // `src/pages/Subprocessors.tsx` (ticket 0069, the closest structural peer
@@ -96,6 +98,7 @@ const STATUS_STYLES: Record<SecurityControlStatus, { label: string; classes: str
 
 const Security: React.FC = () => {
   const { content } = useContent();
+  useRecordTrustPageVisit({ path: '/security', label: TRUST_PAGE_LABELS['/security'] });
   const viewFiredRef = React.useRef<boolean>(false);
 
   React.useEffect(() => {
