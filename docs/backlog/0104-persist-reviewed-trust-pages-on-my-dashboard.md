@@ -1,7 +1,7 @@
 ---
 id: 0104
 title: Persist visited trust-family pages and surface a "Compliance you've reviewed" card on /my dashboard
-status: groomed
+status: in-progress
 priority: P1
 area: demos
 created: 2026-09-30
@@ -183,7 +183,9 @@ doesn't have to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0104-...` opened
+- 2026-09-30 - branch `feat/0104-reviewed-trust-pages` opened; ticket + README index flipped to `in-progress` in the same commit per the 2026-05-22 check-backlog rule.
+- 2026-09-30 - pre-code grep of `src/pages/*.tsx` confirms the eleven shipped trust-page components (Trust, Uptime, Subprocessors, Ethics, Security, HowWeShip, ModelCard, AgentFleet, AiRisksWeWatch, AccessibilityStatement, HallucinationSafeguards). No twelfth trust page has landed since 2026-09-30, so `TRUST_ROUTES` mirrors those eleven paths per the 2026-09-12 code-beats-prose lesson.
+- 2026-09-30 - no new JSON-LD blocks added by this ticket; the pre-code second-@type grep is a no-op per the 2026-05-30 lesson.
 - YYYY-MM-DD - failing test added in `tests/e2e/reviewed-trust-pages-card.spec.ts`
 - YYYY-MM-DD - PR #N opened, CI [state]
 - YYYY-MM-DD - merged to main
