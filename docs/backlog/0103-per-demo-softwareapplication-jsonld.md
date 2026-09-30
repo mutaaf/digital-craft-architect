@@ -1,7 +1,7 @@
 ---
 id: 0103
 title: Emit SoftwareApplication JSON-LD on each individual demo page so every demo indexes as a standalone rich-result artifact
-status: in-progress
+status: shipped
 priority: P1
 area: seo
 created: 2026-09-30
@@ -154,3 +154,6 @@ doesn't have to re-discover the architecture.
 - 2026-09-30 - deviation from ticket prose per the 2026-09-12 code-beats-prose lesson: (a) `src/data/pricing.ts` does not exist at branch head, so the module-load assertion pins `priceAnchor` to non-empty + contains `$` instead of "grepable from src/data/pricing.ts"; the anchor "$0 (POC demo)" is grepable via the visible "POC Demo" badge each demo's JSX already renders. (b) The ReviewSystem demo does not ship the `DemoBreadcrumbs` component at branch head (the ticket 0019 STARTER_ROUTES list only covers 4 of the 5 construction demos), so acceptance box 6 iterates the 4 routes that actually ship a BreadcrumbList and pins reviews with a separate assertion that its new SoftwareApplication block emits without depending on breadcrumbs; adding DemoBreadcrumbs to ReviewSystem would violate the ticket's "no edits to any demo's business logic or visible copy" standard box.
 - 2026-09-30 - no new static-file extension shipped (JSON-LD is inline in the SPA HTML shell), so the 2026-09-26 static-file MIME-shim lesson does NOT apply here.
 - 2026-09-30 - full local gate green: `npm run lint && npm run typecheck && npm run check-links && npm run check-images && npm run check-meta && npm run check-blog-dates && node scripts/check-backlog.mjs && npm run build` all green (24 pre-existing lint warnings, 0 errors; 80 pre-existing missing-meta warnings in check-meta are also on main). All 9 cases in the new spec pass, plus all 5 cases in `tests/e2e/demo-breadcrumbs.spec.ts` (ticket 0019), plus all 7 cases in `tests/e2e/demos-softwareapplication-jsonld.spec.ts` (ticket 0030) run alone.
+- 2026-09-30 - PR #294 opened at https://github.com/mutaaf/digital-craft-architect/pull/294; auto-merge enabled with squash; awaiting `build` + `smoke-required` gating checks.
+- 2026-09-30 - PR #294 squash-merged to `main` at `c9fa4f7` (build + smoke-required both green).
+- 2026-09-30 - `chore/0103-ship-status` opened: ticket frontmatter + `docs/backlog/README.md` index row both flipped to `shipped` in the same commit; `node scripts/check-backlog.mjs` green.
