@@ -1,7 +1,7 @@
 ---
 id: 0103
 title: Emit SoftwareApplication JSON-LD on each individual demo page so every demo indexes as a standalone rich-result artifact
-status: groomed
+status: in-progress
 priority: P1
 area: seo
 created: 2026-09-30
@@ -148,7 +148,9 @@ doesn't have to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0103-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/per-demo-softwareapplication-jsonld.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-09-30 - branch `feat/0103-per-demo-softwareapplication-jsonld` opened off fresh `origin/main` at 3e62167; ticket frontmatter + README index row both flipped to `in-progress` in the same first commit; `node scripts/check-backlog.mjs` green.
+- 2026-09-30 - failing test added at `tests/e2e/per-demo-softwareapplication-jsonld.spec.ts` (nine assertion blocks, 1:1 with the ticket's nine acceptance-criteria boxes) BEFORE any src edit; imports `PER_DEMO_SOFTWARE_APPLICATIONS` and `getDemoApplicationByRoute` from `src/data/perDemoSoftwareApplications` and `ROUTES` from `src/data/routes` directly per the 2026-06-07 mirror-source-across-src-tests rule.
+- 2026-09-30 - grep result per the 2026-05-30 second-@type-instance rule: `grep -rn "SoftwareApplication" tests/e2e/` found ONE pre-existing `SoftwareApplication` predicate at `tests/e2e/demos-softwareapplication-jsonld.spec.ts:119` (`expect(apps, 'exactly one SoftwareApplication block expected on /demos').toHaveLength(1)`). That predicate is URL-scoped: `gotoDemos()` navigates to `/demos` first and only filters that page's DOM blocks. The per-demo blocks emitted on `/construction/demo/<slug>` routes do not shadow the hub's DOM, so the ticket 0030 predicate stays green without any widening. Documented in the new spec's header comment for auditability. No widening of the ticket 0030 spec required.
+- 2026-09-30 - deviation from ticket prose per the 2026-09-12 code-beats-prose lesson: (a) `src/data/pricing.ts` does not exist at branch head, so the module-load assertion pins `priceAnchor` to non-empty + contains `$` instead of "grepable from src/data/pricing.ts"; the anchor "$0 (POC demo)" is grepable via the visible "POC Demo" badge each demo's JSX already renders. (b) The ReviewSystem demo does not ship the `DemoBreadcrumbs` component at branch head (the ticket 0019 STARTER_ROUTES list only covers 4 of the 5 construction demos), so acceptance box 6 iterates the 4 routes that actually ship a BreadcrumbList and pins reviews with a separate assertion that its new SoftwareApplication block emits without depending on breadcrumbs; adding DemoBreadcrumbs to ReviewSystem would violate the ticket's "no edits to any demo's business logic or visible copy" standard box.
+- 2026-09-30 - no new static-file extension shipped (JSON-LD is inline in the SPA HTML shell), so the 2026-09-26 static-file MIME-shim lesson does NOT apply here.
+- 2026-09-30 - full local gate green: `npm run lint && npm run typecheck && npm run check-links && npm run check-images && npm run check-meta && npm run check-blog-dates && node scripts/check-backlog.mjs && npm run build` all green (24 pre-existing lint warnings, 0 errors; 80 pre-existing missing-meta warnings in check-meta are also on main). All 9 cases in the new spec pass, plus all 5 cases in `tests/e2e/demo-breadcrumbs.spec.ts` (ticket 0019), plus all 7 cases in `tests/e2e/demos-softwareapplication-jsonld.spec.ts` (ticket 0030) run alone.

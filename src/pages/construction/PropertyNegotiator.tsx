@@ -5,6 +5,15 @@ import DemoNavbar from '@/components/construction/DemoNavbar';
 import RelatedDemos from '@/components/RelatedDemos';
 import DataDisclosureChip from '@/components/DataDisclosureChip';
 import { useDemoContext } from '@/contexts/DemoContext';
+import {
+  buildDemoSoftwareApplicationSchema,
+  getDemoApplicationByRoute,
+} from '@/data/perDemoSoftwareApplications';
+
+// Ticket 0103 - per-demo SoftwareApplication JSON-LD, row looked up
+// via getDemoApplicationByRoute (mirror-source per 2026-05-25).
+const DEMO_APP_ROW = getDemoApplicationByRoute('/construction/demo/property-negotiator');
+const DEMO_APP_SCHEMA = DEMO_APP_ROW ? buildDemoSoftwareApplicationSchema(DEMO_APP_ROW) : null;
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -163,6 +172,9 @@ const PropertyNegotiator = () => {
           name="description"
           content="Paste a property listing, watch the AI work through 4 steps live, get comps, strategy, and ready-to-send seller messages."
         />
+        {DEMO_APP_SCHEMA && (
+          <script type="application/ld+json">{JSON.stringify(DEMO_APP_SCHEMA)}</script>
+        )}
       </Helmet>
       <DemoNavbar />
       <DemoBreadcrumbs />

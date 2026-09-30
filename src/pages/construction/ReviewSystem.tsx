@@ -4,6 +4,10 @@ import { Helmet } from 'react-helmet-async';
 import DemoNavbar from '@/components/construction/DemoNavbar';
 import RelatedDemos from '@/components/RelatedDemos';
 import DataDisclosureChip from '@/components/DataDisclosureChip';
+import {
+  buildDemoSoftwareApplicationSchema,
+  getDemoApplicationByRoute,
+} from '@/data/perDemoSoftwareApplications';
 import PhoneMockup from '@/components/construction/reviews/PhoneMockup';
 import SMSBubble from '@/components/construction/reviews/SMSBubble';
 import TimelineBar from '@/components/construction/reviews/TimelineBar';
@@ -36,6 +40,11 @@ interface SmartReply {
   tone: ReplyTone;
   content: string;
 }
+
+// Ticket 0103 - per-demo SoftwareApplication JSON-LD, row looked up
+// via getDemoApplicationByRoute (mirror-source per 2026-05-25).
+const DEMO_APP_ROW = getDemoApplicationByRoute('/construction/demo/reviews');
+const DEMO_APP_SCHEMA = DEMO_APP_ROW ? buildDemoSoftwareApplicationSchema(DEMO_APP_ROW) : null;
 
 const TONE_META: Record<ReplyTone, { label: string; hint: string }> = {
   professional: { label: 'Professional', hint: 'Polished, brand-safe, neutral' },
@@ -191,6 +200,9 @@ const ReviewSystem = () => {
         <meta name="description" content="Experience automated SMS review requests that turn completed projects into 5-star Google reviews with smart follow-ups." />
         <meta property="og:title" content="Review Request System Demo | DigitalCraft AI" />
         <meta property="og:description" content="Automated SMS review requests that turn completed projects into 5-star Google reviews." />
+        {DEMO_APP_SCHEMA && (
+          <script type="application/ld+json">{JSON.stringify(DEMO_APP_SCHEMA)}</script>
+        )}
       </Helmet>
       <DemoNavbar />
 

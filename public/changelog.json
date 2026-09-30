@@ -7,6 +7,16 @@
   "language": "en-US",
   "items": [
     {
+      "id": "0102",
+      "url": "https://digitalcraftai.com/changelog#0102",
+      "title": "Public /hallucination-safeguards page listing per-demo grounding, known failure modes, and dated safeguards as a defensible trust artifact",
+      "content_text": "Public /hallucination-safeguards page listing per-demo grounding, known failure modes, and dated safeguards as a defensible trust artifact",
+      "date_published": "2026-09-28T12:00:00.000Z",
+      "tags": [
+        "trust"
+      ]
+    },
+    {
       "id": "0101",
       "url": "https://digitalcraftai.com/changelog#0101",
       "title": "Pre-filled \"Book a strategy call\" mailto CTA on /my composing the visitor's persisted dossier into the email body",

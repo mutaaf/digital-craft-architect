@@ -17,6 +17,17 @@ import DemoBreadcrumbs from '@/components/DemoBreadcrumbs';
 import RelatedDemos from '@/components/RelatedDemos';
 import DataDisclosureChip from '@/components/DataDisclosureChip';
 import { useLocation } from 'react-router-dom';
+import {
+  buildDemoSoftwareApplicationSchema,
+  getDemoApplicationByRoute,
+} from '@/data/perDemoSoftwareApplications';
+
+// Ticket 0103 - per-demo SoftwareApplication JSON-LD. Row is looked up
+// via getDemoApplicationByRoute so no page hardcodes an array index;
+// the block's fields all read from the shared constant per the
+// 2026-05-25 mirror-source rule.
+const DEMO_APP_ROW = getDemoApplicationByRoute('/construction/demo/lead-responder');
+const DEMO_APP_SCHEMA = DEMO_APP_ROW ? buildDemoSoftwareApplicationSchema(DEMO_APP_ROW) : null;
 
 function buildSystemPrompt(companyName: string, ownerName: string, services: string[]): string {
   const serviceLines = services
@@ -187,6 +198,9 @@ const LeadResponder = () => {
         <meta name="description" content="Chat with an AI lead responder that qualifies construction leads, extracts project details, and books consultations in real time using GPT-4o." />
         <meta property="og:title" content="AI Lead Responder Demo | DigitalCraft AI" />
         <meta property="og:description" content="Chat with an AI lead responder that qualifies construction leads, extracts project details, and books consultations in real time." />
+        {DEMO_APP_SCHEMA && (
+          <script type="application/ld+json">{JSON.stringify(DEMO_APP_SCHEMA)}</script>
+        )}
       </Helmet>
       <DemoNavbar />
       <DemoBreadcrumbs />
