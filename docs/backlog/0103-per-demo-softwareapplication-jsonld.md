@@ -1,7 +1,7 @@
 ---
 id: 0103
 title: Emit SoftwareApplication JSON-LD on each individual demo page so every demo indexes as a standalone rich-result artifact
-status: groomed
+status: in-progress
 priority: P1
 area: seo
 created: 2026-09-30
@@ -148,7 +148,4 @@ doesn't have to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0103-...` opened
-- YYYY-MM-DD - failing test added in `tests/e2e/per-demo-softwareapplication-jsonld.spec.ts`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-09-30 - branch `feat/0103-per-demo-softwareapplication-jsonld` opened off fresh `origin/main` at 3e62167; ticket frontmatter + README index row both flipped to `in-progress` in the same first commit; `node scripts/check-backlog.mjs` green.
