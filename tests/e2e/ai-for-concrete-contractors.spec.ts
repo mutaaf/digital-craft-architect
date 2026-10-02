@@ -432,28 +432,42 @@ test('makes no first-party /api/ call and appears in sitemap.xml', async ({
   expect(STATIC_ROUTES.has('/ai-for-concrete-contractors')).toBe(true);
 });
 
-// Box 11: After page.evaluate clears dca_recent_verticals_v1 and the test
-// visits /ai-for-concrete-contractors then navigates to /my, the ticket 0100
-// recent-verticals card renders one row whose label is
-// VERTICAL_LABELS['/ai-for-concrete-contractors'] imported from
+// Box 11: After the test visits /ai-for-concrete-contractors then navigates
+// to /my, the ticket 0100 recent-verticals card renders one row whose
+// label is VERTICAL_LABELS['/ai-for-concrete-contractors'] imported from
 // src/data/verticalLabels.ts (mirror-source cross-store assertion per the
 // 2026-06-07 rule).
+//
+// Per the 2026-09-28 addInitScript-re-runs lesson, we do NOT use
+// addInitScript to clear storage because it would re-run on the /my
+// navigation and wipe the mount-effect's write. Playwright test contexts
+// start with empty localStorage so no explicit clear is needed; if a prior
+// test somehow seeded the store we clear it in-page after the first
+// navigation and reload once, then let the mount effect write cleanly.
 test('recording the visit then opening /my renders the recent-verticals card with the mirror-source label', async ({
   page,
 }) => {
-  // Per the 2026-09-28 addInitScript-re-runs lesson, seed via addInitScript
-  // so the storage clear re-runs before each navigation document loads.
-  await page.addInitScript(() => {
+  await gotoConcreteContractors(page);
+
+  // Belt-and-suspenders: clear any residual seed, reload so the mount
+  // effect runs against an empty store, then verify the write.
+  await page.evaluate(() => {
     try {
       window.localStorage.removeItem('dca_recent_verticals_v1');
     } catch {
       /* storage guard */
     }
   });
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await page
+    .locator('[role="status"][aria-label="Loading"]')
+    .waitFor({ state: 'hidden', timeout: 10_000 })
+    .catch(() => {});
+  await page
+    .getByRole('heading', { level: 1 })
+    .first()
+    .waitFor({ state: 'visible', timeout: 10_000 });
 
-  await gotoConcreteContractors(page);
-
-  // Give the mount-effect a moment to write before we navigate away.
   await expect
     .poll(
       async () =>
@@ -473,8 +487,10 @@ test('recording the visit then opening /my renders the recent-verticals card wit
     .catch(() => {});
 
   const label = VERTICAL_LABELS['/ai-for-concrete-contractors'];
-  // Case-insensitive substring: the dashboard renders the label verbatim
-  // from the mirror-source constant, so a case-insensitive scan proves the
-  // cross-store wire-through without pinning a specific DOM structure.
-  await expect(page.locator('body')).toContainText(label, { timeout: 10_000 });
+  // Mirror-source cross-store assertion: the dashboard renders the label
+  // verbatim from the shared constant imported here, so a substring scan
+  // against the recent-verticals-card body proves the wire-through.
+  await expect(
+    page.locator('[data-testid="recent-verticals-card"]'),
+  ).toContainText(label, { timeout: 10_000 });
 });
