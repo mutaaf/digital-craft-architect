@@ -115,7 +115,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0104 | Persist visited trust-family pages and surface a "Compliance you've reviewed" card on /my dashboard | P1 | shipped | demos |
 | 0105 | Public /data-retention dated per-storage-key retention policy page as a defensible trust artifact | P2 | shipped | trust |
 | 0106 | AI-for-concrete-contractors long-tail landing page funneling into home-services demos | P1 | shipped | content |
-| 0107 | Shareable /my dossier via deep-link URL fragment that hydrates every persisted artifact into a recipient's dashboard | P1 | in-progress | demos |
+| 0107 | Shareable /my dossier via deep-link URL fragment that hydrates every persisted artifact into a recipient's dashboard | P1 | shipped | demos |
 | 0108 | Public /roadmap dated intended-ship-week page derived from groomed-status backlog tickets as a defensible moat artifact | P1 | groomed | trust |
 | 0109 | Public /agent-prompts transparency page listing the committed system prompt for every autonomous agent as a defensible moat artifact | P2 | groomed | trust |
 

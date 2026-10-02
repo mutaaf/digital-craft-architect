@@ -1,7 +1,7 @@
 ---
 id: 0107
 title: Shareable /my dossier via deep-link URL fragment that hydrates every persisted artifact into a recipient's dashboard
-status: in-progress
+status: shipped
 priority: P1
 area: demos
 created: 2026-10-02
