@@ -7,6 +7,16 @@
   "language": "en-US",
   "items": [
     {
+      "id": "0107",
+      "url": "https://digitalcraftai.com/changelog#0107",
+      "title": "Shareable /my dossier via deep-link URL fragment that hydrates every persisted artifact into a recipient's dashboard",
+      "content_text": "Shareable /my dossier via deep-link URL fragment that hydrates every persisted artifact into a recipient's dashboard",
+      "date_published": "2026-10-02T12:00:00.000Z",
+      "tags": [
+        "demos"
+      ]
+    },
+    {
       "id": "0106",
       "url": "https://digitalcraftai.com/changelog#0106",
       "title": "AI-for-concrete-contractors long-tail landing page funneling into home-services demos",

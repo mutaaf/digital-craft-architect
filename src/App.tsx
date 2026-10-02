@@ -80,6 +80,7 @@ const AgentFleet = lazy(() => import("./pages/AgentFleet"));
 const QuestionsToAskAnAiVendor = lazy(() => import("./pages/QuestionsToAskAnAiVendor"));
 const VendorScorecard = lazy(() => import("./pages/VendorScorecard"));
 const Changelog = lazy(() => import("./pages/Changelog"));
+const Roadmap = lazy(() => import("./pages/Roadmap"));
 const Uptime = lazy(() => import("./pages/Uptime"));
 const CompareHub = lazy(() => import("./pages/CompareHub"));
 const HubSpotComparison = lazy(() => import("./pages/compare/HubSpot"));
@@ -357,6 +358,7 @@ const App = () => {
               <Route path="/questions-to-ask-an-ai-vendor" element={<QuestionsToAskAnAiVendor />} />
               <Route path="/questions-to-ask-an-ai-vendor/scorecard" element={<VendorScorecard />} />
               <Route path="/changelog" element={<Changelog />} />
+              <Route path="/roadmap" element={<Roadmap />} />
               <Route path="/uptime" element={<Uptime />} />
               <Route path="/compare" element={<CompareHub />} />
               <Route path="/compare/hubspot" element={<HubSpotComparison />} />

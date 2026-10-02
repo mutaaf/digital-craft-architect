@@ -99,6 +99,7 @@ export const ROUTES: readonly string[] = [
   '/questions-to-ask-an-ai-vendor',
   '/questions-to-ask-an-ai-vendor/scorecard',
   '/changelog',
+  '/roadmap',
   '/uptime',
   '/compare',
   '/compare/hubspot',

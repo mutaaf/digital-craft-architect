@@ -508,6 +508,21 @@ const Trust: React.FC = () => {
               Data Retention
               <ArrowRight size={14} />
             </Link>
+            {/* Ticket 0108 - additive sibling-link chip pointing at
+                /roadmap (the dated forward-looking intended-ship-week
+                page). Additive-only: no reordering of the six chips above
+                and no visible-text change to any existing element. The
+                shipped ticket 0044 AboutPage + ticket 0018 BreadcrumbList
+                JSON-LD blocks stay byte-identical. */}
+            <Link
+              to="/roadmap"
+              data-testid="trust-roadmap-link"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/60 text-sm text-gray-700 dark:text-gray-300 hover:border-primary hover:text-primary dark:hover:border-primary dark:hover:text-primary transition-colors"
+              onClick={() => trackCTAClick('roadmap_from_trust', 'trust_footer')}
+            >
+              Roadmap
+              <ArrowRight size={14} />
+            </Link>
           </div>
         </div>
       </section>
