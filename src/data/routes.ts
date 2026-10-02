@@ -85,6 +85,7 @@ export const ROUTES: readonly string[] = [
   '/my',
   '/glossary',
   '/agent-fleet',
+  '/agent-prompts',
   '/model-card',
   '/trust',
   '/subprocessors',

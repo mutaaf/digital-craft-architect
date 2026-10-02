@@ -37,6 +37,10 @@ export const TRUST_PAGE_LABELS = {
   // ticket 0104 transitively picks up /data-retention and the /my dashboard
   // "Compliance you've reviewed" card renders a visit to it.
   '/data-retention': 'Data Retention',
+  // Ticket 0109 - additive entry so the reviewed-trust-pages store from
+  // ticket 0104 transitively picks up /agent-prompts and the /my dashboard
+  // "Compliance you've reviewed" card renders a visit to it.
+  '/agent-prompts': 'Agent Prompts',
 } as const;
 
 export type TrustPagePath = keyof typeof TRUST_PAGE_LABELS;

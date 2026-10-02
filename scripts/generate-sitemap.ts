@@ -418,6 +418,16 @@ async function run() {
   );
   await generateFeedsOpml();
 
+  // Ticket 0109 - Regenerate src/data/agentPrompts.ts from the committed
+  // .claude/agents/*.md prompt files at the build SHA. Chained here per
+  // the ticket 0032/0108 generator-chain pattern so a single `npm run
+  // build` emits the dated agent-prompt rows alongside the sitemap. The
+  // generator throws on validation failure which fails the gated build
+  // (2026-05-28 inline-assertion lesson); no package.json edit required
+  // per the GTM queue Hard NO.
+  const { generateAgentPrompts } = await import("./generate-agent-prompts");
+  await generateAgentPrompts();
+
   const appContent = readFile(APP_TSX);
   const routes = extractStaticRoutes(appContent);
   const blogSlugs = extractBlogSlugs();
