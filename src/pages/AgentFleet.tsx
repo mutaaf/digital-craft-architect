@@ -100,6 +100,11 @@ const SIBLING_CHIPS: readonly { label: string; href: string }[] = [
   { label: 'Uptime', href: '/uptime' },
   { label: 'Playbook', href: '/playbook' },
   { label: 'Trust', href: '/trust' },
+  // Ticket 0109 - additive sibling chip pointing at /agent-prompts. The
+  // label spells out the artifact ("See each agent's committed prompt")
+  // so the chip is self-descriptive to a reviewer who has already read
+  // the per-agent cards above and now wants the prompt body itself.
+  { label: "See each agent's committed prompt", href: '/agent-prompts' },
 ];
 
 const AgentFleet: React.FC = () => {

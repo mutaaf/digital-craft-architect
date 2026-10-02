@@ -20,6 +20,7 @@ export interface ChangelogEntry {
 }
 
 export const changelogEntries: readonly ChangelogEntry[] = [
+  { id: "0108", title: "Public /roadmap dated intended-ship-week page derived from groomed-status backlog tickets as a defensible moat artifact", area: "trust", created: "2026-10-02" },
   { id: "0107", title: "Shareable /my dossier via deep-link URL fragment that hydrates every persisted artifact into a recipient's dashboard", area: "demos", created: "2026-10-02" },
   { id: "0106", title: "AI-for-concrete-contractors long-tail landing page funneling into home-services demos", area: "content", created: "2026-10-02" },
   { id: "0105", title: "Public /data-retention dated per-storage-key retention policy page as a defensible trust artifact", area: "trust", created: "2026-09-30" },

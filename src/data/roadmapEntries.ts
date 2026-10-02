@@ -22,6 +22,5 @@ export const ROADMAP_GENERATED_AT: string = "2026-10-02";
 export const ROADMAP_CADENCE_NOTE: string = "The ship loop runs one ticket per hour and typically lands 1-5 tickets per week based on backlog depth, heal retries, and reviewer blocks. Dates below are a planning signal, not a commitment: the autonomous ship loop reorders groomed tickets as the queue evolves, so an intended ship week can slip or accelerate.";
 
 export const ROADMAP_ENTRIES: readonly RoadmapEntry[] = [
-  { id: "0108", title: "Public /roadmap dated intended-ship-week page derived from groomed-status backlog tickets as a defensible moat artifact", priority: "P1", area: "trust", status: "in-progress", created: "2026-10-02", intendedShipWeek: "2026-W41" },
-  { id: "0109", title: "Public /agent-prompts transparency page listing the committed system prompt for every autonomous agent as a defensible moat artifact", priority: "P2", area: "trust", status: "groomed", created: "2026-10-02", intendedShipWeek: "2026-W42" },
+  { id: "0109", title: "Public /agent-prompts transparency page listing the committed system prompt for every autonomous agent as a defensible moat artifact", priority: "P2", area: "trust", status: "in-progress", created: "2026-10-02", intendedShipWeek: "2026-W41" },
 ] as const;
