@@ -2,6 +2,7 @@ import { execSync } from "child_process";
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import { join, relative } from "path";
 import { generateChangelog } from "./generate-changelog";
+import { generateRoadmap } from "./generate-roadmap";
 
 const ROOT = join(import.meta.dirname, "..");
 const SRC = join(ROOT, "src");
@@ -386,6 +387,15 @@ async function run() {
   // awaiting here keeps the build order deterministic (changelog data
   // written, then feed read, then sitemap emitted).
   await generateChangelog();
+
+  // Ticket 0108 - Regenerate src/data/roadmapEntries.ts from the
+  // groomed + in-progress backlog frontmatter. Chained alongside the
+  // changelog generator so a single `npm run build` emits both the
+  // backward-looking (changelog) and forward-looking (roadmap) data
+  // files. The generator throws on validation failure which fails the
+  // gated build (2026-05-28 inline-assertion lesson); no package.json
+  // edit required per the GTM queue Hard NO.
+  await generateRoadmap();
 
   // Ticket 0095 - Regenerate public/compare.json from the shipped
   // src/data/compareEntries.ts constant. Independent of changelog data,
