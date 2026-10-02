@@ -1,7 +1,7 @@
 ---
 id: 0108
 title: Public /roadmap dated intended-ship-week page derived from groomed-status backlog tickets as a defensible moat artifact
-status: groomed
+status: in-progress
 priority: P1
 area: trust
 created: 2026-10-02
@@ -180,7 +180,8 @@ have to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0108-...` opened
-- YYYY-MM-DD - failing test added in `tests/...`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-10-02 - branch `feat/0108-public-roadmap-page` opened off fresh `origin/main` (8c17aec, `chore(0107): flip status to shipped (#305)`). First commit flips this ticket's frontmatter `status: groomed` -> `status: in-progress` together with the `docs/backlog/README.md` index row so `node scripts/check-backlog.mjs` stays green through the run (2026-05-22 validator lesson).
+- 2026-10-02 - JSON-LD predecessor grep per the 2026-05-30 second-@type lesson. `grep -rn "@type.*===.*'CollectionPage'" tests/e2e/*.spec.ts` and the ItemList / BreadcrumbList siblings: every predecessor that uses `toHaveLength(1)` on these three `@type`s is URL-scoped to its own hub (e.g. `changelog-itemlist-jsonld.spec.ts` only navigates `/changelog`, `blog-collectionpage-jsonld.spec.ts` only navigates `/blog`, `agent-fleet-page.spec.ts` only navigates `/agent-fleet`, `case-studies-hub.spec.ts` only navigates `/case-studies`, `demos-softwareapplication-jsonld.spec.ts` only navigates `/demos`, `glossary-breadcrumb-jsonld.spec.ts` only navigates `/glossary`). A sibling block scoped to `/roadmap` cannot collide.
+- 2026-10-02 - "no new static extension shipped" per the 2026-09-26 static-file MIME-shim lesson. `/roadmap` is an SPA HTML route; no `/roadmap.json`, no `/roadmap.xml`, no new `vite.config.ts` plugin, no `vercel.json` headers rule.
+- 2026-10-02 - failing e2e added at `tests/e2e/roadmap-page.spec.ts` (one case per acceptance box).
+- 2026-10-02 - `scripts/generate-roadmap.ts`, `src/pages/Roadmap.tsx`, `src/data/roadmapEntries.ts`, `/trust` + `Footer` cross-links shipped; local gate green.
