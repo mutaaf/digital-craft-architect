@@ -1,7 +1,7 @@
 ---
 id: 0108
 title: Public /roadmap dated intended-ship-week page derived from groomed-status backlog tickets as a defensible moat artifact
-status: in-progress
+status: shipped
 priority: P1
 area: trust
 created: 2026-10-02
