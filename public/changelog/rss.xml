@@ -7,6 +7,14 @@
     <language>en-us</language>
     <atom:link href="https://digitalcraftai.com/changelog/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Public /data-retention dated per-storage-key retention policy page as a defensible trust artifact</title>
+      <link>https://digitalcraftai.com/changelog#0105</link>
+      <description>Shipped 2026-09-30 in area: trust.</description>
+      <pubDate>Wed, 30 Sep 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0105</guid>
+      <category>trust</category>
+    </item>
+    <item>
       <title>Persist visited trust-family pages and surface a &quot;Compliance you&apos;ve reviewed&quot; card on /my dashboard</title>
       <link>https://digitalcraftai.com/changelog#0104</link>
       <description>Shipped 2026-09-30 in area: demos.</description>

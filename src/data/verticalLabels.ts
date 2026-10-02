@@ -24,6 +24,7 @@ export const VERTICAL_LABELS = {
   '/ai-for-garage-door-companies': 'Garage Door Companies',
   '/ai-for-tree-services': 'Tree Services',
   '/ai-for-fencing-contractors': 'Fencing Contractors',
+  '/ai-for-concrete-contractors': 'Concrete Contractors',
   '/ai-for-hospitality': 'Hospitality',
 } as const;
 

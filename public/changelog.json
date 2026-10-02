@@ -7,6 +7,16 @@
   "language": "en-US",
   "items": [
     {
+      "id": "0105",
+      "url": "https://digitalcraftai.com/changelog#0105",
+      "title": "Public /data-retention dated per-storage-key retention policy page as a defensible trust artifact",
+      "content_text": "Public /data-retention dated per-storage-key retention policy page as a defensible trust artifact",
+      "date_published": "2026-09-30T12:00:00.000Z",
+      "tags": [
+        "trust"
+      ]
+    },
+    {
       "id": "0104",
       "url": "https://digitalcraftai.com/changelog#0104",
       "title": "Persist visited trust-family pages and surface a \"Compliance you've reviewed\" card on /my dashboard",
