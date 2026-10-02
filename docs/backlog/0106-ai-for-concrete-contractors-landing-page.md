@@ -1,7 +1,7 @@
 ---
 id: 0106
 title: AI-for-concrete-contractors long-tail landing page funneling into home-services demos
-status: groomed
+status: in-progress
 priority: P1
 area: content
 created: 2026-10-02
@@ -189,7 +189,7 @@ have to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0106-...` opened
-- YYYY-MM-DD - failing test added in `tests/...`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-10-02 - branch `feat/0106-ai-for-concrete-contractors-landing-page` opened off `origin/main`
+- 2026-10-02 - status flipped `groomed` -> `in-progress` in frontmatter and in `docs/backlog/README.md` index row in the same commit so `check-backlog.mjs` stays green
+- 2026-10-02 - no new static extension shipped (per the 2026-09-26 static-file MIME-shim lesson, this is recorded for auditability)
+- 2026-10-02 - greps against `tests/e2e/*-jsonld.spec.ts` and `tests/e2e/ai-for-*.spec.ts` for `=== 'Service'`, `=== 'BreadcrumbList'`, and `=== 'FAQPage'` predicates confirm every assertion is URL-scoped to its own trade-page helper first; the new `/ai-for-concrete-contractors` emission cannot collide with any predecessor's exactly-one assertion (per the 2026-05-30 second-@type lesson)
