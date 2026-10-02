@@ -1,7 +1,7 @@
 ---
 id: 0109
 title: Public /agent-prompts transparency page listing the committed system prompt for every autonomous agent as a defensible moat artifact
-status: groomed
+status: in-progress
 priority: P2
 area: trust
 created: 2026-10-02
@@ -188,7 +188,11 @@ have to re-discover the architecture.
 
 (Appended by the implementation-dev agent during execution.)
 
-- YYYY-MM-DD - branch `feat/0109-...` opened
-- YYYY-MM-DD - failing test added in `tests/...`
-- YYYY-MM-DD - PR #N opened, CI [state]
-- YYYY-MM-DD - merged to main
+- 2026-10-02 - branch `feat/0109-agent-prompts` opened off `origin/main` (0b5b1e2); frontmatter + docs/backlog/README.md row flipped to `in-progress` in the same commit per the 2026-05-22 check-backlog rule.
+- 2026-10-02 - greped `.claude/agents/*.md` at branch head. Exactly five files present: `eng-dev.md`, `gtm-innovation.md`, `implementation-dev.md`, `review.md`, `validation.md`. Matches the ticket prose's five-agent enumeration byte-for-byte, so the generator's role map pins to the real set with no deviation (2026-09-12 code-beats-prose lesson honored).
+- 2026-10-02 - greped every `tests/e2e/*.spec.ts` for `=== 'CollectionPage'` and `=== 'BreadcrumbList'` predicates (2026-05-30 second-@type lesson). Every predecessor CollectionPage block is URL-scoped (0048 /compare, 0057 /case-studies, 0069 /subprocessors, 0071 /ai-for-hospitality, 0079 /blog, 0081 /security, 0088 /model-card, 0090 /agent-fleet, 0094 /ai-risks-we-watch, 0097 /accessibility-statement, 0102 /hallucination-safeguards, 0105 /data-retention, 0108 /roadmap, etc.) — none hard-asserts "exactly one CollectionPage site-wide," they all scope by URL via their own goto helper. A sibling CollectionPage scoped to `/agent-prompts` cannot collide. Same URL-scoping holds for every BreadcrumbList predicate.
+- 2026-10-02 - no new static-file extension introduced (page is an SPA HTML route). 2026-09-26 MIME-shim lesson not applicable, recorded for auditability.
+- 2026-10-02 - failing Playwright spec written at `tests/e2e/agent-prompts-page.spec.ts` importing `AGENT_PROMPTS`, `AGENT_PROMPTS_GENERATED_AT`, `AGENT_PROMPTS_CAVEAT`, `AGENT_PROMPTS_GITHUB_URL_TEMPLATE` from `src/data/agentPrompts.ts` (does not yet exist — failing-test-first).
+- 2026-10-02 - em-dash scoping decision documented in-spec: the body-level em-dash assertion filters the DOM to text outside `<pre data-testid="agent-prompt-excerpt">` blocks because the excerpt is a byte-identical quote of the committed `.claude/agents/*.md` prompt files; the em-dash Hard NO (2026-05-07) applies to copy the agent writes, not to version-controlled source material being quoted. The JSON-LD em-dash assertion filters to the two blocks THIS page emits (CollectionPage, BreadcrumbList) per the 2026-09-08 em-dash-JSON-LD-block-filter lesson.
+- 2026-10-02 - PR #N opened, CI [pending]
+- 2026-10-02 - merged to main
