@@ -428,19 +428,25 @@ test('adds the /agent-prompts chip to AgentFleet.tsx', async ({ page }) => {
 // footer on the homepage shows the new trust-chip link to /agent-prompts.
 // Separately, this test exercises the 2026-06-15 attribute-list regex
 // lesson by matching anchor tags with `[^>]*` (not `[^/>]*`) over the
-// footer DOM.
+// anchor's outerHTML (the chip's span is wrapped in a react-router
+// <Link>, so the href lives on the ancestor <a>, not on the span).
 test('footer renders the /agent-prompts chip (and attribute-list regex uses [^>]*)', async ({
   page,
 }) => {
   const errors = await gotoAgentPrompts(page, '/');
-  const chip = page.locator('[data-testid="footer-agent-prompts-chip"]');
-  await expect(chip.first()).toBeVisible();
-  const chipHtml = await chip.first().evaluate((n) => (n as HTMLElement).outerHTML);
-  // 2026-06-15 attribute-list regex lesson: [^>]*, not [^/>]*. The chip
-  // text is wrapped in a <span>, so the surrounding <a> is still an
-  // opening tag; a /> self-closing-style regex here would be wrong, so
-  // the test uses [^>]* and asserts the href attribute inside.
-  const hrefRe = new RegExp('href="/agent-prompts"[^>]*');
-  expect(hrefRe.test(chipHtml) || /href="\/agent-prompts"/.test(chipHtml)).toBe(true);
+  const chipSpan = page.locator('[data-testid="footer-agent-prompts-chip"]');
+  await expect(chipSpan.first()).toBeVisible();
+  // The chip span is wrapped in a <Link to="/agent-prompts">; the href
+  // lives on the ancestor <a>, so pull its outerHTML for the regex
+  // assertion. 2026-06-15 attribute-list regex lesson: [^>]*, not
+  // [^/>]*, so the forward slash inside the href attribute does not
+  // defeat the match.
+  const anchorHtml = await chipSpan.first().evaluate((n) => {
+    const anchor = (n as HTMLElement).closest('a');
+    return anchor ? anchor.outerHTML : '';
+  });
+  expect(anchorHtml.length).toBeGreaterThan(0);
+  const hrefRe = new RegExp('<a[^>]*href="/agent-prompts"[^>]*>');
+  expect(hrefRe.test(anchorHtml)).toBe(true);
   expect(errors).toEqual([]);
 });
