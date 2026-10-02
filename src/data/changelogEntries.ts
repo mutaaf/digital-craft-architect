@@ -20,6 +20,7 @@ export interface ChangelogEntry {
 }
 
 export const changelogEntries: readonly ChangelogEntry[] = [
+  { id: "0106", title: "AI-for-concrete-contractors long-tail landing page funneling into home-services demos", area: "content", created: "2026-10-02" },
   { id: "0105", title: "Public /data-retention dated per-storage-key retention policy page as a defensible trust artifact", area: "trust", created: "2026-09-30" },
   { id: "0104", title: "Persist visited trust-family pages and surface a \"Compliance you've reviewed\" card on /my dashboard", area: "demos", created: "2026-09-30" },
   { id: "0103", title: "Emit SoftwareApplication JSON-LD on each individual demo page so every demo indexes as a standalone rich-result artifact", area: "seo", created: "2026-09-30" },

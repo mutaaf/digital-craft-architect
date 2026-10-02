@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Sparkles, ArrowRight, Calculator, ListChecks, Brain, Inbox, DollarSign, Printer, GitCompare, Download } from 'lucide-react';
+import { Sparkles, ArrowRight, Calculator, ListChecks, Brain, Inbox, DollarSign, Printer, GitCompare, Download, Link2 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ScrollProgress from '@/components/ScrollProgress';
@@ -33,6 +33,17 @@ import {
   buildEvaluationDossier,
   dossierDownloadFilename,
 } from '@/utils/evaluationDossier';
+import {
+  MAX_FRAGMENT_BYTES,
+  countPopulatedArtifacts,
+  decodeDossierFromFragment,
+  encodeDossierToFragment,
+} from '@/utils/shareableDossier';
+import {
+  clearImportedDossier,
+  importDossierToLocalStorage,
+} from '@/utils/importShareableDossier';
+import SharedDossierImportBanner from '@/components/SharedDossierImportBanner';
 
 // Ticket 0045 - Personalized /my visitor dashboard. Page shell mirrors
 // src/pages/Demos.tsx and joins four pre-existing browser-local sources
@@ -241,6 +252,50 @@ const MyDashboard: React.FC = () => {
   // footer line so a downstream re-render (e.g. from a lazy content prop
   // update) does not tick the timestamp mid-view.
   const [generatedAt] = useState<Date>(() => new Date());
+  // Ticket 0107 - shared-dossier import banner state. `importedKeys` lists
+  // the exact localStorage keys the mount-time hydrator wrote so the
+  // "Restore your own" clear path is byte-reversible against the import.
+  // `importedOnUtcDate` is a stable YYYY-MM-DD string captured at import
+  // time so a downstream re-render does not tick it mid-view.
+  const [importedKeys, setImportedKeys] = useState<string[]>([]);
+  const [importedOnUtcDate, setImportedOnUtcDate] = useState<string>('');
+  const [bannerDismissed, setBannerDismissed] = useState<boolean>(false);
+  const sharedImportTracked = useRef<boolean>(false);
+  // Ticket 0107 - share-link copy toast + oversized warning banner state.
+  const [shareToastCount, setShareToastCount] = useState<number | null>(null);
+  const [shareOversized, setShareOversized] = useState<boolean>(false);
+  const shareToastTimeoutRef = useRef<number | null>(null);
+
+  // Ticket 0107 - Mount-time shared-dossier hydrator. Runs BEFORE the
+  // dashboard's own `useEffect` reads the stores, so an imported dossier
+  // is already on disk when the subsequent effect reads it. Using
+  // `useLayoutEffect` guarantees the write happens on first paint of
+  // the lazy-loaded dashboard chunk (2026-09-05 route-code-splitting
+  // lesson) and before any `useEffect` fires (React effect ordering).
+  // Fragments that are not base64url, or whose decoded JSON carries a
+  // stale schemaVersion, resolve to null and the hydrator is a silent
+  // no-op (no banner, no clear, no toast) so a malformed link cannot
+  // clobber the recipient's existing dashboard.
+  useLayoutEffect(() => {
+    if (typeof window === 'undefined') return;
+    const hash = window.location.hash;
+    if (!hash.startsWith('#dossier=')) return;
+    const fragment = hash.slice('#dossier='.length);
+    const dossier = decodeDossierFromFragment(fragment);
+    if (!dossier) return;
+    try {
+      const { importedKeys: written } = importDossierToLocalStorage(dossier);
+      if (written.length === 0) return;
+      setImportedKeys(written);
+      setImportedOnUtcDate(new Date().toISOString().slice(0, 10));
+      if (!sharedImportTracked.current) {
+        sharedImportTracked.current = true;
+        trackCTAClick('my_dashboard_shared_link_imported', 'my_dashboard_recap');
+      }
+    } catch {
+      /* storage unavailable - non-fatal */
+    }
+  }, []);
 
   useEffect(() => {
     // Ticket 0060 - The canonical recordVisitToday() call lives on the
@@ -322,6 +377,71 @@ const MyDashboard: React.FC = () => {
   // and the anchor click are all synchronous and same-origin; no network
   // round-trip, no new hostname. The object URL is revoked after a 100ms
   // timeout so the browser has time to consume it before it is freed.
+  // Ticket 0107 - share-link copy handler. The fragment reads
+  // buildEvaluationDossier() once (2026-05-25 mirror-source rule), so
+  // the share URL and the ticket 0082 downloaded JSON are byte-identical
+  // for the same dashboard state. The handler fires the beacon FIRST
+  // (mirroring the ticket 0023 beacon-before-navigate pattern) so the
+  // event lands even if a browser clipboard policy blocks the write.
+  // If the encoded fragment exceeds MAX_FRAGMENT_BYTES, the handler
+  // routes to the oversized banner instead of writing a truncated URL.
+  const handleShareLinkCopy = () => {
+    trackCTAClick('my_dashboard_share_link', 'my_dashboard_recap');
+    if (typeof window === 'undefined') return;
+    try {
+      const dossier = buildEvaluationDossier();
+      const fragment = encodeDossierToFragment(dossier);
+      if (fragment.length > MAX_FRAGMENT_BYTES) {
+        setShareOversized(true);
+        return;
+      }
+      setShareOversized(false);
+      const count = countPopulatedArtifacts(dossier);
+      const url = `${window.location.origin}/my#dossier=${fragment}`;
+      if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+        void navigator.clipboard.writeText(url).catch(() => {
+          /* clipboard blocked - toast still fires so visitor sees acknowledgement */
+        });
+      }
+      setShareToastCount(count);
+      if (shareToastTimeoutRef.current !== null) {
+        window.clearTimeout(shareToastTimeoutRef.current);
+      }
+      shareToastTimeoutRef.current = window.setTimeout(() => {
+        setShareToastCount(null);
+        shareToastTimeoutRef.current = null;
+      }, 4_000);
+    } catch {
+      /* clipboard or encode failure - non-fatal; beacon already fired */
+    }
+  };
+
+  // Ticket 0107 - "Restore your own" clears every key the mount-time
+  // hydrator wrote, byte-reversibly against the import. The banner
+  // state is dropped so the dashboard re-renders as the recipient's
+  // own blank slate. React's useState update is enough to clear the
+  // imported cards from view (the next useEffect pass reads the now-
+  // empty stores on reload); for an immediate re-render we also
+  // reload the page so the shipped cards' own hydration re-runs.
+  const handleSharedImportRestore = () => {
+    clearImportedDossier(importedKeys);
+    setImportedKeys([]);
+    setBannerDismissed(true);
+    if (typeof window !== 'undefined' && typeof window.location.reload === 'function') {
+      // Strip the hash so a reload does not re-import the same payload.
+      try {
+        window.history.replaceState(null, '', window.location.pathname + window.location.search);
+      } catch {
+        /* history unavailable - non-fatal; reload still runs */
+      }
+      window.location.reload();
+    }
+  };
+
+  const handleSharedImportKeep = () => {
+    setBannerDismissed(true);
+  };
+
   const handleDossierDownload = () => {
     trackCTAClick('dashboard_dossier_download', 'my_dashboard_recap');
     if (typeof window === 'undefined' || typeof URL === 'undefined' || typeof URL.createObjectURL !== 'function') {
@@ -386,6 +506,87 @@ const MyDashboard: React.FC = () => {
 
       <section className="py-10 bg-white dark:bg-gray-950">
         <div className="container mx-auto px-4 max-w-3xl space-y-6">
+          {/* Ticket 0107 - Shared-dossier import banner. Rendered at the
+              very top of the dashboard retention cluster so a recipient
+              who opened a `/my#dossier=...` URL sees the import
+              acknowledgement BEFORE scrolling to the imported cards.
+              The banner is dismissible ("Keep imported data") and
+              reversible ("Restore your own" clears every imported key
+              then reloads). Hidden when the mount-time hydrator did not
+              write any key (every import failed the owning store's
+              allow-list, or the fragment was absent/malformed/stale). */}
+          {importedKeys.length > 0 && !bannerDismissed && (
+            <SharedDossierImportBanner
+              importedCount={importedKeys.length}
+              importedOnUtcDate={importedOnUtcDate}
+              onKeep={handleSharedImportKeep}
+              onRestore={handleSharedImportRestore}
+            />
+          )}
+
+          {/* Ticket 0107 - Shareable dashboard link toolbar. Always
+              rendered when the dashboard chunk is hydrated so a visitor
+              with zero stored artifacts can still forward their blank
+              dashboard, mirroring the acceptance box 1 contract. The
+              Download JSON button in the ticket 0066 summary recap
+              keeps its placement for returning visitors with data; this
+              toolbar is the always-visible home for the share action.
+              The oversized warning banner replaces the toast when the
+              encoded fragment exceeds MAX_FRAGMENT_BYTES. */}
+          {hydrated && (
+            <div
+              data-testid="dashboard-share-link-toolbar"
+              className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-4 shadow-sm"
+            >
+              <div className="flex flex-wrap items-center gap-3">
+                <button
+                  type="button"
+                  data-testid="dashboard-share-link-copy"
+                  onClick={handleShareLinkCopy}
+                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90 transition-colors"
+                >
+                  <Link2 size={16} />
+                  Copy a shareable dashboard link
+                </button>
+                {shareToastCount !== null && (
+                  <span
+                    data-testid="dashboard-share-link-toast"
+                    role="status"
+                    className="inline-flex items-center gap-2 rounded-lg border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 px-3 py-2 text-xs font-medium text-gray-900 dark:text-gray-100"
+                  >
+                    {`Copied: dashboard link with ${shareToastCount} ${shareToastCount === 1 ? 'artifact' : 'artifacts'}`}
+                  </span>
+                )}
+              </div>
+              {shareOversized && (
+                <div
+                  data-testid="dashboard-share-link-oversized"
+                  role="alert"
+                  className="mt-3 rounded-lg border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/30 px-4 py-3 text-sm text-amber-900 dark:text-amber-100"
+                >
+                  Dossier too large to share as a link - download JSON instead.
+                  {' '}
+                  <a
+                    href="#dashboard-dossier-download"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const el = document.querySelector('[data-testid="dashboard-dossier-download"]') as HTMLElement | null;
+                      if (el) {
+                        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        el.focus();
+                      }
+                      setShareOversized(false);
+                    }}
+                    className="font-semibold underline hover:no-underline"
+                  >
+                    Jump to the Download JSON button
+                  </a>
+                  .
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Ticket 0101 - "Book a strategy call" mailto CTA rendered
               above the retention cluster so a high-intent returning
               visitor's one-tap path to a conversation is the FIRST card

@@ -75,6 +75,12 @@ export const NEW_PERSISTENT_STORES: readonly PersistentStoreDisclosure[] = [
     purpose:
       'The list of trust-family pages you have opened (Trust, Uptime, Subprocessors, Ethics, Security, How We Ship, Model Card, Agent Fleet, AI Risks We Watch, Accessibility Statement, Hallucination Safeguards), capped at the six most recent, so the "Compliance you\'ve reviewed" card on /my can reopen the exact compliance artifact you were reading. Client-side only, never leaves your browser. Clearing localStorage resets it.',
   },
+  {
+    storageKey: 'shared-link-import-write-path',
+    shape: 'base64url URL fragment decoded into every localStorage key named above',
+    purpose:
+      'Opening a `/my#dossier=...` URL (a dashboard link a prior visitor copied with the "Copy a shareable dashboard link" button on /my) can populate your localStorage with the sender\'s persisted artifacts across every key named above (saved estimate, saved ROI, quiz persona and history, recent demos, recent comparisons, visit streak). Every write re-uses the owning store\'s existing validation and allow-list guard, so an import never writes any key the owning store would reject. A dismissible banner at the top of /my names the import; the "Restore your own" button clears every imported key. Client-side only, the URL fragment never leaves your browser (fragments are never sent in HTTP requests by any browser).',
+  },
 ];
 
 // Shared disclosure for chat-style lead-qualification demos (LeadResponder).
