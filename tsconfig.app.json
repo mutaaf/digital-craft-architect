@@ -21,6 +21,7 @@
     "noUnusedParameters": true,
     "noImplicitAny": true,
     "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
 
     "baseUrl": ".",
     "paths": {
