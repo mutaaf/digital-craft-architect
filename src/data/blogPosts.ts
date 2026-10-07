@@ -52,6 +52,59 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'ai-concrete-contractors-pour-booking-reviews-2026',
+    title: 'AI for Concrete Contractors: Stop Losing Pours to Voicemail',
+    description: 'Same-week pour requests and cure-cycle follow-up both slip after hours. Here is how AI captures the inbound and turns the sealant visit into a review.',
+    date: '2026-10-07',
+    author: 'DigitalCraft AI',
+    readTime: '5 min read',
+    tags: ['Concrete Contractors', 'Home Services', 'AI Automation'],
+    content: `
+<p>A homeowner who just watched a hairline crack spread across her driveway does not leave a voicemail. She calls the next concrete company on the list, and then the one after that, until someone picks up and gives her a same-week measure.</p>
+
+<p>Most concrete shops lose that call for a boring reason. The crew is finishing a pour, the office is rescheduling three jobs around a weather delay, and the phone rings through to voicemail. The homeowner does not wait for a callback. She books with whoever answered first.</p>
+
+<h2>The math behind a missed call</h2>
+
+<p>You already know roughly how many same-week quote requests come in after hours or during a pour day. Pull your own call log for a month and count how many went to voicemail instead of a live answer. Multiply that by your average job value. That number, not a borrowed industry statistic, is what a missed-call problem actually costs your shop. Most owners who run this math once stop guessing and start fixing it.</p>
+
+<h2>Why after-hours triage is harder for concrete than it looks</h2>
+
+<p>A fencing lead or a painting lead is fairly simple to qualify over the phone. A concrete lead is not. The caller might have a broom-finish patio pour, a stamped pool deck with a sealant question, a cracked driveway that needs a tear-out and replace, or a settled garage slab that needs mudjacking instead of a new pour.</p>
+
+<p>Each of those needs a different answer on pour type, square footage, thickness, and reinforcement before anyone can give a defensible ballpark. A dispatcher who is off the clock cannot see the slab. An AI intake agent can still ask the same questions a seasoned office manager would ask, in order, and hand the estimator a filled-in lead instead of a callback slip.</p>
+
+<h2>The follow-up gap nobody owns</h2>
+
+<p>A single confirmed pour touches the homeowner at least four times: the night-before confirmation, the morning-of crew-on-the-way call, the next-day control-joint saw-cut visit, and the sealant visit a week or two later. Each one is a reason for the homeowner to call the office if nobody reaches out first.</p>
+
+<p>When the front desk is already dispatching tomorrow's weather-delayed pour, these touchpoints are the first thing to slip. The fix is not more staff. It is a voice follow-up that runs on a schedule tied to the job, not to whoever remembers to make the call.</p>
+
+<h2>Turn the sealant visit into a review</h2>
+
+<p>The sealant visit is the best moment you have to ask for a review, because the job is finished, the slab looks good, and the crew name is still fresh in the homeowner's memory. Most shops either forget to ask or ask too late, once the excitement has faded and the invoice is the only thing the homeowner remembers.</p>
+
+<p>An automated follow-up that calls or texts right after the sealant visit, while thanking the homeowner and asking how the crew did, catches that window every time instead of only when someone on your team happens to remember.</p>
+
+<h2>What this looks like in practice</h2>
+
+<ul>
+<li>An AI lead responder answers the after-hours call, qualifies pour type, finish, square footage, and job type, and books the earliest measure slot.</li>
+<li>A guided quote tool gives the homeowner a defensible ballpark on the spot instead of a next-day written quote.</li>
+<li>A voice follow-up agent calls the night before the pour, the morning of, at the saw-cut mark, and at the sealant visit to ask for a review.</li>
+</ul>
+
+<p>None of this replaces your estimator or your crew. It replaces the voicemail that costs you the job before your team ever gets a chance to quote it.</p>
+
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to stop losing same-week pours to voicemail?</strong>
+  <p style="margin: 8px 0;">See how AI call capture and cure-cycle follow-up work for concrete contractors.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/ai-for-concrete-contractors">See AI for Concrete Contractors</a> · <a href="/homeservices/demo/lead-responder">Try Our Live Demos</a>
+</div>
+`,
+  },
+  {
     slug: 'ai-fencing-contractors-quote-response-2026',
     title: 'AI for Fencing Contractors: Win the Quote Before They Call Next',
     description: 'Fence quote requests go cold fast. Here is how AI intake qualifies the job, answers pricing questions, and books the measure automatically.',
