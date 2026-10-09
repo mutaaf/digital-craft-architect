@@ -119,6 +119,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0108 | Public /roadmap dated intended-ship-week page derived from groomed-status backlog tickets as a defensible moat artifact | P1 | shipped | trust |
 | 0109 | Public /agent-prompts transparency page listing the committed system prompt for every autonomous agent as a defensible moat artifact | P2 | in-progress | trust |
 | 0110 | Enable noImplicitReturns strict flag (zero-fix ratchet) | P2 | shipped | infra |
+| 0111 | Enable allowUnreachableCode strict flag (zero-fix ratchet) | P2 | in-progress | infra |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the
