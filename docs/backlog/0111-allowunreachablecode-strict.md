@@ -1,7 +1,7 @@
 ---
 id: 0111
 title: Enable allowUnreachableCode strict flag (zero-fix ratchet)
-status: in-progress
+status: shipped
 priority: P2
 area: infra
 created: 2026-10-09
