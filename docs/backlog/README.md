@@ -120,7 +120,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0109 | Public /agent-prompts transparency page listing the committed system prompt for every autonomous agent as a defensible moat artifact | P2 | in-progress | trust |
 | 0110 | Enable noImplicitReturns strict flag (zero-fix ratchet) | P2 | shipped | infra |
 | 0111 | Enable allowUnreachableCode strict flag (zero-fix ratchet) | P2 | shipped | infra |
-| 0112 | Enable allowUnusedLabels strict flag (zero-fix ratchet) | P2 | in-progress | infra |
+| 0112 | Enable allowUnusedLabels strict flag (zero-fix ratchet) | P2 | shipped | infra |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the
