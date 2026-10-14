@@ -52,6 +52,56 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'ai-event-planners-instant-proposals-2026',
+    title: 'Event Proposals: From Three Days to Three Minutes With AI',
+    description: 'Manual event proposals take days to assemble while the client keeps shopping. See how AI builds an accurate package quote the moment they ask.',
+    date: '2026-10-14',
+    author: 'DigitalCraft AI',
+    readTime: '5 min read',
+    tags: ['Event Planning', 'AI Automation', 'Proposals'],
+    content: `
+<p>A corporate client asks for a proposal on Monday morning. Your coordinator is mid-setup for a wedding that weekend, so the quote gets pushed to Tuesday, then Wednesday, because pricing lives across a spreadsheet, a vendor text thread, and whatever the coordinator remembers from the last similar event. By the time the PDF goes out Thursday, the client has two other proposals in hand and has mentally ranked yours last, simply because you answered last.</p>
+
+<p>This is not a sales problem. It is a document-assembly problem, and in <a href="/events">event planning</a>, it is one of the biggest reasons qualified leads go cold before anyone even discusses price.</p>
+
+<h2>Why the manual version is slow</h2>
+
+<p>A real proposal needs a service type, a guest count, a package tier, and a list of add-ons (florals, a specific catering style, a photographer, a day-of coordinator), each priced correctly and bundled into one coherent number. None of that is hard individually. What makes it slow is that it lives in different places and has to be reassembled by hand every single time a new inquiry comes in, usually by the one person on staff who also runs the events happening that week.</p>
+
+<p>So the client waits. Not because the planner does not want the business, but because building an accurate quote competes with everything else on a coordinator's plate, and it always loses.</p>
+
+<h2>What an AI proposal generator actually does</h2>
+
+<p>An <a href="/events/demo/proposal">AI proposal tool</a> asks the same questions your coordinator would: what kind of event, how many guests, which package tier, which add-ons. It applies your real per-guest pricing and package rules instantly and returns a structured, branded quote in the same conversation. No spreadsheet lookup, no waiting for the one person who knows the florist's current rate.</p>
+
+<p>The client sees a range they can react to immediately: "most 150-guest events at this tier run in this band, here is what moves the number up or down." That gives them something concrete to respond to the same day they asked, instead of a vague "I'll get back to you" that leaves the door open for a faster competitor.</p>
+
+<h2>Where this fits with first contact</h2>
+
+<p>Proposal speed only matters if the lead reached you in a state worth quoting. An inquiry handler that qualifies the date, guest count, and budget tier on first contact, the same kind of flow we cover in our piece on after-hours inquiry capture, feeds directly into the proposal step. The AI already knows what the client wants by the time it builds the quote, so there is no second round of "can you remind me what you were looking for."</p>
+
+<p>For a high-intent lead, a <a href="/events/demo/voice-booking">voice agent</a> can walk through the same package options out loud and place a tentative hold on a date while the client is still on the phone, with the written proposal following right behind as confirmation.</p>
+
+<h2>The part that still needs a human</h2>
+
+<p>None of this replaces your coordinator's judgment. A proposal engine is built for standard packages and common add-on combinations. The moment a request gets unusual (a venue swap mid-planning, a dietary accommodation that affects the whole catering order, a client trying to combine two package tiers), it should route straight to a person instead of guessing. The AI's job is to handle the standard, repeatable requests fast and cleanly, so your team's time goes to the unusual ones that actually need a human decision.</p>
+
+<h2>Thinking about the payoff on your own numbers</h2>
+
+<p>You do not need an industry benchmark to see whether this is worth it. Count how many proposal requests you get in a typical week, and estimate how many of those go to whichever planner responds first with a real number, not just an acknowledgment. If even a handful of deals a month come down to response speed rather than price or portfolio, closing the gap between "inquiry" and "proposal in hand" from days to minutes is worth more than almost anything else you could spend that time on.</p>
+
+<p>Multiply your average package value by the deals you currently lose to slow turnaround, and you have a rough sense of what a same-day proposal is worth to your business specifically.</p>
+
+<p>Explore the <a href="/events/demo">event planning demos</a> to see the proposal flow end to end, built around your own packages and pricing.</p>
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to quote faster than your competitors?</strong>
+  <p style="margin: 8px 0;">Turn package pricing you already have into a proposal that goes out the same hour a client asks.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/events/demo">Try Our Live Demos</a>
+</div>
+`,
+  },
+  {
     slug: 'ai-property-managers-lease-renewal-retention-2026',
     title: 'AI for Property Managers: Stop Losing Tenants at Renewal Time',
     description: 'Lease renewals get missed when reminders rely on memory. See how AI automates renewal follow-up and catches problems before a tenant decides to leave.',
