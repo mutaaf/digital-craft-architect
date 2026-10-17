@@ -45,6 +45,7 @@ appends novel lessons.
   else (Vercel preview, Lighthouse warnings) is informational and MUST be ignored:
   - `build`
   - `smoke-required`
+  - `review-gate` — the fleet reviewer's `FLEET-VERDICT` on the head commit (agent-fleet ticket 0070)
 - **Agent branch prefixes**: `feat/` (features, ship), `chore/gtm-` (backlog
   refresh, groom), `eng/` (engineering). NOTE: this replaces the legacy
   `gtm-agent` / `eng-agent` *label*-based detection — the kit detects by prefix.
