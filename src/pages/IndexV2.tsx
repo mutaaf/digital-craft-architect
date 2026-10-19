@@ -26,13 +26,16 @@ import {
   EstimatorPreview,
 } from '@/components/v2/LivePreviews';
 
+import {
+  FOUNDER_CREDENTIALS,
+  FOUNDER_NAME,
+  FOUNDER_YEARS,
+} from '@/data/founder';
+
 const CALENDLY = 'https://calendly.com/mutaaf';
 
-const CREDENTIALS = [
-  { roman: 'I',   org: 'Motorola Solutions', role: 'Engineering Leadership', era: '—2019' },
-  { roman: 'II',  org: 'Amazon',             role: 'Driver Communications',  era: '2021' },
-  { roman: 'III', org: 'Disney',             role: 'Live Sports Streaming',  era: '2022' },
-];
+// Founder credentials render from the canonical module (ticket 0113).
+const CREDENTIALS = FOUNDER_CREDENTIALS;
 
 const OUTCOME_TICKER = [
   { client: 'Residential Development Firm', metric: 'Lead response · hours → 47s' },
@@ -433,11 +436,14 @@ const OutcomesV2: React.FC = () => {
 const TrustStripV2: React.FC = () => (
   <section className="border-b border-white/10 bg-ink/60 py-6">
     <div className="container mx-auto max-w-6xl px-5 sm:px-6">
-      <div className="flex flex-col items-center justify-center gap-3 text-center md:flex-row md:gap-6">
+      <div
+        data-testid="founder-section"
+        className="flex flex-col items-center justify-center gap-3 text-center md:flex-row md:gap-6"
+      >
         <span className="v2-mono text-bone/45">
           Built systems at
         </span>
-        <div className="flex items-center gap-5 md:gap-8">
+        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 md:gap-x-8">
           {CREDENTIALS.map((c, i) => (
             <React.Fragment key={c.org}>
               <span
@@ -855,9 +861,16 @@ const CapabilitiesV2: React.FC = () => {
 const ChampionV2: React.FC<{ photo: string }> = ({ photo }) => {
   const { ref, inView } = useInView<HTMLDivElement>();
   return (
-    <section ref={ref} className="v2-bone-bg relative py-16 md:py-24">
+    <section
+      ref={ref}
+      data-testid="founder-section"
+      className="v2-bone-bg relative py-16 md:py-24"
+    >
       <div className="container mx-auto max-w-6xl px-5 sm:px-6">
-        <div className="grid grid-cols-12 items-center gap-8 md:gap-10">
+        <div
+          data-testid="founder-champion"
+          className="grid grid-cols-12 items-center gap-8 md:gap-10"
+        >
           <div className="col-span-12 md:col-span-4">
             <div
               className="relative"
@@ -869,7 +882,7 @@ const ChampionV2: React.FC<{ photo: string }> = ({ photo }) => {
               <div className="absolute -inset-2 border border-ink/20" />
               <img
                 src={photo}
-                alt="Mutaaf — Fractional CTO"
+                alt={`${FOUNDER_NAME}, Fractional CTO`}
                 className="relative z-10 h-[320px] w-full object-cover grayscale contrast-[1.05] md:h-[380px]"
               />
             </div>
@@ -888,21 +901,21 @@ const ChampionV2: React.FC<{ photo: string }> = ({ photo }) => {
               style={{ fontWeight: 400, fontSize: 'clamp(1.9rem, 5vw, 3rem)' }}
             >
               You'll be working with{' '}
-              <span className="italic">Mutaaf.</span>
+              <span className="italic">{FOUNDER_NAME}.</span>
             </h2>
             <p className="mt-5 font-editorial text-lg leading-relaxed text-ink/80 md:text-xl">
-              Fractional CTO since 2019. The direct line on every retainer —
-              not a lead, not a handoff, not an AM. The same person who scopes
+              Fractional CTO since 2019, {FOUNDER_YEARS}. The direct line on
+              every retainer: not a lead, not a handoff, not an AM. The same person who scopes
               your outcome is the one who architects and ships it, with the
               studio executing under his direction.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[12px] uppercase tracking-wider text-ink/65">
-              <span>Motorola Solutions</span>
-              <span className="text-copper/70">◆</span>
-              <span>Amazon</span>
-              <span className="text-copper/70">◆</span>
-              <span>Disney</span>
-              <span className="text-copper/70">◆</span>
+              {FOUNDER_CREDENTIALS.map((c) => (
+                <React.Fragment key={c.org}>
+                  <span>{c.org}</span>
+                  <span className="text-copper/70">◆</span>
+                </React.Fragment>
+              ))}
               <span>7 yrs fractional CTO</span>
             </div>
           </div>
