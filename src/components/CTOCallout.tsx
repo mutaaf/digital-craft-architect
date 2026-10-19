@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowUpRight, Sparkles } from 'lucide-react';
 import { CTO_URL } from '@/utils/hostVariant';
 import { trackCTAClick } from '@/utils/analytics';
+import { FOUNDER_CREDENTIALS } from '@/data/founder';
 
 export const CTOHeroSection: React.FC = () => (
   <section
@@ -130,15 +131,17 @@ export const CTOHeroSection: React.FC = () => (
             ))}
           </div>
           <div
-            className="mt-4 flex items-center gap-3 text-[10px] uppercase tracking-[0.16em] text-bone/45"
+            data-testid="founder-section"
+            className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] uppercase tracking-[0.16em] text-bone/45"
             style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}
           >
             <span>Built systems at</span>
-            <span className="text-bone/75">Motorola</span>
-            <span className="text-copper/60">◆</span>
-            <span className="text-bone/75">Amazon</span>
-            <span className="text-copper/60">◆</span>
-            <span className="text-bone/75">Disney</span>
+            {FOUNDER_CREDENTIALS.map((c, i) => (
+              <React.Fragment key={c.org}>
+                {i > 0 && <span className="text-copper/60">◆</span>}
+                <span className="text-bone/75">{c.org}</span>
+              </React.Fragment>
+            ))}
           </div>
         </div>
       </div>

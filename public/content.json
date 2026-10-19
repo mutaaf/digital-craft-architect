@@ -148,15 +148,15 @@
   ],
   "founder": {
     "photo": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=80",
-    "bio": "Fractional CTO since 2019 for healthcare, construction, recycling, and entertainment businesses. Now productizing the playbook as DigitalCraft AI — practical AI systems for traditional industries.",
+    "bio": "Mutaaf Aziz, Founder, DigitalCraft AI. Fractional CTO since 2019 for healthcare, construction, recycling, and entertainment businesses, now with a seven-figure book of retained, recurring clients. 15+ years in software, 10+ leading teams, and a Sr. Software Engineering Manager at Disney Entertainment & ESPN Technology. DigitalCraft AI productizes that playbook into practical AI systems for traditional industries.",
     "timeline": [
-      { "year": "2019", "event": "Launched independent fractional-CTO practice after engineering leadership at Motorola Solutions" },
-      { "year": "2021", "event": "Led driver-communications modernization at Amazon" },
-      { "year": "2022", "event": "Joined Disney — streaming platform for live sports and events" },
-      { "year": "2023", "event": "Onboarded Overwatch Digital Health, Recyclops, and TryMinded on retainer" },
+      { "year": "2019", "event": "Started an independent fractional-CTO practice alongside engineering leadership at Motorola Solutions (2018 to 2021)" },
+      { "year": "2021", "event": "Engineering leadership at Amazon Flex, last-mile logistics (2021 to 2022)" },
+      { "year": "2022", "event": "Joined Disney Entertainment & ESPN Technology as Sr. Software Engineering Manager, Watch Experiences: the backend services behind how fans stream ESPN" },
+      { "year": "2023", "event": "Onboarded retainer clients in digital health, telemedicine, and recycling" },
       { "year": "2024", "event": "Expanded retainer roster into construction, residential development, family entertainment, and event operations" },
-      { "year": "2025", "event": "Launched DigitalCraft AI — productized across 11 verticals" },
-      { "year": "2026", "event": "Scaling productized delivery — active retainers in healthcare, construction, recycling, and entertainment" }
+      { "year": "2025", "event": "Launched DigitalCraft AI, productized across 11 verticals" },
+      { "year": "2026", "event": "Scaling productized delivery on a seven-figure book of retained, recurring clients" }
     ]
   },
   "caseStudies": [
