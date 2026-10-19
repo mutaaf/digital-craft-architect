@@ -1,7 +1,7 @@
 ---
 id: 0113
 title: Canonical founder facts module mirrored from mutaafaziz.com
-status: groomed
+status: in-progress
 priority: P1
 area: trust
 created: 2026-10-19
@@ -85,3 +85,5 @@ credential than "Disney", and it is currently missing here.
 - New deps: no. Privacy surface: no.
 
 ## Implementation log
+
+- 2026-10-19 - branch `feat/0113-canonical-founder-facts` opened off fresh `origin/main` (3486f79, `GTM: backlog update 2026-10-19 (founder parity with mutaafaziz.com) (#320)`). First commit flips frontmatter and the README index row to `in-progress` together so `check-backlog.mjs` stays green.
