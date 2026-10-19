@@ -1,7 +1,7 @@
 ---
 id: 0113
 title: Canonical founder facts module mirrored from mutaafaziz.com
-status: in-progress
+status: shipped
 priority: P1
 area: trust
 created: 2026-10-19

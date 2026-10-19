@@ -121,7 +121,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0110 | Enable noImplicitReturns strict flag (zero-fix ratchet) | P2 | shipped | infra |
 | 0111 | Enable allowUnreachableCode strict flag (zero-fix ratchet) | P2 | shipped | infra |
 | 0112 | Enable allowUnusedLabels strict flag (zero-fix ratchet) | P2 | shipped | infra |
-| 0113 | Canonical founder facts module mirrored from mutaafaziz.com | P1 | in-progress | trust |
+| 0113 | Canonical founder facts module mirrored from mutaafaziz.com | P1 | shipped | trust |
 | 0114 | Founder Person JSON-LD and footer cross-link to mutaafaziz.com | P1 | groomed | seo |
 | 0115 | Publish /llms.txt brief for AI agents, linking the founder's llms.txt | P2 | groomed | seo |
 | 0116 | Founder signature module shared visually with mutaafaziz.com | P2 | groomed | trust |
