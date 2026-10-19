@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { ArrowUpRight, ArrowRight } from 'lucide-react';
 import NavbarV2 from '@/components/v2/NavbarV2';
+import CrewOfLight, { type Trade } from '@/components/v2/CrewOfLight';
 import Footer from '@/components/Footer';
 import { useContent } from '@/hooks/useContent';
 import {
@@ -211,7 +212,11 @@ const OutcomesMarquee: React.FC = () => {
 };
 
 /* ---------------------------------- HERO ---------------------------------- */
-const HeroV2: React.FC = () => (
+const HeroV2: React.FC = () => {
+  // hovering a line of the headline puts that trade on the stage
+  const [focus, setFocus] = useState<Trade | null>(null);
+  const hover = (t: Trade) => ({ onMouseEnter: () => setFocus(t), onMouseLeave: () => setFocus(null) });
+  return (
   <section className="relative overflow-hidden border-b border-white/10 pt-24 pb-16 md:pt-36 md:pb-28">
     <div
       aria-hidden
@@ -238,28 +243,29 @@ const HeroV2: React.FC = () => (
       </div>
 
       <div className="grid grid-cols-12 gap-6 md:gap-10">
-        <div className="col-span-12 md:col-span-8">
+        <div className="relative z-10 col-span-12 md:col-span-7">
           <h1
             className="v2-display v2-rise text-bone"
             style={{
               fontWeight: 360,
-              fontSize: 'clamp(2.8rem, 10vw, 7.5rem)',
-              lineHeight: 0.92,
+              fontSize: 'clamp(2.6rem, 6.2vw, 4.6rem)',
+              lineHeight: 0.95,
             }}
           >
-            Book more jobs.
+            <span {...hover('contractor')}>Book more jobs.</span>
             <br />
-            Close more deals.
+            <span {...hover('realtor')}>Close more deals.</span>
             <br />
-            Run ops on{' '}
-            <span className="italic text-copper" style={{ fontWeight: 380 }}>
-              autopilot.
+            <span {...hover('manager')}>
+              Run ops on{' '}
+              <span className="italic text-copper" style={{ fontWeight: 380 }}>
+                autopilot.
+              </span>
             </span>
           </h1>
-        </div>
 
         <div
-          className="col-span-12 flex flex-col justify-end md:col-span-4 v2-rise"
+          className="mt-8 flex max-w-xl flex-col v2-rise md:mt-10"
           style={{ animationDelay: '180ms' }}
         >
           <p className="font-editorial text-lg leading-relaxed text-bone/80 md:text-xl">
@@ -303,6 +309,12 @@ const HeroV2: React.FC = () => (
             Next discovery · {nextAvailableSlot()}
           </div>
         </div>
+        </div>
+
+        {/* the stage: beside the copy on desktop; behind the headline, quieter, on phones */}
+        <div className="pointer-events-none absolute inset-x-0 top-20 z-0 h-[520px] opacity-35 md:pointer-events-auto md:relative md:inset-auto md:top-auto md:col-span-5 md:h-[560px] md:opacity-100">
+          <CrewOfLight focus={focus} />
+        </div>
       </div>
 
       <div
@@ -323,7 +335,8 @@ const HeroV2: React.FC = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 /* -------------------------------- OUTCOMES -------------------------------- */
 const OutcomesV2: React.FC = () => {
