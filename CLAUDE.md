@@ -64,7 +64,10 @@ A React + TypeScript SPA that serves as both a marketing website and an interact
 │   ├── vapi-call.ts               # Initiates outbound phone call
 │   ├── vapi-call-status.ts        # Polls call status + transcript
 │   ├── vapi-call-end.ts           # Terminates active call
-│   └── vapi-status.ts             # Feature-flag: Vapi availability
+│   ├── vapi-status.ts             # Feature-flag: Vapi availability
+│   ├── scene.ts                   # CTO hero storyboard (Edge Config, personalized, ETag)
+│   ├── scene-direct.ts            # AI director + publish storyboards (admin)
+│   └── _scene/                    # shared board rules, claims, vendored aurora-field
 ├── src/
 │   ├── App.tsx                    # Router + providers
 │   ├── main.tsx                   # Entry: Sentry init, React root
@@ -148,6 +151,12 @@ Push to `main` branch — Vercel auto-deploys. Environment variables must be set
 | `VAPI_PUBLIC_KEY` | Yes | Browser SDK initialization |
 | `VAPI_PHONE_NUMBER_ID` | No | Outbound phone calls (without this, only browser calls work) |
 | `FIRECRAWL_API_KEY` | No | Web scraping (falls back to Jina if absent) |
+| `EDGE_CONFIG` | No | Edge Config connection string: the CTO hero's live storyboards (`/api/scene`); without it the bundled default plays |
+| `EDGE_CONFIG_ID` | No | Edge Config id, for publishing storyboards (`/api/scene-direct`) |
+| `VERCEL_API_TOKEN` | No | Vercel API token with Edge Config write access, for publishing |
+| `VERCEL_TEAM_ID` | No | Team id, if the Edge Config belongs to a team |
+| `DIRECTOR_TOKEN` | No | Bearer token for `/api/scene-direct` (the AI director and publishing) |
+| `SCENE_DIRECTOR` | No | `on` lets `/api/scene` ask the AI director for verticals with no trade figure (cached a day) |
 
 ### Client-side (`.env`)
 | Variable | Required | Purpose |
