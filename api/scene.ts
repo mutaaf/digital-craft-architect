@@ -27,6 +27,13 @@ function limited(ip: string): boolean {   // best effort, per isolate: 5 directo
   list.push(now); hits.set(ip, list);
   return list.length > 5;
 }
+// compare secrets in constant time: hash both, then compare every byte
+async function sameSecret(a: string, b: string): Promise<boolean> {
+  const h = async (x: string) => new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(x)));
+  const [x, y] = await Promise.all([h(a), h(b)]);
+  let diff = 0; for (let i = 0; i < x.length; i++) diff |= x[i] ^ y[i];
+  return diff === 0;
+}
 const json = (body: unknown, status = 200, headers: Record<string, string> = {}) =>
   new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json; charset=utf-8', ...headers } });
 
@@ -71,7 +78,7 @@ async function serve(req: Request): Promise<Response> {
 async function admin(req: Request, cors: Record<string, string>): Promise<Response> {
   const token = process.env.DIRECTOR_TOKEN;
   if (!token) return json({ error: 'The director is not configured (DIRECTOR_TOKEN).' }, 503, cors);
-  if ((req.headers.get('authorization') || '') !== `Bearer ${token}`) return json({ error: 'Not authorized.' }, 401, cors);
+  if (!(await sameSecret(req.headers.get('authorization') || '', `Bearer ${token}`))) return json({ error: 'Not authorized.' }, 401, cors);
   let body: Record<string, unknown>;
   try { body = (await req.json()) as Record<string, unknown>; } catch { return json({ error: 'Send JSON.' }, 400, cors); }
   const key = String(body.key || 'cto');

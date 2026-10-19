@@ -50,7 +50,7 @@ The "that's me" screenshot: a pool tech drawn in light with "Sun 8:02 AM · new 
   - `api/scene.ts` (one Edge function)
   - `src/components/v2/CrewOfLight.tsx`, `src/utils/visitorVertical.ts`
   - `src/pages/IndexV2.tsx` (hero grid)
-- **New dependency:** `@vercel/edge-config`.
+- **New dependency:** `@vercel/global-config` (the renamed `@vercel/edge-config`).
 - **AGENTS.md:** `/api` and env changes are human-authored; the owner approved this in session on 2026-10-19.
 - **Supersedes:** PR #322.
 

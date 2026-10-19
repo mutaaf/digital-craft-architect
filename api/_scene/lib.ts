@@ -22,7 +22,7 @@ export function validateBoard(board: unknown, claims: Record<string, Caption>): 
 export async function readScenes(): Promise<Scenes | null> {
   if (!process.env.EDGE_CONFIG) return null;
   try {
-    const { get } = await import('@vercel/edge-config');
+    const { get } = await import('@vercel/global-config');   // the renamed @vercel/edge-config
     return ((await get('scenes')) as Scenes) || null;
   } catch (e) {
     console.error('scene: edge config read failed', e);
