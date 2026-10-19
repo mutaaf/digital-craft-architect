@@ -2,7 +2,6 @@
 // Edge Config, validate them (aurora-field's validate() plus the house rules in board.ts),
 // and the AI director, which writes boards from a prompt or a visitor's vertical using only
 // the vocabulary and the approved claims.
-import { createHash } from 'node:crypto';
 import AF from './aurora-field.cjs';
 import { CLAIMS, DEFAULT_STORYBOARD, TRADE_LABEL, checkClaims, houseText, type Caption, type Storyboard, type TradeBeat } from './board';
 
@@ -39,8 +38,10 @@ export async function writeScenes(scenes: Scenes): Promise<void> {
   if (!r.ok) throw new Error(`edge config write failed: ${r.status} ${await r.text().catch(() => '')}`);
 }
 
-export function etagOf(body: string): string {
-  return '"' + createHash('sha1').update(body).digest('hex').slice(0, 20) + '"';
+// Web Crypto, so this runs on the Edge runtime as well as in Node
+export async function etagOf(body: string): Promise<string> {
+  const d = await crypto.subtle.digest('SHA-1', new TextEncoder().encode(body));
+  return '"' + Array.from(new Uint8Array(d)).map((b) => b.toString(16).padStart(2, '0')).join('').slice(0, 20) + '"';
 }
 
 // ---- the AI director ----

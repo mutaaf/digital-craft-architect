@@ -1,4 +1,4 @@
-// Ticket 0117 - shared by /api/scene, /api/scene-direct and the CTO hero (CrewOfLight).
+// Ticket 0117 - shared by /api/scene (GET serves, POST directs and publishes) and the CTO hero (CrewOfLight).
 // The hero's story is data: a storyboard aurora-field's stage plays. This module holds what
 // keeps it on-message and safe whoever writes the board (a person in Edge Config, the AI
 // director, or the bundled default): the vertical -> trade map, the curated claims every

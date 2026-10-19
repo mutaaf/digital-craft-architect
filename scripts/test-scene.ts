@@ -6,23 +6,14 @@ import AF from '../api/_scene/aurora-field.cjs';
 import { CLAIMS, DEFAULT_STORYBOARD, TRADE_BY_VERTICAL, beatFor, checkClaims, houseText, personalize, tradeForVertical } from '../api/_scene/board';
 import { toBoard, validateBoard } from '../api/_scene/lib';
 import scene from '../api/scene';
-import sceneDirect from '../api/scene-direct';
 
 let passed = 0;
 async function test(name: string, fn: () => void | Promise<void>) {
   try { await fn(); passed++; console.log('  ✓ ' + name); } catch (e) { console.error('  ✗ ' + name + '\n    ' + ((e as Error).stack || e)); process.exitCode = 1; }
 }
-function mock(method: string, query: Record<string, string> = {}, headers: Record<string, string> = {}, body?: unknown) {
-  const out: { status: number; headers: Record<string, string>; body: string } = { status: 0, headers: {}, body: '' };
-  const res = {
-    setHeader(k: string, v: string) { out.headers[k.toLowerCase()] = v; return res; },
-    status(s: number) { out.status = s; return res; },
-    json(b: unknown) { out.body = JSON.stringify(b); return res; },
-    send(b: string) { out.body = b; return res; },
-    end() { return res; },
-  };
-  return { req: { method, query, headers, body } as never, res: res as never, out };
-}
+const BASE = 'https://cto.digitalcraftai.com/api/scene';
+const get = (q = '', headers: Record<string, string> = {}) => scene(new Request(BASE + q, { headers }));
+const post = (body: unknown, headers: Record<string, string> = {}) => scene(new Request(BASE, { method: 'POST', headers: { 'content-type': 'application/json', ...headers }, body: JSON.stringify(body) }));
 
 await test('the default board passes aurora-field, the house rules and the claims', () => {
   assert.deepEqual(validateBoard(DEFAULT_STORYBOARD, CLAIMS), { ok: true, errors: [] });
@@ -59,29 +50,26 @@ await test("the director's output becomes a valid board, custom figures included
 });
 await test('GET /api/scene: the default, the trade first, an ETag, then 304', async () => {
   delete process.env.EDGE_CONFIG;
-  const a = mock('GET', { host: 'cto', vertical: 'pool-service' });
-  await scene(a.req, a.res);
-  assert.equal(a.out.status, 200);
-  const board = JSON.parse(a.out.body);
-  assert.equal(board.beats[0].trade, 'pool');
-  assert.match(a.out.headers['cache-control'], /s-maxage=60/);
-  const b = mock('GET', { host: 'cto', vertical: 'pool-service' }, { 'if-none-match': a.out.headers.etag });
-  await scene(b.req, b.res);
-  assert.equal(b.out.status, 304);
-  const c = mock('POST'); await scene(c.req, c.res); assert.equal(c.out.status, 405);
+  const a = await get('?host=cto&vertical=pool-service');
+  assert.equal(a.status, 200);
+  assert.equal((await a.json()).beats[0].trade, 'pool');
+  assert.match(a.headers.get('cache-control')!, /s-maxage=60/);
+  const b = await get('?host=cto&vertical=pool-service', { 'if-none-match': a.headers.get('etag')! });
+  assert.equal(b.status, 304);
+  assert.equal((await scene(new Request(BASE, { method: 'PUT' }))).status, 405);
 });
-await test('POST /api/scene-direct: configured, authorized, validated before anything is written', async () => {
+await test('POST /api/scene: configured, authorized, validated before anything is written', async () => {
   delete process.env.DIRECTOR_TOKEN;
-  let m = mock('POST', {}, { authorization: 'Bearer x' }, { publish: DEFAULT_STORYBOARD }); await sceneDirect(m.req, m.res); assert.equal(m.out.status, 503);
+  assert.equal((await post({ publish: DEFAULT_STORYBOARD }, { authorization: 'Bearer x' })).status, 503);
   process.env.DIRECTOR_TOKEN = 'secret';
-  m = mock('POST', {}, { authorization: 'Bearer nope' }, { publish: DEFAULT_STORYBOARD }); await sceneDirect(m.req, m.res); assert.equal(m.out.status, 401);
-  m = mock('POST', {}, { authorization: 'Bearer secret' }, { publish: { version: 1, beats: [{ trade: 'roofer', caption: { did: 'Best roofer in Texas' } }] } }); await sceneDirect(m.req, m.res);
-  assert.equal(m.out.status, 422); assert.match(m.out.body, /approved claim/);
+  assert.equal((await post({ publish: DEFAULT_STORYBOARD }, { authorization: 'Bearer nope' })).status, 401);
+  const bad = await post({ publish: { version: 1, beats: [{ trade: 'roofer', caption: { did: 'Best roofer in Texas' } }] } }, { authorization: 'Bearer secret' });
+  assert.equal(bad.status, 422); assert.match(JSON.stringify(await bad.json()), /approved claim/);
   delete process.env.EDGE_CONFIG_ID;
-  m = mock('POST', {}, { authorization: 'Bearer secret' }, { publish: DEFAULT_STORYBOARD }); await sceneDirect(m.req, m.res);
-  assert.equal(m.out.status, 502); assert.match(m.out.body, /EDGE_CONFIG_ID/);
-  m = mock('POST', {}, { authorization: 'Bearer secret' }, { publish: DEFAULT_STORYBOARD, key: 'nope' }); await sceneDirect(m.req, m.res); assert.equal(m.out.status, 400);
-  m = mock('OPTIONS', {}, { origin: 'https://mutaaf.github.io' }); await sceneDirect(m.req, m.res);
-  assert.equal(m.out.status, 204); assert.equal(m.out.headers['access-control-allow-origin'], 'https://mutaaf.github.io');
+  const nowrite = await post({ publish: DEFAULT_STORYBOARD }, { authorization: 'Bearer secret' });
+  assert.equal(nowrite.status, 502); assert.match(JSON.stringify(await nowrite.json()), /EDGE_CONFIG_ID/);
+  assert.equal((await post({ publish: DEFAULT_STORYBOARD, key: 'nope' }, { authorization: 'Bearer secret' })).status, 400);
+  const pre = await scene(new Request(BASE, { method: 'OPTIONS', headers: { origin: 'https://mutaaf.github.io' } }));
+  assert.equal(pre.status, 204); assert.equal(pre.headers.get('access-control-allow-origin'), 'https://mutaaf.github.io');
 });
 console.log(`${passed} passed${process.exitCode ? ', with failures' : ''}`);
