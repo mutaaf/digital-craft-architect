@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { FounderSection } from '@/hooks/useContent';
+import { FOUNDER_NAME, FOUNDER_ROLE } from '@/data/founder';
 
 interface FounderProps {
   data: FounderSection;
@@ -8,21 +9,24 @@ interface FounderProps {
 
 const Founder: React.FC<FounderProps> = ({ data }) => {
   return (
-    <section id="about" className="container-section">
+    <section id="about" data-testid="founder-section" className="container-section">
       <div className="flex flex-col lg:flex-row items-center gap-12">
         <div className="w-full lg:w-5/12 animate-fade-in">
           <div className="relative">
             <div className="absolute inset-0 bg-primary/10 rounded-3xl transform rotate-3"></div>
             <img
               src={data.photo}
-              alt="Founder"
+              alt={FOUNDER_NAME}
               className="rounded-2xl shadow-lg object-cover w-full h-[500px] relative z-10 transform -rotate-2 transition-transform duration-500 hover:rotate-0"
             />
           </div>
         </div>
         
         <div className="w-full lg:w-7/12 animate-slide-up">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">About the Founder</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-2 text-gray-900 dark:text-white">{FOUNDER_NAME}</h2>
+          <p className="text-sm font-semibold uppercase tracking-wider text-skyblue mb-6">
+            About the founder · {FOUNDER_ROLE}
+          </p>
           <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 text-balance">
             {data.bio}
           </p>
