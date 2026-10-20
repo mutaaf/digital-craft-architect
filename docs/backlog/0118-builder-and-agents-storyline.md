@@ -1,7 +1,7 @@
 ---
 id: 0118
 title: Hero storyline opens with the builder at his desk, prompting AI agents that go to work
-status: in-progress
+status: shipped
 priority: P1
 area: conversion
 created: 2026-10-20
