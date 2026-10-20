@@ -144,7 +144,7 @@ const CrewOfLight: React.FC<Props> = ({ host = 'cto', focus = null, onStory, chr
         try {
           stage.current = window.AuroraField.stage(canvas.current, first, {
             container: box.current, palette: PALETTES[host], count: narrow ? 2000 : 5600, stars: narrow ? 40 : 80,
-            interactive: !narrow, radius: (w: number, h: number) => Math.min(w * 0.6, h * 0.42),
+            interactive: !narrow, radius: (w: number, h: number) => Math.min(w * 0.6, h * 0.39),   // headroom above and below for the labels
             groupRadius: (w: number, h: number) => Math.min(w * 0.42, h * 0.34),   // the agents and the crew are wider than one person
           });
         } catch {

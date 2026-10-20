@@ -1,7 +1,7 @@
 {
-  "version": "3.2.0",
-  "browser": "dc72ca76d69d1986ccb97de1d5e2eb5b9ae9752b9912bc012fd203789934d45b",
-  "api": "45d3c529d62ac8338cc1b9f384c4dd452604f518c9f9f84ada857fcaf20922df",
-  "commit": "b8e97b5db41374cb47ea5838a5dcfcf7e28b570b",
+  "version": "3.3.0",
+  "browser": "cfecfda0d059ea69c9c22b574c2ff442a5400057a0d29c4c109dcb0ea7f93db2",
+  "api": "c6487cdeee7b2f5bebe74a09b594eb2a2eb79083aff7a76ac81b6fbd7c0971eb",
+  "commit": "854250fd7050413faddb8548e1dd804697ac7a9e",
   "source": "https://github.com/mutaaf/aurora-field"
 }
