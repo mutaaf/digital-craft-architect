@@ -94,10 +94,12 @@ interface Props {
   onStory?: (s: StoryState) => void;
   /** 'desktop' hides the rail and subtitles on phones (the CTO hero shows the stage faintly behind its copy). */
   chrome?: 'always' | 'desktop';
+  /** Pause from outside (the CTO hero's phone layout has its own pause button, next to the narrator). */
+  paused?: boolean;
   className?: string;
 }
 
-const CrewOfLight: React.FC<Props> = ({ host = 'cto', focus = null, onStory, chrome = 'always', className = '' }) => {
+const CrewOfLight: React.FC<Props> = ({ host = 'cto', focus = null, onStory, chrome = 'always', paused: pausedOutside, className = '' }) => {
   const box = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const stage = useRef<Stage | null>(null);
@@ -174,6 +176,10 @@ const CrewOfLight: React.FC<Props> = ({ host = 'cto', focus = null, onStory, chr
   }, [host, still]);
 
   useEffect(() => { stage.current?.focus(focus); }, [focus]);
+  useEffect(() => {
+    if (pausedOutside === undefined || !ready || pausedOutside === paused) return;
+    togglePause();
+  }, [pausedOutside, ready]);   // eslint-disable-line react-hooks/exhaustive-deps
 
   // the rail: each chapter fills as its beats play (estimated from the board; the stage keeps its own time)
   useEffect(() => {
@@ -283,7 +289,8 @@ const CrewOfLight: React.FC<Props> = ({ host = 'cto', focus = null, onStory, chr
             ))}
           </ol>
         </div>
-        <label className="flex items-center justify-center gap-2 font-mono text-[10px] uppercase tracking-wider text-bone/45">
+        <div className="flex items-center justify-center gap-2">
+        <label className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-bone/45">
           <span>Your trade</span>
           <span className="relative">
             <select
@@ -296,6 +303,7 @@ const CrewOfLight: React.FC<Props> = ({ host = 'cto', focus = null, onStory, chr
             </select>
             <ChevronDown size={11} aria-hidden className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-bone/60" />
           </span>
+        </label>
           <button
             type="button"
             onClick={() => jump(0, 'replay')}
@@ -304,7 +312,7 @@ const CrewOfLight: React.FC<Props> = ({ host = 'cto', focus = null, onStory, chr
           >
             <RotateCcw size={11} />
           </button>
-        </label>
+        </div>
       </div>
 
       {/* the whole story, for screen readers (the canvas, subtitles and HUD are hidden from them) */}

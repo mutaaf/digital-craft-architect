@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { ArrowUpRight, ArrowRight } from 'lucide-react';
+import { ArrowUpRight, ArrowRight, Pause, Play } from 'lucide-react';
 import NavbarV2 from '@/components/v2/NavbarV2';
 import CrewOfLight, { type StoryState } from '@/components/v2/CrewOfLight';
 import Footer from '@/components/Footer';
@@ -224,6 +224,7 @@ const HeroV2: React.FC = () => {
   // hovering a line of the headline puts that trade on the stage; the story lights the line it's acting out
   const [focus, setFocus] = useState<string | null>(null);
   const [story, setStory] = useState<StoryState | null>(null);
+  const [still, setStill] = useState(false);   // phones: pause lives by the narrator, since the stage sits behind the copy
   const hover = (t: string) => ({ onMouseEnter: () => setFocus(t), onMouseLeave: () => setFocus(null) });
   const lit = !story ? -1 : story.chapter === 'crew' ? 2 : story.chapter === 'catch' && (story.phase === 'fill' || story.phase === 'caption' || story.phase === 'hold') ? LINE_BY_CLAIM[story.claim || ''] ?? -1 : -1;
   const line = (n: number) => ({ className: `transition-colors duration-700 ${lit < 0 || lit === n ? 'text-bone' : 'text-bone/35'}` });
@@ -321,15 +322,26 @@ const HeroV2: React.FC = () => {
           </div>
 
           {/* phones: the stage plays faintly behind the copy, so the narrator speaks here */}
-          <p aria-hidden className="mt-6 min-h-[2.8em] border-l border-copper/50 pl-3 font-editorial text-base italic leading-snug text-bone/75 md:hidden">
-            {story?.line && <span key={story.line} className="story-line">{story.line}</span>}
-          </p>
+          <div className="mt-6 flex items-start gap-3 md:hidden">
+            <button
+              type="button"
+              onClick={() => setStill(!still)}
+              aria-label={still ? 'Play the story' : 'Pause the story'}
+              aria-pressed={still}
+              className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full border border-bone/20 text-bone/70"
+            >
+              {still ? <Play size={12} /> : <Pause size={12} />}
+            </button>
+            <p aria-hidden className="min-h-[2.8em] border-l border-copper/50 pl-3 font-editorial text-base italic leading-snug text-bone/75">
+              {story?.line && <span key={story.line} className="story-line">{story.line}</span>}
+            </p>
+          </div>
         </div>
         </div>
 
         {/* the stage: beside the copy on desktop; behind the headline, quieter, on phones */}
         <div className="pointer-events-none absolute inset-x-0 top-20 z-0 h-[520px] opacity-35 md:pointer-events-auto md:relative md:inset-auto md:top-auto md:col-span-5 md:h-[660px] md:opacity-100">
-          <CrewOfLight host="cto" focus={focus} onStory={setStory} chrome="desktop" />
+          <CrewOfLight host="cto" focus={focus} onStory={setStory} chrome="desktop" paused={still} />
         </div>
       </div>
 

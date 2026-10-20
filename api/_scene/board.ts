@@ -192,6 +192,10 @@ export function personalize(board: Storyboard, trade: string | null, claims: Rec
       if ('crew' in b && Array.isArray(b.crew) && !b.crew.includes(trade)) return [{ ...b, crew: [trade, ...b.crew.filter((t) => t !== was)].slice(0, 8) }];
       return [b];
     });
+    if (echo < 0) {   // a hand-written board that never catches its miss: the visitor's trade is caught after the intro
+      let at = 1; while (at < beats.length && 'builder' in beats[at] && !('crew' in beats[at])) at++;
+      beats.splice(at, 0, beatFor(trade, claims));
+    }
     return { ...board, beats: beats.slice(0, 12) };
   }
   const beats = board.beats.slice();

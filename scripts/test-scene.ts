@@ -52,6 +52,8 @@ await test("the visitor's trade becomes the story's hero, on any board", () => {
   for (const t of Object.keys(TRADE_LABEL)) assert.ok(validateBoard(personalize(DEFAULT_STORYBOARD, t), CLAIMS).ok, t);
   const old = { version: 1 as const, beats: [beatFor('roofer'), { crew: ['roofer'], caption: CLAIMS.crew }] };   // a board from before the miss
   assert.deepEqual(trades(personalize(old, 'hvac')), ['hvac', 'roofer']);
+  const uncaught = { version: 1 as const, beats: [missedBeatFor('roofer'), { crew: ['roofer'], caption: CLAIMS.crew }] };   // hand-written: a miss with no catch
+  assert.deepEqual(trades(personalize(uncaught, 'plumber')), ['miss:plumber', 'plumber'], "the visitor's trade is always caught");
 });
 await test('the narrator: written here, keyed by beat, no em-dash, no numbers outside the claims', () => {
   const lines = transcript(DEFAULT_STORYBOARD, 'cto');

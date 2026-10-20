@@ -18,7 +18,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
   const resetAt = useRef(0);
   const [story, setStory] = useState<StoryState | null>(null);
 
-  // five taps on the window still opens the easter egg
+  // five taps on the window's header still open the easter egg (not the story's own controls)
   const handleTap = () => {
     taps.current += 1;
     window.clearTimeout(resetAt.current);
@@ -67,7 +67,6 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
           <div className="w-full md:w-1/2 animate-slide-up">
             <div
               className="relative overflow-hidden rounded-2xl border border-slate-900/10 bg-[#0a1016] shadow-[0_30px_80px_-30px_rgba(10,40,60,0.55)] dark:border-white/10"
-              onClick={handleTap}
             >
               {/* the night outside: a sky glow behind the stage, and the window's header */}
               <div
@@ -75,7 +74,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
                 className="pointer-events-none absolute inset-0"
                 style={{ background: 'radial-gradient(120% 70% at 70% 0%, rgba(51,195,240,0.16), transparent 60%), radial-gradient(80% 50% at 10% 100%, rgba(123,227,195,0.08), transparent 70%)' }}
               />
-              <div className="relative flex items-center justify-between border-b border-white/10 px-4 py-2.5 font-mono text-[10px] uppercase tracking-wider text-white/55">
+              <div className="relative flex items-center justify-between border-b border-white/10 px-4 py-2.5 font-mono text-[10px] uppercase tracking-wider text-white/55" onClick={handleTap}>
                 <span className="flex items-center gap-2">
                   <span className="flex gap-1.5" aria-hidden>
                     <span className="h-2 w-2 rounded-full bg-white/15" />

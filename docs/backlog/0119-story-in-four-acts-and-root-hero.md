@@ -39,7 +39,7 @@ A recognizable before/after in the first ten seconds, personalized to the visito
 - [x] Chapter rail (jumpable), pause/play (WCAG 2.2.2), trade picker that recasts the story, a screen-reader transcript; reduced motion never holds the loss.
 - [x] CTO headline lines light up with the outcome being acted out; on phones the narrator speaks under the CTAs.
 - [x] digitalcraftai.com hero plays `ROOT_STORYBOARD` (`/api/scene?host=root`, Edge Config `scenes.root`) in an "after hours" window, with a "Watch it work on your company" CTA.
-- [x] Tests: `scripts/test-scene.ts` (11), e2e `crew-of-light-hero` (8).
+- [x] Tests: `scripts/test-scene.ts` (11), e2e `crew-of-light-hero` (9). `dca_story_trade` is disclosed on /trust.
 - [ ] After deploy, Edge Config `scenes.cto` and `scenes.root` are republished with the new defaults.
 
 ## Out of scope

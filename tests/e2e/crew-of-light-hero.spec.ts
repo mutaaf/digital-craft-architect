@@ -113,3 +113,15 @@ test('reduced motion: no pen, never the loss: the builder sits lit at his desk w
   expect(errors).toEqual([]);
   await ctx.close();
 });
+
+test('phones: the story can be paused from beside the narrator', async ({ browser }) => {
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  const page = await ctx.newPage();
+  await page.route('**/api/scene**', (route) => route.fulfill({ status: 404 }));
+  await gotoCTO(page);
+  const pause = page.getByRole('button', { name: 'Pause the story' }).first();
+  await expect(pause).toBeVisible({ timeout: 15_000 });
+  await pause.click();
+  await expect(page.getByRole('button', { name: 'Play the story' }).first()).toHaveAttribute('aria-pressed', 'true');
+  await ctx.close();
+});
