@@ -76,7 +76,7 @@ git config user.name "DigitalCraft GTM Agent"
 # Smoke-test path: just prove the plumbing works without touching the repo.
 if [ "${SMOKE:-0}" = "1" ]; then
   echo "--- SMOKE MODE: skipping real backlog run ---"
-  claude --print --dangerously-skip-permissions --model claude-opus-4-7 \
+  claude --print --dangerously-skip-permissions --model claude-opus-5-5 \
     "Reply with exactly: SMOKE-OK $(date -u +%H:%M:%S). Do not call any tools."
   EXIT=$?
   echo
@@ -86,7 +86,7 @@ fi
 
 # Real run. Hand off to local claude. --print is non-interactive,
 # --dangerously-skip-permissions auto-approves every tool call (no human here).
-claude --print --dangerously-skip-permissions --model claude-opus-4-7 <<'PROMPT'
+claude --print --dangerously-skip-permissions --model claude-opus-5-5 <<'PROMPT'
 You are the autonomous GTM Innovation Agent for the DigitalCraft AI marketing
 site. You are already at the repo root on main, fresh-pulled.
 
