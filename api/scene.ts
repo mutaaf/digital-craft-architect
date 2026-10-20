@@ -1,17 +1,17 @@
-// Ticket 0117 - the CTO hero's storyboards, live. One Edge function (the Hobby plan allows 12
+// Tickets 0117/0119 - the heroes' storyboards, live (cto.digitalcraftai.com and digitalcraftai.com). One Edge function (the Hobby plan allows 12
 // serverless functions per deployment; Edge functions don't count against it).
 //
-// GET /api/scene?host=cto&vertical=roofers
-//   Edge Config "scenes" if set (else the bundled default), the visitor's trade first,
+// GET /api/scene?host=cto|root&vertical=roofers
+//   Edge Config "scenes" if set (else the host's bundled default), the visitor's trade as the story's hero,
 //   validated, ETag-cached. Edit the board (Edge Config, the aurora-field studio, or POST below)
 //   and open pages follow within a minute. A vertical with no trade figure (dental, legal, …)
 //   can get a board from the AI director when SCENE_DIRECTOR=on; those cache for a day.
 //
 // POST /api/scene   Authorization: Bearer $DIRECTOR_TOKEN   (admin)
-//   { prompt: "...", key?: "cto" | "default" | "vertical:<slug>", publish?: true }  the AI director writes a board (and publishes it)
+//   { prompt: "...", key?: "cto" | "root" | "default" | "vertical:<slug>", publish?: true }  the AI director writes a board (and publishes it)
 //   { publish: <storyboard>, key?: ... }                                              publish a board written by hand or in the studio
 //   Boards are validated (aurora-field vocabulary, house rules, approved claims) before anything is written.
-import { DEFAULT_STORYBOARD, personalize, tradeForVertical, type Storyboard } from './_scene/board';
+import { defaultBoard, personalize, tradeForVertical, type Storyboard } from './_scene/board';
 import { claimsFrom, direct, etagOf, promptsFrom, readScenes, validateBoard, writeScenes, type Scenes } from './_scene/lib';
 
 export const config = { runtime: 'edge' };
@@ -50,9 +50,9 @@ export default async function handler(req: Request): Promise<Response> {
 
 async function serve(req: Request): Promise<Response> {
   const url = new URL(req.url);
-  const host = url.searchParams.get('host') || '', vertical = (url.searchParams.get('vertical') || '').toLowerCase().replace(/[^a-z-]/g, '').slice(0, 40);
+  const host = url.searchParams.get('host') === 'root' ? 'root' : 'cto', vertical = (url.searchParams.get('vertical') || '').toLowerCase().replace(/[^a-z-]/g, '').slice(0, 40);
   const scenes = await readScenes(), claims = claimsFrom(scenes), trade = tradeForVertical(vertical);
-  let board: Storyboard = scenes?.byVertical?.[vertical] || (host === 'cto' && scenes?.cto) || scenes?.default || DEFAULT_STORYBOARD;
+  let board: Storyboard = scenes?.byVertical?.[vertical] || scenes?.[host] || scenes?.default || defaultBoard(host);
   let longCache = false;
 
   if (!trade && vertical && DIRECTABLE.has(vertical) && process.env.SCENE_DIRECTOR === 'on' && !scenes?.byVertical?.[vertical]) {
@@ -63,11 +63,11 @@ async function serve(req: Request): Promise<Response> {
     } catch (e) { console.error('scene: director failed', e); }
   }
 
-  board = personalize(board, trade);
+  board = personalize(board, trade, claims);
   const v = validateBoard(board, claims, promptsFrom(scenes));
   if (!v.ok) {   // a bad board in Edge Config never reaches visitors: they get the default, and the logs say why
     console.error('scene: invalid storyboard, serving the default:', v.errors.join('; '));
-    board = personalize(DEFAULT_STORYBOARD, trade);
+    board = personalize(defaultBoard(host), trade);
   }
   const body = JSON.stringify(board), etag = await etagOf(body);
   const headers = { ETag: etag, 'Cache-Control': longCache ? 'public, s-maxage=86400, stale-while-revalidate=604800' : 'public, s-maxage=60, stale-while-revalidate=600' };
@@ -82,7 +82,7 @@ async function admin(req: Request, cors: Record<string, string>): Promise<Respon
   let body: Record<string, unknown>;
   try { body = (await req.json()) as Record<string, unknown>; } catch { return json({ error: 'Send JSON.' }, 400, cors); }
   const key = String(body.key || 'cto');
-  if (!/^(cto|default|vertical:[a-z-]{2,40})$/.test(key)) return json({ error: 'key must be cto, default or vertical:<slug>' }, 400, cors);
+  if (!/^(cto|root|default|vertical:[a-z-]{2,40})$/.test(key)) return json({ error: 'key must be cto, root, default or vertical:<slug>' }, 400, cors);
   const scenes: Scenes = (await readScenes()) || {};
   const claims = claimsFrom(scenes);
 
@@ -100,7 +100,7 @@ async function admin(req: Request, cors: Record<string, string>): Promise<Respon
   if (!shouldPublish) return json({ ok: true, published: false, board }, 200, cors);
 
   const next: Scenes = { ...scenes, byVertical: { ...(scenes.byVertical || {}) } };
-  if (key === 'cto') next.cto = board; else if (key === 'default') next.default = board; else next.byVertical![key.slice(9)] = board;
+  if (key === 'cto' || key === 'root' || key === 'default') next[key] = board; else next.byVertical![key.slice(9)] = board;
   try { await writeScenes(next); } catch (e) { return json({ error: (e as Error).message, board }, 502, cors); }
   return json({ ok: true, published: true, key, board }, 200, cors);
 }

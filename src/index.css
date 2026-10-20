@@ -245,3 +245,11 @@
   .print\:shadow-none { box-shadow: none !important; }
   .print\:border { border: 1px solid #e5e7eb !important; }
 }
+
+/* Ticket 0119 - the hero story's narrator: each line rises in like a subtitle */
+@keyframes story-in {
+  from { opacity: 0; transform: translateY(6px); filter: blur(3px); }
+  to   { opacity: 1; transform: none; filter: none; }
+}
+.story-line { display: inline-block; animation: story-in 0.6s cubic-bezier(.2, .7, .2, 1) both; }
+@media (prefers-reduced-motion: reduce) { .story-line { animation: none; } }

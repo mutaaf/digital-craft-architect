@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { ArrowUpRight, ArrowRight } from 'lucide-react';
 import NavbarV2 from '@/components/v2/NavbarV2';
-import CrewOfLight from '@/components/v2/CrewOfLight';
+import CrewOfLight, { type StoryState } from '@/components/v2/CrewOfLight';
 import Footer from '@/components/Footer';
 import { useContent } from '@/hooks/useContent';
 import {
@@ -215,10 +215,18 @@ const OutcomesMarquee: React.FC = () => {
 };
 
 /* ---------------------------------- HERO ---------------------------------- */
+// which line of the headline the story is acting out (ticket 0119): booking, closing, or running ops
+const LINE_BY_CLAIM: Record<string, 0 | 1 | 2> = {
+  'call-booked': 0, 'after-hours': 0, 'lead-response': 0, 'estimate-hour': 0, 'review-request': 0,
+  'deal-analyzed': 1, 'lead-qualified': 1, 'ops-hours': 2, 'no-new-hires': 2,
+};
 const HeroV2: React.FC = () => {
-  // hovering a line of the headline puts that trade on the stage
+  // hovering a line of the headline puts that trade on the stage; the story lights the line it's acting out
   const [focus, setFocus] = useState<string | null>(null);
+  const [story, setStory] = useState<StoryState | null>(null);
   const hover = (t: string) => ({ onMouseEnter: () => setFocus(t), onMouseLeave: () => setFocus(null) });
+  const lit = !story ? -1 : story.chapter === 'crew' ? 2 : story.chapter === 'catch' && (story.phase === 'fill' || story.phase === 'caption' || story.phase === 'hold') ? LINE_BY_CLAIM[story.claim || ''] ?? -1 : -1;
+  const line = (n: number) => ({ className: `transition-colors duration-700 ${lit < 0 || lit === n ? 'text-bone' : 'text-bone/35'}` });
   return (
   <section className="relative overflow-hidden border-b border-white/10 pt-24 pb-16 md:pt-36 md:pb-28">
     <div
@@ -255,11 +263,11 @@ const HeroV2: React.FC = () => {
               lineHeight: 0.95,
             }}
           >
-            <span {...hover('roofer')}>Book more jobs.</span>
+            <span {...hover('roofer')} {...line(0)}>Book more jobs.</span>
             <br />
-            <span {...hover('realtor')}>Close more deals.</span>
+            <span {...hover('realtor')} {...line(1)}>Close more deals.</span>
             <br />
-            <span {...hover('manager')}>
+            <span {...hover('manager')} {...line(2)}>
               Run ops on{' '}
               <span className="italic text-copper" style={{ fontWeight: 380 }}>
                 autopilot.
@@ -311,12 +319,17 @@ const HeroV2: React.FC = () => {
             </span>
             Next discovery · {nextAvailableSlot()}
           </div>
+
+          {/* phones: the stage plays faintly behind the copy, so the narrator speaks here */}
+          <p aria-hidden className="mt-6 min-h-[2.8em] border-l border-copper/50 pl-3 font-editorial text-base italic leading-snug text-bone/75 md:hidden">
+            {story?.line && <span key={story.line} className="story-line">{story.line}</span>}
+          </p>
         </div>
         </div>
 
         {/* the stage: beside the copy on desktop; behind the headline, quieter, on phones */}
-        <div className="pointer-events-none absolute inset-x-0 top-20 z-0 h-[520px] opacity-35 md:pointer-events-auto md:relative md:inset-auto md:top-auto md:col-span-5 md:h-[580px] md:opacity-100">
-          <CrewOfLight focus={focus} />
+        <div className="pointer-events-none absolute inset-x-0 top-20 z-0 h-[520px] opacity-35 md:pointer-events-auto md:relative md:inset-auto md:top-auto md:col-span-5 md:h-[660px] md:opacity-100">
+          <CrewOfLight host="cto" focus={focus} onStory={setStory} chrome="desktop" />
         </div>
       </div>
 

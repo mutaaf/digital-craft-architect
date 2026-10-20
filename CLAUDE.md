@@ -65,8 +65,8 @@ A React + TypeScript SPA that serves as both a marketing website and an interact
 │   ├── vapi-call-status.ts        # Polls call status + transcript
 │   ├── vapi-call-end.ts           # Terminates active call
 │   ├── vapi-status.ts             # Feature-flag: Vapi availability
-│   ├── scene.ts                   # CTO hero storyboards (Edge): GET serves, POST = AI director + publish (admin)
-│   └── _scene/                    # shared board rules, claims, vendored aurora-field
+│   ├── scene.ts                   # hero storyboards (Edge, host=cto|root): GET serves, POST = AI director + publish (admin)
+│   └── _scene/                    # board rules + claims (board.ts), narrator/chapters (story.ts), vendored aurora-field
 ├── src/
 │   ├── App.tsx                    # Router + providers
 │   ├── main.tsx                   # Entry: Sentry init, React root
@@ -150,7 +150,7 @@ Push to `main` branch — Vercel auto-deploys. Environment variables must be set
 | `VAPI_PUBLIC_KEY` | Yes | Browser SDK initialization |
 | `VAPI_PHONE_NUMBER_ID` | No | Outbound phone calls (without this, only browser calls work) |
 | `FIRECRAWL_API_KEY` | No | Web scraping (falls back to Jina if absent) |
-| `EDGE_CONFIG` | No | Edge Config connection string: the CTO hero's live storyboards (`/api/scene`); without it the bundled default plays |
+| `EDGE_CONFIG` | No | Edge Config connection string: both heroes' live storyboards (`/api/scene`, keys `cto` and `root`); without it the bundled defaults play |
 | `EDGE_CONFIG_ID` | No | Edge Config id, for publishing storyboards (`POST /api/scene`) |
 | `VERCEL_API_TOKEN` | No | Vercel API token with Edge Config write access, for publishing |
 | `VERCEL_TEAM_ID` | No | Team id, if the Edge Config belongs to a team |

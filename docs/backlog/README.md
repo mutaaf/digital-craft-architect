@@ -127,6 +127,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0116 | Founder signature module shared visually with mutaafaziz.com | P2 | groomed | trust |
 | 0117 | Crew of Light hero on the CTO landing, with live storyboards and an AI director | P1 | shipped | conversion |
 | 0118 | Hero storyline opens with the builder at his desk, prompting AI agents that go to work | P1 | shipped | conversion |
+| 0119 | The hero story in four acts (the miss, the build, the catch, the crew), and on digitalcraftai.com | P1 | in-progress | conversion |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the
