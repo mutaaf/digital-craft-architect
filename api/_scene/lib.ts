@@ -3,18 +3,20 @@
 // and the AI director, which writes boards from a prompt or a visitor's vertical using only
 // the vocabulary and the approved claims.
 import AF from './aurora-field.cjs';
-import { CLAIMS, DEFAULT_STORYBOARD, TRADE_LABEL, checkClaims, houseText, type Caption, type Storyboard, type TradeBeat } from './board';
+import { CLAIMS, DEFAULT_STORYBOARD, PROMPTS, TRADE_LABEL, builderIntro, checkClaims, houseText, jobForClaim, type Caption, type Storyboard, type TradeBeat } from './board';
 
-export type Scenes = { default?: Storyboard; cto?: Storyboard; byVertical?: Record<string, Storyboard>; claims?: Record<string, Caption> };
+export type Scenes = { default?: Storyboard; cto?: Storyboard; byVertical?: Record<string, Storyboard>; claims?: Record<string, Caption>; prompts?: string[] };
+
+export function promptsFrom(scenes: Scenes | null): string[] { return [...PROMPTS, ...(scenes?.prompts || [])]; }
 
 export function claimsFrom(scenes: Scenes | null): Record<string, Caption> {
   return { ...CLAIMS, ...(scenes?.claims || {}) };
 }
 
-export function validateBoard(board: unknown, claims: Record<string, Caption>): { ok: boolean; errors: string[] } {
+export function validateBoard(board: unknown, claims: Record<string, Caption>, prompts: string[] = PROMPTS): { ok: boolean; errors: string[] } {
   const v = AF.validate(board, { text: houseText });
   if (!v.ok) return v;
-  const c = checkClaims(board as Storyboard, claims);
+  const c = checkClaims(board as Storyboard, claims, prompts);
   return { ok: !c.length, errors: c };
 }
 
@@ -51,7 +53,7 @@ type DirectedBeat = { trade: string | null; custom: { label: string; pose: strin
 const ANCHORS = ['head', 'chest', 'hand', 'prop', 'feet'];
 
 function directorSchema(claims: Record<string, Caption>) {
-  const V = AF.vocab(), claimIds = Object.keys(claims).filter((k) => k !== 'crew');
+  const V = AF.vocab(), claimIds = Object.keys(claims).filter((k) => k !== 'crew' && !k.startsWith('builder-') && k !== 'agents-work');
   const nul = (s: Record<string, unknown>) => ({ ...s, type: [s.type as string, 'null'] });
   return {
     name: 'storyboard',
@@ -59,7 +61,7 @@ function directorSchema(claims: Record<string, Caption>) {
     schema: {
       type: 'object', additionalProperties: false, required: ['beats', 'crew'],
       properties: {
-        beats: { type: 'array', minItems: 1, maxItems: 5, items: {
+        beats: { type: 'array', minItems: 1, maxItems: 4, items: {
           type: 'object', additionalProperties: false, required: ['trade', 'custom', 'moment', 'at', 'claim'],
           properties: {
             trade: { type: ['string', 'null'], enum: [...V.trades.filter((t) => !t.startsWith('inline')), null] },
@@ -76,18 +78,21 @@ function directorSchema(claims: Record<string, Caption>) {
 }
 
 export function toBoard(out: { beats: DirectedBeat[]; crew: string[] }, claims: Record<string, Caption>): Storyboard {
-  const beats: Storyboard['beats'] = [];
+  const jobs: string[] = [];
+  for (const b of out.beats) { const j = jobForClaim(b.claim); if (!jobs.includes(j)) jobs.push(j); }
+  while (jobs.length < 3) for (const j of ['answer', 'estimate', 'review']) if (jobs.length < 3 && !jobs.includes(j)) jobs.push(j);
+  const beats: Storyboard['beats'] = [...builderIntro(jobs)];
   for (const b of out.beats) {
     const claim = claims[b.claim] || CLAIMS['lead-response'];
     const trade = b.trade || (b.custom ? { pose: b.custom.pose, props: b.custom.props } : null);
     if (!trade) continue;
     const who = b.trade ? TRADE_LABEL[b.trade] || b.trade : (b.custom!.label || '').slice(0, 32);
-    const beat: TradeBeat = { trade: trade as TradeBeat['trade'], caption: { who, ...claim } };
+    const beat: TradeBeat = { trade: trade as TradeBeat['trade'], ai: { text: 'Agent · ' + ({ answer: 'answering', estimate: 'estimating', review: 'asking for reviews', analyze: 'analyzing', followup: 'following up', schedule: 'scheduling' } as Record<string, string>)[jobForClaim(b.claim)] }, caption: { who, ...claim } };
     if (b.moment) beat.moment = { text: b.moment.replace(/—/g, '·').slice(0, 48), at: b.at && ANCHORS.includes(b.at) ? b.at : 'hand' };
     beats.push(beat);
   }
   const crew = (out.crew || []).slice(0, 6);
-  beats.push({ crew: crew.length ? crew : (DEFAULT_STORYBOARD.beats[DEFAULT_STORYBOARD.beats.length - 1] as { crew: string[] }).crew, caption: claims.crew || CLAIMS.crew, hold: 4500 });
+  beats.push({ crew: crew.length ? crew : (DEFAULT_STORYBOARD.beats[DEFAULT_STORYBOARD.beats.length - 1] as { crew: string[] }).crew, builder: true, caption: claims.crew || CLAIMS.crew, hold: 5000 });
   return { version: 1, loop: true, beats };
 }
 
@@ -103,7 +108,7 @@ Rules:
 export async function direct(prompt: string, claims: Record<string, Caption>): Promise<Storyboard> {
   const key = process.env.OPENAI_API_KEY;
   if (!key) throw new Error('the director needs OPENAI_API_KEY');
-  const ids = Object.entries(claims).filter(([k]) => k !== 'crew').map(([k, c]) => `${k}: ${c.did}`).join('\n');
+  const ids = Object.entries(claims).filter(([k]) => k !== 'crew' && !k.startsWith('builder-') && k !== 'agents-work').map(([k, c]) => `${k}: ${c.did}`).join('\n');
   const r = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST', headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({ model: 'gpt-4o', temperature: 0.5, max_tokens: 900, response_format: { type: 'json_schema', json_schema: directorSchema(claims) },

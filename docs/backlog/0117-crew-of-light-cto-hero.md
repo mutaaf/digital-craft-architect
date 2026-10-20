@@ -1,7 +1,7 @@
 ---
 id: 0117
 title: Crew of Light hero on the CTO landing, with live storyboards and an AI director
-status: in-progress
+status: shipped
 priority: P1
 area: conversion
 created: 2026-10-19

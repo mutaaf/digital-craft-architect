@@ -66,13 +66,13 @@ test("a visitor from a trade's ad is asked about their trade", async ({ page }) 
   await expect(page.locator(STAGE).getByRole('button', { name: 'Pool service' })).toBeVisible({ timeout: 15_000 });
 });
 
-test('reduced motion: no pen, the first trade stands lit with its caption', async ({ browser }) => {
+test('reduced motion: no pen, the builder sits lit at his desk with his caption', async ({ browser }) => {
   const ctx = await browser.newContext({ reducedMotion: 'reduce' });
   const page = await ctx.newPage();
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
   await gotoCTO(page);
-  await expect(page.locator('.af-caption.af-on')).toContainText('Call answered', { timeout: 15_000 });
+  await expect(page.locator('.af-caption.af-on')).toContainText('Custom AI systems', { timeout: 15_000 });
   expect(errors).toEqual([]);
   await ctx.close();
 });

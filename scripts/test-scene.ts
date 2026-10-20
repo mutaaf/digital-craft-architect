@@ -28,10 +28,17 @@ await test('every vertical maps to a real trade, and every trade has a valid bea
   assert.equal(tradeForVertical('roofers'), 'roofer');
   assert.equal(tradeForVertical('dental'), null);
 });
-await test("personalize puts the visitor's trade first, adding it when missing", () => {
-  assert.equal((personalize(DEFAULT_STORYBOARD, 'plumber').beats[0] as { trade: string }).trade, 'plumber');
+await test("the story opens with the builder; the visitor's trade comes first after his intro", () => {
+  assert.deepEqual(DEFAULT_STORYBOARD.beats.slice(0, 3).map((b) => (b as { builder: string }).builder), ['typing', 'prompting', 'agents']);
+  assert.equal((DEFAULT_STORYBOARD.beats[DEFAULT_STORYBOARD.beats.length - 1] as { builder?: boolean }).builder, true, 'the finale puts him in front of the crew');
+  assert.equal((personalize(DEFAULT_STORYBOARD, 'plumber').beats[3] as { trade: string }).trade, 'plumber');
   const p = personalize(DEFAULT_STORYBOARD, 'pool');
-  assert.equal((p.beats[0] as { trade: string }).trade, 'pool'); assert.equal(p.beats.length, DEFAULT_STORYBOARD.beats.length + 1);
+  assert.equal((p.beats[3] as { trade: string }).trade, 'pool'); assert.equal(p.beats.length, DEFAULT_STORYBOARD.beats.length + 1);
+});
+await test("what types on the builder's screen is curated like a claim", () => {
+  const b = JSON.parse(JSON.stringify(DEFAULT_STORYBOARD));
+  b.beats[1].prompt.text = 'guarantee 10x revenue';
+  const v = validateBoard(b, CLAIMS); assert.equal(v.ok, false); assert.match(v.errors.join(' '), /approved prompt/);
 });
 await test('captions must be approved claims; numbers come only from claims; no em-dash', () => {
   const free = { version: 1 as const, beats: [{ trade: 'roofer', caption: { who: 'Roofer', did: 'Revenue up 300%' } }] };
@@ -45,14 +52,16 @@ await test("the director's output becomes a valid board, custom figures included
   const b = toBoard({ beats: [{ trade: 'pool', custom: null, moment: 'Sun 8:02 AM · new lead', at: 'prop', claim: 'lead-qualified' },
     { trade: null, custom: { label: 'Dentist', pose: 'tablet', props: ['clipboard'] }, moment: '7:40 PM — new patient call', at: 'hand', claim: 'after-hours' }], crew: ['pool', 'plumber'] }, CLAIMS);
   assert.deepEqual(validateBoard(b, CLAIMS), { ok: true, errors: [] });
-  assert.equal((b.beats[1] as { caption: { who: string } }).caption.who, 'Dentist');
-  assert.ok(!(b.beats[1] as { moment: { text: string } }).moment.text.includes('—'));
+  assert.equal((b.beats[4] as { caption: { who: string } }).caption.who, 'Dentist');
+  assert.deepEqual((b.beats[2] as { agents: string[] }).agents, ['followup', 'answer', 'estimate'], "the intro's agents do the jobs behind the chosen claims");
+  assert.equal((b.beats[b.beats.length - 1] as { builder?: boolean }).builder, true);
+  assert.ok(!(b.beats[4] as { moment: { text: string } }).moment.text.includes('—'));
 });
 await test('GET /api/scene: the default, the trade first, an ETag, then 304', async () => {
   delete process.env.EDGE_CONFIG;
   const a = await get('?host=cto&vertical=pool-service');
   assert.equal(a.status, 200);
-  assert.equal((await a.json()).beats[0].trade, 'pool');
+  assert.equal((await a.json()).beats[3].trade, 'pool');
   assert.match(a.headers.get('cache-control')!, /s-maxage=60/);
   const b = await get('?host=cto&vertical=pool-service', { 'if-none-match': a.headers.get('etag')! });
   assert.equal(b.status, 304);

@@ -12,7 +12,7 @@
 //   { publish: <storyboard>, key?: ... }                                              publish a board written by hand or in the studio
 //   Boards are validated (aurora-field vocabulary, house rules, approved claims) before anything is written.
 import { DEFAULT_STORYBOARD, personalize, tradeForVertical, type Storyboard } from './_scene/board';
-import { claimsFrom, direct, etagOf, readScenes, validateBoard, writeScenes, type Scenes } from './_scene/lib';
+import { claimsFrom, direct, etagOf, promptsFrom, readScenes, validateBoard, writeScenes, type Scenes } from './_scene/lib';
 
 export const config = { runtime: 'edge' };
 
@@ -64,7 +64,7 @@ async function serve(req: Request): Promise<Response> {
   }
 
   board = personalize(board, trade);
-  const v = validateBoard(board, claims);
+  const v = validateBoard(board, claims, promptsFrom(scenes));
   if (!v.ok) {   // a bad board in Edge Config never reaches visitors: they get the default, and the logs say why
     console.error('scene: invalid storyboard, serving the default:', v.errors.join('; '));
     board = personalize(DEFAULT_STORYBOARD, trade);
@@ -94,7 +94,7 @@ async function admin(req: Request, cors: Record<string, string>): Promise<Respon
   } catch (e) {
     return json({ error: (e as Error).message }, 502, cors);
   }
-  const v = validateBoard(board, claims);
+  const v = validateBoard(board, claims, promptsFrom(scenes));
   if (!v.ok) return json({ error: 'The storyboard is not valid.', errors: v.errors, board }, 422, cors);
   const shouldPublish = body.publish === true || (!!body.publish && typeof body.publish === 'object');
   if (!shouldPublish) return json({ ok: true, published: false, board }, 200, cors);
