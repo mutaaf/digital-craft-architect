@@ -6,9 +6,10 @@
 // Copy rules (AGENTS.md): no em-dash, conservative claims, no invented numbers.
 
 export type Caption = { who?: string; did: string; metric?: { to: number; from?: number; prefix?: string; suffix?: string; ms?: number } };
-export type TradeBeat = { trade: string; moment?: { text: string; at?: string; ms?: number }; ai?: { ms?: number }; fill?: { from?: string; ms?: number }; caption?: Caption; hold?: number; draw?: { ms?: number } };
-export type CrewBeat = { crew: string[] | true; caption?: Caption; hold?: number };
-export type Storyboard = { version: 1; loop?: boolean; beats: Array<TradeBeat | CrewBeat> };
+export type TradeBeat = { trade: string; moment?: { text: string; at?: string; ms?: number }; ai?: { ms?: number; text?: string }; fill?: { from?: string; ms?: number }; caption?: Caption; hold?: number; draw?: { ms?: number } };
+export type CrewBeat = { crew: string[] | true; builder?: boolean; caption?: Caption; hold?: number };
+export type BuilderBeat = { builder: 'typing' | 'prompting' | 'agents'; prompt?: { text: string; code?: boolean; ms?: number }; agents?: string[]; caption?: Caption; hold?: number };
+export type Storyboard = { version: 1; loop?: boolean; beats: Array<TradeBeat | CrewBeat | BuilderBeat> };
 
 // /ai-for-<slug> pages and the hero's verticals, as aurora-field trades
 export const TRADE_BY_VERTICAL: Record<string, string> = {
@@ -40,7 +41,28 @@ export const CLAIMS: Record<string, Caption> = {
   'lead-qualified': { did: 'Lead qualified · follow-up booked' },
   'no-new-hires': { did: 'Scaled ops · zero new hires' },
   crew: { did: 'Your whole crew · on autopilot' },
+  // the builder's beats: what DigitalCraft does, in the site's own words
+  'builder-writes': { who: 'The builder', did: 'Custom AI systems · built end to end' },
+  'builder-prompts': { who: 'The builder', did: 'Your workflow · handed to agents' },
+  'agents-work': { who: 'The agents', did: 'On the job · around the clock' },
 };
+
+// What may appear on the builder's screen. A prompt reads like a promise, so it is curated like a
+// claim: each mirrors one of the claims above. Edge Config may add to this list.
+export const PROMPTS: string[] = [
+  "agents.run('answer-calls', { after: '6pm' })",
+  'answer every missed call and book the job',
+  'send every estimate within the hour',
+  'ask every happy customer for a review',
+  'qualify every new lead and book a follow-up',
+];
+
+// which agent does the work behind each claim (aurora-field agent jobs)
+const JOB_BY_CLAIM: Record<string, string> = {
+  'lead-response': 'answer', 'call-booked': 'answer', 'after-hours': 'answer', 'estimate-hour': 'estimate', 'review-request': 'review',
+  'deal-analyzed': 'analyze', 'lead-qualified': 'followup', 'ops-hours': 'schedule', 'no-new-hires': 'schedule',
+};
+const JOB_LABEL: Record<string, string> = { answer: 'Agent · answering', estimate: 'Agent · estimating', review: 'Agent · asking for reviews', analyze: 'Agent · analyzing', followup: 'Agent · following up', schedule: 'Agent · scheduling' };
 
 // A trade's default beat: the moment it went wrong, and the claim that answers it
 const MOMENT_BY_TRADE: Record<string, [string, string, string]> = {
@@ -67,20 +89,31 @@ const MOMENT_BY_TRADE: Record<string, [string, string, string]> = {
   host: ['9:58 PM · booking inquiry', 'hand', 'lead-response'],
 };
 
+export function jobForClaim(claim: string): string { return JOB_BY_CLAIM[claim] || 'answer'; }
 export function beatFor(trade: string, claims: Record<string, Caption> = CLAIMS): TradeBeat {
   const [text, at, claim] = MOMENT_BY_TRADE[trade] || ['After hours · missed call', 'hand', 'lead-response'];
-  return { trade, moment: { text, at }, caption: { who: TRADE_LABEL[trade] || trade, ...(claims[claim] || CLAIMS[claim]) } };
+  return { trade, moment: { text, at }, ai: { text: JOB_LABEL[jobForClaim(claim)] }, caption: { who: TRADE_LABEL[trade] || trade, ...(claims[claim] || CLAIMS[claim]) } };
+}
+
+// The story opens with the person behind the AI: the builder writes the system, briefs his agents,
+// and they step out to work. Trades follow; the finale puts him at his desk in front of the crew.
+export function builderIntro(jobs: string[], prompt = PROMPTS[1]): BuilderBeat[] {
+  return [
+    { builder: 'typing', prompt: { text: PROMPTS[0], code: true }, caption: CLAIMS['builder-writes'], hold: 2400 },
+    { builder: 'prompting', prompt: { text: prompt }, caption: CLAIMS['builder-prompts'], hold: 1800 },
+    { builder: 'agents', agents: jobs.slice(0, 3), caption: CLAIMS['agents-work'], hold: 3200 },
+  ];
 }
 
 export const DEFAULT_STORYBOARD: Storyboard = {
   version: 1,
   loop: true,
   beats: [
+    ...builderIntro(['answer', 'estimate', 'analyze']),
     beatFor('roofer'),
     beatFor('plumber'),
-    beatFor('manager'),
     beatFor('realtor'),
-    { crew: ['contractor', 'plumber', 'electrician', 'roofer', 'manager', 'realtor'], caption: CLAIMS.crew, hold: 4500 },
+    { crew: ['contractor', 'plumber', 'electrician', 'roofer', 'manager', 'realtor'], builder: true, caption: CLAIMS.crew, hold: 5000 },
   ],
 };
 
@@ -90,23 +123,28 @@ export function tradeForVertical(v?: string | null): string | null {
   return TRADE_BY_VERTICAL[k] || (Object.values(TRADE_BY_VERTICAL).includes(k) ? k : null);
 }
 
-// The visitor's own trade goes first: moved up if the board has it, added (with its default beat) if not
+// The visitor's own trade comes first after the builder's intro: moved up if the board has it,
+// added (with its default beat) if not
 export function personalize(board: Storyboard, trade: string | null): Storyboard {
   if (!trade) return board;
   const beats = board.beats.slice();
   const at = beats.findIndex((b) => 'trade' in b && b.trade === trade);
   const mine = at >= 0 ? beats.splice(at, 1)[0] : beatFor(trade);
-  return { ...board, beats: [mine, ...beats].slice(0, 12) };
+  let intro = 0; while (intro < beats.length && 'builder' in beats[intro] && !('crew' in beats[intro])) intro++;
+  beats.splice(intro, 0, mine);
+  return { ...board, beats: beats.slice(0, 12) };
 }
 
 // House rules on top of aurora-field's validate(): no em-dash, and every caption is a known claim
 export function houseText(v: string): string | null {
   return v.includes('—') ? 'no em-dash (AGENTS.md)' : null;
 }
-export function checkClaims(board: Storyboard, claims: Record<string, Caption> = CLAIMS): string[] {
+export function checkClaims(board: Storyboard, claims: Record<string, Caption> = CLAIMS, prompts: string[] = PROMPTS): string[] {
   const allowed = new Set(Object.values(claims).map((c) => c.did));
+  const okPrompts = new Set(prompts);
   const errs: string[] = [];
   board.beats.forEach((b, i) => {
+    if ('builder' in b && typeof b.builder === 'string' && b.prompt && !okPrompts.has(b.prompt.text)) errs.push(`beats[${i}].prompt.text: "${b.prompt.text}" is not an approved prompt`);
     if (b.caption && !allowed.has(b.caption.did)) errs.push(`beats[${i}].caption.did: "${b.caption.did}" is not an approved claim`);
     if (b.caption?.metric) {
       const ok = Object.values(claims).some((c) => c.did === b.caption!.did && c.metric && c.metric.to === b.caption!.metric!.to);
