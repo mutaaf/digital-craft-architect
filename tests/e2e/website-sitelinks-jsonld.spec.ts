@@ -280,7 +280,8 @@ test('every url stays on digitalcraftai.com and no /api/ call fires', async ({ p
   const apiCalls: string[] = [];
   page.on('request', (req) => {
     const u = new URL(req.url());
-    if (u.origin === appOrigin && u.pathname.startsWith('/api/')) apiCalls.push(req.url());
+    // the hero's story (ticket 0119) is the one API call the home page makes, and it isn't the schema's
+    if (u.origin === appOrigin && u.pathname.startsWith('/api/') && u.pathname !== '/api/scene') apiCalls.push(req.url());
   });
 
   const blocks = await readJsonLdBlocks(page);
