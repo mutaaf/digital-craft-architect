@@ -308,7 +308,7 @@ const HeroV2: React.FC = () => {
               onClick={() => trackCTAClick('see_outcomes', 'v2_hero')}
               className="inline-flex items-center gap-2 rounded-full border border-bone/25 px-6 py-3 font-mono text-[13px] uppercase tracking-wider text-bone/85 transition hover:border-bone hover:text-bone"
             >
-              See the Outcomes ↓
+              See the outcomes ↓
             </a>
           </div>
 
