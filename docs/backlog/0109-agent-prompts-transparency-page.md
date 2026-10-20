@@ -1,7 +1,7 @@
 ---
 id: 0109
 title: Public /agent-prompts transparency page listing the committed system prompt for every autonomous agent as a defensible moat artifact
-status: in-progress
+status: shipped
 priority: P2
 area: trust
 created: 2026-10-02
