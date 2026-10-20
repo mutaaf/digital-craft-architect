@@ -190,7 +190,7 @@ export const CompsPreview: React.FC = () => {
 
 /* ----------------------------- SMS preview ----------------------------- */
 const SMS = [
-  { side: 'out', body: 'Hey Alex — thanks for coming out Tuesday. Mind leaving a quick review?' },
+  { side: 'out', body: 'Hey Alex, thanks for coming out Tuesday. Mind leaving a quick review?' },
   { side: 'in',  body: 'Yeah, absolutely. Best crew I\'ve worked with.' },
   { side: 'sys', body: '★★★★★ posted to Google · 00:47' },
 ];

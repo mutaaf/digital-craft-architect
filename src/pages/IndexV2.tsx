@@ -73,7 +73,7 @@ const OUTCOMES = [
     headline: 'Shipped in months',
     label: 'Not years',
     body:
-      'Production telemedicine platform with AI intake, end-to-end. What a full in-house team would have taken a year to build — with a roadmap the team could operate on day one.',
+      'Production telemedicine platform with AI intake, end-to-end. What a full in-house team would have taken a year to build, with a roadmap the team could operate on day one.',
     chip: 'CTO engagement, not staffing',
   },
   {
@@ -82,7 +82,7 @@ const OUTCOMES = [
     headline: 'Zero new hires',
     label: 'To scale ops across markets',
     body:
-      'Multi-year retainer automating dispatch and coordination. The ops team grew throughput without growing headcount — the way software is supposed to work.',
+      'Multi-year retainer automating dispatch and coordination. The ops team grew throughput without growing headcount, the way software is supposed to work.',
     chip: 'Multi-year partnership',
   },
 ];
@@ -138,7 +138,7 @@ const MANDATE = [
     n: '02',
     title: 'AI Systems & Integration',
     body:
-      'Custom agents, voice AI, LLM pipelines, workflow automation — wired into the tools your team already uses. Not slideware. Shipped.',
+      'Custom agents, voice AI, LLM pipelines, workflow automation, wired into the tools your team already uses. Not slideware. Shipped.',
   },
   {
     n: '03',
@@ -150,13 +150,13 @@ const MANDATE = [
     n: '04',
     title: 'Product Engineering',
     body:
-      'When you need something built now, I build it — or direct the team that does. Platforms, dashboards, integrations, data systems.',
+      'When you need something built now, I build it, or direct the team that does. Platforms, dashboards, integrations, data systems.',
   },
   {
     n: '05',
     title: 'Crisis Response',
     body:
-      'When production breaks, a vendor ghosts, or due diligence lands on Friday — you call the person who has been there before.',
+      'When production breaks, a vendor ghosts, or due diligence lands on Friday, you call the person who has been there before.',
   },
 ];
 
@@ -247,7 +247,7 @@ const HeroV2: React.FC = () => {
 
     <div className="container mx-auto max-w-6xl px-5 sm:px-6">
       <div className="mb-8 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 md:mb-14">
-        <Eyebrow>§ Customer outcomes — not a résumé</Eyebrow>
+        <Eyebrow>§ Customer outcomes, not a résumé</Eyebrow>
         <Eyebrow muted>
           <span className="hidden sm:inline">Fractional CTO · </span>On Retainer
         </Eyebrow>
@@ -280,7 +280,7 @@ const HeroV2: React.FC = () => {
           style={{ animationDelay: '180ms' }}
         >
           <p className="font-editorial text-lg leading-relaxed text-bone/80 md:text-xl">
-            Custom AI systems that <span className="text-bone">book, qualify, and close</span> —
+            Custom AI systems that <span className="text-bone">book, qualify, and close</span>,
             delivered end-to-end on a retainer that costs less than a single senior hire.
             <br />
             <span className="text-bone/70 italic">Shipped, not pitched.</span>
@@ -361,7 +361,7 @@ const OutcomesV2: React.FC = () => {
       <div className="container mx-auto max-w-6xl px-5 sm:px-6">
         <div className="mb-12 flex flex-col gap-6 border-b border-white/10 pb-6 md:mb-16 md:flex-row md:items-end md:justify-between">
           <div>
-            <Eyebrow>§ 01 — Outcomes</Eyebrow>
+            <Eyebrow>§ 01 · Outcomes</Eyebrow>
             <h2
               className="v2-display mt-4 max-w-3xl text-bone"
               style={{ fontWeight: 400, fontSize: 'clamp(2.2rem, 6vw, 4rem)' }}
@@ -429,7 +429,7 @@ const OutcomesV2: React.FC = () => {
 
         <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-6 md:mt-16 md:flex-row md:items-center">
           <p className="font-editorial text-base italic text-bone/60 md:text-lg">
-            “Every retainer pays for itself before month three — or we renegotiate.”
+            “Every retainer pays for itself before month three, or we renegotiate.”
           </p>
           <a
             href={CALENDLY}
@@ -495,7 +495,7 @@ const MandateV2: React.FC = () => {
       <div className="container mx-auto max-w-6xl px-5 sm:px-6">
         <div className="mb-12 flex flex-col gap-6 border-b border-ink/15 pb-6 md:mb-16 md:flex-row md:items-end md:justify-between">
           <div>
-            <span className="v2-mono text-copper">§ 02 — The Mandate</span>
+            <span className="v2-mono text-copper">§ 02 · The Mandate</span>
             <h2
               className="v2-display mt-4 max-w-2xl text-ink"
               style={{ fontWeight: 400, fontSize: 'clamp(2.2rem, 6vw, 4rem)' }}
@@ -567,7 +567,7 @@ const StudioV2: React.FC = () => {
       <div className="container relative mx-auto max-w-6xl px-5 sm:px-6">
         <div className="mb-12 flex flex-col gap-6 border-b border-white/10 pb-6 md:mb-16 md:flex-row md:items-end md:justify-between">
           <div>
-            <Eyebrow>§ 04 — The Studio</Eyebrow>
+            <Eyebrow>§ 04 · The Studio</Eyebrow>
             <h2
               className="v2-display mt-4 max-w-3xl text-bone"
               style={{ fontWeight: 400, fontSize: 'clamp(2.2rem, 6vw, 4rem)' }}
@@ -580,7 +580,7 @@ const StudioV2: React.FC = () => {
           <p className="max-w-sm font-editorial text-base leading-relaxed text-bone/70 md:text-lg">
             You hire <span className="text-bone">the partner.</span> You get
             the firm. A hand-picked bench of craftsmen I've built over seven
-            years — deployed to each engagement by need, not by seat.
+            years, deployed to each engagement by need, not by seat.
           </p>
         </div>
 
@@ -636,7 +636,7 @@ const StudioV2: React.FC = () => {
           “Every engagement is mine to lead. The bench is mine to deploy.
           You'll always know whose hand is on the wheel.”
           <footer className="v2-mono mt-4 not-italic text-bone/50">
-            — Mutaaf · Founding Partner
+            Mutaaf · Founding Partner
           </footer>
         </blockquote>
       </div>
@@ -742,7 +742,7 @@ const CapabilitiesV2: React.FC = () => {
       <div className="container mx-auto max-w-6xl px-5 sm:px-6">
         <div className="mb-12 flex flex-col gap-6 border-b border-white/10 pb-6 md:mb-16 md:flex-row md:items-end md:justify-between">
           <div>
-            <Eyebrow>§ 03 — Portfolio</Eyebrow>
+            <Eyebrow>§ 03 · Portfolio</Eyebrow>
             <h2
               className="v2-display mt-4 max-w-3xl text-bone"
               style={{ fontWeight: 400, fontSize: 'clamp(2.2rem, 6vw, 4rem)' }}
@@ -766,7 +766,7 @@ const CapabilitiesV2: React.FC = () => {
             n="01"
             tag="Lead Intake / GPT-4o"
             title="Voice-first lead intake that closes."
-            body="Every inbound call captured, qualified, and routed — before your competitor picks up."
+            body="Every inbound call captured, qualified, and routed, before your competitor picks up."
             to="/construction/demo/lead-responder"
             className="col-span-12 md:col-span-8 md:row-span-2"
             preview={
@@ -778,7 +778,7 @@ const CapabilitiesV2: React.FC = () => {
                 <TypingPreview
                   lines={[
                     '> Caller: "Hi, I need a fence quote for a half-acre lot."',
-                    '> AI: Captured — residential fence · 0.5 ac · zip 78704.',
+                    '> AI: Captured: residential fence · 0.5 ac · zip 78704.',
                     '> Routed to: jobs@yourco.com · SMS sent to owner.',
                     '> Response time: 47 seconds. Beat competitor by 4h 12m.',
                   ]}
@@ -916,7 +916,7 @@ const ChampionV2: React.FC<{ photo: string }> = ({ photo }) => {
               opacity: inView ? 1 : 0,
             }}
           >
-            <span className="v2-mono text-copper">§ 05 — Who's on the call</span>
+            <span className="v2-mono text-copper">§ 05 · Who's on the call</span>
             <h2
               className="v2-display mt-4 text-ink"
               style={{ fontWeight: 400, fontSize: 'clamp(1.9rem, 5vw, 3rem)' }}
@@ -961,7 +961,7 @@ const EngageV2: React.FC = () => (
     <div className="container relative mx-auto max-w-6xl px-5 sm:px-6">
       <div className="grid grid-cols-12 gap-6 md:gap-10">
         <div className="col-span-12 md:col-span-8">
-          <Eyebrow>§ 06 — Engage</Eyebrow>
+          <Eyebrow>§ 06 · Engage</Eyebrow>
           <h2
             className="v2-display mt-5 text-bone"
             style={{
@@ -976,7 +976,7 @@ const EngageV2: React.FC = () => (
           </h2>
           <p className="mt-7 max-w-xl font-editorial text-lg leading-relaxed text-bone/75 md:text-xl">
             Thirty-minute discovery call. No pitch. We'll map the one system
-            that, if built, would change your P&L most this quarter — and
+            that, if built, would change your P&L most this quarter, and
             whether I'm the right person to build it.
           </p>
         </div>
@@ -1035,7 +1035,7 @@ const IndexV2: React.FC = () => {
         <title>Your Fortune 100 CTO, on retainer · DigitalCraft</title>
         <meta
           name="description"
-          content="A fractional CTO who has shipped at Motorola, Amazon, and Disney — now on retainer for operators who want strategic technology leadership, not just tools. Book more jobs. Close more deals. Run ops on autopilot."
+          content="A fractional CTO who has shipped at Motorola, Amazon, and Disney, now on retainer for operators who want strategic technology leadership, not just tools. Book more jobs. Close more deals. Run ops on autopilot."
         />
         <link rel="canonical" href="https://cto.digitalcraftai.com" />
         <meta property="og:type" content="website" />
@@ -1046,7 +1046,7 @@ const IndexV2: React.FC = () => {
         />
         <meta
           property="og:description"
-          content="A fractional CTO who has shipped at Motorola, Amazon, and Disney — now on retainer for operators who want strategic technology leadership, not just tools."
+          content="A fractional CTO who has shipped at Motorola, Amazon, and Disney, now on retainer for operators who want strategic technology leadership, not just tools."
         />
         <meta
           property="og:image"
@@ -1060,7 +1060,7 @@ const IndexV2: React.FC = () => {
         />
         <meta
           name="twitter:description"
-          content="A fractional CTO who has shipped at Motorola, Amazon, and Disney — now on retainer for operators who want strategic technology leadership, not just tools."
+          content="A fractional CTO who has shipped at Motorola, Amazon, and Disney, now on retainer for operators who want strategic technology leadership, not just tools."
         />
         <meta
           name="twitter:image"
