@@ -114,14 +114,19 @@ test('reduced motion: no pen, never the loss: the builder sits lit at his desk w
   await ctx.close();
 });
 
-test('phones: the story can be paused from beside the narrator', async ({ browser }) => {
-  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
+test('phones: the stage sits under the copy, never behind it, and the page never scrolls sideways', async ({ browser }) => {
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
   const page = await ctx.newPage();
   await page.route('**/api/scene**', (route) => route.fulfill({ status: 404 }));
   await gotoCTO(page);
-  const pause = page.getByRole('button', { name: 'Pause the story' }).first();
-  await expect(pause).toBeVisible({ timeout: 15_000 });
+  const stage = page.locator(STAGE);
+  await expect(stage.locator('.af-hud')).toBeVisible({ timeout: 15_000 });
+  const copy = await page.getByRole('link', { name: /See the Outcomes/i }).boundingBox();
+  const fig = await stage.boundingBox();
+  expect(fig!.y).toBeGreaterThanOrEqual(copy!.y + copy!.height);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+  const pause = stage.getByRole('button', { name: 'Pause the story' });
   await pause.click();
-  await expect(page.getByRole('button', { name: 'Play the story' }).first()).toHaveAttribute('aria-pressed', 'true');
+  await expect(stage.getByRole('button', { name: 'Play the story' })).toHaveAttribute('aria-pressed', 'true');
   await ctx.close();
 });

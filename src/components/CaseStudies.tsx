@@ -32,7 +32,7 @@ const CaseStudies: React.FC<CaseStudiesProps> = ({ data }) => {
       
       <div className="relative">
         {data.length > itemsToShow && (
-          <div className="absolute top-1/2 -translate-y-1/2 -left-4 md:-left-12 z-10">
+          <div className="absolute top-1/2 -translate-y-1/2 -left-12 z-10 hidden md:block">
             <button 
               onClick={prevCase}
               className="w-12 h-12 rounded-full bg-white/90 dark:bg-gray-800/90 shadow-md flex items-center justify-center hover:bg-skyblue hover:text-white transition-colors"
@@ -44,7 +44,7 @@ const CaseStudies: React.FC<CaseStudiesProps> = ({ data }) => {
         )}
         
         {data.length > itemsToShow && (
-          <div className="absolute top-1/2 -translate-y-1/2 -right-4 md:-right-12 z-10">
+          <div className="absolute top-1/2 -translate-y-1/2 -right-12 z-10 hidden md:block">
             <button 
               onClick={nextCase}
               className="w-12 h-12 rounded-full bg-white/90 dark:bg-gray-800/90 shadow-md flex items-center justify-center hover:bg-skyblue hover:text-white transition-colors"
@@ -100,7 +100,11 @@ const CaseStudies: React.FC<CaseStudiesProps> = ({ data }) => {
         </div>
         
         {data.length > itemsToShow && (
-          <div className="flex justify-center mt-8 space-x-2">
+          <div className="flex justify-center items-center mt-8 space-x-2">
+            {/* phones: the cards stack, so the arrows sit by the dots instead of over the middle card */}
+            <button onClick={prevCase} className="md:hidden mr-2 w-10 h-10 rounded-full bg-white dark:bg-gray-800 shadow-md flex items-center justify-center" aria-label="Previous case study">
+              <ArrowLeft size={18} />
+            </button>
             {Array.from({ length: Math.ceil(data.length / itemsToShow) }).map((_, index) => (
               <button
                 key={index}
@@ -111,6 +115,9 @@ const CaseStudies: React.FC<CaseStudiesProps> = ({ data }) => {
                 aria-label={`Go to case studies page ${index + 1}`}
               />
             ))}
+            <button onClick={nextCase} className="md:hidden ml-2 w-10 h-10 rounded-full bg-white dark:bg-gray-800 shadow-md flex items-center justify-center" aria-label="Next case study">
+              <ArrowRight size={18} />
+            </button>
           </div>
         )}
       </div>
