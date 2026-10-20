@@ -40,6 +40,12 @@ export interface PersistentStoreDisclosure {
 
 export const NEW_PERSISTENT_STORES: readonly PersistentStoreDisclosure[] = [
   {
+    storageKey: 'dca_story_trade',
+    shape: 'one trade name (e.g. roofer)',
+    purpose:
+      'The trade you picked under the homepage story ("Your trade"), so the next visit tells the story about your trade. Client-side only, never leaves your browser. Clearing localStorage resets it.',
+  },
+  {
     storageKey: 'dca_recent_compares_v1',
     shape: 'path + tool + viewedAt',
     purpose:

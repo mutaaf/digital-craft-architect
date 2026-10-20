@@ -1,4 +1,4 @@
-// Ticket 0117 - shared by /api/scene (GET serves, POST directs and publishes) and the CTO hero (CrewOfLight).
+// Tickets 0117-0119 - shared by /api/scene (GET serves, POST directs and publishes) and the heroes (CrewOfLight).
 // The hero's story is data: a storyboard aurora-field's stage plays. This module holds what
 // keeps it on-message and safe whoever writes the board (a person in Edge Config, the AI
 // director, or the bundled default): the vertical -> trade map, the curated claims every
@@ -6,7 +6,7 @@
 // Copy rules (AGENTS.md): no em-dash, conservative claims, no invented numbers.
 
 export type Caption = { who?: string; did: string; metric?: { to: number; from?: number; prefix?: string; suffix?: string; ms?: number } };
-export type TradeBeat = { trade: string; moment?: { text: string; at?: string; ms?: number }; ai?: { ms?: number; text?: string }; fill?: { from?: string; ms?: number }; caption?: Caption; hold?: number; draw?: { ms?: number } };
+export type TradeBeat = { trade: string; moment?: { text: string; at?: string; ms?: number }; ai?: { ms?: number; text?: string }; fill?: { from?: string; ms?: number }; missed?: { text?: string; ms?: number }; caption?: Caption; hold?: number; draw?: { ms?: number } };
 export type CrewBeat = { crew: string[] | true; builder?: boolean; caption?: Caption; hold?: number };
 export type BuilderBeat = { builder: 'typing' | 'prompting' | 'agents'; prompt?: { text: string; code?: boolean; ms?: number }; agents?: string[]; caption?: Caption; hold?: number };
 export type Storyboard = { version: 1; loop?: boolean; beats: Array<TradeBeat | CrewBeat | BuilderBeat> };
@@ -45,6 +45,12 @@ export const CLAIMS: Record<string, Caption> = {
   'builder-writes': { who: 'The builder', did: 'Custom AI systems · built end to end' },
   'builder-prompts': { who: 'The builder', did: 'Your workflow · handed to agents' },
   'agents-work': { who: 'The agents', did: 'On the job · around the clock' },
+  // the "before" (ticket 0119): what slips when nobody is there. No numbers, nothing a visitor could check and doubt.
+  'missed-call': { did: 'Missed call · the job went elsewhere' },
+  'missed-lead': { did: 'Lead went cold · nobody wrote back' },
+  'missed-estimate': { did: 'Estimate waited · the bid was lost' },
+  'missed-deal': { did: 'Deal sat · another buyer moved first' },
+  'missed-ops': { did: 'Owner buried in admin · jobs waiting' },
 };
 
 // What may appear on the builder's screen. A prompt reads like a promise, so it is curated like a
@@ -61,6 +67,13 @@ export const PROMPTS: string[] = [
 const JOB_BY_CLAIM: Record<string, string> = {
   'lead-response': 'answer', 'call-booked': 'answer', 'after-hours': 'answer', 'estimate-hour': 'estimate', 'review-request': 'review',
   'deal-analyzed': 'analyze', 'lead-qualified': 'followup', 'ops-hours': 'schedule', 'no-new-hires': 'schedule',
+};
+// what slips when nobody is there, by the outcome that would have caught it: the moment's new text, and the claim it captions
+const CALL: [string, string] = ['No answer · went to voicemail', 'missed-call'], LEAD: [string, string] = ['No reply · the lead went cold', 'missed-lead'];
+const MISSED_BY_CLAIM: Record<string, [string, string]> = {
+  'call-booked': CALL, 'after-hours': CALL, 'lead-response': LEAD, 'lead-qualified': LEAD, 'review-request': LEAD,
+  'estimate-hour': ['No estimate · they hired someone else', 'missed-estimate'], 'deal-analyzed': ['No comps · the offer went elsewhere', 'missed-deal'],
+  'ops-hours': ['Nobody on it · the queue grows', 'missed-ops'], 'no-new-hires': ['Nobody on it · the queue grows', 'missed-ops'],
 };
 const JOB_LABEL: Record<string, string> = { answer: 'Agent · answering', estimate: 'Agent · estimating', review: 'Agent · asking for reviews', analyze: 'Agent · analyzing', followup: 'Agent · following up', schedule: 'Agent · scheduling' };
 
@@ -90,32 +103,70 @@ const MOMENT_BY_TRADE: Record<string, [string, string, string]> = {
 };
 
 export function jobForClaim(claim: string): string { return JOB_BY_CLAIM[claim] || 'answer'; }
+export function claimForTrade(trade: string): string { return (MOMENT_BY_TRADE[trade] || [])[2] || 'lead-response'; }
+export function jobLabel(job: string): string { return JOB_LABEL[job] || JOB_LABEL.answer; }
 export function beatFor(trade: string, claims: Record<string, Caption> = CLAIMS): TradeBeat {
   const [text, at, claim] = MOMENT_BY_TRADE[trade] || ['After hours · missed call', 'hand', 'lead-response'];
   return { trade, moment: { text, at }, ai: { text: JOB_LABEL[jobForClaim(claim)] }, caption: { who: TRADE_LABEL[trade] || trade, ...(claims[claim] || CLAIMS[claim]) } };
 }
 
-// The story opens with the person behind the AI: the builder writes the system, briefs his agents,
-// and they step out to work. Trades follow; the finale puts him at his desk in front of the crew.
-export function builderIntro(jobs: string[], prompt = PROMPTS[1]): BuilderBeat[] {
+// The same moment, before: nobody comes, the pen takes the drawing back, and the loss is captioned
+// (any caught beat: a trade's default, or one the AI director wrote for a custom figure)
+export function missOf(caught: TradeBeat, claim: string, claims: Record<string, Caption> = CLAIMS): TradeBeat {
+  const [text, lost] = MISSED_BY_CLAIM[claim] || CALL;
+  return { trade: caught.trade, moment: caught.moment, missed: { text }, caption: { who: caught.caption?.who, ...(claims[lost] || CLAIMS[lost]) }, hold: 2200 };
+}
+export function missedBeatFor(trade: string, claims: Record<string, Caption> = CLAIMS): TradeBeat {
+  return missOf(beatFor(trade, claims), claimForTrade(trade), claims);
+}
+
+// the prompt the builder types answers the miss the story opened with
+const PROMPT_BY_CLAIM: Record<string, string> = { 'estimate-hour': PROMPTS[2], 'review-request': PROMPTS[3], 'lead-qualified': PROMPTS[4], 'lead-response': PROMPTS[4], 'deal-analyzed': PROMPTS[4] };
+export function promptForClaim(claim: string): string { return PROMPT_BY_CLAIM[claim] || PROMPTS[1]; }
+export function promptForTrade(trade: string): string { return promptForClaim(claimForTrade(trade)); }
+
+// Then the person behind the AI: the builder writes the system, briefs his agents, and they step
+// out to work. `who` lets the company site say "DigitalCraft" where the CTO site says "The builder".
+export function builderIntro(jobs: string[], prompt = PROMPTS[1], who?: string): BuilderBeat[] {
+  const by = (c: Caption) => (who && c.who === 'The builder' ? { ...c, who } : c);
   return [
-    { builder: 'typing', prompt: { text: PROMPTS[0], code: true }, caption: CLAIMS['builder-writes'], hold: 2400 },
-    { builder: 'prompting', prompt: { text: prompt }, caption: CLAIMS['builder-prompts'], hold: 1800 },
-    { builder: 'agents', agents: jobs.slice(0, 3), caption: CLAIMS['agents-work'], hold: 3200 },
+    { builder: 'typing', prompt: { text: PROMPTS[0], code: true }, caption: by(CLAIMS['builder-writes']), hold: 2200 },
+    { builder: 'prompting', prompt: { text: prompt }, caption: by(CLAIMS['builder-prompts']), hold: 1600 },
+    { builder: 'agents', agents: jobs.slice(0, 3), caption: CLAIMS['agents-work'], hold: 3000 },
   ];
 }
 
-export const DEFAULT_STORYBOARD: Storyboard = {
-  version: 1,
-  loop: true,
-  beats: [
-    ...builderIntro(['answer', 'estimate', 'analyze']),
-    beatFor('roofer'),
-    beatFor('plumber'),
-    beatFor('realtor'),
-    { crew: ['contractor', 'plumber', 'electrician', 'roofer', 'manager', 'realtor'], builder: true, caption: CLAIMS.crew, hold: 5000 },
-  ],
-};
+// The story's shape (ticket 0119), four acts in at most 12 beats:
+//   the miss   one trade's moment slips: nobody answers, and the drawing goes with it
+//   the build  the builder writes the system, briefs the agents, and they step out
+//   the catch  the same trade, the same moment, caught; then a couple more trades
+//   the crew   everyone lit, the builder in front
+// The agents on screen are the ones the story needs: the hero's own job first.
+export function compose(hero: string, others: string[], crew: string[], opts: { who?: string; claims?: Record<string, Caption> } = {}): Storyboard {
+  const claims = opts.claims || CLAIMS, rest = others.filter((t) => t !== hero).slice(0, 4);
+  const jobs: string[] = [];
+  for (const t of [hero, ...rest]) { const j = jobForClaim(claimForTrade(t)); if (!jobs.includes(j)) jobs.push(j); }
+  for (const j of ['answer', 'estimate', 'review']) if (jobs.length < 3 && !jobs.includes(j)) jobs.push(j);
+  const team = crew.includes(hero) ? crew : [hero, ...crew].slice(0, 6);
+  return {
+    version: 1,
+    loop: true,
+    beats: [
+      missedBeatFor(hero, claims),
+      ...builderIntro(jobs, promptForTrade(hero), opts.who),
+      beatFor(hero, claims),
+      ...rest.map((t) => ({ ...beatFor(t, claims), hold: 2600 })),
+      { crew: team, builder: true, caption: claims.crew || CLAIMS.crew, hold: 5000 },
+    ],
+  };
+}
+
+const CREW = ['contractor', 'plumber', 'electrician', 'roofer', 'manager', 'realtor'];
+// the CTO site: trades and investors (the headline books jobs, closes deals, runs ops)
+export const DEFAULT_STORYBOARD: Storyboard = compose('roofer', ['plumber', 'realtor'], CREW);
+// the company site (digitalcraftai.com): construction and real estate teams, product-led
+export const ROOT_STORYBOARD: Storyboard = compose('contractor', ['realtor', 'manager'], CREW, { who: 'DigitalCraft' });
+export function defaultBoard(host?: string | null): Storyboard { return host === 'root' ? ROOT_STORYBOARD : DEFAULT_STORYBOARD; }
 
 export function tradeForVertical(v?: string | null): string | null {
   if (!v) return null;
@@ -123,10 +174,30 @@ export function tradeForVertical(v?: string | null): string | null {
   return TRADE_BY_VERTICAL[k] || (Object.values(TRADE_BY_VERTICAL).includes(k) ? k : null);
 }
 
-// The visitor's own trade comes first after the builder's intro: moved up if the board has it,
-// added (with its default beat) if not
-export function personalize(board: Storyboard, trade: string | null): Storyboard {
+// The visitor's own trade becomes the story's hero: on a board with a miss, it is the trade that
+// misses and is then caught (and it joins the crew). An older board without a miss gets the
+// trade first after the builder's intro: moved up if the board has it, added if not.
+export function personalize(board: Storyboard, trade: string | null, claims: Record<string, Caption> = CLAIMS): Storyboard {
   if (!trade) return board;
+  const miss = board.beats.findIndex((b) => 'trade' in b && !!b.missed);
+  if (miss >= 0) {
+    const was = (board.beats[miss] as TradeBeat).trade;
+    if (was === trade) return board;
+    const echo = board.beats.findIndex((b, i) => i > miss && 'trade' in b && b.trade === was && !b.missed);
+    const beats = board.beats.flatMap((b, i) => {
+      if (i === miss) return [missedBeatFor(trade, claims)];
+      if (i === echo) return [beatFor(trade, claims)];
+      if ('trade' in b && b.trade === trade) return [];   // already the hero: no second turn
+      if ('builder' in b && b.builder === 'prompting' && b.prompt?.text === promptForTrade(was)) return [{ ...b, prompt: { ...b.prompt, text: promptForTrade(trade) } }];
+      if ('crew' in b && Array.isArray(b.crew) && !b.crew.includes(trade)) return [{ ...b, crew: [trade, ...b.crew.filter((t) => t !== was)].slice(0, 8) }];
+      return [b];
+    });
+    if (echo < 0) {   // a hand-written board that never catches its miss: the visitor's trade is caught after the intro
+      let at = 1; while (at < beats.length && 'builder' in beats[at] && !('crew' in beats[at])) at++;
+      beats.splice(at, 0, beatFor(trade, claims));
+    }
+    return { ...board, beats: beats.slice(0, 12) };
+  }
   const beats = board.beats.slice();
   const at = beats.findIndex((b) => 'trade' in b && b.trade === trade);
   const mine = at >= 0 ? beats.splice(at, 1)[0] : beatFor(trade);
