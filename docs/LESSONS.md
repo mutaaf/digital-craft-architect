@@ -20,6 +20,54 @@ add a new entry citing the old one rather than editing it.
 ---
 
 <!-- DRAFT: reviewer send-back, PR #285, 2026-09-28 -->
+<!-- DRAFT: reviewer send-back, PR #327, 2026-10-20 -->
+## 2026-10-20 — DRAFT — FLEET-VERDICT: blocking
+
+(From review of PR #327 — promote or delete.)
+
+FLEET-VERDICT: blocking
+
+Two things keep this out of auto-merge; the diff itself is otherwise in good shape.
+
+## 1. The author's own merge-hold is still active
+
+PR body line 1: "**Do not merge until https://mutaafaziz.com/coldgas/ is live.** The COLD GAS card links there."
+
+Right now (2026-10-19):
+
+- `curl -sI https://mutaafaziz.com/coldgas/` → `HTTP 404`
+- openaero (`/openaero/`) → 200, outatime (`/outatime/`) → 200
+
+The COLD GAS card (src/data/labsGames.ts:33, Labs.tsx GameCard screen + launch button + id anchor) points to that 404, and it's also the only `isNew: true` card so it gets a `NEW` badge pulling attention straight at the dead link. Shipping this now would land a flagship "live, public, maintained" claim on top of a 404, directly undercutting the page's whole thesis. Flip back to clean the moment `/coldgas/` returns 200.
+
+## 2. No backlog ticket referenced
+
+The review contract requires a `docs/backlog/NNNN-*` reference in the PR body/branch; without one the verdict is blocking.
+
+- Branch: `feat/labs-games-launcher` — no id.
+- Body: no `Implements: docs/backlog/NNNN-...` line.
+- `grep -ril 'labs\|/labs' docs/backlog/` returns zero `/labs`-scoped tickets (only incidental "labs"/"laboratory" mentions in 0018, 0023, 0033, 0036, 0044, 0069, 0088, 0106).
+- `docs/backlog/README.md` tops out at 0118; nothing matches `/labs`.
+
+This is a brand-new user-facing route (271-line page, sitemap entry, footer link, Helmet + JSON-LD, GA events) with no groomed spec and no acceptance-criteria boxes for the reviewer to map tests against — the "every acceptance-criteria box covered by a test" rubric cannot be applied because the criteria don't exist in the repo. The 2026-05-22 "ship-status flip is a second PR" lesson implies the first PR is always `feat/<id>-*`; without an id this run can't close through the groom → ship → review → ship-status loop the fleet is built on.
+
+Fix: open a `chore/gtm-*` grooming PR that lands `docs/backlog/0119-labs-games-launcher.md` in `status: groomed` with acceptance criteria mirroring what this diff already does (ROUTES membership, 3 cards with correct new-tab hrefs, 1 NEW badge, em-dash scan on mirror-source copy, sitemap entry, Helmet meta + BreadcrumbList), then rebase this PR to flip that ticket to `in-progress` in the same commit as the code — the 2026-05-22 check-backlog rule.
+
+## Everything else is clean
+
+- **Hard NOs**: no `/api/`, no `.env*`, no `package.json`/`package-lock.json` touch. Confirmed via `git diff --stat`.
+- **Em-dash grep over the diff**: the one `—` hit (index.html:7 "repair cost estimator, and maintenance reminder voice agent") is an UNCHANGED context line from the auto-repair P() entry above the new /labs entry. The new /labs P() entry and every string in src/data/labsGames.ts, Labs.tsx, labs-page.spec.ts are em-dash-free. Spec Box 2 even gates it (`for (const s of [...]) expect(s).not.toContain(EM_DASH)`).
+- **Dark mode variants**: every colored class in Labs.tsx and the new Footer link ships `dark:` siblings (bg-white dark:bg-gray-950, text-gray-900 dark:text-white, border-gray-200 dark:border-gray-800, hover:border-primary dark:hover:border-primary, the ACCENT_SCREEN gradient map carries dark: twins per accent). AGENTS.md Hard NO satisfied.
+- **Mirror-source discipline (2026-05-25 rule)**: strings live in src/data/labsGames.ts, imported by BOTH src/pages/Labs.tsx AND tests/e2e/labs-page.spec.ts via a relative `../../src/data/labsGames` path. ROUTES allow-list (src/data/routes.ts) also updated; the 2026-06-07 "src/ can't import from tests/" rule is honored (data lives in src/, the spec imports from src/).
+- **Test-first discipline**: every src change has a matching test — tests/e2e/labs-page.spec.ts covers ROUTES membership (Box 1), em-dash scan over LABS_GAMES + LABS_PIPELINE_STEPS (Box 2), and 3 cards with correct playUrl / target=_blank / rel=noopener on each + the single NEW badge (Box 3). The 2026-09-05 RouteFallback race is honored with `page.locator('[role="status"][aria-label="Loading"]').waitFor({ state: 'hidden' }).catch(() => {})` + `toHaveText(PAGE_H1)` as the mount-signal (2026-09-10 lesson pattern).
+- **BreadcrumbList JSON-LD** on /labs doesn't collide with any site-wide block (ticket 0025's Organization block in index.html carries `knowsAbout`, not BreadcrumbList — 2026-05-30 lesson not tripped). The 2026-09-08 "scope JSON-LD em-dash loops to blocks this page owns" rule is moot here because the spec doesn't do a JSON-LD em-dash loop at all; it scans the data module directly.
+- **Analytics**: 4 CTA event names (`labs_view`, `labs_play_<id>`, `labs_play_<id>_screen`, `labs_source_<id>`, `labs_cta_demos`, `labs_cta_strategy_call`, `labs_sibling_<slug>`, `footer-labs-link` footer click) — well-namespaced, no analytics removed.
+- **check-backlog impact**: zero, since the PR touches no `docs/backlog/*.md` file; that's exactly the problem flagged above — the loop expects a ticket to flip.
+- **The pre-existing footer-chip-row overflow at 390px** called out in the PR body is correctly scoped out; it's not a regression from this diff.
+
+LESSON: When a PR body carries an explicit `Do not merge until <external URL> is live` directive AND one of the diff's cards links to that URL, the reviewer should `curl -sI` the URL as part of the gate — the author's self-hold is binding, and shipping a "live, public, maintained" claim pointing at a 404 would be a brand-voice regression no automated check in the local gate catches (check-links only validates intra-repo + known-good external URLs, not freshly-added author-owned external paths). Same "the local gate catches shape, not served state" family as the 2026-09-26 lesson about `.opml` MIME types and the 2026-05-28 lesson about gating script invariants: when the invariant is HTTP-shaped on an external host, it must be verified by fetching, not by linting.
+<!-- /DRAFT -->
+
 ## 2026-09-28 — DRAFT — Blocking: `smoke-required` gating check is RED — merge cannot proceed per AGEN
 
 (From review of PR #285 — promote or delete.)
