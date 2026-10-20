@@ -66,7 +66,7 @@ git clean -fdq
 
 for PR in $UNREVIEWED; do
   echo "--- reviewing PR #$PR ---"
-  claude --print --dangerously-skip-permissions --model claude-opus-4-7 <<PROMPT
+  claude --print --dangerously-skip-permissions --model claude-opus-5-5 <<PROMPT
 You are the autonomous GTM Reviewer for the DigitalCraft AI marketing site.
 You are at the repo root on main, fresh-pulled.
 
