@@ -1,7 +1,7 @@
 ---
 id: 0121
 title: Phones - the hero story plays in its own panel, nothing scrolls sideways, nothing covers the story
-status: in-progress
+status: shipped
 priority: P1
 area: conversion
 created: 2026-10-20

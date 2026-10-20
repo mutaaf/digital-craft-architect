@@ -129,7 +129,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0118 | Hero storyline opens with the builder at his desk, prompting AI agents that go to work | P1 | shipped | conversion |
 | 0119 | The hero story in four acts (the miss, the build, the catch, the crew), and on digitalcraftai.com | P1 | shipped | conversion |
 | 0120 | Hero story labels never sit under the drawing; the catch turns the moment to handled; studio makes stories with your own key | P1 | shipped | conversion |
-| 0121 | Phones: the hero story plays in its own panel, nothing scrolls sideways, nothing covers the story | P1 | in-progress | conversion |
+| 0121 | Phones: the hero story plays in its own panel, nothing scrolls sideways, nothing covers the story | P1 | shipped | conversion |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the
