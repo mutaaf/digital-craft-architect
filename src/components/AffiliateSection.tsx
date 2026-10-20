@@ -4,7 +4,7 @@ import React from 'react';
 interface AffiliateItem {
   name: string;
   link: string;
-  image: string;
+  image?: string;
 }
 
 interface AffiliateSectionProps {
@@ -23,7 +23,7 @@ const AffiliateSection: React.FC<AffiliateSectionProps> = ({ data }) => {
         </p>
       </div>
       
-      <div className="flex flex-wrap justify-center items-center gap-12 md:gap-16">
+      <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-6 md:gap-16">
         {data.map((affiliate, index) => (
           <a 
             key={index} 
@@ -41,11 +41,10 @@ const AffiliateSection: React.FC<AffiliateSectionProps> = ({ data }) => {
               }
             }}
           >
-            <img 
-              src={affiliate.image} 
-              alt={affiliate.name}
-              className="h-10 md:h-12 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300" 
-            />
+            {/* wordmarks, not hotlinked logos: those broke (OpenAI's) or rendered as a grey card (AWS's) */}
+            <span className="text-2xl md:text-3xl font-semibold tracking-tight text-gray-500 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white transition-colors duration-300">
+              {affiliate.name}
+            </span>
           </a>
         ))}
       </div>

@@ -424,7 +424,7 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
                 <FooterRoadmapChip />
                 <FooterAgentPromptsChip />
                 <FooterFeedsOpmlChip />
-                <div className="flex space-x-6">
+                <div className="flex max-w-full flex-wrap justify-center gap-x-6 gap-y-2">
                   <a href="/industries" className="text-gray-400 hover:text-skyblue text-sm">Industries</a>
                   <Link to="/trust" className="text-gray-400 hover:text-skyblue text-sm">Trust & Privacy</Link>
                   <Link to="/privacy" className="text-gray-400 hover:text-skyblue text-sm">Privacy Policy</Link>

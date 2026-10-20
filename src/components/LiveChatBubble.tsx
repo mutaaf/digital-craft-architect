@@ -47,6 +47,25 @@ const LiveChatBubble: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [byStory, setByStory] = useState(false);
+
+  // phones: the launcher steps aside while a hero story is on screen, so it never covers the narrator or the rail
+  useEffect(() => {
+    if (typeof IntersectionObserver === 'undefined' || typeof window.matchMedia !== 'function') return;
+    const phone = window.matchMedia('(max-width: 767px)');
+    let io: IntersectionObserver | null = null, t = 0, tries = 0;
+    const watch = () => {
+      io?.disconnect(); io = null; setByStory(false);
+      if (!phone.matches) return;
+      const fig = document.querySelector('figure[aria-labelledby^="story-title-"]');
+      if (!fig) { if (++tries < 20) t = window.setTimeout(watch, 500); return; }   // the hero is lazy; pages without one stop looking
+      io = new IntersectionObserver(([e]) => setByStory(e.isIntersecting), { threshold: 0.15 });
+      io.observe(fig);
+    };
+    watch();
+    phone.addEventListener?.('change', watch);
+    return () => { window.clearTimeout(t); io?.disconnect(); phone.removeEventListener?.('change', watch); };
+  }, []);
 
   useEffect(() => {
     if (isOpen && inputRef.current) {
@@ -109,7 +128,9 @@ const LiveChatBubble: React.FC = () => {
       {!isOpen && (
         <button
           onClick={handleOpen}
-          className="fixed bottom-20 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-lg hover:bg-primary/90 transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2"
+          className={`fixed bottom-20 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-lg hover:bg-primary/90 transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 ${byStory ? 'pointer-events-none translate-y-4 opacity-0' : ''}`}
+          aria-hidden={byStory || undefined}
+          tabIndex={byStory ? -1 : undefined}
           aria-label="Open chat"
         >
           <MessageCircle className="h-6 w-6" />

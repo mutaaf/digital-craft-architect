@@ -90,16 +90,12 @@ interface Props {
   host?: Voice;
   /** A trade to show now (headline hover); null hands the stage back to the story. */
   focus?: string | null;
-  /** Each step of the story: the headline and the phone layout follow it. */
+  /** Each step of the story: the headline (CTO) and the window header (root) follow it. */
   onStory?: (s: StoryState) => void;
-  /** 'desktop' hides the rail and subtitles on phones (the CTO hero shows the stage faintly behind its copy). */
-  chrome?: 'always' | 'desktop';
-  /** Pause from outside (the CTO hero's phone layout has its own pause button, next to the narrator). */
-  paused?: boolean;
   className?: string;
 }
 
-const CrewOfLight: React.FC<Props> = ({ host = 'cto', focus = null, onStory, chrome = 'always', paused: pausedOutside, className = '' }) => {
+const CrewOfLight: React.FC<Props> = ({ host = 'cto', focus = null, onStory, className = '' }) => {
   const box = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const stage = useRef<Stage | null>(null);
@@ -176,10 +172,6 @@ const CrewOfLight: React.FC<Props> = ({ host = 'cto', focus = null, onStory, chr
   }, [host, still]);
 
   useEffect(() => { stage.current?.focus(focus); }, [focus]);
-  useEffect(() => {
-    if (pausedOutside === undefined || !ready || pausedOutside === paused) return;
-    togglePause();
-  }, [pausedOutside, ready]);   // eslint-disable-line react-hooks/exhaustive-deps
 
   // the rail: each chapter fills as its beats play (estimated from the board; the stage keeps its own time)
   useEffect(() => {
@@ -229,10 +221,9 @@ const CrewOfLight: React.FC<Props> = ({ host = 'cto', focus = null, onStory, chr
     trackEvent('story_trade_pick', 'engagement', `${host}:${t}`);
   };
 
-  const onPhone = chrome === 'desktop' ? 'hidden md:flex' : 'flex';
   return (
     <figure
-      className={`relative flex h-full w-full flex-col ${chrome === 'desktop' ? '[&_.af-hud]:hidden md:[&_.af-hud]:block' : ''} ${className}`}
+      className={`relative flex h-full w-full flex-col ${className}`}
       aria-labelledby={`story-title-${host}`}
     >
       <div
@@ -247,14 +238,14 @@ const CrewOfLight: React.FC<Props> = ({ host = 'cto', focus = null, onStory, chr
       {/* the narrator: one line at a time, under the stage, like subtitles */}
       <p
         aria-hidden
-        className={`${onPhone} min-h-[3.2em] items-start justify-center px-2 text-center font-editorial text-[17px] italic leading-snug text-bone/85 transition-opacity duration-500 md:text-lg`}
+        className={`flex min-h-[3.2em] items-start justify-center px-2 text-center font-editorial text-[17px] italic leading-snug text-bone/85 transition-opacity duration-500 md:text-lg`}
         style={{ opacity: line ? 1 : 0 }}
       >
         <span key={line} className="story-line">{line}</span>
       </p>
 
       {/* the rail: four acts, jumpable; pause; the hero's trade */}
-      <div className={`${onPhone} mt-2 flex-col gap-3`} style={{ opacity: ready ? 1 : 0, transition: 'opacity .6s ease' }}>
+      <div className="mt-2 flex flex-col gap-3" style={{ opacity: ready ? 1 : 0, transition: 'opacity .6s ease' }}>
         <div className="flex items-center gap-2">
           <button
             type="button"
@@ -281,7 +272,7 @@ const CrewOfLight: React.FC<Props> = ({ host = 'cto', focus = null, onStory, chr
                       style={{ transform: still && act === a.id ? 'scaleX(1)' : 'scaleX(0)' }}
                     />
                   </span>
-                  <span className={`mt-1.5 block font-mono text-[10px] uppercase tracking-wider transition ${act === a.id ? ACCENT[host] : 'text-bone/40 group-hover:text-bone/75'}`}>
+                  <span className={`mt-1.5 block font-mono text-[10px] uppercase tracking-normal transition sm:tracking-wider ${act === a.id ? ACCENT[host] : 'text-bone/40 group-hover:text-bone/75'}`}>
                     {a.label}
                   </span>
                 </button>
