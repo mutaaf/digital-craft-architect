@@ -1,7 +1,7 @@
 ---
 id: 0120
 title: Hero story labels never sit under the drawing; the catch turns the moment to handled; studio makes stories with your own key
-status: in-progress
+status: shipped
 priority: P1
 area: conversion
 created: 2026-10-19
@@ -36,7 +36,7 @@ The before and after is now three states of one label (ringing, lost, handled), 
 - [x] The figure leaves headroom for labels (`radius` h × 0.39).
 - [x] Studio: "make a story" (top bar, `M`, `?make=1`): describe it, paste a Claude or OpenAI key (detected from the key), Make it; validated, repaired by the model if needed, then playable, changeable in words, publishable.
 - [x] Tests: aurora-field `npm test` (49), `scripts/test-scene.ts` (12), e2e `crew-of-light-hero`.
-- [ ] After deploy, Edge Config `scenes.cto` and `scenes.root` are republished (one at a time) so live boards carry `moment.then`.
+- [x] After deploy, Edge Config `scenes.cto` and `scenes.root` are republished (one at a time) so live boards carry `moment.then`.
 
 ## Out of scope
 
