@@ -125,6 +125,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0114 | Founder Person JSON-LD and footer cross-link to mutaafaziz.com | P1 | groomed | seo |
 | 0115 | Publish /llms.txt brief for AI agents, linking the founder's llms.txt | P2 | groomed | seo |
 | 0116 | Founder signature module shared visually with mutaafaziz.com | P2 | groomed | trust |
+| 0117 | Crew of Light hero on the CTO landing, with live storyboards and an AI director | P1 | in-progress | conversion |
 
 > **Migration note.** This ticket-file backlog supersedes the inline checklist in
 > `AGENT.md`. The four highest-leverage open items are converted here to seed the

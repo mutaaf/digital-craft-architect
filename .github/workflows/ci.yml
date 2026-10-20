@@ -41,6 +41,12 @@ jobs:
       - name: Check backlog integrity
         run: node scripts/check-backlog.mjs
 
+      - name: Vendored aurora-field matches its lock
+        run: node scripts/aurora-field.mjs
+
+      - name: Hero storyboards (scene API and rules)
+        run: npx tsx scripts/test-scene.ts
+
       - name: Type check
         run: npm run typecheck
 
