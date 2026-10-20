@@ -1,7 +1,7 @@
 ---
 id: 0122
 title: CTO site copy follows the house rule - no em-dashes
-status: in-progress
+status: shipped
 priority: P3
 area: content
 created: 2026-10-20
