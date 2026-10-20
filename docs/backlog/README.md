@@ -117,7 +117,7 @@ Statuses: proposed · groomed · in-progress · shipped · rejected · needs-dis
 | 0106 | AI-for-concrete-contractors long-tail landing page funneling into home-services demos | P1 | shipped | content |
 | 0107 | Shareable /my dossier via deep-link URL fragment that hydrates every persisted artifact into a recipient's dashboard | P1 | shipped | demos |
 | 0108 | Public /roadmap dated intended-ship-week page derived from groomed-status backlog tickets as a defensible moat artifact | P1 | shipped | trust |
-| 0109 | Public /agent-prompts transparency page listing the committed system prompt for every autonomous agent as a defensible moat artifact | P2 | in-progress | trust |
+| 0109 | Public /agent-prompts transparency page listing the committed system prompt for every autonomous agent as a defensible moat artifact | P2 | shipped | trust |
 | 0110 | Enable noImplicitReturns strict flag (zero-fix ratchet) | P2 | shipped | infra |
 | 0111 | Enable allowUnreachableCode strict flag (zero-fix ratchet) | P2 | shipped | infra |
 | 0112 | Enable allowUnusedLabels strict flag (zero-fix ratchet) | P2 | shipped | infra |
