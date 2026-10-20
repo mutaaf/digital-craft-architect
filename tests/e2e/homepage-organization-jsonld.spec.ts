@@ -44,6 +44,11 @@ async function gotoHome(page: Page): Promise<string[]> {
       timeout: 10_000,
     })
     .toBeGreaterThan(500);
+  // Helmet writes the head after the body renders; waiting on #root alone raced it (one or two
+  // tests failed on a cold run, then passed). Wait for the block the tests read.
+  await expect
+    .poll(async () => findOrgWithContactPoint(await readJsonLdBlocks(page)) !== undefined, { timeout: 10_000 })
+    .toBe(true);
   return errors;
 }
 

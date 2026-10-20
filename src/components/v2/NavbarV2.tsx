@@ -19,6 +19,7 @@ import {
   Car,
   Server,
 } from 'lucide-react';
+import AppLauncher from '@/components/AppLauncher';
 import { trackCTAClick } from '@/utils/analytics';
 import { isCTOHost, ROOT_URL } from '@/utils/hostVariant';
 
@@ -46,11 +47,8 @@ const NavbarV2: React.FC = () => {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [onCTO, setOnCTO] = useState(false);
-
-  useEffect(() => {
-    setOnCTO(isCTOHost());
-  }, []);
+  // read at first render (an SPA, no hydration): flipping later remounted the app launcher mid-click
+  const [onCTO] = useState(isCTOHost);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -111,7 +109,9 @@ const NavbarV2: React.FC = () => {
           </Link>
         )}
 
-        <nav className="hidden items-center gap-7 md:flex">
+        {/* one launcher button for both layouts (two would double ⌘K): after Engage on desktop, before the menu on phones */}
+        <div className="flex items-center gap-3 md:gap-5">
+        <nav className="hidden items-center gap-7 md:order-1 md:flex">
           <div ref={dropdownRef} className="relative">
             <button
               type="button"
@@ -185,15 +185,17 @@ const NavbarV2: React.FC = () => {
           </a>
         </nav>
 
+        <AppLauncher site={onCTO ? 'cto' : 'root'} className="order-2 h-9 w-9 text-bone/80 hover:bg-white/10 hover:text-bone" />
         <button
           type="button"
-          className="text-bone md:hidden"
+          className="order-3 text-bone md:hidden"
           onClick={() => setMenuOpen((o) => !o)}
           aria-label="Toggle menu"
           aria-expanded={menuOpen}
         >
           {menuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
+        </div>
       </div>
 
       {menuOpen && (

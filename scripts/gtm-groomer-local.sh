@@ -67,14 +67,14 @@ git config user.name "DigitalCraft GTM Groomer"
 
 if [ "${SMOKE:-0}" = "1" ]; then
   echo "--- SMOKE MODE ---"
-  claude --print --dangerously-skip-permissions --model claude-opus-4-7 \
+  claude --print --dangerously-skip-permissions --model claude-opus-5-5 \
     "Reply with exactly: GROOMER-SMOKE-OK $(date -u +%H:%M:%S). Do not call any tools."
   EXIT=$?
   echo "=== groomer SMOKE complete $(date -u) — exit=$EXIT ==="
   exit $EXIT
 fi
 
-claude --print --dangerously-skip-permissions --model claude-opus-4-7 <<'PROMPT'
+claude --print --dangerously-skip-permissions --model claude-opus-5-5 <<'PROMPT'
 You are the autonomous GTM Groomer for the DigitalCraft AI marketing site.
 You are at the repo root on main, fresh-pulled. You may ONLY modify
 AGENT.md and LESSONS.md. Any other path change fails the run.

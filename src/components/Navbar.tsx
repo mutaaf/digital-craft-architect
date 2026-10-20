@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X, ChevronDown, HardHat, Building2, PartyPopper, Server, Phone, Wrench, Heart, Scale, UtensilsCrossed, Gamepad2, Dumbbell, Stethoscope, Scissors, Car, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { trackCTAClick } from '@/utils/analytics';
+import AppLauncher from '@/components/AppLauncher';
 
 const VERTICALS = [
   { to: '/construction', label: 'Construction', icon: HardHat },
@@ -97,7 +98,9 @@ const Navbar: React.FC<NavbarProps> = ({ darkHero = false }) => {
           Digital<span className="text-skyblue">Craft</span>
         </Link>
 
-        <nav className="hidden md:flex items-center space-x-6">
+        {/* one launcher button for both layouts (two would double ⌘K): after Book a Call on desktop, between it and the menu on phones */}
+        <div className="flex items-center gap-2 md:gap-4">
+        <nav className="hidden md:flex md:order-1 items-center space-x-6">
           {/* Services Dropdown */}
           <div ref={dropdownRef} className="relative">
             <button
@@ -166,20 +169,25 @@ const Navbar: React.FC<NavbarProps> = ({ darkHero = false }) => {
           </a>
         </nav>
 
-        <div className="md:hidden flex items-center">
+        <div className="contents md:hidden">
           <a
             href="https://calendly.com/mutaaf"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md transition-colors mr-3 inline-flex items-center gap-1.5 text-sm"
+            className="order-1 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md transition-colors inline-flex items-center gap-1.5 text-sm"
             onClick={() => trackCTAClick('book_a_call', 'navbar')}
           >
             <Phone size={14} />
             Book a Call
           </a>
-          <button onClick={toggleMenu} className={hamburgerClass} aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} aria-expanded={isMenuOpen}>
+          <button onClick={toggleMenu} className={`order-3 ${hamburgerClass}`} aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} aria-expanded={isMenuOpen}>
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
+        </div>
+        <AppLauncher
+          site="root"
+          className={`order-2 h-9 w-9 ${onDark ? 'text-white hover:bg-white/10' : 'text-gray-700 hover:bg-gray-900/5 dark:text-gray-200 dark:hover:bg-white/10'}`}
+        />
         </div>
       </div>
 
