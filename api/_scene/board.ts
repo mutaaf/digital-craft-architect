@@ -6,7 +6,7 @@
 // Copy rules (AGENTS.md): no em-dash, conservative claims, no invented numbers.
 
 export type Caption = { who?: string; did: string; metric?: { to: number; from?: number; prefix?: string; suffix?: string; ms?: number } };
-export type TradeBeat = { trade: string; moment?: { text: string; at?: string; ms?: number }; ai?: { ms?: number; text?: string }; fill?: { from?: string; ms?: number }; missed?: { text?: string; ms?: number }; caption?: Caption; hold?: number; draw?: { ms?: number } };
+export type TradeBeat = { trade: string; moment?: { text: string; then?: string; at?: string; ms?: number }; ai?: { ms?: number; text?: string }; fill?: { from?: string; ms?: number }; missed?: { text?: string; ms?: number }; caption?: Caption; hold?: number; draw?: { ms?: number } };
 export type CrewBeat = { crew: string[] | true; builder?: boolean; caption?: Caption; hold?: number };
 export type BuilderBeat = { builder: 'typing' | 'prompting' | 'agents'; prompt?: { text: string; code?: boolean; ms?: number }; agents?: string[]; caption?: Caption; hold?: number };
 export type Storyboard = { version: 1; loop?: boolean; beats: Array<TradeBeat | CrewBeat | BuilderBeat> };
@@ -75,6 +75,11 @@ const MISSED_BY_CLAIM: Record<string, [string, string]> = {
   'estimate-hour': ['No estimate · they hired someone else', 'missed-estimate'], 'deal-analyzed': ['No comps · the offer went elsewhere', 'missed-deal'],
   'ops-hours': ['Nobody on it · the queue grows', 'missed-ops'], 'no-new-hires': ['Nobody on it · the queue grows', 'missed-ops'],
 };
+// what the moment becomes once the agent has it: the same time, handled (aurora-field moment.then)
+const HANDLED_BY_JOB: Record<string, string> = { answer: 'answered', estimate: 'estimate sent', review: 'review requested', analyze: 'comps pulled', followup: 'followed up', schedule: 'on the schedule' };
+export function handled(text: string, job: string): string {
+  return (text.split(' · ')[0] + ' · ' + (HANDLED_BY_JOB[job] || HANDLED_BY_JOB.answer)).slice(0, 48);
+}
 const JOB_LABEL: Record<string, string> = { answer: 'Agent · answering', estimate: 'Agent · estimating', review: 'Agent · asking for reviews', analyze: 'Agent · analyzing', followup: 'Agent · following up', schedule: 'Agent · scheduling' };
 
 // A trade's default beat: the moment it went wrong, and the claim that answers it
@@ -107,14 +112,16 @@ export function claimForTrade(trade: string): string { return (MOMENT_BY_TRADE[t
 export function jobLabel(job: string): string { return JOB_LABEL[job] || JOB_LABEL.answer; }
 export function beatFor(trade: string, claims: Record<string, Caption> = CLAIMS): TradeBeat {
   const [text, at, claim] = MOMENT_BY_TRADE[trade] || ['After hours · missed call', 'hand', 'lead-response'];
-  return { trade, moment: { text, at }, ai: { text: JOB_LABEL[jobForClaim(claim)] }, caption: { who: TRADE_LABEL[trade] || trade, ...(claims[claim] || CLAIMS[claim]) } };
+  const job = jobForClaim(claim);
+  return { trade, moment: { text, then: handled(text, job), at }, ai: { text: JOB_LABEL[job] }, caption: { who: TRADE_LABEL[trade] || trade, ...(claims[claim] || CLAIMS[claim]) } };
 }
 
 // The same moment, before: nobody comes, the pen takes the drawing back, and the loss is captioned
 // (any caught beat: a trade's default, or one the AI director wrote for a custom figure)
 export function missOf(caught: TradeBeat, claim: string, claims: Record<string, Caption> = CLAIMS): TradeBeat {
   const [text, lost] = MISSED_BY_CLAIM[claim] || CALL;
-  return { trade: caught.trade, moment: caught.moment, missed: { text }, caption: { who: caught.caption?.who, ...(claims[lost] || CLAIMS[lost]) }, hold: 2200 };
+  const moment = caught.moment && { text: caught.moment.text, ...(caught.moment.at ? { at: caught.moment.at } : {}) };   // never handled
+  return { trade: caught.trade, ...(moment ? { moment } : {}), missed: { text }, caption: { who: caught.caption?.who, ...(claims[lost] || CLAIMS[lost]) }, hold: 2200 };
 }
 export function missedBeatFor(trade: string, claims: Record<string, Caption> = CLAIMS): TradeBeat {
   return missOf(beatFor(trade, claims), claimForTrade(trade), claims);

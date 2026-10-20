@@ -3,7 +3,7 @@
 // and the AI director, which writes boards from a prompt or a visitor's vertical using only
 // the vocabulary and the approved claims.
 import AF from './aurora-field.cjs';
-import { CLAIMS, DEFAULT_STORYBOARD, PROMPTS, TRADE_LABEL, builderIntro, checkClaims, houseText, jobForClaim, jobLabel, missOf, promptForClaim, type Caption, type Storyboard, type TradeBeat } from './board';
+import { CLAIMS, DEFAULT_STORYBOARD, PROMPTS, TRADE_LABEL, builderIntro, checkClaims, handled, houseText, jobForClaim, jobLabel, missOf, promptForClaim, type Caption, type Storyboard, type TradeBeat } from './board';
 
 export type Scenes = { default?: Storyboard; cto?: Storyboard; root?: Storyboard; byVertical?: Record<string, Storyboard>; claims?: Record<string, Caption>; prompts?: string[] };
 
@@ -89,7 +89,7 @@ export function toBoard(out: { beats: DirectedBeat[]; crew: string[] }, claims: 
     if (!trade) continue;
     const who = b.trade ? TRADE_LABEL[b.trade] || b.trade : (b.custom!.label || '').slice(0, 32);
     const beat: TradeBeat = { trade: trade as TradeBeat['trade'], ai: { text: jobLabel(jobForClaim(id)) }, caption: { who, ...claims[id] } };
-    if (b.moment) beat.moment = { text: b.moment.replace(/—/g, '·').slice(0, 48), at: b.at && ANCHORS.includes(b.at) ? b.at : 'hand' };
+    if (b.moment) { const text = b.moment.replace(/—/g, '·').slice(0, 48); beat.moment = { text, then: handled(text, jobForClaim(id)), at: b.at && ANCHORS.includes(b.at) ? b.at : 'hand' }; }
     caught.push({ beat, claim: id });
   }
   if (!caught.length) return DEFAULT_STORYBOARD;

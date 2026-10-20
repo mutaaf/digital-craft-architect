@@ -75,6 +75,16 @@ await test('a missed beat is valid for every trade, and its caption is an approv
   }
   assert.equal(AF.validate({ version: 1, beats: [{ ...missedBeatFor('roofer'), ai: { text: 'x' } }] }).ok, false, 'a miss has no AI');
 });
+await test('the catch turns the same moment to handled; the miss never does', () => {
+  for (const t of Object.keys(TRADE_LABEL)) {
+    const c = beatFor(t), m = missedBeatFor(t);
+    assert.ok(c.moment?.then && c.moment.then.startsWith(c.moment.text.split(' · ')[0] + ' · '), t + ': ' + c.moment?.then);
+    assert.ok(c.moment.then.length <= 48 && houseText(c.moment.then) === null, t);
+    assert.equal(m.moment?.then, undefined, t + ': the miss is never handled');
+  }
+  const caught = DEFAULT_STORYBOARD.beats.filter((b): b is TradeBeat => 'trade' in b && !b.missed);
+  assert.ok(caught.every(b => b.moment?.then), 'every catch on the default board is handled');
+});
 await test("what types on the builder's screen is curated like a claim", () => {
   const b = JSON.parse(JSON.stringify(DEFAULT_STORYBOARD));
   b.beats[2].prompt.text = 'guarantee 10x revenue';
