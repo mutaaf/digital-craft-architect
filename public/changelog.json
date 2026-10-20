@@ -7,6 +7,46 @@
   "language": "en-US",
   "items": [
     {
+      "id": "0113",
+      "url": "https://digitalcraftai.com/changelog#0113",
+      "title": "Canonical founder facts module mirrored from mutaafaziz.com",
+      "content_text": "Canonical founder facts module mirrored from mutaafaziz.com",
+      "date_published": "2026-10-19T12:00:00.000Z",
+      "tags": [
+        "trust"
+      ]
+    },
+    {
+      "id": "0112",
+      "url": "https://digitalcraftai.com/changelog#0112",
+      "title": "Enable allowUnusedLabels strict flag (zero-fix ratchet)",
+      "content_text": "Enable allowUnusedLabels strict flag (zero-fix ratchet)",
+      "date_published": "2026-10-09T12:00:00.000Z",
+      "tags": [
+        "infra"
+      ]
+    },
+    {
+      "id": "0111",
+      "url": "https://digitalcraftai.com/changelog#0111",
+      "title": "Enable allowUnreachableCode strict flag (zero-fix ratchet)",
+      "content_text": "Enable allowUnreachableCode strict flag (zero-fix ratchet)",
+      "date_published": "2026-10-09T12:00:00.000Z",
+      "tags": [
+        "infra"
+      ]
+    },
+    {
+      "id": "0110",
+      "url": "https://digitalcraftai.com/changelog#0110",
+      "title": "Enable noImplicitReturns strict flag (zero-fix ratchet)",
+      "content_text": "Enable noImplicitReturns strict flag (zero-fix ratchet)",
+      "date_published": "2026-10-06T12:00:00.000Z",
+      "tags": [
+        "infra"
+      ]
+    },
+    {
       "id": "0108",
       "url": "https://digitalcraftai.com/changelog#0108",
       "title": "Public /roadmap dated intended-ship-week page derived from groomed-status backlog tickets as a defensible moat artifact",

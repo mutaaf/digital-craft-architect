@@ -20,6 +20,10 @@ export interface ChangelogEntry {
 }
 
 export const changelogEntries: readonly ChangelogEntry[] = [
+  { id: "0113", title: "Canonical founder facts module mirrored from mutaafaziz.com", area: "trust", created: "2026-10-19" },
+  { id: "0112", title: "Enable allowUnusedLabels strict flag (zero-fix ratchet)", area: "infra", created: "2026-10-09" },
+  { id: "0111", title: "Enable allowUnreachableCode strict flag (zero-fix ratchet)", area: "infra", created: "2026-10-09" },
+  { id: "0110", title: "Enable noImplicitReturns strict flag (zero-fix ratchet)", area: "infra", created: "2026-10-06" },
   { id: "0108", title: "Public /roadmap dated intended-ship-week page derived from groomed-status backlog tickets as a defensible moat artifact", area: "trust", created: "2026-10-02" },
   { id: "0107", title: "Shareable /my dossier via deep-link URL fragment that hydrates every persisted artifact into a recipient's dashboard", area: "demos", created: "2026-10-02" },
   { id: "0106", title: "AI-for-concrete-contractors long-tail landing page funneling into home-services demos", area: "content", created: "2026-10-02" },
