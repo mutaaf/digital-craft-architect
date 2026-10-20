@@ -442,6 +442,14 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
                   >
                     Uptime
                   </Link>
+                  <Link
+                    to="/labs"
+                    data-testid="footer-labs-link"
+                    onClick={() => trackCTAClick('open_labs', 'footer')}
+                    className="text-gray-400 hover:text-skyblue text-sm"
+                  >
+                    Labs
+                  </Link>
                   <a href="#" className="text-gray-400 hover:text-skyblue text-sm">Terms of Service</a>
                 </div>
               </div>
