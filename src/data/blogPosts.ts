@@ -52,6 +52,50 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'ai-medical-practices-after-hours-voice-calls-2026',
+    title: 'AI Voice Agents for Medical Practices: After-Hours Calls',
+    description: 'A patient who calls after hours and gets a ringing phone usually calls the next practice. See how AI voice handles those calls instead.',
+    date: '2026-10-21',
+    author: 'DigitalCraft AI',
+    readTime: '5 min read',
+    tags: ['Healthcare', 'Voice AI', 'Patient Scheduling'],
+    content: `
+<p>Your front desk closes at five. Patients don't stop needing you at five.</p>
+
+<p>A parent whose kid spiked a fever at seven calls to ask if it's worth a visit tomorrow. A patient trying to reschedule before a trip calls on their lunch break and gets you at six. A new patient who just moved to town calls in the evening because that's when they finally had time to look up a provider. Every one of those calls that goes to a ringing phone or a voicemail box is a patient deciding, right then, whether to wait for you to call back or just call the next practice on the list.</p>
+
+<p>Count how many after-hours calls your practice actually gets in a week. Most front desks have no idea, because nobody is there to count them. That number, whatever it is, is the size of the problem.</p>
+
+<h2>What an AI Voice Agent Actually Does</h2>
+<p>This isn't a phone tree that reads a menu of options. A <a href="/healthcare/demo/voice-followup">voice AI agent</a> answers the call, asks what's going on in plain language, and responds the way a trained front-desk person would during business hours. It can check your actual appointment calendar, offer open slots, confirm insurance is accepted, and text a confirmation before the patient hangs up.</p>
+
+<p>For a practice that doesn't want a live phone conversation yet, an <a href="/healthcare/demo/intake">AI intake flow</a> does the same qualifying work over text or web chat: it asks the right questions up front so whoever follows up has the full picture instead of a one-line voicemail transcript.</p>
+
+<h2>Sorting Urgent From Routine</h2>
+<p>The hard part of after-hours coverage has never been answering the phone. It's knowing which calls can wait until morning and which ones can't. AI handles this with a simple, consistent set of rules you define: certain symptoms or keywords route straight to an on-call line or a message to the on-duty provider, everything else gets scheduled or queued for the morning staff. The rules don't get tired at 11pm and they don't vary by who happens to be on shift.</p>
+
+<p>That consistency matters as much as the coverage itself. A patient describing chest pain should get routed the same way at 2am as at 2pm, whether or not anyone is physically in the building to hear it.</p>
+
+<h2>What Happens the Next Morning</h2>
+<p>Every after-hours call gets logged with a transcript and a summary waiting in your queue when the office opens. Your staff isn't starting the day by replaying ten voicemails and guessing at names and callback numbers. They're starting with a list: who called, why, what was already scheduled or answered, and what still needs a human.</p>
+
+<p>Appointments booked overnight land directly on your calendar, not on a sticky note. Patients who just needed a question answered already have that answer and don't need a callback at all. The morning gets shorter, not longer.</p>
+
+<h2>Why Practices Start Here</h2>
+<p>Most practices don't adopt AI across every workflow at once. After-hours call coverage is usually the first piece, because the gap is obvious and the cost of leaving it alone is easy to picture: every missed call is a patient who may not call back a second time. Getting that one gap closed builds the case, and the comfort, for automating intake, reminders, and recall next.</p>
+
+<h2>Getting Started</h2>
+<p>If your practice is still relying on an answering machine after hours, or a service that just takes a message, that's the gap worth closing first. <a href="/healthcare">Learn more about AI for healthcare practices</a> or <a href="/healthcare/demo">try the live demos</a> to hear how it actually sounds on a call.</p>
+
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to stop losing after-hours patients?</strong>
+  <p style="margin: 8px 0;">AI answers the calls your front desk can't, day or night.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/healthcare/demo">Try Our Live Demos</a>
+</div>
+`,
+  },
+  {
     slug: 'ai-electricians-estimate-turnaround-2026',
     title: 'AI for Electricians: Win the Job Before the Other Two Call Back',
     description: 'Homeowners pick whichever electrician quotes first, not whoever is cheapest. See how AI turns a job description into a priced estimate in minutes.',
