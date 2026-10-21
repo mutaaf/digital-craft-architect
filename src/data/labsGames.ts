@@ -1,14 +1,14 @@
-// /labs games launcher. Plain data module (no React, no Helmet) so the
+// /labs games (and tools) launcher. Plain data module (no React, no Helmet) so the
 // page and tests/e2e/labs-page.spec.ts read the same strings per the
 // 2026-05-25 mirror-source rule. No em-dash characters in any copy.
 
 export const PAGE_PATH = '/labs';
 export const PAGE_URL = 'https://digitalcraftai.com/labs';
-export const PAGE_H1 = 'Labs: games our AI agents build and ship';
+export const PAGE_H1 = 'Labs: games our AI agents ship, plus tools we build';
 export const META_DESCRIPTION =
-  'Three live browser games built and maintained by the same autonomous agent pipeline Digital Craft runs for clients: scout, builder, and keeper agents behind CI gates.';
+  'Three live browser games built and maintained by the same autonomous agent pipeline Digital Craft runs for clients, plus Hearth, a home TV remote with a public demo.';
 
-export type LabsGameAccent = 'sky' | 'fuchsia' | 'slate';
+export type LabsGameAccent = 'sky' | 'fuchsia' | 'slate' | 'ember';
 
 export interface LabsGame {
   id: string;
@@ -21,6 +21,8 @@ export interface LabsGame {
   tags: readonly string[];
   accent: LabsGameAccent;
   isNew?: boolean;
+  /** Primary button label. Defaults to 'Launch game'; tools that are not games set their own. */
+  ctaLabel?: string;
 }
 
 export const LABS_GAMES: readonly LabsGame[] = [
@@ -60,6 +62,20 @@ export const LABS_GAMES: readonly LabsGame[] = [
     tags: ['3D physics', 'AI judges', 'Free Drive', 'Sandbox'],
     accent: 'slate',
     isNew: true,
+  },
+  {
+    id: 'hearth',
+    name: 'Hearth',
+    tagline: 'Home TV remote',
+    description:
+      'One remote for every TV in the house. Hearth finds the LG and Samsung smart TVs on your Wi-Fi and turns every phone into a fast, ad-free remote: swipe pad, volume, app shelf, inputs, messages on screen, and one button that turns every TV off. Runs on your home network, no accounts or cloud. Try the public demo with pretend TVs.',
+    playUrl: 'https://mutaafaziz.com/hearth/',
+    sourceUrl: 'https://github.com/mutaaf/hearth',
+    sourceLabel: 'mutaaf/hearth',
+    tags: ['LG + Samsung', 'Local only', 'Live demo', 'aurora-field'],
+    accent: 'ember',
+    isNew: true,
+    ctaLabel: 'Open Hearth',
   },
 ];
 
