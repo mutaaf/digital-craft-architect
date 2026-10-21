@@ -20,7 +20,7 @@ test('labs copy has no em-dash', () => {
   for (const step of LABS_PIPELINE_STEPS) expect(step.body).not.toContain(EM_DASH);
 });
 
-test('/labs renders three launch cards that open in a new tab', async ({ page }) => {
+test('/labs renders every launch card, each opening in a new tab', async ({ page }) => {
   await page.goto(PAGE_PATH, { waitUntil: 'domcontentloaded' });
   await page
     .locator('[role="status"][aria-label="Loading"]')

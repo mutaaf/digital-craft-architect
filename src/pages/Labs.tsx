@@ -8,7 +8,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Badge } from '@/components/ui/badge';
 import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
-import { ArrowRight, ExternalLink, FlaskConical, Gauge, Github, Phone, Plane, Rocket, type LucideIcon } from 'lucide-react';
+import { ArrowRight, ExternalLink, FlaskConical, Gauge, Github, Phone, Plane, Rocket, Tv, type LucideIcon } from 'lucide-react';
 import {
   LABS_GAMES,
   LABS_PIPELINE_STEPS,
@@ -21,7 +21,7 @@ import {
 
 // /labs games launcher. Three live games shipped and maintained by the
 // same scout / builder / keeper agent pipeline Digital Craft sells, framed
-// as working proof. Copy lives in src/data/labsGames.ts (mirror-source).
+// as working proof, plus Hearth, a home tool built outside that pipeline. Copy lives in src/data/labsGames.ts (mirror-source).
 // Every surface ships dark: variants per the AGENTS.md Hard NO.
 
 const ORIGIN = 'https://digitalcraftai.com';
@@ -39,12 +39,14 @@ const ACCENT_SCREEN: Record<LabsGameAccent, string> = {
   sky: 'from-sky-500/90 via-cyan-500/80 to-emerald-400/70 dark:from-sky-600/80 dark:via-cyan-700/70 dark:to-emerald-600/60',
   fuchsia: 'from-fuchsia-600/90 via-pink-500/80 to-amber-400/70 dark:from-fuchsia-700/80 dark:via-pink-700/70 dark:to-amber-600/60',
   slate: 'from-gray-900 via-gray-800 to-gray-700 dark:from-black dark:via-gray-900 dark:to-gray-800',
+  ember: 'from-stone-900 via-stone-800 to-orange-600/90 dark:from-black dark:via-stone-900 dark:to-orange-700/80',
 };
 
 const ACCENT_ICON: Record<string, LucideIcon> = {
   'openaero-dfw': Plane,
   'outatime-88': Gauge,
   'cold-gas': Rocket,
+  hearth: Tv,
 };
 
 const GameCard: React.FC<{ game: LabsGame; index: number }> = ({ game, index }) => {
@@ -108,7 +110,7 @@ const GameCard: React.FC<{ game: LabsGame; index: number }> = ({ game, index }) 
           onClick={() => trackCTAClick(`labs_play_${game.id}`, 'labs')}
           className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary/90"
         >
-          Launch game
+          {game.ctaLabel ?? 'Launch game'}
           <ExternalLink size={14} aria-hidden="true" />
         </a>
         <a
@@ -160,10 +162,11 @@ const Labs: React.FC = () => {
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">{PAGE_H1}</h1>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            These three games are live, public, and maintained by the same autonomous agent
+            The three games are live, public, and maintained by the same autonomous agent
             pipeline we run for clients. Scout, builder, and keeper agents work every day behind
             CI gates. Play one for two minutes and you have seen the delivery engine behind every
-            Digital Craft engagement.
+            Digital Craft engagement. Hearth, the fourth card, is a home tool we built outside
+            that pipeline: one remote for every TV in the house.
           </p>
         </div>
       </section>
@@ -171,13 +174,13 @@ const Labs: React.FC = () => {
       {/* Game cards */}
       <section className="py-12 bg-white dark:bg-gray-950">
         <div className="container mx-auto px-4 max-w-6xl">
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2">
             {LABS_GAMES.map((game, i) => (
               <GameCard key={game.id} game={game} index={i} />
             ))}
           </div>
           <p className="mt-6 text-center text-xs text-gray-500 dark:text-gray-400">
-            Each game opens in a new tab. Best on a desktop browser with a keyboard.
+            Each card opens in a new tab. The games play best on a desktop browser with a keyboard.
           </p>
         </div>
       </section>
