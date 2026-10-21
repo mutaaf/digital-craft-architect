@@ -53,11 +53,11 @@ export const LABS_GAMES: readonly LabsGame[] = [
     name: 'COLD GAS',
     tagline: '3D stunt game',
     description:
-      'A keynote-minimal stunt run. Drive a roadster up a ramp, fire ten cold-gas thrusters to roll it over a row of parked EVs, and stick the landing for an AI judge panel.',
+      'A keynote-minimal stunt run. Drive a roadster up a ramp, fire ten cold-gas thrusters to roll it over a row of parked EVs, and stick the landing for an AI judge panel. Then free-drive real mountain roads, build your own ramps in the Sandbox, or cruise an endless seeded world.',
     playUrl: 'https://mutaafaziz.com/coldgas/',
     sourceUrl: 'https://github.com/mutaaf/cold-gas',
     sourceLabel: 'mutaaf/cold-gas',
-    tags: ['3D physics', 'AI judges', 'One-shot stunt'],
+    tags: ['3D physics', 'AI judges', 'Free Drive', 'Sandbox'],
     accent: 'slate',
     isNew: true,
   },
