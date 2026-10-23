@@ -11,7 +11,7 @@
 #
 # Functional:      every e2e test, base vs head, per-test.
 # Non-functional:  bundle bytes (raw + gzip), entry-chunk bytes, chunk count,
-#                  build duration, sitemap URL count.
+#                  build duration, sitemap URL count, sitemap lastmod diversity.
 #
 # Exit 0 = no regression. Exit 1 = regression. Exit 2 = harness could not run.
 #
@@ -19,8 +19,30 @@
 #   bash scripts/validate-pr.sh 181              # a PR number
 #   bash scripts/validate-pr.sh some/branch      # a branch
 #   bash scripts/validate-pr.sh 181 --fast       # skip the base e2e run
+#   bash scripts/validate-pr.sh --lastmod public/sitemap.xml   # lastmod check only
 #
 set -uo pipefail
+
+# Sitemap lastmod diversity. Prints "distinct top_count total" for a sitemap.
+# On 2026-09-05 route-level code splitting hid every page from the sitemap
+# generator and 192 of 193 URLs shipped with one lastmod; nothing failed.
+lastmod_stats() {
+  grep -oE '<lastmod>[^<]+' "$1" 2>/dev/null | sort | uniq -c \
+    | awk '{n++; t+=$1; if($1>m)m=$1} END{printf "%d %d %d\n", n, m, t}'
+}
+# Collapsed = one date, or one date on more than 90% of URLs.
+lastmod_collapsed() {
+  awk -v n="$1" -v m="$2" -v t="$3" 'BEGIN{exit !(t > 1 && (n <= 1 || m > t*0.9))}'
+}
+
+if [ "${1:-}" = "--lastmod" ]; then
+  read -r LM_N LM_TOP LM_TOTAL < <(lastmod_stats "${2:?usage: validate-pr.sh --lastmod <sitemap.xml>}")
+  printf 'sitemap lastmods: %s distinct, top date on %s of %s URLs\n' "$LM_N" "$LM_TOP" "$LM_TOTAL"
+  if lastmod_collapsed "$LM_N" "$LM_TOP" "$LM_TOTAL"; then
+    printf '✗ SEO REGRESSION: sitemap lastmods collapsed to one date.\n'; exit 1
+  fi
+  printf '✓ lastmods are diverse\n'; exit 0
+fi
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 BASE_REF="origin/main"
@@ -118,6 +140,8 @@ measure_bundle() {
 
   local urls
   urls=$(grep -c '<loc>' "$wt/dist/sitemap.xml" 2>/dev/null || echo 0)
+  local lm_n lm_top lm_total
+  read -r lm_n lm_top lm_total < <(lastmod_stats "$wt/dist/sitemap.xml")
 
   cat >"$out" <<EOF
 total_js=$total
@@ -126,6 +150,9 @@ chunks=$count
 entry_js=$entry
 build_secs=$((end - start))
 sitemap_urls=$urls
+lastmod_distinct=$lm_n
+lastmod_top=$lm_top
+lastmod_total=$lm_total
 EOF
 }
 
@@ -161,6 +188,8 @@ B_CHUNKS=$(mval "$WORK/base.metrics" chunks);      H_CHUNKS=$(mval "$WORK/head.m
 B_ENTRY=$(mval "$WORK/base.metrics" entry_js);     H_ENTRY=$(mval "$WORK/head.metrics" entry_js)
 B_BUILD=$(mval "$WORK/base.metrics" build_secs);   H_BUILD=$(mval "$WORK/head.metrics" build_secs)
 B_URLS=$(mval "$WORK/base.metrics" sitemap_urls);  H_URLS=$(mval "$WORK/head.metrics" sitemap_urls)
+B_LMN=$(mval "$WORK/base.metrics" lastmod_distinct); H_LMN=$(mval "$WORK/head.metrics" lastmod_distinct)
+H_LMTOP=$(mval "$WORK/head.metrics" lastmod_top);   H_LMTOTAL=$(mval "$WORK/head.metrics" lastmod_total)
 
 # --------------------------------------------------------------------------
 # Static gates on head
@@ -214,6 +243,7 @@ printf '  %-18s %12s %12s   %s\n' "entry chunk" "$(fmt_kb "$B_ENTRY")" "$(fmt_kb
 printf '  %-18s %12s %12s   %s\n' "chunk count" "$B_CHUNKS" "$H_CHUNKS" "$(pct "$B_CHUNKS" "$H_CHUNKS")"
 printf '  %-18s %12s %12s   %s\n' "build seconds" "$B_BUILD" "$H_BUILD" "$(pct "$B_BUILD" "$H_BUILD")"
 printf '  %-18s %12s %12s   %s\n' "sitemap urls" "$B_URLS" "$H_URLS" "$(pct "$B_URLS" "$H_URLS")"
+printf '  %-18s %12s %12s   %s\n' "lastmod dates" "$B_LMN" "$H_LMN" "top date on $H_LMTOP of $H_LMTOTAL"
 
 printf '\nFunctional\n'
 printf '  head e2e: %s passed, %s failed\n' "$H_PASS" "$H_FAIL"
@@ -249,6 +279,11 @@ fi
 if [ "$H_URLS" -lt "$B_URLS" ]; then
   VERDICT=1
   REASONS="$REASONS\n  SEO REGRESSION: sitemap lost URLs ($B_URLS -> $H_URLS)."
+fi
+# Absolute, not relative to base: a base that is already collapsed is no excuse.
+if lastmod_collapsed "$H_LMN" "$H_LMTOP" "$H_LMTOTAL"; then
+  VERDICT=1
+  REASONS="$REASONS\n  SEO REGRESSION: sitemap lastmods collapsed ($H_LMN distinct, one date on $H_LMTOP of $H_LMTOTAL URLs)."
 fi
 
 if [ "$VERDICT" -eq 0 ]; then

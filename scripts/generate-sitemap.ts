@@ -115,17 +115,22 @@ function extractClassSessionSlugs(): string[] {
 }
 
 /**
- * Build a `ComponentName -> absolutePath` table from the `import X from "./pages/..."`
- * lines at the top of App.tsx. Used to resolve each route to its underlying
- * source file for the lastmod lookup.
+ * Build a `ComponentName -> absolutePath` table from the page imports at the
+ * top of App.tsx. Used to resolve each route to its underlying source file for
+ * the lastmod lookup. Matches both forms:
+ *   import X from "./pages/..."
+ *   const X = lazy(() => import("./pages/..."))
+ * PR #181 moved most pages to the lazy form; matching only the static form
+ * sent every route to the App.tsx fallback, so all lastmods collapsed to one.
  */
 function buildPageImportTable(appContent: string): Map<string, string> {
   const table = new Map<string, string>();
-  const importRegex = /import\s+(\w+)\s+from\s+["'](\.\/pages\/[^"']+)["']/g;
+  const importRegex =
+    /(?:import\s+(\w+)\s+from\s+|const\s+(\w+)\s*=\s*lazy\(\s*\(\)\s*=>\s*import\(\s*)["'](\.\/pages\/[^"']+)["']/g;
   let match: RegExpExecArray | null;
   while ((match = importRegex.exec(appContent)) !== null) {
-    const componentName = match[1];
-    const relativeImport = match[2]; // e.g. ./pages/AiForPlumbers
+    const componentName = match[1] ?? match[2];
+    const relativeImport = match[3]; // e.g. ./pages/AiForPlumbers
     const abs = join(SRC, relativeImport.replace(/^\.\//, "") + ".tsx");
     table.set(componentName, abs);
   }
@@ -136,9 +141,8 @@ function buildPageImportTable(appContent: string): Map<string, string> {
  * For each route path, find the leaf component rendered in its `<Route ...
  * element={<X ... />}>` definition. When multiple routes share the same
  * component (e.g. `LeadResponder` across many verticals), the component file's
- * lastmod is still the right signal for the per-route registration plus the
- * shared UI; per the ticket's engineering note, App.tsx's own lastmod is also
- * folded in via `maxDate` so any route added/moved bumps every route.
+ * lastmod is still the right signal for the shared UI. App.tsx's own lastmod
+ * is used only for routes that cannot be mapped to a page file.
  */
 function buildRouteToComponentTable(appContent: string): Map<string, string> {
   const table = new Map<string, string>();
@@ -228,7 +232,10 @@ function getLastmodForPath(
     // touched whenever a route is added, moved, or removed.
     return appLastmod;
   }
-  return maxDate(getLastmod(sourceFile), appLastmod);
+  // The page file alone. Folding App.tsx in (the old maxDate) meant any route
+  // edit stamped every page with the same date, the collapse this script exists
+  // to avoid.
+  return getLastmod(sourceFile);
 }
 
 function generateSitemap(
