@@ -8,7 +8,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Badge } from '@/components/ui/badge';
 import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
-import { ArrowRight, ExternalLink, FlaskConical, Gauge, Github, Phone, Plane, Rocket, Tv, type LucideIcon } from 'lucide-react';
+import { ArrowRight, Cat, ExternalLink, FlaskConical, Gauge, Github, Phone, Plane, Rocket, Tv, type LucideIcon } from 'lucide-react';
 import {
   LABS_GAMES,
   LABS_PIPELINE_STEPS,
@@ -21,7 +21,8 @@ import {
 
 // /labs games launcher. Three live games shipped and maintained by the
 // same scout / builder / keeper agent pipeline Digital Craft sells, framed
-// as working proof, plus Hearth, a home tool built outside that pipeline. Copy lives in src/data/labsGames.ts (mirror-source).
+// as working proof, plus Hearth (a home tool) and KIN (a two-screen creature),
+// both built outside that pipeline. Copy lives in src/data/labsGames.ts (mirror-source).
 // Every surface ships dark: variants per the AGENTS.md Hard NO.
 
 const ORIGIN = 'https://digitalcraftai.com';
@@ -40,6 +41,7 @@ const ACCENT_SCREEN: Record<LabsGameAccent, string> = {
   fuchsia: 'from-fuchsia-600/90 via-pink-500/80 to-amber-400/70 dark:from-fuchsia-700/80 dark:via-pink-700/70 dark:to-amber-600/60',
   slate: 'from-gray-900 via-gray-800 to-gray-700 dark:from-black dark:via-gray-900 dark:to-gray-800',
   ember: 'from-stone-900 via-stone-800 to-orange-600/90 dark:from-black dark:via-stone-900 dark:to-orange-700/80',
+  mint: 'from-gray-950 via-slate-900 to-teal-300/80 dark:from-black dark:via-gray-900 dark:to-teal-500/70',
 };
 
 const ACCENT_ICON: Record<string, LucideIcon> = {
@@ -47,15 +49,16 @@ const ACCENT_ICON: Record<string, LucideIcon> = {
   'outatime-88': Gauge,
   'cold-gas': Rocket,
   hearth: Tv,
+  kin: Cat,
 };
 
-const GameCard: React.FC<{ game: LabsGame; index: number }> = ({ game, index }) => {
+const GameCard: React.FC<{ game: LabsGame; index: number; wide?: boolean }> = ({ game, index, wide }) => {
   const Icon = ACCENT_ICON[game.id] ?? FlaskConical;
   return (
     <Card
       data-testid="labs-game-card"
       id={game.id}
-      className="group scroll-mt-28 flex flex-col overflow-hidden rounded-2xl border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-primary/40 dark:hover:border-primary/50"
+      className={`group scroll-mt-28 flex flex-col${wide ? ' md:col-span-2' : ''} overflow-hidden rounded-2xl border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-primary/40 dark:hover:border-primary/50`}
     >
       <a
         href={game.playUrl}
@@ -165,8 +168,9 @@ const Labs: React.FC = () => {
             The three games are live, public, and maintained by the same autonomous agent
             pipeline we run for clients. Scout, builder, and keeper agents work every day behind
             CI gates. Play one for two minutes and you have seen the delivery engine behind every
-            Digital Craft engagement. Hearth, the fourth card, is a home tool we built outside
-            that pipeline: one remote for every TV in the house.
+            Digital Craft engagement. Hearth and KIN, the last two cards, are built outside that
+            pipeline: one remote for every TV in the house, and a tiny creature that hops from one
+            screen to the next.
           </p>
         </div>
       </section>
@@ -176,7 +180,12 @@ const Labs: React.FC = () => {
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="grid gap-6 md:grid-cols-2">
             {LABS_GAMES.map((game, i) => (
-              <GameCard key={game.id} game={game} index={i} />
+              <GameCard
+                key={game.id}
+                game={game}
+                index={i}
+                wide={i === LABS_GAMES.length - 1 && LABS_GAMES.length % 2 === 1}
+              />
             ))}
           </div>
           <p className="mt-6 text-center text-xs text-gray-500 dark:text-gray-400">

@@ -6,9 +6,9 @@ export const PAGE_PATH = '/labs';
 export const PAGE_URL = 'https://digitalcraftai.com/labs';
 export const PAGE_H1 = 'Labs: games our AI agents ship, plus tools we build';
 export const META_DESCRIPTION =
-  'Three live browser games built and maintained by the same autonomous agent pipeline Digital Craft runs for clients, plus Hearth, a home TV remote with a public demo.';
+  'Three live browser games built and maintained by the same autonomous agent pipeline Digital Craft runs for clients, plus Hearth, a home TV remote with a public demo, and KIN, a tiny creature that hops between screens.';
 
-export type LabsGameAccent = 'sky' | 'fuchsia' | 'slate' | 'ember';
+export type LabsGameAccent = 'sky' | 'fuchsia' | 'slate' | 'ember' | 'mint';
 
 export interface LabsGame {
   id: string;
@@ -76,6 +76,20 @@ export const LABS_GAMES: readonly LabsGame[] = [
     accent: 'ember',
     isNew: true,
     ctaLabel: 'Open Hearth',
+  },
+  {
+    id: 'kin',
+    name: 'KIN',
+    tagline: 'Two-screen creature',
+    description:
+      'A tiny, autonomous creature that lives under your real sky: its diorama follows your actual time of day, sun angle, temperature, wind, rain and snow. It hatches with no signup, has moods and keeps a memory book. Put two phones or tablets side by side and slide one finger across: the screens link invisibly, no QR codes, and your KIN hops onto your friend\'s screen. Two browser windows side by side work too.',
+    playUrl: 'https://mutaafaziz.com/kin/',
+    sourceUrl: 'https://github.com/mutaaf/kin',
+    sourceLabel: 'mutaaf/kin',
+    tags: ['Live weather', 'Cross-screen hop', 'No signup', 'Web + iPad'],
+    accent: 'mint',
+    isNew: true,
+    ctaLabel: 'Hatch KIN',
   },
 ];
 
