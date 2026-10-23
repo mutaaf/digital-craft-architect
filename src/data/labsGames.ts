@@ -82,7 +82,7 @@ export const LABS_GAMES: readonly LabsGame[] = [
     name: 'KIN',
     tagline: 'Two-screen creature',
     description:
-      'A tiny, autonomous creature that lives under your real sky: its diorama follows your actual time of day, sun angle, temperature, wind, rain and snow. It hatches with no signup, has moods and keeps a memory book. Put two phones or tablets side by side and slide one finger across: the screens link invisibly, no QR codes, and your KIN hops onto your friend\'s screen. Two browser windows side by side work too.',
+      'A tiny, autonomous creature that lives under your real sky: its diorama follows your actual time of day, sun angle, temperature, wind, rain and snow. It hatches with no signup, has moods. Put two phones or tablets side by side and slide one finger across: the screens link invisibly, no QR codes, and your KIN hops onto your friend\'s screen. Two browser windows side by side work too.',
     playUrl: 'https://mutaafaziz.com/kin/',
     sourceUrl: 'https://github.com/mutaaf/kin',
     sourceLabel: 'mutaaf/kin',
