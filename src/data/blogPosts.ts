@@ -52,6 +52,50 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'ai-law-firms-consultation-no-shows-2026',
+    title: 'Law Firms: Stop Losing Billable Hours to No-Shows',
+    description: 'A booked consultation that never shows up costs a law firm more than an empty slot. See how AI reminders and rebooking close that gap.',
+    date: '2026-10-26',
+    author: 'DigitalCraft AI',
+    readTime: '5 min read',
+    tags: ['Legal', 'Voice AI', 'Client Retention'],
+    content: `
+<p>Getting a prospective client to book a consultation is the hard part. Or at least that's what most intake processes are built around.</p>
+
+<p>But a booked slot is not the same as a completed consultation. Someone fills out a form, picks a time, and then simply does not show up. No call, no text, nothing. The slot sits empty, the attorney who cleared time for it has nothing to bill, and the firm usually does not find out why until it is already too late to fill the gap.</p>
+
+<p>Pull your own calendar for the last month and count how many scheduled consultations never happened. That number, multiplied by what an hour of attorney time is worth to your firm, is the size of the problem.</p>
+
+<h2>Why Consultations Get Skipped</h2>
+<p>Most no-shows are not a client changing their mind about the case. They are a client who booked two weeks out, forgot, and never got a reminder that actually reached them. A single confirmation email sent at the moment of booking is easy to lose in an inbox. By the time the appointment arrives, there is nothing left reminding them it exists.</p>
+
+<p>The fix is not a sterner reminder. It is more reminders, sent the way the client actually pays attention: a text the day before, a call the morning of, phrased like a person checking in rather than a system firing an alert.</p>
+
+<h2>What AI Reminders Actually Do</h2>
+<p>A <a href="/legal/demo/voice-followup">voice AI follow-up</a> can call the client the morning of their consultation, confirm they still plan to attend, and offer to reschedule on the spot if something has come up. That single call does two things at once: it catches the no-show before it happens, and when a reschedule is needed, it fills the slot with a new time instead of leaving the attorney to find out at the appointment itself that nobody is coming.</p>
+
+<p>The same system can send a text confirmation right after booking, a reminder the day before, and a final nudge the morning of, each one timed so the client never goes more than a few days without seeing the appointment mentioned somewhere.</p>
+
+<h2>Turning a Missed Slot Into a Rebooked One</h2>
+<p>When a no-show does happen, speed matters just as much as it does on initial intake. A client who skipped a consultation is not necessarily gone. A follow-up call within a day, asking what got in the way and offering a new time, recovers a meaningful share of the clients who would otherwise have drifted off without ever formally canceling. An <a href="/legal/demo/consultation">AI consultation scheduler</a> can handle that outreach immediately rather than waiting for staff to notice the empty slot on the calendar.</p>
+
+<h2>Protecting Attorney Time, Not Just Filling a Calendar</h2>
+<p>The goal here is not to book more consultations. Firms that already struggle with no-shows do not need a fuller calendar, they need the calendar they already have to actually happen. Every consultation that shows up as scheduled, that attorney's prep time was worth something. Every one that does not, it was time that could have gone to a client who would have kept the appointment.</p>
+
+<p>That is why reminder automation pays for itself quickly even though it looks like a small, unglamorous fix. It is not generating new demand. It is making sure the demand you already converted actually converts into billable time.</p>
+
+<h2>Where to Start</h2>
+<p>If your firm is relying on a single confirmation email and hoping for the best, that is the gap worth closing first. <a href="/legal">Learn more about AI for law firms</a> or <a href="/legal/demo">try the live demos</a> to hear how a reminder call actually sounds.</p>
+
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to stop losing billable hours to no-shows?</strong>
+  <p style="margin: 8px 0;">AI reminders and rebooking keep your consultation calendar honest.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/legal/demo">Try Our Live Demos</a>
+</div>
+`,
+  },
+  {
     slug: 'ai-medical-practices-after-hours-voice-calls-2026',
     title: 'AI Voice Agents for Medical Practices: After-Hours Calls',
     description: 'A patient who calls after hours and gets a ringing phone usually calls the next practice. See how AI voice handles those calls instead.',
