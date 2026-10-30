@@ -17,13 +17,14 @@ export interface RoadmapEntry {
   intendedShipWeek: string;
 }
 
-export const ROADMAP_GENERATED_AT: string = "2026-10-30";
+export const ROADMAP_GENERATED_AT: string = "2026-10-20";
 
 export const ROADMAP_CADENCE_NOTE: string = "The ship loop runs one ticket per hour and typically lands 1-5 tickets per week based on backlog depth, heal retries, and reviewer blocks. Dates below are a planning signal, not a commitment: the autonomous ship loop reorders groomed tickets as the queue evolves, so an intended ship week can slip or accelerate.";
 
 export const ROADMAP_ENTRIES: readonly RoadmapEntry[] = [
-  { id: "0114", title: "Founder Person JSON-LD and footer cross-link to mutaafaziz.com", priority: "P1", area: "seo", status: "groomed", created: "2026-10-19", intendedShipWeek: "2026-W45" },
-  { id: "0115", title: "Publish /llms.txt brief for AI agents, linking the founder's llms.txt", priority: "P2", area: "seo", status: "groomed", created: "2026-10-19", intendedShipWeek: "2026-W46" },
-  { id: "0116", title: "Founder signature module shared visually with mutaafaziz.com", priority: "P2", area: "trust", status: "groomed", created: "2026-10-19", intendedShipWeek: "2026-W47" },
-  { id: "0123", title: "The app launcher shared with mutaafaziz.com, on both Digital Craft sites", priority: "P2", area: "trust", status: "in-progress", created: "2026-10-20", intendedShipWeek: "2026-W48" },
+  { id: "0114", title: "Founder Person JSON-LD and footer cross-link to mutaafaziz.com", priority: "P1", area: "seo", status: "groomed", created: "2026-10-19", intendedShipWeek: "2026-W44" },
+  { id: "0117", title: "Crew of Light hero on the CTO landing, with live storyboards and an AI director", priority: "P1", area: "conversion", status: "in-progress", created: "2026-10-19", intendedShipWeek: "2026-W45" },
+  { id: "0109", title: "Public /agent-prompts transparency page listing the committed system prompt for every autonomous agent as a defensible moat artifact", priority: "P2", area: "trust", status: "in-progress", created: "2026-10-02", intendedShipWeek: "2026-W46" },
+  { id: "0115", title: "Publish /llms.txt brief for AI agents, linking the founder's llms.txt", priority: "P2", area: "seo", status: "groomed", created: "2026-10-19", intendedShipWeek: "2026-W47" },
+  { id: "0116", title: "Founder signature module shared visually with mutaafaziz.com", priority: "P2", area: "trust", status: "groomed", created: "2026-10-19", intendedShipWeek: "2026-W48" },
 ] as const;

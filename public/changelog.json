@@ -7,66 +7,6 @@
   "language": "en-US",
   "items": [
     {
-      "id": "0122",
-      "url": "https://digitalcraftai.com/changelog#0122",
-      "title": "CTO site copy follows the house rule - no em-dashes",
-      "content_text": "CTO site copy follows the house rule - no em-dashes",
-      "date_published": "2026-10-20T12:00:00.000Z",
-      "tags": [
-        "content"
-      ]
-    },
-    {
-      "id": "0121",
-      "url": "https://digitalcraftai.com/changelog#0121",
-      "title": "Phones - the hero story plays in its own panel, nothing scrolls sideways, nothing covers the story",
-      "content_text": "Phones - the hero story plays in its own panel, nothing scrolls sideways, nothing covers the story",
-      "date_published": "2026-10-20T12:00:00.000Z",
-      "tags": [
-        "conversion"
-      ]
-    },
-    {
-      "id": "0119",
-      "url": "https://digitalcraftai.com/changelog#0119",
-      "title": "The hero story in four acts (the miss, the build, the catch, the crew), and on digitalcraftai.com",
-      "content_text": "The hero story in four acts (the miss, the build, the catch, the crew), and on digitalcraftai.com",
-      "date_published": "2026-10-20T12:00:00.000Z",
-      "tags": [
-        "conversion"
-      ]
-    },
-    {
-      "id": "0118",
-      "url": "https://digitalcraftai.com/changelog#0118",
-      "title": "Hero storyline opens with the builder at his desk, prompting AI agents that go to work",
-      "content_text": "Hero storyline opens with the builder at his desk, prompting AI agents that go to work",
-      "date_published": "2026-10-20T12:00:00.000Z",
-      "tags": [
-        "conversion"
-      ]
-    },
-    {
-      "id": "0120",
-      "url": "https://digitalcraftai.com/changelog#0120",
-      "title": "Hero story labels never sit under the drawing; the catch turns the moment to handled; studio makes stories with your own key",
-      "content_text": "Hero story labels never sit under the drawing; the catch turns the moment to handled; studio makes stories with your own key",
-      "date_published": "2026-10-19T12:00:00.000Z",
-      "tags": [
-        "conversion"
-      ]
-    },
-    {
-      "id": "0117",
-      "url": "https://digitalcraftai.com/changelog#0117",
-      "title": "Crew of Light hero on the CTO landing, with live storyboards and an AI director",
-      "content_text": "Crew of Light hero on the CTO landing, with live storyboards and an AI director",
-      "date_published": "2026-10-19T12:00:00.000Z",
-      "tags": [
-        "conversion"
-      ]
-    },
-    {
       "id": "0113",
       "url": "https://digitalcraftai.com/changelog#0113",
       "title": "Canonical founder facts module mirrored from mutaafaziz.com",
@@ -104,16 +44,6 @@
       "date_published": "2026-10-06T12:00:00.000Z",
       "tags": [
         "infra"
-      ]
-    },
-    {
-      "id": "0109",
-      "url": "https://digitalcraftai.com/changelog#0109",
-      "title": "Public /agent-prompts transparency page listing the committed system prompt for every autonomous agent as a defensible moat artifact",
-      "content_text": "Public /agent-prompts transparency page listing the committed system prompt for every autonomous agent as a defensible moat artifact",
-      "date_published": "2026-10-02T12:00:00.000Z",
-      "tags": [
-        "trust"
       ]
     },
     {

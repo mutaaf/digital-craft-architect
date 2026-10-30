@@ -191,7 +191,7 @@ const Labs: React.FC = () => {
             ))}
           </div>
           <p className="mt-6 text-center text-xs text-gray-500 dark:text-gray-400">
-            Each card opens in a new tab. The games play best on a desktop browser with a keyboard.
+            Each card opens in a new tab. The three games play best on a desktop browser with a keyboard.
           </p>
         </div>
       </section>
