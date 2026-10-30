@@ -22,9 +22,9 @@ export const PAGE_H1: string = "Agent Prompts";
 export const PAGE_URL: string = "https://digitalcraftai.com/agent-prompts";
 export const COLLECTION_PAGE_NAME: string = "Digital Craft AI Agent Prompts";
 
-export const AGENT_PROMPTS_GENERATED_AT: string = "2026-10-20";
+export const AGENT_PROMPTS_GENERATED_AT: string = "2026-10-30";
 
-export const AGENT_PROMPTS_BUILD_SHA: string = "bb78e90";
+export const AGENT_PROMPTS_BUILD_SHA: string = "6f0a869";
 
 export const AGENT_PROMPTS_CAVEAT: string = "The excerpt below for each autonomous agent is the first 2000 characters of the committed prompt file at the build SHA, verified byte-identical to the version-controlled .claude/agents/<agentId>.md source by the build-time generator. The agents may receive additional runtime context from the fleet runner (environment, branch head SHA, prior PR state, autonomous ship-loop configuration) that is NOT in the committed prompt file; that runtime context is a distinct observability surface documented on /how-we-ship and /agent-fleet.";
 
