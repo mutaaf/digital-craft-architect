@@ -6,9 +6,9 @@ export const PAGE_PATH = '/labs';
 export const PAGE_URL = 'https://digitalcraftai.com/labs';
 export const PAGE_H1 = 'Labs: games our AI agents ship, plus tools we build';
 export const META_DESCRIPTION =
-  'Three live browser games built and maintained by the same autonomous agent pipeline Digital Craft runs for clients, plus Hearth, a home TV remote with a public demo, and KIN, a tiny creature that hops between screens.';
+  'Three live browser games built and maintained by the same autonomous agent pipeline Digital Craft runs for clients, plus Hearth, a home TV remote with a public demo, KIN, a tiny creature that hops between screens, and Chalk Talk, a coach\'s whiteboard you can talk to.';
 
-export type LabsGameAccent = 'sky' | 'fuchsia' | 'slate' | 'ember' | 'mint';
+export type LabsGameAccent = 'sky' | 'fuchsia' | 'slate' | 'ember' | 'mint' | 'court';
 
 export interface LabsGame {
   id: string;
@@ -90,6 +90,20 @@ export const LABS_GAMES: readonly LabsGame[] = [
     accent: 'mint',
     isNew: true,
     ctaLabel: 'Hatch KIN',
+  },
+  {
+    id: 'chalk-talk',
+    name: 'Chalk Talk',
+    tagline: 'Coach\'s whiteboard',
+    description:
+      'Say or sketch a play and watch it draw itself in light: X\'s and O\'s for youth basketball and flag football coaches. Sketch it rough and an AI takes over: it names the concept, cleans up the play and suggests what to coach next. Football gets the route tree, coverages and the quarterback\'s half or full field reads. Built with AI agents, including research agents that gathered the modern playbook and coaching language it uses. Bring your own Claude or OpenAI key.',
+    playUrl: 'https://mutaafaziz.com/chalktalk/',
+    sourceUrl: 'https://github.com/mutaaf/chalk-talk',
+    sourceLabel: 'mutaaf/chalk-talk',
+    tags: ['Voice + sketch', 'Basketball + flag', 'Bring your own key', 'aurora-field'],
+    accent: 'court',
+    isNew: true,
+    ctaLabel: 'Draw a play',
   },
 ];
 
