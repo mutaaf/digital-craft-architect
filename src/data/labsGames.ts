@@ -6,9 +6,9 @@ export const PAGE_PATH = '/labs';
 export const PAGE_URL = 'https://digitalcraftai.com/labs';
 export const PAGE_H1 = 'Labs: games our AI agents ship, plus tools we build';
 export const META_DESCRIPTION =
-  'Three live browser games built and maintained by the same autonomous agent pipeline Digital Craft runs for clients, plus Hearth, a home TV remote with a public demo, KIN, a tiny creature that hops between screens, and Chalk Talk, a coach\'s whiteboard you can talk to.';
+  'Three live browser games built and maintained by the same autonomous agent pipeline Digital Craft runs for clients, plus Hearth, a home TV remote with a public demo, KIN, a tiny creature that hops between screens, Chalk Talk, a coach\'s whiteboard you can talk to, and Metaphases, an earnings calendar that reads the room.';
 
-export type LabsGameAccent = 'sky' | 'fuchsia' | 'slate' | 'ember' | 'mint' | 'court';
+export type LabsGameAccent = 'sky' | 'fuchsia' | 'slate' | 'ember' | 'mint' | 'court' | 'lunar';
 
 export interface LabsGame {
   id: string;
@@ -104,6 +104,20 @@ export const LABS_GAMES: readonly LabsGame[] = [
     accent: 'court',
     isNew: true,
     ctaLabel: 'Draw a play',
+  },
+  {
+    id: 'metaphases',
+    name: 'Metaphases',
+    tagline: 'Earnings calendar',
+    description:
+      'Every earnings report, phase by phase. An earnings calendar that reads the room: who reports when, with report timing drawn as moon phases (waxing before the open, full during market hours, waning after the close), and how each stock reacted to its last four reports. Setup and quality grades are rules-based and explained, ported from the Market Digest and Compass apps. A live fear and greed gauge sets the mood, Compass looks through your ETFs to show which reports move your money, and Retrace grades the month against consensus.',
+    playUrl: 'https://metaphases.com',
+    sourceUrl: 'https://github.com/mutaaf/metaphases',
+    sourceLabel: 'mutaaf/metaphases',
+    tags: ['Moon-phase timing', 'Setup grades', 'Fear and greed', 'ETF look-through'],
+    accent: 'lunar',
+    isNew: true,
+    ctaLabel: 'Open the calendar',
   },
 ];
 
