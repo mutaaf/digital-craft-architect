@@ -110,11 +110,11 @@ export const LABS_GAMES: readonly LabsGame[] = [
     name: 'Metaphases',
     tagline: 'Earnings calendar',
     description:
-      'Every earnings report, phase by phase. An earnings calendar that reads the room: who reports when, with report timing drawn as moon phases (waxing before the open, full during market hours, waning after the close), and how each stock reacted to its last four reports. Setup and quality grades are rules-based and explained, ported from the Market Digest and Compass apps. A live fear and greed gauge sets the mood, Compass looks through your ETFs to show which reports move your money, and Retrace grades the month against consensus.',
+      'Every earnings report, phase by phase. An earnings calendar that reads the room: who reports when, with report timing drawn as moon phases (waxing before the open, full during market hours, waning after the close), and how each stock reacted to its last four reports. Setup and quality grades are rules-based and explained, for research, not investment advice. A live fear and greed gauge sets the mood, Compass looks through your ETFs to show which reports move your money, Retrace grades the month against consensus, and a built-in AI (free, or bring your own key) answers questions from the numbers on the page.',
     playUrl: 'https://mutaafaziz.com/metaphases/',
     sourceUrl: 'https://github.com/mutaaf/metaphases',
     sourceLabel: 'mutaaf/metaphases',
-    tags: ['Moon-phase timing', 'Setup grades', 'Fear and greed', 'ETF look-through'],
+    tags: ['Moon-phase timing', 'Explained grades', 'AI, bring your own key', 'ETF look-through'],
     accent: 'lunar',
     isNew: true,
     ctaLabel: 'Open the calendar',
