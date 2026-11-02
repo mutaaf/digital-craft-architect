@@ -52,6 +52,55 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'ai-plumbers-repipe-water-heater-estimate-response',
+    title: 'AI for Plumbers: Win the Repipe or Water Heater Job Fast',
+    description: 'Homeowners shop repipes and water heater swaps across several plumbers at once. See how an AI estimator gets you a real number back first.',
+    date: '2026-11-02',
+    author: 'DigitalCraft AI',
+    readTime: '5 min read',
+    tags: ['Home Services', 'Plumbing', 'Lead Response', 'Estimates'],
+    content: `
+<p>A water heater fails or a pipe starts leaking behind a wall, and the homeowner is calling three or four plumbers that same afternoon, not just one. Whoever gives them a real number first usually gets the job. Whoever makes them wait usually does not.</p>
+
+<p>Repipes and water heater replacements are the jobs worth winning. They are bigger tickets than a clogged drain or a running toilet, and they are exactly the jobs where a homeowner shops around before committing. If your team can only quote in person, you are already behind the plumber who can give a credible range over the phone or online within the hour.</p>
+
+<h2>Count What a Slow Quote Costs You</h2>
+<p>Look at your last twenty quote requests for a repipe or full water heater swap. Count how many you answered with a real number within the hour, versus how many waited a day or more for a callback or a scheduled site visit. Multiply the slow ones by your average ticket size on that job type, and you have a real number for what response speed is costing your business, not a generic industry claim.</p>
+
+<h2>Why the First Real Number Wins</h2>
+<p>A homeowner dealing with a dead water heater or a pipe leak is not going to sit on four quote requests for a week. They are comparing whoever responds first with a specific range, not whoever eventually shows up. A plumber who says someone will call back is competing against a plumber who already texted a price range for the job.</p>
+
+<p>That does not mean every quote has to be a guess. It means the first response needs to be specific enough that the homeowner stops calling down the list while they wait on you.</p>
+
+<h2>What an AI Estimator Actually Does</h2>
+<p>An AI-guided estimator asks the same questions your best estimator would ask: the age and type of the existing water heater or pipes, the home's square footage and number of bathrooms, access points, and any photos the homeowner can send. It turns those answers into a defensible price range in minutes instead of days.</p>
+
+<h3>Turning a Range Into a Booked Site Visit</h3>
+<p>The range is not the final price. It is enough for the homeowner to stop shopping and book the site visit where your tech confirms the number and closes the job. That is the same two-step process your best estimator already runs in person, just available at 9pm on a Tuesday instead of only during business hours.</p>
+
+<h3>Capturing the Lead Before They Call Someone Else</h3>
+<p>Pairing the estimator with instant lead capture means a homeowner filling out a form on your site, or sending a photo of a corroded tank, gets a response before they have finished searching for the next plumber. That response is what decides whether the job ends up on your schedule or a competitor's.</p>
+
+<h2>What Changes for Your Team</h2>
+<p>Your estimator still sets the pricing logic and still confirms every number on site. The AI tool just makes sure every repipe and water heater inquiry gets a fast, specific answer instead of sitting in a queue, whether it comes in on a slow Tuesday morning or a Saturday night when everyone is out.</p>
+
+<ul>
+<li>A homeowner asking about a repipe gets a price range back in minutes, not a callback promise.</li>
+<li>Your estimator spends time on confirmed site visits instead of chasing cold quote requests.</li>
+<li>Every inquiry, day or night, gets the same fast first response.</li>
+</ul>
+
+<p>See how the estimator handles a real plumbing scenario in the <a href="/homeservices/demo/estimate">live estimate demo</a> built for home services businesses, or read more about <a href="/ai-for-plumbers">how AI fits into a plumbing business</a> specifically.</p>
+
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to quote the big jobs faster?</strong>
+  <p style="margin: 8px 0;">An AI estimator turns a repipe or water heater inquiry into a real price range in minutes, not days.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/homeservices/demo">Try Our Live Demos</a>
+</div>
+`,
+  },
+  {
     slug: 'ai-hvac-after-hours-emergency-calls-2026',
     title: 'How HVAC Companies Stop Losing After-Hours Emergency Calls',
     description: 'Why HVAC emergency calls at night and on weekends go to voicemail, and how an AI voice agent answers, triages, and dispatches them instead.',
