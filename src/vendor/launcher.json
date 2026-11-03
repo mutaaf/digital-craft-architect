@@ -1,6 +1,6 @@
 {
-  "version": "1.0.7",
-  "sha256": "93af8c468addbac91ca08908d459c2432e01949de385e3db344e4f752fb72c4c",
-  "commit": "c9868e201fe9f92eabd6f7f63fc747b02120a279",
+  "version": "1.0.8",
+  "sha256": "4ea530722b98b1abd82ee32640ab487fcc679d71b68b9923425707289a218ad9",
+  "commit": "959aba7ae81e98e00c71fd9f57b761290b6ca1ab",
   "source": "https://github.com/mutaaf/launcher"
 }

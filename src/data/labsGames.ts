@@ -6,9 +6,9 @@ export const PAGE_PATH = '/labs';
 export const PAGE_URL = 'https://digitalcraftai.com/labs';
 export const PAGE_H1 = 'Labs: games our AI agents ship, plus tools we build';
 export const META_DESCRIPTION =
-  'Three live browser games built and maintained by the same autonomous agent pipeline Digital Craft runs for clients, plus Hearth, a home TV remote with a public demo, KIN, a tiny creature that hops between screens, Chalk Talk, a coach\'s whiteboard you can talk to, and Metaphases, an earnings calendar that reads the room.';
+  'Three live browser games built and maintained by the same autonomous agent pipeline Digital Craft runs for clients, plus Hearth, a home TV remote with a public demo, KIN, a tiny creature that hops between screens, Chalk Talk, a coach\'s whiteboard you can talk to, Metaphases, an earnings calendar that reads the room, and Metaphases Kids, money and charts for kids.';
 
-export type LabsGameAccent = 'sky' | 'fuchsia' | 'slate' | 'ember' | 'mint' | 'court' | 'lunar';
+export type LabsGameAccent = 'sky' | 'fuchsia' | 'slate' | 'ember' | 'mint' | 'court' | 'lunar' | 'marigold';
 
 export interface LabsGame {
   id: string;
@@ -118,6 +118,20 @@ export const LABS_GAMES: readonly LabsGame[] = [
     accent: 'lunar',
     isNew: true,
     ctaLabel: 'Open the calendar',
+  },
+  {
+    id: 'metaphases-kids',
+    name: 'Metaphases Kids',
+    tagline: 'Money for kids',
+    description:
+      'The Market Moon Club: money and charts for kids, with Luna. One-minute lessons, a lemonade-stand game and a pretend piggy bank that follows real prices, made for ages 8 to 12. No ads, no sign-up, nothing to buy. It is also a native iPhone and iPad app, Moon Club, now in public beta; its app page keeps the download behind a grown-up gate.',
+    playUrl: 'https://mutaafaziz.com/metaphases/kids/',
+    sourceUrl: 'https://github.com/mutaaf/metaphases',
+    sourceLabel: 'mutaaf/metaphases',
+    tags: ['Ages 8 to 12', 'Pretend piggy bank', 'No ads, no sign-up', 'iPhone + iPad beta'],
+    accent: 'marigold',
+    isNew: true,
+    ctaLabel: 'Join the Moon Club',
   },
 ];
 
