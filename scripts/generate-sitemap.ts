@@ -68,6 +68,56 @@ function getLastmod(absolutePath: string): string {
   }
 }
 
+/**
+ * Make sure `git log` sees full history. A shallow clone (Vercel builds clone
+ * with limited depth) dates every file older than the clone to the oldest
+ * fetched commit, which collapses page lastmods to one date. Try to unshallow;
+ * return false if history is still shallow afterwards. Never throws.
+ */
+function ensureFullHistory(): boolean {
+  const isShallow = (): boolean => {
+    try {
+      return (
+        execSync("git rev-parse --is-shallow-repository", {
+          cwd: ROOT,
+          encoding: "utf-8",
+          stdio: ["ignore", "pipe", "ignore"],
+        }).trim() === "true"
+      );
+    } catch {
+      return false;
+    }
+  };
+  if (!isShallow()) return true;
+  try {
+    execSync("git fetch --unshallow --quiet", {
+      cwd: ROOT,
+      stdio: "ignore",
+      timeout: 90_000,
+    });
+  } catch {
+    // No credentials or no network in the build sandbox; handled below.
+  }
+  return !isShallow();
+}
+
+/**
+ * Overlay lastmods from the committed sitemap (generated with full history)
+ * onto a freshly generated one. Used only when git history is shallow, so a
+ * URL that already exists keeps its real date; new URLs keep the generated one.
+ */
+function overlayCommittedLastmods(xml: string, committed: string): string {
+  const known = new Map<string, string>();
+  for (const m of committed.matchAll(/<loc>([^<]+)<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/g)) {
+    known.set(m[1], m[2]);
+  }
+  return xml.replace(
+    /(<loc>([^<]+)<\/loc>\s*<lastmod>)([^<]+)(<\/lastmod>)/g,
+    (whole, head: string, loc: string, _date: string, tail: string) =>
+      known.has(loc) ? `${head}${known.get(loc)}${tail}` : whole
+  );
+}
+
 /** Pick the more recent (lexicographically larger) of two YYYY-MM-DD strings. */
 function maxDate(a: string, b: string): string {
   return a > b ? a : b;
@@ -142,7 +192,8 @@ function buildPageImportTable(appContent: string): Map<string, string> {
  * element={<X ... />}>` definition. When multiple routes share the same
  * component (e.g. `LeadResponder` across many verticals), the component file's
  * lastmod is still the right signal for the shared UI. App.tsx's own lastmod
- * is used only for routes that cannot be mapped to a page file.
+ * is used only for routes that cannot be mapped to a page file (blog and class
+ * URLs still fold it in). A route renamed in App.tsx keeps its page file's date.
  */
 function buildRouteToComponentTable(appContent: string): Map<string, string> {
   const table = new Map<string, string>();
@@ -372,6 +423,19 @@ function assertSitemapLastmodInvariants(xml: string, expectedUrlCount: number): 
     problems.push(`getLastmod fallback for missing file returned "${fallbackDate}", expected "${todayYmd()}"`);
   }
 
+  // Diversity: one date on more than 90% of URLs means dates collapsed again
+  // (see scripts/validate-pr.sh --lastmod). Warn so the deploy log shows it.
+  const counts = new Map<string, number>();
+  for (const m of xml.matchAll(/<lastmod>([^<]+)<\/lastmod>/g)) {
+    counts.set(m[1], (counts.get(m[1]) ?? 0) + 1);
+  }
+  const top = Math.max(0, ...counts.values());
+  if (urlBlocks.length > 1 && (counts.size <= 1 || top > urlBlocks.length * 0.9)) {
+    console.warn(
+      `⚠ sitemap: lastmods look collapsed (${counts.size} distinct, top date on ${top} of ${urlBlocks.length} URLs).`
+    );
+  }
+
   if (problems.length > 0) {
     const brokenPath = join(ROOT, "public", "sitemap.xml.broken");
     writeFileSync(brokenPath, xml, "utf-8");
@@ -440,8 +504,15 @@ async function run() {
   const blogSlugs = extractBlogSlugs();
   const classSlugs = extractClassSessionSlugs();
 
-  const sitemap = generateSitemap(routes, blogSlugs, classSlugs, appContent);
   const outPath = join(ROOT, "public", "sitemap.xml");
+  const fullHistory = ensureFullHistory();
+  let sitemap = generateSitemap(routes, blogSlugs, classSlugs, appContent);
+  if (!fullHistory && existsSync(outPath)) {
+    console.warn(
+      "⚠ sitemap: git history is shallow and could not be deepened; keeping lastmods from the committed public/sitemap.xml for existing URLs."
+    );
+    sitemap = overlayCommittedLastmods(sitemap, readFile(outPath));
+  }
   writeFileSync(outPath, sitemap, "utf-8");
 
   // +1 CTO subdomain, +1 /feeds.opml (ticket 0098).

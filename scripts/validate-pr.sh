@@ -25,7 +25,7 @@ set -uo pipefail
 
 # Sitemap lastmod diversity. Prints "distinct top_count total" for a sitemap.
 # On 2026-09-05 route-level code splitting hid every page from the sitemap
-# generator and 192 of 193 URLs shipped with one lastmod; nothing failed.
+# generator and nearly every URL shipped with one lastmod; nothing failed.
 lastmod_stats() {
   grep -oE '<lastmod>[^<]+' "$1" 2>/dev/null | sort | uniq -c \
     | awk '{n++; t+=$1; if($1>m)m=$1} END{printf "%d %d %d\n", n, m, t}'
