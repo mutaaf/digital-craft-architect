@@ -9,7 +9,7 @@
 # DISABLED until Mutaaf retires the cloud routine trig_0127b6vx6XFJzjLpoJF17yBp.
 # Two writers on one day collide on the post date and double post. The guard:
 # a run without --manual does nothing unless ~/.config/dca-blog-writer/ENABLED
-# exists, and the systemd timer in blog/writer/systemd/ is not installed.
+# exists, and no scheduler (timer or cron entry) is installed for it.
 #
 # Usage:  bash scripts/blog-writer.sh             (from the timer; needs ENABLED)
 #         bash scripts/blog-writer.sh --manual    (one hand run; refused on Mon/Wed
@@ -18,7 +18,7 @@
 #         bash scripts/blog-writer.sh --dry-run   (prep and gates only, no Claude)
 #
 # Stop it: rm ~/.config/dca-blog-writer/ENABLED (takes effect on the next run),
-# and systemctl --user disable --now dca-blog-writer.timer.
+# and remove any timer or cron entry that calls this script.
 #
 # Like blog-ship-runner.sh it works in a DEDICATED clone, never the shared
 # checkout other agents edit, so resetting it can never destroy their work.

@@ -100,7 +100,7 @@ Nothing else: no medical, legal, restaurants, fitness, events or hospitality pos
 
 ### Hard content rules
 
-- Zero em dashes and en dashes, including `&mdash;`, `&ndash;` and `—` style escapes.
+- Zero em dashes and en dashes, including `&mdash;`, `&ndash;` and `\u2014` style escapes.
 - No invented facts: no statistics, percentages, dollar figures, time savings, "studies show", surveys or industry numbers unless the source is in this repo and you name it. Use the reader's own arithmetic instead.
 - No invented customers: no case studies, company names, people, cities, quotes or testimonials, not even as an illustration ("imagine a contractor in Denver"). Describe the mechanism. The real client figures already on the site (posts dated 2026-03-26 to 2026-05-20, such as the 92% response-time case study) may be linked, never restated with new numbers.
 - No claims about our prices, guarantees or results, or about competitors beyond what the `/compare` pages already say.

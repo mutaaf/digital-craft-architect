@@ -38,6 +38,16 @@ npm run build
 npm run preview
 ```
 
+## Blog writer (agency server)
+
+`scripts/blog-writer.sh` drafts one blog post per run and opens it as a `gtm/blog-*` PR. It never merges; the normal CI gates and blog-ship handle that. The prompt lives in `blog/writer/PROMPT.md` and changes only by PR. `scripts/blog-writer-postcheck.ts` checks the new post before the repo checks.
+
+**Status: disabled.** Do not enable it until the cloud routine `trig_0127b6vx6XFJzjLpoJF17yBp` (digitalcraft-blog-publisher) is retired, or the two writers will double post.
+
+- Run once by hand: `bash scripts/blog-writer.sh --manual` (refused on Mon/Wed while disabled). Gates only, no model call: `--dry-run`.
+- Enable scheduled runs: create `~/.config/dca-blog-writer/ENABLED` and install a timer or cron entry that calls the script.
+- Stop it: `rm ~/.config/dca-blog-writer/ENABLED` (or create `~/.config/dca-blog-writer/STOP`) and remove the timer or cron entry.
+
 ## Built With
 
 - React + TypeScript
