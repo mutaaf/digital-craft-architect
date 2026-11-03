@@ -45,11 +45,22 @@ echo "=== blog-writer $MODE $(date -u) ==="
 report() { echo "$1"; exit "${2:-0}"; }
 
 # One run at a time: a second run would reset the clone under the first one's
-# draft. mkdir is atomic and portable (no flock on macOS); a lock left by a
-# crashed run is reclaimed when its pid is gone.
+# draft. mkdir is atomic and portable (no flock on macOS). The lock holds this
+# script's pid and, once submitted, the agency-ring job id: the Claude job can
+# outlive this script (a wait timeout), so the lock stays held while that job is
+# queued or running, and only a lock whose pid is gone and whose job is finished
+# (or never submitted) is reclaimed.
+RING_DIR="${AGENCY_RING_DIR:-$HOME/ring}"
+job_live() {
+  [ -n "${1:-}" ] || return 1
+  [ -f "$RING_DIR/cq/$1.json" ] && return 1
+  [ -f "$RING_DIR/sq/$1.json" ] || [ -f "$RING_DIR/running/$1.json" ]
+}
 LOCK="$CACHE/run.lock"
 if ! mkdir "$LOCK" 2>/dev/null; then
   OLD_PID="$(cat "$LOCK/pid" 2>/dev/null || true)"
+  OLD_JOB="$(cat "$LOCK/job" 2>/dev/null || true)"
+  job_live "$OLD_JOB" && report "SKIPPED: an earlier run's Claude job $OLD_JOB is still queued or running"
   # Held unless we read a pid and that process is gone. An empty pid means the
   # holder is between mkdir and writing it, or crashed there: reclaim only once
   # the lock is older than the run timeout (3600s).
@@ -63,7 +74,9 @@ if ! mkdir "$LOCK" 2>/dev/null; then
   mkdir "$LOCK" 2>/dev/null || report "SKIPPED: another blog-writer run took the lock"
 fi
 echo "$$" > "$LOCK/pid"
-trap 'rm -rf "$LOCK"' EXIT
+JOB=""
+# Leave the lock behind while our job is still live; the next run sees it via job_live.
+trap 'job_live "$JOB" || rm -rf "$LOCK"' EXIT
 
 if [ ! -f "$STATE/ENABLED" ]; then
   [ "$MODE" = "scheduled" ] && report "SKIPPED: blog writer disabled (no $STATE/ENABLED)"
@@ -84,7 +97,9 @@ if ! OPEN="$(gh pr list -R "$REPO" --state open --json headRefName \
   report "FAILED: could not list open PRs: $OPEN" 1
 fi
 read -r OPEN_ALL OPEN_BLOG <<<"$OPEN"
-case "$OPEN_ALL$OPEN_BLOG" in ''|*[!0-9]*) report "FAILED: unexpected PR list output: $OPEN" 1 ;; esac
+for n in "$OPEN_ALL" "$OPEN_BLOG"; do
+  case "$n" in ''|*[!0-9]*) report "FAILED: unexpected PR list output: $OPEN" 1 ;; esac
+done
 [ "$OPEN_BLOG" -gt 0 ] && report "SKIPPED: a gtm/blog-* PR is still open"
 [ "$OPEN_ALL" -ge 3 ] && report "SKIPPED: $OPEN_ALL PRs open, cap is 3"
 
@@ -115,16 +130,21 @@ PROMPT="$(cat "$CLONE/blog/writer/PROMPT.md")
 [ "$MODE" = "dry-run" ] && report "SKIPPED: dry run; clone ready at $CLONE, gates passed"
 
 # agency-ring queues the job behind the memory guard and posts the result to
-# Slack when BLOG_WRITER_SLACK_THREAD (CHANNEL: or CHANNEL:TS) is set.
-OUT="$(agency-ring run claude "$CLONE" "$PROMPT" --turns 80 --timeout 3600 \
-  ${BLOG_WRITER_SLACK_THREAD:+--thread "$BLOG_WRITER_SLACK_THREAD"})"
+# Slack when BLOG_WRITER_SLACK_THREAD (CHANNEL: or CHANNEL:TS) is set. Submit and
+# wait separately so the job id is in the lock before any waiting starts.
+JOB="$(agency-ring submit claude "$CLONE" "$PROMPT" --turns 80 --timeout 3600 \
+  ${BLOG_WRITER_SLACK_THREAD:+--thread "$BLOG_WRITER_SLACK_THREAD"})" || report "FAILED: agency-ring submit failed" 1
+echo "$JOB" > "$LOCK/job"
+OUT="$(agency-ring wait "$JOB" --timeout 7200)"
 RC=$?
 echo "$OUT"
+[ "$RC" -eq 124 ] && report "FAILED: ring job $JOB still running after 7200s; the lock stays held until it finishes" 1
 LAST="$(printf '%s\n' "$OUT" | sed '/^[[:space:]]*$/d' | tail -n 1)"
 
 find "$CACHE/logs" -name 'run-*.log' -type f | sort -r | tail -n +101 | xargs -r rm -f
 
 case "$LAST" in
   SHIPPED-PR:*|SKIPPED:*) echo "=== blog-writer done (ring exit $RC): $LAST ==="; exit 0 ;;
+  BLOCKED:*) echo "=== blog-writer BLOCKED (ring exit $RC): $LAST ==="; exit 3 ;;
   *) echo "=== blog-writer FAILED (ring exit $RC): last line was: $LAST ==="; exit 1 ;;
 esac
