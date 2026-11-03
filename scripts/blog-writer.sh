@@ -1,0 +1,150 @@
+#!/usr/bin/env bash
+#
+# blog-writer.sh: draft ONE blog post as a gtm/blog-* PR, on the agency server.
+#
+# The writing half of the blog pipeline (P-3). It never merges: blog-ship
+# (~/blogship/blog-ship, its own timer) merges gtm/blog-* PRs on green CI.
+# The prompt is blog/writer/PROMPT.md, versioned in this repo.
+#
+# DISABLED until Mutaaf retires the cloud routine trig_0127b6vx6XFJzjLpoJF17yBp.
+# Two writers on one day collide on the post date and double post. The guard:
+# a run without --manual does nothing unless ~/.config/dca-blog-writer/ENABLED
+# exists, and no scheduler (timer or cron entry) is installed for it.
+#
+# Usage:  bash scripts/blog-writer.sh             (from the timer; needs ENABLED)
+#         bash scripts/blog-writer.sh --manual    (one hand run; refused on Mon/Wed
+#                                                  while ENABLED is absent, the
+#                                                  cloud routine's days)
+#         bash scripts/blog-writer.sh --dry-run   (prep and gates only, no Claude)
+#
+# Stop it: rm ~/.config/dca-blog-writer/ENABLED (takes effect on the next run),
+# and remove any timer or cron entry that calls this script.
+#
+# Like blog-ship-runner.sh it works in a DEDICATED clone, never the shared
+# checkout other agents edit, so resetting it can never destroy their work.
+set -uo pipefail
+
+REMOTE="https://github.com/mutaaf/digital-craft-architect.git"
+REPO="mutaaf/digital-craft-architect"
+STATE="$HOME/.config/dca-blog-writer"
+CACHE="$HOME/.cache/dca-blog-writer"
+CLONE="$CACHE/repo"
+LOG="$CACHE/logs/run-$(date -u +%Y%m%d-%H%M%S).log"
+MODE="scheduled"
+case "${1:-}" in
+  --manual) MODE="manual" ;;
+  --dry-run) MODE="dry-run" ;;
+  "") ;;
+  *) echo "usage: $0 [--manual|--dry-run]"; exit 2 ;;
+esac
+
+mkdir -p "$CACHE/logs"
+exec > >(tee -a "$LOG") 2>&1
+echo "=== blog-writer $MODE $(date -u) ==="
+
+report() { echo "$1"; exit "${2:-0}"; }
+
+# One run at a time: a second run would reset the clone under the first one's
+# draft. mkdir is atomic and portable (no flock on macOS). The lock holds this
+# script's pid and, once submitted, the agency-ring job id: the Claude job can
+# outlive this script (a wait timeout), so the lock stays held while that job is
+# queued or running, and only a lock whose pid is gone and whose job is finished
+# (or never submitted) is reclaimed.
+RING_DIR="${AGENCY_RING_DIR:-$HOME/ring}"
+job_live() {
+  [ -n "${1:-}" ] || return 1
+  [ -f "$RING_DIR/cq/$1.json" ] && return 1
+  [ -f "$RING_DIR/sq/$1.json" ] || [ -f "$RING_DIR/running/$1.json" ]
+}
+LOCK="$CACHE/run.lock"
+if ! mkdir "$LOCK" 2>/dev/null; then
+  OLD_PID="$(cat "$LOCK/pid" 2>/dev/null || true)"
+  OLD_JOB="$(cat "$LOCK/job" 2>/dev/null || true)"
+  job_live "$OLD_JOB" && report "SKIPPED: an earlier run's Claude job $OLD_JOB is still queued or running"
+  # Held unless we read a pid and that process is gone. An empty pid means the
+  # holder is between mkdir and writing it, or crashed there: reclaim only once
+  # the lock is older than the run timeout (3600s).
+  if [ -z "$OLD_PID" ]; then
+    [ -n "$(find "$LOCK" -maxdepth 0 -mmin +60 2>/dev/null)" ] \
+      || report "SKIPPED: another blog-writer run is starting"
+  elif kill -0 "$OLD_PID" 2>/dev/null; then
+    report "SKIPPED: another blog-writer run is in progress (pid $OLD_PID)"
+  fi
+  rm -rf "$LOCK"
+  mkdir "$LOCK" 2>/dev/null || report "SKIPPED: another blog-writer run took the lock"
+fi
+echo "$$" > "$LOCK/pid"
+JOB=""
+# Leave the lock behind while our job is still live; the next run sees it via job_live.
+trap 'job_live "$JOB" || rm -rf "$LOCK"' EXIT
+
+if [ ! -f "$STATE/ENABLED" ]; then
+  [ "$MODE" = "scheduled" ] && report "SKIPPED: blog writer disabled (no $STATE/ENABLED)"
+  case "$(date -u +%u)" in
+    1|3) [ "$MODE" = "manual" ] && report "SKIPPED: Mon/Wed is the cloud routine's day; hand runs only on other days until it is retired" ;;
+  esac
+fi
+[ -f "$STATE/STOP" ] && report "SKIPPED: $STATE/STOP exists"
+
+for tool in git gh npm node agency-ring; do
+  command -v "$tool" >/dev/null 2>&1 || report "FAILED: $tool not on PATH" 1
+done
+gh auth status >/dev/null 2>&1 || report "FAILED: gh not authenticated" 1
+
+# Gates, before any Claude spend. A failed query is a failure, never "no PRs".
+if ! OPEN="$(gh pr list -R "$REPO" --state open --json headRefName \
+  --jq '[length, ([.[] | select(.headRefName | startswith("gtm/blog-"))] | length)] | @tsv' 2>&1)"; then
+  report "FAILED: could not list open PRs: $OPEN" 1
+fi
+read -r OPEN_ALL OPEN_BLOG <<<"$OPEN"
+for n in "$OPEN_ALL" "$OPEN_BLOG"; do
+  case "$n" in ''|*[!0-9]*) report "FAILED: unexpected PR list output: $OPEN" 1 ;; esac
+done
+[ "$OPEN_BLOG" -gt 0 ] && report "SKIPPED: a gtm/blog-* PR is still open"
+[ "$OPEN_ALL" -ge 3 ] && report "SKIPPED: $OPEN_ALL PRs open, cap is 3"
+
+# Fresh clone state: this clone belongs to the writer alone.
+if [ ! -d "$CLONE/.git" ]; then
+  git clone --quiet "$REMOTE" "$CLONE" || report "FAILED: clone failed" 1
+fi
+cd "$CLONE" || report "FAILED: clone missing" 1
+if [ -n "$(find .git -name '*.lock' -type f 2>/dev/null)" ]; then
+  report "FAILED: git lock in $CLONE/.git; a run may still be going, or one crashed" 1
+fi
+git fetch origin --prune --quiet || report "FAILED: fetch failed" 1
+git checkout --quiet -f main && git reset --hard --quiet origin/main && git clean -fdq \
+  || report "FAILED: could not reset the writer clone to origin/main" 1
+# Drop local gtm/blog-* branches from earlier runs (their PRs carry the work).
+git for-each-ref --format='%(refname:short)' 'refs/heads/gtm/blog-*' | xargs -r git branch -D --quiet
+npm ci --no-audit --no-fund --loglevel=error >/dev/null || report "FAILED: npm ci failed" 1
+
+TODAY="$(date -u +%Y-%m-%d)"
+STAMP="$(date -u +%Y%m%d)"
+PROMPT="$(cat "$CLONE/blog/writer/PROMPT.md")
+
+## Run facts (from scripts/blog-writer.sh)
+- TODAY: $TODAY
+- STAMP: $STAMP
+- Mode: $MODE"
+
+[ "$MODE" = "dry-run" ] && report "SKIPPED: dry run; clone ready at $CLONE, gates passed"
+
+# agency-ring queues the job behind the memory guard and posts the result to
+# Slack when BLOG_WRITER_SLACK_THREAD (CHANNEL: or CHANNEL:TS) is set. Submit and
+# wait separately so the job id is in the lock before any waiting starts.
+JOB="$(agency-ring submit claude "$CLONE" "$PROMPT" --turns 80 --timeout 3600 \
+  ${BLOG_WRITER_SLACK_THREAD:+--thread "$BLOG_WRITER_SLACK_THREAD"})" || report "FAILED: agency-ring submit failed" 1
+echo "$JOB" > "$LOCK/job"
+OUT="$(agency-ring wait "$JOB" --timeout 7200)"
+RC=$?
+echo "$OUT"
+[ "$RC" -eq 124 ] && report "FAILED: ring job $JOB still running after 7200s; the lock stays held until it finishes" 1
+LAST="$(printf '%s\n' "$OUT" | sed '/^[[:space:]]*$/d' | tail -n 1)"
+
+find "$CACHE/logs" -name 'run-*.log' -type f | sort -r | tail -n +101 | xargs -r rm -f
+
+case "$LAST" in
+  SHIPPED-PR:*|SKIPPED:*) echo "=== blog-writer done (ring exit $RC): $LAST ==="; exit 0 ;;
+  BLOCKED:*) echo "=== blog-writer BLOCKED (ring exit $RC): $LAST ==="; exit 3 ;;
+  *) echo "=== blog-writer FAILED (ring exit $RC): last line was: $LAST ==="; exit 1 ;;
+esac
