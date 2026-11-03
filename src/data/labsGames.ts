@@ -6,9 +6,9 @@ export const PAGE_PATH = '/labs';
 export const PAGE_URL = 'https://digitalcraftai.com/labs';
 export const PAGE_H1 = 'Labs: games our AI agents ship, plus tools we build';
 export const META_DESCRIPTION =
-  'Three live browser games built and maintained by the same autonomous agent pipeline Digital Craft runs for clients, plus Hearth, a home TV remote with a public demo, and KIN, a tiny creature that hops between screens.';
+  'Three live browser games built and maintained by the same autonomous agent pipeline Digital Craft runs for clients, plus Hearth, a home TV remote with a public demo, KIN, a tiny creature that hops between screens, Chalk Talk, a coach\'s whiteboard you can talk to, Metaphases, an earnings calendar that reads the room, and Metaphases Kids, money and charts for kids.';
 
-export type LabsGameAccent = 'sky' | 'fuchsia' | 'slate' | 'ember' | 'mint';
+export type LabsGameAccent = 'sky' | 'fuchsia' | 'slate' | 'ember' | 'mint' | 'court' | 'lunar' | 'marigold';
 
 export interface LabsGame {
   id: string;
@@ -90,6 +90,48 @@ export const LABS_GAMES: readonly LabsGame[] = [
     accent: 'mint',
     isNew: true,
     ctaLabel: 'Hatch KIN',
+  },
+  {
+    id: 'chalk-talk',
+    name: 'Chalk Talk',
+    tagline: 'Coach\'s whiteboard',
+    description:
+      'Say or sketch a play and watch it draw itself in light: X\'s and O\'s for youth basketball and flag football coaches. Sketch it rough and an AI takes over: it names the concept, cleans up the play and suggests what to coach next. Football gets the route tree, coverages and the quarterback\'s half or full field reads. Built with AI agents, including research agents that gathered the modern playbook and coaching language it uses. Bring your own Claude or OpenAI key.',
+    playUrl: 'https://mutaafaziz.com/chalktalk/',
+    sourceUrl: 'https://github.com/mutaaf/chalk-talk',
+    sourceLabel: 'mutaaf/chalk-talk',
+    tags: ['Voice + sketch', 'Basketball + flag', 'Bring your own key', 'aurora-field'],
+    accent: 'court',
+    isNew: true,
+    ctaLabel: 'Draw a play',
+  },
+  {
+    id: 'metaphases',
+    name: 'Metaphases',
+    tagline: 'Earnings calendar',
+    description:
+      'Every earnings report, phase by phase. An earnings calendar that reads the room: who reports when, with report timing drawn as moon phases (waxing before the open, full during market hours, waning after the close), and how each stock reacted to its last four reports. Setup and quality grades are rules-based and explained, for research, not investment advice. A live fear and greed gauge sets the mood, Compass looks through your ETFs to show which reports move your money, Retrace grades the month against consensus, and a built-in AI (free, or bring your own key) answers questions from the numbers on the page.',
+    playUrl: 'https://mutaafaziz.com/metaphases/',
+    sourceUrl: 'https://github.com/mutaaf/metaphases',
+    sourceLabel: 'mutaaf/metaphases',
+    tags: ['Moon-phase timing', 'Explained grades', 'AI, bring your own key', 'ETF look-through'],
+    accent: 'lunar',
+    isNew: true,
+    ctaLabel: 'Open the calendar',
+  },
+  {
+    id: 'metaphases-kids',
+    name: 'Metaphases Kids',
+    tagline: 'Money for kids',
+    description:
+      'The Market Moon Club: money and charts for kids, with Luna. One-minute lessons, a lemonade-stand game and a pretend piggy bank that follows real prices, made for ages 8 to 12. No ads, no sign-up, nothing to buy. It is also a native iPhone and iPad app, Moon Club, now in public beta; its app page keeps the download behind a grown-up gate.',
+    playUrl: 'https://mutaafaziz.com/metaphases/kids/',
+    sourceUrl: 'https://github.com/mutaaf/metaphases',
+    sourceLabel: 'mutaaf/metaphases',
+    tags: ['Ages 8 to 12', 'Pretend piggy bank', 'No ads, no sign-up', 'iPhone + iPad beta'],
+    accent: 'marigold',
+    isNew: true,
+    ctaLabel: 'Join the Moon Club',
   },
 ];
 
