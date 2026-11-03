@@ -26,7 +26,7 @@ if (p.title.length >= 65) errs.push(`title is ${p.title.length} chars`);
 if (p.description.length >= 160) errs.push(`description is ${p.description.length} chars`);
 if (p.tags.length < 2 || p.tags.length > 4) errs.push(`${p.tags.length} tags`);
 if (p.author !== 'DigitalCraft AI') errs.push('author must be DigitalCraft AI');
-if (p.date > today) errs.push('future date');
+if (p.date !== today) errs.push(`date ${p.date} is not today (${today})`);
 if (blogPosts.filter((x) => x.date === p.date).length > 1) errs.push('date already used');
 if (blogPosts.filter((x) => x.slug === p.slug).length > 1) errs.push('slug already used');
 if (/<h1/i.test(p.content)) errs.push('h1 in content');
@@ -42,7 +42,11 @@ for (const h of hrefs) {
   if (!ok) errs.push(`dead link ${h}`);
 }
 if (!hrefs.some((h) => /\/demo(\/|$)/.test(h))) errs.push('no demo link');
-if (!hrefs.some((h) => /^\/(construction|realestate|homeservices|ai-for-[a-z-]+)$/.test(h))) {
+// Landing pages for the three verticals only (the prompt's scope).
+const OFF_VERTICAL = new Set(['/ai-for-hospitality', '/ai-for-small-business']);
+const isLanding = (h: string) =>
+  /^\/(construction|realestate|homeservices|ai-for-[a-z-]+)$/.test(h) && !OFF_VERTICAL.has(h);
+if (!hrefs.some(isLanding)) {
   errs.push('no construction, real estate or home-services landing page link');
 }
 if (!p.content.includes('href="https://calendly.com/mutaaf"')) errs.push('CTA Calendly link missing');

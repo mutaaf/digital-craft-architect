@@ -50,7 +50,13 @@ report() { echo "$1"; exit "${2:-0}"; }
 LOCK="$CACHE/run.lock"
 if ! mkdir "$LOCK" 2>/dev/null; then
   OLD_PID="$(cat "$LOCK/pid" 2>/dev/null || true)"
-  if [ -n "$OLD_PID" ] && kill -0 "$OLD_PID" 2>/dev/null; then
+  # Held unless we read a pid and that process is gone. An empty pid means the
+  # holder is between mkdir and writing it, or crashed there: reclaim only once
+  # the lock is older than the run timeout (3600s).
+  if [ -z "$OLD_PID" ]; then
+    [ -n "$(find "$LOCK" -maxdepth 0 -mmin +60 2>/dev/null)" ] \
+      || report "SKIPPED: another blog-writer run is starting"
+  elif kill -0 "$OLD_PID" 2>/dev/null; then
     report "SKIPPED: another blog-writer run is in progress (pid $OLD_PID)"
   fi
   rm -rf "$LOCK"

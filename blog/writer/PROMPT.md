@@ -41,7 +41,7 @@ Topical duplicates count, not just slugs. If an existing post already targets th
 
 ## STEP 2. Date
 
-`scripts/check-blog-dates.ts` allows no future dates and no duplicate dates. Use TODAY from the Run facts if `git grep -c "date: '<TODAY>'" -- src/data/blogPosts.ts` finds nothing. If it is taken, walk back one day at a time to the most recent free date. Never copy the example date from the comment at the top of the file.
+`scripts/check-blog-dates.ts` allows no future dates and no duplicate dates. Use TODAY from the Run facts if `git grep -c "date: '<TODAY>'" -- src/data/blogPosts.ts` finds nothing. If it is taken, a post already shipped today: stop with `SKIPPED: a post already exists for <TODAY>`. Never backdate a post (AGENTS.md: every blog post dates to today). Never copy the example date from the comment at the top of the file.
 
 ## STEP 3. Branch and write
 
@@ -105,7 +105,7 @@ Nothing else: no medical, legal, restaurants, fitness, events or hospitality pos
 - No invented customers: no case studies, company names, people, cities, quotes or testimonials, not even as an illustration ("imagine a contractor in Denver"). Describe the mechanism. The real client figures already on the site (posts dated 2026-03-26 to 2026-05-20, such as the 92% response-time case study) may be linked, never restated with new numbers.
 - No claims about our prices, guarantees or results, or about competitors beyond what the `/compare` pages already say.
 - Describe a demo only after opening its page component (find it from the route in `src/App.tsx`) and seeing what it shows. Many routes reuse the same screens.
-- Links: at least one landing page (`/construction`, `/realestate`, `/homeservices` or an `/ai-for-*` page) and at least one demo route, both topical. Every internal href must be a real `<Route path>` in `src/App.tsx` or `/blog/<existing slug>`. The CTA keeps the plain `https://calendly.com/mutaaf` link.
+- Links: at least one landing page (`/construction`, `/realestate`, `/homeservices`, `/ai-for-property-managers` or a home-services `/ai-for-<trade>` page; not `/ai-for-hospitality` or `/ai-for-small-business`) and at least one demo route, both topical. Every internal href must be a real `<Route path>` in `src/App.tsx` or `/blog/<existing slug>`. The CTA keeps the plain `https://calendly.com/mutaaf` link.
 - Tags allowed in content: `<p> <h2> <h3> <ul> <ol> <li> <strong> <em> <a> <hr>` and the CTA div. No `<h1>`.
 
 ## STEP 4. Check the post
