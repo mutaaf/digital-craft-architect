@@ -44,6 +44,21 @@ echo "=== blog-writer $MODE $(date -u) ==="
 
 report() { echo "$1"; exit "${2:-0}"; }
 
+# One run at a time: a second run would reset the clone under the first one's
+# draft. mkdir is atomic and portable (no flock on macOS); a lock left by a
+# crashed run is reclaimed when its pid is gone.
+LOCK="$CACHE/run.lock"
+if ! mkdir "$LOCK" 2>/dev/null; then
+  OLD_PID="$(cat "$LOCK/pid" 2>/dev/null || true)"
+  if [ -n "$OLD_PID" ] && kill -0 "$OLD_PID" 2>/dev/null; then
+    report "SKIPPED: another blog-writer run is in progress (pid $OLD_PID)"
+  fi
+  rm -rf "$LOCK"
+  mkdir "$LOCK" 2>/dev/null || report "SKIPPED: another blog-writer run took the lock"
+fi
+echo "$$" > "$LOCK/pid"
+trap 'rm -rf "$LOCK"' EXIT
+
 if [ ! -f "$STATE/ENABLED" ]; then
   [ "$MODE" = "scheduled" ] && report "SKIPPED: blog writer disabled (no $STATE/ENABLED)"
   case "$(date -u +%u)" in

@@ -10,13 +10,17 @@ import { readFileSync } from 'node:fs';
 import { blogPosts } from '../src/data/blogPosts';
 
 const p = blogPosts[Number(process.argv[2] ?? 0)];
+if (!p) {
+  console.log('POSTCHECK FAIL: no post at that index');
+  process.exit(1);
+}
 const errs: string[] = [];
 const today = new Date().toISOString().slice(0, 10);
 const words = p.content.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
 const all = JSON.stringify(p);
 
 const dash = new RegExp('[' + String.fromCharCode(0x2013, 0x2014) + ']');
-if (dash.test(all) || /&mdash;|&ndash;|\\u201[34]/.test(all)) errs.push('dash found');
+if (dash.test(all) || /&mdash;|&ndash;|&#821[12];|&#x201[34];/i.test(all)) errs.push('dash found');
 if (words < 500 || words > 800) errs.push(`visible words ${words}, need 500 to 800`);
 if (p.title.length >= 65) errs.push(`title is ${p.title.length} chars`);
 if (p.description.length >= 160) errs.push(`description is ${p.description.length} chars`);
