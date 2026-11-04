@@ -53,7 +53,7 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
   {
     slug: 'ai-event-planners-voice-confirmation-calls-2026',
-    title: 'AI Voice Calls for Event Planners: No More Confirmation Phone Tag',
+    title: 'AI Voice Calls for Event Planners: End Confirmation Phone Tag',
     description: 'Deposits, headcounts, and day-of details fall through when confirmation calls compete with new inquiries. See how an AI voice agent handles them.',
     date: '2026-11-04',
     author: 'DigitalCraft AI',
