@@ -180,7 +180,7 @@ const Labs: React.FC = () => {
             cards, are built outside that pipeline: one remote for every TV in the house, a tiny
             creature that hops from one screen to the next, a coach's whiteboard you can talk to, an
             earnings calendar that reads the room, the same calendar's kids mode, money and
-            charts for kids with Luna, and an arcade prototype where the phone's fold is the hazard.
+            charts for kids with Luna, and an arcade prototype where a hinge across the screen is the hazard.
           </p>
         </div>
       </section>
@@ -199,7 +199,7 @@ const Labs: React.FC = () => {
             ))}
           </div>
           <p className="mt-6 text-center text-xs text-gray-500 dark:text-gray-400">
-            Each card opens in a new tab. The three games play best on a desktop browser with a keyboard.
+            Each card opens in a new tab. The first three games play best on a desktop browser with a keyboard.
           </p>
         </div>
       </section>
