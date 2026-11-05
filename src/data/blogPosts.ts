@@ -52,6 +52,51 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'ai-event-planners-voice-confirmation-calls-2026',
+    title: 'AI Voice Calls for Event Planners: End Confirmation Phone Tag',
+    description: 'Deposits, headcounts, and day-of details fall through when confirmation calls compete with new inquiries. See how an AI voice agent handles them.',
+    date: '2026-11-04',
+    author: 'DigitalCraft AI',
+    readTime: '5 min read',
+    tags: ['Event Planning', 'Voice AI', 'Client Communication'],
+    content: `
+<p>Booking the event is the easy part. Keeping every detail confirmed between the deposit and the day itself is where things slip.</p>
+
+<p>A final headcount needs locking in. A vendor change needs relaying to the client. A deposit deadline needs a nudge before it passes quietly. Each of these is a phone call, and none of them is urgent enough to jump the queue ahead of a new inquiry that might book next month's revenue. So the confirmation call gets pushed, then pushed again, until it happens two days before the event instead of two weeks before it.</p>
+
+<h2>Why these calls keep losing the priority fight</h2>
+
+<p>If you run twenty events a month and each one needs even two confirmation touches (headcount, final payment, timeline walk-through), that is forty calls stacked on top of every new lead, every vendor coordination, and every site visit on your calendar. New inquiries win that fight every time, because a missed inquiry looks like lost revenue and a late confirmation call looks like something you will get to tomorrow.</p>
+
+<p>The problem is not that planners do not care about confirmations. It is that a confirmation call has no natural deadline until it suddenly does, three days out, when a last-minute change costs real money to fix.</p>
+
+<h2>What an AI voice agent actually does here</h2>
+
+<p>This is not the same job as <a href="/events/demo/inquiry">qualifying a new inquiry</a>. An outbound confirmation agent works off your event calendar, not your lead list. A set number of days before an event, it calls the client, confirms the headcount, reads back the package details on file, and flags anything the client wants to change.</p>
+
+<p>If the client confirms everything as-is, the call takes under two minutes and nobody on your team touches it. If something changed (ten more guests, a different start time, a dietary restriction that needs relaying to catering), the agent logs it and routes it to a human before it becomes a surprise on event day.</p>
+
+<p>The same approach works for deposit reminders. Instead of a generic text that gets ignored, a short call explains exactly what is due and by when, and can even note that the client wants to pay by a different method, so your team follows up instead of assuming payment is coming.</p>
+
+<h2>What it does not replace</h2>
+
+<p>An AI voice agent is not the right choice for emotionally loaded conversations, a nervous couple two days from their wedding wanting reassurance, or a corporate client renegotiating scope. Those calls need a human who can read tone and improvise. The agent's job is the routine, repeatable confirmation work that currently eats staff time without needing a person's judgment, so your coordinators spend their calls on the ones that actually need a coordinator.</p>
+
+<h2>Where this fits in your workflow</h2>
+
+<p>You can try the mechanics yourself on our <a href="/events/demo/voice-booking">live voice booking demo</a> built for <a href="/events">event planning businesses</a>, branded to your own services if you run it through your site. It is the same voice stack behind the inquiry and proposal tools, just pointed at your existing calendar instead of your inbox.</p>
+
+<p>The setup is straightforward: connect it to wherever your event dates and client contact info already live, set how many days ahead each call should go out, and decide which changes get routed to a human versus logged automatically. From there, confirmation calls stop competing with new business for your team's attention, because they are not on your team's plate anymore.</p>
+
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to stop chasing confirmations by hand?</strong>
+  <p style="margin: 8px 0;">See an AI voice agent handle your booking confirmations, branded to your business.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/events/demo">Try Our Live Demos</a>
+</div>
+`,
+  },
+  {
     slug: 'ai-plumbers-repipe-water-heater-estimate-response',
     title: 'AI for Plumbers: Win the Repipe or Water Heater Job Fast',
     description: 'Homeowners shop repipes and water heater swaps across several plumbers at once. See how an AI estimator gets you a real number back first.',
