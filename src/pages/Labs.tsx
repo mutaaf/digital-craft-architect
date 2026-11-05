@@ -8,7 +8,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Badge } from '@/components/ui/badge';
 import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
-import { ArrowRight, Cat, ClipboardList, ExternalLink, FlaskConical, Gauge, Github, MoonStar, Phone, PiggyBank, Plane, Rocket, Tv, type LucideIcon } from 'lucide-react';
+import { ArrowRight, Cat, CircleDot, ClipboardList, ExternalLink, FlaskConical, Gauge, Github, MoonStar, Phone, PiggyBank, Plane, Rocket, Tv, type LucideIcon } from 'lucide-react';
 import {
   LABS_GAMES,
   LABS_PIPELINE_STEPS,
@@ -22,7 +22,7 @@ import {
 // /labs games launcher. Three live games shipped and maintained by the
 // same scout / builder / keeper agent pipeline Digital Craft sells, framed
 // as working proof, plus Hearth (a home tool), KIN (a two-screen creature),
-// Chalk Talk (a coach's whiteboard), Metaphases (an earnings calendar) and Metaphases Kids (money for kids), all built outside that pipeline. Copy lives in src/data/labsGames.ts (mirror-source).
+// Chalk Talk (a coach's whiteboard), Metaphases (an earnings calendar), Metaphases Kids (money for kids) and Hinge Pop (an arcade prototype), all built outside that pipeline. Copy lives in src/data/labsGames.ts (mirror-source).
 // Every surface ships dark: variants per the AGENTS.md Hard NO.
 
 const ORIGIN = 'https://digitalcraftai.com';
@@ -45,6 +45,7 @@ const ACCENT_SCREEN: Record<LabsGameAccent, string> = {
   court: 'from-slate-950 via-blue-950 to-orange-500/80 dark:from-black dark:via-slate-950 dark:to-orange-600/70',
   lunar: 'from-slate-950 via-blue-950 to-blue-600/90 dark:from-black dark:via-slate-950 dark:to-blue-700/80',
   marigold: 'from-amber-300 via-orange-400 to-orange-600 dark:from-amber-500/80 dark:via-orange-600/80 dark:to-orange-800/80',
+  hinge: 'from-slate-950 via-slate-900 to-cyan-400/80 dark:from-black dark:via-slate-950 dark:to-cyan-500/70',
 };
 
 const ACCENT_ICON: Record<string, LucideIcon> = {
@@ -56,6 +57,7 @@ const ACCENT_ICON: Record<string, LucideIcon> = {
   'chalk-talk': ClipboardList,
   metaphases: MoonStar,
   'metaphases-kids': PiggyBank,
+  'hinge-pop': CircleDot,
 };
 
 const GameCard: React.FC<{ game: LabsGame; index: number; wide?: boolean }> = ({ game, index, wide }) => {
@@ -174,11 +176,11 @@ const Labs: React.FC = () => {
             The three games are live, public, and maintained by the same autonomous agent
             pipeline we run for clients. Scout, builder, and keeper agents work every day behind
             CI gates. Play one for two minutes and you have seen the delivery engine behind every
-            Digital Craft engagement. Hearth, KIN, Chalk Talk, Metaphases and Metaphases Kids, the last five
+            Digital Craft engagement. Hearth, KIN, Chalk Talk, Metaphases, Metaphases Kids and Hinge Pop, the last six
             cards, are built outside that pipeline: one remote for every TV in the house, a tiny
             creature that hops from one screen to the next, a coach's whiteboard you can talk to, an
-            earnings calendar that reads the room, and the same calendar's kids mode, money and
-            charts for kids with Luna.
+            earnings calendar that reads the room, the same calendar's kids mode, money and
+            charts for kids with Luna, and an arcade prototype where the phone's fold is the hazard.
           </p>
         </div>
       </section>

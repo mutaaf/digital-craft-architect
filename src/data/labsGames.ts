@@ -6,9 +6,9 @@ export const PAGE_PATH = '/labs';
 export const PAGE_URL = 'https://digitalcraftai.com/labs';
 export const PAGE_H1 = 'Labs: games our AI agents ship, plus tools we build';
 export const META_DESCRIPTION =
-  'Three live browser games built and maintained by the same autonomous agent pipeline Digital Craft runs for clients, plus Hearth, a home TV remote with a public demo, KIN, a tiny creature that hops between screens, Chalk Talk, a coach\'s whiteboard you can talk to, Metaphases, an earnings calendar that reads the room, and Metaphases Kids, money and charts for kids.';
+  'Three live browser games built and maintained by the same autonomous agent pipeline Digital Craft runs for clients, plus Hearth, a home TV remote with a public demo, KIN, a tiny creature that hops between screens, Chalk Talk, a coach\'s whiteboard you can talk to, Metaphases, an earnings calendar that reads the room, Metaphases Kids, money and charts for kids, and Hinge Pop, an arcade game where the phone\'s fold is the hazard.';
 
-export type LabsGameAccent = 'sky' | 'fuchsia' | 'slate' | 'ember' | 'mint' | 'court' | 'lunar' | 'marigold';
+export type LabsGameAccent = 'sky' | 'fuchsia' | 'slate' | 'ember' | 'mint' | 'court' | 'lunar' | 'marigold' | 'hinge';
 
 export interface LabsGame {
   id: string;
@@ -132,6 +132,20 @@ export const LABS_GAMES: readonly LabsGame[] = [
     accent: 'marigold',
     isNew: true,
     ctaLabel: 'Join the Moon Club',
+  },
+  {
+    id: 'hinge-pop',
+    name: 'Hinge Pop',
+    tagline: 'One-finger arcade',
+    description:
+      'An arcade prototype where the fold of a phone is the hazard. Tap to split bubbles and flick to aim the pieces. Larger bubbles that cross the hinge drain your shields, and the smallest ones pop on it for free. Levels start with one slow bubble, and two players can share one screen, one side of the hinge each. Plain circles for now, while we find out if it is fun.',
+    playUrl: 'https://mutaafaziz.com/hingepop/',
+    sourceUrl: 'https://github.com/mutaaf/hinge-pop',
+    sourceLabel: 'mutaaf/hinge-pop',
+    tags: ['Levels', '2 players, 1 screen', 'No signup', 'Prototype'],
+    accent: 'hinge',
+    isNew: true,
+    ctaLabel: 'Pop some bubbles',
   },
 ];
 
