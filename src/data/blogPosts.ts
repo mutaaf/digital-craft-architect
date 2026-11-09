@@ -53,7 +53,7 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
   {
     slug: 'ai-real-estate-investors-market-analysis-comps',
-    title: 'AI for Real Estate Investors: Market Snapshots in Minutes, Not Hours',
+    title: 'AI for Real Estate Investors: Market Snapshots in Minutes',
     description: 'Pulling comps and rent-to-price ratios by hand eats an investor\'s whole morning. See how an AI market snapshot speeds up the first pass on a deal.',
     date: '2026-11-09',
     author: 'DigitalCraft AI',
