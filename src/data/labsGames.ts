@@ -124,11 +124,11 @@ export const LABS_GAMES: readonly LabsGame[] = [
     name: 'Metaphases Kids',
     tagline: 'Money for kids',
     description:
-      'The Market Moon Club: money and charts for kids, with Luna. One-minute lessons, a lemonade-stand game and a pretend piggy bank that follows real prices, made for ages 8 to 12. No ads, no sign-up, nothing to buy. It is also a native iPhone and iPad app, Moon Club, now in public beta; its app page keeps the download behind a grown-up gate.',
+      'The Market Moon Club: money and charts for kids, with Luna. One-minute lessons, a lemonade-stand game and a pretend piggy bank that follows real prices, made for ages 8 to 12. No ads, no sign-up, nothing to buy. It is also a native iPhone and iPad app, Moon Club, now on the App Store; its app page keeps the download behind a grown-up gate.',
     playUrl: 'https://mutaafaziz.com/metaphases/kids/',
     sourceUrl: 'https://github.com/mutaaf/metaphases',
     sourceLabel: 'mutaaf/metaphases',
-    tags: ['Ages 8 to 12', 'Pretend piggy bank', 'No ads, no sign-up', 'iPhone + iPad beta'],
+    tags: ['Ages 8 to 12', 'Pretend piggy bank', 'No ads, no sign-up', 'On the App Store'],
     accent: 'marigold',
     isNew: true,
     ctaLabel: 'Join the Moon Club',
