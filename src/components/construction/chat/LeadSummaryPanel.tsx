@@ -43,7 +43,7 @@ const LeadSummaryPanel = ({ data, fieldOverrides }: LeadSummaryPanelProps) => {
   const qualified = percent >= 70;
 
   return (
-    <Card className="p-5 h-full flex flex-col">
+    <Card className="p-5 h-full w-full flex flex-col">
       <div className="flex items-center justify-between mb-3">
         <h3 className="font-semibold text-sm">Lead Qualification</h3>
         <Badge

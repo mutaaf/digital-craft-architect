@@ -79,10 +79,10 @@ const Navbar: React.FC<NavbarProps> = () => {
     >
       <div className="mx-auto flex h-16 max-w-[1320px] items-center justify-between gap-3 px-4 md:px-6">
         <Link to="/" className="group flex items-center gap-2.5 text-gray-900" aria-label="DigitalCraft AI, home">
-          <Mark size={30} cto={cto} />
+          <Mark size={32} cto={cto} />
           <span className="text-[17px] font-semibold tracking-tight">
             Digital<span className="text-gray-600 transition-colors group-hover:text-aurora">Craft</span>
-            {cto && <span className="ml-1.5 text-[#e89862]">· CTO</span>}
+            {cto && <span className="ml-1.5 text-[var(--v3-copper-ink)]">· CTO</span>}
           </span>
         </Link>
 

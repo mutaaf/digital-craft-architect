@@ -157,16 +157,16 @@ const ProposalGenerator = () => {
         {/* Header */}
         <div className="relative text-center mb-8">
           <DataDisclosureChip demoPath={location.pathname} />
-          <Badge variant="secondary" className="mb-3">
-            <Sparkles size={14} className="mr-1" /> POC Demo
+          <Badge variant="secondary" className="mx-1 mb-3 min-h-[28px] align-middle bg-[var(--v3-aurora-wash)] font-medium text-[var(--v3-aurora-deep)] hover:bg-[var(--v3-aurora-wash)]">
+            <Sparkles size={13} className="mr-1" aria-hidden /> POC Demo
           </Badge>
-          <h1 className="text-2xl sm:text-3xl font-bold mb-2">AI Event Proposal Generator</h1>
+          <h1 className="k-demo-title mb-3">AI Event Proposal Generator</h1>
           <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base">
             Get a branded event proposal in 60 seconds using {possessive} real pricing.
           </p>
         </div>
 
-        <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm leading-relaxed max-w-2xl mx-auto text-center mb-6">
+        <p className="k-demo-seo">
           This AI proposal generator demo shows how event planning businesses create professional, branded proposals in under 60 seconds. Select the event type — wedding, corporate event, birthday, or custom celebration — enter guest count and preferences, choose your service level, and get a detailed proposal with itemized pricing, package inclusions, and optional add-ons. The proposal uses your company's actual pricing and branding, ready to send to the client. For event planners, caterers, and venue operators, automated proposal generation eliminates hours of manual quoting and ensures every prospect gets a polished, accurate estimate instantly. This means faster response times, more professional impressions, and higher close rates. Try the AI event proposal tool below to see how automated proposals help event professionals win more bookings.
         </p>
 

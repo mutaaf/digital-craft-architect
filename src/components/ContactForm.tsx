@@ -208,16 +208,16 @@ const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
   const stepLabels = ['Your Info', 'Your Business', 'Your Challenge'];
 
   return (
-    <section id="contact" className="container-section">
+    <section id="contact" className="scroll-mt-20 mx-auto max-w-[1180px] px-5 py-20 md:py-28">
       <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-12 animate-fade-in">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">{data.headline}</h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300">
+        <div className="text-center mb-10 md:mb-12 animate-fade-in">
+          <h2 className="mx-auto mb-4 max-w-[20ch] text-[32px] font-semibold leading-[1.08] tracking-[-0.035em] md:text-[44px]">{data.headline}</h2>
+          <p className="mx-auto max-w-[40ch] text-balance text-[19px] leading-snug text-[#6e6e73] md:text-[21px]">
             Let me help you identify your biggest AI opportunities in just 5 minutes.
           </p>
         </div>
         
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 md:p-10 animate-slide-up">
+        <div className="bg-white dark:bg-gray-800 rounded-[28px] p-6 sm:p-8 md:p-10 animate-slide-up">
           {submitted ? (
             <div className="text-center py-8">
               <div className="mx-auto w-16 h-16 mb-6 text-green-500">
@@ -234,7 +234,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackCTAClick('book_discovery_call', 'form_success')}
-                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-sky-500 hover:bg-sky-600 text-white rounded-lg font-medium transition-colors"
+                  className="inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-2.5 bg-primary hover:bg-aurora-deep text-white rounded-full font-medium transition-colors"
                 >
                   <Calendar size={18} />
                   Book Your Discovery Call Now
@@ -242,7 +242,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
                 <Link
                   to="/construction/demo"
                   onClick={() => trackCTAClick('explore_demos', 'form_success')}
-                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 border border-sky-500 text-sky-500 hover:bg-sky-50 dark:hover:bg-sky-900/20 rounded-lg font-medium transition-colors"
+                  className="inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-2.5 border border-[#d2d2d7] text-[#1d1d1f] hover:border-primary rounded-full font-medium transition-colors"
                 >
                   <Play size={18} />
                   Explore Our AI Demos
@@ -315,7 +315,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
                                 <Textarea
                                   {...field}
                                   placeholder={`Your ${field.name.replace(/-/g, ' ')}`}
-                                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-colors"
+                                  className="w-full min-h-[48px] px-4 py-3 rounded-xl border border-[#d2d2d7] dark:border-gray-600 bg-white dark:bg-gray-700 text-[16px] text-gray-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-aurora/15 focus:border-aurora transition-colors"
                                   rows={4}
                                 />
                               ) : (
@@ -323,7 +323,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
                                   {...field}
                                   type={getInputType(field.name)}
                                   placeholder={`Your ${field.name.replace(/-/g, ' ')}`}
-                                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-colors"
+                                  className="w-full min-h-[48px] px-4 py-3 rounded-xl border border-[#d2d2d7] dark:border-gray-600 bg-white dark:bg-gray-700 text-[16px] text-gray-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-aurora/15 focus:border-aurora transition-colors"
                                 />
                               )}
                             </FormControl>
@@ -368,7 +368,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
                     <button
                       type="button"
                       onClick={() => setStep((s) => s - 1)}
-                      className="px-6 py-4 text-sm font-medium rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                      className="min-h-[52px] px-6 py-3 text-[15px] font-medium rounded-full border border-[#d2d2d7] dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                     >
                       Back
                     </button>
@@ -377,7 +377,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
                     <button
                       type="button"
                       onClick={handleNext}
-                      className="flex-1 btn-primary py-4 text-lg font-medium"
+                      className="flex-1 btn-primary min-h-[52px] py-3 text-[17px] font-medium"
                     >
                       Continue
                     </button>
@@ -385,7 +385,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="flex-1 btn-primary py-4 text-lg font-medium relative overflow-hidden"
+                      className="flex-1 btn-primary min-h-[52px] py-3 text-[17px] font-medium relative overflow-hidden"
                     >
                       {isSubmitting ? (
                         <span className="flex items-center justify-center">
@@ -405,7 +405,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
             </Form>
           )}
         </div>
-        <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-4 flex items-center justify-center gap-1.5">
+        <p className="text-center text-sm text-[#6e6e73] dark:text-gray-400 mt-5 flex flex-wrap items-center justify-center gap-1.5">
           <Phone size={14} />
           Prefer to talk? Call us at{' '}
           <a href="tel:+19723523293" className="text-primary hover:underline font-medium">(972) 352-3293</a>

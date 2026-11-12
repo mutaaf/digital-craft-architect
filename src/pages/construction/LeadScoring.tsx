@@ -149,12 +149,12 @@ Return ONLY a JSON object with these exact fields:
       <DemoNavbar />
 
       <div className="relative max-w-2xl mx-auto px-4 py-8 sm:py-10">
-        <DataDisclosureChip demoPath={location.pathname} />
         <div className="text-center mb-6 animate-fade-in">
-          <Badge variant="secondary" className="mb-3">
-            <Sparkles size={14} className="mr-1" /> AI Lead Scoring
+          <DataDisclosureChip demoPath={location.pathname} />
+          <Badge variant="secondary" className="mx-1 mb-3 min-h-[28px] align-middle bg-[var(--v3-aurora-wash)] font-medium text-[var(--v3-aurora-deep)] hover:bg-[var(--v3-aurora-wash)]">
+            <Sparkles size={13} className="mr-1" aria-hidden /> AI Lead Scoring
           </Badge>
-          <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-gray-900 dark:text-white">
+          <h1 className="k-demo-title mb-3">
             AI Lead Scoring for Construction Companies
           </h1>
           <p className="text-gray-500 dark:text-gray-400 max-w-lg mx-auto">

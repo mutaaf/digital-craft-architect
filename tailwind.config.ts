@@ -1,11 +1,12 @@
 
 import type { Config } from "tailwindcss";
 
-// v3 (the beta overhaul, after mutaafaziz.com's Mission Control): every gray on the site is the
-// polar night's, cool and faintly teal, so the pages' own dark: variants land on the instrument deck.
+// v3 daylight + keynote (2026-11-12): every gray on the site is Apple's neutral scale, so the older
+// pages' gray-* classes land on the same tiles (#f5f5f7), hairlines (#d2d2d7 / #e8e8ed) and text
+// (#1d1d1f / #6e6e73) as the new ones. 400 is darkened to #737378 so small gray-400 text passes AA.
 const night = {
-  50: "#F2F5F6", 100: "#E4E9EB", 200: "#CBD3D7", 300: "#A9B4BA", 400: "#8C979E",
-  500: "#68747C", 600: "#4A555D", 700: "#2E373D", 800: "#1A2126", 900: "#12181C", 950: "#0B0F12",
+  50: "#F5F5F7", 100: "#E8E8ED", 200: "#D2D2D7", 300: "#A1A1A6", 400: "#737378",
+  500: "#636366", 600: "#515154", 700: "#424245", 800: "#2C2C2E", 900: "#1D1D1F", 950: "#0B0B0D",
 };
 // ...and the old purple/indigo/violet "AI" gradients turn to the aurora, so every page's accents agree
 const auroraScale = {
@@ -37,6 +38,9 @@ export default {
         violet: auroraScale,
         indigo: auroraScale,
         fuchsia: auroraScale,
+        // ...and so do the older tools' leftover blues (icons, links, info chips)
+        blue: auroraScale,
+        sky: auroraScale,
         slate: night,
         zinc: night,
         neutral: night,

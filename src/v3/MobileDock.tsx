@@ -64,11 +64,11 @@ const MobileDock: React.FC<{ cto?: boolean }> = ({ cto = false }) => {
           <button
             type="button"
             onClick={() => { trackCTAClick('v3_dock_try', 'mobile_dock'); openTry(); }}
-            className="group -mt-4 flex flex-col items-center gap-1 text-[10.5px] font-medium tracking-wide text-gray-800"
+            className="group -mt-4 flex flex-col items-center gap-1 text-[10.5px] font-medium tracking-wide text-gray-800 focus-visible:outline-offset-4"
             aria-label="Try it on your company"
           >
-            <span className="grid h-12 w-12 place-items-center rounded-2xl border border-[#e89862]/40 bg-gradient-to-b from-[#d27935] to-[#a9561d] shadow-[0_8px_24px_-6px_rgba(201,110,44,0.7)] transition-transform group-active:scale-95">
-              <span className="block h-[14px] w-[14px] rotate-45 rounded-[2px] border-2 border-[#0B0F12] bg-[#0B0F12]/20" />
+            <span className="grid h-12 w-12 place-items-center rounded-full bg-[var(--v3-copper)] shadow-[0_6px_16px_-8px_rgba(0,0,0,0.35)] transition-transform group-active:scale-95">
+              <span className="block h-[13px] w-[13px] rotate-45 rounded-[2px] border-2 border-white" />
             </span>
             Try it
           </button>

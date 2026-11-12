@@ -11,6 +11,7 @@ import { MANDATE, OUTCOMES } from '@/data/ctoCopy';
 import { useReveal } from './keynote';
 import { CALENDLY } from './verticals';
 import { useFold } from './fold';
+import Sentences from './Sentences';
 
 // v3 landing for cto.digitalcraftai.com, the keynote pass (2026-11-12). One idea per screen, huge
 // type, white space; copper is this site's accent. Every number is the CTO site's own
@@ -51,12 +52,12 @@ const Cto3: React.FC = () => {
 
       {/* ── 1 · the promise ─────────────────────────────────────────────────────────────── */}
       <section className={`flex min-h-[92svh] flex-col justify-center px-5 pb-16 pt-28 text-center md:pt-32`} style={open ? { marginLeft: 'calc(var(--v3-hinge-l) + var(--v3-hinge-w))' } : undefined}>
-        <div className="v3-rise mb-4 text-[17px] font-semibold text-[#c2611f] md:text-[21px]" style={{ '--i': 0 } as React.CSSProperties}>Fractional CTO</div>
-        <h1 className="v3-rise k-hero mx-auto mb-6 max-w-[12ch]" style={{ '--i': 1 } as React.CSSProperties}>A Fortune 100 CTO. On retainer.</h1>
+        <div className="v3-rise mb-4 text-[17px] font-semibold text-[var(--v3-copper-ink)] md:text-[21px]" style={{ '--i': 0 } as React.CSSProperties}>Fractional CTO</div>
+        <h1 className="v3-rise k-hero mx-auto mb-6 max-w-[17ch]" style={{ '--i': 1 } as React.CSSProperties}><Sentences text="A Fortune 100 CTO. On retainer." /></h1>
         <p className="v3-rise k-lead mx-auto mb-9 max-w-[34ch]" style={{ '--i': 2 } as React.CSSProperties}>Book more jobs. Close more deals. Run ops on autopilot. For less than one senior hire.</p>
         <div className="v3-rise flex flex-col items-center justify-center gap-4 sm:flex-row" style={{ '--i': 3 } as React.CSSProperties}>
-          <a href={CALENDLY} target="_blank" rel="noopener noreferrer" onClick={book('v3_cto_hero')} className="k-pill bg-[#c2611f] text-white hover:bg-[#a9531a]">Book a discovery call</a>
-          <a href="#outcomes" onClick={() => trackCTAClick('see_outcomes', 'v3_cto_hero')} className="k-link !text-[#c2611f]">See the results <Chev /></a>
+          <a href={CALENDLY} target="_blank" rel="noopener noreferrer" onClick={book('v3_cto_hero')} className="k-pill bg-[var(--v3-copper-btn)] text-white hover:bg-[#a9531a]">Book a discovery call</a>
+          <a href="#outcomes" onClick={() => trackCTAClick('see_outcomes', 'v3_cto_hero')} className="k-link !text-[var(--v3-copper-ink)]">See the results <Chev /></a>
         </div>
         <div className="v3-rise mx-auto mt-20 flex max-w-[760px] flex-wrap items-center justify-center gap-x-10 gap-y-3 md:mt-28" style={{ '--i': 4 } as React.CSSProperties} aria-label="Where the founder led engineering">
           {ORGS.map((o) => <span key={o} className="text-[22px] font-semibold tracking-[-0.03em] text-[#a1a1a6] md:text-[28px]">{o}</span>)}
@@ -68,7 +69,7 @@ const Cto3: React.FC = () => {
         <div className="k-in">
           <div className="k-giant">0</div>
           <p className="k-lead mx-auto mt-6 max-w-[26ch]">New hires needed to scale ops across markets. <span className="text-[#1d1d1f]">The software did it.</span></p>
-          <p className="mt-3 text-[14px] text-[#86868b]">A multi-year logistics client</p>
+          <p className="mt-3 text-[14px] text-[#6e6e73]">A multi-year logistics client</p>
         </div>
       </section>
 
@@ -78,7 +79,7 @@ const Cto3: React.FC = () => {
         <div className="grid gap-4 md:grid-cols-2 md:gap-5">
           {OUTCOMES.map((o) => (
             <article key={o.client} className="k-in k-tile flex min-h-[300px] flex-col p-9 md:p-12">
-              <div className="mb-auto text-[15px] font-semibold text-[#c2611f]">{o.vertical}</div>
+              <div className="mb-auto text-[15px] font-semibold text-[var(--v3-copper-ink)]">{o.vertical}</div>
               <div className="mt-10 text-[44px] font-semibold leading-[1.02] tracking-[-0.045em] md:text-[60px]">{o.headline}</div>
               <div className="mt-2 text-[19px] text-[#6e6e73]">{o.label}.</div>
             </article>
@@ -105,8 +106,8 @@ const Cto3: React.FC = () => {
       {quote && (
         <section className="px-5 py-28 md:py-40">
           <figure className="k-in mx-auto max-w-[860px] text-center">
-            <blockquote className="text-[26px] font-medium leading-[1.3] tracking-[-0.02em] md:text-[38px]">&ldquo;{quote.quote.split(/(?<=\.) /).slice(0, 2).join(' ').replace(/ — .*$/, '.')}&rdquo;</blockquote>
-            <figcaption className="mt-6 text-[15px] text-[#86868b]">{quote.author}, {quote.position}</figcaption>
+            <blockquote className="text-balance text-[26px] font-medium leading-[1.3] tracking-[-0.02em] md:text-[38px]">&ldquo;{quote.quote.split(/(?<=\.) /).slice(0, 2).join(' ').replace(/ — .*$/, '.')}&rdquo;</blockquote>
+            <figcaption className="mt-6 text-[15px] text-[#6e6e73]">{quote.author}, {quote.position}</figcaption>
           </figure>
         </section>
       )}
@@ -116,7 +117,7 @@ const Cto3: React.FC = () => {
         <div className="k-in">
           <h2 className="k-hero mx-auto mb-6 max-w-[13ch]">A Fortune 100 CTO, <span className="text-[#e89862]">in your corner.</span></h2>
           <p className="k-lead mx-auto mb-10 max-w-[30ch] !text-[#a1a1a6]">Thirty minutes. No pitch. The one system that would move your P&amp;L most this quarter.</p>
-          <a href={CALENDLY} target="_blank" rel="noopener noreferrer" onClick={book('v3_cto_engage')} className="k-pill bg-[#c2611f] text-white hover:bg-[#d97b36]">Book the call</a>
+          <a href={CALENDLY} target="_blank" rel="noopener noreferrer" onClick={book('v3_cto_engage')} className="k-pill bg-[var(--v3-copper-btn)] text-white hover:bg-[#c2611f]">Book the call</a>
         </div>
       </section>
 

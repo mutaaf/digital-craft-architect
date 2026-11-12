@@ -17,6 +17,9 @@ import DemoBreadcrumbs from '@/components/DemoBreadcrumbs';
 import RelatedDemos from '@/components/RelatedDemos';
 import DataDisclosureChip from '@/components/DataDisclosureChip';
 import { useLocation } from 'react-router-dom';
+import { DEMO_GROUPS } from '@/data/demoCatalog';
+import { INDUSTRY_KEYNOTE } from '@/data/industryKeynote';
+import { VERTICALS } from '@/v3/verticals';
 import {
   buildDemoSoftwareApplicationSchema,
   getDemoApplicationByRoute,
@@ -79,8 +82,21 @@ interface Message {
   content: string;
 }
 
+// The same page serves every vertical's chat demo (/dental/demo/intake, /restaurant/demo/reservations,
+// ...): the header names the demo and the audience from the route, not construction's.
+const titleCase = (s: string) => s.replace(/\b\w/g, (c) => c.toUpperCase());
+function headerFor(pathname: string): { title: string; sub: string } | null {
+  const v = VERTICALS.find((x) => pathname.startsWith(x.hub + '/'));
+  if (!v || v.key === 'construction') return null;
+  const demo = DEMO_GROUPS.flatMap((g) => g.demos).find((d) => d.path === pathname);
+  const name = demo?.title ?? 'AI Lead Responder';
+  const audience = INDUSTRY_KEYNOTE[v.key]?.audience ?? v.label;
+  return { title: `${/^AI\b/.test(name) ? name : `AI ${name}`} for ${titleCase(audience)}`, sub: demo?.description ?? '' };
+}
+
 const LeadResponder = () => {
   const location = useLocation();
+  const header = headerFor(location.pathname);
   const { company } = useDemoContext();
   const companyName = company?.companyName || 'DigitalCraft AI';
   const ownerName = company?.ownerName || 'Ro';
@@ -209,26 +225,26 @@ const LeadResponder = () => {
         {/* Header */}
         <div className="relative text-center mb-6 sm:mb-8">
           <DataDisclosureChip demoPath={location.pathname} />
-          <Badge variant="secondary" className="mb-3">
-            <Sparkles size={14} className="mr-1" /> POC Demo
+          <Badge variant="secondary" className="mx-1 mb-3 min-h-[28px] align-middle bg-[var(--v3-aurora-wash)] font-medium text-[var(--v3-aurora-deep)] hover:bg-[var(--v3-aurora-wash)]">
+            <Sparkles size={13} className="mr-1" aria-hidden /> POC Demo
           </Badge>
-          <h1 className="text-2xl sm:text-3xl font-bold mb-2">AI Lead Qualification for Construction Companies</h1>
+          <h1 className="k-demo-title mb-3">{header ? header.title : 'AI Lead Qualification for Construction Companies'}</h1>
           <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base">
-            Play the homeowner — chat with {companyName}'s AI and watch it qualify leads in real time.
+            {header ? <>{header.sub} Chat with {companyName}&rsquo;s AI and watch it work in real time.</> : <>Play the homeowner — chat with {companyName}'s AI and watch it qualify leads in real time.</>}
           </p>
         </div>
 
-        <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm leading-relaxed max-w-2xl mx-auto text-center mb-6">
+        {!header && <p className="k-demo-seo">
           This AI lead responder demo shows how construction companies can automate lead qualification using GPT-4o. When a homeowner visits your website and asks about a kitchen remodel, bathroom renovation, or full home project, the AI assistant responds instantly — qualifying the lead by gathering project details, square footage, budget, timeline, and contact information through natural conversation. Instead of losing leads to slow follow-up, your AI responds in under 60 seconds, 24/7. It extracts structured lead data in real time, gives ballpark pricing estimates using your actual rates, and suggests booking a consultation when the prospect is ready. Try it below to see how automated lead follow-up works for contractors, remodelers, and construction businesses looking to convert more website visitors into booked appointments.
-        </p>
+        </p>}
 
         <div className="flex-1 flex flex-col lg:flex-row gap-4 lg:gap-6 min-h-0">
           {/* Chat column */}
-          <div className="flex-1 lg:flex-[3] flex flex-col bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden min-h-[60vh] lg:min-h-0">
+          <div className="flex-1 lg:flex-[3] flex flex-col bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-700 overflow-hidden min-h-[60vh] lg:min-h-0">
             <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
               <div>
                 <p className="text-sm font-semibold">{companyName}</p>
-                <p className="text-xs text-green-500">Online — typically replies instantly</p>
+                <p className="text-xs text-aurora">Online — typically replies instantly</p>
               </div>
               <Sheet>
                 <SheetTrigger asChild>

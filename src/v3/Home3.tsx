@@ -95,7 +95,7 @@ const Home3: React.FC = () => {
       {/* ── 1 · the promise and the product ─────────────────────────────────────────────── */}
       {open ? (
         <section style={{ display: 'grid', gridTemplateColumns: 'var(--v3-hinge-l) var(--v3-hinge-w) 1fr', minHeight: '100svh' }}>
-          <div className="flex items-center justify-center bg-[#f5f5f7] pt-16"><PhoneDemo /></div>
+          <div className="flex items-center justify-center overflow-hidden bg-[#f5f5f7] pt-16"><PhoneDemo /></div>
           <div aria-hidden />
           <div className="flex flex-col justify-center px-10 pt-16">{heroWords}</div>
         </section>
@@ -111,7 +111,7 @@ const Home3: React.FC = () => {
         <div className="k-in">
           <div className="k-giant text-[#1d1d1f]">47<span className="text-aurora">s</span></div>
           <p className="k-lead mx-auto mt-6 max-w-[26ch]">Time to answer a new lead. <span className="text-[#1d1d1f]">It used to take hours.</span></p>
-          <p className="mt-3 text-[14px] text-[#86868b]">A residential development client</p>
+          <p className="mt-3 text-[14px] text-[#6e6e73]">A residential development client</p>
         </div>
       </section>
 
@@ -147,7 +147,7 @@ const Home3: React.FC = () => {
               {['Day 0', 'Day 1', 'Day 3', 'Day 7', 'Booked'].map((d, i) => (
                 <div key={d} className="flex flex-1 flex-col items-center gap-2">
                   <span className={`h-4 w-4 rounded-full ${i === 4 ? 'bg-aurora ring-4 ring-aurora/20' : 'bg-[#d2d2d7]'}`} />
-                  <span className={`text-[12.5px] ${i === 4 ? 'font-semibold text-aurora' : 'text-[#86868b]'}`}>{d}</span>
+                  <span className={`text-[12.5px] ${i === 4 ? 'font-semibold text-aurora' : 'text-[#6e6e73]'}`}>{d}</span>
                 </div>
               ))}
             </div>
@@ -182,14 +182,14 @@ const Home3: React.FC = () => {
             <div key={a}>
               <div className="v3-num text-[64px] font-semibold leading-none tracking-[-0.05em] md:text-[80px]">{n}</div>
               <div className="mt-3 text-[19px] text-[#1d1d1f]">{a}</div>
-              <div className="text-[17px] text-[#86868b]">{b}</div>
+              <div className="text-[17px] text-[#6e6e73]">{b}</div>
             </div>
           ))}
         </div>
         {quote && (
           <figure className="k-in mx-auto mt-24 max-w-[820px] text-center md:mt-32">
             <blockquote className="text-[26px] font-medium leading-[1.3] tracking-[-0.02em] md:text-[36px]">&ldquo;{quote.quote.split(/(?<=\.) /).slice(0, 1).join(' ')}&rdquo;</blockquote>
-            <figcaption className="mt-6 text-[15px] text-[#86868b]">{quote.author}, {quote.position}</figcaption>
+            <figcaption className="mt-6 text-[15px] text-[#6e6e73]">{quote.author}, {quote.position}</figcaption>
           </figure>
         )}
       </section>
@@ -224,13 +224,13 @@ const Home3: React.FC = () => {
           <p className="k-lead mx-auto mb-10 max-w-[28ch]">Your website in. Every demo, personalized. Twenty seconds.</p>
           <form onSubmit={tryHere} className="mx-auto flex max-w-[520px] flex-col gap-3 sm:flex-row">
             <label htmlFor="v3-close-site" className="sr-only">Your company website</label>
-            <input id="v3-close-site" className="h-[52px] flex-1 rounded-full border border-[#d2d2d7] bg-white px-6 text-[17px] outline-none transition focus:border-aurora focus:ring-4 focus:ring-aurora/15" inputMode="url" autoCapitalize="none" spellCheck={false} placeholder="yourcompany.com" value={site} onChange={(e) => setSite(e.target.value)} />
+            <input id="v3-close-site" className="h-[52px] w-full min-w-0 rounded-full sm:flex-1 border border-[#d2d2d7] bg-white px-6 text-[17px] outline-none transition focus:border-aurora focus:ring-4 focus:ring-aurora/15" inputMode="url" autoCapitalize="none" spellCheck={false} placeholder="yourcompany.com" value={site} onChange={(e) => setSite(e.target.value)} />
             <button type="submit" className="k-pill k-pill-brand !min-h-[52px]">Try it free</button>
           </form>
         </div>
       </section>
 
-      {content?.form && <div className="bg-[#f5f5f7] pt-8"><ContactForm data={content.form} /></div>}
+      {content?.form && <div className="bg-[#f5f5f7]"><ContactForm data={content.form} /></div>}
       {content?.footer && <Footer data={content.footer} />}
       <LiveChatBubble />
     </div>

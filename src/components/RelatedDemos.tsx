@@ -26,10 +26,10 @@ const RelatedDemos = ({ currentPath }: RelatedDemosProps) => {
   return (
     <section
       data-testid="related-demos"
-      className="py-10 bg-gray-50 dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800"
+      className="py-12 md:py-16 bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800"
     >
-      <div className="container mx-auto px-4 max-w-5xl">
-        <h2 className="text-xl font-bold mb-5 text-gray-900 dark:text-white">
+      <div className="mx-auto w-full max-w-6xl px-4">
+        <h2 className="mb-6 text-[24px] font-semibold tracking-[-0.025em] text-gray-900 dark:text-white md:text-[28px]">
           More like this
         </h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -42,9 +42,9 @@ const RelatedDemos = ({ currentPath }: RelatedDemosProps) => {
                 recordDemoVisit(item.path, item.title, item.vertical);
                 trackCTAClick('related_demo', currentPath);
               }}
-              className="group flex flex-col h-full rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-5 hover:border-primary dark:hover:border-primary hover:shadow-md transition-all"
+              className="group flex flex-col h-full rounded-[22px] bg-gray-50 dark:bg-gray-950 p-6 hover:bg-gray-100 transition-colors"
             >
-              <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-1">
+              <h3 className="text-[17px] font-semibold text-gray-900 dark:text-white mb-1">
                 {item.title}
               </h3>
               <p className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">

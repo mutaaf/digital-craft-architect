@@ -13,10 +13,10 @@ const BetaBadge: React.FC = () => {
   if (!isBetaHost() || hidden) return null;
   return (
     <div
-      className="fixed z-[56] flex items-center gap-1 rounded-full border border-[#c96e2c]/50 bg-[rgba(255,255,255,0.9)] py-1 pl-3 pr-1 text-[11.5px] text-gray-700 backdrop-blur md:bottom-4"
+      className="fixed z-[56] flex items-center gap-1 rounded-full border border-[#d2d2d7] bg-[rgba(255,255,255,0.9)] py-1 pl-3 pr-1 text-[11.5px] text-gray-700 backdrop-blur md:bottom-4"
       style={{ bottom: 'calc(var(--v3-dock-h, 0px) + 12px)', left: form === 'open' ? 'calc(var(--v3-hinge-l) + var(--v3-hinge-w) + 12px)' : 12 }}
     >
-      <span className="v3-mono font-semibold text-[#e89862]">β</span>
+      <span className="v3-mono font-semibold text-[var(--v3-copper-ink)]">β</span>
       <span className="ml-1 hidden sm:inline">Preview of the new site ·</span>
       <a href={liveUrl()} className="ml-1 inline-flex items-center gap-0.5 text-gray-900 underline-offset-2 hover:underline">
         current site <ArrowUpRight size={12} />

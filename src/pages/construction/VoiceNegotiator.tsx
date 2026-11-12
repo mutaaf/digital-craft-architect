@@ -257,16 +257,16 @@ const VoiceNegotiator = () => {
         {/* Header */}
         <div className="relative text-center mb-8 animate-fade-in">
           <DataDisclosureChip demoPath={location.pathname} />
-          <Badge variant="secondary" className="mb-4">
-            <Sparkles size={14} className="mr-1" /> POC Demo
+          <Badge variant="secondary" className="mx-1 mb-3 min-h-[28px] align-middle bg-[var(--v3-aurora-wash)] font-medium text-[var(--v3-aurora-deep)] hover:bg-[var(--v3-aurora-wash)]">
+            <Sparkles size={13} className="mr-1" aria-hidden /> POC Demo
           </Badge>
-          <h1 className="text-3xl sm:text-4xl font-bold mb-3">AI Voice Negotiation for Real Estate</h1>
+          <h1 className="k-demo-title mb-3">AI Voice Negotiation for Real Estate</h1>
           <p className="text-base sm:text-lg text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
             Analyze a property, configure your bid range, then let the AI negotiate by phone.
           </p>
         </div>
 
-        <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm leading-relaxed max-w-2xl mx-auto text-center mb-6">
+        <p className="k-demo-seo">
           This AI voice negotiation demo showcases how real estate investors automate seller outreach with live phone calls. Enter a property address, set your bid range and negotiation strategy, then listen as the AI voice agent calls and negotiates in real time using natural conversation. The system uses Vapi for WebRTC browser calls and outbound phone calls, with ElevenLabs text-to-speech for a human-sounding voice. The AI references comparable sales, discusses property condition, and works within your configured offer range — just like a trained acquisitions agent. After the call, you get a full transcript and deal summary. For real estate professionals doing cold calling, follow-up, or seller outreach at scale, AI voice calls eliminate the bottleneck of manual dialing while maintaining a personal, conversational approach.
         </p>
 

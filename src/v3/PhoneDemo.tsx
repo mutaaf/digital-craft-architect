@@ -5,17 +5,20 @@ import { CalendarCheck, ChevronLeft } from 'lucide-react';
 // It's an illustration (the caption under it says so); the real thing is one click away (openTry).
 
 type Line = { who: 'in' | 'out' | 'note' | 'booked'; text?: string; at: number };
-const SCRIPT: Line[] = [
-  { who: 'in', text: 'Hi, our AC just quit. Can someone come out tomorrow?', at: 600 },
+export interface PhoneScript { contact: string; initials: string; inbound: string; reply: string; followIn: string; confirm: string; booked: string; bookedDetail: string }
+export const DEFAULT_SCRIPT: PhoneScript = { contact: 'Sarah M.', initials: 'SM', inbound: 'Hi, our AC just quit. Can someone come out tomorrow?', reply: 'So sorry, that’s no fun tonight. I can get a tech to you tomorrow at 8 or 11 AM. Which works?', followIn: '8 is perfect', confirm: 'Done. You’re booked for 8:00 AM, diagnostic $89. Reply here anytime.', booked: 'Booked · Thu 8:00 AM', bookedDetail: 'AC diagnostic · $89 · on your calendar' };
+const lines = (s: PhoneScript): Line[] => [
+  { who: 'in', text: s.inbound, at: 600 },
   { who: 'note', text: 'Answered in 38 seconds', at: 2400 },
-  { who: 'out', text: 'So sorry, that’s no fun tonight. I can get a tech to you tomorrow at 8 or 11 AM. Which works?', at: 2600 },
-  { who: 'in', text: '8 is perfect', at: 5200 },
-  { who: 'out', text: 'Done. You’re booked for 8:00 AM, diagnostic $89. Reply here anytime.', at: 6800 },
+  { who: 'out', text: s.reply, at: 2600 },
+  { who: 'in', text: s.followIn, at: 5200 },
+  { who: 'out', text: s.confirm, at: 6800 },
   { who: 'booked', at: 8400 },
 ];
 const LOOP = 14000;
 
-const PhoneDemo: React.FC<{ className?: string }> = ({ className = '' }) => {
+const PhoneDemo: React.FC<{ className?: string; script?: PhoneScript }> = ({ className = '', script = DEFAULT_SCRIPT }) => {
+  const SCRIPT = lines(script);
   const [t, setT] = useState(0);
   const [cycle, setCycle] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
@@ -45,7 +48,7 @@ const PhoneDemo: React.FC<{ className?: string }> = ({ className = '' }) => {
 
   return (
     <figure ref={ref} className={`flex flex-col items-center ${className}`}>
-      <div className="k-phone" aria-label="Illustration: a late-night text lead answered in 38 seconds and booked for 8 AM" role="img">
+      <div className="k-phone" aria-label={`Illustration: a late-night text from a new lead, answered in 38 seconds and ${script.booked.toLowerCase()}`} role="img">
         <div className="k-screen">
           {/* status bar + island */}
           <div className="relative flex h-[46px] shrink-0 items-center justify-between px-7 pt-1 text-[13px] font-semibold text-[#1d1d1f]">
@@ -56,8 +59,8 @@ const PhoneDemo: React.FC<{ className?: string }> = ({ className = '' }) => {
           {/* thread header */}
           <div className="flex shrink-0 flex-col items-center border-b border-[#e8e8ed] pb-2.5">
             <ChevronLeft size={22} className="absolute left-4 top-[58px] text-[var(--v3-aurora)]" aria-hidden />
-            <span className="mb-1 grid h-10 w-10 place-items-center rounded-full bg-gradient-to-b from-[#a1a1a6] to-[#86868b] text-[15px] font-semibold text-white">SM</span>
-            <span className="text-[11.5px] text-[#1d1d1f]">Sarah M. · new lead</span>
+            <span className="mb-1 grid h-10 w-10 place-items-center rounded-full bg-gradient-to-b from-[#a1a1a6] to-[#86868b] text-[15px] font-semibold text-white">{script.initials}</span>
+            <span className="text-[11.5px] text-[#1d1d1f]">{script.contact} · new lead</span>
           </div>
           {/* the thread */}
           <div key={cycle} className="flex flex-1 flex-col justify-end gap-1.5 px-3 pb-4">
@@ -66,7 +69,7 @@ const PhoneDemo: React.FC<{ className?: string }> = ({ className = '' }) => {
               if (l.who === 'booked') return (
                 <div key={i} className="k-bub mt-2 flex w-full max-w-none items-center gap-3 self-stretch rounded-[18px] border border-[#e8e8ed] bg-white px-3.5 py-3 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.25)]">
                   <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[var(--v3-aurora-wash)] text-[var(--v3-aurora)]"><CalendarCheck size={19} /></span>
-                  <span className="leading-tight"><span className="block text-[13.5px] font-semibold text-[#1d1d1f]">Booked · Thu 8:00 AM</span><span className="text-[12px] text-[#6e6e73]">AC diagnostic · $89 · on your calendar</span></span>
+                  <span className="leading-tight"><span className="block text-[13.5px] font-semibold text-[#1d1d1f]">{script.booked}</span><span className="text-[12px] text-[#6e6e73]">{script.bookedDetail}</span></span>
                 </div>
               );
               return <div key={i} className={`k-bub ${l.who === 'in' ? 'k-bub-in' : 'k-bub-out'}`}>{l.text}</div>;
@@ -75,7 +78,7 @@ const PhoneDemo: React.FC<{ className?: string }> = ({ className = '' }) => {
           </div>
         </div>
       </div>
-      <figcaption className="mt-5 text-[13px] text-[#86868b]">Illustration. The real one runs on your company in 20 seconds.</figcaption>
+      <figcaption className="mt-5 max-w-[34ch] text-balance text-center text-[13px] text-[#6e6e73]">Illustration. The real one runs on your company in 20 seconds.</figcaption>
     </figure>
   );
 };

@@ -3,8 +3,8 @@ import React from 'react';
 // The mark (public/icons/icon.svg, drawn small): the copper diamond, Digital Craft's tick, inside an
 // orbit of aurora points. `cto` swaps the colours, as the CTO app's icon does.
 const Mark: React.FC<{ size?: number; cto?: boolean; className?: string }> = ({ size = 28, cto = false, className = '' }) => {
-  const ring = cto ? '#E89862' : '#7BE3C3';
-  const core = cto ? '#7BE3C3' : '#C96E2C';
+  const ring = cto ? '#C2611F' : '#0B7D5E'; // deep tones: the mark sits on white now
+  const core = cto ? '#0B7D5E' : '#C2611F';
   const dots = Array.from({ length: 18 }, (_, i) => {
     const t = (i / 18) * Math.PI * 2;
     const x = Math.cos(t) * 11, y = Math.sin(t) * 4.6;
