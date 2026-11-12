@@ -222,3 +222,18 @@ This project has an autonomous innovation agent that runs hourly to make convers
 - The agent tracks progress by checking off items in AGENT.md
 - Commit messages from the agent follow the format: `gtm(TASK-ID): description`
 - Safety: every commit must pass `npm run build`, agent never touches `/api/` or dependencies
+
+---
+
+## v3 overhaul (beta, 2026-11-11)
+
+The site-wide redesign after mutaafaziz.com's Mission Control lives on the **`beta` branch**, served at
+**beta.digitalcraftai.com** (root) and **cto-beta.digitalcraftai.com** (CTO) via Vercel branch domains.
+`main` (digitalcraftai.com) is untouched until the beta PR merges. Tag `legacy-v1-2026-11-11` = the site before.
+
+- **Theme:** `html.dark` on every page; Tailwind `gray/slate/zinc/neutral` = the polar night scale, `purple/violet/indigo/fuchsia` = aurora (tailwind.config.ts). Global styles + deck primitives in `src/v3/v3.css` (base selectors wrapped in `:where()` so utilities win).
+- **Landings:** `src/v3/Home3.tsx` (root), `src/v3/Cto3.tsx` (CTO). Old ones at `/?v=2`. Numbers on the deck must be real (counted from `src/data/demoCatalog.ts`, or existing client outcomes in `src/data/ctoCopy.ts`).
+- **Chrome (once, in App):** `src/v3/Chrome.tsx` = phone dock, TrySheet (`openTry()` → `/<vertical>/demo?site=`), PwaBar (`?go=try|book|install|demos|<vertical>`), BetaBadge.
+- **Installable app:** `public/app.webmanifest`, `public/app-cto.webmanifest` (swapped in by `src/v3/pwa.ts` on cto hosts), `public/sw.js` (network-first; never /api; bump VERSION on caching changes), `public/offline.html`, icons via `node scripts/pwa-icons.mjs`. `/share` is the share target.
+- **iPhone Duo / foldables:** `src/v3/fold.ts` → `html[data-fold=phone|tablet|desktop|open|table]`, `--v3-hinge-l/-w`. Test with `?duo` (wide window) or `?fold=open`.
+- **Beta hosts:** noindex (vercel.json header + meta), no GA/pixel/Ads, Sentry env `beta`. `isBetaHost()` in `src/utils/beta.ts`; `?beta` fakes it.
