@@ -22,7 +22,7 @@ const MobileDock: React.FC<{ cto?: boolean }> = ({ cto = false }) => {
     <Link
       to={to}
       aria-current={active ? 'page' : undefined}
-      className={`flex min-h-[52px] flex-1 flex-col items-center justify-center gap-1 text-[10.5px] font-medium tracking-wide transition-colors ${active ? 'text-aurora' : 'text-gray-400 active:text-white'}`}
+      className={`flex min-h-[52px] flex-1 flex-col items-center justify-center gap-1 text-[10.5px] font-medium tracking-wide transition-colors ${active ? 'text-aurora' : 'text-gray-600 active:text-gray-900'}`}
     >
       <Icon size={20} strokeWidth={active ? 2.2 : 1.8} />
       {label}
@@ -32,7 +32,7 @@ const MobileDock: React.FC<{ cto?: boolean }> = ({ cto = false }) => {
   if (cto) {
     // the CTO site: the work, the call (the copper key), the company
     return (
-      <nav aria-label="Quick" className="fixed bottom-0 z-[55] border-t border-night-hair bg-[rgba(11,15,18,0.92)] backdrop-blur-xl md:hidden"
+      <nav aria-label="Quick" className="fixed bottom-0 z-[55] border-t border-night-hair bg-[rgba(246,244,239,0.92)] backdrop-blur-xl md:hidden"
         style={{ left: form === 'open' ? 'calc(var(--v3-hinge-l) + var(--v3-hinge-w))' : 0, right: 0, paddingBottom: 'env(safe-area-inset-bottom)' }}>
         <div className="mx-auto flex h-[62px] max-w-md items-center gap-3 px-4">
           <a href="#outcomes" className="v3-btn v3-btn-ghost flex-1 text-sm">Outcomes</a>
@@ -49,7 +49,7 @@ const MobileDock: React.FC<{ cto?: boolean }> = ({ cto = false }) => {
   return (
     <nav
       aria-label="Quick"
-      className="fixed bottom-0 z-[55] border-t border-night-hair bg-[rgba(11,15,18,0.92)] backdrop-blur-xl md:hidden"
+      className="fixed bottom-0 z-[55] border-t border-night-hair bg-[rgba(246,244,239,0.92)] backdrop-blur-xl md:hidden"
       style={{
         left: form === 'open' ? 'calc(var(--v3-hinge-l) + var(--v3-hinge-w))' : 0,
         right: 0,
@@ -64,7 +64,7 @@ const MobileDock: React.FC<{ cto?: boolean }> = ({ cto = false }) => {
           <button
             type="button"
             onClick={() => { trackCTAClick('v3_dock_try', 'mobile_dock'); openTry(); }}
-            className="group -mt-4 flex flex-col items-center gap-1 text-[10.5px] font-medium tracking-wide text-gray-200"
+            className="group -mt-4 flex flex-col items-center gap-1 text-[10.5px] font-medium tracking-wide text-gray-800"
             aria-label="Try it on your company"
           >
             <span className="grid h-12 w-12 place-items-center rounded-2xl border border-[#e89862]/40 bg-gradient-to-b from-[#d27935] to-[#a9561d] shadow-[0_8px_24px_-6px_rgba(201,110,44,0.7)] transition-transform group-active:scale-95">
@@ -79,7 +79,7 @@ const MobileDock: React.FC<{ cto?: boolean }> = ({ cto = false }) => {
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackCTAClick('book_a_call', 'mobile_dock')}
-          className="flex min-h-[52px] flex-1 flex-col items-center justify-center gap-1 text-[10.5px] font-medium tracking-wide text-gray-400 active:text-white"
+          className="flex min-h-[52px] flex-1 flex-col items-center justify-center gap-1 text-[10.5px] font-medium tracking-wide text-gray-600 active:text-gray-900"
         >
           <Phone size={20} strokeWidth={1.8} />
           Book

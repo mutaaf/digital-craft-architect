@@ -391,11 +391,11 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
           <EmailCourseOptin variant="footer" location="footer" />
 
           <div className="border-t border-gray-800 pt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center">
-              <p className="text-gray-400 text-sm mb-4 md:mb-0">
+            <div className="flex flex-col items-center gap-5">
+              <p className="text-gray-400 text-sm">
                 &copy; {new Date().getFullYear()} DigitalCraft. All rights reserved.
               </p>
-              <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 items-center">
+              <div className="flex max-w-5xl flex-wrap items-center justify-center gap-x-3 gap-y-2">
                 <p className="text-gray-500 text-xs">
                   <span className="inline-block bg-gray-800 px-2 py-1 rounded">
                     Deployed: {formatDeployTime()}

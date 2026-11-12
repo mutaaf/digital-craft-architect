@@ -20,10 +20,17 @@ export interface ChangelogEntry {
 }
 
 export const changelogEntries: readonly ChangelogEntry[] = [
+  { id: "0122", title: "CTO site copy follows the house rule - no em-dashes", area: "content", created: "2026-10-20" },
+  { id: "0121", title: "Phones - the hero story plays in its own panel, nothing scrolls sideways, nothing covers the story", area: "conversion", created: "2026-10-20" },
+  { id: "0119", title: "The hero story in four acts (the miss, the build, the catch, the crew), and on digitalcraftai.com", area: "conversion", created: "2026-10-20" },
+  { id: "0118", title: "Hero storyline opens with the builder at his desk, prompting AI agents that go to work", area: "conversion", created: "2026-10-20" },
+  { id: "0120", title: "Hero story labels never sit under the drawing; the catch turns the moment to handled; studio makes stories with your own key", area: "conversion", created: "2026-10-19" },
+  { id: "0117", title: "Crew of Light hero on the CTO landing, with live storyboards and an AI director", area: "conversion", created: "2026-10-19" },
   { id: "0113", title: "Canonical founder facts module mirrored from mutaafaziz.com", area: "trust", created: "2026-10-19" },
   { id: "0112", title: "Enable allowUnusedLabels strict flag (zero-fix ratchet)", area: "infra", created: "2026-10-09" },
   { id: "0111", title: "Enable allowUnreachableCode strict flag (zero-fix ratchet)", area: "infra", created: "2026-10-09" },
   { id: "0110", title: "Enable noImplicitReturns strict flag (zero-fix ratchet)", area: "infra", created: "2026-10-06" },
+  { id: "0109", title: "Public /agent-prompts transparency page listing the committed system prompt for every autonomous agent as a defensible moat artifact", area: "trust", created: "2026-10-02" },
   { id: "0108", title: "Public /roadmap dated intended-ship-week page derived from groomed-status backlog tickets as a defensible moat artifact", area: "trust", created: "2026-10-02" },
   { id: "0107", title: "Shareable /my dossier via deep-link URL fragment that hydrates every persisted artifact into a recipient's dashboard", area: "demos", created: "2026-10-02" },
   { id: "0106", title: "AI-for-concrete-contractors long-tail landing page funneling into home-services demos", area: "content", created: "2026-10-02" },

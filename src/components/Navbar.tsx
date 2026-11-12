@@ -67,21 +67,21 @@ const Navbar: React.FC<NavbarProps> = () => {
     else navigate(`/#${id}`);
   };
 
-  const link = 'relative px-3 py-2 text-[14.5px] text-gray-300 transition-colors hover:text-white';
+  const link = 'relative px-3 py-2 text-[14.5px] text-gray-700 transition-colors hover:text-gray-900';
   const doInstall = async () => { const r = await install(); if (r === 'ios') showIosSteps(); };
 
   return (
     <header
       className={`v3-header fixed left-0 right-0 z-50 transition-[background,border-color] duration-300 ${
-        scrolled || menu ? 'border-b border-night-hair bg-[rgba(11,15,18,0.86)] backdrop-blur-xl' : 'border-b border-transparent'
+        scrolled || menu ? 'border-b border-night-hair bg-[rgba(246,244,239,0.86)] backdrop-blur-xl' : 'border-b border-transparent'
       }`}
       style={{ top: 'var(--dca-banner-offset, 0px)', left: form === 'open' ? 'calc(var(--v3-hinge-l) + var(--v3-hinge-w))' : undefined, WebkitBackdropFilter: scrolled ? 'blur(20px) saturate(1.4)' : undefined }}
     >
       <div className="mx-auto flex h-16 max-w-[1320px] items-center justify-between gap-3 px-4 md:px-6">
-        <Link to="/" className="group flex items-center gap-2.5 text-white" aria-label="DigitalCraft AI, home">
+        <Link to="/" className="group flex items-center gap-2.5 text-gray-900" aria-label="DigitalCraft AI, home">
           <Mark size={30} cto={cto} />
           <span className="text-[17px] font-semibold tracking-tight">
-            Digital<span className="text-gray-400 transition-colors group-hover:text-aurora">Craft</span>
+            Digital<span className="text-gray-600 transition-colors group-hover:text-aurora">Craft</span>
             {cto && <span className="ml-1.5 text-[#e89862]">· CTO</span>}
           </span>
         </Link>
@@ -97,7 +97,7 @@ const Navbar: React.FC<NavbarProps> = () => {
         <nav className={wide} aria-label="Main">
           <div ref={panel} className="relative">
             <button
-              className={`${link} inline-flex items-center gap-1 ${demos ? 'text-white' : ''}`}
+              className={`${link} inline-flex items-center gap-1 ${demos ? 'text-gray-900' : ''}`}
               aria-expanded={demos}
               aria-haspopup="true"
               onClick={() => setDemos((o) => !o)}
@@ -105,12 +105,12 @@ const Navbar: React.FC<NavbarProps> = () => {
               Demos <ChevronDown size={15} className={`transition-transform ${demos ? 'rotate-180' : ''}`} />
             </button>
             {demos && (
-              <div className="v3-brackets absolute left-1/2 top-full mt-3 w-[680px] -translate-x-1/2 border border-night-hair bg-night-deck shadow-[0_30px_80px_-30px_rgba(0,0,0,0.9)] animate-fade-in">
+              <div className="v3-brackets absolute left-1/2 top-full mt-3 w-[680px] -translate-x-1/2 border border-night-hair bg-night-deck shadow-[0_30px_80px_-30px_rgba(18,24,28,0.25)] animate-fade-in">
                 <div className="grid grid-cols-[1fr_1.55fr] gap-px bg-night-hair">
                   <div className="flex flex-col justify-between bg-night-deck p-6">
                     <div>
                       <div className="v3-eyebrow mb-3 flex items-center gap-2"><span className="v3-dot" /> Live</div>
-                      <p className="mb-5 text-lg font-semibold leading-snug text-white">Every demo, answering as <span className="v3-serif italic text-aurora">your</span> company.</p>
+                      <p className="mb-5 text-lg font-semibold leading-snug text-gray-900">Every demo, answering as <span className="v3-serif italic text-aurora">your</span> company.</p>
                     </div>
                     <div className="space-y-2">
                       <button onClick={() => { setDemos(false); openTry(); }} className="v3-btn v3-btn-aurora w-full text-sm">Try it on my company <ArrowRight size={16} /></button>
@@ -119,7 +119,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                   </div>
                   <div className="grid grid-cols-2 gap-px bg-night-hair">
                     {VERTICALS.map((v) => (
-                      <Link key={v.key} to={v.hub} className="flex items-center gap-2.5 bg-night-deck px-4 py-3 text-sm text-gray-300 transition-colors hover:bg-[#121a1e] hover:text-white">
+                      <Link key={v.key} to={v.hub} className="flex items-center gap-2.5 bg-night-deck px-4 py-3 text-sm text-gray-700 transition-colors hover:bg-night-raised hover:text-gray-900">
                         <v.icon size={16} className="shrink-0 text-gray-500" />
                         {v.label}
                       </Link>
@@ -139,7 +139,7 @@ const Navbar: React.FC<NavbarProps> = () => {
         )}
 
         <div className="flex items-center gap-1.5 md:gap-2">
-          <AppLauncher site={cto ? 'cto' : 'root'} className="h-10 w-10 rounded-lg text-gray-300 hover:bg-white/5 hover:text-white" />
+          <AppLauncher site={cto ? 'cto' : 'root'} className="h-10 w-10 rounded-lg text-gray-700 hover:bg-black/5 hover:text-gray-900" />
           <a
             href={CALENDLY}
             target="_blank"
@@ -151,7 +151,7 @@ const Navbar: React.FC<NavbarProps> = () => {
           </a>
           <button
             onClick={() => setMenu((m) => !m)}
-            className={`grid h-11 w-11 place-items-center rounded-lg text-gray-200 hover:bg-white/5 ${narrow}`}
+            className={`grid h-11 w-11 place-items-center rounded-lg text-gray-800 hover:bg-black/5 ${narrow}`}
             aria-label={menu ? 'Close menu' : 'Open menu'}
             aria-expanded={menu}
           >
@@ -175,7 +175,7 @@ const Navbar: React.FC<NavbarProps> = () => {
           <div className="v3-eyebrow mb-3">Industries</div>
           <div className="v3-deck mb-8 !grid-cols-2">
             {VERTICALS.map((v) => (
-              <Link key={v.key} to={v.path} className="flex min-h-[52px] items-center gap-2.5 px-4 text-[15px] text-gray-200">
+              <Link key={v.key} to={v.path} className="flex min-h-[52px] items-center gap-2.5 px-4 text-[15px] text-gray-800">
                 <v.icon size={16} className="text-gray-500" /> {v.short}
               </Link>
             ))}
@@ -196,11 +196,11 @@ const Navbar: React.FC<NavbarProps> = () => {
               { to: '/#contact', label: 'Contact', section: 'contact' },
             ] as { to: string; label: string; section?: string; ext?: boolean }[]).map((l) =>
               l.section ? (
-                <a key={l.label} href={l.to} onClick={toSection(l.section)} className="flex min-h-[56px] items-center justify-between text-xl text-white">{l.label} <ArrowRight size={18} className="text-gray-600" /></a>
+                <a key={l.label} href={l.to} onClick={toSection(l.section)} className="flex min-h-[56px] items-center justify-between text-xl text-gray-900">{l.label} <ArrowRight size={18} className="text-gray-500" /></a>
               ) : l.ext ? (
-                <a key={l.label} href={l.to} className="flex min-h-[56px] items-center justify-between text-xl text-white">{l.label} <ArrowUpRight size={18} className="text-gray-600" /></a>
+                <a key={l.label} href={l.to} className="flex min-h-[56px] items-center justify-between text-xl text-gray-900">{l.label} <ArrowUpRight size={18} className="text-gray-500" /></a>
               ) : (
-                <Link key={l.label} to={l.to} className="flex min-h-[56px] items-center justify-between text-xl text-white">{l.label} <ArrowRight size={18} className="text-gray-600" /></Link>
+                <Link key={l.label} to={l.to} className="flex min-h-[56px] items-center justify-between text-xl text-gray-900">{l.label} <ArrowRight size={18} className="text-gray-500" /></Link>
               ),
             )}
           </nav>

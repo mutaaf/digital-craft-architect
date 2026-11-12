@@ -79,7 +79,7 @@ const TrySheet: React.FC = () => {
       >
         {spread && (
           // the left page: what happens, so the right page can be all form
-          <div className="hidden flex-col justify-end p-10 text-gray-300 sm:flex" style={{ width: 'var(--v3-hinge-l)', marginRight: 'var(--v3-hinge-w)' }}>
+          <div className="hidden flex-col justify-end p-10 text-gray-700 sm:flex" style={{ width: 'var(--v3-hinge-l)', marginRight: 'var(--v3-hinge-w)' }}>
             <div className="v3-eyebrow mb-4">How it works</div>
             <ol className="space-y-4 text-lg">
               <li><span className="v3-mono text-aurora">01</span> We read your website.</li>
@@ -93,14 +93,14 @@ const TrySheet: React.FC = () => {
           className={`v3-brackets relative border border-night-hair bg-night-deck p-6 pb-[calc(24px+env(safe-area-inset-bottom))] shadow-2xl md:p-8 ${spread ? 'flex-1 overflow-y-auto' : 'max-h-[92vh] overflow-y-auto rounded-t-2xl md:rounded-none'}`}
         >
           <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-gray-700 md:hidden" aria-hidden />
-          <button type="button" onClick={() => setOpen(false)} className="absolute right-3 top-3 grid h-11 w-11 place-items-center rounded-full text-gray-400 hover:text-white" aria-label="Close">
+          <button type="button" onClick={() => setOpen(false)} className="absolute right-3 top-3 grid h-11 w-11 place-items-center rounded-full text-gray-600 hover:text-gray-900" aria-label="Close">
             <X size={20} />
           </button>
           <div className="v3-eyebrow mb-3 flex items-center gap-2"><span className="v3-dot" /> Live · personalized</div>
-          <h2 id="v3-try-title" className="mb-2 text-2xl font-semibold text-white md:text-3xl">
+          <h2 id="v3-try-title" className="mb-2 text-2xl font-semibold text-gray-900 md:text-3xl">
             Watch it work on <span className="v3-serif italic text-aurora">your</span> company.
           </h2>
-          <p className="mb-6 text-gray-400">Give us your website. Every demo answers as your business, in about twenty seconds.</p>
+          <p className="mb-6 text-gray-600">Give us your website. Every demo answers as your business, in about twenty seconds.</p>
 
           <label htmlFor="v3-try-site" className="v3-tag mb-2 block">Your website</label>
           <div className="relative mb-1">

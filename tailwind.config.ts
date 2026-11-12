@@ -40,8 +40,8 @@ export default {
         slate: night,
         zinc: night,
         neutral: night,
-        night: { DEFAULT: "#0B0F12", deck: "#0E1316", panel: "#12181C", raised: "#1A2126", hair: "#252C31" },
-        aurora: { DEFAULT: "#7BE3C3", soft: "#A8F0D9", deep: "#3E8F7A" },
+        night: { DEFAULT: "var(--v3-night)", deck: "var(--v3-deck)", panel: "var(--v3-panel)", raised: "var(--v3-raised)", hair: "var(--v3-hair)" },
+        aurora: { DEFAULT: "rgb(var(--v3-aurora-rgb) / <alpha-value>)", soft: "#7BE3C3", deep: "#08624A" },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -75,7 +75,7 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))"
         },
-        skyblue: "#7BE3C3", // the old sky accent now reads as the aurora
+        skyblue: "#0B7D5E", // the old sky accent now reads as the deep aurora
         ink: {
           DEFAULT: "#0b0b0d",
           soft: "#17171b",

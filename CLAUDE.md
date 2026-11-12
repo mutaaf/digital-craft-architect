@@ -231,7 +231,8 @@ The site-wide redesign after mutaafaziz.com's Mission Control lives on the **`be
 **beta.digitalcraftai.com** (root) and **cto-beta.digitalcraftai.com** (CTO) via Vercel branch domains.
 `main` (digitalcraftai.com) is untouched until the beta PR merges. Tag `legacy-v1-2026-11-11` = the site before.
 
-- **Theme:** `html.dark` on every page; Tailwind `gray/slate/zinc/neutral` = the polar night scale, `purple/violet/indigo/fuchsia` = aurora (tailwind.config.ts). Global styles + deck primitives in `src/v3/v3.css` (base selectors wrapped in `:where()` so utilities win).
+- **Theme (daylight, 2026-11-12, owner: "too dark, show the customer's outcome, less text"):** light pages, no `html.dark`. Warm paper `#F6F4EF`, white `.v3-card`s, deep aurora `#0B7D5E` accent, copper for the CTO site. Tailwind `night-*`/`aurora` are CSS variables set in `src/v3/v3.css` (`--v3-*`); `gray/slate/zinc/neutral` = the cool gray scale, `purple/violet/indigo/fuchsia` = aurora (tailwind.config.ts). The only dark surface on the landings is the storyboard window (StageWindow) and the closing CTA.
+- **Landing rule:** outcomes and the visitor's own numbers first (`src/v3/Savings.tsx`, an estimate with printed assumptions), few words per block.
 - **Landings:** `src/v3/Home3.tsx` (root), `src/v3/Cto3.tsx` (CTO). Old ones at `/?v=2`. Numbers on the deck must be real (counted from `src/data/demoCatalog.ts`, or existing client outcomes in `src/data/ctoCopy.ts`).
 - **Chrome (once, in App):** `src/v3/Chrome.tsx` = phone dock, TrySheet (`openTry()` → `/<vertical>/demo?site=`), PwaBar (`?go=try|book|install|demos|<vertical>`), BetaBadge.
 - **Installable app:** `public/app.webmanifest`, `public/app-cto.webmanifest` (swapped in by `src/v3/pwa.ts` on cto hosts), `public/sw.js` (network-first; never /api; bump VERSION on caching changes), `public/offline.html`, icons via `node scripts/pwa-icons.mjs`. `/share` is the share target.

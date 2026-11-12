@@ -94,11 +94,11 @@ const PwaBar: React.FC = () => {
         <div className="flex items-start justify-between gap-3">
           <div>
             <div className="v3-eyebrow mb-1">Install the app</div>
-            <div className="font-semibold text-white">Add DigitalCraft to your Home Screen</div>
+            <div className="font-semibold text-gray-900">Add DigitalCraft to your Home Screen</div>
           </div>
-          <button onClick={close} aria-label="Close" className="grid h-10 w-10 shrink-0 place-items-center text-gray-400"><X size={18} /></button>
+          <button onClick={close} aria-label="Close" className="grid h-10 w-10 shrink-0 place-items-center text-gray-600"><X size={18} /></button>
         </div>
-        <ol className="space-y-2 text-sm text-gray-300">
+        <ol className="space-y-2 text-sm text-gray-700">
           <li className="flex items-center gap-2"><span className="v3-mono text-aurora">1</span> Tap <Share size={16} className="inline text-aurora" /> Share in Safari&rsquo;s toolbar</li>
           <li className="flex items-center gap-2"><span className="v3-mono text-aurora">2</span> Choose <SquarePlus size={16} className="inline text-aurora" /> Add to Home Screen</li>
           <li className="flex items-center gap-2"><span className="v3-mono text-aurora">3</span> Tap Add. It opens full screen, like an app.</li>
@@ -146,7 +146,7 @@ const PwaBar: React.FC = () => {
     <div className="v3-pwabar" role="status">
       {content[bar]}
       {bar !== 'online' && (
-        <button onClick={close} aria-label="Dismiss" className="grid h-10 w-10 shrink-0 place-items-center text-gray-500 hover:text-white"><X size={16} /></button>
+        <button onClick={close} aria-label="Dismiss" className="grid h-10 w-10 shrink-0 place-items-center text-gray-500 hover:text-gray-900"><X size={16} /></button>
       )}
     </div>
   );

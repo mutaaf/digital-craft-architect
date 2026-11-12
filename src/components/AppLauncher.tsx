@@ -50,7 +50,7 @@ function loadLauncher(): Promise<void> {
 // each site's skin and its own rows above the apps
 const SITE = {
   root: {
-    here: 'dc', theme: 'dark', vars: { '--l-accent': '#7BE3C3', '--l-panel': 'rgba(14,19,22,.97)', '--l-line': '#252C31' },
+    here: 'dc', theme: 'light', vars: { '--l-accent': '#0B7D5E' },
     actions: [
       { name: 'Book a discovery call', tip: 'Thirty minutes, no pitch.', run: bookCall('root'), icon: PHONE, kw: 'call calendly meeting talk' },
       { name: 'Watch it work on your company', tip: 'Run the demos on your own website.', run: () => openTry(), icon: PLAY, kw: 'demo try company website' },
