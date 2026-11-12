@@ -5,8 +5,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
-import Index from "./pages/Index";
-import IndexV2 from "./pages/IndexV2";
 import { isCTOHost } from "./utils/hostVariant";
 import { trackEvent } from "./utils/analytics";
 import { ErrorBoundary } from "@sentry/react";
@@ -15,6 +13,9 @@ import EasterEgg from "./components/EasterEgg";
 import { Analytics } from "@vercel/analytics/react";
 import { DemoContextProvider } from "./contexts/DemoContext";
 import { recordVisitToday } from "./utils/visitStreakStore";
+import V3Chrome from "./v3/Chrome";
+import Home3 from "./v3/Home3";
+import Cto3 from "./v3/Cto3";
 
 // Route-level code-splitting (ticket: route-code-splitting). Every page below
 // the eagerly-loaded landing shell (Index / IndexV2) is lazy-loaded so the
@@ -23,6 +24,9 @@ import { recordVisitToday } from "./utils/visitStreakStore";
 // modules use default exports, so the bare lazy(() => import(...)) form is
 // correct for every one; a named-export page would need .then(m => ({ default:
 // m.X })) instead.
+// the previous landings, kept at ?v=2
+const Index = lazy(() => import("./pages/Index"));
+const IndexV2 = lazy(() => import("./pages/IndexV2"));
 const Construction = lazy(() => import("./pages/Construction"));
 const RealEstate = lazy(() => import("./pages/RealEstate"));
 const RealEstateDemoHub = lazy(() => import("./pages/realestate/RealEstateDemoHub"));
@@ -133,6 +137,7 @@ const Classes = lazy(() => import("./pages/Classes"));
 const ClassSession = lazy(() => import("./pages/classes/ClassSession"));
 const ClassRegistration = lazy(() => import("./pages/classes/ClassRegistration"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const SharePage = lazy(() => import("./v3/SharePage"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -170,7 +175,11 @@ const LandingRoot: React.FC = () => {
   React.useEffect(() => {
     trackEvent('landing_view', 'navigation', isCTO ? 'cto_subdomain' : 'root_domain');
   }, [isCTO]);
-  return isCTO ? <IndexV2 /> : <Index />;
+  // v3 (the beta overhaul): both landings are the instrument deck. The previous pages stay
+  // reachable at ?v=2 (and on the live site until this branch is merged).
+  const legacy = React.useMemo(() => new URLSearchParams(window.location.search).get('v') === '2', []);
+  if (legacy) return isCTO ? <IndexV2 /> : <Index />;
+  return isCTO ? <Cto3 /> : <Home3 />;
 };
 
 interface FallbackProps {
@@ -270,6 +279,7 @@ const App = () => {
           <Analytics />
           <EasterEgg />
           <BrowserRouter>
+            <V3Chrome />
             <Suspense fallback={<RouteFallback />}>
             <Routes>
               <Route path="/" element={<LandingRoot />} />
@@ -413,6 +423,7 @@ const App = () => {
               <Route path="/classes/register" element={<ClassRegistration legacyDefault />} />
               <Route path="/classes/:slug" element={<ClassSession />} />
               <Route path="/classes/:slug/register" element={<ClassRegistration />} />
+              <Route path="/share" element={<SharePage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
             </Suspense>

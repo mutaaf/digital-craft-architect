@@ -1,0 +1,123 @@
+{
+  "id": "/?app=cto",
+  "name": "DigitalCraft \u00b7 Fractional CTO",
+  "short_name": "DC \u00b7 CTO",
+  "description": "A Fortune 100 technology champion on retainer: strategy, AI systems and shipped software.",
+  "lang": "en",
+  "dir": "ltr",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "any",
+  "background_color": "#0B0F12",
+  "theme_color": "#0B0F12",
+  "categories": [
+    "business",
+    "productivity",
+    "utilities"
+  ],
+  "icons": [
+    {
+      "src": "/icons/icon-cto-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-cto-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-cto-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/icon-monochrome-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "monochrome"
+    },
+    {
+      "src": "/icons/icon-cto.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/icons/screens/cto-wide.png",
+      "sizes": "1280x800",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "The instrument deck on a desktop"
+    },
+    {
+      "src": "/icons/screens/cto-narrow.png",
+      "sizes": "780x1688",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "On an iPhone"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Book a call",
+      "short_name": "Book",
+      "description": "Thirty minutes, no pitch.",
+      "url": "/?go=book",
+      "icons": [
+        {
+          "src": "/icons/icon-cto-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "The company site",
+      "short_name": "DigitalCraft",
+      "url": "https://digitalcraftai.com/?source=pwa",
+      "icons": [
+        {
+          "src": "/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "web+digitalcraft",
+      "url": "/?go=%s"
+    }
+  ],
+  "launch_handler": {
+    "client_mode": [
+      "navigate-existing",
+      "auto"
+    ]
+  },
+  "edge_side_panel": {
+    "preferred_width": 420
+  },
+  "handle_links": "preferred",
+  "prefer_related_applications": false
+}

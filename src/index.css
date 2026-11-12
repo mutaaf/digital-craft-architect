@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
@@ -47,34 +47,28 @@
     --ink-warm: 24 12% 9%;     /* #1a1714 — warm dark ink */
   }
 
+  /* v3: the polar night (mutaafaziz.com Mission Control): night, hairlines, one aurora accent */
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 196 80% 57%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --background: 204 24% 6%;      /* #0B0F12 night */
+    --foreground: 200 15% 92%;
+    --card: 204 21% 9%;            /* #12181C panel */
+    --card-foreground: 200 15% 92%;
+    --popover: 204 21% 9%;
+    --popover-foreground: 200 15% 92%;
+    --primary: 161 64% 69%;        /* #7BE3C3 aurora */
+    --primary-foreground: 204 24% 6%;
+    --secondary: 205 19% 13%;
+    --secondary-foreground: 200 15% 92%;
+    --muted: 205 19% 13%;
+    --muted-foreground: 203 8% 58%;
+    --accent: 205 19% 13%;
+    --accent-foreground: 200 15% 92%;
+    --destructive: 4 70% 52%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 205 14% 17%;         /* #252C31 hairline */
+    --input: 205 14% 17%;
+    --ring: 161 64% 69%;
+    --copper: 25 64% 48%;          /* #C96E2C the Digital Craft tick */
   }
 }
 

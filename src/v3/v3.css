@@ -1,0 +1,239 @@
+/* ──────────────────────────────────────────────────────────────────────────────────────────────
+   DigitalCraft v3 — the instrument deck (after mutaafaziz.com's Mission Control, 2026-11-11)
+   Night (#0B0F12), hairlines (#252C31), one aurora accent (#7BE3C3), one copper tick (#C96E2C) for
+   Digital Craft itself. Calm, real numbers, the high tech in the framing. Every page runs in
+   Tailwind's `dark` class (index.html), so each page's own dark: variants land on the deck; the
+   grays are the night's (tailwind.config.ts).
+   ────────────────────────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --v3-night: #0b0f12;
+  --v3-deck: #0e1316;
+  --v3-panel: #12181c;
+  --v3-raised: #1a2126;
+  --v3-hair: #252c31;
+  --v3-hair-hi: #34404a;
+  --v3-fg: #e8edef;
+  --v3-mute: #8c979e;
+  --v3-dim: #5f6b73;
+  --v3-aurora: #7be3c3;
+  --v3-aurora-deep: #3e8f7a;
+  --v3-copper: #c96e2c;
+  --v3-copper-soft: #e89862;
+  --v3-ease: cubic-bezier(0.2, 0.7, 0.1, 1);
+  /* the hinge (iPhone Duo, foldables): set by src/v3/fold.ts; 0 when there is none */
+  --v3-hinge-l: 50%;
+  --v3-hinge-w: 0px;
+  --v3-dock-h: 0px;
+  color-scheme: dark;
+}
+
+html.dark body {
+  background-color: var(--v3-night);
+  /* the polar night carries on under every page: a faint 48px plotting grid and a low aurora */
+  background-image:
+    radial-gradient(1200px 500px at 85% -10%, rgba(123, 227, 195, 0.07), transparent 70%),
+    radial-gradient(900px 400px at -10% 0%, rgba(201, 110, 44, 0.05), transparent 70%),
+    linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+  background-size: auto, auto, 48px 48px, 48px 48px;
+  background-attachment: fixed, fixed, scroll, scroll;
+  color: var(--v3-fg);
+  font-feature-settings: 'ss01' 1, 'cv11' 1;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html.dark ::selection { background: rgba(123, 227, 195, 0.28); color: #fff; }
+html.dark { scrollbar-color: var(--v3-hair-hi) transparent; }
+html.dark :focus-visible { outline: 2px solid var(--v3-aurora); outline-offset: 2px; }
+
+html.dark h1, html.dark h2, html.dark h3 { letter-spacing: -0.022em; text-wrap: balance; }
+
+/* The aurora is light: anything that was white text on the accent reads night on it instead */
+html.dark [class~='bg-primary'].text-white,
+html.dark [class*='bg-primary/9'].text-white,
+html.dark [class~='bg-skyblue'].text-white,
+html.dark [class*='bg-skyblue/9'].text-white,
+html.dark .btn-primary {
+  color: var(--v3-night);
+  font-weight: 600;
+}
+html.dark [class~='bg-primary'].text-white svg,
+html.dark [class~='bg-skyblue'].text-white svg { color: inherit; }
+
+/* ── The deck: one instrument whose cells share 1px hairlines (Mission Control's #mcck) ───────── */
+:where(.v3-deck) {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--v3-hair);
+  border: 1px solid var(--v3-hair);
+}
+:where(.v3-deck > *) { background: var(--v3-deck); min-width: 0; }
+:where(.v3-cell) { position: relative; padding: clamp(20px, 3vw, 36px); }
+.v3-brackets::before,
+.v3-brackets::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 0 solid var(--v3-aurora);
+  pointer-events: none;
+  z-index: 2;
+}
+.v3-brackets::before { top: -2px; left: -2px; border-top-width: 2px; border-left-width: 2px; }
+.v3-brackets::after { right: -2px; bottom: -2px; border-right-width: 2px; border-bottom-width: 2px; }
+
+/* a cell's channel tag: decoration only (aria-hidden), plain words in the heading beside it */
+.v3-tag {
+  font-family: 'JetBrains Mono', 'SF Mono', ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--v3-dim);
+}
+.v3-eyebrow {
+  font-family: 'JetBrains Mono', 'SF Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--v3-mute);
+}
+.v3-mono { font-family: 'JetBrains Mono', 'SF Mono', ui-monospace, monospace; }
+.v3-serif { font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; letter-spacing: -0.01em; }
+.v3-tick { display: inline-block; width: 7px; height: 7px; border-radius: 1px; background: var(--v3-copper); transform: rotate(45deg); }
+.v3-dot { display: inline-block; width: 6px; height: 6px; border-radius: 99px; background: var(--v3-aurora); box-shadow: 0 0 10px rgba(123, 227, 195, 0.7); }
+
+/* ruler ticks under a gauge: decoration, never data */
+.v3-ruler {
+  height: 6px;
+  background-image: linear-gradient(90deg, var(--v3-hair-hi) 1px, transparent 1px);
+  background-size: 8px 6px;
+  opacity: 0.9;
+}
+
+/* the one scan line that sweeps a deck the first time it scrolls into view */
+.v3-scan { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 3; }
+.v3-deck > .v3-scan { background: none; }
+.v3-scan::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: -30%;
+  height: 30%;
+  background: linear-gradient(180deg, transparent, rgba(123, 227, 195, 0.07) 70%, rgba(123, 227, 195, 0.35) 99%, transparent);
+  animation: v3-scan 1.6s var(--v3-ease) 1 forwards;
+}
+@keyframes v3-scan { to { top: 110%; } }
+
+/* launch keys (1 2 3 4 press them) */
+:where(.v3-key) {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+  min-height: 132px;
+  padding: 20px;
+  color: var(--v3-fg);
+  text-decoration: none;
+  transition: background 0.25s var(--v3-ease);
+}
+.v3-key:hover, .v3-key:focus-visible, .v3-key[data-pressed] { background: #121a1e; }
+.v3-key .v3-keycap {
+  display: inline-grid; place-items: center;
+  width: 26px; height: 26px;
+  border: 1px solid var(--v3-hair-hi);
+  border-bottom-width: 3px;
+  border-radius: 6px;
+  font: 600 12px/1 'JetBrains Mono', ui-monospace, monospace;
+  color: var(--v3-mute);
+  transition: transform 0.12s, border-color 0.2s, color 0.2s;
+}
+.v3-key:hover .v3-keycap, .v3-key[data-pressed] .v3-keycap { border-color: var(--v3-aurora); color: var(--v3-aurora); }
+.v3-key[data-pressed] .v3-keycap { transform: translateY(2px); border-bottom-width: 1px; }
+.v3-key .v3-arrow { transition: transform 0.3s var(--v3-ease); }
+.v3-key:hover .v3-arrow { transform: translate(3px, -3px); }
+
+/* buttons */
+:where(.v3-btn) {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; padding: 0 18px;
+  border-radius: 10px;
+  font-weight: 600; font-size: 15px;
+  text-decoration: none; white-space: nowrap;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s var(--v3-ease);
+}
+.v3-btn:active { transform: translateY(1px); }
+.v3-btn-aurora { background: var(--v3-aurora); color: var(--v3-night); box-shadow: 0 0 0 1px rgba(123, 227, 195, 0.4), 0 10px 30px -12px rgba(123, 227, 195, 0.55); }
+.v3-btn-aurora:hover { background: #95ead0; }
+.v3-btn-ghost { border: 1px solid var(--v3-hair-hi); color: var(--v3-fg); background: rgba(255, 255, 255, 0.02); }
+.v3-btn-ghost:hover { border-color: var(--v3-aurora); color: #fff; }
+.v3-btn-copper { background: var(--v3-copper); color: #fff; }
+.v3-btn-copper:hover { background: #d97b36; }
+
+:where(.v3-input) {
+  width: 100%; min-height: 48px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid var(--v3-hair-hi);
+  background: #0b1013;
+  color: var(--v3-fg);
+  font-size: 16px; /* never under 16px: iOS zooms */
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.v3-input::placeholder { color: var(--v3-dim); }
+.v3-input:focus { outline: none; border-color: var(--v3-aurora); box-shadow: 0 0 0 3px rgba(123, 227, 195, 0.15); }
+
+:where(.v3-chip) {
+  display: inline-flex; align-items: center; gap: 6px;
+  min-height: 34px; padding: 0 12px;
+  border: 1px solid var(--v3-hair-hi); border-radius: 99px;
+  color: var(--v3-mute); font-size: 13.5px;
+  background: transparent;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.v3-chip:hover, .v3-chip[aria-pressed='true'] { border-color: var(--v3-aurora); color: var(--v3-fg); background: rgba(123, 227, 195, 0.06); }
+
+/* the page-load reveal: one orchestrated stagger, nothing scattered */
+.v3-rise { opacity: 0; transform: translateY(14px); animation: v3-rise 0.9s var(--v3-ease) forwards; animation-delay: calc(var(--i, 0) * 90ms + 80ms); }
+@keyframes v3-rise { to { opacity: 1; transform: none; } }
+
+/* ── The phone dock (src/v3/MobileDock.tsx) owns the bottom of the screen on phones ────────────── */
+@media (max-width: 767px) {
+  body.v3-has-dock { --v3-dock-h: calc(62px + env(safe-area-inset-bottom)); padding-bottom: var(--v3-dock-h); }
+  body.v3-has-dock [data-v3='sticky-cta'] { display: none; }
+  body.v3-has-dock [data-v3='chat'] { bottom: calc(var(--v3-dock-h) + 14px) !important; }
+}
+
+/* the installable app's bar (install, update, offline, shared links) */
+.v3-pwabar {
+  position: fixed; z-index: 70;
+  left: 50%; transform: translateX(-50%);
+  bottom: calc(var(--v3-dock-h, 0px) + 16px + env(safe-area-inset-bottom));
+  width: min(560px, calc(100vw - 24px));
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 10px 10px 16px;
+  border: 1px solid var(--v3-hair-hi); border-radius: 14px;
+  background: rgba(14, 19, 22, 0.94);
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.8);
+  color: var(--v3-fg); font-size: 14px;
+  animation: v3-rise 0.5s var(--v3-ease) forwards;
+}
+
+/* standalone (installed) app: no browser chrome, so the header clears the status bar */
+@media (display-mode: standalone), (display-mode: window-controls-overlay) {
+  .v3-header { padding-top: env(safe-area-inset-top); }
+}
+@media (display-mode: window-controls-overlay) {
+  .v3-header { padding-left: env(titlebar-area-x, 0); -webkit-app-region: drag; app-region: drag; }
+  .v3-header a, .v3-header button { -webkit-app-region: no-drag; app-region: no-drag; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v3-rise { animation: none; opacity: 1; transform: none; }
+  .v3-scan::after { animation: none; display: none; }
+  .v3-key, .v3-btn, .v3-chip { transition: none; }
+}

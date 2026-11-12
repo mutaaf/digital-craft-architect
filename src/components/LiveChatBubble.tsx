@@ -128,7 +128,7 @@ const LiveChatBubble: React.FC = () => {
       {!isOpen && (
         <button
           onClick={handleOpen}
-          className={`fixed bottom-20 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-lg hover:bg-primary/90 transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 ${byStory ? 'pointer-events-none translate-y-4 opacity-0' : ''}`}
+          data-v3="chat" className={`fixed bottom-20 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-lg hover:bg-primary/90 transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 ${byStory ? 'pointer-events-none translate-y-4 opacity-0' : ''}`}
           aria-hidden={byStory || undefined}
           tabIndex={byStory ? -1 : undefined}
           aria-label="Open chat"
@@ -138,7 +138,7 @@ const LiveChatBubble: React.FC = () => {
       )}
 
       {isOpen && (
-        <div className="fixed bottom-20 right-4 z-50 w-80 sm:w-96 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200">
+        <div data-v3="chat" className="fixed bottom-20 right-4 z-50 w-80 sm:w-96 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200">
           <div className="flex items-center justify-between bg-primary px-4 py-3">
             <div className="flex items-center gap-2">
               <MessageCircle className="h-5 w-5 text-white" />
