@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { ArrowRight, ArrowUpRight, Check, Phone, MessageSquare, Calculator, PhoneCall, Star } from 'lucide-react';
+import { ChevronRight, Star } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ContactForm from '@/components/ContactForm';
@@ -9,35 +9,21 @@ import LiveChatBubble from '@/components/LiveChatBubble';
 import { useContent } from '@/hooks/useContent';
 import { useAnalytics, useEngagementTracking, trackCTAClick } from '@/utils/analytics';
 import { ORGANIZATION_SCHEMA } from '@/data/organizationSchema';
-import { StageWindow } from './deck';
 import Savings from './Savings';
+import PhoneDemo from './PhoneDemo';
+import { useReveal } from './keynote';
 import { openTry } from './TrySheet';
-import { CALENDLY, VERTICALS, domainOf } from './verticals';
+import { CALENDLY, domainOf } from './verticals';
 import { useFold } from './fold';
 
-// v3 landing for digitalcraftai.com, daylight edition (2026-11-12, the owner's notes: lighter, show the
-// customer what they get and what it saves them, far fewer words). Order: the promise + their own
-// numbers (Savings), what clients actually got, what you get (each one live), how it works, their
-// words, the price, one close. Client results are the site's existing public ones (content.json,
-// src/data/ctoCopy.ts); the calculator is the visitor's estimate and says so.
+// v3 landing for digitalcraftai.com, the keynote pass (2026-11-12; the owner: "not approved by Apple
+// and Tesla standards"). One idea per screen, huge type, white space, a product shot instead of a
+// diagram, pill buttons, nothing that reads like a dashboard. Results are the site's existing public
+// client outcomes; the phone is labelled an illustration; the calculator is the visitor's estimate.
 
 const PRODUCT_NAME = 'Digital Craft AI Automation';
 
-const RESULTS = [
-  { before: 'Hours', after: '47 sec', what: 'to answer a new lead', who: 'Residential development firm' },
-  { before: 'Days', after: '< 1 hr', what: 'to send an estimate', who: 'Multi-location service business' },
-  { before: '20 hrs/wk', after: '0', what: 'of retyping bookings', who: 'Family entertainment center' },
-  { before: '', after: '6 weeks', what: 'to pay for itself', who: 'Residential development firm' },
-];
-
-const GET = [
-  { icon: PhoneCall, title: 'Every call answered', line: 'Day, night, weekends. It books the job.', to: '/construction/demo/voice-negotiator' },
-  { icon: MessageSquare, title: 'Every lead in 60 seconds', line: 'Texts back, qualifies, schedules.', to: '/construction/demo/lead-responder' },
-  { icon: Calculator, title: 'Estimates same day', line: 'Priced from your numbers, sent while they’re hot.', to: '/construction/demo/estimate' },
-  { icon: Star, title: 'More 5-star reviews', line: 'Asks happy customers, replies in your voice.', to: '/construction/demo/reviews' },
-];
-
-const rise = (i: number) => ({ '--i': i }) as React.CSSProperties;
+const Chev = () => <ChevronRight size={18} strokeWidth={2.2} className="mt-px" />;
 
 const Home3: React.FC = () => {
   const { content } = useContent();
@@ -45,9 +31,9 @@ const Home3: React.FC = () => {
   const [site, setSite] = useState('');
   useAnalytics('G-JQ53W917HT');
   useEngagementTracking();
+  useReveal([content]);
 
   useEffect(() => { if (!window.location.hash) window.scrollTo(0, 0); }, []);
-  // honor /#contact and /#pricing (the navbar's links from other pages) once content is in
   useEffect(() => {
     if (!content || !window.location.hash) return;
     const t = window.setTimeout(() => document.getElementById(window.location.hash.slice(1))?.scrollIntoView({ behavior: 'smooth' }), 120);
@@ -59,43 +45,31 @@ const Home3: React.FC = () => {
   const tiers = content?.pricingTiers;
   const buildPrice = Number(mvp?.price?.replace(/[^0-9.]/g, '')) || 4999;
   const plus = tiers?.tiers.find((t) => t.highlighted) ?? tiers?.tiers[0];
+  const lowest = tiers?.tiers.reduce((m, t) => Math.min(m, t.price), Infinity);
+  const quote = content?.testimonials?.find((t) => /Residential/i.test(t.position));
 
+  const go = (where: string) => () => { trackCTAClick('v3_try', where); openTry(); };
   const tryHere = (e: React.FormEvent) => {
     e.preventDefault();
-    trackCTAClick('v3_hero_try', domainOf(site) ? 'with_site' : 'empty');
+    trackCTAClick('v3_close_try', domainOf(site) ? 'with_site' : 'empty');
     openTry({ site: domainOf(site) || site || null });
   };
 
   const open = form === 'open';
-  const words = (
-    <div>
-      <div className="v3-rise v3-eyebrow mb-5 flex items-center gap-2.5" style={rise(0)}>
-        <span className="v3-tick" /> For contractors, home services &amp; local businesses
-      </div>
-      <h1 className={`v3-rise mb-5 font-semibold leading-[1.02] text-gray-900 ${open ? 'text-[50px]' : 'text-[42px] sm:text-[56px] lg:text-[68px]'}`} style={rise(1)}>
-        Stop losing jobs to <span className="v3-serif italic text-aurora">missed calls.</span>
-      </h1>
-      <p className="v3-rise mb-7 max-w-[32rem] text-lg leading-relaxed text-gray-600 md:text-xl" style={rise(2)}>
-        AI that answers every lead, sends the estimate and books the job, while you&rsquo;re on site.
-      </p>
-      <form onSubmit={tryHere} className={`v3-rise mb-4 flex max-w-[32rem] flex-col gap-2 ${open ? '' : 'sm:flex-row'}`} style={rise(3)}>
-        <label htmlFor="v3-hero-site" className="sr-only">Your company website</label>
-        <input id="v3-hero-site" className="v3-input flex-1" inputMode="url" autoCapitalize="none" spellCheck={false} placeholder="yourcompany.com" value={site} onChange={(e) => setSite(e.target.value)} />
-        <button type="submit" className="v3-btn v3-btn-aurora">See it on my company <ArrowRight size={17} /></button>
-      </form>
-      <div className="v3-rise flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-gray-600" style={rise(4)}>
-        <span className="inline-flex items-center gap-1.5"><Check size={15} className="text-aurora" /> Free, no signup</span>
-        <span className="inline-flex items-center gap-1.5"><Check size={15} className="text-aurora" /> Live in 2 weeks</span>
-        <a href={CALENDLY} target="_blank" rel="noopener noreferrer" onClick={() => trackCTAClick('book_discovery', 'v3_hero')} className="inline-flex items-center gap-1.5 font-medium text-gray-900 underline-offset-4 hover:underline">
-          <Phone size={15} /> Book a call
-        </a>
+  const heroWords = (
+    <div className={open ? '' : 'text-center'}>
+      <div className="v3-rise mb-4 text-[17px] font-semibold text-aurora md:text-[21px]" style={{ '--i': 0 } as React.CSSProperties}>DigitalCraft AI</div>
+      <h1 className={`v3-rise k-hero mb-5 max-w-[11ch] text-[#1d1d1f] ${open ? '' : 'mx-auto'}`} style={{ '--i': 1 } as React.CSSProperties}>Never miss a job again.</h1>
+      <p className={`v3-rise k-lead mb-8 ${open ? '' : 'mx-auto'}`} style={{ '--i': 2 } as React.CSSProperties}>AI that answers, quotes and books.<br />While you work.</p>
+      <div className={`v3-rise flex flex-col items-center gap-4 sm:flex-row ${open ? '' : 'sm:justify-center'}`} style={{ '--i': 3 } as React.CSSProperties}>
+        <button type="button" onClick={go('hero')} className="k-pill k-pill-brand">See it on your company</button>
+        <a href={CALENDLY} target="_blank" rel="noopener noreferrer" onClick={() => trackCTAClick('book_discovery', 'v3_hero')} className="k-link">Book a call <Chev /></a>
       </div>
     </div>
   );
-  const calc = <Savings className="v3-rise" buildPrice={buildPrice} monthly={plus?.price ?? 999} />;
 
   return (
-    <div className="min-h-screen overflow-x-clip text-gray-800">
+    <div className="min-h-screen overflow-x-clip bg-white text-[#1d1d1f]">
       <Helmet>
         <title>{seo?.title ?? 'DigitalCraft AI | AI Automation for Traditional Industries'}</title>
         {seo && <meta name="description" content={seo.description} />}
@@ -118,144 +92,145 @@ const Home3: React.FC = () => {
       </Helmet>
       <Navbar />
 
-      {/* ── the promise, and what it's worth to you ─────────────────────────────────────── */}
+      {/* ── 1 · the promise and the product ─────────────────────────────────────────────── */}
       {open ? (
         <section style={{ display: 'grid', gridTemplateColumns: 'var(--v3-hinge-l) var(--v3-hinge-w) 1fr', minHeight: '100svh' }}>
-          <div className="flex items-center px-8 pb-10 pt-24">{calc}</div>
+          <div className="flex items-center justify-center bg-[#f5f5f7] pt-16"><PhoneDemo /></div>
           <div aria-hidden />
-          <div className="flex flex-col justify-center px-8 pb-10 pt-24">{words}</div>
+          <div className="flex flex-col justify-center px-10 pt-16">{heroWords}</div>
         </section>
       ) : (
-        <section className="relative pt-24 md:pt-32">
-          <div className="mx-auto grid max-w-[1240px] items-center gap-10 px-4 md:px-6 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
-            {words}
-            <div style={rise(5)}>{calc}</div>
-          </div>
+        <section className="px-5 pt-28 md:pt-36">
+          {heroWords}
+          <div className="v3-rise mt-14 md:mt-20" style={{ '--i': 4 } as React.CSSProperties}><PhoneDemo /></div>
         </section>
       )}
 
-      {/* ── built for ───────────────────────────────────────────────────────────────────── */}
-      <section className="mx-auto mt-14 max-w-[1240px] px-4 md:mt-20 md:px-6" aria-label="Industries">
-        <div className="flex items-center gap-3 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          <span className="v3-eyebrow shrink-0">Built for</span>
-          {VERTICALS.map((v) => (
-            <Link key={v.key} to={v.path} className="v3-chip shrink-0 bg-white"><v.icon size={14} /> {v.label}</Link>
-          ))}
+      {/* ── 2 · one number ──────────────────────────────────────────────────────────────── */}
+      <section className="mt-28 bg-[#f5f5f7] px-5 py-28 text-center md:mt-40 md:py-40">
+        <div className="k-in">
+          <div className="k-giant text-[#1d1d1f]">47<span className="text-aurora">s</span></div>
+          <p className="k-lead mx-auto mt-6 max-w-[26ch]">Time to answer a new lead. <span className="text-[#1d1d1f]">It used to take hours.</span></p>
+          <p className="mt-3 text-[14px] text-[#86868b]">A residential development client</p>
         </div>
       </section>
 
-      {/* ── what clients actually got ───────────────────────────────────────────────────── */}
-      <section className="mx-auto mt-20 max-w-[1240px] px-4 md:mt-28 md:px-6" aria-labelledby="v3-results">
-        <h2 id="v3-results" className="mb-8 text-3xl font-semibold text-gray-900 md:text-[44px]">What clients <span className="v3-serif italic text-aurora">got back.</span></h2>
-        <div className="grid grid-cols-2 gap-2.5 md:gap-3 lg:grid-cols-4">
-          {RESULTS.map((r) => (
-            <div key={r.what} className="v3-card flex flex-col p-4 md:p-6">
-              <div className="mb-3 flex items-center gap-2 text-[13px] text-gray-500 md:text-sm">
-                {r.before ? <><span className="line-through decoration-[#c2611f]/60">{r.before}</span><ArrowRight size={14} /></> : <span>Paid back in</span>}
-              </div>
-              <div className="v3-num mb-1 text-[32px] font-semibold leading-none text-gray-900 md:text-[44px]">{r.after}</div>
-              <div className="mb-4 text-[14px] text-gray-700 md:text-base">{r.what}</div>
-              <div className="mt-auto text-xs text-gray-500">{r.who}</div>
+      {/* ── 3 · what it does ────────────────────────────────────────────────────────────── */}
+      <section className="mx-auto max-w-[1180px] px-5 py-28 md:py-40">
+        <h2 className="k-in k-h2 mb-14 text-center md:mb-20">Four jobs. Done for you.</h2>
+        <div className="grid gap-4 md:grid-cols-2 md:gap-5">
+          {/* calls */}
+          <Link to="/construction/demo/voice-negotiator" className="k-in k-tile group flex min-h-[400px] flex-col p-9 md:p-12">
+            <h3 className="mb-2 text-[28px] font-semibold tracking-[-0.03em] md:text-[34px]">Answers every call.</h3>
+            <p className="mb-4 text-[17px] text-[#6e6e73]">Nights, weekends, holidays.</p>
+            <span className="k-link">Talk to it <Chev /></span>
+            <div className="mt-auto flex h-24 items-end justify-center gap-[5px] pt-10" aria-hidden>
+              {[18, 34, 52, 28, 64, 80, 46, 70, 38, 58, 84, 50, 30, 62, 40, 22, 48, 26, 14].map((h, i) => <span key={i} className="w-[6px] rounded-full bg-aurora/80" style={{ height: `${h}%` }} />)}
+            </div>
+          </Link>
+          {/* estimates */}
+          <Link to="/construction/demo/estimate" className="k-in k-tile group flex min-h-[400px] flex-col p-9 md:p-12">
+            <h3 className="mb-2 text-[28px] font-semibold tracking-[-0.03em] md:text-[34px]">Quotes in minutes.</h3>
+            <p className="mb-4 text-[17px] text-[#6e6e73]">Priced from your numbers.</p>
+            <span className="k-link">Build one <Chev /></span>
+            <div className="mx-auto mt-auto w-full max-w-[300px] rounded-2xl bg-white p-5 text-[14px] shadow-[0_20px_40px_-24px_rgba(0,0,0,0.3)]" aria-hidden>
+              {[['Tear-off & haul', '$2,180'], ['Architectural shingles', '$6,420'], ['Flashing & vents', '$940']].map(([a, b]) => <div key={a} className="flex justify-between py-1.5 text-[#6e6e73]"><span>{a}</span><span className="v3-num text-[#1d1d1f]">{b}</span></div>)}
+              <div className="mt-2 flex justify-between border-t border-[#e8e8ed] pt-3 font-semibold"><span>Total</span><span className="v3-num">$9,540</span></div>
+            </div>
+          </Link>
+          {/* follow-up */}
+          <Link to="/construction/demo/sms-sequence" className="k-in k-tile group flex min-h-[400px] flex-col p-9 md:p-12">
+            <h3 className="mb-2 text-[28px] font-semibold tracking-[-0.03em] md:text-[34px]">Follows up. Every time.</h3>
+            <p className="mb-4 text-[17px] text-[#6e6e73]">No lead goes cold again.</p>
+            <span className="k-link">See the sequence <Chev /></span>
+            <div className="mt-auto flex items-center justify-between gap-2 pt-10" aria-hidden>
+              {['Day 0', 'Day 1', 'Day 3', 'Day 7', 'Booked'].map((d, i) => (
+                <div key={d} className="flex flex-1 flex-col items-center gap-2">
+                  <span className={`h-4 w-4 rounded-full ${i === 4 ? 'bg-aurora ring-4 ring-aurora/20' : 'bg-[#d2d2d7]'}`} />
+                  <span className={`text-[12.5px] ${i === 4 ? 'font-semibold text-aurora' : 'text-[#86868b]'}`}>{d}</span>
+                </div>
+              ))}
+            </div>
+          </Link>
+          {/* reviews */}
+          <Link to="/construction/demo/reviews" className="k-in k-tile group flex min-h-[400px] flex-col p-9 md:p-12">
+            <h3 className="mb-2 text-[28px] font-semibold tracking-[-0.03em] md:text-[34px]">Five stars, on autopilot.</h3>
+            <p className="mb-4 text-[17px] text-[#6e6e73]">Asks happy customers. Replies in your voice.</p>
+            <span className="k-link">See how <Chev /></span>
+            <div className="mt-auto flex justify-center gap-1.5 pt-10 text-[#c2611f]" aria-hidden>
+              {Array.from({ length: 5 }, (_, i) => <Star key={i} size={44} fill="currentColor" strokeWidth={0} />)}
+            </div>
+          </Link>
+        </div>
+      </section>
+
+      {/* ── 4 · what it's worth to you ──────────────────────────────────────────────────── */}
+      <section className="bg-[#f5f5f7] px-5 py-28 md:py-40">
+        <div className="mx-auto max-w-[1080px]">
+          <h2 className="k-in k-h2 mb-4 text-center">What missed calls cost you.</h2>
+          <p className="k-in k-lead mx-auto mb-14 max-w-[28ch] text-center md:mb-20">Move the sliders. Your numbers, your answer.</p>
+          <div className="k-in rounded-[32px] bg-white p-8 md:p-14">
+            <Savings buildPrice={buildPrice} monthly={plus?.price ?? 999} onAction={go('savings')} actionLabel="See it on your company" />
+          </div>
+        </div>
+      </section>
+
+      {/* ── 5 · proof ───────────────────────────────────────────────────────────────────── */}
+      <section className="mx-auto max-w-[1180px] px-5 py-28 md:py-40">
+        <div className="k-in grid gap-12 text-center md:grid-cols-3 md:gap-6">
+          {[['< 1 hr', 'to send an estimate.', 'It used to take days.'], ['0', 'hours retyping bookings.', 'It used to be 20 a week.'], ['6 wks', 'to pay for itself.', 'For a development firm.']].map(([n, a, b]) => (
+            <div key={a}>
+              <div className="v3-num text-[64px] font-semibold leading-none tracking-[-0.05em] md:text-[80px]">{n}</div>
+              <div className="mt-3 text-[19px] text-[#1d1d1f]">{a}</div>
+              <div className="text-[17px] text-[#86868b]">{b}</div>
             </div>
           ))}
         </div>
+        {quote && (
+          <figure className="k-in mx-auto mt-24 max-w-[820px] text-center md:mt-32">
+            <blockquote className="text-[26px] font-medium leading-[1.3] tracking-[-0.02em] md:text-[36px]">&ldquo;{quote.quote.split(/(?<=\.) /).slice(0, 1).join(' ')}&rdquo;</blockquote>
+            <figcaption className="mt-6 text-[15px] text-[#86868b]">{quote.author}, {quote.position}</figcaption>
+          </figure>
+        )}
       </section>
 
-      {/* ── what you get (each one live) ────────────────────────────────────────────────── */}
-      <section className="mx-auto mt-20 max-w-[1240px] px-4 md:mt-28 md:px-6" aria-labelledby="v3-get">
-        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-          <h2 id="v3-get" className="text-3xl font-semibold text-gray-900 md:text-[44px]">What you get.</h2>
-          <button type="button" onClick={() => { trackCTAClick('v3_get_try', 'root'); openTry(); }} className="inline-flex items-center gap-1.5 font-medium text-aurora hover:underline">Try all of it on your company <ArrowRight size={16} /></button>
-        </div>
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {GET.map((g) => (
-            <Link key={g.title} to={g.to} className="v3-card group grid grid-cols-[44px_1fr] gap-x-4 p-5 transition-transform hover:-translate-y-0.5 lg:flex lg:flex-col lg:p-6">
-              <span className="row-span-3 grid h-11 w-11 lg:mb-5 place-items-center rounded-xl bg-[var(--v3-aurora-wash)] text-aurora"><g.icon size={21} /></span>
-              <div className="mb-1 text-lg font-semibold text-gray-900">{g.title}</div>
-              <div className="mb-3 text-[15px] text-gray-600 lg:mb-5">{g.line}</div>
-              <span className="mt-auto inline-flex items-center gap-1 text-sm font-medium text-aurora">Try it live <ArrowUpRight size={15} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></span>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* ── how it works, with the storyboard as the one screen ─────────────────────────── */}
-      <section className="mx-auto mt-20 max-w-[1240px] px-4 md:mt-28 md:px-6" aria-labelledby="v3-how">
-        <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
-          <div>
-            <h2 id="v3-how" className="mb-8 text-3xl font-semibold text-gray-900 md:text-[44px]">Live in two weeks.</h2>
-            <ol className="space-y-6">
-              {[
-                ['A 30-minute call', 'You tell us where jobs slip away.'],
-                [`We build it, ${mvp?.price ?? '$4,999'} fixed`, 'On your phone line, your website, your price book.'],
-                ['It works while you do', 'Leads answered, estimates out, jobs on the calendar.'],
-              ].map(([t, d], i) => (
-                <li key={t} className="flex gap-4">
-                  <span className="v3-num grid h-9 w-9 shrink-0 place-items-center rounded-full border border-night-hair bg-white text-sm font-semibold text-aurora">{i + 1}</span>
-                  <div><div className="text-lg font-semibold text-gray-900">{t}</div><div className="text-gray-600">{d}</div></div>
-                </li>
-              ))}
-            </ol>
+      {/* ── 6 · the price ───────────────────────────────────────────────────────────────── */}
+      <section id="pricing" className="scroll-mt-20 bg-[#f5f5f7] px-5 py-28 text-center md:py-40">
+        <div className="k-in">
+          <h2 className="k-h2 mb-4">{mvp?.price ?? '$4,999'}. Live in two weeks.</h2>
+          <p className="k-lead mx-auto mb-10 max-w-[32ch]">One fixed price to build it. You own the code. Keep it running from ${Number.isFinite(lowest) ? lowest : 399}/month.</p>
+          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <a href={CALENDLY} target="_blank" rel="noopener noreferrer" onClick={() => trackCTAClick('mvp_cta', 'v3_pricing')} className="k-pill k-pill-dark">Book a free call</a>
+            <button type="button" onClick={go('pricing')} className="k-link">Try it first <Chev /></button>
           </div>
-          <StageWindow host="root" label="A missed call, caught" className="overflow-hidden rounded-[18px]" height="h-[380px] md:h-[480px]" />
         </div>
-      </section>
-
-      {/* ── in their words ──────────────────────────────────────────────────────────────── */}
-      {content?.testimonials && content.testimonials.length > 0 && (
-        <section className="mx-auto mt-20 max-w-[1240px] px-4 md:mt-28 md:px-6" aria-label="What clients say">
-          <div className="grid gap-3 md:grid-cols-3">
-            {content.testimonials.filter((t) => /Residential|Family Entertainment|Multi-Location/i.test(t.position)).slice(0, 3).map((t) => (
-              <figure key={t.position} className="v3-card flex flex-col p-6">
-                <div className="mb-3 flex gap-0.5 text-[#c2611f]" aria-label="5 stars">{Array.from({ length: 5 }, (_, i) => <Star key={i} size={15} fill="currentColor" />)}</div>
-                <blockquote className="mb-5 text-[16px] leading-relaxed text-gray-800">&ldquo;{t.quote.split(/(?<=\.) /).slice(0, 2).join(' ')}&rdquo;</blockquote>
-                <figcaption className="mt-auto text-sm"><span className="font-semibold text-gray-900">{t.author}</span><span className="text-gray-500"> · {t.position}</span></figcaption>
-              </figure>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* ── the price ───────────────────────────────────────────────────────────────────── */}
-      {(mvp || tiers) && (
-        <section id="pricing" className="mx-auto mt-20 max-w-[1240px] scroll-mt-24 px-4 md:mt-28 md:px-6">
-          <h2 className="mb-8 text-3xl font-semibold text-gray-900 md:text-[44px]">One price to build. <span className="v3-serif italic text-gray-500">A small one to keep.</span></h2>
-          <div className="grid gap-3 lg:grid-cols-[1.15fr_1fr_1fr_1fr]">
-            {mvp?.enabled && (
-              <div className="v3-card flex flex-col !border-aurora/40 bg-[var(--v3-aurora-wash)] p-6">
-                <div className="v3-eyebrow mb-3 !text-aurora">Build · fixed price</div>
-                <div className="v3-num text-5xl font-semibold text-gray-900">{mvp.price}</div>
-                <div className="mb-5 text-gray-700">Working in {mvp.subheadline.toLowerCase().replace(/^in /, '')}. You own the code.</div>
-                <a href={mvp.ctaLink} target="_blank" rel="noopener noreferrer" onClick={() => trackCTAClick('mvp_cta', 'v3_pricing')} className="v3-btn v3-btn-aurora mt-auto">Book a free call <ArrowRight size={16} /></a>
-              </div>
-            )}
-            {tiers?.tiers.map((t) => (
-              <div key={t.name} className={`v3-card flex flex-col p-6 ${t.highlighted ? '!border-gray-900' : ''}`}>
-                <div className="mb-3 flex items-center gap-2"><span className="v3-eyebrow">Keep · {t.name}</span>{t.highlighted && <span className="rounded-full bg-gray-900 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white">{t.badge || 'Popular'}</span>}</div>
-                <div className="mb-4"><span className="v3-num text-4xl font-semibold text-gray-900">${t.price.toLocaleString('en-US')}</span><span className="text-gray-500"> /mo</span></div>
-                <ul className="mb-6 space-y-1.5 text-sm text-gray-700">
-                  {t.features.slice(0, 3).map((f) => <li key={f} className="flex gap-2"><Check size={15} className="mt-0.5 shrink-0 text-aurora" />{f}</li>)}
-                </ul>
-                <a href={t.ctaLink} target="_blank" rel="noopener noreferrer" onClick={() => trackCTAClick(`tier_${t.name.toLowerCase()}`, 'v3_pricing')} className={`v3-btn mt-auto text-sm ${t.highlighted ? 'v3-btn-aurora' : 'v3-btn-ghost'}`}>{t.ctaText}</a>
+        {tiers && (
+          <div className="k-in mx-auto mt-16 grid max-w-[900px] gap-4 sm:grid-cols-3">
+            {tiers.tiers.map((t) => (
+              <div key={t.name} className={`rounded-[24px] bg-white p-7 text-left ${t.highlighted ? 'ring-2 ring-aurora' : ''}`}>
+                <div className="mb-1 text-[15px] font-semibold text-[#6e6e73]">{t.name}{t.highlighted && <span className="ml-2 text-aurora">Most popular</span>}</div>
+                <div className="v3-num text-[40px] font-semibold tracking-[-0.04em]">${t.price.toLocaleString('en-US')}<span className="text-[17px] font-normal text-[#86868b]">/mo</span></div>
+                <div className="mt-2 text-[15px] text-[#6e6e73]">{t.features.slice(0, 2).join(' · ')}</div>
               </div>
             ))}
           </div>
-        </section>
-      )}
+        )}
+      </section>
 
-      {/* ── the close ───────────────────────────────────────────────────────────────────── */}
-      <section className="mx-auto mt-20 max-w-[1240px] px-4 md:mt-28 md:px-6">
-        <div className="relative overflow-hidden rounded-[24px] bg-gray-900 px-6 py-14 text-center md:py-20" style={{ backgroundImage: 'radial-gradient(70% 120% at 50% 0%, rgba(123,227,195,0.18), transparent 60%)' }}>
-          <h2 className="mx-auto mb-4 max-w-3xl text-4xl font-semibold text-white md:text-6xl">Watch it answer as <span className="v3-serif italic text-[#7BE3C3]">you.</span></h2>
-          <p className="mx-auto mb-8 max-w-md text-lg text-gray-300">Your website in. Every demo, personalized. 20 seconds.</p>
-          <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <button onClick={() => { trackCTAClick('v3_close_try', 'root'); openTry(); }} className="v3-btn w-full bg-[#7BE3C3] text-gray-900 hover:bg-white sm:w-auto">See it on my company <ArrowRight size={17} /></button>
-            <a href={CALENDLY} target="_blank" rel="noopener noreferrer" onClick={() => trackCTAClick('book_a_call', 'v3_close')} className="v3-btn w-full border border-white/25 text-white hover:border-white sm:w-auto"><Phone size={16} /> Book a call</a>
-          </div>
+      {/* ── 7 · the close ───────────────────────────────────────────────────────────────── */}
+      <section className="px-5 py-28 text-center md:py-44">
+        <div className="k-in">
+          <h2 className="k-hero mx-auto mb-6 max-w-[12ch]">See it answer as you.</h2>
+          <p className="k-lead mx-auto mb-10 max-w-[28ch]">Your website in. Every demo, personalized. Twenty seconds.</p>
+          <form onSubmit={tryHere} className="mx-auto flex max-w-[520px] flex-col gap-3 sm:flex-row">
+            <label htmlFor="v3-close-site" className="sr-only">Your company website</label>
+            <input id="v3-close-site" className="h-[52px] flex-1 rounded-full border border-[#d2d2d7] bg-white px-6 text-[17px] outline-none transition focus:border-aurora focus:ring-4 focus:ring-aurora/15" inputMode="url" autoCapitalize="none" spellCheck={false} placeholder="yourcompany.com" value={site} onChange={(e) => setSite(e.target.value)} />
+            <button type="submit" className="k-pill k-pill-brand !min-h-[52px]">Try it free</button>
+          </form>
         </div>
       </section>
 
-      {content?.form && <div className="mt-12">{<ContactForm data={content.form} />}</div>}
+      {content?.form && <div className="bg-[#f5f5f7] pt-8"><ContactForm data={content.form} /></div>}
       {content?.footer && <Footer data={content.footer} />}
       <LiveChatBubble />
     </div>

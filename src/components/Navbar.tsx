@@ -73,7 +73,7 @@ const Navbar: React.FC<NavbarProps> = () => {
   return (
     <header
       className={`v3-header fixed left-0 right-0 z-50 transition-[background,border-color] duration-300 ${
-        scrolled || menu ? 'border-b border-night-hair bg-[rgba(246,244,239,0.86)] backdrop-blur-xl' : 'border-b border-transparent'
+        scrolled || menu ? 'border-b border-night-hair bg-[rgba(255,255,255,0.8)] backdrop-blur-xl' : 'border-b border-transparent'
       }`}
       style={{ top: 'var(--dca-banner-offset, 0px)', left: form === 'open' ? 'calc(var(--v3-hinge-l) + var(--v3-hinge-w))' : undefined, WebkitBackdropFilter: scrolled ? 'blur(20px) saturate(1.4)' : undefined }}
     >

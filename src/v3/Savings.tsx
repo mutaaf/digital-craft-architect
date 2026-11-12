@@ -16,8 +16,8 @@ interface Props { buildPrice?: number; monthly?: number; onAction?: () => void; 
 const Slider: React.FC<{ id: string; label: string; value: number; min: number; max: number; step: number; show: string; onChange: (n: number) => void }> = ({ id, label, value, min, max, step, show, onChange }) => (
   <div>
     <div className="mb-1 flex items-baseline justify-between gap-3">
-      <label htmlFor={id} className="text-[14.5px] text-gray-700">{label}</label>
-      <span className="v3-num text-[17px] font-semibold text-gray-900">{show}</span>
+      <label htmlFor={id} className="text-[17px] text-[#1d1d1f]">{label}</label>
+      <span className="v3-num text-[17px] font-semibold text-[#1d1d1f]">{show}</span>
     </div>
     <input id={id} type="range" className="v3-range" min={min} max={max} step={step} value={value} onChange={(e) => onChange(Number(e.target.value))} />
   </div>
@@ -45,38 +45,24 @@ const Savings: React.FC<Props> = ({ buildPrice = 4999, monthly = 999, onAction, 
   const payback = !isFinite(r.paybackWeeks) ? '—' : r.paybackWeeks < 1 ? 'under a week' : r.paybackWeeks < 9 ? `${Math.ceil(r.paybackWeeks)} weeks` : `${Math.ceil(r.paybackWeeks / WEEKS)} months`;
 
   return (
-    <div className={`v3-card overflow-hidden ${className}`}>
-      <div className="flex items-center justify-between border-b border-night-hair px-5 py-3.5 md:px-6">
-        <span className="v3-eyebrow !text-[10.5px]">What it&rsquo;s worth to you</span>
-        <span className="v3-eyebrow flex items-center gap-1.5 !text-[10.5px] !text-aurora"><span className="v3-dot" /> your numbers</span>
-      </div>
-      <div className="space-y-4 px-5 pb-2 pt-5 md:px-6">
+    <div className={`grid items-center gap-10 md:grid-cols-2 md:gap-16 ${className}`}>
+      <div className="space-y-7">
         <Slider id="sv-missed" label="Leads you miss a week" value={missed} min={0} max={30} step={1} show={String(missed)} onChange={touch(setMissed)} />
-        <Slider id="sv-job" label="Average job" value={job} min={200} max={25000} step={100} show={money(job)} onChange={touch(setJob)} />
+        <Slider id="sv-job" label="Your average job" value={job} min={200} max={25000} step={100} show={money(job)} onChange={touch(setJob)} />
         <Slider id="sv-hours" label="Hours a week on follow-up & paperwork" value={hours} min={0} max={40} step={1} show={`${hours} h`} onChange={touch(setHours)} />
       </div>
-      <div className="mt-3 grid grid-cols-2 gap-px border-t border-night-hair bg-night-hair">
-        <div className="bg-[var(--v3-aurora-wash)] px-5 py-4 md:px-6">
-          <div className="v3-num text-[30px] font-semibold leading-none text-aurora md:text-[36px]">+{money(r.revenue)}</div>
-          <div className="mt-1.5 text-[13px] text-gray-700">more booked a month</div>
+      <div className="text-center md:text-left">
+        <div className="mb-2 text-[17px] text-[#6e6e73]">Back in your business, every month</div>
+        <div className="v3-num mb-6 text-[64px] font-semibold leading-none tracking-[-0.05em] text-aurora md:text-[88px]" aria-live="polite">{money(r.revenue + r.time)}</div>
+        <div className="flex justify-center gap-10 md:justify-start">
+          <div><div className="v3-num text-[32px] font-semibold tracking-[-0.03em] text-[#1d1d1f]">{Math.round(r.hoursBack)} h</div><div className="text-[14px] text-[#6e6e73]">of your time</div></div>
+          <div><div className="v3-num text-[32px] font-semibold tracking-[-0.03em] text-[#1d1d1f]">{payback}</div><div className="text-[14px] text-[#6e6e73]">to pay for itself</div></div>
         </div>
-        <div className="bg-night-deck px-5 py-4 md:px-6">
-          <div className="v3-num text-[30px] font-semibold leading-none text-gray-900 md:text-[36px]">{Math.round(r.hoursBack)} h</div>
-          <div className="mt-1.5 text-[13px] text-gray-700">back every month</div>
-        </div>
-        <div className="col-span-2 flex flex-wrap items-center justify-between gap-x-6 gap-y-1 bg-night-deck px-5 py-3.5 text-sm md:px-6">
-          <span className="text-gray-700">Pays for itself in <b className="text-gray-900">{payback}</b></span>
-          {r.yearly > 0 && <span className="text-gray-700">First year, net: <b className="text-aurora">{money(r.yearly)}</b></span>}
-        </div>
+        {onAction && <button type="button" onClick={onAction} className="k-pill k-pill-brand mt-8">{actionLabel} <ArrowRight size={17} /></button>}
+        <p className="mt-6 text-[12px] leading-snug text-[#86868b]">
+          An estimate from your numbers, not a promise. Assumes 1 in 4 recovered leads books, {Math.round(AUTOMATED * 100)}% of admin automated, your hour at ${HOURLY}, a {money(buildPrice)} build and {money(monthly)}/mo.
+        </p>
       </div>
-      {onAction && (
-        <div className="border-t border-night-hair px-5 py-4 md:px-6">
-          <button type="button" onClick={onAction} className="v3-btn v3-btn-aurora w-full">{actionLabel} <ArrowRight size={17} /></button>
-        </div>
-      )}
-      <p className="border-t border-night-hair px-5 py-3 text-[11.5px] leading-snug text-gray-500 md:px-6">
-        An estimate from your numbers, not a promise. Assumes 1 in 4 recovered leads books, {Math.round(AUTOMATED * 100)}% of admin automated, your hour at ${HOURLY}, a {money(buildPrice)} build and {money(monthly)}/mo.
-      </p>
     </div>
   );
 };

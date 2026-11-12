@@ -32,7 +32,7 @@ const MobileDock: React.FC<{ cto?: boolean }> = ({ cto = false }) => {
   if (cto) {
     // the CTO site: the work, the call (the copper key), the company
     return (
-      <nav aria-label="Quick" className="fixed bottom-0 z-[55] border-t border-night-hair bg-[rgba(246,244,239,0.92)] backdrop-blur-xl md:hidden"
+      <nav aria-label="Quick" className="fixed bottom-0 z-[55] border-t border-night-hair bg-[rgba(255,255,255,0.88)] backdrop-blur-xl md:hidden"
         style={{ left: form === 'open' ? 'calc(var(--v3-hinge-l) + var(--v3-hinge-w))' : 0, right: 0, paddingBottom: 'env(safe-area-inset-bottom)' }}>
         <div className="mx-auto flex h-[62px] max-w-md items-center gap-3 px-4">
           <a href="#outcomes" className="v3-btn v3-btn-ghost flex-1 text-sm">Outcomes</a>
@@ -49,7 +49,7 @@ const MobileDock: React.FC<{ cto?: boolean }> = ({ cto = false }) => {
   return (
     <nav
       aria-label="Quick"
-      className="fixed bottom-0 z-[55] border-t border-night-hair bg-[rgba(246,244,239,0.92)] backdrop-blur-xl md:hidden"
+      className="fixed bottom-0 z-[55] border-t border-night-hair bg-[rgba(255,255,255,0.88)] backdrop-blur-xl md:hidden"
       style={{
         left: form === 'open' ? 'calc(var(--v3-hinge-l) + var(--v3-hinge-w))' : 0,
         right: 0,
