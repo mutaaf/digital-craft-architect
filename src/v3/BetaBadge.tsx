@@ -2,17 +2,19 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { ArrowUpRight, X } from 'lucide-react';
 import { isBetaHost, liveUrl } from '@/utils/beta';
+import { useFold } from './fold';
 
 // Every page on beta.digitalcraftai.com says so, and links to the same page on the live site
 // (which stays untouched on main until the overhaul is merged).
 const BetaBadge: React.FC = () => {
   useLocation(); // re-render on navigation so the live link follows the page
+  const { form } = useFold();
   const [hidden, setHidden] = useState(() => { try { return sessionStorage.getItem('dc_v3_beta_hidden') === '1'; } catch { return false; } });
   if (!isBetaHost() || hidden) return null;
   return (
     <div
-      className="fixed left-3 z-[56] flex items-center gap-1 rounded-full border border-[#c96e2c]/50 bg-[rgba(11,15,18,0.9)] py-1 pl-3 pr-1 text-[11.5px] text-gray-300 backdrop-blur md:bottom-4"
-      style={{ bottom: 'calc(var(--v3-dock-h, 0px) + 12px)' }}
+      className="fixed z-[56] flex items-center gap-1 rounded-full border border-[#c96e2c]/50 bg-[rgba(11,15,18,0.9)] py-1 pl-3 pr-1 text-[11.5px] text-gray-300 backdrop-blur md:bottom-4"
+      style={{ bottom: 'calc(var(--v3-dock-h, 0px) + 12px)', left: form === 'open' ? 'calc(var(--v3-hinge-l) + var(--v3-hinge-w) + 12px)' : 12 }}
     >
       <span className="v3-mono font-semibold text-[#e89862]">β</span>
       <span className="ml-1 hidden sm:inline">Preview of the new site ·</span>
