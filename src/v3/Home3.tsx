@@ -80,7 +80,7 @@ const Home3: React.FC = () => {
       </p>
       <form onSubmit={tryHere} className={`v3-rise mb-4 flex max-w-[32rem] flex-col gap-2 ${open ? '' : 'sm:flex-row'}`} style={rise(3)}>
         <label htmlFor="v3-hero-site" className="sr-only">Your company website</label>
-        <input id="v3-hero-site" className="v3-input flex-1 !px-4" inputMode="url" autoCapitalize="none" spellCheck={false} placeholder="yourcompany.com" value={site} onChange={(e) => setSite(e.target.value)} />
+        <input id="v3-hero-site" className="v3-input flex-1" inputMode="url" autoCapitalize="none" spellCheck={false} placeholder="yourcompany.com" value={site} onChange={(e) => setSite(e.target.value)} />
         <button type="submit" className="v3-btn v3-btn-aurora">See it on my company <ArrowRight size={17} /></button>
       </form>
       <div className="v3-rise flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-gray-600" style={rise(4)}>
