@@ -77,10 +77,16 @@ export const trackFormSubmission = (formName: string, label?: string): void => {
   trackEvent('form_submission', 'conversion', label || formName);
 };
 
+const NOT_A_CLICK = /_(shown|show|view|views|viewed|impression|impressions|dismiss|dismissed)$/;
+
 /** Track CTA clicks (Book a Call, Calendly) */
 export const trackCTAClick = (ctaName: string, location?: string): void => {
   trackEvent('cta_click', 'engagement', location ? `${ctaName} - ${location}` : ctaName);
-  boxofficeTrack('cta_click', { cta: ctaName, ...(location ? { location } : {}) });
+  // Many callers use this helper for impressions and dismissals too; Box Office
+  // only gets real presses, so its conversion counts are not inflated by views.
+  if (!NOT_A_CLICK.test(ctaName)) {
+    boxofficeTrack('cta_click', { cta: ctaName, ...(location ? { location } : {}) });
+  }
 };
 
 /** Track demo card clicks */
