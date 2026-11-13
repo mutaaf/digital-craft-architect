@@ -18,7 +18,7 @@ const AfterDemo = ({ currentPath }: { currentPath: string }) => {
         </div>
         <div className="flex shrink-0 flex-col items-start gap-3 md:items-end">
           <a href={CALENDLY} target="_blank" rel="noopener noreferrer" onClick={() => trackCTAClick('book_discovery', `after_demo:${currentPath}`)} className="k-pill bg-white text-[#1d1d1f] hover:bg-[#f5f5f7]">Book a free 30-minute call</a>
-          <Link to={hub} onClick={() => trackCTAClick('personalize_demos', `after_demo:${currentPath}`)} className="text-[15px] font-medium text-[#7BE3C3] hover:underline">Or run every demo as your company ›</Link>
+          <Link to={hub} onClick={() => trackCTAClick('personalize_demos', `after_demo:${currentPath}`)} className="inline-flex min-h-[44px] items-center text-[15px] font-medium text-[#7BE3C3] hover:underline">Or run every demo as your company ›</Link>
         </div>
       </div>
     </section>

@@ -18,7 +18,7 @@ const TimelineBar = ({ currentDay, onJump }: TimelineBarProps) => (
         <div key={d.day} className="flex items-center gap-2">
           <button
             onClick={() => onJump(d.day)}
-            className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full text-[11px] sm:text-xs font-medium transition-all ${
+            className={`flex items-center gap-1.5 min-h-[40px] px-3 py-2 rounded-full text-[11px] sm:text-xs font-medium transition-all ${
               isCurrent
                 ? 'bg-primary text-white shadow-sm'
                 : isActive

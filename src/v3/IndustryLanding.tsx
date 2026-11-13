@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, Plus } from 'lucide-react';
 import Navbar from '@/components/Navbar';
@@ -12,7 +12,7 @@ import Savings from './Savings';
 import { useReveal } from './keynote';
 import { openTry } from './TrySheet';
 import { TryField, BookCall, StickyTry } from './Cta';
-import { CALENDLY, VERTICALS, domainOf } from './verticals';
+import { CALENDLY, VERTICALS } from './verticals';
 import { useFold } from './fold';
 import Sentences from './Sentences';
 

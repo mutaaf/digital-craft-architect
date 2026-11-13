@@ -366,7 +366,7 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
           
           <div className="flex justify-center items-center gap-2 mb-6">
             <Phone size={16} className="text-[#6e6e73]" aria-hidden />
-            <a href="tel:+19723523293" className="text-[#424245] hover:text-skyblue transition-colors">
+            <a href="tel:+19723523293" className="inline-flex min-h-[44px] items-center text-[#424245] hover:text-skyblue transition-colors">
               (972) 352-3293
             </a>
           </div>
@@ -450,7 +450,6 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
                   >
                     Labs
                   </Link>
-                  <a href="#" className="text-[#424245] hover:text-skyblue text-sm">Terms of Service</a>
                 </div>
               </div>
             </div>

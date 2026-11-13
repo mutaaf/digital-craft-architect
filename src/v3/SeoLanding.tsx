@@ -239,7 +239,7 @@ const SeoLanding: React.FC<{ data: SeoLandingData }> = ({ data: d }) => {
         title="Put it to work."
         line="Thirty minutes. We set it up on your real website while you watch."
         foot={<>
-          <Link to={d.pricing.to} className="hover:text-white">{d.pricing.label}</Link>
+          <Link to={d.pricing.to} className="-my-3 inline-block py-3 hover:text-white">{d.pricing.label}</Link>
           <Link to="/quiz" className="hover:text-white">Take the 2-minute AI readiness quiz</Link>
         </>}
       >

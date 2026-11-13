@@ -68,7 +68,7 @@ const DataDisclosureChip = ({ demoPath }: DataDisclosureChipProps) => {
         data-testid="data-disclosure-chip"
         aria-label="Data disclosure"
         onClick={() => handleOpenChange(true)}
-        className="relative z-10 mx-1 mb-3 inline-flex min-h-[28px] items-center gap-1.5 px-3 py-1 rounded-full align-middle text-xs font-medium border border-[#d2d2d7] dark:border-gray-700 bg-white dark:bg-gray-900/90 text-[#424245] dark:text-gray-200 hover:border-primary dark:hover:border-primary hover:text-primary dark:hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-colors"
+        className="k-hit relative z-10 mx-1 mb-3 inline-flex min-h-[32px] items-center gap-1.5 px-3 py-1 rounded-full align-middle text-xs font-medium border border-[#d2d2d7] dark:border-gray-700 bg-white dark:bg-gray-900/90 text-[#424245] dark:text-gray-200 hover:border-primary dark:hover:border-primary hover:text-primary dark:hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-colors"
       >
         <ShieldCheck size={14} aria-hidden="true" />
         What we store

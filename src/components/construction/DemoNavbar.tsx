@@ -38,7 +38,7 @@ const DemoNavbar = () => {
   return (
     <nav className="sticky top-0 z-50 border-b border-[#e8e8ed] bg-white/80 backdrop-blur-xl" style={{ WebkitBackdropFilter: 'blur(20px) saturate(1.6)' }} aria-label="Demos">
       <div className="mx-auto flex h-[52px] max-w-[1180px] items-center gap-4 px-4 md:px-5">
-        <Link to={v.hub} className="flex shrink-0 items-center gap-2 text-[15px] font-semibold tracking-[-0.01em] text-[#1d1d1f]">
+        <Link to={v.hub} className="flex min-h-[44px] shrink-0 items-center gap-2 text-[15px] font-semibold tracking-[-0.01em] text-[#1d1d1f]">
           <Mark size={28} className="-my-1" />
           <span className="max-w-[40vw] truncate sm:max-w-none">{name}</span>
           <span className="hidden font-normal text-[#86868b] sm:inline">{v.short} demos</span>
@@ -49,7 +49,7 @@ const DemoNavbar = () => {
             const on = pathname === d.path;
             return (
               <Link key={d.path} to={d.path} aria-current={on ? 'page' : undefined}
-                className={`flex min-h-[32px] shrink-0 items-center whitespace-nowrap rounded-full px-3 text-[13px] transition-colors ${on ? 'bg-[#1d1d1f] font-medium text-white' : 'text-[#424245] hover:bg-black/5'}`}>
+                className={`flex min-h-[36px] shrink-0 items-center whitespace-nowrap rounded-full px-3 text-[14px] transition-colors ${on ? 'bg-[#1d1d1f] font-medium text-white' : 'text-[#424245] hover:bg-black/5'}`}>
                 {short(d.title)}
               </Link>
             );

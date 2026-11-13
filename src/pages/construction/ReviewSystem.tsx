@@ -326,13 +326,11 @@ const ReviewSystem = () => {
                       Would you mind sharing your experience on Google? It really helps other
                       homeowners find us.
                     </p>
-                    <a
-                      href="#"
-                      onClick={(e) => e.preventDefault()}
+                    <span
                       className="inline-flex items-center gap-1 mt-2 text-blue-600 dark:text-blue-400 underline text-xs font-medium"
                     >
-                      <ExternalLink size={10} /> Leave a Google Review
-                    </a>
+                      <ExternalLink size={10} aria-hidden /> Leave a Google Review
+                    </span>
                   </SMSBubble>
                 </>
               )}
@@ -418,13 +416,11 @@ const ReviewSystem = () => {
                       would mean the world to us and help other {location} homeowners find quality
                       contractors. 🙏
                     </p>
-                    <a
-                      href="#"
-                      onClick={(e) => e.preventDefault()}
+                    <span
                       className="inline-flex items-center gap-1 mt-2 text-blue-600 dark:text-blue-400 underline text-xs font-medium"
                     >
-                      <ExternalLink size={10} /> Leave a Google Review
-                    </a>
+                      <ExternalLink size={10} aria-hidden /> Leave a Google Review
+                    </span>
                   </SMSBubble>
                 </>
               )}

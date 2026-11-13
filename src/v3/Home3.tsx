@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { ChevronRight, Star } from 'lucide-react';
@@ -14,7 +14,7 @@ import PhoneDemo from './PhoneDemo';
 import { useReveal } from './keynote';
 import { openTry } from './TrySheet';
 import { TryField, BookCall, StickyTry } from './Cta';
-import { CALENDLY, domainOf } from './verticals';
+import { CALENDLY } from './verticals';
 import { useFold } from './fold';
 
 // v3 landing for digitalcraftai.com, the keynote pass (2026-11-12; the owner: "not approved by Apple

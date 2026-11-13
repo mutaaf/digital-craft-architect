@@ -270,7 +270,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
                         key={i}
                         type="button"
                         onClick={() => i < step && setStep(i)}
-                        className={`text-xs font-medium transition-colors ${
+                        className={`-my-3 py-3 text-[13px] font-medium transition-colors ${
                           i <= step
                             ? 'text-primary'
                             : 'text-gray-400 dark:text-gray-500'
