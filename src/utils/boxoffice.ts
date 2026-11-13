@@ -49,7 +49,9 @@ let listening = false;
 /**
  * Strategy-call clicks. Calendly opens in a new tab, so the booking itself is
  * not visible from here; the click on any calendly.com link is the closest
- * honest signal, and it catches every booking link on the site at once.
+ * honest signal, and it catches every booking link on the site at once. A
+ * Calendly CTA that also calls trackCTAClick sends a cta_click as well:
+ * dashboards should count booking intent from strategy_call_click only.
  */
 export function initBoxOfficeEvents(): void {
   if (listening || typeof document === 'undefined') return;

@@ -166,11 +166,13 @@ const Privacy: React.FC = () => {
           one.
         </p>
         <p>
-          There are no ads, no advertising identifiers, no tracking across other apps or
-          websites, and nothing is sold or shared with data brokers. The error monitoring and
-          session replay described above are not present in the game. The game does send
-          gameplay analytics to one processor, described below. The browser version at
-          18-0.co also runs the anonymous site analytics described under This website.
+          The iPhone and Android apps carry no ads and no advertising identifiers; the browser
+          version shows ads, described in the game's own policy at 18-0.co/privacy. There is
+          no tracking across other apps or websites, and nothing is sold or shared with data
+          brokers. The error monitoring described above is not present in the game, and the
+          game apps have no session replay. The game sends gameplay analytics to one
+          processor, described below. The browser version at 18-0.co also runs the anonymous
+          site analytics described under This website, including masked session replay.
         </p>
 
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white pt-2">
