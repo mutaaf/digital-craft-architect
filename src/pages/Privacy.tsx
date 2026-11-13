@@ -126,7 +126,8 @@ const Privacy: React.FC = () => {
             through mutaafaziz.com, which shortens your IP address first so only an
             approximate, city-level location is kept, and sets no cookies. A visit may be
             recorded as a session replay with every form field masked. If your browser sends
-            Global Privacy Control or Do Not Track, it does not load at all.
+            Global Privacy Control or Do Not Track, it records and sends nothing; the script
+            is still fetched from mutaafaziz.com, which sees an ordinary web request.
           </li>
           <li>
             <strong className="text-gray-900 dark:text-white">Error monitoring and session

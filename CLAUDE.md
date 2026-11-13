@@ -40,7 +40,7 @@ A React + TypeScript SPA that serves as both a marketing website and an interact
 | STT | Deepgram via Vapi (Nova-2) | - |
 | Scraping | Firecrawl (primary) + Jina Reader (fallback) | - |
 | Error Tracking | Sentry | 7.77 |
-| Analytics | Google Analytics (G-JQ53W917HT) | - |
+| Analytics | Google Analytics (G-JQ53W917HT) + Box Office (PostHog via mutaafaziz.com/boxoffice, tag in index.html, events in src/utils/boxoffice.ts) | - |
 
 ### Key Design Decisions
 1. **All AI calls proxied through Vercel serverless** — API keys never reach the browser

@@ -186,6 +186,15 @@ const SECTIONS: Section[] = [
             and a 30-minute TTL, so re-running the same deal analyzer step inside the same
             tab is instant and does not re-bill an OpenAI call. Closing the tab clears it.
           </li>
+          <li data-testid="trust-store-boxoffice">
+            <strong className="text-gray-900 dark:text-white">localStorage and sessionStorage</strong>:
+            keys beginning
+            <code className="mx-1 px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-sm">ph_</code>
+            belong to Box Office, our own anonymous usage analytics (PostHog, relayed through
+            mutaafaziz.com). They hold a random visitor id and the current session and window
+            ids, and nothing you typed. They are not written at all when your browser sends
+            Global Privacy Control or Do Not Track. Clearing storage resets them.
+          </li>
           {/* Ticket 0074 - additive persistent-store entries sourced from
               src/data/demoDisclosures.ts so the /trust disclosure text and
               the consuming feature stay in one source (2026-05-25 mirror-source
@@ -208,7 +217,8 @@ const SECTIONS: Section[] = [
           ))}
         </ul>
         <p className="mt-3">
-          No third-party tracker writes these entries. You can inspect them yourself in
+          No third-party tracker writes the dca_ entries; the ph_ entries are our own
+          analytics, listed on the sub-processors page. You can inspect them yourself in
           your browser dev tools under Application &rarr; Storage.
         </p>
       </>
