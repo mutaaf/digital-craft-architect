@@ -238,3 +238,7 @@ The site-wide redesign after mutaafaziz.com's Mission Control lives on the **`be
 - **Installable app:** `public/app.webmanifest`, `public/app-cto.webmanifest` (swapped in by `src/v3/pwa.ts` on cto hosts), `public/sw.js` (network-first; never /api; bump VERSION on caching changes), `public/offline.html`, icons via `node scripts/pwa-icons.mjs`. `/share` is the share target.
 - **iPhone Duo / foldables:** `src/v3/fold.ts` → `html[data-fold=phone|tablet|desktop|open|table]`, `--v3-hinge-l/-w`. Test with `?duo` (wide window) or `?fold=open`.
 - **Beta hosts:** noindex (vercel.json header + meta), no GA/pixel/Ads, Sentry env `beta`. `isBetaHost()` in `src/utils/beta.ts`; `?beta` fakes it.
+- **Templates:** industry pages = `src/v3/IndustryLanding.tsx` + `src/data/industryKeynote.ts` (FAQ JSON-LD built from the same data via `faqSchema`); demo hubs = `src/v3/DemoHubKeynote.tsx`; ai-for SEO pages = `src/v3/SeoLanding.tsx`.
+- **Chat demos:** every vertical's chat route renders `src/pages/construction/LeadResponder.tsx`; what it says (greeting, services, ballpark prices, guard rails, lead-panel labels) comes from `src/data/chatProfiles.ts`.
+- **Duo open below the hero:** `.k-spread` (two pages straddling the hinge), `.k-wide`, `.k-pane-l`, `.k-pane-r`, `.k-spread-card` in `src/v3/v3.css`. No text crosses the hinge.
+- **Vercel protection:** Standard (`all_except_custom_domains`), so beta./cto-beta. stay public while *.vercel.app previews need login.
