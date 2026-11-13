@@ -10,6 +10,7 @@ import Savings from './Savings';
 import Sentences from './Sentences';
 import { useReveal } from './keynote';
 import { openTry } from './TrySheet';
+import { CtaPromise, StickyTry } from './Cta';
 import { CALENDLY } from './verticals';
 import { useFold } from './fold';
 
@@ -80,6 +81,7 @@ export const SeoHero: React.FC<{ icon: LucideIcon; name: string; headline: strin
     <>
       <p className={`v3-rise k-lead mb-8 max-w-[34ch] ${open ? '' : 'mx-auto'}`} style={rise(2)}>{lead}</p>
       <div className={`v3-rise flex flex-col items-center gap-4 sm:flex-row ${open ? 'sm:items-center' : 'sm:justify-center'}`} style={rise(3)}>{actions}</div>
+      <CtaPromise items={['Free', 'No signup', 'Live in your browser']} className={`v3-rise mt-4 ${open ? '' : 'text-center'}`} />
     </>
   );
 
@@ -176,7 +178,7 @@ const SeoLanding: React.FC<{ data: SeoLandingData }> = ({ data: d }) => {
         phone={d.phone}
         actions={<>
           <Link to={d.primary.to} onClick={() => trackCTAClick(...d.primary.track)} className="k-pill k-pill-brand">{d.primary.label}</Link>
-          <a href={CALENDLY} target="_blank" rel="noopener noreferrer" onClick={() => trackCTAClick(...d.book)} className="k-link">Book a call <Chev /></a>
+          <a href={CALENDLY} target="_blank" rel="noopener noreferrer" onClick={() => trackCTAClick(...d.book)} className="k-link">Or book a free 30-minute call <Chev /></a>
         </>}
       />
 
@@ -224,7 +226,7 @@ const SeoLanding: React.FC<{ data: SeoLandingData }> = ({ data: d }) => {
           <h2 className="k-in k-h2 mb-4 text-center">What it&rsquo;s worth to you.</h2>
           <p className="k-in k-lead mx-auto mb-14 max-w-[28ch] text-center md:mb-20">Move the sliders. Your numbers, your answer.</p>
           <div className="k-in rounded-[32px] bg-white p-8 md:p-14">
-            <Savings defaultJob={d.job.value} jobLabel={d.job.label} buildPrice={Number(mvp?.price?.replace(/[^0-9.]/g, '')) || 4999} onAction={tryIt} actionLabel="See it on your company" />
+            <Savings defaultJob={d.job.value} jobLabel={d.job.label} buildPrice={Number(mvp?.price?.replace(/[^0-9.]/g, '')) || 4999} onAction={tryIt} />
           </div>
         </div>
       </section>
@@ -241,9 +243,10 @@ const SeoLanding: React.FC<{ data: SeoLandingData }> = ({ data: d }) => {
           <Link to="/quiz" className="hover:text-white">Take the 2-minute AI readiness quiz</Link>
         </>}
       >
-        <a href={CALENDLY} target="_blank" rel="noopener noreferrer" data-testid={`${d.testid}-footer-cta`} onClick={() => trackCTAClick(...d.close.book)} className="k-pill bg-white text-[#1d1d1f] hover:bg-[#f5f5f7]">Book a call</a>
+        <a href={CALENDLY} target="_blank" rel="noopener noreferrer" data-testid={`${d.testid}-footer-cta`} onClick={() => trackCTAClick(...d.close.book)} className="k-pill bg-white text-[#1d1d1f] hover:bg-[#f5f5f7]">Book a free 30-minute call</a>
         <Link to={d.close.try.to} onClick={() => trackCTAClick(...d.close.try.track)} className="k-link !text-[#7BE3C3]">{d.close.try.label} <Chev /></Link>
       </SeoClose>
+      <StickyTry where={d.testid} />
     </SeoShell>
   );
 };

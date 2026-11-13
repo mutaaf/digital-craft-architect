@@ -56,9 +56,10 @@ const Cto3: React.FC = () => {
         <h1 className="v3-rise k-hero mx-auto mb-6 max-w-[17ch]" style={{ '--i': 1 } as React.CSSProperties}><Sentences text="A Fortune 100 CTO. On retainer." /></h1>
         <p className="v3-rise k-lead mx-auto mb-9 max-w-[34ch]" style={{ '--i': 2 } as React.CSSProperties}>Book more jobs. Close more deals. Run ops on autopilot. For less than one senior hire.</p>
         <div className="v3-rise flex flex-col items-center justify-center gap-4 sm:flex-row" style={{ '--i': 3 } as React.CSSProperties}>
-          <a href={CALENDLY} target="_blank" rel="noopener noreferrer" onClick={book('v3_cto_hero')} className="k-pill bg-[var(--v3-copper-btn)] text-white hover:bg-[#a9531a]">Book a discovery call</a>
+          <a href={CALENDLY} target="_blank" rel="noopener noreferrer" onClick={book('v3_cto_hero')} className="k-pill bg-[var(--v3-copper-btn)] text-white hover:bg-[#a9531a]">Book a free discovery call</a>
           <a href="#outcomes" onClick={() => trackCTAClick('see_outcomes', 'v3_cto_hero')} className="k-link !text-[var(--v3-copper-ink)]">See the results <Chev /></a>
         </div>
+        <p className="v3-rise mt-4 text-[14px] text-[#6e6e73]" style={{ '--i': 3 } as React.CSSProperties}>Free · 30 minutes · By video</p>
         <div className="v3-rise mx-auto mt-20 flex max-w-[760px] flex-wrap items-center justify-center gap-x-10 gap-y-3 md:mt-28" style={{ '--i': 4 } as React.CSSProperties} aria-label="Where the founder led engineering">
           {ORGS.map((o) => <span key={o} className="text-[22px] font-semibold tracking-[-0.03em] text-[#a1a1a6] md:text-[28px]">{o}</span>)}
         </div>
@@ -117,7 +118,8 @@ const Cto3: React.FC = () => {
         <div className="k-in">
           <h2 className="k-hero mx-auto mb-6 max-w-[13ch]">A Fortune 100 CTO, <span className="text-[#e89862]">in your corner.</span></h2>
           <p className="k-lead mx-auto mb-10 max-w-[30ch] !text-[#a1a1a6]">Thirty minutes. No pitch. The one system that would move your P&amp;L most this quarter.</p>
-          <a href={CALENDLY} target="_blank" rel="noopener noreferrer" onClick={book('v3_cto_engage')} className="k-pill bg-[var(--v3-copper-btn)] text-white hover:bg-[#c2611f]">Book the call</a>
+          <a href={CALENDLY} target="_blank" rel="noopener noreferrer" onClick={book('v3_cto_engage')} className="k-pill bg-[var(--v3-copper-btn)] text-white hover:bg-[#c2611f]">Book a free discovery call</a>
+          <p className="mt-4 text-[14px] text-[#a1a1a6]">Free · 30 minutes · By video</p>
         </div>
       </section>
 

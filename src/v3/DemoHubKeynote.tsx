@@ -88,9 +88,10 @@ const DemoHubKeynote: React.FC<{
     )}
 
     <section className="bg-[#1d1d1f] px-5 py-24 text-center text-white md:py-32">
-      <h2 className="k-h2 mx-auto mb-5 max-w-[14ch]">Want this running for real?</h2>
-      <p className="k-lead mx-auto mb-9 max-w-[30ch] !text-[#a1a1a6]">Thirty minutes. Live in two weeks after that.</p>
-      <a href={CALENDLY} target="_blank" rel="noopener noreferrer" onClick={() => trackCTAClick('book_a_call', `${analyticsKey}_demo_hub`)} className="k-pill bg-white text-[#1d1d1f] hover:bg-[#f5f5f7]">Book a call</a>
+      <h2 className="k-h2 mx-auto mb-5 max-w-[14ch]">Want this on your website?</h2>
+      <p className="k-lead mx-auto mb-9 max-w-[30ch] !text-[#a1a1a6]">One call to scope it. Live in two weeks.</p>
+      <a href={CALENDLY} target="_blank" rel="noopener noreferrer" onClick={() => trackCTAClick('book_a_call', `${analyticsKey}_demo_hub`)} className="k-pill bg-white text-[#1d1d1f] hover:bg-[#f5f5f7]">Book a free 30-minute call</a>
+      <p className="mt-4 text-[14px] text-[#a1a1a6]">Free · 30 minutes · By video</p>
     </section>
   </div>
 );

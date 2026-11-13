@@ -3,6 +3,27 @@ import { ArrowRight } from 'lucide-react';
 import { getRelatedDemos } from '@/utils/relatedDemos';
 import { recordDemoVisit } from '@/utils/recentDemosStore';
 import { trackCTAClick } from '@/utils/analytics';
+import { CALENDLY } from '@/v3/verticals';
+
+// The moment after someone has watched a demo work is the best moment to ask (2026-11-12 CTA pass),
+// so every demo ends on the same two choices: talk to us, or run the demos as your own company.
+const AfterDemo = ({ currentPath }: { currentPath: string }) => {
+  const hub = currentPath.split('/demo/')[0] + '/demo';
+  return (
+    <section data-testid="after-demo-cta" className="bg-white px-4 pt-12 md:pt-16">
+      <div className="mx-auto flex max-w-6xl flex-col items-start gap-6 rounded-[28px] bg-[#1d1d1f] p-8 text-white md:flex-row md:items-center md:justify-between md:p-12">
+        <div>
+          <h2 className="text-[28px] font-semibold leading-[1.1] tracking-[-0.03em] md:text-[36px]">Want this on your website?</h2>
+          <p className="mt-2 text-[17px] text-[#a1a1a6]">We build it on your site and phone line. Live in two weeks.</p>
+        </div>
+        <div className="flex shrink-0 flex-col items-start gap-3 md:items-end">
+          <a href={CALENDLY} target="_blank" rel="noopener noreferrer" onClick={() => trackCTAClick('book_discovery', `after_demo:${currentPath}`)} className="k-pill bg-white text-[#1d1d1f] hover:bg-[#f5f5f7]">Book a free 30-minute call</a>
+          <Link to={hub} onClick={() => trackCTAClick('personalize_demos', `after_demo:${currentPath}`)} className="text-[15px] font-medium text-[#7BE3C3] hover:underline">Or run every demo as your company ›</Link>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 // Ticket 0027 - "More like this" cross-vertical recommendations under each
 // demo. Snapshot read on mount (no state, no effect); short-circuits to
@@ -21,9 +42,11 @@ function reasonCaption(reason: 'same-tool' | 'same-vertical', vertical: string):
 
 const RelatedDemos = ({ currentPath }: RelatedDemosProps) => {
   const items = getRelatedDemos(currentPath);
-  if (items.length === 0) return null;
+  if (items.length === 0) return <AfterDemo currentPath={currentPath} />;
 
   return (
+    <>
+    <AfterDemo currentPath={currentPath} />
     <section
       data-testid="related-demos"
       className="py-12 md:py-16 bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800"
@@ -65,6 +88,7 @@ const RelatedDemos = ({ currentPath }: RelatedDemosProps) => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 

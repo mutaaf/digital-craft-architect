@@ -11,6 +11,7 @@ import PhoneDemo, { type PhoneScript } from './PhoneDemo';
 import Savings from './Savings';
 import { useReveal } from './keynote';
 import { openTry } from './TrySheet';
+import { TryField, BookCall, StickyTry } from './Cta';
 import { CALENDLY, VERTICALS, domainOf } from './verticals';
 import { useFold } from './fold';
 import Sentences from './Sentences';
@@ -44,17 +45,11 @@ const Chev = () => <ChevronRight size={18} strokeWidth={2.2} className="mt-px" /
 const IndustryLanding: React.FC<{ data: IndustryKeynote; belowHero?: React.ReactNode; afterPlans?: React.ReactNode }> = ({ data: d, belowHero, afterPlans }) => {
   const { content } = useContent();
   const { form } = useFold();
-  const [site, setSite] = useState('');
   useReveal([content]);
   const v = VERTICALS.find((x) => x.key === d.key);
   const Icon = v?.icon;
   const hub = v?.hub ?? `/${d.key}/demo`;
   const tryIt = (where: string) => () => { trackCTAClick('v3_try', `${d.key}_${where}`); openTry({ vertical: d.key }); };
-  const tryHere = (e: React.FormEvent) => {
-    e.preventDefault();
-    trackCTAClick('v3_close_try', `${d.key}_${domainOf(site) ? 'with_site' : 'empty'}`);
-    openTry({ vertical: d.key, site: domainOf(site) || site || null });
-  };
   const open = form === 'open';
   const mvp = content?.mvpPromotion;
 
@@ -65,9 +60,9 @@ const IndustryLanding: React.FC<{ data: IndustryKeynote; belowHero?: React.React
       </div>
       <h1 className={`v3-rise k-hero mb-5 max-w-[15ch] text-[#1d1d1f] ${open ? '' : 'mx-auto'}`} style={{ '--i': 1 } as React.CSSProperties}><Sentences text={d.headline} /></h1>
       <p className={`v3-rise k-lead mb-8 max-w-[32ch] ${open ? '' : 'mx-auto'}`} style={{ '--i': 2 } as React.CSSProperties}>{d.sub}</p>
-      <div className={`v3-rise flex flex-col items-center gap-4 sm:flex-row ${open ? '' : 'sm:justify-center'}`} style={{ '--i': 3 } as React.CSSProperties}>
-        <button type="button" onClick={tryIt('hero')} className="k-pill k-pill-brand">See it on your {d.business}</button>
-        <a href={CALENDLY} target="_blank" rel="noopener noreferrer" onClick={() => trackCTAClick('book_discovery', `${d.key}_hero`)} className="k-link">Book a call <Chev /></a>
+      <div className="v3-rise" style={{ '--i': 3 } as React.CSSProperties}>
+        <TryField where={`${d.key}_hero`} vertical={d.key} placeholder={`your${d.business.replace(/\s+/g, '')}.com`} align={open ? 'left' : 'center'} />
+        <div className={`mt-5 ${open ? '' : 'text-center'}`}><BookCall where={`${d.key}_hero`} /></div>
       </div>
     </div>
   );
@@ -123,7 +118,7 @@ const IndustryLanding: React.FC<{ data: IndustryKeynote; belowHero?: React.React
           <h2 className="k-in k-h2 k-pane-l mb-4 text-center">What it&rsquo;s worth to you.</h2>
           <p className="k-in k-lead k-pane-l mx-auto mb-14 max-w-[28ch] text-center md:mb-20">Move the sliders. Your numbers, your answer.</p>
           <div className="k-in k-spread-card rounded-[32px] bg-white p-8 md:p-14">
-            <Savings className="k-spread" defaultJob={d.job.value} jobLabel={d.job.label} buildPrice={Number(mvp?.price?.replace(/[^0-9.]/g, '')) || 4999} onAction={tryIt('savings')} actionLabel={`See it on your ${d.business}`} />
+            <Savings className="k-spread" defaultJob={d.job.value} jobLabel={d.job.label} buildPrice={Number(mvp?.price?.replace(/[^0-9.]/g, '')) || 4999} onAction={tryIt('savings')} />
           </div>
         </div>
       </section>
@@ -147,10 +142,11 @@ const IndustryLanding: React.FC<{ data: IndustryKeynote; belowHero?: React.React
                 <ul className={`mb-8 space-y-2.5 text-[15px] ${p.highlight ? 'text-[#d2d2d7]' : 'text-[#424245]'}`}>
                   {p.features.slice(0, 4).map((f) => <li key={f}>{f}</li>)}
                 </ul>
-                <a href={CALENDLY} target="_blank" rel="noopener noreferrer" onClick={() => trackCTAClick(`tier_${p.name.toLowerCase()}`, `${d.key}_pricing`)} className={`k-pill mt-auto ${p.highlight ? 'bg-white text-[#1d1d1f] hover:bg-[#f5f5f7]' : 'k-pill-dark'}`}>Get started</a>
+                <a href={CALENDLY} target="_blank" rel="noopener noreferrer" onClick={() => trackCTAClick(`tier_${p.name.toLowerCase()}`, `${d.key}_pricing`)} className={`k-pill mt-auto ${p.highlight ? 'bg-white text-[#1d1d1f] hover:bg-[#f5f5f7]' : 'k-pill-dark'}`}>Start with {p.name}</a>
               </div>
             ))}
           </div>
+          <p className="k-in mt-8 text-center text-[15px] text-[#6e6e73]">Every plan starts with a free 30-minute call. Live in two weeks. Cancel anytime.</p>
         </section>
       )}
 
@@ -183,16 +179,13 @@ const IndustryLanding: React.FC<{ data: IndustryKeynote; belowHero?: React.React
             <h2 className="k-hero mx-auto mb-6 max-w-[12ch]">See it answer as you.</h2>
             <p className="k-lead mx-auto mb-10 max-w-[30ch]">Your website in. Every {d.name.toLowerCase()} demo, personalized.</p>
           </div>
-          <form onSubmit={tryHere} className="mx-auto flex max-w-[520px] flex-col gap-3 sm:flex-row">
-            <label htmlFor={`k-close-${d.key}`} className="sr-only">Your website</label>
-            <input id={`k-close-${d.key}`} className="h-[52px] w-full min-w-0 rounded-full sm:flex-1 border border-[#d2d2d7] bg-white px-6 text-[17px] outline-none transition focus:border-aurora focus:ring-4 focus:ring-aurora/15" inputMode="url" autoCapitalize="none" spellCheck={false} placeholder={`your${d.business}.com`} value={site} onChange={(e) => setSite(e.target.value)} />
-            <button type="submit" className="k-pill k-pill-brand !min-h-[52px]">Try it free</button>
-          </form>
+          <TryField where={`${d.key}_close`} vertical={d.key} placeholder={`your${d.business.replace(/\s+/g, '')}.com`} size="normal" />
         </div>
       </section>
 
       {content?.form && <div className="k-pane-r bg-[#f5f5f7]"><ContactForm data={content.form} /></div>}
       {content?.footer && <div className="k-pane-r"><Footer data={content.footer} /></div>}
+      <StickyTry where={d.key} vertical={d.key} />
       <LiveChatBubble />
     </div>
   );

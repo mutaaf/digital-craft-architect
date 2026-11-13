@@ -13,6 +13,7 @@ import Savings from './Savings';
 import PhoneDemo from './PhoneDemo';
 import { useReveal } from './keynote';
 import { openTry } from './TrySheet';
+import { TryField, BookCall, StickyTry } from './Cta';
 import { CALENDLY, domainOf } from './verticals';
 import { useFold } from './fold';
 
@@ -28,7 +29,6 @@ const Chev = () => <ChevronRight size={18} strokeWidth={2.2} className="mt-px" /
 const Home3: React.FC = () => {
   const { content } = useContent();
   const { form } = useFold();
-  const [site, setSite] = useState('');
   useAnalytics('G-JQ53W917HT');
   useEngagementTracking();
   useReveal([content]);
@@ -49,11 +49,6 @@ const Home3: React.FC = () => {
   const quote = content?.testimonials?.find((t) => /Residential/i.test(t.position));
 
   const go = (where: string) => () => { trackCTAClick('v3_try', where); openTry(); };
-  const tryHere = (e: React.FormEvent) => {
-    e.preventDefault();
-    trackCTAClick('v3_close_try', domainOf(site) ? 'with_site' : 'empty');
-    openTry({ site: domainOf(site) || site || null });
-  };
 
   const open = form === 'open';
   const heroWords = (
@@ -61,9 +56,9 @@ const Home3: React.FC = () => {
       <div className="v3-rise mb-4 text-[17px] font-semibold text-aurora md:text-[21px]" style={{ '--i': 0 } as React.CSSProperties}>DigitalCraft AI</div>
       <h1 className={`v3-rise k-hero mb-5 max-w-[11ch] text-[#1d1d1f] ${open ? '' : 'mx-auto'}`} style={{ '--i': 1 } as React.CSSProperties}>Never miss a job again.</h1>
       <p className={`v3-rise k-lead mb-8 ${open ? '' : 'mx-auto'}`} style={{ '--i': 2 } as React.CSSProperties}>AI that answers, quotes and books.<br />While you work.</p>
-      <div className={`v3-rise flex flex-col items-center gap-4 sm:flex-row ${open ? '' : 'sm:justify-center'}`} style={{ '--i': 3 } as React.CSSProperties}>
-        <button type="button" onClick={go('hero')} className="k-pill k-pill-brand">See it on your company</button>
-        <a href={CALENDLY} target="_blank" rel="noopener noreferrer" onClick={() => trackCTAClick('book_discovery', 'v3_hero')} className="k-link">Book a call <Chev /></a>
+      <div className="v3-rise" style={{ '--i': 3 } as React.CSSProperties}>
+        <TryField where="home_hero" align={open ? 'left' : 'center'} />
+        <div className={`mt-5 ${open ? '' : 'text-center'}`}><BookCall where="v3_hero" /></div>
       </div>
     </div>
   );
@@ -172,7 +167,7 @@ const Home3: React.FC = () => {
           <h2 className="k-in k-h2 k-pane-l mb-4 text-center">What missed calls cost you.</h2>
           <p className="k-in k-lead k-pane-l mx-auto mb-14 max-w-[28ch] text-center md:mb-20">Move the sliders. Your numbers, your answer.</p>
           <div className="k-in k-spread-card rounded-[32px] bg-white p-8 md:p-14">
-            <Savings className="k-spread" buildPrice={buildPrice} monthly={plus?.price ?? 999} onAction={go('savings')} actionLabel="See it on your company" />
+            <Savings className="k-spread" buildPrice={buildPrice} monthly={plus?.price ?? 999} onAction={go('savings')} />
           </div>
         </div>
       </section>
@@ -204,7 +199,7 @@ const Home3: React.FC = () => {
             <p className="k-lead mx-auto mb-10 max-w-[32ch]">One fixed price to build it. You own the code. Keep it running from ${Number.isFinite(lowest) ? lowest : 399}/month.</p>
           </div>
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <a href={CALENDLY} target="_blank" rel="noopener noreferrer" onClick={() => trackCTAClick('mvp_cta', 'v3_pricing')} className="k-pill k-pill-dark">Book a free call</a>
+            <a href={CALENDLY} target="_blank" rel="noopener noreferrer" onClick={() => trackCTAClick('mvp_cta', 'v3_pricing')} className="k-pill k-pill-dark">Book a free 30-minute call</a>
             <button type="button" onClick={go('pricing')} className="k-link">Try it first <Chev /></button>
           </div>
         </div>
@@ -228,16 +223,13 @@ const Home3: React.FC = () => {
             <h2 className="k-hero mx-auto mb-6 max-w-[12ch]">See it answer as you.</h2>
             <p className="k-lead mx-auto mb-10 max-w-[28ch]">Your website in. Every demo, personalized. Twenty seconds.</p>
           </div>
-          <form onSubmit={tryHere} className="mx-auto flex max-w-[520px] flex-col gap-3 sm:flex-row">
-            <label htmlFor="v3-close-site" className="sr-only">Your company website</label>
-            <input id="v3-close-site" className="h-[52px] w-full min-w-0 rounded-full sm:flex-1 border border-[#d2d2d7] bg-white px-6 text-[17px] outline-none transition focus:border-aurora focus:ring-4 focus:ring-aurora/15" inputMode="url" autoCapitalize="none" spellCheck={false} placeholder="yourcompany.com" value={site} onChange={(e) => setSite(e.target.value)} />
-            <button type="submit" className="k-pill k-pill-brand !min-h-[52px]">Try it free</button>
-          </form>
+          <TryField where="home_close" size="normal" />
         </div>
       </section>
 
       {content?.form && <div className="k-pane-r bg-[#f5f5f7]"><ContactForm data={content.form} /></div>}
       {content?.footer && <div className="k-pane-r"><Footer data={content.footer} /></div>}
+      <StickyTry where="home" />
       <LiveChatBubble />
     </div>
   );

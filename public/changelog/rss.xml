@@ -7,6 +7,54 @@
     <language>en-us</language>
     <atom:link href="https://digitalcraftai.com/changelog/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>CTO site copy follows the house rule - no em-dashes</title>
+      <link>https://digitalcraftai.com/changelog#0122</link>
+      <description>Shipped 2026-10-20 in area: content.</description>
+      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0122</guid>
+      <category>content</category>
+    </item>
+    <item>
+      <title>Phones - the hero story plays in its own panel, nothing scrolls sideways, nothing covers the story</title>
+      <link>https://digitalcraftai.com/changelog#0121</link>
+      <description>Shipped 2026-10-20 in area: conversion.</description>
+      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0121</guid>
+      <category>conversion</category>
+    </item>
+    <item>
+      <title>The hero story in four acts (the miss, the build, the catch, the crew), and on digitalcraftai.com</title>
+      <link>https://digitalcraftai.com/changelog#0119</link>
+      <description>Shipped 2026-10-20 in area: conversion.</description>
+      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0119</guid>
+      <category>conversion</category>
+    </item>
+    <item>
+      <title>Hero storyline opens with the builder at his desk, prompting AI agents that go to work</title>
+      <link>https://digitalcraftai.com/changelog#0118</link>
+      <description>Shipped 2026-10-20 in area: conversion.</description>
+      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0118</guid>
+      <category>conversion</category>
+    </item>
+    <item>
+      <title>Hero story labels never sit under the drawing; the catch turns the moment to handled; studio makes stories with your own key</title>
+      <link>https://digitalcraftai.com/changelog#0120</link>
+      <description>Shipped 2026-10-19 in area: conversion.</description>
+      <pubDate>Mon, 19 Oct 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0120</guid>
+      <category>conversion</category>
+    </item>
+    <item>
+      <title>Crew of Light hero on the CTO landing, with live storyboards and an AI director</title>
+      <link>https://digitalcraftai.com/changelog#0117</link>
+      <description>Shipped 2026-10-19 in area: conversion.</description>
+      <pubDate>Mon, 19 Oct 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0117</guid>
+      <category>conversion</category>
+    </item>
+    <item>
       <title>Canonical founder facts module mirrored from mutaafaziz.com</title>
       <link>https://digitalcraftai.com/changelog#0113</link>
       <description>Shipped 2026-10-19 in area: trust.</description>
@@ -37,6 +85,14 @@
       <pubDate>Tue, 06 Oct 2026 12:00:00 GMT</pubDate>
       <guid isPermaLink="true">https://digitalcraftai.com/changelog#0110</guid>
       <category>infra</category>
+    </item>
+    <item>
+      <title>Public /agent-prompts transparency page listing the committed system prompt for every autonomous agent as a defensible moat artifact</title>
+      <link>https://digitalcraftai.com/changelog#0109</link>
+      <description>Shipped 2026-10-02 in area: trust.</description>
+      <pubDate>Fri, 02 Oct 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://digitalcraftai.com/changelog#0109</guid>
+      <category>trust</category>
     </item>
     <item>
       <title>Public /roadmap dated intended-ship-week page derived from groomed-status backlog tickets as a defensible moat artifact</title>

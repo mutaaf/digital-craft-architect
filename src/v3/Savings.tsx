@@ -11,7 +11,7 @@ const WEEKS = 4.33;
 
 const money = (n: number) => '$' + Math.round(n).toLocaleString('en-US');
 
-interface Props { buildPrice?: number; monthly?: number; defaultJob?: number; jobLabel?: string; onAction?: () => void; actionLabel?: string; className?: string }
+interface Props { buildPrice?: number; monthly?: number; defaultJob?: number; jobLabel?: string; onAction?: () => void; actionLabel?: string | ((monthly: string) => string); className?: string }
 
 const Slider: React.FC<{ id: string; label: string; value: number; min: number; max: number; step: number; show: string; onChange: (n: number) => void }> = ({ id, label, value, min, max, step, show, onChange }) => (
   <div>
@@ -23,7 +23,7 @@ const Slider: React.FC<{ id: string; label: string; value: number; min: number; 
   </div>
 );
 
-const Savings: React.FC<Props> = ({ buildPrice = 4999, monthly = 999, defaultJob = 3000, jobLabel = 'Your average job', onAction, actionLabel = 'See it on my company', className = '' }) => {
+const Savings: React.FC<Props> = ({ buildPrice = 4999, monthly = 999, defaultJob = 3000, jobLabel = 'Your average job', onAction, actionLabel = (m: string) => `See how to get ${m} back`, className = '' }) => {
   const [missed, setMissed] = useState(6);
   const [job, setJob] = useState(defaultJob);
   const [hours, setHours] = useState(10);
@@ -58,7 +58,8 @@ const Savings: React.FC<Props> = ({ buildPrice = 4999, monthly = 999, defaultJob
           <div><div className="v3-num text-[32px] font-semibold tracking-[-0.03em] text-[#1d1d1f]">{Math.round(r.hoursBack)} h</div><div className="text-[14px] text-[#6e6e73]">of your time</div></div>
           <div><div className="v3-num text-[32px] font-semibold tracking-[-0.03em] text-[#1d1d1f]">{payback}</div><div className="text-[14px] text-[#6e6e73]">to pay for itself</div></div>
         </div>
-        {onAction && <button type="button" onClick={onAction} className="k-pill k-pill-brand mt-8">{actionLabel} <ArrowRight size={17} /></button>}
+        {onAction && <button type="button" onClick={onAction} className="k-pill k-pill-brand mt-8">{typeof actionLabel === 'function' ? actionLabel(money(r.revenue + r.time)) : actionLabel} <ArrowRight size={17} /></button>}
+        {onAction && <p className="mt-3 text-[14px] text-[#6e6e73]">Free · No signup · Ready in about 20 seconds</p>}
         <p className="mt-6 text-[12px] leading-snug text-[#6e6e73]">
           An estimate from your numbers, not a promise. Assumes 1 in 4 recovered leads books, {Math.round(AUTOMATED * 100)}% of admin automated, your hour at ${HOURLY}, a {money(buildPrice)} build and {money(monthly)}/mo.
         </p>

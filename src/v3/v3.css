@@ -295,3 +295,5 @@ html[data-fold="open"] .k-pane-r { padding-left: calc(var(--v3-hinge-l) + var(--
 html[data-fold="open"] .k-pane-r form.sm\:flex-row { flex-direction: column; }
 html[data-fold="open"] .k-pane-r form.sm\:flex-row > div { width: 100%; max-width: 420px; }
 html[data-fold="open"] .k-pane-r form.sm\:flex-row input { width: auto; flex: 1 1 0%; }
+/* the desktop sticky "Build my demo" pill sits on the right page on the Duo open */
+html[data-fold="open"] .k-sticky-try { left: calc(var(--v3-hinge-l) + var(--v3-hinge-w) + (100vw - var(--v3-hinge-l) - var(--v3-hinge-w)) / 2); }
