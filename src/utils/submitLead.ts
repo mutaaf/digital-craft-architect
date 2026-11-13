@@ -12,6 +12,8 @@
 // Production never sets this flag; the autonomous `verify` skill runs against
 // the preview server without setting it either, so agents still get blocked.
 
+import { boxofficeTrack, leadFormTag } from './boxoffice';
+
 const FORMSPREE_URL = 'https://formspree.io/f/xovekqqk';
 const LOCAL_HOSTS = new Set(['localhost', '127.0.0.1', '0.0.0.0']);
 
@@ -31,9 +33,12 @@ export async function submitLead(payload: Record<string, unknown>): Promise<Resp
   if (shouldSkip()) {
     return new Response(null, { status: 200, statusText: 'OK (localhost skipped)' });
   }
-  return fetch(FORMSPREE_URL, {
+  const res = await fetch(FORMSPREE_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
   });
+  // Box Office gets the form's bracketed subject tag only, never its contents.
+  if (res.ok) boxofficeTrack('contact_submit', { form: leadFormTag(payload._subject) });
+  return res;
 }

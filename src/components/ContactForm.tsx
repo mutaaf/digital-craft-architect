@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FormSection } from '@/hooks/useContent';
 import { CheckCircle, Wand2, Calendar, Play, Phone } from 'lucide-react';
 import { trackFormSubmission, trackCTAClick } from '@/utils/analytics';
+import { boxofficeTrack } from '@/utils/boxoffice';
 import { getUtmParams } from '@/utils/utmTracker';
 import { useToast } from '@/hooks/use-toast';
 import { z } from 'zod';
@@ -140,6 +141,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
       }
 
       trackFormSubmission('contact_form');
+      boxofficeTrack('contact_submit', { form: 'contact_form' });
 
       toast({
         title: "Success!",
