@@ -273,3 +273,25 @@ input.v3-input { padding-left: 14px; padding-right: 14px; }
 .dc-demo-strip { --l: #000; --r: #000; -webkit-mask-image: linear-gradient(90deg, var(--l), #000 20px, #000 calc(100% - 20px), var(--r)); mask-image: linear-gradient(90deg, var(--l), #000 20px, #000 calc(100% - 20px), var(--r)); }
 .dc-demo-strip[data-l='1'] { --l: transparent; }
 .dc-demo-strip[data-r='1'] { --r: transparent; }
+
+/* iPhone Duo open / foldables spanning two screens (html[data-fold=open], src/v3/fold.ts):
+   every section below the hero lays out as two pages either side of the hinge, so no line of text
+   crosses it. .k-spread = two equal columns whose gap straddles the hinge; .k-wide drops a
+   section's max-width so the spread can use the whole spread; .k-pane-l pins a heading to the
+   left page; .k-spread-card drops a card's chrome so its two halves can sit on the two pages. */
+html[data-fold="open"] .k-wide { max-width: none; padding-inline: 0; }
+html[data-fold="open"] .k-spread {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: calc(var(--v3-hinge-w) + 80px); row-gap: 40px; align-items: center;
+  max-width: none; margin-inline: 0; padding-inline: 40px; text-align: left;
+}
+html[data-fold="open"] .k-spread > * { min-width: 0; max-width: none; margin-inline: 0; text-align: left; }
+html[data-fold="open"] .k-spread > * .justify-center { justify-content: flex-start; }
+html[data-fold="open"] .k-pane-l { max-width: calc(var(--v3-hinge-l) - 80px); margin-left: 40px; margin-right: 0; text-align: left; }
+html[data-fold="open"] .k-spread-card { background: transparent; padding: 0; border-radius: 0; }
+/* blocks too dense to split (the contact form, the footer) sit wholly on the right page */
+html[data-fold="open"] .k-pane-r { padding-left: calc(var(--v3-hinge-l) + var(--v3-hinge-w)); }
+/* one page is phone-width, so stack the footer's sign-up rows the way a phone does */
+html[data-fold="open"] .k-pane-r form.sm\:flex-row { flex-direction: column; }
+html[data-fold="open"] .k-pane-r form.sm\:flex-row > div { width: 100%; max-width: 420px; }
+html[data-fold="open"] .k-pane-r form.sm\:flex-row input { width: auto; flex: 1 1 0%; }

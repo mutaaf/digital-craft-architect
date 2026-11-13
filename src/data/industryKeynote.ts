@@ -62,7 +62,7 @@ export const INDUSTRY_KEYNOTE: Record<string, IndustryKeynote> = {
       },
       {
         q: 'How long until I see results?',
-        a: 'Most clients see measurable improvements within the first month. Lead response time drops to under 60 seconds from day one. Review counts typically double within 60-90 days. Estimate generation time drops immediately.',
+        a: 'Lead response time drops to under 60 seconds from day one. Estimate generation time drops immediately.',
       },
       {
         q: 'What if I already have a website?',
@@ -74,7 +74,7 @@ export const INDUSTRY_KEYNOTE: Record<string, IndustryKeynote> = {
       },
       {
         q: 'What\'s the contract length?',
-        a: 'Month-to-month. No long-term contracts. We earn your business every month by delivering results. Most clients stay because the ROI is obvious within 30 days.',
+        a: 'Month-to-month. No long-term contracts. We earn your business every month by delivering results.',
       },
       {
         q: 'What makes you different from a marketing agency?',
@@ -147,11 +147,11 @@ export const INDUSTRY_KEYNOTE: Record<string, IndustryKeynote> = {
       },
       {
         q: 'How fast will I see results?',
-        a: 'Lead response time drops to under 60 seconds from day one. Most agents see a measurable increase in qualified appointments within the first month. Review counts typically double within 60-90 days.',
+        a: 'Lead response time drops to under 60 seconds from day one.',
       },
       {
         q: 'What\'s the contract length?',
-        a: 'Month-to-month. No long-term contracts. We earn your business every month by delivering results. Most clients stay because the ROI is obvious within 30 days.',
+        a: 'Month-to-month. No long-term contracts. We earn your business every month by delivering results.',
       },
       {
         q: 'How is this different from a marketing agency?',
@@ -227,7 +227,7 @@ export const INDUSTRY_KEYNOTE: Record<string, IndustryKeynote> = {
       },
       {
         q: 'What\'s the contract length?',
-        a: 'Month-to-month. No long-term contracts. We earn your business every month by delivering results. Most clients stay because the ROI is obvious within 30 days.',
+        a: 'Month-to-month. No long-term contracts. We earn your business every month by delivering results.',
       },
       {
         q: 'Can my technicians use this in the field?',
@@ -296,11 +296,11 @@ export const INDUSTRY_KEYNOTE: Record<string, IndustryKeynote> = {
       },
       {
         q: 'How fast will I see results?',
-        a: 'Most vendors see measurable improvements within the first month. Inquiry response time drops to under 60 seconds from day one. Review counts typically double within 60-90 days. Proposal generation time drops immediately to under a minute.',
+        a: 'Inquiry response time drops to under 60 seconds from day one. Proposal generation time drops immediately to under a minute.',
       },
       {
         q: 'What\'s the contract length?',
-        a: 'Month-to-month. No long-term contracts. We earn your business every month by delivering results. Most clients stay because the ROI is obvious within 30 days.',
+        a: 'Month-to-month. No long-term contracts. We earn your business every month by delivering results.',
       },
       {
         q: 'How is this different from a marketing agency?',
@@ -372,7 +372,7 @@ export const INDUSTRY_KEYNOTE: Record<string, IndustryKeynote> = {
       },
       {
         q: 'Will patients know they\'re talking to an AI?',
-        a: 'Transparency is built in. The AI identifies itself as a virtual assistant for your practice. Patients appreciate the convenience of 24/7 availability, and our data shows over 90% satisfaction with AI-assisted interactions.',
+        a: 'Transparency is built in. The AI identifies itself as a virtual assistant for your practice. Patients appreciate the convenience of 24/7 availability.',
       },
       {
         q: 'What\'s the contract length?',
@@ -456,7 +456,7 @@ export const INDUSTRY_KEYNOTE: Record<string, IndustryKeynote> = {
       },
       {
         q: 'What\'s the contract length?',
-        a: 'Month-to-month. No long-term contracts. We earn your business every month by delivering results. Most firms stay because the ROI is clear within the first 30 days.',
+        a: 'Month-to-month. No long-term contracts. We earn your business every month by delivering results.',
       },
     ],
   },
@@ -532,7 +532,7 @@ export const INDUSTRY_KEYNOTE: Record<string, IndustryKeynote> = {
       },
       {
         q: 'Is there a long-term contract?',
-        a: 'No. All plans are month-to-month. We earn your business every month by delivering measurable results. Most clients stay because the ROI is obvious within the first 30 days.',
+        a: 'No. All plans are month-to-month. We earn your business every month by delivering measurable results.',
       },
     ],
   },
@@ -604,7 +604,7 @@ export const INDUSTRY_KEYNOTE: Record<string, IndustryKeynote> = {
       },
       {
         q: 'What\'s the contract length?',
-        a: 'Month-to-month. No long-term contracts. We earn your business every month by delivering results. Most venues stay because the ROI is obvious within the first 30 days.',
+        a: 'Month-to-month. No long-term contracts. We earn your business every month by delivering results.',
       },
       {
         q: 'How quickly can we get started?',
@@ -668,7 +668,7 @@ export const INDUSTRY_KEYNOTE: Record<string, IndustryKeynote> = {
       },
       {
         q: 'How quickly will I see more trial-to-member conversions?',
-        a: 'Most gyms see measurable improvements within the first month. Lead response time drops to under 30 seconds from day one. Trial-to-member conversion typically improves within 60-90 days as the AI follow-up sequences take effect.',
+        a: 'Lead response time drops to under 30 seconds from day one. Follow-up sequences start on every trial from week one.',
       },
       {
         q: 'Does this integrate with my gym management software?',
@@ -680,7 +680,7 @@ export const INDUSTRY_KEYNOTE: Record<string, IndustryKeynote> = {
       },
       {
         q: 'What\'s the contract length?',
-        a: 'Month-to-month. No long-term contracts. We earn your business every month by delivering results. Most studios stay because the ROI is obvious within 30 days.',
+        a: 'Month-to-month. No long-term contracts. We earn your business every month by delivering results.',
       },
       {
         q: 'How is this different from my CRM\'s built-in automation?',
@@ -756,7 +756,7 @@ export const INDUSTRY_KEYNOTE: Record<string, IndustryKeynote> = {
       },
       {
         q: 'What\'s the contract length?',
-        a: 'Month-to-month. No long-term contracts. We earn your business every month by delivering results. Most practices stay because the ROI is obvious within 30 days.',
+        a: 'Month-to-month. No long-term contracts. We earn your business every month by delivering results.',
       },
       {
         q: 'Can the AI handle insurance verification questions?',
@@ -820,7 +820,7 @@ export const INDUSTRY_KEYNOTE: Record<string, IndustryKeynote> = {
       },
       {
         q: 'How quickly will I see fewer no-shows?',
-        a: 'Most salons see a measurable drop in no-shows within the first two weeks. The AI sends smart reminders, offers easy rescheduling, and fills cancelled slots from the waitlist automatically.',
+        a: 'Reminders and waitlist fills start the day it goes live. The AI sends smart reminders, offers easy rescheduling, and fills cancelled slots from the waitlist automatically.',
       },
       {
         q: 'Does it work with my booking system?',
@@ -832,7 +832,7 @@ export const INDUSTRY_KEYNOTE: Record<string, IndustryKeynote> = {
       },
       {
         q: 'What\'s the contract length?',
-        a: 'Month-to-month. No long-term contracts. We earn your business every month by keeping your chairs full and your revenue growing. Most salons stay because the ROI is obvious within 30 days.',
+        a: 'Month-to-month. No long-term contracts. We earn your business every month by keeping your chairs full and your revenue growing.',
       },
       {
         q: 'How is this different from my booking platform\'s built-in reminders?',
@@ -904,11 +904,11 @@ export const INDUSTRY_KEYNOTE: Record<string, IndustryKeynote> = {
       },
       {
         q: 'How does the declined-service follow-up work?',
-        a: 'When a customer declines a recommended service, the AI sends a personalized follow-up via text at 7, 30, and 60 days with a reminder about the recommended repair, why it matters for safety, and an easy link to schedule. Recovery rates average 2x compared to no follow-up.',
+        a: 'When a customer declines a recommended service, the AI sends a personalized follow-up via text at 7, 30, and 60 days with a reminder about the recommended repair, why it matters for safety, and an easy link to schedule.',
       },
       {
         q: 'What\'s the contract length?',
-        a: 'Month-to-month. No long-term contracts. We earn your business every month by delivering results. Most shops stay because the ROI is obvious within 30 days.',
+        a: 'Month-to-month. No long-term contracts. We earn your business every month by delivering results.',
       },
       {
         q: 'What makes this different from a CRM or marketing tool?',
@@ -917,3 +917,10 @@ export const INDUSTRY_KEYNOTE: Record<string, IndustryKeynote> = {
     ],
   },
 };
+
+// The page-level FAQPage JSON-LD, built from the same answers the page shows, so the two can't drift.
+export const faqSchema = (faqs: { q: string; a: string }[]) => ({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+});

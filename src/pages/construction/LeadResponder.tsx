@@ -20,6 +20,9 @@ import { useLocation } from 'react-router-dom';
 import { DEMO_GROUPS } from '@/data/demoCatalog';
 import { INDUSTRY_KEYNOTE } from '@/data/industryKeynote';
 import { VERTICALS } from '@/v3/verticals';
+import { chatProfileFor, buildChatSystemPrompt } from '@/data/chatProfiles';
+import type { FieldConfig } from '@/components/construction/chat/LeadSummaryPanel';
+import { User, Tag, Info, Wallet, Clock, MapPin, Phone } from 'lucide-react';
 import {
   buildDemoSoftwareApplicationSchema,
   getDemoApplicationByRoute,
@@ -31,51 +34,6 @@ import {
 // 2026-05-25 mirror-source rule.
 const DEMO_APP_ROW = getDemoApplicationByRoute('/construction/demo/lead-responder');
 const DEMO_APP_SCHEMA = DEMO_APP_ROW ? buildDemoSoftwareApplicationSchema(DEMO_APP_ROW) : null;
-
-function buildSystemPrompt(companyName: string, ownerName: string, services: string[]): string {
-  const serviceLines = services
-    .map((s) => `- ${s}`)
-    .join('\n');
-
-  return `You are the AI assistant for ${companyName}, a construction and remodeling company led by ${ownerName}. Your job is to qualify incoming leads by having a natural, friendly conversation.
-
-SERVICES OFFERED:
-${serviceLines}
-
-PRICING GUIDANCE:
-- Kitchen Remodel: $120-250/sqft
-- Bathroom Remodel: $150-300/sqft
-- Full Home Renovation: $80-180/sqft
-- Outdoor/Patio: $60-120/sqft
-- General Construction: $80-200/sqft
-
-QUALIFICATION FLOW — gather these naturally through conversation (don't ask all at once):
-1. Name
-2. Project type (kitchen, bathroom, full home, outdoor, other)
-3. Approximate square footage
-4. Budget range
-5. Timeline (when they want to start)
-6. Property address (city/area is fine)
-7. Phone number (ask last, once rapport is built)
-
-RULES:
-- Be warm, professional, and conversational — like a friendly project manager
-- Give helpful ballpark ranges when asked about pricing
-- If someone seems ready, suggest booking a free in-home consultation with ${ownerName}
-- Keep responses concise (2-4 sentences)
-- Always represent ${companyName} positively
-
-LEAD DATA EXTRACTION:
-Whenever you learn new info about the lead, append this EXACTLY at the end of your message (the user won't see it):
-|||LEAD_DATA|||{"name":"...","projectType":"...","sqft":"...","budget":"...","timeline":"...","address":"...","phone":"..."}
-Only include fields you've confirmed. Use null for unknown fields. This must be valid JSON.`;
-}
-
-function buildGreeting(companyName: string): string {
-  return `Hey there! 👋 Welcome to ${companyName} — your go-to team for quality remodeling and construction.
-
-I'm here to help you figure out if we're the right fit for your project. What are you thinking about — a kitchen remodel, bathroom, something bigger?`;
-}
 
 interface Message {
   role: 'user' | 'assistant';
@@ -97,17 +55,22 @@ function headerFor(pathname: string): { title: string; sub: string } | null {
 const LeadResponder = () => {
   const location = useLocation();
   const header = headerFor(location.pathname);
-  const { company } = useDemoContext();
+  const { company, vertical } = useDemoContext();
+  const profile = chatProfileFor(vertical);
   const companyName = company?.companyName || 'DigitalCraft AI';
-  const ownerName = company?.ownerName || 'Ro';
-  const services = company?.services || ['Kitchen Remodeling', 'Bathroom Renovation', 'Full Home Renovation', 'Outdoor/Patio', 'General Construction'];
+  const ownerName = company?.ownerName || '';
+  const services = company?.services?.length ? company.services : profile.services;
 
   const systemPrompt = useMemo(
-    () => buildSystemPrompt(companyName, ownerName, services),
-    [companyName, ownerName, services],
+    () => buildChatSystemPrompt(profile, companyName, ownerName, services),
+    [profile, companyName, ownerName, services],
   );
 
-  const greeting = useMemo(() => buildGreeting(companyName), [companyName]);
+  const greeting = useMemo(() => profile.greeting(companyName), [profile, companyName]);
+  const fields = useMemo<FieldConfig[]>(() => {
+    const icons = { name: <User size={14} />, projectType: <Tag size={14} />, sqft: <Info size={14} />, budget: <Wallet size={14} />, timeline: <Clock size={14} />, address: <MapPin size={14} />, phone: <Phone size={14} /> };
+    return (Object.keys(icons) as (keyof typeof icons)[]).map((k) => ({ key: k, label: profile.slots[k], icon: icons[k] }));
+  }, [profile]);
 
   const [messages, setMessages] = useState<Message[]>([
     { role: 'assistant', content: greeting },
@@ -210,8 +173,8 @@ const LeadResponder = () => {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col">
       <Helmet>
-        <title>AI Lead Responder Demo | DigitalCraft AI</title>
-        <meta name="description" content="Chat with an AI lead responder that qualifies construction leads, extracts project details, and books consultations in real time using GPT-4o." />
+        <title>{header ? `${header.title} Demo` : 'AI Lead Responder Demo'} | DigitalCraft AI</title>
+        <meta name="description" content={header ? `${header.title}: ${header.sub} Try it live, no signup.` : "Chat with an AI lead responder that qualifies construction leads, extracts project details, and books consultations in real time using GPT-4o."} />
         <meta property="og:title" content="AI Lead Responder Demo | DigitalCraft AI" />
         <meta property="og:description" content="Chat with an AI lead responder that qualifies construction leads, extracts project details, and books consultations in real time." />
         {DEMO_APP_SCHEMA && (
@@ -230,7 +193,7 @@ const LeadResponder = () => {
           </Badge>
           <h1 className="k-demo-title mb-3">{header ? header.title : 'AI Lead Qualification for Construction Companies'}</h1>
           <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base">
-            {header ? <>{header.sub} Chat with {companyName}&rsquo;s AI and watch it work in real time.</> : <>Play the homeowner — chat with {companyName}'s AI and watch it qualify leads in real time.</>}
+            {header ? <>{header.sub} Chat with {companyName}&rsquo;s AI and watch it work in real time.</> : <>Play the homeowner. Chat with {companyName}'s AI and watch it qualify leads in real time.</>}
           </p>
         </div>
 
@@ -249,11 +212,11 @@ const LeadResponder = () => {
               <Sheet>
                 <SheetTrigger asChild>
                   <Button variant="outline" size="sm" className="lg:hidden gap-1">
-                    <ClipboardList size={14} /> Lead Info
+                    <ClipboardList size={14} /> Details
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="bottom" className="h-[70vh]">
-                  <LeadSummaryPanel data={leadData} />
+                  <LeadSummaryPanel data={leadData} fieldOverrides={fields} title={profile.panelTitle} cta={profile.cta} />
                 </SheetContent>
               </Sheet>
             </div>
@@ -286,7 +249,7 @@ const LeadResponder = () => {
 
           {/* Lead panel — desktop only */}
           <div className="hidden lg:flex lg:flex-[2]">
-            <LeadSummaryPanel data={leadData} />
+            <LeadSummaryPanel data={leadData} fieldOverrides={fields} title={profile.panelTitle} cta={profile.cta} />
           </div>
         </div>
       </div>

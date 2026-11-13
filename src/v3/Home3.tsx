@@ -108,17 +108,19 @@ const Home3: React.FC = () => {
 
       {/* ── 2 · one number ──────────────────────────────────────────────────────────────── */}
       <section className="mt-28 bg-[#f5f5f7] px-5 py-28 text-center md:mt-40 md:py-40">
-        <div className="k-in">
+        <div className="k-in k-spread">
           <div className="k-giant text-[#1d1d1f]">47<span className="text-aurora">s</span></div>
-          <p className="k-lead mx-auto mt-6 max-w-[26ch]">Time to answer a new lead. <span className="text-[#1d1d1f]">It used to take hours.</span></p>
-          <p className="mt-3 text-[14px] text-[#6e6e73]">A residential development client</p>
+          <div>
+            <p className="k-lead mx-auto mt-6 max-w-[26ch]">Time to answer a new lead. <span className="text-[#1d1d1f]">It used to take hours.</span></p>
+            <p className="mt-3 text-[14px] text-[#6e6e73]">A residential development client</p>
+          </div>
         </div>
       </section>
 
       {/* ── 3 · what it does ────────────────────────────────────────────────────────────── */}
-      <section className="mx-auto max-w-[1180px] px-5 py-28 md:py-40">
-        <h2 className="k-in k-h2 mb-14 text-center md:mb-20">Four jobs. Done for you.</h2>
-        <div className="grid gap-4 md:grid-cols-2 md:gap-5">
+      <section className="k-wide mx-auto max-w-[1180px] px-5 py-28 md:py-40">
+        <h2 className="k-in k-h2 k-pane-l mb-14 text-center md:mb-20">Four jobs. Done for you.</h2>
+        <div className="k-spread grid gap-4 md:grid-cols-2 md:gap-5">
           {/* calls */}
           <Link to="/construction/demo/voice-negotiator" className="k-in k-tile group flex min-h-[400px] flex-col p-9 md:p-12">
             <h3 className="mb-2 text-[28px] font-semibold tracking-[-0.03em] md:text-[34px]">Answers every call.</h3>
@@ -166,18 +168,18 @@ const Home3: React.FC = () => {
 
       {/* ── 4 · what it's worth to you ──────────────────────────────────────────────────── */}
       <section className="bg-[#f5f5f7] px-5 py-28 md:py-40">
-        <div className="mx-auto max-w-[1080px]">
-          <h2 className="k-in k-h2 mb-4 text-center">What missed calls cost you.</h2>
-          <p className="k-in k-lead mx-auto mb-14 max-w-[28ch] text-center md:mb-20">Move the sliders. Your numbers, your answer.</p>
-          <div className="k-in rounded-[32px] bg-white p-8 md:p-14">
-            <Savings buildPrice={buildPrice} monthly={plus?.price ?? 999} onAction={go('savings')} actionLabel="See it on your company" />
+        <div className="k-wide mx-auto max-w-[1080px]">
+          <h2 className="k-in k-h2 k-pane-l mb-4 text-center">What missed calls cost you.</h2>
+          <p className="k-in k-lead k-pane-l mx-auto mb-14 max-w-[28ch] text-center md:mb-20">Move the sliders. Your numbers, your answer.</p>
+          <div className="k-in k-spread-card rounded-[32px] bg-white p-8 md:p-14">
+            <Savings className="k-spread" buildPrice={buildPrice} monthly={plus?.price ?? 999} onAction={go('savings')} actionLabel="See it on your company" />
           </div>
         </div>
       </section>
 
       {/* ── 5 · proof ───────────────────────────────────────────────────────────────────── */}
-      <section className="mx-auto max-w-[1180px] px-5 py-28 md:py-40">
-        <div className="k-in grid gap-12 text-center md:grid-cols-3 md:gap-6">
+      <section className="k-wide mx-auto max-w-[1180px] px-5 py-28 md:py-40">
+        <div className="k-in k-spread grid gap-12 text-center md:grid-cols-3 md:gap-6">
           {[['< 1 hr', 'to send an estimate.', 'It used to take days.'], ['0', 'hours retyping bookings.', 'It used to be 20 a week.'], ['6 wks', 'to pay for itself.', 'For a development firm.']].map(([n, a, b]) => (
             <div key={a}>
               <div className="v3-num text-[64px] font-semibold leading-none tracking-[-0.05em] md:text-[80px]">{n}</div>
@@ -187,7 +189,7 @@ const Home3: React.FC = () => {
           ))}
         </div>
         {quote && (
-          <figure className="k-in mx-auto mt-24 max-w-[820px] text-center md:mt-32">
+          <figure className="k-in k-pane-l mx-auto mt-24 max-w-[820px] text-center md:mt-32">
             <blockquote className="text-[26px] font-medium leading-[1.3] tracking-[-0.02em] md:text-[36px]">&ldquo;{quote.quote.split(/(?<=\.) /).slice(0, 1).join(' ')}&rdquo;</blockquote>
             <figcaption className="mt-6 text-[15px] text-[#6e6e73]">{quote.author}, {quote.position}</figcaption>
           </figure>
@@ -196,16 +198,18 @@ const Home3: React.FC = () => {
 
       {/* ── 6 · the price ───────────────────────────────────────────────────────────────── */}
       <section id="pricing" className="scroll-mt-20 bg-[#f5f5f7] px-5 py-28 text-center md:py-40">
-        <div className="k-in">
-          <h2 className="k-h2 mb-4">{mvp?.price ?? '$4,999'}. Live in two weeks.</h2>
-          <p className="k-lead mx-auto mb-10 max-w-[32ch]">One fixed price to build it. You own the code. Keep it running from ${Number.isFinite(lowest) ? lowest : 399}/month.</p>
+        <div className="k-in k-spread">
+          <div>
+            <h2 className="k-h2 mb-4">{mvp?.price ?? '$4,999'}. Live in two weeks.</h2>
+            <p className="k-lead mx-auto mb-10 max-w-[32ch]">One fixed price to build it. You own the code. Keep it running from ${Number.isFinite(lowest) ? lowest : 399}/month.</p>
+          </div>
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a href={CALENDLY} target="_blank" rel="noopener noreferrer" onClick={() => trackCTAClick('mvp_cta', 'v3_pricing')} className="k-pill k-pill-dark">Book a free call</a>
             <button type="button" onClick={go('pricing')} className="k-link">Try it first <Chev /></button>
           </div>
         </div>
         {tiers && (
-          <div className="k-in mx-auto mt-16 grid max-w-[900px] gap-4 sm:grid-cols-3">
+          <div className="k-in k-spread mx-auto mt-16 grid max-w-[900px] gap-4 sm:grid-cols-3">
             {tiers.tiers.map((t) => (
               <div key={t.name} className={`rounded-[24px] bg-white p-7 text-left ${t.highlighted ? 'ring-2 ring-aurora' : ''}`}>
                 <div className="mb-1 text-[15px] font-semibold text-[#6e6e73]">{t.name}{t.highlighted && <span className="ml-2 text-aurora">Most popular</span>}</div>
@@ -219,9 +223,11 @@ const Home3: React.FC = () => {
 
       {/* ── 7 · the close ───────────────────────────────────────────────────────────────── */}
       <section className="px-5 py-28 text-center md:py-44">
-        <div className="k-in">
-          <h2 className="k-hero mx-auto mb-6 max-w-[12ch]">See it answer as you.</h2>
-          <p className="k-lead mx-auto mb-10 max-w-[28ch]">Your website in. Every demo, personalized. Twenty seconds.</p>
+        <div className="k-in k-spread">
+          <div>
+            <h2 className="k-hero mx-auto mb-6 max-w-[12ch]">See it answer as you.</h2>
+            <p className="k-lead mx-auto mb-10 max-w-[28ch]">Your website in. Every demo, personalized. Twenty seconds.</p>
+          </div>
           <form onSubmit={tryHere} className="mx-auto flex max-w-[520px] flex-col gap-3 sm:flex-row">
             <label htmlFor="v3-close-site" className="sr-only">Your company website</label>
             <input id="v3-close-site" className="h-[52px] w-full min-w-0 rounded-full sm:flex-1 border border-[#d2d2d7] bg-white px-6 text-[17px] outline-none transition focus:border-aurora focus:ring-4 focus:ring-aurora/15" inputMode="url" autoCapitalize="none" spellCheck={false} placeholder="yourcompany.com" value={site} onChange={(e) => setSite(e.target.value)} />
@@ -230,8 +236,8 @@ const Home3: React.FC = () => {
         </div>
       </section>
 
-      {content?.form && <div className="bg-[#f5f5f7]"><ContactForm data={content.form} /></div>}
-      {content?.footer && <Footer data={content.footer} />}
+      {content?.form && <div className="k-pane-r bg-[#f5f5f7]"><ContactForm data={content.form} /></div>}
+      {content?.footer && <div className="k-pane-r"><Footer data={content.footer} /></div>}
       <LiveChatBubble />
     </div>
   );

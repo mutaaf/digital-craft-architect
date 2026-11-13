@@ -52,7 +52,7 @@ const FooterNewsletter: React.FC = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
               aria-label="Email address for newsletter"
-              className="flex-1 sm:w-64 h-11 px-4 rounded-full bg-white border border-[#d2d2d7] text-[#1d1d1f] text-[16px] sm:text-sm placeholder-[#86868b] focus:outline-none focus:ring-4 focus:ring-aurora/15 focus:border-aurora"
+              className="min-w-0 flex-1 sm:w-64 h-11 px-4 rounded-full bg-white border border-[#d2d2d7] text-[#1d1d1f] text-[16px] sm:text-sm placeholder-[#86868b] focus:outline-none focus:ring-4 focus:ring-aurora/15 focus:border-aurora"
             />
             <button
               type="submit"

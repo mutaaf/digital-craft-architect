@@ -17,7 +17,7 @@ export interface RoadmapEntry {
   intendedShipWeek: string;
 }
 
-export const ROADMAP_GENERATED_AT: string = "2026-11-12";
+export const ROADMAP_GENERATED_AT: string = "2026-11-13";
 
 export const ROADMAP_CADENCE_NOTE: string = "The ship loop runs one ticket per hour and typically lands 1-5 tickets per week based on backlog depth, heal retries, and reviewer blocks. Dates below are a planning signal, not a commitment: the autonomous ship loop reorders groomed tickets as the queue evolves, so an intended ship week can slip or accelerate.";
 

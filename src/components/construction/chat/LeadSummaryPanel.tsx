@@ -21,6 +21,8 @@ export type FieldConfig = { key: keyof LeadData; label: string; icon: React.Reac
 interface LeadSummaryPanelProps {
   data: LeadData;
   fieldOverrides?: FieldConfig[];
+  title?: string;
+  cta?: string;
 }
 
 const DEFAULT_FIELDS: FieldConfig[] = [
@@ -33,7 +35,7 @@ const DEFAULT_FIELDS: FieldConfig[] = [
   { key: 'phone', label: 'Phone', icon: <Phone size={14} /> },
 ];
 
-const LeadSummaryPanel = ({ data, fieldOverrides }: LeadSummaryPanelProps) => {
+const LeadSummaryPanel = ({ data, fieldOverrides, title = 'Lead Qualification', cta = 'Book Consultation' }: LeadSummaryPanelProps) => {
   const { company } = useDemoContext();
   const bookingUrl = company?.bookingUrl || 'https://calendly.com/mutaaf';
 
@@ -45,7 +47,7 @@ const LeadSummaryPanel = ({ data, fieldOverrides }: LeadSummaryPanelProps) => {
   return (
     <Card className="p-5 h-full w-full flex flex-col">
       <div className="flex items-center justify-between mb-3">
-        <h3 className="font-semibold text-sm">Lead Qualification</h3>
+        <h3 className="font-semibold text-sm">{title}</h3>
         <Badge
           variant={qualified ? 'default' : 'secondary'}
           className={`text-xs ${qualified ? 'animate-pulse' : ''}`}
@@ -97,13 +99,13 @@ const LeadSummaryPanel = ({ data, fieldOverrides }: LeadSummaryPanelProps) => {
         <div className="space-y-3 animate-fade-in">
           <div className="bg-green-50 dark:bg-green-900/10 rounded-lg p-3 text-center">
             <p className="text-xs font-medium text-green-700 dark:text-green-400">
-              Lead qualified! Ready to book.
+              Ready to book.
             </p>
           </div>
           {bookingUrl && (
             <Button asChild className="w-full gap-2">
               <a href={bookingUrl} target="_blank" rel="noopener noreferrer">
-                <CalendarCheck size={16} /> Book Consultation
+                <CalendarCheck size={16} /> {cta}
               </a>
             </Button>
           )}

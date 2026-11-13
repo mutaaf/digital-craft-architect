@@ -279,7 +279,6 @@ const App = () => {
           <Analytics />
           <EasterEgg />
           <BrowserRouter>
-            <V3Chrome />
             <Suspense fallback={<RouteFallback />}>
             <Routes>
               <Route path="/" element={<LandingRoot />} />
@@ -427,6 +426,8 @@ const App = () => {
               <Route path="*" element={<NotFound />} />
             </Routes>
             </Suspense>
+            {/* after the page in the DOM: fixed-position chrome, so the page's own header is the first <nav> */}
+            <V3Chrome />
           </BrowserRouter>
         </TooltipProvider>
       </HelmetProvider>

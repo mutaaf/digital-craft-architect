@@ -94,16 +94,16 @@ const IndustryLanding: React.FC<{ data: IndustryKeynote; belowHero?: React.React
 
       {/* 2 · one number */}
       <section className="mt-28 bg-[#f5f5f7] px-5 py-28 text-center md:mt-40 md:py-40">
-        <div className="k-in">
+        <div className="k-in k-spread">
           <div className="k-giant text-[#1d1d1f]">{d.big.value}</div>
           <p className="k-lead mx-auto mt-6 max-w-[28ch]">{d.big.line} <span className="text-[#1d1d1f]">{d.big.muted}</span></p>
         </div>
       </section>
 
       {/* 3 · what it does */}
-      <section className="mx-auto max-w-[1180px] px-5 py-28 md:py-40">
-        <h2 className="k-in k-h2 mb-14 text-center md:mb-20">Built for {d.audience}.</h2>
-        <div className={`grid gap-4 md:gap-5 ${d.tiles.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'}`}>
+      <section className="k-wide mx-auto max-w-[1180px] px-5 py-28 md:py-40">
+        <h2 className="k-in k-h2 k-pane-l mb-14 text-center md:mb-20">Built for {d.audience}.</h2>
+        <div className={`k-spread grid gap-4 md:gap-5 ${d.tiles.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'}`}>
           {d.tiles.map((t) => (
             <Link key={t.title} to={t.to} className="k-in k-tile group flex min-h-[260px] flex-col p-9 transition-colors hover:bg-[#ececf0] md:min-h-[300px] md:p-12">
               <h3 className="mb-2 text-[28px] font-semibold leading-[1.1] tracking-[-0.03em] md:text-[34px]">{t.title}</h3>
@@ -112,28 +112,28 @@ const IndustryLanding: React.FC<{ data: IndustryKeynote; belowHero?: React.React
             </Link>
           ))}
         </div>
-        <div className="k-in mt-12 text-center">
+        <div className="k-in k-pane-l mt-12 text-center">
           <Link to={hub} className="k-link">All {d.name.toLowerCase()} demos <Chev /></Link>
         </div>
       </section>
 
       {/* 4 · what it's worth */}
       <section className="bg-[#f5f5f7] px-5 py-28 md:py-40">
-        <div className="mx-auto max-w-[1080px]">
-          <h2 className="k-in k-h2 mb-4 text-center">What it&rsquo;s worth to you.</h2>
-          <p className="k-in k-lead mx-auto mb-14 max-w-[28ch] text-center md:mb-20">Move the sliders. Your numbers, your answer.</p>
-          <div className="k-in rounded-[32px] bg-white p-8 md:p-14">
-            <Savings defaultJob={d.job.value} jobLabel={d.job.label} buildPrice={Number(mvp?.price?.replace(/[^0-9.]/g, '')) || 4999} onAction={tryIt('savings')} actionLabel={`See it on your ${d.business}`} />
+        <div className="k-wide mx-auto max-w-[1080px]">
+          <h2 className="k-in k-h2 k-pane-l mb-4 text-center">What it&rsquo;s worth to you.</h2>
+          <p className="k-in k-lead k-pane-l mx-auto mb-14 max-w-[28ch] text-center md:mb-20">Move the sliders. Your numbers, your answer.</p>
+          <div className="k-in k-spread-card rounded-[32px] bg-white p-8 md:p-14">
+            <Savings className="k-spread" defaultJob={d.job.value} jobLabel={d.job.label} buildPrice={Number(mvp?.price?.replace(/[^0-9.]/g, '')) || 4999} onAction={tryIt('savings')} actionLabel={`See it on your ${d.business}`} />
           </div>
         </div>
       </section>
 
       {/* 5 · plans */}
       {d.plans.length > 0 && (
-        <section id="pricing" className="mx-auto max-w-[1180px] scroll-mt-20 px-5 py-28 md:py-40">
-          <h2 className="k-in k-h2 mb-4 text-center">Pick a plan.</h2>
-          <p className="k-in k-lead mx-auto mb-14 max-w-[32ch] text-center md:mb-20">{d.plansNote ?? 'Live in two weeks. No long-term contract.'}</p>
-          <div className={`k-in grid gap-4 md:gap-5 ${d.plans.length === 3 ? 'md:grid-cols-3' : d.plans.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-4'}`}>
+        <section id="pricing" className="k-wide mx-auto max-w-[1180px] scroll-mt-20 px-5 py-28 md:py-40">
+          <h2 className="k-in k-h2 k-pane-l mb-4 text-center">Pick a plan.</h2>
+          <p className="k-in k-lead k-pane-l mx-auto mb-14 max-w-[32ch] text-center md:mb-20">{d.plansNote ?? 'Live in two weeks. No long-term contract.'}</p>
+          <div className={`k-in k-spread grid gap-4 md:gap-5 ${d.plans.length === 3 ? 'md:grid-cols-3' : d.plans.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-4'}`}>
             {d.plans.map((p) => (
               <div key={p.name} className={`flex flex-col rounded-[28px] p-8 md:p-10 ${p.highlight ? 'bg-[#1d1d1f] text-white' : 'bg-[#f5f5f7]'}`}>
                 <div className={`mb-1 text-[15px] font-semibold ${p.highlight ? 'text-[#7BE3C3]' : 'text-aurora'}`}>{p.highlight ? 'Most popular' : ' '}</div>
@@ -159,7 +159,7 @@ const IndustryLanding: React.FC<{ data: IndustryKeynote; belowHero?: React.React
       {/* 6 · plain answers */}
       {d.faqs.length > 0 && (
         <section className="bg-[#f5f5f7] px-5 py-28 md:py-40">
-          <div className="mx-auto max-w-[880px]">
+          <div className="k-spread mx-auto max-w-[880px] !items-start">
             <h2 className="k-in k-h2 mb-14 text-center md:mb-20">Questions, answered.</h2>
             <div className="k-in divide-y divide-[#d2d2d7] border-y border-[#d2d2d7]">
               {d.faqs.map((f) => (
@@ -178,9 +178,11 @@ const IndustryLanding: React.FC<{ data: IndustryKeynote; belowHero?: React.React
 
       {/* 7 · the close */}
       <section className="px-5 py-28 text-center md:py-44">
-        <div className="k-in">
-          <h2 className="k-hero mx-auto mb-6 max-w-[12ch]">See it answer as you.</h2>
-          <p className="k-lead mx-auto mb-10 max-w-[30ch]">Your website in. Every {d.name.toLowerCase()} demo, personalized.</p>
+        <div className="k-in k-spread">
+          <div>
+            <h2 className="k-hero mx-auto mb-6 max-w-[12ch]">See it answer as you.</h2>
+            <p className="k-lead mx-auto mb-10 max-w-[30ch]">Your website in. Every {d.name.toLowerCase()} demo, personalized.</p>
+          </div>
           <form onSubmit={tryHere} className="mx-auto flex max-w-[520px] flex-col gap-3 sm:flex-row">
             <label htmlFor={`k-close-${d.key}`} className="sr-only">Your website</label>
             <input id={`k-close-${d.key}`} className="h-[52px] w-full min-w-0 rounded-full sm:flex-1 border border-[#d2d2d7] bg-white px-6 text-[17px] outline-none transition focus:border-aurora focus:ring-4 focus:ring-aurora/15" inputMode="url" autoCapitalize="none" spellCheck={false} placeholder={`your${d.business}.com`} value={site} onChange={(e) => setSite(e.target.value)} />
@@ -189,8 +191,8 @@ const IndustryLanding: React.FC<{ data: IndustryKeynote; belowHero?: React.React
         </div>
       </section>
 
-      {content?.form && <div className="bg-[#f5f5f7]"><ContactForm data={content.form} /></div>}
-      {content?.footer && <Footer data={content.footer} />}
+      {content?.form && <div className="k-pane-r bg-[#f5f5f7]"><ContactForm data={content.form} /></div>}
+      {content?.footer && <div className="k-pane-r"><Footer data={content.footer} /></div>}
       <LiveChatBubble />
     </div>
   );

@@ -78,6 +78,9 @@ test.describe('per-demo data disclosure chip', () => {
         timeout: 10_000,
       })
       .toBeGreaterThan(500);
+    // The site chrome (navbar, dock) alone passes the innerHTML bar, so also wait for the
+    // lazily loaded /trust page itself before reading its text.
+    await expect(trustPage.locator('h1').first()).toBeVisible({ timeout: 10_000 });
     const trustText = (await trustPage.locator('body').textContent()) ?? '';
     expect(trustText.length).toBeGreaterThan(500);
     await trustPage.close();
