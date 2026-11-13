@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { trackCTAClick, trackFormSubmission } from '@/utils/analytics';
 import { getUtmParams } from '@/utils/utmTracker';
 import { submitLead } from '@/utils/submitLead';
+import { boxofficeTrack } from '@/utils/boxoffice';
 import { useContent } from '@/hooks/useContent';
 import { streamChat } from '@/utils/openaiChat';
 import { setQuizPersona } from '@/utils/quizPersonaStore';
@@ -849,9 +850,10 @@ const AIReadinessQuiz: React.FC = () => {
       // TIERS labels via the 2026-05-25 mirror-source rule.
       const completedAt = Date.now();
       setQuizPersona(tierInfo.label, completedAt);
+      boxofficeTrack('quiz_complete', { tier: tierInfo.label, business_type: vertical });
       appendQuizHistory({ persona: tierInfo.label as QuizPersonaLabel, completedAt });
     }
-  }, [isQuizDone, tierInfo]);
+  }, [isQuizDone, tierInfo, vertical]);
 
   const selectAnswer = (questionId: string, value: string) => {
     setAnswers((prev) => ({ ...prev, [questionId]: value }));

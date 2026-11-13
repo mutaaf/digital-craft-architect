@@ -79,4 +79,10 @@ export const SUBPROCESSORS: readonly Subprocessor[] = [
     purpose: 'Aggregated page-view and CTA-click counts (property G-JQ53W917HT).',
     publicTrustUrl: 'https://policies.google.com/privacy',
   },
+  {
+    name: 'PostHog',
+    category: 'Analytics',
+    purpose: 'Anonymous usage analytics and masked session replay, relayed through mutaafaziz.com with IPs truncated to city level.',
+    publicTrustUrl: 'https://posthog.com/privacy',
+  },
 ];

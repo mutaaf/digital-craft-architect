@@ -21,7 +21,7 @@ import { Shield } from 'lucide-react';
  * has to keep matching the app.
  */
 
-const LAST_UPDATED = '3 September 2026';
+const LAST_UPDATED = '12 November 2026';
 const CONTACT = 'mutaaf@digitalcraftai.com';
 
 const DESCRIPTION =
@@ -82,8 +82,9 @@ const Privacy: React.FC = () => {
         <p>
           DigitalCraft AI operates this website and the products listed here. The website and
           the 18-0 game are described separately because they behave very differently. The
-          website runs analytics, error monitoring and session replay. The game runs product
-          analytics only — no error monitoring, and no session replay.
+          website runs analytics, error monitoring and session replay. The game apps run product
+          analytics only, with no error monitoring and no session replay; the game's browser
+          version also runs the anonymous site analytics described below.
         </p>
         <p>
           For how the interactive demos on this site handle a company website you enter, there
@@ -107,6 +108,25 @@ const Privacy: React.FC = () => {
             <strong className="text-gray-900 dark:text-white">Analytics.</strong> Google
             Analytics records pages viewed, approximate location, device and browser, and how
             you arrived. This uses cookies.
+          </li>
+          <li>
+            <strong className="text-gray-900 dark:text-white">Anonymous usage analytics.</strong>{' '}
+            Box Office, our own analytics for all of our sites, records pages viewed, clicks,
+            and a few conversion steps (a button pressed, a form sent, a quiz finished; never
+            what you typed), under a random identifier kept in your browser's storage. It is
+            relayed to{' '}
+            <a
+              href="https://posthog.com/privacy"
+              rel="noopener noreferrer"
+              target="_blank"
+              className="text-primary hover:underline"
+            >
+              PostHog
+            </a>{' '}
+            through mutaafaziz.com, which shortens your IP address first so only an
+            approximate, city-level location is kept, and sets no cookies. A visit may be
+            recorded as a session replay with every form field masked. If your browser sends
+            Global Privacy Control or Do Not Track, it does not load at all.
           </li>
           <li>
             <strong className="text-gray-900 dark:text-white">Error monitoring and session
@@ -148,7 +168,8 @@ const Privacy: React.FC = () => {
           There are no ads, no advertising identifiers, no tracking across other apps or
           websites, and nothing is sold or shared with data brokers. The error monitoring and
           session replay described above are not present in the game. The game does send
-          gameplay analytics to one processor, described below.
+          gameplay analytics to one processor, described below. The browser version at
+          18-0.co also runs the anonymous site analytics described under This website.
         </p>
 
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white pt-2">
@@ -279,7 +300,8 @@ const Privacy: React.FC = () => {
           >
             PostHog
           </a>
-          , also in the United States.
+          , also in the United States, as is the anonymous usage analytics from this website
+          and the game's browser version.
         </p>
         <p>
           This website is served by Vercel, and the web build of the game by GitHub Pages. Both

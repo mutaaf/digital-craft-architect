@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { boxofficeTrack } from './boxoffice';
 
 // Add window.gtag type definition
 declare global {
@@ -79,6 +80,7 @@ export const trackFormSubmission = (formName: string, label?: string): void => {
 /** Track CTA clicks (Book a Call, Calendly) */
 export const trackCTAClick = (ctaName: string, location?: string): void => {
   trackEvent('cta_click', 'engagement', location ? `${ctaName} - ${location}` : ctaName);
+  boxofficeTrack('cta_click', { cta: ctaName, ...(location ? { location } : {}) });
 };
 
 /** Track demo card clicks */

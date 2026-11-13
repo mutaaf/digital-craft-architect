@@ -4,6 +4,7 @@ import App from './App.tsx'
 import './index.css'
 import { initSentry } from './utils/sentry'
 import './utils/utmTracker'
+import { initBoxOfficeEvents } from './utils/boxoffice'
 
 // Initialize Sentry with the provided DSN
 initSentry(
@@ -11,5 +12,7 @@ initSentry(
   import.meta.env.MODE,
   import.meta.env.VITE_APP_VERSION || '1.0.0'
 );
+
+initBoxOfficeEvents();
 
 createRoot(document.getElementById("root")!).render(<App />);
