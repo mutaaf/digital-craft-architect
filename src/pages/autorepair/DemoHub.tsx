@@ -1,22 +1,13 @@
 import { useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import DemoNavbar from '@/components/construction/DemoNavbar';
-import CompanySetupForm from '@/components/construction/CompanySetupForm';
 import { useDemoContext } from '@/contexts/DemoContext';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import {
   MessageSquare,
   Calculator,
-  ArrowRight,
-  Sparkles,
   Phone,
 } from 'lucide-react';
-import { trackDemoClick, trackCTAClick } from '@/utils/analytics';
-import StickyCTA from '@/components/StickyCTA';
-import DemoVideoCards from '@/components/DemoVideoCards';
+import DemoHubKeynote from '@/v3/DemoHubKeynote';
 
 const DemoHub = () => {
   const { company, isCustomized, loadFromUrl, isLoading } = useDemoContext();
@@ -50,7 +41,6 @@ const DemoHub = () => {
       title: 'AI Service Advisor',
       description: `Chat with ${possessive} AI as a vehicle owner. Watch it diagnose symptoms, recommend services, quote pricing, and book appointments — all in real time.`,
       tags: ['GPT-4o Streaming', 'Live Qualification'],
-      color: 'bg-blue-50 dark:bg-blue-900/20 text-blue-600',
     },
     {
       to: '/autorepair/demo/estimate',
@@ -58,7 +48,6 @@ const DemoHub = () => {
       title: 'Smart Repair Estimator',
       description: `Pick a repair category, select your vehicle details, and get a branded transparent estimate using ${possessive} labor rates in under 60 seconds.`,
       tags: ['Real Pricing', 'Branded Output'],
-      color: 'bg-green-50 dark:bg-green-900/20 text-green-600',
     },
     {
       to: '/autorepair/demo/voice-reminder',
@@ -67,7 +56,6 @@ const DemoHub = () => {
       description:
         'Experience how AI calls customers to remind them about upcoming maintenance, handles rescheduling in real time, and keeps your bays full with natural voice conversations.',
       tags: ['Vapi Voice AI', 'Live Transcription', 'GPT-4o'],
-      color: 'bg-purple-50 dark:bg-purple-900/20 text-purple-600',
     },
   ];
 
@@ -79,7 +67,7 @@ const DemoHub = () => {
     : 'Three working AI proof-of-concepts for auto repair businesses: AI Service Advisor, Smart Repair Estimator, and AI Voice Service Reminders.';
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+    <>
       <Helmet>
         <title>{ogTitle}</title>
         <meta name="description" content={ogDescription} />
@@ -91,28 +79,14 @@ const DemoHub = () => {
         <meta name="twitter:title" content={ogTitle} />
         <meta name="twitter:description" content={ogDescription} />
       </Helmet>
-      <DemoNavbar />
-
-      <div className="max-w-4xl mx-auto px-4 py-10 sm:py-16">
-        <div className="text-center mb-8 sm:mb-10 animate-fade-in">
-          <Badge variant="secondary" className="mb-4">
-            <Sparkles size={14} className="mr-1" /> Built for {name}
-          </Badge>
-          <h1 className="text-3xl sm:text-4xl font-bold mb-3">Auto Repair AI Automation Demos</h1>
-          <p className="text-base sm:text-lg text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
-            Three working proof-of-concepts showing exactly how AI will transform {possessive}{' '}
-            service advising, estimating, and customer retention.
-          </p>
-        </div>
-
-        <CompanySetupForm />
-
-        {/* SEO intro section */}
-        <section className="mb-10 bg-white dark:bg-gray-900 rounded-2xl p-6 sm:p-8 border border-gray-200 dark:border-gray-800">
-          <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
-            AI for Auto Repair: Interactive Automation Demos
-          </h2>
-          <div className="space-y-4 text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed">
+      <DemoHubKeynote
+        industry="Auto Repair"
+        analyticsKey="autorepair"
+        companyName={isCustomized ? company?.companyName : null}
+        demos={demos}
+        videoVertical="Auto Repair"
+        seoIntro={
+          <>
             <p>
               If you run an auto repair shop or dealership service center, you already know the
               bottlenecks: service calls that go unanswered after hours, estimates that take too
@@ -155,54 +129,10 @@ const DemoHub = () => {
               or simply curious what modern automation looks like in the automotive service
               industry, these demos give you a clear, no-commitment preview of the results.
             </p>
-          </div>
-        </section>
-
-        <DemoVideoCards vertical="Auto Repair" />
-
-        <div className="grid gap-6">
-          {demos.map((d, i) => (
-            <Link key={d.to} to={d.to} onClick={() => trackDemoClick(d.title, 'autorepair')} className="group animate-slide-up" style={{ animationDelay: `${i * 150}ms`, animationFillMode: 'both' }}>
-              <Card className="p-5 sm:p-6 flex flex-col sm:flex-row items-start gap-4 sm:gap-5 transition-all hover:shadow-lg hover:border-primary/30">
-                <div className={`w-14 h-14 rounded-xl flex items-center justify-center shrink-0 ${d.color}`}>
-                  {d.icon}
-                </div>
-                <div className="flex-1">
-                  <h2 className="text-xl font-semibold mb-1 group-hover:text-primary transition-colors">
-                    {d.title}
-                  </h2>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
-                    {d.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {d.tags.map((t) => (
-                      <Badge key={t} variant="outline" className="text-xs">
-                        {t}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-                <Button variant="ghost" size="icon" className="shrink-0 self-center group-hover:translate-x-1 transition-transform">
-                  <ArrowRight size={20} />
-                </Button>
-              </Card>
-            </Link>
-          ))}
-        </div>
-
-        <div className="text-center mt-12">
-          <p className="text-sm text-gray-400 mb-4">
-            Ready to see these systems live in your shop?
-          </p>
-          <Button asChild size="lg" className="gap-2">
-            <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer" onClick={() => trackCTAClick('book_a_call', 'autorepair_demo_hub')}>
-              Book a Call with DigitalCraft AI <ArrowRight size={18} />
-            </a>
-          </Button>
-        </div>
-      </div>
-      <StickyCTA />
-    </div>
+          </>
+        }
+      />
+    </>
   );
 };
 

@@ -17,6 +17,12 @@ import DemoBreadcrumbs from '@/components/DemoBreadcrumbs';
 import RelatedDemos from '@/components/RelatedDemos';
 import DataDisclosureChip from '@/components/DataDisclosureChip';
 import { useLocation } from 'react-router-dom';
+import { DEMO_GROUPS } from '@/data/demoCatalog';
+import { INDUSTRY_KEYNOTE } from '@/data/industryKeynote';
+import { VERTICALS } from '@/v3/verticals';
+import { chatProfileFor, buildChatSystemPrompt } from '@/data/chatProfiles';
+import type { FieldConfig } from '@/components/construction/chat/LeadSummaryPanel';
+import { User, Tag, Info, Wallet, Clock, MapPin, Phone } from 'lucide-react';
 import {
   buildDemoSoftwareApplicationSchema,
   getDemoApplicationByRoute,
@@ -29,69 +35,42 @@ import {
 const DEMO_APP_ROW = getDemoApplicationByRoute('/construction/demo/lead-responder');
 const DEMO_APP_SCHEMA = DEMO_APP_ROW ? buildDemoSoftwareApplicationSchema(DEMO_APP_ROW) : null;
 
-function buildSystemPrompt(companyName: string, ownerName: string, services: string[]): string {
-  const serviceLines = services
-    .map((s) => `- ${s}`)
-    .join('\n');
-
-  return `You are the AI assistant for ${companyName}, a construction and remodeling company led by ${ownerName}. Your job is to qualify incoming leads by having a natural, friendly conversation.
-
-SERVICES OFFERED:
-${serviceLines}
-
-PRICING GUIDANCE:
-- Kitchen Remodel: $120-250/sqft
-- Bathroom Remodel: $150-300/sqft
-- Full Home Renovation: $80-180/sqft
-- Outdoor/Patio: $60-120/sqft
-- General Construction: $80-200/sqft
-
-QUALIFICATION FLOW — gather these naturally through conversation (don't ask all at once):
-1. Name
-2. Project type (kitchen, bathroom, full home, outdoor, other)
-3. Approximate square footage
-4. Budget range
-5. Timeline (when they want to start)
-6. Property address (city/area is fine)
-7. Phone number (ask last, once rapport is built)
-
-RULES:
-- Be warm, professional, and conversational — like a friendly project manager
-- Give helpful ballpark ranges when asked about pricing
-- If someone seems ready, suggest booking a free in-home consultation with ${ownerName}
-- Keep responses concise (2-4 sentences)
-- Always represent ${companyName} positively
-
-LEAD DATA EXTRACTION:
-Whenever you learn new info about the lead, append this EXACTLY at the end of your message (the user won't see it):
-|||LEAD_DATA|||{"name":"...","projectType":"...","sqft":"...","budget":"...","timeline":"...","address":"...","phone":"..."}
-Only include fields you've confirmed. Use null for unknown fields. This must be valid JSON.`;
-}
-
-function buildGreeting(companyName: string): string {
-  return `Hey there! 👋 Welcome to ${companyName} — your go-to team for quality remodeling and construction.
-
-I'm here to help you figure out if we're the right fit for your project. What are you thinking about — a kitchen remodel, bathroom, something bigger?`;
-}
-
 interface Message {
   role: 'user' | 'assistant';
   content: string;
 }
 
+// The same page serves every vertical's chat demo (/dental/demo/intake, /restaurant/demo/reservations,
+// ...): the header names the demo and the audience from the route, not construction's.
+const titleCase = (s: string) => s.replace(/\b\w/g, (c) => c.toUpperCase());
+function headerFor(pathname: string): { title: string; sub: string } | null {
+  const v = VERTICALS.find((x) => pathname.startsWith(x.hub + '/'));
+  if (!v || v.key === 'construction') return null;
+  const demo = DEMO_GROUPS.flatMap((g) => g.demos).find((d) => d.path === pathname);
+  const name = demo?.title ?? 'AI Lead Responder';
+  const audience = INDUSTRY_KEYNOTE[v.key]?.audience ?? v.label;
+  return { title: `${/^AI\b/.test(name) ? name : `AI ${name}`} for ${titleCase(audience)}`, sub: demo?.description ?? '' };
+}
+
 const LeadResponder = () => {
   const location = useLocation();
-  const { company } = useDemoContext();
+  const header = headerFor(location.pathname);
+  const { company, vertical } = useDemoContext();
+  const profile = chatProfileFor(vertical);
   const companyName = company?.companyName || 'DigitalCraft AI';
-  const ownerName = company?.ownerName || 'Ro';
-  const services = company?.services || ['Kitchen Remodeling', 'Bathroom Renovation', 'Full Home Renovation', 'Outdoor/Patio', 'General Construction'];
+  const ownerName = company?.ownerName || '';
+  const services = company?.services?.length ? company.services : profile.services;
 
   const systemPrompt = useMemo(
-    () => buildSystemPrompt(companyName, ownerName, services),
-    [companyName, ownerName, services],
+    () => buildChatSystemPrompt(profile, companyName, ownerName, services),
+    [profile, companyName, ownerName, services],
   );
 
-  const greeting = useMemo(() => buildGreeting(companyName), [companyName]);
+  const greeting = useMemo(() => profile.greeting(companyName), [profile, companyName]);
+  const fields = useMemo<FieldConfig[]>(() => {
+    const icons = { name: <User size={14} />, projectType: <Tag size={14} />, sqft: <Info size={14} />, budget: <Wallet size={14} />, timeline: <Clock size={14} />, address: <MapPin size={14} />, phone: <Phone size={14} /> };
+    return (Object.keys(icons) as (keyof typeof icons)[]).map((k) => ({ key: k, label: profile.slots[k], icon: icons[k] }));
+  }, [profile]);
 
   const [messages, setMessages] = useState<Message[]>([
     { role: 'assistant', content: greeting },
@@ -194,8 +173,8 @@ const LeadResponder = () => {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col">
       <Helmet>
-        <title>AI Lead Responder Demo | DigitalCraft AI</title>
-        <meta name="description" content="Chat with an AI lead responder that qualifies construction leads, extracts project details, and books consultations in real time using GPT-4o." />
+        <title>{header ? `${header.title} Demo` : 'AI Lead Responder Demo'} | DigitalCraft AI</title>
+        <meta name="description" content={header ? `${header.title}: ${header.sub} Try it live, no signup.` : "Chat with an AI lead responder that qualifies construction leads, extracts project details, and books consultations in real time using GPT-4o."} />
         <meta property="og:title" content="AI Lead Responder Demo | DigitalCraft AI" />
         <meta property="og:description" content="Chat with an AI lead responder that qualifies construction leads, extracts project details, and books consultations in real time." />
         {DEMO_APP_SCHEMA && (
@@ -209,35 +188,35 @@ const LeadResponder = () => {
         {/* Header */}
         <div className="relative text-center mb-6 sm:mb-8">
           <DataDisclosureChip demoPath={location.pathname} />
-          <Badge variant="secondary" className="mb-3">
-            <Sparkles size={14} className="mr-1" /> POC Demo
+          <Badge variant="secondary" className="mx-1 mb-3 min-h-[28px] align-middle bg-[var(--v3-aurora-wash)] font-medium text-[var(--v3-aurora-deep)] hover:bg-[var(--v3-aurora-wash)]">
+            <Sparkles size={13} className="mr-1" aria-hidden /> POC Demo
           </Badge>
-          <h1 className="text-2xl sm:text-3xl font-bold mb-2">AI Lead Qualification for Construction Companies</h1>
+          <h1 className="k-demo-title mb-3">{header ? header.title : 'AI Lead Qualification for Construction Companies'}</h1>
           <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base">
-            Play the homeowner — chat with {companyName}'s AI and watch it qualify leads in real time.
+            {header ? <>{header.sub} Chat with {companyName}&rsquo;s AI and watch it work in real time.</> : <>Play the homeowner. Chat with {companyName}'s AI and watch it qualify leads in real time.</>}
           </p>
         </div>
 
-        <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm leading-relaxed max-w-2xl mx-auto text-center mb-6">
+        {!header && <p className="k-demo-seo">
           This AI lead responder demo shows how construction companies can automate lead qualification using GPT-4o. When a homeowner visits your website and asks about a kitchen remodel, bathroom renovation, or full home project, the AI assistant responds instantly — qualifying the lead by gathering project details, square footage, budget, timeline, and contact information through natural conversation. Instead of losing leads to slow follow-up, your AI responds in under 60 seconds, 24/7. It extracts structured lead data in real time, gives ballpark pricing estimates using your actual rates, and suggests booking a consultation when the prospect is ready. Try it below to see how automated lead follow-up works for contractors, remodelers, and construction businesses looking to convert more website visitors into booked appointments.
-        </p>
+        </p>}
 
         <div className="flex-1 flex flex-col lg:flex-row gap-4 lg:gap-6 min-h-0">
           {/* Chat column */}
-          <div className="flex-1 lg:flex-[3] flex flex-col bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden min-h-[60vh] lg:min-h-0">
+          <div className="flex-1 lg:flex-[3] flex flex-col bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-700 overflow-hidden min-h-[60vh] lg:min-h-0">
             <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
               <div>
                 <p className="text-sm font-semibold">{companyName}</p>
-                <p className="text-xs text-green-500">Online — typically replies instantly</p>
+                <p className="text-xs text-aurora">Online — typically replies instantly</p>
               </div>
               <Sheet>
                 <SheetTrigger asChild>
                   <Button variant="outline" size="sm" className="lg:hidden gap-1">
-                    <ClipboardList size={14} /> Lead Info
+                    <ClipboardList size={14} /> Details
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="bottom" className="h-[70vh]">
-                  <LeadSummaryPanel data={leadData} />
+                  <LeadSummaryPanel data={leadData} fieldOverrides={fields} title={profile.panelTitle} cta={profile.cta} />
                 </SheetContent>
               </Sheet>
             </div>
@@ -270,7 +249,7 @@ const LeadResponder = () => {
 
           {/* Lead panel — desktop only */}
           <div className="hidden lg:flex lg:flex-[2]">
-            <LeadSummaryPanel data={leadData} />
+            <LeadSummaryPanel data={leadData} fieldOverrides={fields} title={profile.panelTitle} cta={profile.cta} />
           </div>
         </div>
       </div>

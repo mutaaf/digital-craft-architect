@@ -154,16 +154,16 @@ const VoiceBookingAgent = () => {
         {/* Header */}
         <div className="relative text-center mb-8 animate-fade-in">
           <DataDisclosureChip demoPath={location.pathname} />
-          <Badge variant="secondary" className="mb-4">
-            <Sparkles size={14} className="mr-1" /> POC Demo
+          <Badge variant="secondary" className="mx-1 mb-3 min-h-[28px] align-middle bg-[var(--v3-aurora-wash)] font-medium text-[var(--v3-aurora-deep)] hover:bg-[var(--v3-aurora-wash)]">
+            <Sparkles size={13} className="mr-1" aria-hidden /> POC Demo
           </Badge>
-          <h1 className="text-3xl sm:text-4xl font-bold mb-3">AI Voice Booking Agent for Events</h1>
+          <h1 className="k-demo-title mb-3">AI Voice Booking Agent for Events</h1>
           <p className="text-base sm:text-lg text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
             Enter lead details and let the AI call to confirm interest, discuss packages, and schedule a consultation.
           </p>
         </div>
 
-        <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm leading-relaxed max-w-2xl mx-auto text-center mb-6">
+        <p className="k-demo-seo">
           This AI voice booking demo shows how event planning businesses automate follow-up calls with leads who have inquired about services. Enter the lead's details — name, event type, preferred date, and budget — then listen as the AI voice agent calls to confirm interest, discuss available packages, answer questions, and schedule a consultation. The voice agent uses natural-sounding speech powered by ElevenLabs and handles real-time conversation through Vapi's WebRTC technology. For event professionals juggling multiple inquiries, AI voice follow-up ensures no lead goes cold while you are busy running events. After each call, you get a complete transcript and booking summary. Try the event booking automation tool below to hear how AI phone calls help event companies convert more inquiries into confirmed bookings.
         </p>
 

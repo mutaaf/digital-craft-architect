@@ -172,7 +172,7 @@ const Playbook: React.FC = () => {
                 key={s.number}
                 href={`#step-${s.number}`}
                 onClick={() => trackCTAClick(`playbook_step_${s.number}`, 'playbook')}
-                className="text-xs px-3 py-1 rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-primary hover:text-primary dark:hover:border-primary dark:hover:text-primary transition-colors"
+                className="inline-flex min-h-[36px] items-center text-sm px-3.5 py-1.5 rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-primary hover:text-primary dark:hover:border-primary dark:hover:text-primary transition-colors"
               >
                 {`Step ${s.number}: ${s.title}`}
               </a>

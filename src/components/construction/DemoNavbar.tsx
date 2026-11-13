@@ -1,83 +1,63 @@
+import { useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { HardHat, Building2, PartyPopper, ArrowLeft } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import { useDemoContext } from '@/contexts/DemoContext';
+import { DEMO_GROUPS } from '@/data/demoCatalog';
+import { VERTICALS } from '@/v3/verticals';
+import Mark from '@/v3/Mark';
 
-const CONSTRUCTION_LINKS = [
-  { path: 'lead-responder', label: 'Leads', fullLabel: 'Lead Responder' },
-  { path: 'estimate', label: 'Estimate', fullLabel: 'Estimate' },
-  { path: 'reviews', label: 'Reviews', fullLabel: 'Reviews' },
-  { path: 'property-negotiator', label: 'Deals', fullLabel: 'Deal Analyzer' },
-  { path: 'voice-negotiator', label: 'Voice', fullLabel: 'Voice Negotiator' },
-];
+// The demo bar (keynote pass, 2026-11-12): the mark and whose demos these are, every demo for THIS
+// industry (from the demo catalog, so dental shows dental's, not construction's), and the way back.
+// Thin, white, translucent; the demo list scrolls sideways on a phone.
 
-const REALESTATE_LINKS = [
-  { path: 'property-negotiator', label: 'Deals', fullLabel: 'Deal Analyzer' },
-  { path: 'voice-negotiator', label: 'Voice', fullLabel: 'Voice Negotiator' },
-  { path: 'lead-responder', label: 'Leads', fullLabel: 'Lead Qualifier' },
-];
+// fade only the edge that has more demos past it
+const fadeEdges = (b: HTMLElement | null) => {
+  if (!b) return;
+  b.dataset.l = b.scrollLeft > 2 ? '1' : '';
+  b.dataset.r = b.scrollLeft + b.clientWidth < b.scrollWidth - 2 ? '1' : '';
+};
 
-const EVENTS_LINKS = [
-  { path: 'inquiry', label: 'Inquiry', fullLabel: 'Inquiry Qualifier' },
-  { path: 'proposal', label: 'Proposal', fullLabel: 'Proposal Generator' },
-  { path: 'voice-booking', label: 'Voice', fullLabel: 'Voice Booking' },
-];
+const short = (t: string) => t.replace(/^AI /, '').replace(/^Smart /, '');
 
 const DemoNavbar = () => {
   const { pathname } = useLocation();
   const { company } = useDemoContext();
-  const brandLabel = company?.companyName
-    ? company.companyName.length > 16
-      ? company.companyName.slice(0, 16) + '…'
-      : company.companyName
-    : 'DigitalCraft AI';
-
-  // Detect section from URL path
-  const isRealEstate = pathname.startsWith('/realestate');
-  const isEvents = pathname.startsWith('/events');
-  const basePrefix = isEvents ? '/events/demo' : isRealEstate ? '/realestate/demo' : '/construction/demo';
-  const backTo = isEvents ? '/events' : isRealEstate ? '/realestate' : '/construction';
-  const links = isEvents ? EVENTS_LINKS : isRealEstate ? REALESTATE_LINKS : CONSTRUCTION_LINKS;
-  const Icon = isEvents ? PartyPopper : isRealEstate ? Building2 : HardHat;
+  const v = VERTICALS.find((x) => pathname.startsWith(x.hub)) ?? VERTICALS[0];
+  const group = DEMO_GROUPS.find((g) => g.demos.some((d) => d.path.startsWith(v.hub + '/')));
+  const strip = useRef<HTMLDivElement>(null);
+  // the strip scrolls sideways when the list is long: bring the open demo into view (no animation)
+  useEffect(() => {
+    const box = strip.current;
+    if (!box) return;
+    const el = box.querySelector<HTMLElement>('[aria-current="page"]');
+    if (el) box.scrollLeft = Math.max(0, el.offsetLeft - box.offsetLeft - (box.clientWidth - el.offsetWidth) / 2);
+    fadeEdges(box);
+  }, [pathname]);
+  const name = company?.companyName ? (company.companyName.length > 22 ? company.companyName.slice(0, 22) + '…' : company.companyName) : 'DigitalCraft';
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/90 dark:bg-gray-950/90 backdrop-blur border-b border-gray-200 dark:border-gray-800">
-      <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
-        <div className="flex items-center gap-3 sm:gap-4">
-          <Link
-            to={basePrefix}
-            className="flex items-center gap-1.5 text-sm font-semibold text-gray-700 dark:text-gray-200 hover:text-primary transition-colors"
-          >
-            <Icon size={20} className="text-primary" />
-            <span className="font-bold">{brandLabel}</span>
-            <span className="hidden sm:inline">Demos</span>
-          </Link>
-          <div className="h-5 w-px bg-gray-300 dark:bg-gray-700" />
-          <div className="flex items-center gap-0.5 sm:gap-1">
-            {links.map((l) => {
-              const to = `${basePrefix}/${l.path}`;
-              return (
-                <Link
-                  key={l.path}
-                  to={to}
-                  className={`px-2 sm:px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors ${
-                    pathname === to
-                      ? 'bg-primary/10 text-primary'
-                      : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-200'
-                  }`}
-                >
-                  <span className="sm:hidden">{l.label}</span>
-                  <span className="hidden sm:inline">{l.fullLabel}</span>
-                </Link>
-              );
-            })}
-          </div>
+    <nav className="sticky top-0 z-50 border-b border-[#e8e8ed] bg-white/80 backdrop-blur-xl" style={{ WebkitBackdropFilter: 'blur(20px) saturate(1.6)' }} aria-label="Demos">
+      <div className="mx-auto flex h-[52px] max-w-[1180px] items-center gap-4 px-4 md:px-5">
+        <Link to={v.hub} className="flex min-h-[44px] shrink-0 items-center gap-2 text-[15px] font-semibold tracking-[-0.01em] text-[#1d1d1f]">
+          <Mark size={28} className="-my-1" />
+          <span className="max-w-[40vw] truncate sm:max-w-none">{name}</span>
+          <span className="hidden font-normal text-[#86868b] sm:inline">{v.short} demos</span>
+        </Link>
+        <div ref={strip} onScroll={(e) => fadeEdges(e.currentTarget)} className="dc-demo-strip -mx-1 flex min-w-0 flex-1 items-center gap-1 overflow-x-auto px-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div className="mx-auto flex shrink-0 items-center gap-1">
+        {group?.demos.map((d) => {
+            const on = pathname === d.path;
+            return (
+              <Link key={d.path} to={d.path} aria-current={on ? 'page' : undefined}
+                className={`flex min-h-[36px] shrink-0 items-center whitespace-nowrap rounded-full px-3 text-[14px] transition-colors ${on ? 'bg-[#1d1d1f] font-medium text-white' : 'text-[#424245] hover:bg-black/5'}`}>
+                {short(d.title)}
+              </Link>
+            );
+          })}
         </div>
-        <Link
-          to={backTo}
-          className="flex items-center gap-1 text-sm text-gray-500 hover:text-primary transition-colors"
-        >
-          <ArrowLeft size={14} />
-          <span className="hidden sm:inline">Back to Main</span>
+        </div>
+        <Link to={v.path} className="hidden shrink-0 items-center text-[14px] text-aurora hover:underline sm:flex">
+          <ChevronLeft size={16} strokeWidth={2.2} /> {v.short}
         </Link>
       </div>
     </nav>

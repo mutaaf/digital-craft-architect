@@ -222,3 +222,24 @@ This project has an autonomous innovation agent that runs hourly to make convers
 - The agent tracks progress by checking off items in AGENT.md
 - Commit messages from the agent follow the format: `gtm(TASK-ID): description`
 - Safety: every commit must pass `npm run build`, agent never touches `/api/` or dependencies
+
+---
+
+## v3 overhaul (beta, 2026-11-11)
+
+The site-wide redesign after mutaafaziz.com's Mission Control lives on the **`beta` branch**, served at
+**beta.digitalcraftai.com** (root) and **cto-beta.digitalcraftai.com** (CTO) via Vercel branch domains.
+`main` (digitalcraftai.com) is untouched until the beta PR merges. Tag `legacy-v1-2026-11-11` = the site before.
+
+- **Theme (daylight, 2026-11-12, owner: "too dark, show the customer's outcome, less text"):** light pages, no `html.dark`. Warm paper `#F6F4EF`, white `.v3-card`s, deep aurora `#0B7D5E` accent, copper for the CTO site. Tailwind `night-*`/`aurora` are CSS variables set in `src/v3/v3.css` (`--v3-*`); `gray/slate/zinc/neutral` = the cool gray scale, `purple/violet/indigo/fuchsia` = aurora (tailwind.config.ts). The only dark surface on the landings is the storyboard window (StageWindow) and the closing CTA.
+- **Landing rule (keynote, owner bar = "Apple and Tesla standards"):** white pages, Apple greys, one idea per screen, huge centered type (`.k-hero`, `.k-h2`, `.k-giant`), pill buttons (`.k-pill`), a product shot (`src/v3/PhoneDemo.tsx`, labelled an illustration), the visitor's own numbers (`src/v3/Savings.tsx`). No dashboards, no mono eyebrows, few words.
+- **Landings:** `src/v3/Home3.tsx` (root), `src/v3/Cto3.tsx` (CTO). Old ones at `/?v=2`. Numbers on the deck must be real (counted from `src/data/demoCatalog.ts`, or existing client outcomes in `src/data/ctoCopy.ts`).
+- **Chrome (once, in App):** `src/v3/Chrome.tsx` = phone dock, TrySheet (`openTry()` → `/<vertical>/demo?site=`), PwaBar (`?go=try|book|install|demos|<vertical>`), BetaBadge.
+- **Installable app:** `public/app.webmanifest`, `public/app-cto.webmanifest` (swapped in by `src/v3/pwa.ts` on cto hosts), `public/sw.js` (network-first; never /api; bump VERSION on caching changes), `public/offline.html`, icons via `node scripts/pwa-icons.mjs`. `/share` is the share target.
+- **iPhone Duo / foldables:** `src/v3/fold.ts` → `html[data-fold=phone|tablet|desktop|open|table]`, `--v3-hinge-l/-w`. Test with `?duo` (wide window) or `?fold=open`.
+- **Beta hosts:** noindex (vercel.json header + meta), no GA/pixel/Ads, Sentry env `beta`. `isBetaHost()` in `src/utils/beta.ts`; `?beta` fakes it.
+- **Templates:** industry pages = `src/v3/IndustryLanding.tsx` + `src/data/industryKeynote.ts` (FAQ JSON-LD built from the same data via `faqSchema`); demo hubs = `src/v3/DemoHubKeynote.tsx`; ai-for SEO pages = `src/v3/SeoLanding.tsx`.
+- **Industry demo tools:** estimators, schedulers and voice follow-ups for non-construction verticals render `src/pages/shared/{QuoteBuilder,AppointmentScheduler,VoiceFollowUp}.tsx`, with content per vertical in `src/data/demoProfiles.ts` (they used to borrow the construction calculator, events proposal and property negotiator).
+- **Chat demos:** every vertical's chat route renders `src/pages/construction/LeadResponder.tsx`; what it says (greeting, services, ballpark prices, guard rails, lead-panel labels) comes from `src/data/chatProfiles.ts`.
+- **Duo open below the hero:** `.k-spread` (two pages straddling the hinge), `.k-wide`, `.k-pane-l`, `.k-pane-r`, `.k-spread-card` in `src/v3/v3.css`. No text crosses the hinge.
+- **Vercel protection must stay OFF (`ssoProtection: null`) while the betas are in review.** Standard (`all_except_custom_domains`) still covers branch domains (they're previews, not production custom domains): beta./cto-beta. then bounce through vercel.com/sso-api and browsers fail with "too many redirects" (2026-11-12). Restore it only after PR #362 merges.

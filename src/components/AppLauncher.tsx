@@ -2,6 +2,9 @@ import React, { useEffect, useRef } from 'react';
 import { LayoutGrid } from 'lucide-react';
 import lock from '@/vendor/launcher.json';
 import { trackCTAClick, trackEvent } from '@/utils/analytics';
+import { install, share, isStandalone } from '@/v3/pwa';
+import { openTry } from '@/v3/TrySheet';
+import { showIosSteps } from '@/v3/PwaBar';
 
 // Ticket 0123 - the app launcher shared with mutaafaziz.com (github.com/mutaaf/launcher): one list of
 // apps (Digital Craft AI, the CTO site, the founder's site, the games and apps), one ⌘K palette.
@@ -15,6 +18,11 @@ const CALENDLY = 'https://calendly.com/mutaaf';
 const PHONE = '<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>';
 // the call opens in a new tab and counts as the navbar's own book_a_call does
 const bookCall = (site: string) => () => { trackCTAClick('book_a_call', `app_launcher_${site}`); window.open(CALENDLY, '_blank', 'noopener'); };
+const DOWNLOAD = '<path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
+const SHARE = '<path d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
+// v3: the installable app's two rows (after mutaafaziz.com's palette): install it, share it
+const installApp = () => { install().then((r) => { if (r === 'ios') showIosSteps(); }); };
+const shareSite = () => { share(); };
 const PLAY = '<path d="M8 5.5v13l10.5-6.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>';
 
 interface Mounted { open(): void; close(): void; destroy(): void }
@@ -42,16 +50,20 @@ function loadLauncher(): Promise<void> {
 // each site's skin and its own rows above the apps
 const SITE = {
   root: {
-    here: 'dc', theme: 'light', vars: { '--l-accent': '#33C3F0' },
+    here: 'dc', theme: 'light', vars: { '--l-accent': '#0B7D5E' },
     actions: [
       { name: 'Book a discovery call', tip: 'Thirty minutes, no pitch.', run: bookCall('root'), icon: PHONE, kw: 'call calendly meeting talk' },
-      { name: 'Watch it work on your company', tip: 'Run the demos on your own website.', href: '/construction/demo', icon: PLAY, kw: 'demo try company website' },
+      { name: 'Watch it work on your company', tip: 'Run the demos on your own website.', run: () => openTry(), icon: PLAY, kw: 'demo try company website' },
+      { name: 'Install DigitalCraft', tip: 'One tap from your home screen. Works offline.', run: installApp, icon: DOWNLOAD, kw: 'install app pwa home screen offline', pwa: true },
+      { name: 'Share this site', tip: 'The share sheet, or copy the link.', run: shareSite, icon: SHARE, kw: 'share link send copy' },
     ],
   },
   cto: {
     here: 'cto', theme: 'dark', vars: { '--l-accent': '#C96E2C', '--l-panel': 'rgba(14,12,11,.97)' },
     actions: [
       { name: 'Book a discovery call', tip: 'Thirty minutes, no pitch.', run: bookCall('cto'), icon: PHONE, kw: 'call calendly meeting talk engage' },
+      { name: 'Install the CTO app', tip: 'One tap from your home screen.', run: installApp, icon: DOWNLOAD, kw: 'install app pwa home screen', pwa: true },
+      { name: 'Share this site', tip: 'The share sheet, or copy the link.', run: shareSite, icon: SHARE, kw: 'share link send copy' },
     ],
   },
 } as const;
@@ -75,7 +87,8 @@ const AppLauncher: React.FC<Props> = ({ site, className = '', size = 18 }) => {
       const s = SITE[site];
       mounted.current = window.Launcher.mount({
         trigger: button.current, here: s.here, theme: s.theme, vars: s.vars,
-        actions: s.actions.map((a) => ({ ...a })),
+        // the install row only while not running as the installed app
+        actions: (s.actions as ReadonlyArray<Record<string, unknown>>).filter((a) => !a.pwa || !isStandalone()).map((a) => { const copy = { ...a }; delete copy.pwa; return copy; }),
         onOpen: () => trackEvent('app_launcher_open', 'engagement', site),
         onLaunch: (a: { id: string }) => trackEvent('app_launch', 'engagement', `${site}:${a.id}`),
       });

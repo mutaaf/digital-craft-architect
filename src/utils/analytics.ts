@@ -1,3 +1,4 @@
+import { isBetaHost } from './beta';
 
 import React from 'react';
 import { boxofficeTrack } from './boxoffice';
@@ -19,6 +20,8 @@ declare global {
  * @param id Google Analytics Measurement ID (format: G-XXXXXXXXXX)
  */
 export const initGoogleAnalytics = (id: string): void => {
+  // beta hosts never report: the live site's numbers stay the live site's
+  if (isBetaHost()) { window.gtag = window.gtag || (() => {}); return; }
   // Add Google Analytics script
   const script1 = document.createElement('script');
   script1.async = true;

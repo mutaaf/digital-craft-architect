@@ -1,0 +1,307 @@
+/* ──────────────────────────────────────────────────────────────────────────────────────────────
+   DigitalCraft v3 — daylight (2026-11-12). The owner's call after the night version: lighter, the
+   customer's outcome first, fewer words. Warm paper (#F6F4EF), white cards on hairlines, one deep
+   aurora accent (#0B7D5E) for action and money saved, one copper tick for Digital Craft itself.
+   The only dark surface left is the storyboard's screen (StageWindow), a window onto the night.
+   ────────────────────────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --v3-night: #ffffff;   /* the page (the token keeps its old name) */
+  --v3-deck: #ffffff;    /* cards */
+  --v3-panel: #f5f5f7;   /* Apple-grey tiles */
+  --v3-raised: #ececf0;
+  --v3-hair: #e8e8ed;
+  --v3-hair-hi: #d2d2d7;
+  --v3-fg: #1d1d1f;
+  --v3-mute: #6e6e73;
+  --v3-dim: #86868b;
+  --v3-aurora: #0b7d5e;
+  --v3-aurora-rgb: 11 125 94;
+  --v3-aurora-wash: #e3f5ee;
+  --v3-aurora-deep: #08624a;
+  --v3-copper: #c2611f;
+  --v3-copper-soft: #e89862;
+  --v3-copper-ink: #ae561b;   /* copper as text on white/#f5f5f7: AA at body size (#c2611f is 4.2:1) */
+  --v3-copper-btn: #b45a1c;   /* copper under white button text: 4.75:1 */
+  --v3-ease: cubic-bezier(0.2, 0.7, 0.1, 1);
+  /* the hinge (iPhone Duo, foldables): set by src/v3/fold.ts; 0 when there is none */
+  --v3-hinge-l: 50%;
+  --v3-hinge-w: 0px;
+  --v3-dock-h: 0px;
+  color-scheme: light;
+}
+
+body {
+  background: var(--v3-night);
+  color: var(--v3-fg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'ss01' 1, 'cv11' 1;
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection { background: rgba(11, 125, 94, 0.18); }
+:focus-visible { outline: 2px solid var(--v3-aurora); outline-offset: 2px; }
+h1, h2 { letter-spacing: -0.03em; text-wrap: balance; }
+/* small headings (card titles, accordion rows) read cramped at -0.03em; the big ones set their own */
+h3 { letter-spacing: -0.02em; text-wrap: balance; }
+h4, h5, h6 { letter-spacing: -0.01em; }
+
+/* ── The deck: one instrument whose cells share 1px hairlines (Mission Control's #mcck) ───────── */
+:where(.v3-deck) {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--v3-hair);
+  border: 1px solid var(--v3-hair);
+}
+:where(.v3-deck > *) { background: var(--v3-deck); min-width: 0; }
+:where(.v3-cell) { position: relative; padding: clamp(20px, 3vw, 36px); }
+.v3-brackets::before,
+.v3-brackets::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 0 solid var(--v3-aurora);
+  pointer-events: none;
+  z-index: 2;
+}
+.v3-brackets::before { top: -2px; left: -2px; border-top-width: 2px; border-left-width: 2px; }
+.v3-brackets::after { right: -2px; bottom: -2px; border-right-width: 2px; border-bottom-width: 2px; }
+
+/* a cell's channel tag: decoration only (aria-hidden), plain words in the heading beside it */
+.v3-tag {
+  font-family: 'JetBrains Mono', 'SF Mono', ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--v3-dim);
+}
+.v3-eyebrow {
+  font-family: 'JetBrains Mono', 'SF Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--v3-mute);
+}
+.v3-mono { font-family: 'JetBrains Mono', 'SF Mono', ui-monospace, monospace; }
+.v3-serif { font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; letter-spacing: -0.01em; }
+.v3-tick { display: inline-block; width: 7px; height: 7px; border-radius: 1px; background: var(--v3-copper); transform: rotate(45deg); }
+.v3-dot { display: inline-block; width: 6px; height: 6px; border-radius: 99px; background: var(--v3-aurora); box-shadow: 0 0 0 3px rgba(11, 125, 94, 0.15); }
+
+/* ruler ticks under a gauge: decoration, never data */
+.v3-ruler {
+  height: 6px;
+  background-image: linear-gradient(90deg, var(--v3-hair-hi) 1px, transparent 1px);
+  background-size: 8px 6px;
+  opacity: 0.9;
+}
+
+/* the one scan line that sweeps a deck the first time it scrolls into view */
+.v3-scan { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 3; }
+.v3-deck > .v3-scan { background: none; }
+.v3-scan::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: -30%;
+  height: 30%;
+  background: linear-gradient(180deg, transparent, rgba(11, 125, 94, 0.05) 70%, rgba(11, 125, 94, 0.25) 99%, transparent);
+  animation: v3-scan 1.6s var(--v3-ease) 1 forwards;
+}
+@keyframes v3-scan { to { top: 110%; } }
+
+/* launch keys (1 2 3 4 press them) */
+:where(.v3-key) {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+  min-height: 132px;
+  padding: 20px;
+  color: var(--v3-fg);
+  text-decoration: none;
+  transition: background 0.25s var(--v3-ease);
+}
+.v3-key:hover, .v3-key:focus-visible, .v3-key[data-pressed] { background: var(--v3-panel); }
+.v3-key .v3-keycap {
+  display: inline-grid; place-items: center;
+  width: 26px; height: 26px;
+  border: 1px solid var(--v3-hair-hi);
+  border-bottom-width: 3px;
+  border-radius: 6px;
+  font: 600 12px/1 'JetBrains Mono', ui-monospace, monospace;
+  color: var(--v3-mute);
+  transition: transform 0.12s, border-color 0.2s, color 0.2s;
+}
+.v3-key:hover .v3-keycap, .v3-key[data-pressed] .v3-keycap { border-color: var(--v3-aurora); color: var(--v3-aurora); }
+.v3-key[data-pressed] .v3-keycap { transform: translateY(2px); border-bottom-width: 1px; }
+.v3-key .v3-arrow { transition: transform 0.3s var(--v3-ease); }
+.v3-key:hover .v3-arrow { transform: translate(3px, -3px); }
+
+/* buttons */
+:where(.v3-btn) {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; padding: 0 18px;
+  border-radius: 999px;
+  font-weight: 600; font-size: 15px;
+  text-decoration: none; white-space: nowrap;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s var(--v3-ease);
+}
+.v3-btn:active { transform: translateY(1px); }
+.v3-btn-aurora { background: var(--v3-aurora); color: #fff; }
+.v3-btn-aurora:hover { background: var(--v3-aurora-deep); }
+.v3-btn-ghost { border: 1px solid var(--v3-hair-hi); color: var(--v3-fg); background: #fff; }
+.v3-btn-ghost:focus-visible, .v3-btn-aurora:focus-visible, .v3-btn-copper:focus-visible { outline-offset: 3px; }
+.v3-btn-ghost:hover { border-color: var(--v3-aurora); color: var(--v3-aurora-deep); }
+.v3-btn-copper { background: var(--v3-copper-btn); color: #fff; }
+.v3-btn-copper:hover { background: #a9531a; }
+
+:where(.v3-input) {
+  width: 100%; min-height: 48px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid var(--v3-hair-hi);
+  background: #fff;
+  color: var(--v3-fg);
+  font-size: 16px; /* never under 16px: iOS zooms */
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.v3-input::placeholder { color: var(--v3-dim); }
+.v3-input:focus { outline: none; border-color: var(--v3-aurora); box-shadow: 0 0 0 3px rgba(11, 125, 94, 0.15); }
+
+:where(.v3-chip) {
+  display: inline-flex; align-items: center; gap: 6px;
+  min-height: 34px; padding: 0 12px;
+  border: 1px solid var(--v3-hair-hi); border-radius: 99px;
+  color: var(--v3-mute); font-size: 13.5px;
+  background: transparent;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.v3-chip:hover, .v3-chip[aria-pressed='true'] { border-color: var(--v3-aurora); color: var(--v3-fg); background: var(--v3-aurora-wash); }
+
+/* the page-load reveal: one orchestrated stagger, nothing scattered */
+.v3-rise { opacity: 0; transform: translateY(14px); animation: v3-rise 0.9s var(--v3-ease) forwards; animation-delay: calc(var(--i, 0) * 90ms + 80ms); }
+@keyframes v3-rise { to { opacity: 1; transform: none; } }
+
+/* ── The phone dock (src/v3/MobileDock.tsx) owns the bottom of the screen on phones ────────────── */
+@media (max-width: 767px) {
+  body.v3-has-dock { --v3-dock-h: calc(62px + env(safe-area-inset-bottom)); padding-bottom: var(--v3-dock-h); }
+  body.v3-has-dock [data-v3='sticky-cta'] { display: none; }
+  body.v3-has-dock [data-v3='chat'] { bottom: calc(var(--v3-dock-h) + 14px) !important; }
+}
+
+/* the installable app's bar (install, update, offline, shared links) */
+.v3-pwabar {
+  position: fixed; z-index: 70;
+  left: 50%; transform: translateX(-50%);
+  bottom: calc(var(--v3-dock-h, 0px) + 16px + env(safe-area-inset-bottom));
+  width: min(560px, calc(100vw - 24px));
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 10px 10px 16px;
+  border: 1px solid var(--v3-hair-hi); border-radius: 14px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  box-shadow: 0 20px 50px -20px rgba(18, 24, 28, 0.35);
+  color: var(--v3-fg); font-size: 14px;
+  animation: v3-rise 0.5s var(--v3-ease) forwards;
+}
+
+/* standalone (installed) app: no browser chrome, so the header clears the status bar */
+@media (display-mode: standalone), (display-mode: window-controls-overlay) {
+  .v3-header { padding-top: env(safe-area-inset-top); }
+}
+@media (display-mode: window-controls-overlay) {
+  .v3-header { padding-left: env(titlebar-area-x, 0); -webkit-app-region: drag; app-region: drag; }
+  .v3-header a, .v3-header button { -webkit-app-region: no-drag; app-region: no-drag; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v3-rise { animation: none; opacity: 1; transform: none; }
+  .v3-scan::after { animation: none; display: none; }
+  .v3-key, .v3-btn, .v3-chip { transition: none; }
+}
+
+/* cards that float a touch on the paper */
+.v3-card { background: var(--v3-deck); border: 1px solid var(--v3-hair); border-radius: 18px; }
+.v3-num { font-variant-numeric: tabular-nums; letter-spacing: -0.035em; }
+input[type='range'].v3-range { width: 100%; accent-color: var(--v3-aurora); height: 44px; }
+
+/* Tailwind's preflight zeroes button/input padding with more weight than :where(); restate it */
+button.v3-btn, a.v3-btn { padding-left: 18px; padding-right: 18px; }
+input.v3-input { padding-left: 14px; padding-right: 14px; }
+
+/* ── keynote: the Apple/Tesla pass (2026-11-12) ── one idea per screen, huge type, pill buttons ── */
+.k-hero { font-size: clamp(46px, 8.4vw, 104px); line-height: 0.98; font-weight: 600; letter-spacing: -0.045em; }
+.k-h2 { font-size: clamp(36px, 5.6vw, 72px); line-height: 1.02; font-weight: 600; letter-spacing: -0.04em; }
+.k-giant { font-size: clamp(88px, 17vw, 220px); line-height: 0.9; font-weight: 600; letter-spacing: -0.06em; font-variant-numeric: tabular-nums; }
+.k-lead { font-size: clamp(19px, 2vw, 24px); line-height: 1.4; color: var(--v3-mute); letter-spacing: -0.01em; text-wrap: balance; }
+.k-pill:focus-visible { outline-offset: 3px; }
+.k-pill { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 48px; padding: 0 26px; border-radius: 999px; font-size: 17px; font-weight: 500; transition: background .2s, transform .2s var(--v3-ease); white-space: nowrap; }
+.k-pill:active { transform: scale(0.98); }
+.k-pill-dark { background: #1d1d1f; color: #fff; } .k-pill-dark:hover { background: #000; }
+.k-pill-brand { background: var(--v3-aurora); color: #fff; } .k-pill-brand:hover { background: var(--v3-aurora-deep); }
+.k-pill-light { background: rgba(0,0,0,0.05); color: var(--v3-fg); } .k-pill-light:hover { background: rgba(0,0,0,0.09); }
+.k-link { color: var(--v3-aurora); font-size: 17px; display: inline-flex; align-items: center; gap: 2px; }
+.k-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+/* Tap targets (2026-11-13 audit): text links and small chips get a 44px hit area without moving layout. */
+.k-link { padding-block: 9px; margin-block: -9px; }
+.k-hit { position: relative; }
+.k-hit::after { content: ''; position: absolute; inset: -8px -4px; }
+@media (max-width: 767px) {
+  footer .flex-wrap > a, footer .flex-wrap > span > a { min-height: 44px; display: inline-flex; align-items: center; }
+  footer .flex-wrap.gap-y-2 { row-gap: 0; }
+}
+.k-tile { background: var(--v3-panel); border-radius: 28px; overflow: hidden; position: relative; }
+/* reveal on scroll, once */
+.k-in { opacity: 0; transform: translateY(28px); transition: opacity 1s var(--v3-ease), transform 1s var(--v3-ease); }
+.k-in.is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .k-in { opacity: 1; transform: none; transition: none; } }
+/* the phone */
+.k-phone { width: min(340px, 82vw); aspect-ratio: 9 / 19.2; border-radius: 54px; padding: 12px; background: linear-gradient(145deg, #2a2a2e, #0c0c0e); box-shadow: 0 0 0 1.5px #3a3a3f inset, 0 50px 100px -30px rgba(0,0,0,0.45), 0 30px 60px -40px rgba(11,125,94,0.5); }
+.k-screen { width: 100%; height: 100%; border-radius: 43px; background: #fff; overflow: hidden; position: relative; display: flex; flex-direction: column; }
+.k-bub { max-width: 80%; padding: 9px 13px; border-radius: 19px; font-size: 14.5px; line-height: 1.3; letter-spacing: -0.01em; animation: k-pop .5s var(--v3-ease) both; }
+.k-bub-in { background: #e9e9eb; color: #1d1d1f; align-self: flex-start; border-bottom-left-radius: 6px; }
+.k-bub-out { background: var(--v3-aurora); color: #fff; align-self: flex-end; border-bottom-right-radius: 6px; }
+@keyframes k-pop { from { opacity: 0; transform: translateY(8px) scale(0.96); } to { opacity: 1; transform: none; } }
+.k-typing span { width: 6px; height: 6px; border-radius: 9px; background: #8e8e93; display: inline-block; animation: k-dot 1s infinite; }
+.k-typing span:nth-child(2) { animation-delay: .15s; } .k-typing span:nth-child(3) { animation-delay: .3s; }
+@keyframes k-dot { 0%, 60%, 100% { opacity: .3; transform: none; } 30% { opacity: 1; transform: translateY(-2px); } }
+.k-bub-out.k-typing span { background: rgba(255,255,255,0.9); }
+
+/* the demo tools' header block (lead responder, estimate, deal analyzer, voice, proposal...): the
+   keynote type scale at tool size, a balanced sub line, and the SEO paragraph as a quiet reading column */
+.k-demo-title { font-size: clamp(32px, 4.2vw, 48px); line-height: 1.06; font-weight: 600; letter-spacing: -0.035em; color: var(--v3-fg); text-wrap: balance; }
+.k-demo-title + p { font-size: clamp(17px, 1.6vw, 21px); line-height: 1.4; color: var(--v3-mute); letter-spacing: -0.01em; text-wrap: balance; margin-left: auto; margin-right: auto; max-width: 40ch; }
+.k-demo-seo { max-width: 62ch; margin: 0 auto 40px; font-size: 15px; line-height: 1.65; color: var(--v3-mute); text-align: left; text-wrap: pretty; }
+/* the demo bar's sideways list fades at its edges instead of cutting a word in half */
+.dc-demo-strip { --l: #000; --r: #000; -webkit-mask-image: linear-gradient(90deg, var(--l), #000 20px, #000 calc(100% - 20px), var(--r)); mask-image: linear-gradient(90deg, var(--l), #000 20px, #000 calc(100% - 20px), var(--r)); }
+.dc-demo-strip[data-l='1'] { --l: transparent; }
+.dc-demo-strip[data-r='1'] { --r: transparent; }
+
+/* iPhone Duo open / foldables spanning two screens (html[data-fold=open], src/v3/fold.ts):
+   every section below the hero lays out as two pages either side of the hinge, so no line of text
+   crosses it. .k-spread = two equal columns whose gap straddles the hinge; .k-wide drops a
+   section's max-width so the spread can use the whole spread; .k-pane-l pins a heading to the
+   left page; .k-spread-card drops a card's chrome so its two halves can sit on the two pages. */
+html[data-fold="open"] .k-wide { max-width: none; padding-inline: 0; }
+html[data-fold="open"] .k-spread {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: calc(var(--v3-hinge-w) + 80px); row-gap: 40px; align-items: center;
+  max-width: none; margin-inline: 0; padding-inline: 40px; text-align: left;
+}
+html[data-fold="open"] .k-spread > * { min-width: 0; max-width: none; margin-inline: 0; text-align: left; }
+html[data-fold="open"] .k-spread > * .justify-center { justify-content: flex-start; }
+html[data-fold="open"] .k-pane-l { max-width: calc(var(--v3-hinge-l) - 80px); margin-left: 40px; margin-right: 0; text-align: left; }
+html[data-fold="open"] .k-spread-card { background: transparent; padding: 0; border-radius: 0; }
+/* blocks too dense to split (the contact form, the footer) sit wholly on the right page */
+html[data-fold="open"] .k-pane-r { padding-left: calc(var(--v3-hinge-l) + var(--v3-hinge-w)); }
+/* one page is phone-width, so stack the footer's sign-up rows the way a phone does */
+html[data-fold="open"] .k-pane-r form.sm\:flex-row { flex-direction: column; }
+html[data-fold="open"] .k-pane-r form.sm\:flex-row > div { width: 100%; max-width: 420px; }
+html[data-fold="open"] .k-pane-r form.sm\:flex-row input { width: auto; flex: 1 1 0%; }
+/* the desktop sticky "Build my demo" pill sits on the right page on the Duo open */
+html[data-fold="open"] .k-sticky-try { left: calc(var(--v3-hinge-l) + var(--v3-hinge-w) + (100vw - var(--v3-hinge-l) - var(--v3-hinge-w)) / 2); }

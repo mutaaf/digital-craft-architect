@@ -134,6 +134,13 @@ const SERVERLESS_AI: DemoDisclosure = {
   neverStored: ['your demo inputs or outputs on Digital Craft servers'],
 };
 
+// The appointment schedulers (src/pages/shared/AppointmentScheduler.tsx) run entirely in the browser.
+const LOCAL_TOOL: DemoDisclosure = {
+  storageKeys: ['dca_demo_company_<vertical>'],
+  serverSendsTo: ['Nothing: the scheduler runs in your browser'],
+  neverStored: ['your name, picks or booking on Digital Craft servers'],
+};
+
 export const DEMO_DISCLOSURES: Readonly<Record<string, DemoDisclosure>> = {
   // Construction
   '/construction/demo/lead-responder': LEAD_CHAT,
@@ -160,11 +167,11 @@ export const DEMO_DISCLOSURES: Readonly<Record<string, DemoDisclosure>> = {
   '/homeservices/demo/voice-followup': VOICE_CALL,
   // Healthcare
   '/healthcare/demo/intake': LEAD_CHAT,
-  '/healthcare/demo/scheduler': SERVERLESS_AI,
+  '/healthcare/demo/scheduler': LOCAL_TOOL,
   '/healthcare/demo/voice-followup': VOICE_CALL,
   // Legal
   '/legal/demo/intake': LEAD_CHAT,
-  '/legal/demo/consultation': SERVERLESS_AI,
+  '/legal/demo/consultation': LOCAL_TOOL,
   '/legal/demo/voice-followup': VOICE_CALL,
   // Restaurant
   '/restaurant/demo/reservations': LEAD_CHAT,

@@ -49,23 +49,25 @@ const faqPageJsonLd = {
   })),
 };
 
+// Keynote pass (2026-11-12): the same hairline rows as the page's "Questions, answered." list, sitting
+// under the plans it explains. Radix accordion kept (tests open each item and read its answer).
 const PricingFAQ: React.FC = () => (
-  <div className="max-w-3xl mx-auto mt-12">
+  <div className="mx-auto -mt-6 max-w-[920px] px-5 pb-28 md:-mt-16 md:pb-40">
     <script type="application/ld+json">{JSON.stringify(faqPageJsonLd)}</script>
-    <h3 className="text-xl font-semibold text-center mb-6 text-gray-900 dark:text-white">
+    <h3 className="mb-6 text-center text-[24px] font-semibold tracking-[-0.025em] text-[#1d1d1f] md:mb-8 md:text-[28px]">
       Pricing Questions
     </h3>
-    <Accordion type="single" collapsible className="space-y-3">
+    <Accordion type="single" collapsible className="border-t border-[#d2d2d7]">
       {FAQ_ITEMS.map((item, i) => (
         <AccordionItem
           key={i}
           value={`pricing-faq-${i}`}
-          className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 px-5"
+          className="border-b border-[#d2d2d7]"
         >
-          <AccordionTrigger className="text-left text-sm font-medium py-4">
+          <AccordionTrigger className="min-h-[64px] gap-6 py-4 text-left text-[17px] font-semibold tracking-[-0.01em] text-[#1d1d1f] hover:no-underline md:text-[19px] [&>svg]:h-5 [&>svg]:w-5 [&>svg]:text-[#86868b]">
             {item.q}
           </AccordionTrigger>
-          <AccordionContent className="text-sm text-gray-600 dark:text-gray-400 pb-4">
+          <AccordionContent className="pb-6 pr-10 text-[15px] leading-relaxed text-[#6e6e73] md:text-[17px]">
             {item.a}
           </AccordionContent>
         </AccordionItem>

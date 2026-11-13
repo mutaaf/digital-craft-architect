@@ -57,9 +57,9 @@ const EmailCourseOptin: React.FC<EmailCourseOptinProps> = ({
   /* ---- Footer variant: compact inline row matching the footer palette ---- */
   if (variant === 'footer') {
     return (
-      <div className="border-t border-gray-800 pt-8 pb-8">
+      <div className="border-t border-[#d2d2d7] pt-8 pb-8">
         {status === 'success' ? (
-          <p className="text-center text-green-400 text-sm">
+          <p className="text-center text-aurora text-sm">
             You're in. Watch your inbox for day 1 of the AI Implementation course.
           </p>
         ) : (
@@ -68,7 +68,7 @@ const EmailCourseOptin: React.FC<EmailCourseOptinProps> = ({
             noValidate
             className="flex flex-col sm:flex-row items-center justify-center gap-3"
           >
-            <p className="text-gray-300 text-sm text-center sm:text-left whitespace-nowrap">
+            <p className="text-[#424245] text-sm text-center sm:text-left whitespace-nowrap">
               Get the free 5-day AI Implementation email course
             </p>
             <div className="flex w-full sm:w-auto gap-2">
@@ -79,12 +79,12 @@ const EmailCourseOptin: React.FC<EmailCourseOptinProps> = ({
                 placeholder="your@email.com"
                 aria-label="Email address for the 5-day AI implementation course"
                 aria-invalid={invalid}
-                className="flex-1 sm:w-64 px-3 py-2 rounded-md bg-gray-800 dark:bg-gray-800 border border-gray-700 text-white text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-skyblue focus:border-transparent"
+                className="min-w-0 flex-1 sm:w-64 h-11 px-4 rounded-full bg-white border border-[#d2d2d7] text-[#1d1d1f] text-[16px] sm:text-sm placeholder-[#86868b] focus:outline-none focus:ring-4 focus:ring-aurora/15 focus:border-aurora"
               />
               <button
                 type="submit"
                 disabled={status === 'submitting'}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md bg-skyblue hover:bg-skyblue/90 text-white text-sm font-medium transition-colors disabled:opacity-50"
+                className="inline-flex h-11 shrink-0 items-center gap-1.5 px-5 rounded-full bg-skyblue hover:bg-aurora-deep text-white text-sm font-medium transition-colors disabled:opacity-50"
               >
                 <Send size={14} />
                 {status === 'submitting' ? 'Sending...' : 'Get the course'}
@@ -93,12 +93,12 @@ const EmailCourseOptin: React.FC<EmailCourseOptinProps> = ({
           </form>
         )}
         {invalid && (
-          <p className="mt-2 text-center text-red-400 text-xs">
+          <p className="mt-2 text-center text-red-600 text-xs">
             Please enter a valid email address.
           </p>
         )}
         {status === 'error' && (
-          <p className="mt-2 text-center text-red-400 text-xs">
+          <p className="mt-2 text-center text-red-600 text-xs">
             Something went wrong. Please try again.
           </p>
         )}

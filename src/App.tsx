@@ -5,8 +5,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
-import Index from "./pages/Index";
-import IndexV2 from "./pages/IndexV2";
 import { isCTOHost } from "./utils/hostVariant";
 import { trackEvent } from "./utils/analytics";
 import { ErrorBoundary } from "@sentry/react";
@@ -15,6 +13,9 @@ import EasterEgg from "./components/EasterEgg";
 import { Analytics } from "@vercel/analytics/react";
 import { DemoContextProvider } from "./contexts/DemoContext";
 import { recordVisitToday } from "./utils/visitStreakStore";
+import V3Chrome from "./v3/Chrome";
+import Home3 from "./v3/Home3";
+import Cto3 from "./v3/Cto3";
 
 // Route-level code-splitting (ticket: route-code-splitting). Every page below
 // the eagerly-loaded landing shell (Index / IndexV2) is lazy-loaded so the
@@ -23,6 +24,9 @@ import { recordVisitToday } from "./utils/visitStreakStore";
 // modules use default exports, so the bare lazy(() => import(...)) form is
 // correct for every one; a named-export page would need .then(m => ({ default:
 // m.X })) instead.
+// the previous landings, kept at ?v=2
+const Index = lazy(() => import("./pages/Index"));
+const IndexV2 = lazy(() => import("./pages/IndexV2"));
 const Construction = lazy(() => import("./pages/Construction"));
 const RealEstate = lazy(() => import("./pages/RealEstate"));
 const RealEstateDemoHub = lazy(() => import("./pages/realestate/RealEstateDemoHub"));
@@ -42,6 +46,11 @@ const EventsDemoHub = lazy(() => import("./pages/events/EventsDemoHub"));
 const InquiryQualifier = lazy(() => import("./pages/events/InquiryQualifier"));
 const ProposalGenerator = lazy(() => import("./pages/events/ProposalGenerator"));
 const VoiceBookingAgent = lazy(() => import("./pages/events/VoiceBookingAgent"));
+// Per-industry demo tools (src/data/demoProfiles.ts): before these, non-construction verticals borrowed
+// the construction calculator, the events proposal and the property negotiator.
+const QuoteBuilder = lazy(() => import("./pages/shared/QuoteBuilder"));
+const AppointmentScheduler = lazy(() => import("./pages/shared/AppointmentScheduler"));
+const VoiceFollowUp = lazy(() => import("./pages/shared/VoiceFollowUp"));
 const HomeServices = lazy(() => import("./pages/HomeServices"));
 const HomeServicesDemoHub = lazy(() => import("./pages/homeservices/DemoHub"));
 const Healthcare = lazy(() => import("./pages/Healthcare"));
@@ -133,6 +142,7 @@ const Classes = lazy(() => import("./pages/Classes"));
 const ClassSession = lazy(() => import("./pages/classes/ClassSession"));
 const ClassRegistration = lazy(() => import("./pages/classes/ClassRegistration"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const SharePage = lazy(() => import("./v3/SharePage"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -170,7 +180,11 @@ const LandingRoot: React.FC = () => {
   React.useEffect(() => {
     trackEvent('landing_view', 'navigation', isCTO ? 'cto_subdomain' : 'root_domain');
   }, [isCTO]);
-  return isCTO ? <IndexV2 /> : <Index />;
+  // v3 (the beta overhaul): both landings are the instrument deck. The previous pages stay
+  // reachable at ?v=2 (and on the live site until this branch is merged).
+  const legacy = React.useMemo(() => new URLSearchParams(window.location.search).get('v') === '2', []);
+  if (legacy) return isCTO ? <IndexV2 /> : <Index />;
+  return isCTO ? <Cto3 /> : <Home3 />;
 };
 
 interface FallbackProps {
@@ -298,49 +312,49 @@ const App = () => {
               <Route path="/homeservices" element={<HomeServices />} />
               <Route path="/homeservices/demo" element={<DemoContextProvider vertical="homeservices"><HomeServicesDemoHub /></DemoContextProvider>} />
               <Route path="/homeservices/demo/lead-responder" element={<DemoContextProvider vertical="homeservices"><LeadResponder /></DemoContextProvider>} />
-              <Route path="/homeservices/demo/estimate" element={<DemoContextProvider vertical="homeservices"><EstimateGenerator /></DemoContextProvider>} />
-              <Route path="/homeservices/demo/voice-followup" element={<DemoContextProvider vertical="homeservices"><VoiceNegotiator /></DemoContextProvider>} />
+              <Route path="/homeservices/demo/estimate" element={<DemoContextProvider vertical="homeservices"><QuoteBuilder /></DemoContextProvider>} />
+              <Route path="/homeservices/demo/voice-followup" element={<DemoContextProvider vertical="homeservices"><VoiceFollowUp /></DemoContextProvider>} />
               <Route path="/healthcare" element={<Healthcare />} />
               <Route path="/healthcare/demo" element={<DemoContextProvider vertical="healthcare"><HealthcareDemoHub /></DemoContextProvider>} />
               <Route path="/healthcare/demo/intake" element={<DemoContextProvider vertical="healthcare"><LeadResponder /></DemoContextProvider>} />
-              <Route path="/healthcare/demo/scheduler" element={<DemoContextProvider vertical="healthcare"><ProposalGenerator /></DemoContextProvider>} />
-              <Route path="/healthcare/demo/voice-followup" element={<DemoContextProvider vertical="healthcare"><VoiceNegotiator /></DemoContextProvider>} />
+              <Route path="/healthcare/demo/scheduler" element={<DemoContextProvider vertical="healthcare"><AppointmentScheduler /></DemoContextProvider>} />
+              <Route path="/healthcare/demo/voice-followup" element={<DemoContextProvider vertical="healthcare"><VoiceFollowUp /></DemoContextProvider>} />
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/legal" element={<Legal />} />
               <Route path="/legal/demo" element={<DemoContextProvider vertical="legal"><LegalDemoHub /></DemoContextProvider>} />
               <Route path="/legal/demo/intake" element={<DemoContextProvider vertical="legal"><LeadResponder /></DemoContextProvider>} />
-              <Route path="/legal/demo/consultation" element={<DemoContextProvider vertical="legal"><ProposalGenerator /></DemoContextProvider>} />
-              <Route path="/legal/demo/voice-followup" element={<DemoContextProvider vertical="legal"><VoiceNegotiator /></DemoContextProvider>} />
+              <Route path="/legal/demo/consultation" element={<DemoContextProvider vertical="legal"><AppointmentScheduler /></DemoContextProvider>} />
+              <Route path="/legal/demo/voice-followup" element={<DemoContextProvider vertical="legal"><VoiceFollowUp /></DemoContextProvider>} />
               <Route path="/restaurant" element={<Restaurant />} />
               <Route path="/restaurant/demo" element={<DemoContextProvider vertical="restaurant"><RestaurantDemoHub /></DemoContextProvider>} />
               <Route path="/restaurant/demo/reservations" element={<DemoContextProvider vertical="restaurant"><LeadResponder /></DemoContextProvider>} />
-              <Route path="/restaurant/demo/catering" element={<DemoContextProvider vertical="restaurant"><EstimateGenerator /></DemoContextProvider>} />
+              <Route path="/restaurant/demo/catering" element={<DemoContextProvider vertical="restaurant"><QuoteBuilder /></DemoContextProvider>} />
               <Route path="/restaurant/demo/reviews" element={<DemoContextProvider vertical="restaurant"><ReviewSystem /></DemoContextProvider>} />
               <Route path="/kidsplay" element={<KidsPlay />} />
               <Route path="/kidsplay/demo" element={<DemoContextProvider vertical="kidsplay"><KidsPlayDemoHub /></DemoContextProvider>} />
               <Route path="/kidsplay/demo/party-booker" element={<DemoContextProvider vertical="kidsplay"><LeadResponder /></DemoContextProvider>} />
-              <Route path="/kidsplay/demo/packages" element={<DemoContextProvider vertical="kidsplay"><EstimateGenerator /></DemoContextProvider>} />
-              <Route path="/kidsplay/demo/voice-booking" element={<DemoContextProvider vertical="kidsplay"><VoiceNegotiator /></DemoContextProvider>} />
+              <Route path="/kidsplay/demo/packages" element={<DemoContextProvider vertical="kidsplay"><QuoteBuilder /></DemoContextProvider>} />
+              <Route path="/kidsplay/demo/voice-booking" element={<DemoContextProvider vertical="kidsplay"><VoiceFollowUp /></DemoContextProvider>} />
               <Route path="/fitness" element={<Fitness />} />
               <Route path="/fitness/demo" element={<DemoContextProvider vertical="fitness"><FitnessDemoHub /></DemoContextProvider>} />
               <Route path="/fitness/demo/lead-qualifier" element={<DemoContextProvider vertical="fitness"><LeadResponder /></DemoContextProvider>} />
-              <Route path="/fitness/demo/membership" element={<DemoContextProvider vertical="fitness"><EstimateGenerator /></DemoContextProvider>} />
-              <Route path="/fitness/demo/voice-retention" element={<DemoContextProvider vertical="fitness"><VoiceNegotiator /></DemoContextProvider>} />
+              <Route path="/fitness/demo/membership" element={<DemoContextProvider vertical="fitness"><QuoteBuilder /></DemoContextProvider>} />
+              <Route path="/fitness/demo/voice-retention" element={<DemoContextProvider vertical="fitness"><VoiceFollowUp /></DemoContextProvider>} />
               <Route path="/dental" element={<Dental />} />
               <Route path="/dental/demo" element={<DemoContextProvider vertical="dental"><DentalDemoHub /></DemoContextProvider>} />
               <Route path="/dental/demo/intake" element={<DemoContextProvider vertical="dental"><LeadResponder /></DemoContextProvider>} />
-              <Route path="/dental/demo/estimate" element={<DemoContextProvider vertical="dental"><EstimateGenerator /></DemoContextProvider>} />
-              <Route path="/dental/demo/voice-recall" element={<DemoContextProvider vertical="dental"><VoiceNegotiator /></DemoContextProvider>} />
+              <Route path="/dental/demo/estimate" element={<DemoContextProvider vertical="dental"><QuoteBuilder /></DemoContextProvider>} />
+              <Route path="/dental/demo/voice-recall" element={<DemoContextProvider vertical="dental"><VoiceFollowUp /></DemoContextProvider>} />
               <Route path="/salon" element={<Salon />} />
               <Route path="/salon/demo" element={<DemoContextProvider vertical="salon"><SalonDemoHub /></DemoContextProvider>} />
               <Route path="/salon/demo/booking" element={<DemoContextProvider vertical="salon"><LeadResponder /></DemoContextProvider>} />
-              <Route path="/salon/demo/services" element={<DemoContextProvider vertical="salon"><EstimateGenerator /></DemoContextProvider>} />
-              <Route path="/salon/demo/voice-rebook" element={<DemoContextProvider vertical="salon"><VoiceNegotiator /></DemoContextProvider>} />
+              <Route path="/salon/demo/services" element={<DemoContextProvider vertical="salon"><QuoteBuilder /></DemoContextProvider>} />
+              <Route path="/salon/demo/voice-rebook" element={<DemoContextProvider vertical="salon"><VoiceFollowUp /></DemoContextProvider>} />
               <Route path="/autorepair" element={<AutoRepair />} />
               <Route path="/autorepair/demo" element={<DemoContextProvider vertical="autorepair"><AutoRepairDemoHub /></DemoContextProvider>} />
               <Route path="/autorepair/demo/advisor" element={<DemoContextProvider vertical="autorepair"><LeadResponder /></DemoContextProvider>} />
-              <Route path="/autorepair/demo/estimate" element={<DemoContextProvider vertical="autorepair"><EstimateGenerator /></DemoContextProvider>} />
-              <Route path="/autorepair/demo/voice-reminder" element={<DemoContextProvider vertical="autorepair"><VoiceNegotiator /></DemoContextProvider>} />
+              <Route path="/autorepair/demo/estimate" element={<DemoContextProvider vertical="autorepair"><QuoteBuilder /></DemoContextProvider>} />
+              <Route path="/autorepair/demo/voice-reminder" element={<DemoContextProvider vertical="autorepair"><VoiceFollowUp /></DemoContextProvider>} />
               <Route path="/industries" element={<Industries />} />
               <Route path="/demos" element={<Demos />} />
               <Route path="/my" element={<MyDashboard />} />
@@ -413,9 +427,12 @@ const App = () => {
               <Route path="/classes/register" element={<ClassRegistration legacyDefault />} />
               <Route path="/classes/:slug" element={<ClassSession />} />
               <Route path="/classes/:slug/register" element={<ClassRegistration />} />
+              <Route path="/share" element={<SharePage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
             </Suspense>
+            {/* after the page in the DOM: fixed-position chrome, so the page's own header is the first <nav> */}
+            <V3Chrome />
           </BrowserRouter>
         </TooltipProvider>
       </HelmetProvider>
