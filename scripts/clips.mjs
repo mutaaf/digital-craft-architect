@@ -65,7 +65,7 @@ function overlay(tag, zoom) {
     if (tag) {
       const t = document.createElement('div');
       t.textContent = tag;
-      t.style.cssText = 'position:fixed;right:10px;bottom:10px;padding:4px 10px;border-radius:999px;background:rgba(15,23,42,.82);color:#fff;font:600 11px -apple-system,system-ui,sans-serif;letter-spacing:.02em;z-index:2147483646;pointer-events:none';
+      t.style.cssText = 'position:fixed;right:10px;bottom:90px;padding:4px 10px;border-radius:999px;background:rgba(15,23,42,.82);color:#fff;font:600 11px -apple-system,system-ui,sans-serif;letter-spacing:.02em;z-index:2147483646;pointer-events:none';
       document.documentElement.appendChild(t);
     }
   };
@@ -214,10 +214,12 @@ await main({
       execFileSync('npx', ['tsx', 'scripts/sync-classes-data.ts'], { cwd: ROOT, stdio: 'ignore' });
       execFileSync('npx', ['vite', 'build', '--logLevel', 'warn'], { cwd: ROOT, stdio: 'inherit' });
       server = spawn('npx', ['vite', 'preview', '--host', '127.0.0.1', '--port', String(PORT), '--strictPort'], { cwd: ROOT, stdio: 'ignore', detached: true });
-      for (let i = 0; i < 60; i++) {
-        try { if ((await fetch(BASE + '/')).ok) break; } catch { /* starting */ }
-        await new Promise((r) => setTimeout(r, 500));
+      let up = false;
+      for (let i = 0; i < 60 && !up; i++) {
+        try { up = (await fetch(BASE + '/')).ok; } catch { /* starting */ }
+        if (!up) await new Promise((r) => setTimeout(r, 500));
       }
+      if (!up) throw new Error(`vite preview never answered on ${BASE} (port taken? set CLIPS_PORT)`);
     }
     return {};
   },

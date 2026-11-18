@@ -6,7 +6,7 @@
 // and the end card. Re-cutting a variant only needs `--skip-capture`: the takes stay in dist-clips/raw/.
 //
 // Captions are drawn by Chromium (the game's own font, a black outline, accent words) to transparent PNGs and laid
-// over the cut by ffmpeg. The Homebrew ffmpeg on this machine has no libass or drawtext, so an ASS file can't be
+// over the cut by ffmpeg. A stock Homebrew ffmpeg has no libass or drawtext, so an ASS file can't be
 // burned; this needs nothing beyond Playwright and a stock ffmpeg. Every caption's box is measured as it is drawn
 // and the cut fails if it reaches the bottom 20 % or the right edge, where the apps put their own buttons.
 //
@@ -69,13 +69,15 @@ export async function capture(chromium, { name, size, out, launch = {}, context 
   const mark = (n, at = Date.now()) => { marks[n] = +((at - t0) / 1000).toFixed(3); console.log(`    ${name}: ${n} @ ${marks[n]}s`); };
   const errors = [];
   page.on('pageerror', (e) => errors.push(e.message));
-  try { await drive(page, mark); }
+  // A take is replaced only whole: a run that throws keeps the previous video and marks (never a new video with
+  // old marks, which a later --skip-capture would cut at the wrong moments).
+  let ok = false;
+  try { await drive(page, mark); ok = true; }
   finally {
     const video = page.video();
     await ctx.close();
     await browser.close();
-    const file = await video.path();
-    execFileSync('mv', [file, join(raw, `${name}.webm`)]);
+    if (ok) execFileSync('mv', [await video.path(), join(raw, `${name}.webm`)]);
     rmSync(tmp, { recursive: true, force: true });
   }
   writeFileSync(join(raw, `${name}.json`), JSON.stringify({ marks, errors, at: new Date().toISOString() }, null, 2));

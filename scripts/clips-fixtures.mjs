@@ -30,7 +30,7 @@ export const LEAD_TURNS = [
 export const REVIEW = 'Crew showed up two hours late on day one and nobody called us. The tile work looks great though.';
 
 export const REVIEW_REPLIES = [
-  { tone: 'professional', content: 'Thank you for the feedback on your project. You should have had a call when the crew was running two hours behind on day one, and we have addressed that with the team. We are glad the tile came out well. Please reach out to Ro directly so we can talk it through.' },
+  { tone: 'professional', content: 'Thank you for the feedback on your project. You should have had a call when the crew was running two hours behind on day one. We are glad the tile came out well. Please reach out to Ro directly so we can talk it through.' },
   { tone: 'warm', content: "Thanks for taking the time to write this. We're really glad you love the tile! Waiting two hours with no call isn't how we want anyone to start a project, and Ro would love to hear more. Give us a call anytime." },
-  { tone: 'apologetic', content: "We're sorry the crew arrived two hours late on day one without a call. That's on us, and we've changed how we confirm arrival times. We're happy the tile turned out great. Ro would like to make this right, so please call us directly." },
+  { tone: 'apologetic', content: "We're sorry the crew arrived two hours late on day one and nobody called you. That's on us. We're happy the tile turned out great, and Ro would like to talk it through, so please call us directly." },
 ];

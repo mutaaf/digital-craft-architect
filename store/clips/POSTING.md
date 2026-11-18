@@ -1,8 +1,8 @@
 # LinkedIn demo clips
 
 Three 15 to 18 second clips of the construction demos, cut by `npm run clips` (scripts/clips.mjs) from
-store/clips/clips.json into `dist-clips/` (not committed). Each is 1080x1350 (4:5, LinkedIn's tallest feed
-format), H.264 with a silent audio track, and ends on a 2 second card: "Try the live demo" at
+store/clips/clips.json into `dist-clips/` (not committed). Each is 1080x1350 (4:5, LinkedIn's standard tall feed
+format; it also takes 9:16), H.264 with a silent audio track, and ends on a 2 second card: "Try the live demo" at
 digitalcraftai.com/demos. Re-cut a variant with `npm run clips -- --skip-capture` after editing captions or cuts.
 
 What is real and what is scripted:
