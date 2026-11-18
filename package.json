@@ -20,7 +20,8 @@
     "check-blog-dates": "npx tsx scripts/check-blog-dates.ts",
     "rss": "npx tsx scripts/generate-rss.ts",
     "test:e2e": "playwright test",
-    "test:e2e:install": "playwright install chromium"
+    "test:e2e:install": "playwright install chromium",
+    "clips": "node scripts/clips.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.0",

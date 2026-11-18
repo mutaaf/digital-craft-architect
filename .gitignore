@@ -9,6 +9,8 @@ lerna-debug.log*
 
 node_modules
 dist
+# Short-form demo clips (npm run clips): rendered video, rebuilt from store/clips/clips.json
+dist-clips
 dist-ssr
 *.local
 

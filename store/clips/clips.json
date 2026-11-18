@@ -1,0 +1,201 @@
+{
+  "_doc": "LinkedIn demo clips (npm run clips; scripts/clips.mjs). Segments cut takes from a mark ('reply3', 'end-2') for a length at a speed; caption times are seconds or '<segment>:<mark>[+-s]'. Caption lines: at most 2, at most 5 words, *word* = accent. Every caption must say what the demo really does. No dashes.",
+  "size": {
+    "width": 1080,
+    "height": 1350
+  },
+  "safe": {
+    "top": 60,
+    "right": 60,
+    "left": 48,
+    "bottom": 0.88
+  },
+  "style": {
+    "font": "'Avenir Next', 'Helvetica Neue', sans-serif",
+    "weight": 800,
+    "size": 100,
+    "minSize": 80,
+    "stroke": 16,
+    "tracking": "-0.01em",
+    "accent": "#7BE3C3",
+    "captionTop": 120
+  },
+  "endCard": {
+    "mark": "<div style=\"font-size:76px;font-weight:800;letter-spacing:-.01em\">DigitalCraft <span style=\"color:#7BE3C3\">AI</span></div>",
+    "kicker": "Try the live demo",
+    "kickerSize": 84,
+    "url": "digitalcraftai.com/demos",
+    "pill": "#7BE3C3",
+    "pillText": "#06281f",
+    "sub": "Runs in your browser. No signup.",
+    "seconds": 2
+  },
+  "clips": [
+    {
+      "id": "dc-lead-qualified",
+      "hook": "the finished lead card first: seven fields, 100% complete",
+      "segments": [
+        {
+          "take": "lead",
+          "from": "lead+0.4",
+          "to": "lead+2.6"
+        },
+        {
+          "take": "lead",
+          "from": "chat+0.2",
+          "to": "reply3+0.3",
+          "speed": 1.35
+        },
+        {
+          "take": "lead",
+          "from": "reply3+0.3",
+          "to": "lead+1.6"
+        }
+      ],
+      "captions": [
+        {
+          "lines": [
+            "A website chat that",
+            "*qualifies* your leads"
+          ],
+          "start": 0,
+          "end": "1:chat+1.2"
+        },
+        {
+          "lines": [
+            "It asks about the *project*"
+          ],
+          "start": "1:chat+1.2",
+          "end": "1:reply2-0.4"
+        },
+        {
+          "lines": [
+            "Budget, timeline, *phone number*"
+          ],
+          "start": "1:reply2-0.4",
+          "end": "2:reply3+0.3"
+        },
+        {
+          "lines": [
+            "Lead card *filled in*",
+            "as you chat"
+          ],
+          "start": "2:reply3+0.3"
+        }
+      ]
+    },
+    {
+      "id": "dc-review-replies",
+      "hook": "three finished reply drafts first",
+      "segments": [
+        {
+          "take": "reviews",
+          "from": "reply1-0.6",
+          "to": "reply1+1.6"
+        },
+        {
+          "take": "reviews",
+          "from": "generator-0.2",
+          "to": "replies+0.4",
+          "speed": 1.3
+        },
+        {
+          "take": "reviews",
+          "from": "replies+0.4",
+          "to": "end"
+        }
+      ],
+      "captions": [
+        {
+          "lines": [
+            "A bad review?",
+            "Three *reply drafts*"
+          ],
+          "start": 0,
+          "end": "1:generator+0.4"
+        },
+        {
+          "lines": [
+            "Paste the *review*"
+          ],
+          "start": "1:generator+0.4",
+          "end": "1:generate"
+        },
+        {
+          "lines": [
+            "One click, *three tones*"
+          ],
+          "start": "1:generate",
+          "end": "2:replies+2.4"
+        },
+        {
+          "lines": [
+            "Professional, warm, *apologetic*"
+          ],
+          "start": "2:replies+2.4"
+        }
+      ]
+    },
+    {
+      "id": "dc-estimate",
+      "hook": "the price range first",
+      "segments": [
+        {
+          "take": "estimate",
+          "from": "end-2.2",
+          "to": "end"
+        },
+        {
+          "take": "estimate",
+          "from": "type-0.2",
+          "to": "result_top",
+          "speed": 1.3
+        },
+        {
+          "take": "estimate",
+          "from": "result_top",
+          "to": "end",
+          "speed": 1.15
+        }
+      ],
+      "captions": [
+        {
+          "lines": [
+            "A ballpark *estimate*",
+            "in four steps"
+          ],
+          "start": 0,
+          "end": "1:type+0.6"
+        },
+        {
+          "lines": [
+            "Project, size, *finish*"
+          ],
+          "start": "1:type+0.6",
+          "end": "1:extras"
+        },
+        {
+          "lines": [
+            "Pick any *add-ons*"
+          ],
+          "start": "1:extras",
+          "end": "1:generate+0.6"
+        },
+        {
+          "lines": [
+            "Every *line item*",
+            "priced out"
+          ],
+          "start": "1:generate+0.6",
+          "end": "2:breakdown"
+        },
+        {
+          "lines": [
+            "A range and a *timeline*"
+          ],
+          "start": "2:breakdown"
+        }
+      ]
+    }
+  ]
+}
