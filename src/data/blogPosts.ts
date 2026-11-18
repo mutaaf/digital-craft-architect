@@ -52,6 +52,65 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'ai-property-managers-tenant-review-management',
+    title: 'How Property Managers Turn Tenant Feedback Into 5-Star Ratings',
+    description: 'AI review automation helps property managers collect tenant feedback consistently and build the online reputation that wins new leases.',
+    date: '2026-11-18',
+    author: 'DigitalCraft AI',
+    readTime: '5 min read',
+    tags: ['Property Management', 'Reviews', 'AI Automation', 'Real Estate'],
+    content: `
+<p>A prospective renter searches your property's name before they ever call the leasing office. If the reviews are thin or old, they move to the next listing. If the reviews are strong and recent, you just skipped a step in convincing them to tour.</p>
+
+<p>Most property managers know reviews matter. Few have a system that actually gets them. Maintenance requests, lease renewals, and move-outs eat the day, and asking a tenant to leave a review falls to whenever someone remembers, which is rarely.</p>
+
+<h2>Why Tenant Reviews Are Different From Retail Reviews</h2>
+
+<p>A restaurant asks for a review once, right after the meal. A rental relationship runs for months or years, and there is no single obvious moment to ask. Ask too early and the tenant has nothing to say yet. Ask too late and the memory of a good move-in experience has faded into the background noise of monthly rent payments.</p>
+
+<p>The moments that actually produce a review are specific: right after a maintenance ticket gets resolved, right after move-in week goes smoothly, and at renewal when a tenant has just decided to stay. Each one is a small window that closes fast if nobody acts on it.</p>
+
+<h2>Automating the Ask Without Making It Feel Automated</h2>
+
+<p>An AI follow-up system can watch for those moments directly. When a maintenance ticket closes, it sends a short text a few hours later asking how the repair went, and if the response is positive, it includes a direct link to leave a review on Google. If the tenant flags a problem instead, that feedback routes to your team before it ever becomes a bad review.</p>
+
+<p>This ordering matters more than anything else in review automation. You want every unhappy tenant caught internally and every happy tenant pointed at a public review link. Skipping that filter is how businesses end up with reviews about problems that were actually fixed, just never resolved in the tenant's mind.</p>
+
+<h2>Lease Renewal Is a Second Window</h2>
+
+<p>The moment a tenant signs a renewal, they have told you something important with their actions: they are satisfied enough to stay. That is a far better time to ask for a review than a cold request sent to every tenant on a quarterly schedule.</p>
+
+<p>An AI workflow can trigger a review request automatically when a renewal is signed, paired with a short thank-you message. It costs nothing to send and reaches the exact tenants most likely to leave something positive.</p>
+
+<h2>What This Does to Your Pipeline of New Leases</h2>
+
+<p>Run the arithmetic on your own portfolio. If you manage buildings with a combined few hundred units and only a handful of tenants ever leave a review unprompted, your online rating is being written almost entirely by the rare outlier, usually someone who had a bad experience and nothing else to compare it to.</p>
+
+<p>Shift even a modest share of your satisfied tenants into the review pipeline and the average moves, and so does the review count. Prospective renters comparing two similar buildings will consistently favor the one with more recent, higher-volume reviews, even before they read what any of them say.</p>
+
+<h2>Where to Start</h2>
+
+<p>You do not need a full platform migration to begin. Pick one trigger point:</p>
+
+<ul>
+<li>Maintenance ticket closed -- send a feedback check-in, then route happy responses to a review link.</li>
+<li>Lease renewal signed -- send a thank-you message with a review request attached.</li>
+<li>Move-in week complete -- check in on the first impression while it is still fresh.</li>
+</ul>
+
+<p>Each trigger runs on its own, requires no manual tracking, and compounds every month it stays on. A property manager who automates even one of these starts seeing a steadier stream of reviews within the first renewal cycle.</p>
+
+<p>Explore the <a href="/ai-for-property-managers">AI tools built for property managers</a> or try the <a href="/realestate/demo/lead-responder">real estate lead responder demo</a> to see how an automated conversation actually runs before deciding if it fits your portfolio.</p>
+
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to turn satisfied tenants into 5-star reviews?</strong>
+  <p style="margin: 8px 0;">See how AI automation handles tenant follow-up, review requests, and lead response for property managers.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/realestate/demo">Try Our Live Demos</a>
+</div>
+`,
+  },
+  {
     slug: 'ai-landscaping-instant-quotes-estimate-generation',
     title: 'How Landscaping Companies Use AI to Send Instant Quotes',
     description: 'AI estimate tools help landscaping and lawn care companies send fast, accurate quotes and win jobs before the competition even calls back.',
