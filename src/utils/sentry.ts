@@ -67,7 +67,9 @@ export function initSentry(environment: string, release: string): void {
     run((S) => S.captureException(r instanceof Error ? r : new Error(String(r)), { mechanism: { type: 'onunhandledrejection', handled: false } }));
     loadSentry();
   });
-  const later = () => ('requestIdleCallback' in window ? requestIdleCallback(() => loadSentry(), { timeout: 4000 }) : setTimeout(loadSentry, 2500));
+  // `load` fires before React has even requested the route's own chunks, so wait a few seconds more:
+  // the SDK (~150 KB) must never compete with the page's first paint. An error loads it at once.
+  const later = () => setTimeout(() => (typeof requestIdleCallback === 'function' ? requestIdleCallback(() => loadSentry(), { timeout: 3000 }) : loadSentry()), 4000);
   if (document.readyState === 'complete') later();
   else addEventListener('load', later, { once: true });
 }
