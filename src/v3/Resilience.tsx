@@ -30,6 +30,7 @@ if (typeof window !== 'undefined') {
 }
 
 /** Drop-in for React.lazy with one retry and a one-time reload on stale chunks. */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- same constraint React.lazy itself uses
 export function lazyRoute<T extends React.ComponentType<any>>(factory: () => Promise<{ default: T }>) {
   return lazy(() =>
     factory().catch(async (err) => {
