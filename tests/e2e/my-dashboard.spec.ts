@@ -383,6 +383,7 @@ test('rendered body contains zero em-dash characters (empty state)', async ({ br
   await gotoDashboard(page);
   await page.evaluate(() => localStorage.clear());
   await page.reload({ waitUntil: 'domcontentloaded' });
+  await page.locator('h1').first().waitFor({ timeout: 15_000 }); // the route is a lazy chunk
 
   const bodyText = (await page.textContent('body')) ?? '';
   expect(bodyText.length).toBeGreaterThan(50);

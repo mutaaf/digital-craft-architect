@@ -35,6 +35,15 @@ const LateMount: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   }, []);
   return on ? <Suspense fallback={null}>{children}</Suspense> : null;
 };
+// The fixed chrome (dock, try sheet, beta badge) waits for the first page to commit: nobody needs a
+// dock over a loading spinner, and #root then only holds real content once it has any (the e2e specs
+// read "#root has content" as "the page rendered"). After the first page it stays across navigations.
+const FirstPaint = React.createContext<() => void>(() => {});
+const MarkPainted: React.FC = () => {
+  const mark = React.useContext(FirstPaint);
+  React.useEffect(() => { mark(); }, [mark]);
+  return null;
+};
 const Home3 = lazy(() => import("./v3/Home3"));
 const Cto3 = lazy(() => import("./v3/Cto3"));
 const Index = lazy(() => import("./pages/Index"));
@@ -214,6 +223,8 @@ const RouteFallback = () => (
 );
 
 const App = () => {
+  const [painted, setPainted] = React.useState(false);
+  const markPainted = React.useCallback(() => setPainted(true), []);
   // Ticket 0060 - Record today's UTC date in the visit-day rolling-window
   // store so /my can surface a return-visit streak badge. This effect
   // sits on the top-level App component on purpose: it fires exactly once
@@ -233,7 +244,9 @@ const App = () => {
           <EasterEgg />
           <BrowserRouter>
             <RouteBoundary>
+            <FirstPaint.Provider value={markPainted}>
             <Suspense fallback={<RouteFallback />}>
+            <MarkPainted />
             <Routes>
               <Route path="/" element={<LandingRoot />} />
               <Route path="/construction" element={<Construction />} />
@@ -380,9 +393,10 @@ const App = () => {
               <Route path="*" element={<NotFound />} />
             </Routes>
             </Suspense>
+            </FirstPaint.Provider>
             </RouteBoundary>
             {/* after the page in the DOM: fixed-position chrome, so the page's own header is the first <nav> */}
-            <V3Chrome />
+            {painted && <V3Chrome />}
           </BrowserRouter>
       </HelmetProvider>
     </QueryClientProvider>
