@@ -59,7 +59,7 @@ const StickyCTA: React.FC = () => {
   const copy = copyForPath(location.pathname);
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 bg-gray-900/95 dark:bg-gray-950/95 backdrop-blur-sm border-t border-gray-700 dark:border-gray-800 py-3 px-4 animate-slide-up">
+    <div data-v3="sticky-cta" className="fixed bottom-0 left-0 right-0 z-40 bg-gray-900/95 dark:bg-gray-950/95 backdrop-blur-sm border-t border-gray-700 dark:border-gray-800 py-3 px-4 animate-slide-up">
       <div className="container mx-auto flex items-center justify-between gap-4">
         <p className="text-white dark:text-gray-100 text-sm sm:text-base font-medium">
           {copy.prompt}

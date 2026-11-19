@@ -4,7 +4,6 @@ import type { Vertical } from '@/contexts/DemoContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Globe, Loader2, CheckCircle2, Pencil, RotateCcw, AlertCircle } from 'lucide-react';
@@ -34,7 +33,7 @@ const CompanySetupForm = () => {
     useDemoContext();
   const [input, setInput] = useState('');
   const [editOpen, setEditOpen] = useState(false);
-  const placeholder = VERTICAL_PLACEHOLDERS[vertical];
+  const placeholder = VERTICAL_PLACEHOLDERS[vertical] ?? 'e.g. yourcompany.com';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,12 +44,12 @@ const CompanySetupForm = () => {
   // Loading state
   if (isLoading) {
     return (
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-5 sm:p-6 mb-8 animate-fade-in">
+      <div className="mb-8 rounded-[28px] bg-[#f5f5f7] p-6 sm:p-8 animate-fade-in">
         <div className="flex items-center gap-3 mb-4">
           <Loader2 size={20} className="text-primary animate-spin" />
           <div>
             <p className="text-sm font-semibold">Analyzing your website...</p>
-            <p className="text-xs text-gray-400">Scraping content and extracting company info</p>
+            <p className="text-xs text-[#6e6e73]">Scraping content and extracting company info</p>
           </div>
         </div>
         <div className="space-y-3">
@@ -66,7 +65,7 @@ const CompanySetupForm = () => {
   if (isCustomized && company) {
     return (
       <>
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-primary/20 p-4 sm:p-5 mb-8 animate-fade-in">
+        <div className="mb-8 rounded-[28px] bg-[#f5f5f7] p-5 sm:p-6 animate-fade-in">
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-3 min-w-0">
               <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: company.primaryColor + '20' }}>
@@ -74,7 +73,7 @@ const CompanySetupForm = () => {
               </div>
               <div className="min-w-0">
                 <p className="text-sm font-semibold truncate">{company.companyName}</p>
-                <p className="text-xs text-gray-400 truncate">
+                <p className="truncate text-xs text-[#6e6e73]">
                   {company.location} &middot; {company.services.slice(0, 2).join(', ')}
                 </p>
               </div>
@@ -83,7 +82,7 @@ const CompanySetupForm = () => {
               <Button variant="outline" size="sm" onClick={() => setEditOpen(true)} className="gap-1.5">
                 <Pencil size={12} /> Edit
               </Button>
-              <Button variant="ghost" size="sm" onClick={reset} className="gap-1.5 text-gray-400">
+              <Button variant="ghost" size="sm" onClick={reset} className="gap-1.5 text-[#6e6e73]">
                 <RotateCcw size={12} /> Reset
               </Button>
             </div>
@@ -147,34 +146,33 @@ const CompanySetupForm = () => {
     );
   }
 
-  // Default: input form
+  // Default: input form (keynote: one rounded field, one pill)
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-5 sm:p-6 mb-8 animate-fade-in">
-      <div className="flex items-center gap-2 mb-3">
-        <Globe size={16} className="text-primary" />
-        <p className="text-sm font-semibold">Customize for Your Business</p>
-        <Badge variant="outline" className="text-[10px] ml-auto">
-          Optional
-        </Badge>
-      </div>
-      <p className="text-xs text-gray-400 mb-4">
-        Enter your company website or name to see all demos personalized to your business.
+    <div className="mb-8 rounded-[28px] bg-[#f5f5f7] p-6 text-center sm:p-8 animate-fade-in">
+      <p className="mb-1 flex items-center justify-center gap-2 text-[19px] font-semibold tracking-[-0.01em] text-[#1d1d1f]">
+        <Globe size={18} className="text-aurora" aria-hidden /> Make every demo yours
       </p>
-      <form onSubmit={handleSubmit} className="flex gap-2">
-        <Input
+      <p className="mx-auto mb-5 text-balance text-[15px] text-[#6e6e73]">Optional. Add your website or company name.</p>
+      <form onSubmit={handleSubmit} className="mx-auto flex max-w-[560px] flex-col gap-2.5 sm:flex-row">
+        <label htmlFor="dc-setup-site" className="sr-only">Your website or company name</label>
+        <input
+          id="dc-setup-site"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder={placeholder}
-          className="flex-1"
+          inputMode="url"
+          autoCapitalize="none"
+          spellCheck={false}
+          className="h-[50px] w-full min-w-0 rounded-full sm:flex-1 border border-[#d2d2d7] bg-white px-5 text-[16px] text-[#1d1d1f] outline-none transition placeholder:text-[#86868b] focus:border-aurora focus:ring-4 focus:ring-aurora/15"
         />
-        <Button type="submit" disabled={!input.trim()} className="gap-1.5 shrink-0">
-          Customize Demos
-        </Button>
+        <button type="submit" disabled={!input.trim()} className="k-pill k-pill-brand !min-h-[50px] disabled:opacity-40">
+          Personalize
+        </button>
       </form>
       {error && (
-        <div className="flex items-center gap-2 mt-3 text-red-500">
+        <div className="mt-3 flex items-center justify-center gap-2 text-red-600">
           <AlertCircle size={14} />
-          <p className="text-xs">{error}</p>
+          <p className="text-[13px]">{error}</p>
         </div>
       )}
     </div>

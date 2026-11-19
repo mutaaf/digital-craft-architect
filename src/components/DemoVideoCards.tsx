@@ -1,10 +1,9 @@
 import { Play, Clock } from 'lucide-react';
-import { Card } from '@/components/ui/card';
 
 interface DemoVideoCardsProps {
   /** Display name of the vertical, e.g. "Construction" */
   vertical: string;
-  /** Poster image shown until the real explainer video ships */
+  /** A real frame from the explainer, once it ships (unused until then: a social card is not a frame) */
   poster?: string;
 }
 
@@ -30,58 +29,52 @@ const VIDEOS = [
 ];
 
 /**
- * Placeholder explainer-video cards shown above the interactive demos on each
- * demo hub. The <video> elements carry a poster image and a "Coming soon"
- * state today; the card shape is final, so real 30-60s explainers can drop in
- * later (via a <source> child) without any layout change.
+ * Placeholder explainer-video cards on each demo hub (keynote pass, 2026-11-12): light tiles, a play
+ * glyph and a "Coming soon" tag, no social-card poster standing in for a video frame. The card shape is
+ * final, so real 30-60s explainers can drop in later (a <source> child plus `poster`) without any
+ * layout change. `poster` is only used once it is a real frame from the video.
  */
-const DemoVideoCards = ({ vertical, poster = '/og-default.png' }: DemoVideoCardsProps) => {
+const DemoVideoCards = ({ vertical }: DemoVideoCardsProps) => {
   return (
-    <section className="mb-10" aria-labelledby="demo-video-heading">
-      <div className="text-center mb-6">
-        <h2 id="demo-video-heading" className="text-2xl font-bold text-gray-900 dark:text-white">
+    <section aria-labelledby="demo-video-heading">
+      <div className="mb-10 text-center md:mb-14">
+        <h2 id="demo-video-heading" className="mx-auto max-w-[18ch] text-[32px] font-semibold leading-[1.08] tracking-[-0.035em] text-[#1d1d1f] md:text-[44px]">
           Watch AI for {vertical} in Action
         </h2>
-        <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 mt-2 max-w-xl mx-auto">
+        <p className="mx-auto mt-4 max-w-[46ch] text-balance text-[17px] leading-relaxed text-[#6e6e73]">
           Short walkthroughs of each automation. Full explainer videos are on the way. Try the
           live demos below in the meantime.
         </p>
       </div>
 
-      <div className="grid gap-6 sm:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-3 md:gap-5">
         {VIDEOS.map((v) => (
-          <Card
-            key={v.title}
-            className="overflow-hidden flex flex-col bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800"
-          >
-            <div className="relative aspect-video bg-gray-100 dark:bg-gray-800">
+          <div key={v.title} className="flex flex-col overflow-hidden rounded-[28px] bg-white">
+            <div className="relative aspect-video bg-[#e8e8ed]">
               <video
-                poster={poster}
                 preload="none"
                 muted
                 playsInline
                 aria-label={`${v.title}: explainer video for AI in ${vertical} (coming soon)`}
                 className="absolute inset-0 h-full w-full object-cover"
               />
-              <div className="absolute inset-0 flex items-center justify-center bg-black/40">
-                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/90 text-primary shadow-lg dark:bg-gray-900/90">
-                  <Play size={24} className="ml-0.5 fill-current" />
+              <div className="absolute inset-0 grid place-items-center">
+                <span className="grid h-14 w-14 place-items-center rounded-full bg-white text-[#1d1d1f]">
+                  <Play size={22} className="ml-0.5 fill-current" aria-hidden />
                 </span>
               </div>
-              <span className="absolute top-2 right-2 rounded-full bg-black/70 px-2 py-0.5 text-xs font-medium text-white">
+              <span className="absolute left-4 top-4 rounded-full bg-white/90 px-2.5 py-1 text-[12px] font-medium text-[#1d1d1f]">
                 Coming soon
               </span>
-              <span className="absolute bottom-2 right-2 flex items-center gap-1 rounded-full bg-black/70 px-2 py-0.5 text-xs font-medium text-white">
-                <Clock size={12} /> {v.duration}
+              <span className="absolute bottom-4 right-4 flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-[12px] font-medium text-[#1d1d1f]">
+                <Clock size={12} aria-hidden /> {v.duration}
               </span>
             </div>
-            <div className="p-4 flex-1">
-              <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-1">
-                {v.title}
-              </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">{v.description}</p>
+            <div className="flex-1 p-6 md:p-7">
+              <h3 className="mb-1.5 text-[19px] font-semibold leading-snug text-[#1d1d1f]">{v.title}</h3>
+              <p className="text-[15px] leading-relaxed text-[#6e6e73]">{v.description}</p>
             </div>
-          </Card>
+          </div>
         ))}
       </div>
     </section>

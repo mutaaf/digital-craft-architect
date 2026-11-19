@@ -17,7 +17,8 @@ export const isCTOHost = (): boolean => {
 
   const hostname = window.location.hostname;
   if (CTO_HOST_ENV && hostname === CTO_HOST_ENV) return true;
-  return hostname.startsWith(CTO_HOST_PREFIX);
+  // cto-beta.digitalcraftai.com is the CTO site's beta (the `beta` branch)
+  return hostname.startsWith(CTO_HOST_PREFIX) || hostname.startsWith('cto-beta.');
 };
 
 export const currentHostTag = (): 'cto' | 'root' =>

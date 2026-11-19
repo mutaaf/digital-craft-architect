@@ -141,8 +141,8 @@ test.describe('resumable demo session', () => {
       await gotoHub(page);
       await page.getByTestId('resume-demo-start-fresh').click();
       await expect(page.getByTestId('resume-demo-prompt')).toHaveCount(0);
-      // The default setup form (Customize for Your Business) is shown again.
-      await expect(page.getByText('Customize for Your Business')).toBeVisible();
+      // The default setup form (Make every demo yours) is shown again.
+      await expect(page.getByText('Make every demo yours')).toBeVisible();
       const stored = await page.evaluate((k) => window.localStorage.getItem(k), STORAGE_KEY);
       expect(stored).toBeNull();
       expect(errors).toEqual([]);
@@ -158,7 +158,7 @@ test.describe('resumable demo session', () => {
 
     await expect(page.getByTestId('resume-demo-prompt')).toHaveCount(0);
     // Hub still works: the setup form is present as it is today.
-    await expect(page.getByText('Customize for Your Business')).toBeVisible();
+    await expect(page.getByText('Make every demo yours')).toBeVisible();
 
     expect(errors).toEqual([]);
   });

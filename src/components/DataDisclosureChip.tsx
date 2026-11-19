@@ -68,7 +68,7 @@ const DataDisclosureChip = ({ demoPath }: DataDisclosureChipProps) => {
         data-testid="data-disclosure-chip"
         aria-label="Data disclosure"
         onClick={() => handleOpenChange(true)}
-        className="absolute top-3 right-3 z-10 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border border-gray-200 dark:border-gray-700 bg-white/90 dark:bg-gray-900/90 text-gray-700 dark:text-gray-200 backdrop-blur hover:border-primary dark:hover:border-primary hover:text-primary dark:hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-colors"
+        className="k-hit relative z-10 mx-1 mb-3 inline-flex min-h-[32px] items-center gap-1.5 px-3 py-1 rounded-full align-middle text-xs font-medium border border-[#d2d2d7] dark:border-gray-700 bg-white dark:bg-gray-900/90 text-[#424245] dark:text-gray-200 hover:border-primary dark:hover:border-primary hover:text-primary dark:hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-colors"
       >
         <ShieldCheck size={14} aria-hidden="true" />
         What we store
@@ -108,7 +108,7 @@ const DataDisclosureChip = ({ demoPath }: DataDisclosureChipProps) => {
             <Link
               to="/trust"
               onClick={() => trackCTAClick('disclosure_to_trust', demoPath)}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary hover:bg-primary/90 text-white text-sm font-medium transition-colors"
+              className="inline-flex min-h-[44px] items-center gap-2 px-5 py-2 rounded-full bg-primary hover:bg-primary/90 text-white text-sm font-medium transition-colors"
             >
               Read full transparency page
               <ArrowRight size={16} aria-hidden="true" />

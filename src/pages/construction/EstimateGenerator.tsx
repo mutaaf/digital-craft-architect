@@ -217,19 +217,19 @@ const EstimateGenerator = () => {
       <DemoBreadcrumbs />
 
       <div className="relative max-w-3xl mx-auto px-4 py-8 sm:py-10">
-        <DataDisclosureChip demoPath={location.pathname} />
         {/* Header */}
         <div className="text-center mb-8">
-          <Badge variant="secondary" className="mb-3">
-            <Sparkles size={14} className="mr-1" /> POC Demo
+          <DataDisclosureChip demoPath={location.pathname} />
+          <Badge variant="secondary" className="mx-1 mb-3 min-h-[28px] align-middle bg-[var(--v3-aurora-wash)] font-medium text-[var(--v3-aurora-deep)] hover:bg-[var(--v3-aurora-wash)]">
+            <Sparkles size={13} className="mr-1" aria-hidden /> POC Demo
           </Badge>
-          <h1 className="text-2xl sm:text-3xl font-bold mb-2">AI Construction Estimate Generator</h1>
+          <h1 className="k-demo-title mb-3">AI Construction Estimate Generator</h1>
           <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base">
             Get a ballpark estimate in 60 seconds using {possessive} real pricing.
           </p>
         </div>
 
-        <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm leading-relaxed max-w-2xl mx-auto text-center mb-6">
+        <p className="k-demo-seo">
           This AI estimate generator demo shows how construction and remodeling companies can give prospects instant ballpark pricing. Select a project type (kitchen remodel, bathroom renovation, outdoor build, or full home renovation), enter the square footage, choose your finish level, and get a detailed cost breakdown in seconds. The estimate includes labor, materials, and optional add-ons like design consultations and permit assistance, all calculated from real contractor pricing. For construction business owners, this tool converts curious website visitors into qualified leads by giving them immediate value instead of a generic "request a quote" form. Try the AI construction cost calculator below and see how automated estimates help contractors close more jobs faster.
         </p>
 

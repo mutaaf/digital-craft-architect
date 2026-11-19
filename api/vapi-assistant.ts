@@ -1,28 +1,51 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { guard, truncate, upstream, type GuardContext } from './_lib/guard.js';
 
 export const config = { maxDuration: 30 };
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
+const MAX_PROMPT = 20_000;
+const MAX_FIRST_MESSAGE = 500;
+const MAX_NAME = 80;
+const VOICE_ID = /^[A-Za-z0-9]{1,64}$/;
 
-  const apiKey = process.env.VAPI_API_KEY;
-  if (!apiKey) {
-    return res.status(500).json({ error: 'Vapi API key not configured' });
-  }
+export default guard(
+  'vapi-assistant',
+  { methods: ['POST'], rate: { limit: 10, windowMs: 10 * 60_000 }, maxBodyBytes: 64_000 },
+  async (req: VercelRequest, res: VercelResponse, ctx: GuardContext) => {
+    const apiKey = process.env.VAPI_API_KEY;
+    if (!apiKey) {
+      ctx.err = 'not_configured';
+      return res.status(500).json({ error: 'Vapi API key not configured' });
+    }
 
-  try {
-    const { systemPrompt, firstMessage, voiceId, isPhoneCall, assistantName } = req.body;
+    const { systemPrompt, firstMessage, voiceId, isPhoneCall, assistantName } = req.body ?? {};
 
-    if (!systemPrompt) {
+    if (!systemPrompt || typeof systemPrompt !== 'string') {
+      ctx.err = 'missing_prompt';
       return res.status(400).json({ error: 'systemPrompt is required' });
     }
+    if (systemPrompt.length > MAX_PROMPT) {
+      ctx.err = 'prompt_too_long';
+      return res.status(413).json({ error: 'systemPrompt is too long' });
+    }
+    if (firstMessage !== undefined && firstMessage !== null && firstMessage !== '' &&
+        (typeof firstMessage !== 'string' || firstMessage.length > MAX_FIRST_MESSAGE)) {
+      ctx.err = 'invalid_first_message';
+      return res.status(400).json({ error: `firstMessage must be a string of at most ${MAX_FIRST_MESSAGE} characters` });
+    }
+    if (voiceId !== undefined && voiceId !== null && voiceId !== '' &&
+        (typeof voiceId !== 'string' || !VOICE_ID.test(voiceId))) {
+      ctx.err = 'invalid_voice';
+      return res.status(400).json({ error: 'Invalid voiceId' });
+    }
+    const name = typeof assistantName === 'string' && assistantName.trim()
+      ? assistantName.trim().slice(0, MAX_NAME)
+      : 'AI Voice Agent';
 
     // For phone calls: no firstMessage — the agent waits for the seller to speak
     // For browser calls: firstMessage kicks off the conversation
     const assistantConfig: Record<string, unknown> = {
-      name: assistantName || 'AI Voice Agent',
+      name,
       model: {
         provider: 'openai',
         model: 'gpt-4o',
@@ -81,29 +104,33 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       assistantConfig.responseDelaySeconds = 1.2;
     }
 
-    const resp = await fetch('https://api.vapi.ai/assistant', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${apiKey}`,
+    const resp = await upstream(
+      ctx,
+      'https://api.vapi.ai/assistant',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify(assistantConfig),
       },
-      body: JSON.stringify(assistantConfig),
-    });
+      20_000,
+    );
 
     if (!resp.ok) {
       const err = await resp.json().catch(() => ({}));
-      console.error('Vapi assistant creation failed:', JSON.stringify(err));
-      // Return full Vapi error so we can debug in the browser console
+      ctx.err = `upstream_${resp.status}`;
+      // Full Vapi error goes to the logs (keyed by request id), not to the browser.
+      console.error(JSON.stringify({ t: 'vapi_error', route: 'vapi-assistant', id: ctx.id, status: resp.status, err: truncate(JSON.stringify(err), 1000) }));
+      const msg = Array.isArray(err.message) ? err.message.join('; ') : err.message;
       return res.status(resp.status).json({
-        error: err.message || err.error || JSON.stringify(err),
-        vapiError: err,
+        error: truncate(msg, 300) || truncate(err.error, 300) || 'Vapi assistant creation failed',
+        requestId: ctx.id,
       });
     }
 
     const data = await resp.json();
     return res.status(200).json({ assistantId: data.id });
-  } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : 'Unknown error';
-    return res.status(500).json({ error: { message } });
-  }
-}
+  },
+);

@@ -1,29 +1,20 @@
 import { useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import DemoNavbar from '@/components/construction/DemoNavbar';
-import CompanySetupForm from '@/components/construction/CompanySetupForm';
 import { useDemoContext } from '@/contexts/DemoContext';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import {
   MessageSquare,
   Calculator,
   Star,
-  ArrowRight,
-  Sparkles,
   Home,
   Phone,
   FileText,
   MessageCircle,
   Gauge,
 } from 'lucide-react';
-import { trackDemoClick, trackCTAClick } from '@/utils/analytics';
-import StickyCTA from '@/components/StickyCTA';
-import DemoVideoCards from '@/components/DemoVideoCards';
 import ResumeDemoPrompt from '@/components/ResumeDemoPrompt';
 import DemoBreadcrumbs from '@/components/DemoBreadcrumbs';
+import DemoHubKeynote from '@/v3/DemoHubKeynote';
 
 const DemoHub = () => {
   const { company, isCustomized, loadFromUrl, isLoading } = useDemoContext();
@@ -57,7 +48,6 @@ const DemoHub = () => {
       title: 'AI Lead Responder',
       description: `Chat with ${possessive} AI as a homeowner. Watch it qualify leads, extract project details, and book consultations — all in real time.`,
       tags: ['GPT-4o Streaming', 'Live Qualification'],
-      color: 'bg-blue-50 dark:bg-blue-900/20 text-blue-600',
     },
     {
       to: '/construction/demo/estimate',
@@ -65,7 +55,6 @@ const DemoHub = () => {
       title: 'Smart Estimate Generator',
       description: `Pick a project type, enter your square footage, and get a branded ballpark estimate using ${possessive} pricing in under 60 seconds.`,
       tags: ['Real Pricing', 'Branded Output'],
-      color: 'bg-green-50 dark:bg-green-900/20 text-green-600',
     },
     {
       to: '/construction/demo/invoice',
@@ -73,7 +62,6 @@ const DemoHub = () => {
       title: 'Invoice Generator',
       description: `Create a professional, branded invoice in seconds. Add client details, line items, and tax — get a polished PDF-ready invoice for ${possessive} projects.`,
       tags: ['Instant Output', 'Branded'],
-      color: 'bg-purple-50 dark:bg-purple-900/20 text-purple-600',
     },
     {
       to: '/construction/demo/reviews',
@@ -82,7 +70,6 @@ const DemoHub = () => {
       description:
         'Experience the automated SMS flow that turns completed projects into 5-star Google reviews — with Day 3 and Day 7 follow-ups.',
       tags: ['SMS Simulation', 'Analytics Dashboard'],
-      color: 'bg-yellow-50 dark:bg-yellow-900/20 text-yellow-600',
     },
     {
       to: '/construction/demo/sms-sequence',
@@ -90,7 +77,6 @@ const DemoHub = () => {
       title: 'SMS Nurture Sequence',
       description: `Enter a lead's name and project type — get a 5-message SMS drip sequence with timing, personalized for ${possessive} business.`,
       tags: ['GPT-4o', 'Lead Nurture'],
-      color: 'bg-teal-50 dark:bg-teal-900/20 text-teal-600',
     },
     {
       to: '/construction/demo/lead-scoring',
@@ -98,7 +84,6 @@ const DemoHub = () => {
       title: 'AI Lead Scoring',
       description: `Paste a lead from a form or voicemail and get an instant 1 to 100 priority score with reasoning on budget fit, urgency, and decision-maker status, so ${possessive} team calls the hottest leads first.`,
       tags: ['GPT-4o', 'Lead Prioritization'],
-      color: 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600',
     },
     {
       to: '/construction/demo/property-negotiator',
@@ -107,7 +92,6 @@ const DemoHub = () => {
       description:
         'Paste a listing URL, upload a screenshot, or enter property details — get a full negotiation playbook with offer price, strategy, and ROI projection in under 60 seconds.',
       tags: ['GPT-4o Vision', 'Negotiation Playbook'],
-      color: 'bg-orange-50 dark:bg-orange-900/20 text-orange-600',
     },
     {
       to: '/construction/demo/voice-negotiator',
@@ -116,7 +100,6 @@ const DemoHub = () => {
       description:
         'Analyze a property, set your bid range, and let the AI negotiate with the seller by phone. Watch the live transcript and get a full call summary with insights and next steps.',
       tags: ['Vapi Voice AI', 'Live Transcription', 'GPT-4o'],
-      color: 'bg-red-50 dark:bg-red-900/20 text-red-600',
     },
   ];
 
@@ -128,7 +111,7 @@ const DemoHub = () => {
     : 'Five working AI proof-of-concepts for construction businesses: Lead Responder, Smart Estimate Generator, Review Request System, AI Deal Analyzer, and Voice Negotiator.';
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+    <>
       <Helmet>
         <title>{ogTitle}</title>
         <meta name="description" content={ogDescription} />
@@ -142,31 +125,17 @@ const DemoHub = () => {
         <meta name="twitter:description" content={ogDescription} />
         <meta name="twitter:image" content="/og-construction.png" />
       </Helmet>
-      <DemoNavbar />
-      <DemoBreadcrumbs />
-
-      <div className="max-w-4xl mx-auto px-4 py-10 sm:py-16">
-        <div className="text-center mb-8 sm:mb-10 animate-fade-in">
-          <Badge variant="secondary" className="mb-4">
-            <Sparkles size={14} className="mr-1" /> Built for {name}
-          </Badge>
-          <h1 className="text-3xl sm:text-4xl font-bold mb-3">Construction AI Automation Demos</h1>
-          <p className="text-base sm:text-lg text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
-            Five working proof-of-concepts showing exactly how AI will transform {possessive}{' '}
-            lead capture, estimating, reputation management, deal analysis, and voice negotiation.
-          </p>
-        </div>
-
-        <ResumeDemoPrompt />
-
-        <CompanySetupForm />
-
-        {/* SEO intro section */}
-        <section className="mb-10 bg-white dark:bg-gray-900 rounded-2xl p-6 sm:p-8 border border-gray-200 dark:border-gray-800">
-          <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
-            AI for Construction: Interactive Automation Demos
-          </h2>
-          <div className="space-y-4 text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed">
+      <DemoHubKeynote
+        industry="Construction"
+        analyticsKey="construction"
+        companyName={isCustomized ? company?.companyName : null}
+        demos={demos}
+        videoVertical="Construction"
+        videoPoster="/og-construction.png"
+        lead={<div className="mb-6 empty:hidden"><ResumeDemoPrompt /></div>}
+        crumbs={<DemoBreadcrumbs />}
+        seoIntro={
+          <>
             <p>
               If you run a construction company, you already know the bottlenecks: leads that go
               unanswered after hours, estimates that take days to put together, five-star jobs that
@@ -205,54 +174,10 @@ const DemoHub = () => {
               generator, or simply curious what modern automation looks like in the trades, these
               demos give you a clear, no-commitment preview of the results.
             </p>
-          </div>
-        </section>
-
-        <DemoVideoCards vertical="Construction" poster="/og-construction.png" />
-
-        <div className="grid gap-6">
-          {demos.map((d, i) => (
-            <Link key={d.to} to={d.to} onClick={() => trackDemoClick(d.title, 'construction')} className="group animate-slide-up" style={{ animationDelay: `${i * 150}ms`, animationFillMode: 'both' }}>
-              <Card className="p-5 sm:p-6 flex flex-col sm:flex-row items-start gap-4 sm:gap-5 transition-all hover:shadow-lg hover:border-primary/30">
-                <div className={`w-14 h-14 rounded-xl flex items-center justify-center shrink-0 ${d.color}`}>
-                  {d.icon}
-                </div>
-                <div className="flex-1">
-                  <h2 className="text-xl font-semibold mb-1 group-hover:text-primary transition-colors">
-                    {d.title}
-                  </h2>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
-                    {d.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {d.tags.map((t) => (
-                      <Badge key={t} variant="outline" className="text-xs">
-                        {t}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-                <Button variant="ghost" size="icon" className="shrink-0 self-center group-hover:translate-x-1 transition-transform">
-                  <ArrowRight size={20} />
-                </Button>
-              </Card>
-            </Link>
-          ))}
-        </div>
-
-        <div className="text-center mt-12">
-          <p className="text-sm text-gray-400 mb-4">
-            Ready to see these systems live in your business?
-          </p>
-          <Button asChild size="lg" className="gap-2">
-            <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer" onClick={() => trackCTAClick('book_a_call', 'construction_demo_hub')}>
-              Book a Call with DigitalCraft AI <ArrowRight size={18} />
-            </a>
-          </Button>
-        </div>
-      </div>
-      <StickyCTA />
-    </div>
+          </>
+        }
+      />
+    </>
   );
 };
 
