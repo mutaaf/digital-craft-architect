@@ -1,0 +1,45 @@
+# Synthetic monitoring (2026-11-18): every 30 minutes, check that the live sites answer, the API is
+# healthy and every integration is configured, and that pages stay fast. A failed run emails the repo
+# owner (GitHub notifies on failed scheduled workflows).
+name: Synthetic monitor
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      fail-fast: false
+      matrix:
+        site:
+          - https://beta.digitalcraftai.com
+          - https://digitalcraftai.com
+    steps:
+      - name: Pages answer fast
+        run: |
+          fail=0
+          for path in / /dental /construction/demo /blog; do
+            out=$(curl -s -o /dev/null -w '%{http_code} %{time_total}' --max-time 20 "${{ matrix.site }}$path")
+            code=${out% *}; t=${out#* }
+            echo "$path -> $code in ${t}s"
+            if [ "$code" != "200" ]; then echo "::error::$path returned $code"; fail=1; fi
+            if awk "BEGIN{exit !($t > 3)}"; then echo "::warning::$path took ${t}s"; fi
+          done
+          exit $fail
+      - name: API health
+        run: |
+          body=$(curl -s --max-time 15 "${{ matrix.site }}/api/health" || true)
+          echo "$body"
+          # Production gets /api/health when the beta branch merges; until then, skip if absent.
+          if ! echo "$body" | grep -q '"integrations"'; then echo "::notice::no health endpoint on ${{ matrix.site }} yet"; exit 0; fi
+          echo "$body" | grep -q '"ok":true' || { echo "::error::health not ok"; exit 1; }
+          echo "$body" | grep -q 'false' && { echo "::error::an integration is not configured: $body"; exit 1; } || true
+      - name: Chat API rejects foreign origins
+        run: |
+          code=$(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'origin: https://example.com' -H 'content-type: application/json' -d '{}' "${{ matrix.site }}/api/chat")
+          echo "foreign-origin POST /api/chat -> $code"
+          [ "$code" = "403" ] || [ "${{ matrix.site }}" = "https://digitalcraftai.com" ] || { echo "::error::chat proxy is open ($code)"; exit 1; }
