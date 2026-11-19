@@ -5,7 +5,13 @@ import { cn } from "@/lib/utils"
 
 const TooltipProvider = TooltipPrimitive.Provider
 
-const Tooltip = TooltipPrimitive.Root
+// Self-provided (2026-11-18): App used to wrap everything in a TooltipProvider, which put radix tooltip and
+// floating-ui in every page's entry bundle. Each Tooltip now carries its own provider.
+const Tooltip: React.FC<React.ComponentProps<typeof TooltipPrimitive.Root> & { delayDuration?: number }> = ({ delayDuration, ...props }) => (
+  <TooltipPrimitive.Provider delayDuration={delayDuration}>
+    <TooltipPrimitive.Root {...props} />
+  </TooltipPrimitive.Provider>
+)
 
 const TooltipTrigger = TooltipPrimitive.Trigger
 

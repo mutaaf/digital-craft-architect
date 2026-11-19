@@ -1,21 +1,16 @@
-import React, { Suspense, lazy } from "react";
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import React, { Suspense } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { isCTOHost } from "./utils/hostVariant";
 import { trackEvent } from "./utils/analytics";
-import { ErrorBoundary } from "@sentry/react";
 import { captureException } from "./utils/sentry";
+import { lazyRoute as lazy, RouteBoundary, AppBoundary } from "./v3/Resilience";
 import EasterEgg from "./components/EasterEgg";
 import { Analytics } from "@vercel/analytics/react";
 import { DemoContextProvider } from "./contexts/DemoContext";
 import { recordVisitToday } from "./utils/visitStreakStore";
 import V3Chrome from "./v3/Chrome";
-import Home3 from "./v3/Home3";
-import Cto3 from "./v3/Cto3";
 
 // Route-level code-splitting (ticket: route-code-splitting). Every page below
 // the eagerly-loaded landing shell (Index / IndexV2) is lazy-loaded so the
@@ -25,6 +20,23 @@ import Cto3 from "./v3/Cto3";
 // correct for every one; a named-export page would need .then(m => ({ default:
 // m.X })) instead.
 // the previous landings, kept at ?v=2
+// The two landings are lazy too (2026-11-18): every other page was paying for both of them in the
+// entry bundle. main.tsx starts the right one downloading in parallel with React on "/".
+// Toast hosts mount once the page is idle: no toast can fire before a visitor does something, and the
+// two toast libraries were a third of the entry bundle.
+const Toaster = lazy(() => import("@/components/ui/toaster").then((m) => ({ default: m.Toaster })));
+const Sonner = lazy(() => import("@/components/ui/sonner").then((m) => ({ default: m.Toaster })));
+const LateMount: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [on, setOn] = React.useState(false);
+  React.useEffect(() => {
+    const go = () => setOn(true);
+    const id = setTimeout(() => (typeof requestIdleCallback === "function" ? requestIdleCallback(go, { timeout: 2000 }) : go()), 600);
+    return () => clearTimeout(id);
+  }, []);
+  return on ? <Suspense fallback={null}>{children}</Suspense> : null;
+};
+const Home3 = lazy(() => import("./v3/Home3"));
+const Cto3 = lazy(() => import("./v3/Cto3"));
 const Index = lazy(() => import("./pages/Index"));
 const IndexV2 = lazy(() => import("./pages/IndexV2"));
 const Construction = lazy(() => import("./pages/Construction"));
@@ -187,39 +199,6 @@ const LandingRoot: React.FC = () => {
   return isCTO ? <Cto3 /> : <Home3 />;
 };
 
-interface FallbackProps {
-  error: unknown;
-  resetError: () => void;
-  componentStack?: string;
-  eventId?: string;
-}
-
-const ErrorFallback = ({ error, resetError, componentStack, eventId }: FallbackProps) => {
-  if (import.meta.env.DEV) {
-    console.error('Error caught by ErrorBoundary:', error);
-    console.info('Component stack:', componentStack);
-    console.info('Sentry event ID:', eventId);
-  }
-
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 text-center">
-      <h1 className="text-2xl font-bold text-red-600 mb-4">Something went wrong</h1>
-      <p className="mb-4 max-w-md mx-auto">{(error instanceof Error ? error.message : String(error)) || "An unexpected error occurred"}</p>
-      {eventId && (
-        <p className="text-sm text-gray-500 mb-4">
-          Error ID: {eventId}
-        </p>
-      )}
-      <button 
-        onClick={resetError} 
-        className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
-      >
-        Try again
-      </button>
-    </div>
-  );
-};
-
 // Suspense fallback for lazy-loaded route bodies. Full-height and centered so
 // it occupies the same vertical space the page will, avoiding cumulative layout
 // shift (the project has a Lighthouse CLS budget) while a route chunk loads.
@@ -234,28 +213,6 @@ const RouteFallback = () => (
   </div>
 );
 
-window.onerror = (message, source, lineno, colno, error) => {
-  if (error) {
-    captureException(error, {
-      source: 'window.onerror',
-      message: String(message),
-      location: `${source}:${lineno}:${colno}`,
-    });
-  }
-  return false;
-};
-
-window.addEventListener('unhandledrejection', (event) => {
-  const error = event.reason instanceof Error 
-    ? event.reason 
-    : new Error(String(event.reason));
-  
-  captureException(error, {
-    source: 'unhandledrejection',
-    promise: 'global',
-  });
-});
-
 const App = () => {
   // Ticket 0060 - Record today's UTC date in the visit-day rolling-window
   // store so /my can surface a return-visit streak badge. This effect
@@ -268,22 +225,14 @@ const App = () => {
   }, []);
 
   return (
-  <ErrorBoundary
-    fallback={ErrorFallback}
-    onError={(error, componentStack, eventId) => {
-      console.error('Error caught by Sentry ErrorBoundary:', error);
-      console.info('Component stack:', componentStack);
-      console.info('Sentry event ID:', eventId);
-    }}
-  >
+  <AppBoundary>
     <QueryClientProvider client={queryClient}>
       <HelmetProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
+          <LateMount><Toaster /><Sonner /></LateMount>
           <Analytics />
           <EasterEgg />
           <BrowserRouter>
+            <RouteBoundary>
             <Suspense fallback={<RouteFallback />}>
             <Routes>
               <Route path="/" element={<LandingRoot />} />
@@ -431,13 +380,13 @@ const App = () => {
               <Route path="*" element={<NotFound />} />
             </Routes>
             </Suspense>
+            </RouteBoundary>
             {/* after the page in the DOM: fixed-position chrome, so the page's own header is the first <nav> */}
             <V3Chrome />
           </BrowserRouter>
-        </TooltipProvider>
       </HelmetProvider>
     </QueryClientProvider>
-  </ErrorBoundary>
+  </AppBoundary>
   );
 };
 
