@@ -106,6 +106,20 @@ export const LABS_GAMES: readonly LabsGame[] = [
     ctaLabel: 'Draw a play',
   },
   {
+    id: 'chalk-talk-trace',
+    name: 'Chalk Talk Trace',
+    tagline: 'Walk the play in AR',
+    description:
+      'The public beta of Chalk Talk on headsets, glasses and earbuds. Pick your position in a basketball, flag football, soccer or pickleball play and walk it in light at real size: your route glows gold on the real court, the ball\'s flight comes in to you, and the play waits at every ring until you get there. Quest, Pico, Android XR, Vision Pro, Snap Spectacles, Ray-Ban Display, XREAL or just a phone. One link, one tap.',
+    playUrl: 'https://mutaafaziz.com/chalktalk/beta/',
+    sourceUrl: 'https://github.com/mutaaf/chalk-talk',
+    sourceLabel: 'mutaaf/chalk-talk',
+    tags: ['WebXR', 'Headsets + glasses', 'Four sports', 'Public beta'],
+    accent: 'court',
+    isNew: true,
+    ctaLabel: 'Pick your headset',
+  },
+  {
     id: 'metaphases',
     name: 'Metaphases',
     tagline: 'Earnings calendar',
