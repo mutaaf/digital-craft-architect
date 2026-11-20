@@ -8,7 +8,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Badge } from '@/components/ui/badge';
 import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
-import { ArrowRight, Cat, CircleDot, ClipboardList, ExternalLink, FlaskConical, Gauge, Github, MoonStar, Phone, PiggyBank, Plane, Rocket, Tv, type LucideIcon } from 'lucide-react';
+import { ArrowRight, Cat, CircleDot, ClipboardList, ExternalLink, FlaskConical, Gauge, Github, Glasses, MoonStar, Phone, PiggyBank, Plane, Rocket, Tv, type LucideIcon } from 'lucide-react';
 import {
   LABS_GAMES,
   LABS_PIPELINE_STEPS,
@@ -55,6 +55,7 @@ const ACCENT_ICON: Record<string, LucideIcon> = {
   hearth: Tv,
   kin: Cat,
   'chalk-talk': ClipboardList,
+  'chalk-talk-trace': Glasses,
   metaphases: MoonStar,
   'metaphases-kids': PiggyBank,
   'hinge-pop': CircleDot,
@@ -176,9 +177,10 @@ const Labs: React.FC = () => {
             The three games are live, public, and maintained by the same autonomous agent
             pipeline we run for clients. Scout, builder, and keeper agents work every day behind
             CI gates. Play one for two minutes and you have seen the delivery engine behind every
-            Digital Craft engagement. Hearth, KIN, Chalk Talk, Metaphases, Metaphases Kids and Hinge Pop, the last six
+            Digital Craft engagement. Hearth, KIN, Chalk Talk, Chalk Talk Trace, Metaphases, Metaphases Kids and Hinge Pop, the last seven
             cards, are built outside that pipeline: one remote for every TV in the house, a tiny
-            creature that hops from one screen to the next, a coach's whiteboard you can talk to, an
+            creature that hops from one screen to the next, a coach's whiteboard you can talk to, the same
+            plays walked in AR on a headset or glasses, an
             earnings calendar that reads the room, the same calendar's kids mode, money and
             charts for kids with Luna, and an arcade prototype where a hinge across the screen is the hazard.
           </p>
