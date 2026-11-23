@@ -53,7 +53,7 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
   {
     slug: 'ai-auto-repair-service-reminder-calls-2026',
-    title: 'Why Auto Repair Shops Lose Repeat Customers (and How Voice AI Fixes It)',
+    title: 'Stop Losing Repeat Customers: AI Service Reminder Calls',
     description: 'Service reminder calls bring customers back for oil changes, tire rotations, and seasonal maintenance. AI voice agents make them consistent.',
     date: '2026-11-23',
     author: 'DigitalCraft AI',
