@@ -52,6 +52,64 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'ai-auto-repair-service-reminder-calls-2026',
+    title: 'Stop Losing Repeat Customers: AI Service Reminder Calls',
+    description: 'Service reminder calls bring customers back for oil changes, tire rotations, and seasonal maintenance. AI voice agents make them consistent.',
+    date: '2026-11-23',
+    author: 'DigitalCraft AI',
+    readTime: '5 min read',
+    tags: ['Auto Repair', 'Voice AI', 'Customer Retention'],
+    content: `
+<p>A shop can do flawless work on a brake job and still lose that customer to the dealership down the street six months later. Not because the work was bad. Because nobody called to remind them it was time for the next service.</p>
+
+<p>Most shops know they should send reminders. Almost none do it consistently. The front desk is busy checking in walk-ins, answering the phone, and handling payments. Reminder calls get pushed to "later," and later becomes never.</p>
+
+<h2>The math every shop owner already knows</h2>
+
+<p>Pull your own numbers and do the arithmetic. Take your average repair order value, multiply it by the number of vehicles that came in for one service and never came back for the next recommended one. That gap is not a marketing problem. It is a follow-up problem, and it compounds every quarter you don't close it.</p>
+
+<p>A customer who gets an oil change, a tire rotation, and a 30,000-mile inspection over two years is worth several multiples of a single visit. The shop that calls them back wins that lifetime value. The shop that waits for them to remember on their own usually doesn't get the call.</p>
+
+<h2>Why postcards and texts alone don't close the loop</h2>
+
+<p>Printed reminders get thrown out with the rest of the mail. A text gets a glance and then gets buried under group chats and delivery notifications. Neither one asks the customer to commit to a date, and neither one can answer "can I bring it in Thursday instead" or "does this include the recall work."</p>
+
+<p>A phone call does something those can't. It is a conversation, not a notification. The customer can ask what the service actually involves, get a time window, and say yes right there instead of meaning to call back and forgetting by lunchtime.</p>
+
+<h2>What an AI voice agent actually does here</h2>
+
+<p>The shop's service records already say which vehicles are due and when. An AI voice agent uses that data to place the reminder call, speaks naturally about the specific service that vehicle needs, and offers appointment times based on the shop's real schedule.</p>
+
+<p>If the customer wants to reschedule, the agent handles it in the same call. If they have a quick question about cost or what the service covers, it answers from the shop's actual service menu instead of making something up. If they're not ready, it logs that and tries again at a sensible interval instead of calling every week.</p>
+
+<p>None of this requires a service writer to sit down and dial. The calls go out on their own schedule, every day, instead of in a batch nobody has time to run.</p>
+
+<h2>It also catches the services customers forget they need</h2>
+
+<p>Oil changes are easy to remember because the sticker on the windshield says so. Timing belts, brake fluid flushes, and cabin air filters are not. Those are the services most likely to get skipped entirely, and they're often the ones with the highest margin.</p>
+
+<p>A reminder call that references the actual mileage and service history can mention exactly what's coming due, not just "time for your next visit." That specificity is what gets a customer to book instead of saying "I'll call you back."</p>
+
+<h2>Where this fits with everything else the shop is already doing</h2>
+
+<p>Reminder calls work best alongside the rest of a shop's customer communication, not instead of it. If a customer calls in with a question about a quote, that's a job for quick, accurate <a href="/autorepair/demo/estimate">estimate</a> conversations, not a reminder script. If they're deciding whether to book at all, that's a lead response problem, which is a separate piece of the same <a href="/autorepair">AI toolkit for auto repair shops</a>.</p>
+
+<p>Shops that want to see how a reminder call actually sounds, and how it hands off to scheduling without a human picking up the phone, can run it against their own service types first.</p>
+
+<h2>The real cost of staying manual</h2>
+
+<p>Every month a shop runs without systematic reminders, it is quietly handing repeat business to whichever competitor calls first, whether that's another independent shop or the dealership's service department. The work itself isn't the differentiator anymore. The follow-up is.</p>
+
+<p>Fixing it doesn't require new tools bolted onto a already-full front desk. It requires making the reminder call happen reliably, every time, without depending on someone remembering to make it.</p>
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to stop losing repeat visits?</strong>
+  <p style="margin: 8px 0;">See how an AI voice agent handles your own service reminder calls, branded to your shop.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/autorepair/demo">Try Our Live Demos</a>
+</div>
+`,
+  },
+  {
     slug: 'ai-property-managers-tenant-review-management',
     title: 'How Property Managers Turn Tenant Feedback Into 5-Star Ratings',
     description: 'AI review automation helps property managers collect tenant feedback consistently and build the online reputation that wins new leases.',
