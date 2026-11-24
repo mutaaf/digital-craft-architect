@@ -46,9 +46,10 @@ const ChatInput = ({ onSend, disabled, placeholder = 'Type a message...', compan
       />
       <Button
         size="icon"
+        aria-label="Send message"
         onClick={handleSubmit}
         disabled={disabled || !value.trim()}
-        className="shrink-0 rounded-xl h-10 w-10"
+        className="shrink-0 rounded-xl h-11 w-11"
       >
         {disabled ? (
           <Loader2 size={18} className="animate-spin" />

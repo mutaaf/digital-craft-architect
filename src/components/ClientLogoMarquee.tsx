@@ -17,15 +17,16 @@ const PLACEHOLDER_LOGOS: readonly string[] = [
   'Trades Network',
 ];
 
-const PlaceholderLogo: React.FC<{ label: string }> = ({ label }) => (
+const PlaceholderLogo: React.FC<{ label: string; dupe?: boolean }> = ({ label, dupe }) => (
   <div
     data-testid="client-logo"
-    className="flex h-12 w-40 shrink-0 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-4 text-gray-400 grayscale transition-all duration-300 hover:grayscale-0 hover:text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-500 dark:hover:text-gray-300"
+    className={`flex h-10 shrink-0 items-center whitespace-nowrap text-[#86868b] transition-colors duration-300 hover:text-[#424245] ${dupe ? 'clm-dupe' : ''}`}
     aria-label={`${label} placeholder logo`}
+    aria-hidden={dupe || undefined}
   >
     <svg
       viewBox="0 0 24 24"
-      className="mr-2 h-5 w-5 shrink-0"
+      className="mr-2 h-[18px] w-[18px] shrink-0"
       fill="none"
       stroke="currentColor"
       strokeWidth={1.75}
@@ -35,7 +36,7 @@ const PlaceholderLogo: React.FC<{ label: string }> = ({ label }) => (
       <rect x="3" y="3" width="18" height="18" rx="4" />
       <path d="M3 10h18M10 3v18" />
     </svg>
-    <span className="truncate text-sm font-semibold tracking-tight">{label}</span>
+    <span className="text-[17px] font-semibold tracking-[-0.02em]">{label}</span>
   </div>
 );
 
@@ -47,15 +48,15 @@ const ClientLogoMarquee: React.FC = () => {
     <section
       data-testid="client-logo-marquee"
       aria-label="Industries we build for"
-      className="border-y border-gray-100 bg-white py-8 dark:border-gray-800 dark:bg-gray-900"
+      className="mx-auto max-w-[1180px] bg-white px-5"
     >
-      <p className="mb-6 text-center text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+      <p className="mb-6 text-center text-[15px] text-[#6e6e73]">
         Built for construction and real estate teams
       </p>
       <div className="clm-mask group relative overflow-hidden">
-        <div className="clm-track flex w-max items-center gap-6 px-3">
+        <div className="clm-track flex w-max items-center gap-12 px-6">
           {track.map((label, i) => (
-            <PlaceholderLogo key={`${label}-${i}`} label={label} />
+            <PlaceholderLogo key={`${label}-${i}`} label={label} dupe={i >= PLACEHOLDER_LOGOS.length} />
           ))}
         </div>
       </div>
@@ -78,12 +79,17 @@ const ClientLogoMarquee: React.FC = () => {
           to   { transform: translateX(-50%); }
         }
         @media (prefers-reduced-motion: reduce) {
+          .clm-mask { -webkit-mask-image: none; mask-image: none; }
           .clm-track {
             animation: none;
             flex-wrap: wrap;
             justify-content: center;
+            column-gap: 40px;
+            row-gap: 8px;
             width: 100%;
           }
+          /* the loop's second copy only exists for the seamless scroll */
+          .clm-dupe { display: none; }
         }
       `}</style>
     </section>

@@ -128,7 +128,7 @@ const LiveChatBubble: React.FC = () => {
       {!isOpen && (
         <button
           onClick={handleOpen}
-          className={`fixed bottom-20 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-lg hover:bg-primary/90 transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 ${byStory ? 'pointer-events-none translate-y-4 opacity-0' : ''}`}
+          data-v3="chat" className={`fixed bottom-20 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-[0_10px_30px_-12px_rgba(0,0,0,0.35)] hover:bg-aurora-deep transition-all hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 ${byStory ? 'pointer-events-none translate-y-4 opacity-0' : ''}`}
           aria-hidden={byStory || undefined}
           tabIndex={byStory ? -1 : undefined}
           aria-label="Open chat"
@@ -138,7 +138,7 @@ const LiveChatBubble: React.FC = () => {
       )}
 
       {isOpen && (
-        <div className="fixed bottom-20 right-4 z-50 w-80 sm:w-96 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200">
+        <div data-v3="chat" className="fixed bottom-20 right-4 z-50 w-[min(24rem,calc(100vw-2rem))] rounded-3xl shadow-[0_30px_80px_-30px_rgba(0,0,0,0.35)] border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-900 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200">
           <div className="flex items-center justify-between bg-primary px-4 py-3">
             <div className="flex items-center gap-2">
               <MessageCircle className="h-5 w-5 text-white" />
@@ -146,7 +146,7 @@ const LiveChatBubble: React.FC = () => {
             </div>
             <button
               onClick={handleClose}
-              className="text-white/80 hover:text-white transition-colors p-0.5"
+              className="grid h-9 w-9 place-items-center rounded-full text-white/80 hover:bg-white/10 hover:text-white transition-colors"
               aria-label="Close chat"
             >
               <X className="h-4 w-4" />
@@ -155,7 +155,7 @@ const LiveChatBubble: React.FC = () => {
 
           <div className="flex-1 overflow-y-auto p-4 space-y-3 max-h-80 min-h-[200px]">
             <div className="flex justify-start">
-              <div className="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg rounded-tl-none px-3 py-2 text-sm max-w-[85%]">
+              <div className="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-[18px] rounded-bl-md px-3.5 py-2 text-sm max-w-[85%]">
                 Hi there! I'd love to learn a bit about your business so we can point you in the right direction.
               </div>
             </div>
@@ -164,14 +164,14 @@ const LiveChatBubble: React.FC = () => {
               <React.Fragment key={q.key}>
                 {i > 0 && (
                   <div className="flex justify-start">
-                    <div className="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg rounded-tl-none px-3 py-2 text-sm max-w-[85%]">
+                    <div className="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-[18px] rounded-bl-md px-3.5 py-2 text-sm max-w-[85%]">
                       {q.label}
                     </div>
                   </div>
                 )}
                 {answers[q.key] && (
                   <div className="flex justify-end">
-                    <div className="bg-primary text-white rounded-lg rounded-tr-none px-3 py-2 text-sm max-w-[85%]">
+                    <div className="bg-primary text-white rounded-[18px] rounded-br-md px-3.5 py-2 text-sm max-w-[85%]">
                       {answers[q.key]}
                     </div>
                   </div>
@@ -181,7 +181,7 @@ const LiveChatBubble: React.FC = () => {
 
             {!submitted && step === 0 && !answers[QUESTIONS[0].key] && (
               <div className="flex justify-start">
-                <div className="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg rounded-tl-none px-3 py-2 text-sm max-w-[85%]">
+                <div className="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-[18px] rounded-bl-md px-3.5 py-2 text-sm max-w-[85%]">
                   {QUESTIONS[0].label}
                 </div>
               </div>
@@ -189,7 +189,7 @@ const LiveChatBubble: React.FC = () => {
 
             {submitted && (
               <div className="flex justify-start">
-                <div className="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg rounded-tl-none px-3 py-2 text-sm max-w-[85%] flex items-center gap-2">
+                <div className="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-[18px] rounded-bl-md px-3.5 py-2 text-sm max-w-[85%] flex items-center gap-2">
                   <CheckCircle className="h-4 w-4 text-green-500 shrink-0" />
                   Thanks{answers.name ? `, ${answers.name}` : ''}! We'll be in touch soon.
                 </div>
@@ -210,13 +210,13 @@ const LiveChatBubble: React.FC = () => {
                 disabled={isSubmitting}
                 required
                 aria-label={QUESTIONS[step]?.label || 'Your answer'}
-                className="flex-1 bg-gray-50 dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-sm"
+                className="h-10 flex-1 rounded-full bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-600 px-4 text-gray-900 dark:text-white text-[16px] sm:text-sm"
               />
               <Button
                 type="submit"
                 size="icon"
                 disabled={isSubmitting || !currentValue.trim()}
-                className="shrink-0 bg-primary hover:bg-primary/90 text-white h-9 w-9"
+                className="shrink-0 bg-primary hover:bg-primary/90 text-white h-10 w-10"
                 aria-label="Send"
               >
                 <Send className="h-4 w-4" />

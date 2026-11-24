@@ -169,6 +169,8 @@ test('footer Uptime link points to /uptime from the homepage', async ({ page }) 
   });
   const response = await page.goto('/', { waitUntil: 'domcontentloaded' });
   expect(response!.status()).toBeLessThan(400);
+  // The landing is a lazy chunk (2026-11-18): wait for the footer instead of reading it at DOMContentLoaded.
+  await page.locator('footer a', { hasText: /^Uptime$/i }).first().waitFor({ timeout: 15_000 });
 
   const uptimeLinks = await page
     .locator('footer a', { hasText: /^Uptime$/i })

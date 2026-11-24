@@ -114,7 +114,7 @@ const DemoBreadcrumbs = () => {
                 ) : (
                   <Link
                     to={crumb.href}
-                    className="hover:text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm transition-colors"
+                    className="-my-3 inline-block py-3 hover:text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm transition-colors"
                   >
                     {crumb.name}
                   </Link>

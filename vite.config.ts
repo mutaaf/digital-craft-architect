@@ -11,6 +11,18 @@ import { componentTagger } from "lovable-tagger";
 // as XML. This plugin sets `Content-Type: application/xml; charset=utf-8`
 // on any request whose pathname ends with `.opml`. Production is covered
 // by the vercel.json `headers` entry shipped alongside this change.
+/** Lovable's editor script (cdn.gpteng.co) is kept in index.html for the Lovable editor, but has no
+ *  business on the production site: a third-party module on every page view. Stripped at build. */
+function stripEditorScriptPlugin(): Plugin {
+  return {
+    name: "digital-craft-strip-editor-script",
+    apply: "build",
+    transformIndexHtml(html) {
+      return html.replace(/\s*<!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG[^>]*-->\s*<script src="https:\/\/cdn\.gpteng\.co\/gptengineer\.js" type="module"><\/script>/, "");
+    },
+  };
+}
+
 function opmlContentTypePlugin(): Plugin {
   const setHeader = (
     req: { url?: string },
@@ -44,9 +56,14 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     opmlContentTypePlugin(),
+    stripEditorScriptPlugin(),
     mode === 'development' &&
     componentTagger(),
   ].filter(Boolean),
+  define: {
+    __BUILD_COMMIT__: JSON.stringify((process.env.VERCEL_GIT_COMMIT_SHA || "dev").slice(0, 7)),
+    __BUILD_TIME__: JSON.stringify(new Date().toISOString()),
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -60,25 +77,13 @@ export default defineConfig(({ mode }) => ({
         // libs (charts, Radix primitives) load only on the routes that use them
         // rather than riding the initial bundle. Kept coarse on purpose - a
         // handful of named groups, not one chunk per package.
+        // Only React itself gets a named vendor chunk. Grouping recharts / radix / react-query into
+        // fixed chunks (as before 2026-11-18) made Rollup co-locate shared helpers with them: `clsx`
+        // (a recharts dependency, used by every page's cn()) landed in the 390 KB charts chunk, so
+        // every page preloaded all of recharts. Rollup's own splitting keeps them with their routes.
         manualChunks(id) {
-          if (!id.includes("node_modules")) return undefined;
-          if (
-            id.includes("/react-dom/") ||
-            id.includes("/react-router-dom/") ||
-            id.includes("/react-router/") ||
-            id.includes("/react/") ||
-            id.includes("/scheduler/")
-          ) {
+          if (/node_modules\/(react|react-dom|scheduler|react-router|react-router-dom|@remix-run\/router)\//.test(id)) {
             return "react-vendor";
-          }
-          if (id.includes("/recharts/") || id.includes("/d3-")) {
-            return "charts";
-          }
-          if (id.includes("/@radix-ui/")) {
-            return "radix";
-          }
-          if (id.includes("/@tanstack/")) {
-            return "react-query";
           }
           return undefined;
         },

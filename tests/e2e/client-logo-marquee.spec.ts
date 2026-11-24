@@ -28,7 +28,9 @@ async function gotoPage(page: import('@playwright/test').Page, route: string) {
   return errors;
 }
 
-const PAGES = ['/', '/construction', '/realestate'] as const;
+// The keynote home (src/v3/Home3.tsx, 2026-11-12) drops the placeholder strip on purpose: no
+// stand-in logos on the front page. The legacy home keeps it at /?v=2.
+const PAGES = ['/construction', '/realestate'] as const;
 
 for (const route of PAGES) {
   test(`client logo marquee renders below the hero on ${route}`, async ({ page }) => {

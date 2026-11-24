@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import ScrollProgress from '@/components/ScrollProgress';
 import EmailCourseOptin from '@/components/EmailCourseOptin';
 import { useContent } from '@/hooks/useContent';
 import { trackCTAClick } from '@/utils/analytics';
@@ -20,9 +19,7 @@ import {
   Stethoscope,
   Scissors,
   Car,
-  ArrowRight,
-  Phone,
-  Sparkles,
+  ChevronRight,
 } from 'lucide-react';
 
 const INDUSTRIES = [
@@ -104,7 +101,7 @@ const Industries: React.FC = () => {
   const { content } = useContent();
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950">
+    <div className="min-h-screen overflow-x-clip bg-white text-[#1d1d1f]">
       <Helmet>
         <title>Industries We Serve | AI Automation by Industry | DigitalCraft AI</title>
         <meta
@@ -113,121 +110,62 @@ const Industries: React.FC = () => {
         />
       </Helmet>
       <Navbar />
-      <ScrollProgress />
 
-      {/* Hero */}
-      <section className="pt-32 pb-16 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-950">
-        <div className="container mx-auto px-4 text-center max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 dark:bg-primary/20 rounded-full text-primary text-sm font-medium mb-6">
-            <Sparkles size={16} />
-            AI Automation by Industry
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
-            AI Solutions Built for{' '}
-            <span className="text-primary">Your Industry</span>
-          </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-            We build custom AI systems for small and mid-sized businesses across 12 industries.
-            Every solution includes live demos you can try with your own company data — no commitment required.
-          </p>
+      {/* keynote pass (2026-11-12): one promise, twelve tiles, the long copy kept below for search */}
+      <section className="px-5 pb-16 pt-28 text-center md:pb-24 md:pt-40">
+        <div className="v3-rise mb-4 text-[17px] font-semibold text-aurora md:text-[21px]" style={{ '--i': 0 } as React.CSSProperties}>{INDUSTRIES.length} industries</div>
+        <h1 className="v3-rise k-hero mx-auto mb-6 max-w-[11ch]" style={{ '--i': 1 } as React.CSSProperties}>Pick your industry.</h1>
+        <p className="v3-rise k-lead mx-auto max-w-[32ch]" style={{ '--i': 2 } as React.CSSProperties}>Each one has live demos you can run on your own company. No signup.</p>
+      </section>
+
+      <section className="mx-auto max-w-[1180px] px-5 pb-28 md:pb-40">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-3">
+          {INDUSTRIES.map((industry, i) => (
+            <Link
+              key={industry.to}
+              to={industry.to}
+              className="v3-rise k-tile group flex min-h-[250px] flex-col p-8 transition-colors hover:bg-[#ececf0] md:p-9"
+              style={{ '--i': 3 + Math.min(i, 8) } as React.CSSProperties}
+              onClick={() => trackCTAClick('industry_card', industry.label.toLowerCase())}
+            >
+              <span className="mb-8 grid h-14 w-14 place-items-center rounded-2xl bg-white text-aurora shadow-[0_6px_18px_-10px_rgba(0,0,0,0.25)]"><industry.icon size={26} strokeWidth={1.9} /></span>
+              <h2 className="mb-2 text-[24px] font-semibold leading-[1.15] tracking-[-0.025em]">{industry.label}</h2>
+              <p className="mb-6 text-[16px] leading-relaxed text-[#6e6e73]">{industry.tagline}</p>
+              <span className="k-link mt-auto">Explore <ChevronRight size={18} strokeWidth={2.2} className="mt-px transition-transform group-hover:translate-x-0.5" /></span>
+            </Link>
+          ))}
         </div>
       </section>
 
-      {/* Email course opt-in (below the hero) */}
-      <EmailCourseOptin location="industries_below_hero" />
-
-      {/* Industry Grid */}
-      <section className="py-16 bg-white dark:bg-gray-950">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {INDUSTRIES.map((industry) => (
-              <Link
-                key={industry.to}
-                to={industry.to}
-                className="group flex flex-col p-6 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-lg transition-all duration-300"
-                onClick={() => trackCTAClick('industry_card', industry.label.toLowerCase())}
-              >
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center text-primary shrink-0">
-                    <industry.icon size={22} />
-                  </div>
-                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
-                    {industry.label}
-                  </h2>
-                </div>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-1">
-                  {industry.tagline}
-                </p>
-                <span className="inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:gap-2 transition-all">
-                  Explore solutions
-                  <ArrowRight size={14} />
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* SEO Content */}
-      <section className="py-16 bg-gray-50 dark:bg-gray-900">
-        <div className="container mx-auto px-4 max-w-3xl">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white">
-            AI Automation for Small Business — Every Industry
-          </h2>
-          <div className="prose prose-gray dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 space-y-4">
+      <section className="bg-[#f5f5f7] px-5 py-28 md:py-36">
+        <div className="mx-auto max-w-[760px]">
+          <h2 className="k-h2 mb-10 text-center">One system. Every trade.</h2>
+          <div className="space-y-5 text-[17px] leading-relaxed text-[#6e6e73] md:text-[19px]">
             <p>
               DigitalCraft AI builds intelligent automation systems tailored to the unique workflows
               of each industry. Whether you run a construction company, dental practice, restaurant,
-              or fitness studio, our AI handles the repetitive tasks that slow your business down —
+              or fitness studio, our AI handles the repetitive tasks that slow your business down:
               lead qualification, appointment scheduling, estimate generation, follow-up calls, and
               review management.
             </p>
             <p>
               Every industry solution includes interactive demos you can try with your own company
-              data. Enter your website URL and our AI scrapes and analyzes your business, then runs
-              personalized demos branded to your company. No signup required, no credit card, no
-              sales pitch — just hands-on experience with AI tools built for your industry.
-            </p>
-            <p>
-              From AI voice calls that negotiate deals and follow up with leads, to smart estimators
-              that generate accurate quotes in seconds, our systems are designed to save you time
-              and close more business. Join the 50+ companies already using DigitalCraft AI to
-              automate their operations.
+              data. Enter your website URL and our AI analyzes your business, then runs
+              personalized demos branded to your company. No signup, no credit card, no
+              sales pitch.
             </p>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-16 bg-white dark:bg-gray-950">
-        <div className="container mx-auto px-4 text-center max-w-2xl">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900 dark:text-white">
-            Don't See Your Industry?
-          </h2>
-          <p className="text-gray-600 dark:text-gray-300 mb-8">
-            We're adding new verticals every month. Book a call and we'll show you how AI
-            can work for your specific business.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="https://calendly.com/mutaaf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary hover:bg-primary/90 text-white rounded-lg font-medium transition-colors"
-              onClick={() => trackCTAClick('book_a_call', 'industries_cta')}
-            >
-              <Phone size={18} />
-              Book a Free Discovery Call
-            </a>
-            <Link
-              to="/construction/demo"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-primary hover:text-primary dark:hover:border-primary dark:hover:text-primary rounded-lg font-medium transition-colors"
-              onClick={() => trackCTAClick('try_demos', 'industries_cta')}
-            >
-              Try Live Demos
-              <ArrowRight size={18} />
-            </Link>
-          </div>
+      <EmailCourseOptin location="industries_below_hero" />
+
+      <section className="px-5 py-28 text-center md:py-40">
+        <h2 className="k-h2 mx-auto mb-5 max-w-[14ch]">Don&rsquo;t see yours?</h2>
+        <p className="k-lead mx-auto mb-10 max-w-[30ch]">We add a new industry every month. Tell us about yours.</p>
+        <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer" className="k-pill k-pill-dark" onClick={() => trackCTAClick('book_a_call', 'industries_cta')}>Book a call</a>
+          <Link to="/demos" className="k-link" onClick={() => trackCTAClick('try_demos', 'industries_cta')}>See every demo <ChevronRight size={18} strokeWidth={2.2} className="mt-px" /></Link>
         </div>
       </section>
 

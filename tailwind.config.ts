@@ -1,6 +1,19 @@
 
 import type { Config } from "tailwindcss";
 
+// v3 daylight + keynote (2026-11-12): every gray on the site is Apple's neutral scale, so the older
+// pages' gray-* classes land on the same tiles (#f5f5f7), hairlines (#d2d2d7 / #e8e8ed) and text
+// (#1d1d1f / #6e6e73) as the new ones. 400 is darkened to #737378 so small gray-400 text passes AA.
+const night = {
+  50: "#F5F5F7", 100: "#E8E8ED", 200: "#D2D2D7", 300: "#A1A1A6", 400: "#737378",
+  500: "#636366", 600: "#515154", 700: "#424245", 800: "#2C2C2E", 900: "#1D1D1F", 950: "#0B0B0D",
+};
+// ...and the old purple/indigo/violet "AI" gradients turn to the aurora, so every page's accents agree
+const auroraScale = {
+  50: "#EAFBF5", 100: "#CFF5E8", 200: "#A8F0D9", 300: "#7BE3C3", 400: "#4FCFA9",
+  500: "#2FB28E", 600: "#238F73", 700: "#1D725D", 800: "#19594A", 900: "#14463B", 950: "#0B2A23",
+};
+
 export default {
   darkMode: ["class"],
   content: [
@@ -20,6 +33,19 @@ export default {
     },
     extend: {
       colors: {
+        gray: night,
+        purple: auroraScale,
+        violet: auroraScale,
+        indigo: auroraScale,
+        fuchsia: auroraScale,
+        // ...and so do the older tools' leftover blues (icons, links, info chips)
+        blue: auroraScale,
+        sky: auroraScale,
+        slate: night,
+        zinc: night,
+        neutral: night,
+        night: { DEFAULT: "var(--v3-night)", deck: "var(--v3-deck)", panel: "var(--v3-panel)", raised: "var(--v3-raised)", hair: "var(--v3-hair)" },
+        aurora: { DEFAULT: "rgb(var(--v3-aurora-rgb) / <alpha-value>)", soft: "#7BE3C3", deep: "#08624A" },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -53,7 +79,7 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))"
         },
-        skyblue: "#33C3F0",
+        skyblue: "#0B7D5E", // the old sky accent now reads as the deep aurora
         ink: {
           DEFAULT: "#0b0b0d",
           soft: "#17171b",
@@ -116,10 +142,11 @@ export default {
         "slide-up": "slide-up 0.7s ease-out",
       },
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
+        sans: ["'Instrument Sans'", "Avenir Next", "Avenir", "system-ui", "sans-serif"],
+        serif: ["'Instrument Serif'", "Georgia", "serif"],
         display: ["Fraunces", "Newsreader", "Georgia", "serif"],
         editorial: ["Newsreader", "Georgia", "serif"],
-        mono: ["'JetBrains Mono'", "ui-monospace", "monospace"],
+        mono: ["'JetBrains Mono'", "'SF Mono'", "ui-monospace", "monospace"],
       },
     },
   },

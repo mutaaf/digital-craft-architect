@@ -38,12 +38,12 @@ const FooterNewsletter: React.FC = () => {
   };
 
   return (
-    <div className="border-t border-gray-800 pt-8 pb-8">
+    <div className="border-t border-[#d2d2d7] pt-8 pb-8">
       {status === 'success' ? (
-        <p className="text-center text-green-400 text-sm">Thanks for subscribing! We'll be in touch.</p>
+        <p className="text-center text-aurora text-sm">Thanks for subscribing! We'll be in touch.</p>
       ) : (
         <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row items-center justify-center gap-3">
-          <p className="text-gray-300 text-sm whitespace-nowrap">Get AI insights delivered to your inbox</p>
+          <p className="text-[#424245] text-sm whitespace-nowrap">Get AI insights delivered to your inbox</p>
           <div className="flex w-full sm:w-auto gap-2">
             <input
               type="email"
@@ -52,19 +52,19 @@ const FooterNewsletter: React.FC = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
               aria-label="Email address for newsletter"
-              className="flex-1 sm:w-64 px-3 py-2 rounded-md bg-gray-800 dark:bg-gray-800 border border-gray-700 text-white text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-skyblue focus:border-transparent"
+              className="min-w-0 flex-1 sm:w-64 h-11 px-4 rounded-full bg-white border border-[#d2d2d7] text-[#1d1d1f] text-[16px] sm:text-sm placeholder-[#86868b] focus:outline-none focus:ring-4 focus:ring-aurora/15 focus:border-aurora"
             />
             <button
               type="submit"
               disabled={status === 'submitting'}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md bg-skyblue hover:bg-skyblue/90 text-white text-sm font-medium transition-colors disabled:opacity-50"
+              className="inline-flex h-11 shrink-0 items-center gap-1.5 px-5 rounded-full bg-skyblue hover:bg-aurora-deep text-white text-sm font-medium transition-colors disabled:opacity-50"
             >
               <Send size={14} />
               Subscribe
             </button>
           </div>
           {status === 'error' && (
-            <p className="text-red-400 text-xs">Something went wrong. Please try again.</p>
+            <p className="text-red-600 text-xs">Something went wrong. Please try again.</p>
           )}
         </form>
       )}
@@ -80,7 +80,7 @@ const FooterNewsletter: React.FC = () => {
 const FooterHowWeShipChip: React.FC = () => {
   const location = useLocation();
   return (
-    <p className="text-gray-500 dark:text-gray-500 text-xs">
+    <p className="text-[#6e6e73] text-xs">
       <Link
         to="/how-we-ship"
         onClick={() => trackCTAClick('footer_how_we_ship_chip', location.pathname)}
@@ -88,7 +88,7 @@ const FooterHowWeShipChip: React.FC = () => {
       >
         <span
           data-testid="footer-how-we-ship-chip"
-          className="inline-block bg-gray-800 dark:bg-gray-800 px-2 py-1 rounded"
+          className="inline-block rounded-full border border-[#e8e8ed] bg-white px-2.5 py-1"
         >
           How we ship
         </span>
@@ -106,7 +106,7 @@ const FooterHowWeShipChip: React.FC = () => {
 const FooterSecurityChip: React.FC = () => {
   const location = useLocation();
   return (
-    <p className="text-gray-500 dark:text-gray-500 text-xs">
+    <p className="text-[#6e6e73] text-xs">
       <Link
         to="/security"
         onClick={() => trackCTAClick('footer_security_chip', location.pathname)}
@@ -114,7 +114,7 @@ const FooterSecurityChip: React.FC = () => {
       >
         <span
           data-testid="footer-security-chip"
-          className="inline-block bg-gray-800 dark:bg-gray-800 px-2 py-1 rounded"
+          className="inline-block rounded-full border border-[#e8e8ed] bg-white px-2.5 py-1"
         >
           Security posture
         </span>
@@ -133,7 +133,7 @@ const FOOTER_AI_RISKS_LABEL = 'AI risks we watch';
 const FooterAiRisksChip: React.FC = () => {
   const location = useLocation();
   return (
-    <p className="text-gray-500 dark:text-gray-500 text-xs">
+    <p className="text-[#6e6e73] text-xs">
       <Link
         to="/ai-risks-we-watch"
         onClick={() => trackCTAClick('footer_ai_risks_chip', location.pathname)}
@@ -141,7 +141,7 @@ const FooterAiRisksChip: React.FC = () => {
       >
         <span
           data-testid="footer-ai-risks-chip"
-          className="inline-block bg-gray-800 dark:bg-gray-800 px-2 py-1 rounded"
+          className="inline-block rounded-full border border-[#e8e8ed] bg-white px-2.5 py-1"
         >
           {FOOTER_AI_RISKS_LABEL}
         </span>
@@ -161,7 +161,7 @@ const FOOTER_ACCESSIBILITY_LABEL = 'Accessibility Statement';
 const FooterAccessibilityStatementChip: React.FC = () => {
   const location = useLocation();
   return (
-    <p className="text-gray-500 dark:text-gray-500 text-xs">
+    <p className="text-[#6e6e73] text-xs">
       <Link
         to="/accessibility-statement"
         onClick={() =>
@@ -171,7 +171,7 @@ const FooterAccessibilityStatementChip: React.FC = () => {
       >
         <span
           data-testid="footer-accessibility-statement-chip"
-          className="inline-block bg-gray-800 dark:bg-gray-800 px-2 py-1 rounded"
+          className="inline-block rounded-full border border-[#e8e8ed] bg-white px-2.5 py-1"
         >
           {FOOTER_ACCESSIBILITY_LABEL}
         </span>
@@ -190,7 +190,7 @@ const FOOTER_HALLUCINATION_LABEL = 'Hallucination Safeguards';
 const FooterHallucinationSafeguardsChip: React.FC = () => {
   const location = useLocation();
   return (
-    <p className="text-gray-500 dark:text-gray-500 text-xs">
+    <p className="text-[#6e6e73] text-xs">
       <Link
         to="/hallucination-safeguards"
         onClick={() =>
@@ -200,7 +200,7 @@ const FooterHallucinationSafeguardsChip: React.FC = () => {
       >
         <span
           data-testid="footer-hallucination-safeguards-chip"
-          className="inline-block bg-gray-800 dark:bg-gray-800 px-2 py-1 rounded"
+          className="inline-block rounded-full border border-[#e8e8ed] bg-white px-2.5 py-1"
         >
           {FOOTER_HALLUCINATION_LABEL}
         </span>
@@ -219,7 +219,7 @@ const FOOTER_DATA_RETENTION_LABEL = 'Data Retention';
 const FooterDataRetentionChip: React.FC = () => {
   const location = useLocation();
   return (
-    <p className="text-gray-500 dark:text-gray-500 text-xs">
+    <p className="text-[#6e6e73] text-xs">
       <Link
         to="/data-retention"
         onClick={() =>
@@ -229,7 +229,7 @@ const FooterDataRetentionChip: React.FC = () => {
       >
         <span
           data-testid="footer-data-retention-chip"
-          className="inline-block bg-gray-800 dark:bg-gray-800 px-2 py-1 rounded"
+          className="inline-block rounded-full border border-[#e8e8ed] bg-white px-2.5 py-1"
         >
           {FOOTER_DATA_RETENTION_LABEL}
         </span>
@@ -248,7 +248,7 @@ const FOOTER_ROADMAP_LABEL = 'Roadmap';
 const FooterRoadmapChip: React.FC = () => {
   const location = useLocation();
   return (
-    <p className="text-gray-500 dark:text-gray-500 text-xs">
+    <p className="text-[#6e6e73] text-xs">
       <Link
         to="/roadmap"
         onClick={() => trackCTAClick('footer_roadmap_chip', location.pathname)}
@@ -256,7 +256,7 @@ const FooterRoadmapChip: React.FC = () => {
       >
         <span
           data-testid="footer-roadmap-chip"
-          className="inline-block bg-gray-800 dark:bg-gray-800 px-2 py-1 rounded"
+          className="inline-block rounded-full border border-[#e8e8ed] bg-white px-2.5 py-1"
         >
           {FOOTER_ROADMAP_LABEL}
         </span>
@@ -274,7 +274,7 @@ const FOOTER_AGENT_PROMPTS_LABEL = 'Agent Prompts';
 const FooterAgentPromptsChip: React.FC = () => {
   const location = useLocation();
   return (
-    <p className="text-gray-500 dark:text-gray-500 text-xs">
+    <p className="text-[#6e6e73] text-xs">
       <Link
         to="/agent-prompts"
         onClick={() => trackCTAClick('footer_agent_prompts_chip', location.pathname)}
@@ -282,7 +282,7 @@ const FooterAgentPromptsChip: React.FC = () => {
       >
         <span
           data-testid="footer-agent-prompts-chip"
-          className="inline-block bg-gray-800 dark:bg-gray-800 px-2 py-1 rounded"
+          className="inline-block rounded-full border border-[#e8e8ed] bg-white px-2.5 py-1"
         >
           {FOOTER_AGENT_PROMPTS_LABEL}
         </span>
@@ -303,7 +303,7 @@ const FooterAgentPromptsChip: React.FC = () => {
 const FOOTER_OPML_LABEL = 'Subscribe (OPML)';
 const FooterFeedsOpmlChip: React.FC = () => {
   return (
-    <p className="text-gray-500 dark:text-gray-500 text-xs">
+    <p className="text-[#6e6e73] text-xs">
       <a
         href="/feeds.opml"
         onClick={() => trackCTAClick('feeds_opml_subscribe', 'footer')}
@@ -311,7 +311,7 @@ const FooterFeedsOpmlChip: React.FC = () => {
         data-testid="feeds-opml-link"
       >
         <span
-          className="inline-block bg-gray-800 dark:bg-gray-800 px-2 py-1 rounded"
+          className="inline-block rounded-full border border-[#e8e8ed] bg-white px-2.5 py-1"
         >
           {FOOTER_OPML_LABEL}
         </span>
@@ -356,17 +356,17 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
   };
 
   return (
-    <footer className="bg-gray-900 text-white py-16">
-      <div className="container mx-auto px-4">
+    <footer className="border-t border-[#e8e8ed] bg-[#f5f5f7] py-16 text-[#1d1d1f] md:py-20">
+      <div className="mx-auto max-w-[1180px] px-5">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-semibold mb-2">Digital<span className="text-skyblue">Craft</span></h2>
-            <p className="text-gray-400 text-balance">{data.tagline}</p>
+            <h2 className="mb-2 text-2xl font-semibold md:text-3xl">Digital<span className="text-[#6e6e73]">Craft</span></h2>
+            <p className="text-balance text-[#6e6e73]">{data.tagline}</p>
           </div>
           
           <div className="flex justify-center items-center gap-2 mb-6">
-            <Phone size={16} className="text-gray-400" />
-            <a href="tel:+19723523293" className="text-gray-400 hover:text-skyblue transition-colors">
+            <Phone size={16} className="text-[#6e6e73]" aria-hidden />
+            <a href="tel:+19723523293" className="inline-flex min-h-[44px] items-center text-[#424245] hover:text-skyblue transition-colors">
               (972) 352-3293
             </a>
           </div>
@@ -378,7 +378,7 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-800 hover:bg-skyblue transition-colors duration-300"
+                className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-[#424245] transition-colors duration-300 hover:bg-skyblue hover:text-white"
                 aria-label={key}
               >
                 {getSocialIcon(key)}
@@ -390,18 +390,18 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
 
           <EmailCourseOptin variant="footer" location="footer" />
 
-          <div className="border-t border-gray-800 pt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center">
-              <p className="text-gray-400 text-sm mb-4 md:mb-0">
+          <div className="border-t border-[#d2d2d7] pt-8">
+            <div className="flex flex-col items-center gap-5">
+              <p className="text-sm text-[#6e6e73]">
                 &copy; {new Date().getFullYear()} DigitalCraft. All rights reserved.
               </p>
-              <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 items-center">
-                <p className="text-gray-500 text-xs">
-                  <span className="inline-block bg-gray-800 px-2 py-1 rounded">
+              <div className="flex max-w-5xl flex-wrap items-center justify-center gap-x-3 gap-y-2">
+                <p className="text-[#6e6e73] text-xs">
+                  <span className="inline-block rounded-full border border-[#e8e8ed] bg-white px-2.5 py-1">
                     Deployed: {formatDeployTime()}
                   </span>
                 </p>
-                <p className="text-gray-500 dark:text-gray-500 text-xs">
+                <p className="text-[#6e6e73] text-xs">
                   <Link
                     to="/trust"
                     onClick={() => trackCTAClick('trust_providers_chip', 'footer')}
@@ -409,7 +409,7 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
                   >
                     <span
                       data-testid="trust-providers-chip"
-                      className="inline-block bg-gray-800 dark:bg-gray-800 px-2 py-1 rounded"
+                      className="inline-block rounded-full border border-[#e8e8ed] bg-white px-2.5 py-1"
                     >
                       Powered by {PROVIDERS.join(', ')} - see how
                     </span>
@@ -425,20 +425,20 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
                 <FooterAgentPromptsChip />
                 <FooterFeedsOpmlChip />
                 <div className="flex max-w-full flex-wrap justify-center gap-x-6 gap-y-2">
-                  <a href="/industries" className="text-gray-400 hover:text-skyblue text-sm">Industries</a>
-                  <Link to="/trust" className="text-gray-400 hover:text-skyblue text-sm">Trust & Privacy</Link>
-                  <Link to="/privacy" className="text-gray-400 hover:text-skyblue text-sm">Privacy Policy</Link>
+                  <a href="/industries" className="text-[#424245] hover:text-skyblue text-sm">Industries</a>
+                  <Link to="/trust" className="text-[#424245] hover:text-skyblue text-sm">Trust & Privacy</Link>
+                  <Link to="/privacy" className="text-[#424245] hover:text-skyblue text-sm">Privacy Policy</Link>
                   <Link
                     to="/changelog"
                     onClick={() => trackCTAClick('open_changelog', 'footer')}
-                    className="text-gray-400 hover:text-skyblue text-sm"
+                    className="text-[#424245] hover:text-skyblue text-sm"
                   >
                     Changelog
                   </Link>
                   <Link
                     to="/uptime"
                     onClick={() => trackCTAClick('open_uptime', 'footer')}
-                    className="text-gray-400 hover:text-skyblue text-sm"
+                    className="text-[#424245] hover:text-skyblue text-sm"
                   >
                     Uptime
                   </Link>
@@ -446,11 +446,10 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
                     to="/labs"
                     data-testid="footer-labs-link"
                     onClick={() => trackCTAClick('open_labs', 'footer')}
-                    className="text-gray-400 hover:text-skyblue text-sm"
+                    className="text-[#424245] hover:text-skyblue text-sm"
                   >
                     Labs
                   </Link>
-                  <a href="#" className="text-gray-400 hover:text-skyblue text-sm">Terms of Service</a>
                 </div>
               </div>
             </div>
