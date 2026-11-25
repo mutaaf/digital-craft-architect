@@ -52,6 +52,53 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'ai-salons-review-management-rebooking',
+    title: 'Why Great Salons Still Have Empty Review Pages',
+    description: 'Clients leave happy but rarely leave a review on their own. Here is how AI closes that gap right after the appointment, while the experience is fresh.',
+    date: '2026-11-25',
+    author: 'DigitalCraft AI',
+    readTime: '5 min read',
+    tags: ['Salon', 'Reviews', 'AI Automation'],
+    content: `
+<p>Walk through any salon on a Saturday and you will see clients leaving happy. Fresh color, a great cut, a relaxed hour away from everything else going on in their week. Then check that salon's Google or Yelp page and you will often find a handful of reviews from years ago.</p>
+
+<p>The gap between how clients feel in the chair and what shows up online is not about service quality. It is about timing and friction. A happy client who is asked to leave a review while still sitting there, phone in hand, will do it. The same client, three days later, buried in errands and group chats, almost never gets back to it.</p>
+
+<h2>The math behind why this matters</h2>
+
+<p>Take your own numbers and run them. Count how many appointments your chairs do in a month, then count how many reviews actually post in that same month. Divide one by the other and you will see exactly how small the window is that you are currently capturing.</p>
+
+<p>Every client who walks out without leaving a review is not a loss by itself. But a prospective client searching "hair salon near me" is comparing star counts and review dates before they ever call. A salon with recent, frequent reviews reads as busy and trusted. One with a thin, stale page reads as a question mark, even if the actual work inside is excellent.</p>
+
+<h2>Why asking at checkout doesn't work</h2>
+
+<p>Most salons already try. The front desk hands over a card, or mentions "leave us a review if you get a chance" while running the next client's payment. It is a good instinct that gets lost in a busy moment. The client is gathering their coat, checking their phone for the time, and the ask doesn't land.</p>
+
+<p>A printed card gets tossed with the receipt. A generic "please review us" text sent the next morning competes with everything else that landed in their inbox overnight. By the time they see it, the specific memory of how good their hair looked walking out has faded into a vague "yeah it was fine."</p>
+
+<h2>What AI changes about the ask</h2>
+
+<p>An AI system can send the review request the moment the appointment is marked complete in your booking software, while the client is still in the parking lot or driving home. It references the actual service, the stylist's name, and asks a specific question instead of a generic one.</p>
+
+<p>If the client responds with anything short of enthusiastic, the system can route that feedback privately to the owner instead of publicly to a review site. That protects you from a frustrated client airing a complaint in public before you ever hear about it, while still giving happy clients a direct, one-tap path to Google or Yelp.</p>
+
+<p>The same system can also follow up with clients who said yes but did not finish posting. A single, polite nudge two days later catches people who meant to do it and got distracted. No pressure, no repeated badgering, just one reminder timed to when people actually check their phones.</p>
+
+<h2>Reviews and rebooking are the same problem</h2>
+
+<p>A fresh review and a rebooked appointment both come from the same moment: right after the client has had a great experience and before life gets in the way. If you are already using AI to text rebooking reminders, extending that same timing logic to review requests is a small lift with a direct payoff, since both depend on catching the client while the experience is still top of mind.</p>
+
+<p>Salons that get this right do not have a secret. They just remove the gap between "client felt great" and "client was asked," and they stop relying on staff remembering to ask during a packed Saturday. If you run a <a href="/salon">salon or spa</a>, this same timing logic plugs into booking and rebooking too, not just reviews.</p>
+
+<hr />
+<div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <strong>Ready to fill your review page with recent, real feedback?</strong>
+  <p style="margin: 8px 0;">See how AI automation handles review requests, rebooking, and client follow-up for salons, automatically.</p>
+  <a href="https://calendly.com/mutaaf" target="_blank" rel="noopener noreferrer">Book a Free AI Audit</a> · <a href="/salon/demo">Try Our Live Demos</a>
+</div>
+`,
+  },
+  {
     slug: 'ai-auto-repair-service-reminder-calls-2026',
     title: 'Stop Losing Repeat Customers: AI Service Reminder Calls',
     description: 'Service reminder calls bring customers back for oil changes, tire rotations, and seasonal maintenance. AI voice agents make them consistent.',
